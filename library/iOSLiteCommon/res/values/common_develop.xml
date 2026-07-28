@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ad_des_all_apps" translatable="false">AllApp</string>
+    <string name="ad_des_clean_widget" translatable="false">一键加速</string>
+    <string name="ad_des_wallpaper_detail" translatable="false">壁纸详情</string>
+    <string name="ad_des_theme_detail" translatable="false">主题详情</string>
+    <string name="ad_des_search" translatable="false">搜索</string>
+    <string name="ad_des_weather" translatable="false">天气</string>
+    <string name="ad_des_ioskonw" translatable="false">IOSKnow</string>
+    <string name="ad_des_theme_list" translatable="false">主题列表</string>
+    <string name="ad_des_wallpaper_list" translatable="false">壁纸列表</string>
+    <string name="ad_des_theme_min" translatable="false">极简主题</string>
+    <string name="ad_des_default" translatable="false">默认</string>
+    <string name="ad_des_stackwidget_list" translatable="false">广告卡片</string>
+    <string name="ad_des_app_recommend_newspage" translatable="false">新闻页应用推荐</string>
+    <string name="ad_des_app_recommend_folder" translatable="false">文件夹应用推荐</string>
+    <string name="ad_des_app_recommend_market" translatable="false">应用市场</string>
+    <string name="ad_des_app_recommend_discovery" translatable="false">探索</string>
+</resources>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhuoyi.security.batterysave.test" >
+
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="34" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for com.zhuoyi.security.batterysave.test"
+        android:targetPackage="com.zhuoyi.security.batterysave.test" />
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH" /> -->
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
+    <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
+    <!-- <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_SYNC_STATS" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" /> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" /> -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
+    <!-- <uses-permission android:name="android.permission.BATTERY_STATS" /> -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <permission
+        android:name="com.zhuoyi.security.batterysave.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.zhuoyi.security.batterysave.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
+    <application
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:extractNativeLibs="false" >
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="com.zhuoyi.security.batterysave.BS_RankingActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:name="com.zhuoyi.security.batterysave.BS_MainActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:icon="@drawable/bs_logo"
+            android:label="@string/bs_app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.zhuoyi.security.batterysave.BS_SettingsActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:name="com.zhuoyi.security.soft.lock.SL_SetPassWord"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" >
+
+            <!--
+            <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.zhuoyi.security.soft.lock.SL_LockAppListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:name="com.zhuoyi.security.soft.lock.SL_UnLocksoftListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:name="com.zhuoyi.security.soft.lock.SL_LockSettingActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:name="com.zhuoyi.security.soft.lock.SL_EnterPassWord"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" >
+            <intent-filter>
+                <action android:name="com.ios.sc.soft.lock.SL_EnterPassWord" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.zhuoyi.security.soft.lock.receiver.SL_ApkRemoveReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.zhuoyi.security.soft.lock.SL_LockSoftService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.ios.sc.soft.lock.SL_LockSoftService" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/sl_facebook_app_id" /> <!-- 应用使用统计 -->
+        <provider
+            android:name="com.amz.ios.ioslite.common.provider.AppUsagesProvider"
+            android:authorities="com.amz.ios.ioslite.provider.usages"
+            android:exported="true" /> <!-- 全局设置 -->
+        <provider
+            android:name="com.amz.ios.ioslite.common.setting.SettingProvider"
+            android:authorities="com.amz.ios.ioslite.common.setting"
+            android:exported="true" /> <!-- 内存监测 -->
+        <activity
+            android:name="com.amz.ios.ioslite.common.debug.MemoryDumpActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- 内存监测服务 -->
+        <service android:name="com.amz.ios.ioslite.common.debug.MemoryTracker" />
+
+        <receiver
+            android:name="com.amz.ios.ioslite.common.downloadapk.ApkReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.zhuoyi.security.batterysave.test.androidx-startup"
+            android:exported="false" >
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>

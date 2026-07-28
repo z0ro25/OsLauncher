@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="we_are_working_hard_for_a_better_user_experience">Wir arbeiten hart an einer besseren Benutzererfahrung.</string>
+    <string name="we_d_greatly_appreciate_if_you_can_rate_us">Wir würden uns sehr freuen, wenn Sie uns bewerten könnten.</string>
+    <string name="may_be_later">Vielleicht später</string>
+    <string name="rate">Rate</string>
+    <string name="The_best_we_can_get">Das Beste, was wir bekommen können :)</string>
+    <string name="Writing_something">Etwas schreiben...</string>
+    <string name="Send">Schicken</string>
+    <string name="Oh_no">Ach nein!</string>
+    <string name="Please_leave_us_some_feedback">Bitte hinterlassen Sie uns ein Feedback</string>
+    <string name="We_like_you_too">Wir mögen dich auch!</string>
+    <string name="Thank_for_your_feedback">Vielen Dank für Ihr Feedback.</string>
+    <string name="We_are_working">Wir arbeiten hart an einer besseren Benutzererfahrung.</string>
+    <string name="We_greatly_appreciate">Wir würden uns sehr freuen, wenn Sie uns bewerten könnten.</string>
+    <string name="Please_feedback">Bitte Feedback</string>
+    <string name="do_you_really_want_to_exit">Willst du wirklich gehen</string>
+    <string name="please_wait">Bitte warten</string>
+    <string name="cannot_back">Kann nicht zurück!</string>
+    <string name="cannot_next">Weiter geht nicht</string>
+    <string name="there_are_no_email">Es sind keine E-Mail-Clients installiert.</string>
+    <string name="go_to_launcher">Gehen Sie zum Launcher</string>
+    <string name="explore_your_os_interface">Entdecken Sie die Benutzeroberfläche Ihres Betriebssystems</string>
+    <string name="explore">Erkunden</string>
+    <string name="set_as_default_launcher">Als Standard-Launcher festlegen</string>
+    <string name="to_access_all_features_of_launcher_os_17_youneed_to_set_it_as_your_default_app">Um auf alle Funktionen des OSLauncher 17: Theme Launcher zugreifen zu können, müssen Sie ihn als Ihre Standard-App festlegen.</string>
+    <string name="select_default_home_screen">Wählen Sie den Standard-Startbildschirm</string>
+    <string name="weather">Wetter</string>
+    <string name="wallpaper">Hintergrund</string>
+    <string name="tap_to_start">Tippe, um zu starten</string>
+    <string name="hide_navigation">Navigation ausblenden</string>
+    <string name="hidden_app">Versteckte App</string>
+    <string name="page_transition">Seitenübergang</string>
+    <string name="done">Erledigt</string>
+    <string name="default_">Standard</string>
+    <string name="rotation">Drehung</string>
+    <string name="flip">Umdrehen</string>
+    <string name="zoom_in">Hineinzoomen</string>
+    <string name="set_as_current">Als aktuell festlegen</string>
+    <string name="add_new_wallpaper">Neues Hintergrundbild hinzufügen</string>
+    <string name="customize">Anpassen</string>
+    <string name="photos">Fotos</string>
+    <string name="emoji">Emoji</string>
+    <string name="color">Farbe</string>
+    <string name="see_all">Alles sehen</string>
+    <string name="add">Hinzufügen</string>
+    <string name="save">Speichern</string>
+    <string name="blur">Verwischen</string>
+    <string name="pair">Paar</string>
+    <string name="gradient">Gradient</string>
+    <string name="background_color">Hintergrundfarbe</string>
+    <string name="opacity">Opazität</string>
+    <string name="select_option">Wähle eine Option</string>
+    <string name="set_wallpaper">Hintergrundbild festlegen</string>
+    <string name="customize_home_screen">Passen Sie den Startbildschirm an</string>
+    <string name="current">Aktuell</string>
+    <string name="ads_are_about_to_be_shown">Es werden bald Anzeigen geschaltet</string>
+    <string name="permission">Erlaubnis</string>
+    <string name="this_app_needs_permissions_below_to_work_properly">Diese App benötigt die folgenden Berechtigungen, um ordnungsgemäß zu funktionieren</string>
+    <string name="external_storage">Externer Speicher</string>
+    <string name="continue_">Weitermachen</string>
+    <string name="your_file_is_empty">Ihre Datei ist leer</string>
+    <string name="looks_like_you_haven_t_added_anything_nyet">Anscheinend haben Sie noch nichts hinzugefügt.</string>
+    <string name="setting">Einstellung</string>
+    <string name="share">Aktie</string>
+    <string name="privacy_policy">Datenschutzrichtlinie</string>
+    <string name="Thankyou" translatable="false">Danke schön!</string>
+    <string name="your_opinion_matter_to_us" translatable="false">Ihre Meinung ist uns wichtig!</string>
+    <string name="content_dialog" translatable="false">Wenn Ihnen dieses OSLauncher 17: Theme Launcher, würden Sie uns dann bei Google Play bewerten?</string>
+    <string name="Send_Email" translatable="false">E-Mail senden</string>
+    <string name="There_is_no" translatable="false">Es ist kein E-Mail-Client installiert.</string>
+    <string name="not_now" translatable="false">Nicht jetzt</string>
+    <string name="rate_us" translatable="false">Bewerten Sie uns</string>
+    <string name="rate_success">Erfolg bewerten</string>
+    <string name="please_reate_use">Bitte bewerten Sie uns</string>
+    <string name="message1">Einzigartiger Startbildschirm</string>
+    <string name="message2">Hintergrundbild anpassen</string>
+    <string name="message3">Schnell suchen</string>
+    <string name="next">Nächste</string>
+    <string name="language">Sprache</string>
+    <string name="general">Allgemein</string>
+</resources>

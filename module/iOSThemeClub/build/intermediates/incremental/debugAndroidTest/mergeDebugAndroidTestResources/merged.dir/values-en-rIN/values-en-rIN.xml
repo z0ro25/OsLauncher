@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abandoned_clean_this">"Remove"</string>
+    <string name="abandoned_promise_explanation">"The app for this icon isn\'t installed. You can remove it, or search for the app and install it manually."</string>
+    <string name="abandoned_promises_title">"This app is not installed"</string>
+    <string name="abandoned_search">"Search"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Navigate home"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Navigate up"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"More options"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Done"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"See all"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Choose an app"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"OFF"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"ON"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"delete"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"space"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Search…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Clear query"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Search query"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Search"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Submit query"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Voice search"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Share with"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Share with <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Collapse"</string>
+    <string name="action_add_to_workspace">"Add to Home screen"</string>
+    <string name="action_decrease_height">"Decrease height"</string>
+    <string name="action_decrease_width">"Decrease width"</string>
+    <string name="action_increase_height">"Increase height"</string>
+    <string name="action_increase_width">"Increase width"</string>
+    <string name="action_move">"Move item"</string>
+    <string name="action_move_here">"Move item here"</string>
+    <string name="action_move_screen_left">"Move screen to left"</string>
+    <string name="action_move_screen_right">"Move screen to right"</string>
+    <string name="action_move_to_workspace">"Move to Home screen"</string>
+    <string name="action_resize">"Re-size"</string>
+    <string name="activity_not_available">"App isn\'t available"</string>
+    <string name="activity_not_found">"App isn\'t installed."</string>
+    <string name="add_to_folder">"Add to folder: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Add to folder with <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Item added to folder"</string>
+    <string name="all_apps_button_label">"Apps"</string>
+    <string name="all_apps_home_button_label">"Home"</string>
+    <string name="all_apps_loading_message">"Loading Apps…"</string>
+    <string name="all_apps_no_search_results">"No Apps found matching \"<ns1:g id="QUERY">%1$s</ns1:g>\""</string>
+    <string name="all_apps_search_bar_hint">"Search Apps"</string>
+    <string name="all_apps_search_market_message">"Go to <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Allow rotation"</string>
+    <string name="create_folder_with">"Create folder with: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"Page %1$d of %2$d"</string>
+    <string name="delete_target_label">"Remove"</string>
+    <string name="delete_target_uninstall_label">"Uninstall"</string>
+    <string name="first_run_cling_title">"Welcome"</string>
+    <string name="folder_closed">"Folder closed"</string>
+    <string name="folder_created">"Folder created"</string>
+    <string name="folder_hint_text">"Unnamed Folder"</string>
+    <string name="folder_name_format">"Folder: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Folder opened, <ns1:g id="WIDTH">%1$d</ns1:g> by <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"Folder renamed to <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Touch to close folder"</string>
+    <string name="folder_tap_to_rename">"Touch to save rename"</string>
+    <string name="gadget_error_text">"Problem loading widget"</string>
+    <string name="gadget_setup_text">"Setup"</string>
+    <string name="hotseat_out_of_space">"No more room in the Favourites tray"</string>
+    <string name="info_target_label">"App info"</string>
+    <string name="item_added_to_workspace">"Item added to home screen"</string>
+    <string name="item_moved">"Item moved"</string>
+    <string name="item_removed">"Item removed"</string>
+    <string name="long_press_widget_to_add">"Touch &amp; hold to pick up a widget."</string>
+    <string name="migration_cling_copy_apps">"COPY ICONS"</string>
+    <string name="migration_cling_description">"Import icons and folders from your old Home screens?"</string>
+    <string name="migration_cling_title">"Copy your app icons"</string>
+    <string name="migration_cling_use_default">"START AFRESH"</string>
+    <string name="move_to_empty_cell">"Move to row <ns1:g id="NUMBER_0">%1$s</ns1:g> column <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Move to favourites position <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"Move to position <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="out_of_space">"No more room on this Home screen."</string>
+    <string name="package_state_unknown">"Unknown"</string>
+    <string name="permdesc_install_shortcut">"Allows an app to add shortcuts without user intervention."</string>
+    <string name="permdesc_read_settings">"Allows the app to read the settings and shortcuts in Home."</string>
+    <string name="permdesc_write_settings">"Allows the app to change the settings and shortcuts in Home."</string>
+    <string name="permlab_install_shortcut">"install shortcuts"</string>
+    <string name="permlab_read_settings">"read Home settings and shortcuts"</string>
+    <string name="permlab_write_settings">"write Home settings and shortcuts"</string>
+    <string name="safemode_shortcut_error">"Downloaded app disabled in Safe mode"</string>
+    <string name="safemode_widget_error">"Widgets disabled in Safe mode"</string>
+    <string name="screen_moved">"Screen moved"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Search"</string>
+    <string name="settings_label">"Settings"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"Show Mem"</string>
+    <string name="uninstall_system_app_text">"This is a system app and can\'t be uninstalled."</string>
+    <string name="wallpaper_button_text">"Wallpapers"</string>
+    <string name="widget_button_text">"Widgets"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Widget re-sized to width <ns1:g id="NUMBER_0">%1$s</ns1:g> height <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Work"</string>
+    <string name="workspace_cling_longpress_description">"Touch &amp; hold background to customise"</string>
+    <string name="workspace_cling_longpress_dismiss">"GOT IT"</string>
+    <string name="workspace_cling_longpress_title">"Wallpapers, widgets, &amp; settings"</string>
+    <string name="workspace_scroll_format">"Home screen %1$d of %2$d"</string>
+</resources>

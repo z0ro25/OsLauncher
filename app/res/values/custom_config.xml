@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 注：
+       ××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+       优先级  客户配置文件 > 主工程配置文件 >  common模块配置文件
+       ××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+    -->
+
+
+    <!-- 是否启用AllApp, 进入双层桌面 -->
+    <bool name="def_allapp_enable">false</bool>
+
+    <!-- 手电筒 -->
+    <bool name="feature_torch_enable">true</bool>
+
+</resources>

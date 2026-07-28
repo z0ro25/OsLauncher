@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/themeclub_tab_height"
+    android:paddingStart="8dp"
+    android:paddingEnd="16dp"
+    android:elevation="3dip"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/themeclub_back" />
+    </LinearLayout>
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/theme_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="14dp"
+        android:textColor="#DE000000"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/delete_detail"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/themeclub_delete"/>
+    </LinearLayout>
+
+</RelativeLayout>

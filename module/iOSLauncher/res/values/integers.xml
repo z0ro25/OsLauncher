@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_uninstall_app_leftpadding">3</integer>
+    <integer name="config_uninstall_widget_toppadding">10</integer>
+    <integer name="folder_max_count_x">3</integer>
+    <integer name="folder_max_count_y">4</integer>
+    <integer name="folder_max_num_items">12</integer>
+    <integer name="config_folderShrinkPercentage">70</integer>
+</resources>

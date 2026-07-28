@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
+    <favorite launcher:uri="sms:" />
+
+    <favorite
+        launcher:className="com.android.mms.ui.BootActivity"
+        launcher:packageName="com.android.mms" />
+    <favorite
+        launcher:className="com.android.mms.ui.ConversationList"
+        launcher:packageName="com.android.mms" />
+    <favorite
+        launcher:className="com.android.mms.ui.ConversationList"
+        launcher:packageName="com.android.contacts" />
+
+    <favorite
+        launcher:className="com.android.mms.ui.ConversationComposer"
+        launcher:packageName="com.android.mms" />
+    <favorite
+        launcher:className="com.android.mms.ui.FunctionSwitchActivity"
+        launcher:packageName="com.android.mms" />
+    <favorite
+        launcher:className="com.yulong.android.mms.ui.MmsConversationListActivity"
+        launcher:packageName="com.android.mms" />
+
+    <favorite
+        launcher:className="com.lenovo.ideafriend.alias.MmsActivity"
+        launcher:packageName="com.lenovo.ideafriend" />
+    <favorite
+        launcher:className="com.huawei.hotalk.MainActivity"
+        launcher:packageName="com.huawei.message" />
+    <favorite
+        launcher:className="com.sonyericsson.conversations.ui.ConversationListActivity"
+        launcher:packageName="com.sonyericsson.conversations" />
+    <favorite
+        launcher:className="com.yulong.android.mms.ui.MmsMainListFormActivity"
+        launcher:packageName="com.android.mms" />
+    <favorite
+        launcher:className="com.htc.sense.mms.ui.ConversationList"
+        launcher:packageName="com.htc.sense.mms" />
+    <favorite
+        launcher:className="com.google.android.apps.messaging.ui.ConversationListActivity"
+        launcher:packageName="com.google.android.apps.messaging" />
+    <favorite
+        launcher:className="com.android.contacts.activities.MessageActivity"
+        launcher:packageName="com.lewa.PIM" />
+</items>

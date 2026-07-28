@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677459583963",
+    "project_id": "asa155-launcher-ios",
+    "storage_bucket": "asa155-launcher-ios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677459583963:android:8410747909bc62e7673dfe",
+        "android_client_info": {
+          "package_name": "com.oslauncher.applauncher.themelauncher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu3pV5vYJpIHEVRmwLzi-jNDAhEQwVvS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

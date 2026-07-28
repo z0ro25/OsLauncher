@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ios.newssource.test.iOSAppsNewsProvider-mergeDebugAndroidTestResources-24:/values-land/values-land.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\f206955e26b77360ea3f6e5376b6dbb9\\transformed\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "10",
+                        "endOffsets": "222"
+                    },
+                    "to": {
+                        "startLines": "5",
+                        "startColumns": "4",
+                        "startOffsets": "264",
+                        "endLines": "8",
+                        "endColumns": "10",
+                        "endOffsets": "431"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\3cb10093019ae5ec879f919a78f23112\\transformed\\appcompat-1.6.1\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                }
+            ]
+        }
+    ]
+}

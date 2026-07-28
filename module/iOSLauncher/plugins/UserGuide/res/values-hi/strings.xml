@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">IOSBoot</string>
+    <string name="start">शुरू</string>
+    <string name="welcome">स्वागत</string>
+    <string name="detail">आप के बारे में दुनिया के प्रक्षेपण के लिए कर रहे हैं \n सबसे छोटी, सबसे तेज और सबसे सरल उपयोगकर्ता प्रणाली</string>
+    <string name="layer">काम जारी है, इसका मतलब है कि आप स्वीकार करते हैं</string>
+    <string name="privacy">गोपनीयता</string>
+    <string name="and">और</string>
+    <string name="clause">लेख</string>
+    <string name="sliding_wallpaper">वॉलपेपर स्लाइड चुनें</string>
+    <string name="chose_ok">चुना गया</string>
+    <string name="boot_speedup_big_text">सेल फोन के रूप में बिजली के रूप में जल्दी</string>
+    <string name="boot_speedup_small_text">IOS डेस्कटॉप अपने फोन की गति में सुधार कर सकते हैं, आप डिफ़ॉल्ट डेस्कटॉप के रूप में IOS करने को तैयार हैं?</string>
+    <string name="boot_speedup_setting_btn_text">सेट अप</string>
+    <string name="boot_setting_tv_text">बाद में</string>
+    <string name="boot_updateinfo_title">IOS लाइट के लिए आप निम्न अद्यतन</string>
+    <string name="boot_updateinfo_suspendedball">फ़्लोटिंग बॉल</string>
+    <string name="boot_updateinfo_suspendedball_detail">और अधिक शॉर्टकट को जल्दी खोलने के लिए, आते हैं और यह अनुभव</string>
+    <string name="boot_updateinfo_tv_text">मुझे पता है</string>
+    <string name="boot_updateinfo_news">समाचार</string>
+    <string name="boot_updateinfo_news_detail">सही मुख्य स्क्रीन पर, बड़े पैमाने पर सामग्री जानकारी का मनोरम दृश्य</string>
+    <string name="boot_updateinfo_powersaveing">राजा पावर के</string>
+    <string name="boot_updateinfo_powersaveing_detail">अब फोन विद्युत समस्याओं के बारे में चिंता है, अपने सेल फोन अतिरिक्त सुपर करने के लिए है</string>
+    <string name="boot_updateinfo_setting_btn_text">प्रयास करें</string>
+    <string name="legal_network_fail">नेटवर्क कनेक्शन विफल, नेटवर्क सैटिंग्स चैक करें या बाद में पुन: प्रयास करें</string>
+    <string name="legal_reload">फिर से प्रयास करें</string>
+    <string name="checkbox_text_name">"उपयोगकर्ता अनुभव कार्यक्रम" में शामिल हों।</string>
+    <string name="about_legal_notices">कानूनी नोटिस</string>
+    <string name="boot_updateinfo_speed">एक प्रमुख तेज करने के लिए</string>
+    <string name="boot_updateinfo_speed_detail">एक प्रमुख साफ हुआ फोन स्मृति, तो अपने फोन को बिजली की तेजी के रूप में!</string>
+    <string name="boot_updateinfo_theme">Minimalist विषय</string>
+    <string name="boot_updateinfo_theme_detail">माउस को आइकनों सुंदर हैं, आपके फोन को अद्वितीय बनाने!</string>
+</resources>

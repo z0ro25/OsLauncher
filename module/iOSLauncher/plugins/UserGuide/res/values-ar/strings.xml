@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">IOSBoot</string>
+    <string name="start">بدأت</string>
+    <string name="welcome">مرحبا</string>
+    <string name="detail">كنت على وشك  بدء  العالم \n  أصغر  وأسرع  وأبسط  نظام المستخدم</string>
+    <string name="layer">الاستمرار  ، فإنك  تقبل</string>
+    <string name="privacy">الخصوصية</string>
+    <string name="and">و </string>
+    <string name="clause">شرط</string>
+    <string name="sliding_wallpaper">انزلاق  اختيار خلفية</string>
+    <string name="chose_ok">اختار</string>
+    <string name="boot_speedup_big_text">ترك الهاتف  بسرعة البرق</string>
+    <string name="boot_speedup_small_text">IOS  سطح المكتب  يمكن تحسين  سرعة تشغيل  الهاتف  ،  هل تريد  أن  IOS  الافتراضي  سطح المكتب  ؟ </string>
+    <string name="boot_speedup_setting_btn_text">إعدادات  على الفور</string>
+    <string name="boot_setting_tv_text">في وقت لاحق</string>
+    <string name="boot_updateinfo_title">IOS  لايت  لك  تحديث  المحتويات التالية</string>
+    <string name="boot_updateinfo_suspendedball"> تعليق الكرة</string>
+    <string name="boot_updateinfo_suspendedball_detail">يمكن  بسرعة فتح  المزيد من  الاختصار،  هيا  معا  تجربة ذلك</string>
+    <string name="boot_updateinfo_tv_text"> أنا أعرف </string>
+    <string name="boot_updateinfo_news"> أخبار</string>
+    <string name="boot_updateinfo_news_detail">على الشاشة الرئيسية  انزلاق  كتلة  اليمين  ،  محتوى المعلومات  بانورامية</string>
+    <string name="boot_updateinfo_powersaveing">الكهرباء  ملك</string>
+    <string name="boot_updateinfo_powersaveing_detail">لا تقلق بشأن  استهلاك الطاقة  الهاتف المحمول  ،  الهاتف المحمول الخاص بك  غير  الاستعداد</string>
+    <string name="boot_updateinfo_setting_btn_text">محاولة</string>
+    <string name="legal_network_fail">فشل اتصال الشبكة، تحقق من اعدادات الشبكة أو حاول لاحقا</string>
+    <string name="legal_reload">اعادة المحاولة</string>
+    <string name="checkbox_text_name">انضم إلى "برنامج اختبار المستخدم"</string>
+    <string name="about_legal_notices">البيانات القانونية</string>
+    <string name="boot_updateinfo_speed">مفتاح  تسريع</string>
+    <string name="boot_updateinfo_speed_detail">مفتاح  تنظيف  ذاكرة الهاتف  ،  الهاتف المحمول الخاص بك  بسرعة البرق  !</string>
+    <string name="boot_updateinfo_theme">الحد الأدنى من  الموضوع</string>
+    <string name="boot_updateinfo_theme_detail">أيقونة  جميلة  ،  تجعل من الهاتف الخليوي الخاص بك  مختلفة!</string>
+</resources>

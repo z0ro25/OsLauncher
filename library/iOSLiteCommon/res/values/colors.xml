@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/* //device/apps/common/assets/res/any/colors.xml
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources>
+    <!--  IOS Common colors -->
+    <color name="ios_accent_color">#41d4ad</color> <!--#0F9F5A-->
+    <color name="transparent">#00000000</color>
+
+    <color name="grey">#ff797979</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="white05percent">#0dffffff</color>
+    <color name="white8percent">#18ffffff</color>
+    <color name="white10percent">#1affffff</color>
+    <color name="white15percent">#26ffffff</color>
+    <color name="white20percent">#32ffffff</color>
+    <color name="white25percent">#40ffffff</color>
+    <color name="white30percent">#47ffffff</color>
+    <color name="white40percent">#63ffffff</color>
+    <color name="white45percent">#72ffffff</color>
+    <color name="white50percent">#80ffffff</color>
+    <color name="white51percent">#51ffffff</color>
+    <color name="white60percent">#9affffff</color>
+    <color name="white66percent">#a8ffffff</color>
+    <color name="white70percent">#b3ffffff</color>
+    <color name="white80percent">#cdffffff</color>
+    <color name="white87percent">#dfffffff</color>
+    <color name="white95">#e0ffffff</color>
+
+    <color name="black">#FF000000</color>
+    <color name="black05percent">#0d000000</color>
+    <color name="black8percent">#18000000</color>
+    <color name="black10percent">#1a000000</color>
+    <color name="black15percent">#26000000</color>
+    <color name="black20percent">#33000000</color>
+    <color name="black25percent">#40000000</color>
+    <color name="black30percent">#61000000</color>
+    <color name="black40percent">#66000000</color>
+    <color name="black45percent">#73000000</color>
+    <color name="black50percent">#80000000</color>
+    <color name="black51percent">#51000000</color>
+    <color name="black60percent">#9a000000</color>
+    <color name="black66percent">#a8000000</color>
+    <color name="black70percent">#b3000000</color>
+    <color name="black80percent">#cd000000</color>
+    <color name="black87percent">#df000000</color>
+    <color name="black95">#95000000</color>
+
+
+    <color name="pref_active">#0F9F5A</color>
+    <color name="pref_active_light">#990F9F5A</color>
+    <color name="pref_dark">#ff444444</color>
+    <color name="pref_spinner_list_item_pressed">#1b444444</color>
+    <color name="pref_item_pressed">#19ffffff</color>
+    <color name="pref_item_divider">#19000000</color>
+    <color name="pref_category_grey">#90222222</color>
+    <color name="pref_category_green">#FF0F9F5A</color>
+    <color name="pref_title">#ff222222</color>
+    <color name="pref_desc">#aa222222</color>
+    <color name="pref_summary">#90222222</color>
+    <color name="pref_bg">#fff4f4f4</color>
+
+    <color name="pref_btn_divider">#90222222</color>
+    <color name="pref_btn_press">#33000000</color>
+    <color name="pref_item_layout_press">#22000000</color>
+
+    <color name="title_bar_back_button_tint">#aa444444</color>
+    <color name="title_bar_label">#FF444444</color>
+    <color name="title_bar_back_pressed">#33000000</color>
+    <color name="title_bar_divider">#19444444</color>
+
+    <color name="common_desc">#aa222222</color>
+
+    <color name="ios_gray1">#1A000000</color>
+    <color name="ios_gray2">#34000000</color>
+    <color name="ios_gray3">#61000000</color>
+</resources>

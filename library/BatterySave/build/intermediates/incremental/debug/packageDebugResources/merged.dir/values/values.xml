@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>AUTO SYNC</item>
+        <item>BRIGHTNESS</item>
+        <item>AUTO ROTATE</item>
+        <item>SCREEN TIMEOUT</item>
+        <item>VIBRATE</item>
+        <item>DATA</item>
+        <item>HOTSPOT</item>
+        <item>WI-FI</item>
+        <item>BLUETOOTH</item>
+        <item>RINGTONE</item>
+        <item>VIBRATE ON TOUCH</item>
+    </string-array>
+    <color name="bs_Rank_TextColor">#000000</color>
+    <color name="bs_TextColor">#FFFFFF</color>
+    <color name="bs_background">#FFDDDDDD</color>
+    <color name="bs_baterry_bg">#4676E4</color>
+    <color name="bs_line">#30000000</color>
+    <color name="bs_low_baterry_bg">#F6432B</color>
+    <color name="bs_off">#FF0000</color>
+    <color name="bs_on">#8EE34F</color>
+    <color name="bs_ripple_material_light">#FFDDDDDD</color>
+    <color name="bs_settings_line">#30000000</color>
+    <color name="bs_switcher">#000000</color>
+    <color name="bs_test">#2374fa</color>
+    <color name="sl_background_color">#29bd68</color>
+    <color name="sl_hint_color">#404040</color>
+    <color name="sl_list_item_left_text_color">#ffa09f9f</color>
+    <color name="sl_ripple_btn">#24a059</color>
+    <color name="sl_tab_text_color_selected">#2cb3de</color>
+    <color name="sl_title_bar_color">#29bd68</color>
+    <color name="sl_title_bar_select_color">#10000000</color>
+    <color name="sl_title_bar_transparent_color">#00000000</color>
+    <color name="sl_transparent">#00000000</color>
+    <color name="sl_white">#ffffffff</color>
+    <dimen name="bs_Bar_height">48dp</dimen>
+    <dimen name="bs_Bar_margin_top">20dp</dimen>
+    <dimen name="bs_Bar_text_size">17dp</dimen>
+    <dimen name="bs_activitybutton_height">40dp</dimen>
+    <dimen name="bs_back_left">10dp</dimen>
+    <dimen name="bs_card_below_size">15dp</dimen>
+    <dimen name="bs_card_height">100dp</dimen>
+    <dimen name="bs_card_text_size">12dp</dimen>
+    <dimen name="bs_checking_margin_bottom">60dp</dimen>
+    <dimen name="bs_line_height">0.5dp</dimen>
+    <dimen name="bs_line_item_left">70dp</dimen>
+    <dimen name="bs_lv_item_height">48dp</dimen>
+    <dimen name="bs_lv_item_left">17dp</dimen>
+    <dimen name="bs_lv_item_left2">72dp</dimen>
+    <dimen name="bs_margin">16dp</dimen>
+    <dimen name="bs_margin_bottom">8dp</dimen>
+    <dimen name="bs_min_size">11dp</dimen>
+    <dimen name="bs_prc_height">254dp</dimen>
+    <dimen name="bs_state_left">16dp</dimen>
+    <dimen name="bs_state_right">16dp</dimen>
+    <dimen name="bs_switcher_left">30dp</dimen>
+    <dimen name="bs_switcher_size">15dp</dimen>
+    <dimen name="bs_title_bar_height">48dp</dimen>
+    <dimen name="bs_title_bar_texp_gap">7dp</dimen>
+    <dimen name="bs_title_height">50dp</dimen>
+    <dimen name="bs_title_size">8.5dp</dimen>
+    <dimen name="sl_add_margin">13dp</dimen>
+    <dimen name="sl_app_icon_size">50dp</dimen>
+    <dimen name="sl_btn_sure">9dp</dimen>
+    <dimen name="sl_finger_print_margin_top">220dip</dimen>
+    <dimen name="sl_finger_tv_margin_left">3dip</dimen>
+    <dimen name="sl_hint_size">16sp</dimen>
+    <dimen name="sl_hint_space">6dp</dimen>
+    <dimen name="sl_icon_size">42dp</dimen>
+    <dimen name="sl_listview_height">56dp</dimen>
+    <dimen name="sl_loading_px_35_dp">12dp</dimen>
+    <dimen name="sl_lock_num_bottom">100dp</dimen>
+    <dimen name="sl_num_bottom">71dp</dimen>
+    <dimen name="sl_num_height">63dp</dimen>
+    <dimen name="sl_pwd_ed">34sp</dimen>
+    <dimen name="sl_pwd_margin_top">18dp</dimen>
+    <dimen name="sl_pwd_size">20sp</dimen>
+    <dimen name="sl_pwd_top">105dp</dimen>
+    <dimen name="sl_settings_top">10dp</dimen>
+    <dimen name="sl_space_layout">13dp</dimen>
+    <dimen name="sl_space_pwd">20dp</dimen>
+    <dimen name="sl_textview_size">16dip</dimen>
+    <dimen name="sl_title_bar_height">48dp</dimen>
+    <dimen name="sl_title_bar_texp_gap">7dp</dimen>
+    <dimen name="sl_title_bar_text_size">22.22sp</dimen>
+    <item name="bs_explain_state" type="id"/>
+    <item name="bs_icon" type="id"/>
+    <item name="bs_min" type="id"/>
+    <item name="bs_settings_bar" type="id"/>
+    <item name="bs_settings_line" type="id"/>
+    <item name="bs_state" type="id"/>
+    <item name="bs_switcher" type="id"/>
+    <item name="bs_switcher_explain" type="id"/>
+    <item name="bs_switcher_settings_list" type="id"/>
+    <item name="sl_add_app" type="id"/>
+    <item name="sl_app_hint" type="id"/>
+    <item name="sl_appicon" type="id"/>
+    <item name="sl_appname" type="id"/>
+    <item name="sl_et_lockview" type="id"/>
+    <item name="sl_et_lockview_pwd" type="id"/>
+    <item name="sl_facebook" type="id"/>
+    <item name="sl_fb_advertise" type="id"/>
+    <item name="sl_finger_lay" type="id"/>
+    <item name="sl_finger_print_tv" type="id"/>
+    <item name="sl_hint_lay" type="id"/>
+    <item name="sl_loading_iv_funnel" type="id"/>
+    <item name="sl_loading_iv_pic" type="id"/>
+    <item name="sl_loading_tv_title" type="id"/>
+    <item name="sl_lock_list_title" type="id"/>
+    <item name="sl_lock_listview" type="id"/>
+    <item name="sl_lock_switchbutton_linearlayout" type="id"/>
+    <item name="sl_lock_switchbutton_linearlayout_change_password" type="id"/>
+    <item name="sl_lock_swtich_box" type="id"/>
+    <item name="sl_lock_title" type="id"/>
+    <item name="sl_num0" type="id"/>
+    <item name="sl_num1" type="id"/>
+    <item name="sl_num2" type="id"/>
+    <item name="sl_num3" type="id"/>
+    <item name="sl_num4" type="id"/>
+    <item name="sl_num5" type="id"/>
+    <item name="sl_num6" type="id"/>
+    <item name="sl_num7" type="id"/>
+    <item name="sl_num8" type="id"/>
+    <item name="sl_num9" type="id"/>
+    <item name="sl_num_back" type="id"/>
+    <item name="sl_num_reinput" type="id"/>
+    <item name="sl_ok_button" type="id"/>
+    <item name="sl_progress_bar" type="id"/>
+    <item name="sl_setting_title" type="id"/>
+    <item name="sl_show_unlock_item" type="id"/>
+    <item name="sl_show_unlock_item_cbox" type="id"/>
+    <item name="sl_temp_lock" type="id"/>
+    <item name="sl_title_bar_center_title" type="id"/>
+    <item name="sl_title_bar_left_icon" type="id"/>
+    <item name="sl_title_bar_left_title" type="id"/>
+    <item name="sl_title_bar_ll_center" type="id"/>
+    <item name="sl_title_bar_ll_left" type="id"/>
+    <item name="sl_title_bar_ll_right" type="id"/>
+    <item name="sl_title_bar_right_icon" type="id"/>
+    <item name="sl_title_bar_right_title" type="id"/>
+    <item name="sl_title_bar_rl" type="id"/>
+    <item name="sl_unlock_activity_show_text" type="id"/>
+    <item name="sl_unlock_appname" type="id"/>
+    <item name="sl_unlock_icon" type="id"/>
+    <item name="sl_unlock_list" type="id"/>
+    <item name="sl_unlock_title" type="id"/>
+    <string name="bs_Bar_Middle">Power Saving</string>
+    <string name="bs_Bar_Rank_Middle">Consumption</string>
+    <string name="bs_app_baterry">Draining APPs</string>
+    <string name="bs_app_name">Power Saving</string>
+    <string name="bs_baterry_text1_charged">Fully charged</string>
+    <string name="bs_baterry_text1_charging">Fully charged by</string>
+    <string name="bs_baterry_text1_uncharge">Energy until</string>
+    <string name="bs_baterry_text3">Today</string>
+    <string name="bs_bellow_btn">Proceeding...</string>
+    <string name="bs_bottom_btn">It\'s OK</string>
+    <string name="bs_bottom_btn_save">Tap to save battery</string>
+    <string name="bs_checking_text1">Checking usage of battery</string>
+    <string name="bs_checking_text2">Analyzing draining apps</string>
+    <string name="bs_clean_tost">"Optimized system status \nNo draining apps in the background"</string>
+    <string name="bs_day">day</string>
+    <string name="bs_days">days</string>
+    <string name="bs_min">min</string>
+    <string name="bs_mode_second">Minutes</string>
+    <string name="bs_month">month</string>
+    <string name="bs_prc_time" translatable="false">13:26</string>
+    <string name="bs_ranking_baterry">Consumption</string>
+    <string name="bs_switch_baterry">Saving Settings</string>
+    <string name="bs_switcher">Saving Settings</string>
+    <string name="bs_tomorrow">Tomorrow</string>
+    <string name="bs_unit_hour">Hours</string>
+    <string name="bs_use_time_title">Energy until</string>
+    <string name="sl_app_list_add_listbutton">Add apps to lock</string>
+    <string name="sl_app_list_empty">No apps</string>
+    <string name="sl_change_password_sucessed">Password change is completed</string>
+    <string name="sl_dialog_text">Please give the allowance to run app lock</string>
+    <string name="sl_enter_new_psw">New PW must be different!</string>
+    <string name="sl_enter_new_psw_16">Enter a new password (6 chars)</string>
+    <string name="sl_enter_new_psw_16_again">Please re-enter a new password</string>
+    <string name="sl_enter_psw_16">Enter password (6 chars)</string>
+    <string name="sl_enter_psw_16_again">Please re-enter password</string>
+    <string name="sl_enter_psw_16_again_error">PW input is not consistent!</string>
+    <string name="sl_enter_psw_16_empty">Password cannot be left empty</string>
+    <string name="sl_enter_psw_16_error">Wrong password</string>
+    <string name="sl_facebook">Like us on Facebook</string>
+    <string name="sl_facebook_advertise_id" translatable="false">676936659125075_693364927482248</string>
+    <string name="sl_facebook_app_id" translatable="false">676936659125075</string>
+    <string name="sl_finger_print_lock_screen_tv">Supports fingerprint unlocking</string>
+    <string name="sl_float_hint_tv">If you can\'t use it as usual,open the "floating window"in the setting or security center please.</string>
+    <string name="sl_hint_tv">The next step ，open the "IOS"</string>
+    <string name="sl_lock_setting">Settings</string>
+    <string name="sl_lock_temp_addapp"> Add apps </string>
+    <string name="sl_my_common_loading">Loading…</string>
+    <string name="sl_ok">Confirm</string>
+    <string name="sl_security_item_change_password">Change password</string>
+    <string name="sl_security_item_hint2">App lock</string>
+    <string name="sl_set_psw">Please set a new password(6 chars)</string>
+    <string name="sl_un_locking">Unlocking...</string>
+    <style name="bs_app_base_theme" parent="android:Theme.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="sl_common_ListItemNameStyle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#404040</item>
+        <item name="android:textSize">15dip</item>
+    </style>
+    <style name="sl_common_Sett_TextBold">
+        <item name="android:textColor">#ff4c4c4c</item>
+        <item name="android:textSize">15.5sp</item>
+        
+    </style>
+    <style name="sl_loading_dialog_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/sl_transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+    <declare-styleable name="bs_progressBar">
+        <attr format="integer" name="progress1"/>
+        <attr format="string" name="text3"/>
+        <attr format="string" name="timeStr"/>
+        <attr format="reference" name="chargeDrawable"/>
+    </declare-styleable>
+    <declare-styleable name="bs_title_bar_attrs">
+        <attr format="reference" name="bs_background"/>
+
+        <attr format="reference" name="leftIcon"/>
+        <attr format="boolean" name="showLeftIcon"/>
+
+        <attr format="reference" name="rightIcon"/>
+        <attr format="boolean" name="showRightIcon"/>
+
+        <attr format="string" name="centerTitle"/>
+        <attr format="color" name="centerTitleColor"/>
+        <attr format="dimension" name="centerTitleSize"/>
+        <attr format="boolean" name="showCenterTitle"/>
+        <attr format="boolean" name="centerTitleCanClick"/>
+    </declare-styleable>
+    <declare-styleable name="sl_title_bar_attrs">
+        <attr format="reference|color" name="slbackground"/>
+        <attr format="reference" name="slleftIcon"/>
+        <attr format="reference" name="slrightIcon"/>
+        <attr format="reference|string" name="slleftTitle"/>
+        <attr format="reference|string" name="slcenterTitle"/>
+        <attr format="reference|string" name="slrightTitle"/>
+        <attr format="color" name="slleftTitleColor"/>
+        <attr format="color" name="slcenterTitleColor"/>
+        <attr format="color" name="slrightTitleColor"/>
+        <attr format="dimension" name="slleftTitleSize"/>
+        <attr format="dimension" name="slcenterTitleSize"/>
+        <attr format="dimension" name="slrightTitleSize"/>
+        <attr format="boolean" name="slshowLeftTitle"/>
+        <attr format="boolean" name="slshowCenterTitle"/>
+        <attr format="boolean" name="slshowRightTitle"/>
+        <attr format="boolean" name="slshowLeftIcon"/>
+        <attr format="boolean" name="slshowRightIcon"/>
+        <attr format="boolean" name="slcenterTitleCanClick"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/all_apps_guide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/guide_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/guide_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/launcher_white"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/guide_card_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12.0dip"
+                android:layout_marginLeft="24.0dip"
+                android:layout_marginRight="24.0dip"
+                android:layout_marginTop="16.0dip"
+                android:text="@string/launcher_guide_allapps_title"
+                android:textColor="#cc000000"
+                android:textSize="20.0sp" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/guide_card_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24.0dip"
+                android:layout_marginRight="24.0dip"
+                android:text="@string/launcher_guide_allapps_content"
+                android:textColor="#88000000"
+                android:textSize="16.0sp" />
+
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="10.0dip" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/guide_card_got_it"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="end"
+                android:layout_marginBottom="12.0dip"
+                android:layout_marginRight="16.0dip"
+                android:height="36.0dip"
+                android:background="@drawable/selector_guide_btn_bg"
+                android:gravity="center"
+                android:minWidth="80.0dip"
+                android:paddingBottom="4.0dip"
+                android:paddingLeft="8.0dip"
+                android:paddingRight="8.0dip"
+                android:paddingTop="4.0dip"
+                android:text="@string/launcher_guide_got_it"
+                android:textColor="#02BD48" />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:id="@+id/guide_allapps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/launcher_transparent_black"
+            android:paddingBottom="6dp"
+            android:paddingTop="30dp">
+
+            <ImageView
+                android:id="@+id/guide_indicator"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/all_apps_guide_indicator_bg" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:src="@drawable/lite_rom_all_apps" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

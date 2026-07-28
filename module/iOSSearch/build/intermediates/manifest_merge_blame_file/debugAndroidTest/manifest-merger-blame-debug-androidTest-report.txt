@@ -1,0 +1,1219 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.amz.ioslauncher.iossearch.test" >
+4
+5    <uses-sdk
+5-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:5:5-74
+6        android:minSdkVersion="26"
+6-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:5:15-41
+7        android:targetSdkVersion="34" />
+7-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:5:42-71
+8
+9    <instrumentation
+9-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:11:5-15:84
+10        android:name="android.test.InstrumentationTestRunner"
+10-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:11:22-75
+11        android:functionalTest="false"
+11-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:14:22-52
+12        android:handleProfiling="false"
+12-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:13:22-53
+13        android:label="Tests for com.amz.ioslauncher.iossearch.test"
+13-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:15:22-82
+14        android:targetPackage="com.amz.ioslauncher.iossearch.test" />
+14-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:12:22-80
+15    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-80
+16-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:22-77
+17    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+17-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-83
+17-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:22-80
+18    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+18-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-81
+18-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-78
+19    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- <uses-sdk -->
+19-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:5-16:47
+19-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-57
+20    <!-- android:minSdkVersion="21" -->
+21    <!-- android:targetSdkVersion="28" /> -->
+22    <!-- <uses-feature -->
+23    <!-- android:name="android.software.device_admin" -->
+24    <!-- android:required="true" /> -->
+25    <permission
+25-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:5-37:47
+26        android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS"
+26-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-81
+27        android:protectionLevel="signature" />
+27-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:9-44
+28    <permission
+28-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:5-40:55
+29        android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST"
+29-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:9-84
+30        android:protectionLevel="signatureOrSystem" /> <!-- <uses-permission android:name="com.android.alarm.permission.SET_ALARM" /> -->
+30-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:9-52
+31    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
+32    <!-- <uses-permission android:name="android.permission.FLASHLIGHT" /> -->
+33    <!-- <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" /> -->
+34    <!-- <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" /> -->
+35    <!-- <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> -->
+36    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+36-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:5-72
+36-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:22-69
+37    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+37-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:5-78
+37-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:22-75
+38    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
+38-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:5-77
+38-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:22-74
+39    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+39-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:55:5-75
+39-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:55:22-72
+40    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+40-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:5-81
+40-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:22-78
+41    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS" />
+41-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:5-97
+41-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:22-94
+42    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST" /> <!-- <uses-permission android:name="android.permission.READ_CALL_LOG" /> -->
+42-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:58:5-100
+42-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:58:22-97
+43    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+44    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
+45    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" /> -->
+45-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:62:5-67
+45-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:62:22-64
+46    <!-- <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" /> -->
+47    <uses-permission android:name="android.permission.STATUS_BAR" />
+47-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:65:5-67:47
+47-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:66:9-53
+48    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+48-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:68:5-75
+48-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:68:22-72
+49    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+49-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:69:5-71:53
+49-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:70:9-61
+50    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" /> <!-- <uses-permission android:name="android.permission.READ_APP_BADGE" /> -->
+50-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:72:5-74:47
+50-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:73:9-77
+51    <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
+52    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" /> <!-- <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" /> -->
+52-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:77:5-84
+52-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:77:22-81
+53    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" /> <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+53-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:79:5-91
+53-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:79:22-88
+54    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+54-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:81:5-85
+54-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:81:22-82
+55    <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" />
+55-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:82:5-84:47
+55-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:83:9-62
+56    <uses-permission android:name="android.permission.REBOOT" />
+56-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:85:5-87:47
+56-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:86:9-49
+57
+58    <permission
+58-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+59        android:name="com.amz.ioslauncher.iossearch.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+59-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+60        android:protectionLevel="signature" />
+60-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+61
+62    <uses-permission android:name="com.amz.ioslauncher.iossearch.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+62-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+62-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+63
+64    <application
+64-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:7:5-9:19
+65        android:name="com.amz.ios.IOSLauncher"
+65-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:91:9-47
+66        android:allowBackup="true"
+66-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:9-35
+67        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+67-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+68        android:debuggable="true"
+69        android:extractNativeLibs="false"
+70        android:hardwareAccelerated="true"
+70-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:92:9-43
+71        android:label="@string/launcher_application_name"
+71-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:93:9-58
+72        android:screenOrientation="portrait"
+72-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:94:9-45
+73        android:supportsRtl="true" >
+73-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:9-35
+74        <uses-library android:name="android.test.runner" />
+74-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:8:9-60
+74-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest17025355815985993852.xml:8:23-57
+75        <!-- Search block -->
+76        <receiver
+76-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-34:20
+77            android:name="com.amz.ios.search.SearchWidgetProvider"
+77-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-67
+78            android:exported="true" >
+78-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-36
+79            <intent-filter>
+79-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-29:29
+80                <action android:name="android.appwidget.action.IOS_SEARCH_WIDGET" />
+80-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:17-85
+80-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:25-82
+81            </intent-filter>
+82
+83            <meta-data
+83-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-33:71
+84                android:name="android.appwidget.provider"
+84-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-58
+85                android:resource="@xml/fmsearch_search_widget_info" />
+85-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:17-68
+86        </receiver>
+87
+88        <provider
+88-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-44:20
+89            android:name="com.amz.ios.search.SearchFileProvider"
+89-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-65
+90            android:authorities="com.amz.ios.search.fileprovider"
+90-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-66
+91            android:exported="false"
+91-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-37
+92            android:grantUriPermissions="true" >
+92-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-47
+93            <meta-data
+93-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-43:54
+94                android:name="android.support.FILE_PROVIDER_PATHS"
+94-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:17-67
+95                android:resource="@xml/file_paths" />
+95-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:43:17-51
+96        </provider>
+97
+98        <receiver
+98-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-18:20
+99            android:name="com.amz.newspage.newssource.LanguageBroadcastReceiver"
+99-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-81
+100            android:exported="true" >
+100-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-36
+101            <intent-filter>
+101-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:29
+102                <action android:name="android.intent.action.LOCALE_CHANGED" />
+102-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-79
+102-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:25-76
+103            </intent-filter>
+104        </receiver> <!-- Start Infohub -->
+105        <!-- Start of Flurry Permission -->
+106        <activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity" /> <!-- End of Flurry Permission -->
+106-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-88
+106-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:19-85
+107        <!-- AdZodiac: add this declarations -->
+108        <activity
+108-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:9-27:77
+109            android:name="com.adzodiac.mobileads.AdZodiacActivity"
+109-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-67
+110            android:configChanges="keyboardHidden|orientation|screenSize" />
+110-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-74
+111        <activity
+111-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:9-30:77
+112            android:name="com.adzodiac.mobileads.MraidActivity"
+112-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-64
+113            android:configChanges="keyboardHidden|orientation|screenSize" />
+113-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-74
+114        <activity
+114-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:9-33:77
+115            android:name="com.adzodiac.common.AdZodiacBrowser"
+115-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-63
+116            android:configChanges="keyboardHidden|orientation|screenSize" />
+116-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-74
+117        <activity
+117-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:34:9-36:77
+118            android:name="com.adzodiac.mobileads.MraidVideoPlayerActivity"
+118-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-75
+119            android:configChanges="keyboardHidden|orientation|screenSize" />
+119-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-74
+120        <activity
+120-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:9-39:77
+121            android:name="com.adzodiac.mobileads.RewardedMraidActivity"
+121-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-72
+122            android:configChanges="keyboardHidden|orientation|screenSize" /> <!-- AdZodiac: end -->
+122-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-74
+123        <activity
+123-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:9-45:75
+124            android:name="com.inmobi.rendering.InMobiAdActivity"
+124-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-65
+125            android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize"
+125-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-102
+126            android:hardwareAccelerated="true"
+126-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-47
+127            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+127-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-72
+128        <activity
+128-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:46:9-48:125
+129            android:name="com.google.android.gms.ads.AdActivity"
+129-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-65
+130            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+130-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:13-122
+131        <activity
+131-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:9-51:77
+132            android:name="com.facebook.ads.InterstitialAdActivity"
+132-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:13-67
+133            android:configChanges="keyboardHidden|orientation|screenSize" />
+133-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-74
+134
+135        <meta-data
+135-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:9-55:69
+136            android:name="com.google.android.gms.version"
+136-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:13-58
+137            android:value="@integer/google_play_services_version" />
+137-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:55:13-66
+138
+139        <receiver
+139-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:9-64:20
+140            android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver"
+140-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:58:13-92
+141            android:enabled="true"
+141-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:13-35
+142            android:exported="true" >
+142-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:60:13-36
+143            <intent-filter>
+143-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:61:13-63:29
+144                <action android:name="com.inmobi.share.id" />
+144-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:62:17-62
+144-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:62:25-59
+145            </intent-filter>
+146        </receiver>
+147
+148        <activity
+148-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:66:9-70:51
+149            android:name="com.idroi.infohub.fragments.news.NewsWebActivity"
+149-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:67:13-76
+150            android:configChanges="keyboardHidden|orientation|screenSize"
+150-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:68:13-74
+151            android:process=":webview"
+151-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:69:13-39
+152            android:theme="@style/IOSNewsTheme" />
+152-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:70:13-48
+153        <activity
+153-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:95:9-119:20
+154            android:name="com.amz.ios.launcher.searchlauncher.SearchLauncher"
+154-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:96:13-78
+155            android:clearTaskOnLaunch="true"
+155-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:97:13-45
+156            android:configChanges="fontScale|colorMode|layoutDirection|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc"
+156-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:98:13-204
+157            android:enabled="true"
+157-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:99:13-35
+158            android:excludeFromRecents="true"
+158-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:100:13-46
+159            android:exported="true"
+159-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:101:13-36
+160            android:launchMode="singleTask"
+160-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:102:13-44
+161            android:resizeableActivity="true"
+161-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:103:13-46
+162            android:resumeWhilePausing="true"
+162-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:104:13-46
+163            android:screenOrientation="portrait"
+163-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:105:13-49
+164            android:stateNotNeeded="true"
+164-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:106:13-42
+165            android:taskAffinity="com.amz.ios.launcher.Launcher"
+165-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:107:13-65
+166            android:theme="@style/LauncherTheme"
+166-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:108:13-49
+167            android:windowSoftInputMode="adjustPan" >
+167-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:109:13-52
+168            <intent-filter>
+168-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:110:13-118:29
+169                <action android:name="android.intent.action.MAIN" />
+169-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:17-69
+169-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:25-66
+170
+171                <category android:name="android.intent.category.HOME" />
+171-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:113:17-73
+171-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:113:27-70
+172                <category android:name="android.intent.category.DEFAULT" />
+172-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+172-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+173                <category android:name="android.intent.category.MONKEY" />
+173-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:115:17-75
+173-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:115:27-72
+174                <category android:name="android.intent.category.LAUNCHER_APP" />
+174-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:116:17-81
+174-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:116:27-78
+175                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+176            </intent-filter>
+177        </activity>
+178        <activity
+178-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:120:9-134:20
+179            android:name="com.amz.ios.launcher.DynamicVirtualEntryActivity"
+179-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:121:13-76
+180            android:excludeFromRecents="true"
+180-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:122:13-46
+181            android:exported="true"
+181-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:123:13-36
+182            android:label="@string/launcher_application_name"
+182-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:124:13-62
+183            android:screenOrientation="portrait"
+183-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:125:13-49
+184            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+184-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:126:13-72
+185            <intent-filter>
+185-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:127:13-133:29
+186
+187                <!-- App Lock Use -->
+188                <category android:name="android.intent.category.DEFAULT" />
+188-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+188-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+189
+190                <action android:name="ioslite.intent.action.IOSLITE" />
+190-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:132:17-72
+190-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:132:25-69
+191            </intent-filter>
+192        </activity>
+193        <activity
+193-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:135:9-152:20
+194            android:name="com.amz.ios.launcher.config.LauncherSettingActivity"
+194-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:136:13-79
+195            android:autoRemoveFromRecents="true"
+195-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:137:13-49
+196            android:exported="true"
+196-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:138:13-36
+197            android:icon="@drawable/ic_setting"
+197-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:139:13-48
+198            android:label="@string/settings_label"
+198-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:140:13-51
+199            android:resizeableActivity="false"
+199-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:141:13-47
+200            android:screenOrientation="portrait"
+200-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:142:13-49
+201            android:taskAffinity="com.amz.ios.launcher.Launcher"
+201-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:143:13-65
+202            android:theme="@style/PrefSettings" >
+202-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:144:13-48
+203            <intent-filter>
+203-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:145:13-151:29
+204
+205                <!-- App Lock Use -->
+206                <!-- <action android:name="android.intent.action.MAIN" /> -->
+207                <category android:name="android.intent.category.LAUNCHER" />
+207-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:149:17-77
+207-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:149:27-74
+208                <category android:name="android.intent.category.HOME" />
+208-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:113:17-73
+208-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:113:27-70
+209            </intent-filter>
+210        </activity>
+211        <activity
+211-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:153:9-161:51
+212            android:name="com.amz.ios.launcher.config.AppearanceActivity"
+212-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:154:13-74
+213            android:autoRemoveFromRecents="true"
+213-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:155:13-49
+214            android:exported="true"
+214-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:156:13-36
+215            android:label="@string/settings_label"
+215-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:157:13-51
+216            android:resizeableActivity="false"
+216-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:158:13-47
+217            android:screenOrientation="portrait"
+217-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:159:13-49
+218            android:taskAffinity="com.amz.ios.launcher.Launcher"
+218-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:160:13-65
+219            android:theme="@style/PrefSettings" />
+219-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:161:13-48
+220        <activity
+220-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:162:9-170:51
+221            android:name="com.amz.ios.launcher.config.DesktopStyleActivity"
+221-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:163:13-76
+222            android:autoRemoveFromRecents="true"
+222-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:164:13-49
+223            android:exported="true"
+223-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:165:13-36
+224            android:label="@string/settings_label"
+224-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:166:13-51
+225            android:resizeableActivity="false"
+225-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:167:13-47
+226            android:screenOrientation="portrait"
+226-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:168:13-49
+227            android:taskAffinity="com.amz.ios.launcher.Launcher"
+227-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:169:13-65
+228            android:theme="@style/PrefSettings" />
+228-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:170:13-48
+229        <activity
+229-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:171:9-179:51
+230            android:name="com.amz.ios.launcher.config.DrawerStyleActivity"
+230-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:172:13-75
+231            android:autoRemoveFromRecents="true"
+231-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:173:13-49
+232            android:exported="true"
+232-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:174:13-36
+233            android:label="@string/settings_label"
+233-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:175:13-51
+234            android:resizeableActivity="false"
+234-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:176:13-47
+235            android:screenOrientation="portrait"
+235-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:177:13-49
+236            android:taskAffinity="com.amz.ios.launcher.Launcher"
+236-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:178:13-65
+237            android:theme="@style/PrefSettings" />
+237-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:179:13-48
+238        <activity
+238-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:180:9-194:20
+239            android:name="com.amz.ios.launcher.config.FeatureSettingActivity"
+239-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:181:13-78
+240            android:autoRemoveFromRecents="true"
+240-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:182:13-49
+241            android:exported="true"
+241-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:183:13-36
+242            android:label="@string/settings_label"
+242-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:184:13-51
+243            android:resizeableActivity="false"
+243-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:185:13-47
+244            android:screenOrientation="portrait"
+244-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:186:13-49
+245            android:taskAffinity="com.amz.ios.launcher.Launcher"
+245-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:187:13-65
+246            android:theme="@style/PrefSettings" >
+246-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:188:13-48
+247            <intent-filter>
+247-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:189:13-193:29
+248                <action android:name="ioslite.intent.action.OPEN_FEATURE_SETTING" />
+248-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:190:17-85
+248-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:190:25-82
+249
+250                <category android:name="android.intent.category.DEFAULT" />
+250-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+250-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+251            </intent-filter>
+252        </activity>
+253        <activity
+253-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:195:9-203:51
+254            android:name="com.amz.ios.launcher.config.GestureSettingActivity"
+254-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:196:13-78
+255            android:autoRemoveFromRecents="true"
+255-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:197:13-49
+256            android:exported="true"
+256-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:198:13-36
+257            android:label="@string/settings_label"
+257-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:199:13-51
+258            android:resizeableActivity="false"
+258-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:200:13-47
+259            android:screenOrientation="portrait"
+259-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:201:13-49
+260            android:taskAffinity="com.amz.ios.launcher.Launcher"
+260-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:202:13-65
+261            android:theme="@style/PrefSettings" />
+261-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:203:13-48
+262        <activity
+262-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:204:9-212:51
+263            android:name="com.amz.ios.launcher.config.GesturePickerActivity"
+263-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:205:13-77
+264            android:autoRemoveFromRecents="true"
+264-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:206:13-49
+265            android:exported="true"
+265-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:207:13-36
+266            android:label="@string/settings_label"
+266-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:208:13-51
+267            android:resizeableActivity="false"
+267-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:209:13-47
+268            android:screenOrientation="portrait"
+268-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:210:13-49
+269            android:taskAffinity="com.amz.ios.launcher.Launcher"
+269-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:211:13-65
+270            android:theme="@style/PrefSettings" />
+270-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:212:13-48
+271        <activity
+271-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:213:9-221:51
+272            android:name="com.amz.ios.launcher.config.NotificationMgrActivity"
+272-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:214:13-79
+273            android:autoRemoveFromRecents="true"
+273-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:215:13-49
+274            android:exported="true"
+274-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:216:13-36
+275            android:label="@string/settings_label"
+275-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:217:13-51
+276            android:resizeableActivity="false"
+276-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:218:13-47
+277            android:screenOrientation="portrait"
+277-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:219:13-49
+278            android:taskAffinity="com.amz.ios.launcher.Launcher"
+278-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:220:13-65
+279            android:theme="@style/PrefSettings" />
+279-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:221:13-48
+280        <activity
+280-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:222:9-230:51
+281            android:name="com.amz.ios.launcher.config.BackupActivity"
+281-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:223:13-70
+282            android:autoRemoveFromRecents="true"
+282-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:224:13-49
+283            android:exported="true"
+283-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:225:13-36
+284            android:label="@string/settings_label"
+284-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:226:13-51
+285            android:resizeableActivity="false"
+285-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:227:13-47
+286            android:screenOrientation="portrait"
+286-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:228:13-49
+287            android:taskAffinity="com.amz.ios.launcher.Launcher"
+287-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:229:13-65
+288            android:theme="@style/PrefSettings" />
+288-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:230:13-48
+289        <activity
+289-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:231:9-239:51
+290            android:name="com.amz.ios.launcher.config.EffectSettingsActivity"
+290-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:232:13-78
+291            android:autoRemoveFromRecents="true"
+291-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:233:13-49
+292            android:exported="true"
+292-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:234:13-36
+293            android:label="@string/settings_label"
+293-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:235:13-51
+294            android:resizeableActivity="false"
+294-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:236:13-47
+295            android:screenOrientation="portrait"
+295-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:237:13-49
+296            android:taskAffinity="com.amz.ios.launcher.Launcher"
+296-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:238:13-65
+297            android:theme="@style/PrefSettings" />
+297-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:239:13-48
+298        <activity
+298-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:240:9-247:51
+299            android:name="com.amz.ios.launcher.config.AboutActivity"
+299-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:241:13-69
+300            android:autoRemoveFromRecents="true"
+300-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:242:13-49
+301            android:exported="true"
+301-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:243:13-36
+302            android:resizeableActivity="false"
+302-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:244:13-47
+303            android:screenOrientation="portrait"
+303-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:245:13-49
+304            android:taskAffinity="com.amz.ios.launcher.Launcher"
+304-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:246:13-65
+305            android:theme="@style/PrefSettings" />
+305-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:247:13-48
+306        <activity
+306-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:248:9-255:51
+307            android:name="com.amz.ios.launcher.config.DeveloperActivity"
+307-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:249:13-73
+308            android:autoRemoveFromRecents="true"
+308-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:250:13-49
+309            android:exported="true"
+309-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:251:13-36
+310            android:resizeableActivity="false"
+310-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:252:13-47
+311            android:screenOrientation="portrait"
+311-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:253:13-49
+312            android:taskAffinity="com.amz.ios.launcher.Launcher"
+312-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:254:13-65
+313            android:theme="@style/PrefSettings" />
+313-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:255:13-48
+314        <activity
+314-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:256:9-263:61
+315            android:name="com.amz.ios.launcher.config.IconLayoutActivity"
+315-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:257:13-74
+316            android:autoRemoveFromRecents="true"
+316-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:258:13-49
+317            android:exported="true"
+317-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:259:13-36
+318            android:resizeableActivity="false"
+318-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:260:13-47
+319            android:screenOrientation="portrait"
+319-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:261:13-49
+320            android:taskAffinity="com.amz.ios.launcher.Launcher"
+320-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:262:13-65
+321            android:theme="@style/PrefSettings.Wallpaper" />
+321-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:263:13-58
+322        <activity
+322-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:264:9-271:20
+323            android:name="com.amz.ios.launcher.widget.configure.PictureAppWidgetProviderConfigureActivity"
+323-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:265:13-107
+324            android:exported="true"
+324-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:266:13-36
+325            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+325-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:267:13-69
+326            <intent-filter>
+326-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:268:13-270:29
+327                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+327-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:269:17-87
+327-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:269:25-84
+328            </intent-filter>
+329        </activity>
+330
+331        <receiver
+331-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:273:9-279:20
+332            android:name="com.amz.ios.launcher.WallpaperChangedReceiver"
+332-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:274:13-73
+333            android:exported="true" >
+333-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:275:13-36
+334            <intent-filter>
+334-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:276:13-278:29
+335                <action android:name="android.intent.action.WALLPAPER_CHANGED" />
+335-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:277:17-82
+335-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:277:25-79
+336            </intent-filter>
+337        </receiver> <!-- Intent received used to install shortcuts from other applications -->
+338        <receiver
+338-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:282:9-290:20
+339            android:name="com.amz.ios.launcher.InstallShortcutReceiver"
+339-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:283:13-72
+340            android:enabled="@bool/enable_install_shortcut_api"
+340-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:284:13-64
+341            android:exported="true"
+341-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:285:13-36
+342            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT" >
+342-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:286:13-82
+343            <intent-filter>
+343-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:287:13-289:29
+344                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
+344-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:288:17-87
+344-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:288:25-84
+345            </intent-filter>
+346        </receiver> <!-- Intent received used to uninstall shortcuts from other applications -->
+347        <receiver
+347-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:293:9-300:20
+348            android:name="com.amz.ios.launcher.UninstallShortcutReceiver"
+348-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:294:13-74
+349            android:exported="true"
+349-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:295:13-36
+350            android:permission="com.android.launcher.permission.UNINSTALL_SHORTCUT" >
+350-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:296:13-84
+351            <intent-filter>
+351-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:297:13-299:29
+352                <action android:name="com.android.launcher.action.UNINSTALL_SHORTCUT" />
+352-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:298:17-89
+352-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:298:25-86
+353            </intent-filter>
+354        </receiver> <!-- Intent received used to initialize a restored widget -->
+355        <receiver
+355-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:303:9-309:20
+356            android:name="com.amz.ios.launcher.AppWidgetsRestoredReceiver"
+356-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:304:13-75
+357            android:exported="true" >
+357-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:305:13-36
+358            <intent-filter>
+358-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:306:13-308:29
+359                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />
+359-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:307:17-91
+359-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:307:25-88
+360            </intent-filter>
+361        </receiver>
+362        <receiver
+362-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:310:9-316:20
+363            android:name="com.amz.ios.launcher.StartupReceiver"
+363-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:311:13-64
+364            android:exported="true" >
+364-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:312:13-36
+365            <intent-filter>
+365-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:313:13-315:29
+366                <action android:name="android.intent.action.BOOT_COMPLETED" />
+366-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:314:17-79
+366-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:314:25-76
+367            </intent-filter>
+368        </receiver>
+369        <receiver
+369-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:317:9-329:20
+370            android:name="com.amz.ios.launcher.util.AdminManager"
+370-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:318:13-66
+371            android:exported="true"
+371-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:319:13-36
+372            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+372-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:320:13-70
+373            <meta-data
+373-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:321:13-323:61
+374                android:name="android.app.device_admin"
+374-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:322:17-56
+375                android:resource="@xml/device_admin_info" />
+375-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:323:17-58
+376
+377            <intent-filter>
+377-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:325:13-328:29
+378                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+378-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:326:17-82
+378-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:326:25-79
+379                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
+379-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:327:17-83
+379-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:327:25-80
+380            </intent-filter>
+381        </receiver> <!-- The settings provider contains Home's data, like the workspace favorites -->
+382        <provider
+382-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:332:9-335:39
+383            android:name="com.amz.ios.launcher.LauncherProvider"
+383-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:333:13-65
+384            android:authorities="com.amz.ios.launcher.settings"
+384-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:334:13-64
+385            android:exported="true" /> <!-- The hideapp provider contains like the workspace favorites -->
+385-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:335:13-36
+386        <provider
+386-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:338:9-341:39
+387            android:name="com.amz.ios.launcher.provider.AppConfigureProvider"
+387-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:339:13-78
+388            android:authorities="com.amz.ios.launcher.appconfigure"
+388-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:340:13-68
+389            android:exported="true" /> <!-- The settings provider contains Home's data, like the workspace favorites -->
+389-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:341:13-36
+390        <provider
+390-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:344:9-347:39
+391            android:name="com.amz.ios.launcher.provider.AppTypeProvider"
+391-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:345:13-73
+392            android:authorities="com.amz.ios.launcher.apptype"
+392-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:346:13-63
+393            android:exported="true" /> <!-- ***********************   IOS shortcuts   ****************************** -->
+393-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:347:13-36
+394        <activity
+394-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:351:9-356:50
+395            android:name="com.amz.ios.launcher.shortcut.AllApps"
+395-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:352:13-65
+396            android:exported="true"
+396-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:353:13-36
+397            android:icon="@drawable/lite_rom_all_apps"
+397-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:354:13-55
+398            android:label="@string/all_apps_button_label"
+398-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:355:13-58
+399            android:resizeableActivity="false" /> <!-- ***********************    User Guide   ****************************** -->
+399-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:356:13-47
+400        <activity
+400-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:359:9-372:20
+401            android:name="com.ios.boot.iosboot.FirstRunActivity"
+401-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:360:13-65
+402            android:excludeFromRecents="true"
+402-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:361:13-46
+403            android:exported="true"
+403-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:362:13-36
+404            android:launchMode="singleTop"
+404-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:363:13-43
+405            android:resizeableActivity="false"
+405-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:364:13-47
+406            android:screenOrientation="portrait"
+406-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:365:13-49
+407            android:theme="@style/IOSBootAppTheme.Start" >
+407-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:366:13-57
+408            <intent-filter>
+408-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:367:13-371:29
+409                <action android:name="android.intent.action.MAIN" />
+409-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:17-69
+409-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:25-66
+410
+411                <category android:name="android.intent.category.DEFAULT" />
+411-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+411-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+412            </intent-filter>
+413        </activity>
+414        <activity
+414-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:373:9-384:20
+415            android:name="com.ios.boot.iosboot.SpeedUpActivity"
+415-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:374:13-64
+416            android:exported="true"
+416-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:375:13-36
+417            android:resizeableActivity="false"
+417-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:376:13-47
+418            android:screenOrientation="portrait"
+418-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:377:13-49
+419            android:theme="@style/IOSBootSpeddUpAppTheme" >
+419-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:378:13-58
+420            <intent-filter>
+420-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:367:13-371:29
+421                <action android:name="android.intent.action.MAIN" />
+421-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:17-69
+421-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:25-66
+422
+423                <category android:name="android.intent.category.DEFAULT" />
+423-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+423-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+424            </intent-filter>
+425        </activity>
+426        <activity
+426-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:385:9-396:20
+427            android:name="com.ios.boot.iosboot.UpdateInfoActivity"
+427-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:386:13-67
+428            android:exported="true"
+428-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:387:13-36
+429            android:resizeableActivity="false"
+429-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:388:13-47
+430            android:screenOrientation="portrait"
+430-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:389:13-49
+431            android:theme="@style/IOSBootUpdateInfoAppTheme" >
+431-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:390:13-61
+432            <intent-filter>
+432-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:367:13-371:29
+433                <action android:name="android.intent.action.MAIN" />
+433-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:17-69
+433-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:25-66
+434
+435                <category android:name="android.intent.category.DEFAULT" />
+435-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+435-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+436            </intent-filter>
+437        </activity>
+438        <activity
+438-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:397:9-409:20
+439            android:name="com.ios.boot.iosboot.LegalNoticesActivity"
+439-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:398:13-69
+440            android:exported="true"
+440-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:399:13-36
+441            android:launchMode="singleTask"
+441-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:400:13-44
+442            android:resizeableActivity="false"
+442-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:401:13-47
+443            android:screenOrientation="portrait"
+443-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:402:13-49
+444            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+444-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:403:13-72
+445            <intent-filter>
+445-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:367:13-371:29
+446                <action android:name="android.intent.action.MAIN" />
+446-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:17-69
+446-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:25-66
+447
+448                <category android:name="android.intent.category.DEFAULT" />
+448-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+448-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+449            </intent-filter>
+450        </activity>
+451        <activity
+451-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:410:9-414:72
+452            android:name="com.amz.ios.ui.cropimage.CropImageActivity"
+452-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:411:13-70
+453            android:configChanges="screenSize|screenLayout|orientation"
+453-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:412:13-72
+454            android:exported="false"
+454-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:413:13-37
+455            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- ***********************    User Guide  End  ****************************** -->
+455-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:414:13-69
+456        <receiver
+456-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:418:9-429:20
+457            android:name="com.ios.cleanwidget.CleanWidgetProvider"
+457-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:419:13-67
+458            android:exported="true"
+458-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:420:13-36
+459            android:label="@string/clean_widget_name" >
+459-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:421:13-54
+460            <intent-filter>
+460-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:422:13-424:29
+461                <action android:name="android.appwidget.action.IOS_WIDGET" />
+461-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:423:17-78
+461-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:423:25-75
+462            </intent-filter>
+463
+464            <meta-data
+464-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-33:71
+465                android:name="android.appwidget.provider"
+465-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-58
+466                android:resource="@xml/clean_widget_info" />
+466-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:17-68
+467        </receiver>
+468        <receiver
+468-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:430:9-443:20
+469            android:name="com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider"
+469-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:431:13-95
+470            android:exported="true"
+470-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:432:13-36
+471            android:label="@string/picture" >
+471-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:433:13-44
+472            <intent-filter>
+472-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:434:13-438:29
+473                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+473-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:269:17-87
+473-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:269:25-84
+474                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+474-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:436:17-84
+474-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:436:25-81
+475                <action android:name="android.appwidget.action.IOS_WIDGET" />
+475-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:423:17-78
+475-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:423:25-75
+476            </intent-filter>
+477
+478            <meta-data
+478-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-33:71
+479                android:name="android.appwidget.provider"
+479-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-58
+480                android:resource="@xml/picture_app_widget_provider_info" />
+480-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:17-68
+481        </receiver>
+482        <receiver
+482-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:444:9-461:20
+483            android:name="com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider"
+483-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:445:13-92
+484            android:exported="true"
+484-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:446:13-36
+485            android:label="@string/battery" >
+485-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:447:13-44
+486            <intent-filter>
+486-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:448:13-453:29
+487                <action android:name="android.appwidget.action.IOS_WIDGET" />
+487-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:423:17-78
+487-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:423:25-75
+488                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+488-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:450:17-85
+488-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:450:25-82
+489                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+489-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:451:17-86
+489-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:451:25-83
+490                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+490-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:436:17-84
+490-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:436:25-81
+491            </intent-filter>
+492            <intent-filter>
+492-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:454:13-456:29
+493                <action android:name="com.ios.ACTION_UPDATE_BATTERY_WIDGET" />
+493-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:455:17-79
+493-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:455:25-76
+494            </intent-filter>
+495
+496            <meta-data
+496-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-33:71
+497                android:name="android.appwidget.provider"
+497-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-58
+498                android:resource="@xml/battery_widget_provider_info" />
+498-->[:module:iOSSearch] E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:17-68
+499        </receiver>
+500        <receiver
+500-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:462:9-475:20
+501            android:name="com.amz.ios.launcher.WorkspaceReceiver"
+501-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:463:13-66
+502            android:exported="true" >
+502-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:464:13-36
+503            <intent-filter>
+503-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:465:13-467:29
+504                <action android:name="com.ios.workspace.ACTION_DEBUG" />
+504-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:466:17-73
+504-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:466:25-70
+505            </intent-filter>
+506            <intent-filter>
+506-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:468:13-474:29
+507                <action android:name="android.provider.Telephony.SECRET_CODE" />
+507-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:469:17-81
+507-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:469:25-78
+508
+509                <data
+509-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:471:17-473:60
+510                    android:host="6633"
+510-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:472:21-40
+511                    android:scheme="android_secret_code" />
+511-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:473:21-57
+512            </intent-filter>
+513        </receiver>
+514
+515        <service
+515-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:477:9-481:52
+516            android:name="com.amz.ios.launcher.dynamicui.WallpaperManagerCompatVL$ColorExtractionService"
+516-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:478:13-106
+517            android:exported="false"
+517-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:479:13-37
+518            android:permission="android.permission.BIND_JOB_SERVICE"
+518-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:480:13-69
+519            android:process=":wallpaper_chooser" />
+519-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:481:13-49
+520        <service
+520-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:482:9-491:19
+521            android:name="com.amz.ios.launcher.notification.NotificationListener"
+521-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:483:13-82
+522            android:enabled="@bool/notification_badging_enabled"
+522-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:484:13-65
+523            android:exported="true"
+523-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:485:13-36
+524            android:label="@string/icon_badging_service_title"
+524-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:486:13-63
+525            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+525-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:487:13-87
+526            <intent-filter>
+526-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:488:13-490:29
+527                <action android:name="android.service.notification.NotificationListenerService" />
+527-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:489:17-99
+527-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:489:25-96
+528            </intent-filter>
+529        </service>
+530
+531        <meta-data
+531-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:493:9-495:36
+532            android:name="android.nfc.disable_beam_default"
+532-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:494:13-60
+533            android:value="true" />
+533-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:495:13-33
+534
+535        <activity
+535-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:497:9-508:20
+536            android:name="com.amz.ios.launcher.dragndrop.AddItemActivity"
+536-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:498:13-74
+537            android:autoRemoveFromRecents="true"
+537-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:499:13-49
+538            android:excludeFromRecents="true"
+538-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:500:13-46
+539            android:exported="true"
+539-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:501:13-36
+540            android:label="@string/action_add_to_workspace"
+540-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:502:13-60
+541            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" >
+541-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:503:13-82
+542            <intent-filter>
+542-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:504:13-507:29
+543                <action android:name="android.content.pm.action.CONFIRM_PIN_SHORTCUT" />
+543-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:505:17-89
+543-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:505:25-86
+544                <action android:name="android.content.pm.action.CONFIRM_PIN_APPWIDGET" />
+544-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:506:17-90
+544-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:506:25-87
+545            </intent-filter>
+546        </activity>
+547
+548        <meta-data
+548-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:510:9-512:69
+549            android:name="com.android.launcher3.launcher_dump_provider"
+549-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:511:13-72
+550            android:value="com.amz.ios.launcher.LauncherProvider" />
+550-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:512:13-66
+551        <meta-data
+551-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:513:9-515:47
+552            android:name="com.google.android.actions"
+552-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:514:13-54
+553            android:resource="@xml/litepal" /> <!-- 应用使用统计 -->
+553-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:515:13-44
+554        <provider
+554-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-27:39
+555            android:name="com.amz.ios.ioslite.common.provider.AppUsagesProvider"
+555-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-81
+556            android:authorities="com.amz.ios.ioslite.provider.usages"
+556-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-70
+557            android:exported="true" /> <!-- 全局设置 -->
+557-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-36
+558        <provider
+558-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:9-33:39
+559            android:name="com.amz.ios.ioslite.common.setting.SettingProvider"
+559-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-78
+560            android:authorities="com.amz.ios.ioslite.common.setting"
+560-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-69
+561            android:exported="true" /> <!-- 内存监测 -->
+561-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-36
+562        <activity
+562-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-46:20
+563            android:name="com.amz.ios.ioslite.common.debug.MemoryDumpActivity"
+563-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-79
+564            android:excludeFromRecents="true"
+564-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-46
+565            android:exported="true"
+565-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-36
+566            android:theme="@android:style/Theme.NoDisplay" >
+566-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-59
+567            <intent-filter>
+567-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:367:13-371:29
+568                <action android:name="android.intent.action.MAIN" />
+568-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:17-69
+568-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:25-66
+569
+570                <category android:name="android.intent.category.DEFAULT" />
+570-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:17-76
+570-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:114:27-73
+571            </intent-filter>
+572        </activity> <!-- 内存监测服务 -->
+573        <service android:name="com.amz.ios.ioslite.common.debug.MemoryTracker" />
+573-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-82
+573-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:18-79
+574
+575        <receiver
+575-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:9-61:20
+576            android:name="com.amz.ios.ioslite.common.downloadapk.ApkReceiver"
+576-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-78
+577            android:exported="true" >
+577-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-36
+578            <intent-filter>
+578-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:13-55:29
+579                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+579-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:17-82
+579-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:25-79
+580            </intent-filter>
+581            <intent-filter>
+581-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:13-60:29
+582                <action android:name="android.intent.action.PACKAGE_ADDED" />
+582-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:17-78
+582-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:25-75
+583
+584                <data android:scheme="package" />
+584-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:471:17-473:60
+584-->[:module:iOSLauncher] E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\build\intermediates\merged_manifest\debug\AndroidManifest.xml:473:21-57
+585            </intent-filter>
+586        </receiver>
+587
+588        <activity
+588-->[:library:iosdialogs4android] E:\Amarzic\ASA155_IOSLauncher\library\iosdialogs4android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-14:56
+589            android:name="com.amz.varunjohn1990.iosdialogs4android.IOSDialogView"
+589-->[:library:iosdialogs4android] E:\Amarzic\ASA155_IOSLauncher\library\iosdialogs4android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
+590            android:exported="true"
+590-->[:library:iosdialogs4android] E:\Amarzic\ASA155_IOSLauncher\library\iosdialogs4android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-36
+591            android:launchMode="singleTop"
+591-->[:library:iosdialogs4android] E:\Amarzic\ASA155_IOSLauncher\library\iosdialogs4android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-43
+592            android:theme="@style/AppThemeIosDialog" />
+592-->[:library:iosdialogs4android] E:\Amarzic\ASA155_IOSLauncher\library\iosdialogs4android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-53
+593
+594        <provider
+594-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+595            android:name="androidx.startup.InitializationProvider"
+595-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+596            android:authorities="com.amz.ioslauncher.iossearch.test.androidx-startup"
+596-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+597            android:exported="false" >
+597-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+598            <meta-data
+598-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+599                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+599-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+600                android:value="androidx.startup" />
+600-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+601            <meta-data
+601-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\b8d63255329195fd2c2a7e092eff27a9\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+602                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+602-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\b8d63255329195fd2c2a7e092eff27a9\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+603                android:value="androidx.startup" />
+603-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\b8d63255329195fd2c2a7e092eff27a9\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+604            <meta-data
+604-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+605                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+605-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+606                android:value="androidx.startup" />
+606-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+607        </provider>
+608
+609        <receiver
+609-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+610            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+610-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+611            android:directBootAware="false"
+611-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+612            android:enabled="true"
+612-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+613            android:exported="true"
+613-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+614            android:permission="android.permission.DUMP" >
+614-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+615            <intent-filter>
+615-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+616                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+616-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+616-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+617            </intent-filter>
+618            <intent-filter>
+618-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+619                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+619-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+619-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+620            </intent-filter>
+621            <intent-filter>
+621-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+622                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+622-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+622-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+623            </intent-filter>
+624            <intent-filter>
+624-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+625                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+625-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+625-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\OS\.gradle\caches\transforms-3\bfb77bcffe9005c7585c1baa191ed405\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+626            </intent-filter>
+627        </receiver>
+628
+629        <service
+629-->[androidx.room:room-runtime:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\55add59a4b85ed0a53192b3c6d53760d\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+630            android:name="androidx.room.MultiInstanceInvalidationService"
+630-->[androidx.room:room-runtime:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\55add59a4b85ed0a53192b3c6d53760d\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+631            android:directBootAware="true"
+631-->[androidx.room:room-runtime:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\55add59a4b85ed0a53192b3c6d53760d\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+632            android:exported="false" />
+632-->[androidx.room:room-runtime:2.6.1] C:\Users\OS\.gradle\caches\transforms-3\55add59a4b85ed0a53192b3c6d53760d\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+633    </application>
+634
+635</manifest>

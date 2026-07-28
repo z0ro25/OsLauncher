@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>حاول إدخال اسم صديقك </item>
+        <item>ابحث عما تريد من التطبيقات</item>
+        <item> حاول البحث عن اسم الموسيقى</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>يمكنك البحث عن جهات الاتصال</item>
+        <item>البحث عن التطبيقات المحبة </item>
+        <item>يمكنك العثور على الموسيقى</item>
+        <item>اضغط على هنا</item>
+        <item>تعالى هنا لرؤية الصور الخلفية </item>
+        <item>شغله فيكون هاتفك على أسرع حال</item>
+        <item>تعالى وانظر إلى الطقس</item>
+        <item>تم تحديث موضوع، التحقق من ذلك!</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">لم يتم تركيب التطبيق</string>
+    <string name="fmsearch_app_name"> البحث </string>
+    <string name="fmsearch_download">تحميل</string>
+    <string name="fmsearch_download_market_update_message"> هذه الميزة تعتمد على تعريف السوق من أحدث نسخة من طرف عملاء سوق zhouyi، هل ترغب في الاستمرار على تحميلها (واي فاي موصى به)؟    </string>
+    <string name="fmsearch_download_market_warning_message">تعتمد هذه الميزة على نسخة مخصصة من طرف عملاء سوق zhouyi,هل ترغب في الاستمرار على تحميلها(واي فاي موصى به)؟
+    </string>
+    <string name="fmsearch_search_pic"> البحث عن الصور </string>
+    <string name="fmsearch_search_video">البحث عن الفيديو</string>
+    <string name="fmsearch_search_websit">البحث عن الصفحة</string>
+    <string name="fmsearch_str_contact">جهات الاتصال</string>
+    <string name="fmsearch_str_music">الموسيقى</string>
+    <string name="fmsearch_tips">تذكيرة</string>
+    <string name="fmsearch_txt_head_local_app">التطبيقات</string>
+    <string name="fmsearch_txt_head_online_app"> تطبيقات توصية </string>
+</resources>

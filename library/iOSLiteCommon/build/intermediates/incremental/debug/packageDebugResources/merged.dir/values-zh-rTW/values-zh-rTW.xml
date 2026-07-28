@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="discovery_cancel">取消</string>
+    <string name="discovery_data_warn_tips">是否在數據流量下繼續下載？</string>
+    <string name="discovery_downloading">該應用正在下載</string>
+    <string name="discovery_start_download">開始下載</string>
+    <string name="discovery_sure">確認</string>
+    <string name="settings_error_text">由於系統限制，不可使用！</string>
+    <string name="settings_sim_error_text">無SIM卡！</string>
+</resources>

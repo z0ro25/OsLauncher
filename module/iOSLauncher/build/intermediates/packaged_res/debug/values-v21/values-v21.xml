@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LauncherAlertDialog" parent="@android:style/Theme.Material.Light.Dialog.Alert"/>
+    <style name="LauncherTheme" parent="@style/BaseWallpaperTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:colorControlActivated">@color/ios_accent_color</item>
+        <item name="android:colorAccent">@color/ios_accent_color</item>
+        <item name="android:colorPrimary">@color/ios_accent_color</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:colorControlHighlight">@color/transparent</item>
+    </style>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="fmsearch_app_name">Пошук</string>
+    <string name="fmsearch_txt_head_online_app">Рекомендоване додаток</string>
+    <string name="fmsearch_txt_head_local_app">Додаток</string>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Знайти ваші КОНТАКТИ тут</item>
+        <item>Знайти ваші ПРОГРАМИ тут</item>
+        <item>Знайти вашу МУЗИКУ тут</item>
+        <item>надрукувати тут</item>
+        <item>Відмінні шпалери тут</item>
+        <item>Спробуйте зробити Ваш телефон швидше!</item>
+        <item>Запит інформації про погоду тут</item>
+        <item>Зараз надходить нова ТЕМА</item>
+    </string-array>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Ввести ім\'я одного тут</item>
+        <item>Знайти додаток, яке ви бажаєте</item>
+        <item>Знайти вашу музику</item>
+    </string-array>
+    <string name="fmsearch_tips">Вказівки</string>
+    <string name="fmsearch_str_contact">Контакти</string>
+    <string name="fmsearch_str_music">Музика</string>
+    <string name="fmsearch_search_websit">знайти сайт</string>
+    <string name="fmsearch_search_pic">Знайти фото</string>
+    <string name="fmsearch_search_video">Знайти відео</string>
+    <string name="fmsearch_download_market_warning_message">Дані характеристики відрізняються від призначеного для користувача ринку чжуі. Бажаєте продовжити завантаження (рекомендується застосування wifi?)</string>
+    <string name="fmsearch_download_market_update_message">Дані характеристики відрізняються від призначеного для користувача ринку чжуі. Бажаєте продовжити завантаження поновлення (рекомендується застосування wifi?)</string>
+    <string name="fmsearch_activity_not_found">Додаток не було встановлено</string>
+    <string name="fmsearch_download">Завантаження</string>
+</resources>

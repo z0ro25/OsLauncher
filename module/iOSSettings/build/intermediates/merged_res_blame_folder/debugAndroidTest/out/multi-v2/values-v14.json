@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.ios.ioslite.odm.test.iOSSettings-mergeDebugAndroidTestResources-41:/values-v14/values-v14.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSSettings\\build\\intermediates\\packaged_res\\debug\\values-v14\\values-v14.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "301"
+                    }
+                }
+            ]
+        }
+    ]
+}

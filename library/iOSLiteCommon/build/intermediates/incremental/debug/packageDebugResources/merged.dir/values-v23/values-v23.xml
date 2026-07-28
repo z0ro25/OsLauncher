@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PrefSettings" parent="PrefSettingsBase">
+        <item name="android:windowBackground">@color/pref_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/ios_accent_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

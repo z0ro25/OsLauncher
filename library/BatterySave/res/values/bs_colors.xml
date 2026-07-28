@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bs_background">#FFDDDDDD</color>
+    <color name="bs_switcher">#000000</color>
+    <color name="bs_settings_line">#30000000</color>
+    <color name="bs_on">#8EE34F</color>
+    <color name="bs_off">#FF0000</color>
+    <color name="sl_background_color">#29bd68</color>
+    <color name="sl_white">#ffffffff</color>
+    <color name="sl_list_item_left_text_color">#ffa09f9f</color>
+    <color name="sl_title_bar_color">#29bd68</color>
+    <color name="sl_title_bar_select_color">#10000000</color>
+    <color name="sl_title_bar_transparent_color">#00000000</color>
+    <color name="sl_transparent">#00000000</color>
+    <color name="sl_tab_text_color_selected">#2cb3de</color>
+    <color name="sl_ripple_btn">#24a059</color>
+    <color name="sl_hint_color">#404040</color>
+
+</resources>

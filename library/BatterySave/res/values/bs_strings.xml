@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="app_name">EnergySavingSwitch</string> -->
+
+    <string name="bs_switcher">Saving Settings</string>
+    <string name="bs_min">min</string>
+    <string name="sl_finger_print_lock_screen_tv">Supports fingerprint unlocking</string>
+    <string name="sl_app_list_empty">No apps</string>
+    <string name="sl_enter_psw_16">Enter password (6 chars)</string>
+    <string name="sl_enter_new_psw_16">Enter a new password (6 chars)</string>
+    <string name="sl_enter_psw_16_again">Please re-enter password</string>
+    <string name="sl_enter_new_psw">New PW must be different!</string>
+    <string name="sl_enter_new_psw_16_again">Please re-enter a new password</string>
+    <string name="sl_enter_psw_16_error">Wrong password</string>
+    <string name="sl_enter_psw_16_again_error">PW input is not consistent!</string>
+    <string name="sl_enter_psw_16_empty">Password cannot be left empty</string>
+    <string name="sl_change_password_sucessed">Password change is completed</string>
+    <string name="sl_security_item_hint2">App lock</string>
+    <string name="sl_lock_temp_addapp"> Add apps </string>
+    <string name="sl_un_locking">Unlocking...</string>
+    <string name="sl_dialog_text">Please give the allowance to run app lock</string>
+    <string name="sl_ok">Confirm</string>
+    <string name="sl_lock_setting">Settings</string>
+    <string name="sl_security_item_change_password">Change password</string>
+    <string name="sl_app_list_add_listbutton">Add apps to lock</string>
+    <string name="sl_my_common_loading">Loading&#8230;</string>
+    <string name="sl_facebook">Like us on Facebook</string>
+    <string name="sl_set_psw">Please set a new password(6 chars)</string>
+    <string name="sl_hint_tv">The next step ，open the "IOS"</string>
+    <string name="sl_float_hint_tv">If you can\'t use it as usual,open the "floating window"in the setting or security center please.</string>
+
+    <string name="sl_facebook_app_id" translatable="false">676936659125075</string>
+    <string name="sl_facebook_advertise_id" translatable="false">676936659125075_693364927482248</string>
+
+</resources>

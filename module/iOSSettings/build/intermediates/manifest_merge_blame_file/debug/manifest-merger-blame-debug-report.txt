@@ -1,0 +1,121 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.ios.ioslite.odm"
+5    android:versionCode="1"
+6    android:versionName="1.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="26"
+9-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml
+10        android:targetSdkVersion="34" />
+10-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml
+11
+12    <!-- <uses-sdk -->
+13    <!-- android:minSdkVersion="8" -->
+14    <!-- android:targetSdkVersion="21" /> -->
+15
+16
+17    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
+18
+19
+20    <!-- <uses-permission android:name="android.permission.VIBRATE" /> -->
+21
+22
+23    <!-- <uses-permission android:name="android.permission.READ_SETTINGS" /> -->
+24    <!-- <uses-permission android:name="android.permission.BLUETOOTH" /> -->
+25    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
+26
+27
+28    <!-- <uses-permission android:name="android.permission.READ_SECURE_SETTINGS" /> -->
+29
+30
+31    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
+32    <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> -->
+33    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+34
+35    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+35-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:25:5-79
+35-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:25:22-76
+36    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+36-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:26:5-79
+36-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:26:22-76
+37
+38    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+39    <!-- <uses-permission android:name="android.permission.FLASHLIGHT" /> -->
+40    <!-- <uses-feature android:name="android.hardware.camera" /> -->
+41    <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
+42    <!-- <uses-feature android:name="android.hardware.camera.flash" /> -->
+43    <!-- <uses-permission android:name="android.permission.READ_CALL_LOG" /> -->
+44    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" -->
+45    <!-- tools:ignore="CoarseFineLocation" /> -->
+46    <application android:allowBackup="true" >
+46-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:39:5-78:19
+46-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:40:9-35
+47        <activity
+47-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:41:9-64:20
+48            android:name="com.amz.ios.iossettings.SettingsActivity"
+48-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:44:13-68
+49            android:anyDensity="true"
+49-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:46:13-38
+50            android:exported="true"
+50-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:42:13-36
+51            android:icon="@drawable/settings_ic"
+51-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:47:13-49
+52            android:label="@string/settings_app_name"
+52-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:48:13-54
+53            android:launchMode="singleTask"
+53-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:49:13-44
+54            android:normalScreens="true"
+54-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:51:13-41
+55            android:resizeableActivity="false"
+55-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:43:13-47
+56            android:screenOrientation="portrait"
+56-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:45:13-49
+57            android:smallScreens="true"
+57-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:52:13-40
+58            android:taskAffinity="com.ios.iossettings"
+58-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:50:13-55
+59            android:theme="@style/SettingsAppTheme" >
+59-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:53:13-52
+60
+61            <!--
+62            <intent-filter>
+63                <action android:name="android.intent.action.MAIN" />
+64                <category android:name="android.intent.category.LAUNCHER"/>
+65            </intent-filter>
+66            -->
+67
+68            <intent-filter>
+68-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:61:13-63:29
+69                <action android:name="com.ios.ioslite.CREATE_SHORTCUT" />
+69-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:62:17-74
+69-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:62:25-71
+70            </intent-filter>
+71        </activity>
+72
+73        <receiver
+73-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:66:9-77:20
+74            android:name="com.amz.ios.iossettings.TorchWidgetProvider"
+74-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:68:13-71
+75            android:exported="true"
+75-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:67:13-36
+76            android:label="@string/torch_widget_name" >
+76-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:69:13-54
+77            <intent-filter>
+77-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:70:13-72:29
+78                <action android:name="android.appwidget.action.IOS_WIDGET" />
+78-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:71:17-78
+78-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:71:25-75
+79            </intent-filter>
+80
+81            <meta-data
+81-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:74:13-76:61
+82                android:name="android.appwidget.provider"
+82-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:75:17-58
+83                android:resource="@xml/torch_widget_info" />
+83-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSettings\AndroidManifest.xml:76:17-58
+84        </receiver>
+85    </application>
+86
+87</manifest>

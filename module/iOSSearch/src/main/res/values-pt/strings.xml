@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="fmsearch_app_name">Pesquisar</string>
+    <string name="fmsearch_txt_head_online_app">App recomendado</string>
+    <string name="fmsearch_txt_head_local_app">App</string>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Encontre aqui os seus CONTACTOS</item>
+        <item>Encontre aqui seus APPS</item>
+        <item>Encontre aqui suas MÚSICAS</item>
+        <item>Toque aqui</item>
+        <item>O PAPEL DE PAREDE perfeito está aqui</item>
+        <item>Tente fazer com que seu telefone responda mais rápido!</item>
+        <item>Consulte aqui a informação do CLIMA</item>
+        <item>Um novo TEMA está chegando</item>
+    </string-array>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Digite aqui o nome do seu amigo</item>
+        <item>Encontre a aplicação que você deseja</item>
+        <item>Pesquise sua música</item>
+    </string-array>
+    <string name="fmsearch_tips">Dicas</string>
+    <string name="fmsearch_str_contact">Contatos</string>
+    <string name="fmsearch_str_music">Música</string>
+    <string name="fmsearch_search_websit">Pesquisar no Site</string>
+    <string name="fmsearch_search_pic">Pesquisar Foto</string>
+    <string name="fmsearch_search_video">Procurar Vídeo</string>
+    <string name="fmsearch_download_market_warning_message">Este recurso difere de um cliente de mercado Zhouyi personalizado para outro. Deseja continuar a fazer o download (rede Wi-Fi recomendada)?</string>
+    <string name="fmsearch_download_market_update_message">Este recurso difere de um cliente personalizado para outro do mercado Zhouyi mais recente. Deseja continuar a fazer o download das atualizações (se sim, a rede Wi-Fi é recomendada)?</string>
+    <string name="fmsearch_activity_not_found">O aplicativo não foi instalado.</string>
+    <string name="fmsearch_download">Download</string>
+</resources>

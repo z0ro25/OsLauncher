@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/* Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<resources>
+    <declare-styleable name="IOSLoadingView">
+        <attr name="minWidth" format="dimension" />
+        <attr name="maxWidth" format="dimension" />
+        <attr name="minHeight" format="dimension" />
+        <attr name="maxHeight" format="dimension" />
+        <attr name="indicatorColor" format="color" />
+        <attr name="indicatorType" format="integer">
+            <enum name="BallPaulseIndicator" value="1" />
+            <enum name="IOSDotIndicator" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SmoothCheckBox">
+        <attr name="duration" format="integer" />
+        <attr name="stroke_width" format="dimension" />
+        <attr name="color_tick" format="color" />
+        <attr name="color_checked" format="color" />
+        <attr name="color_unchecked" format="color" />
+        <attr name="color_unchecked_stroke" format="color" />
+        <attr name="check_box_clickable" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="EnhancedTextView">
+        <attr name="drawableLeftWidth" format="dimension" />
+        <attr name="drawableLeftHeight" format="dimension" />
+        <attr name="drawableRightWidth" format="dimension" />
+        <attr name="drawableRightHeight" format="dimension" />
+        <attr name="drawableTopWidth" format="dimension" />
+        <attr name="drawableTopHeight" format="dimension" />
+        <attr name="drawableBottomWidth" format="dimension" />
+        <attr name="drawableBottomHeight" format="dimension" />
+        <attr name="drawablePadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="Switch">
+        <attr name="lineCheckedColor" format="color"></attr>
+        <attr name="lineUnCheckedColor" format="color"></attr>
+        <attr name="lineHeight" format="dimension"></attr>
+        <attr name="innerCheckedBroderColor" format="color" />
+        <attr name="innerUnCheckedBroderColor" format="color" />
+        <attr name="innerBroderWidth" format="dimension" />
+        <attr name="btnCheckedColor" format="color" />
+        <attr name="btnUnCheckedColor" format="color" />
+        <attr name="innerPadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="IOSPreference">
+        <attr name="preferenceBackground" format="reference" />
+        <attr name="preferenceIcon" format="reference" />
+        <attr name="PreferencetitleColor" format="color" />
+        <attr name="preferenceTitle" format="string" />
+        <attr name="preferenceTitleRightIcon" format="reference" />
+        <attr name="PreferenceSummaryColor" format="color" />
+        <attr name="preferenceSummary" format="string" />
+        <attr name="showSwitch" format="boolean" />
+        <attr name="hideDivider" format="boolean" />
+        <attr name="rightImage" format="integer">
+            <enum name="redDot" value="0" />
+            <enum name="showSwitch" value="1" />
+            <enum name="rightArrow" value="2" />
+            <enum name="showSpinner" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Titlebar">
+        <attr name="titleText" format="string" />
+        <attr name="back_color" format="color" />
+        <attr name="background_color" format="color" />
+        <attr name="hideTitleDivider" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ItemInfoLayout">
+        <attr name="itemInfoTitle" format="reference" />
+        <attr name="itemInfoDescription" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleButton">
+        <attr name="CircleBtncolor" format="color" />
+        <attr name="CircleBtnRingWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="NativeAdCardView">
+
+    </declare-styleable>
+</resources>

@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ios.themeclub.test.iOSThemeClub-mergeDebugAndroidTestResources-42:/values-v19/values-v19.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSLauncher\\build\\intermediates\\packaged_res\\debug\\values-v19\\values-v19.xml",
+                    "from": {
+                        "startLines": "2,6,10,14",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,277,487,703",
+                        "endLines": "5,9,13,17",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "272,482,698,913"
+                    }
+                }
+            ]
+        }
+    ]
+}

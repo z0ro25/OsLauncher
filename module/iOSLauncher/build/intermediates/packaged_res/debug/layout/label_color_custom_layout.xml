@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/colorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.amz.ios.launcher.views.IOSPreference
+        android:id="@+id/common_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        launcher:preferenceTitle="@string/setting_label_common_color"
+        launcher:rightImage="showSpinner" />
+
+    <com.amz.ios.launcher.views.IOSPreference
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        launcher:hideDivider="true"
+        launcher:preferenceTitle="@string/setting_label_custom_color" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.amz.ios.ioslite.common.widget.ColorPickerView
+            android:id="@+id/colorPicker"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/pref_btn_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/pref_btn_selector_bg"
+            android:gravity="center"
+            android:text="@android:string/cancel"
+            android:textColor="@color/pref_title"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/pref_btn_divider" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/pref_btn_selector_bg"
+            android:gravity="center"
+            android:text="@android:string/ok"
+            android:textColor="@color/pref_title"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

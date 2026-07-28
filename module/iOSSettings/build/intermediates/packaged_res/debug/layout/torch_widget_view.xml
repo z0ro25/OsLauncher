@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.amz.ios.iossettings.TorchWidgetView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/iconViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/torchIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:antialias="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_app_torch" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/widgetName"
+            style="@style/TorchWidgetText"
+            android:text="@string/torch_widget_name" />
+    </LinearLayout>
+</com.amz.ios.iossettings.TorchWidgetView>

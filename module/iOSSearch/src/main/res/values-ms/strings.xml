@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="fmsearch_app_name">Carian</string>
+    <string name="fmsearch_txt_head_online_app">Aplikasi yang disyorkan</string>
+    <string name="fmsearch_txt_head_local_app">Aplikasi</string>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Boleh mencari kenalan</item>
+        <item>Carian aplikasi tempatan</item>
+        <item>Muzik boleh dijumpai</item>
+        <item>Datang ke sini</item>
+        <item>Seseorang memanggil anda melihat kertas dinding</item>
+        <item>Saya mendengar bahwa menggunakan telefon ini menjadi sangat cepat</item>
+        <item>Sila lihat cuaca!</item>
+        <item>Tema telah dikemas kini, sila lihat!</item>
+    </string-array>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Cuba masukkan nama rakan</item>
+        <item>Cari aplikasi yang anda inginkan</item>
+        <item>Cuba cari Judul muzik</item>
+    </string-array>
+    <string name="fmsearch_tips">Petua</string>
+    <string name="fmsearch_str_contact">Kenalan</string>
+    <string name="fmsearch_str_music">Muzik</string>
+    <string name="fmsearch_search_websit">Cari Laman web</string>
+    <string name="fmsearch_search_pic">Cari Gambar</string>
+    <string name="fmsearch_search_video">Cari Video</string>
+    <string name="fmsearch_download_market_warning_message">Versi ini bergantung kepada versi klien pasar zhouyi yang disesuaikan, mahu teruskan muat turun (wifi disyorkan)?    </string>
+    <string name="fmsearch_download_market_update_message">Versi ini bergantung kepada versi klien terkini pasar zhouyi yang disesuaikan, mahu teruskan muat turun (wifi disyorkan)?    
+    </string>
+    <string name="fmsearch_activity_not_found">Aplikasi tidak dipasang.</string>
+    <string name="fmsearch_download">Muat turun</string>
+</resources>

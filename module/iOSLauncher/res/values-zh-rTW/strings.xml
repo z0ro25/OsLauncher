@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="work_folder_name">"公司"</string>
+    <string name="activity_not_found">"應用程式未安裝。"</string>
+    <string name="activity_not_available">"應用程式目前無法使用"</string>
+    <string name="safemode_shortcut_error">"在安全模式中無法使用「已下載的應用程式」功能"</string>
+    <string name="safemode_widget_error">"在安全模式下無法使用小工具"</string>
+    <string name="toggle_weight_watcher">"顯示記憶體"</string>
+    <string name="long_press_widget_to_add">"輕觸並按住小工具即可選取。"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_accessible_dims_format">"寬度為 %1$d，高度為 %2$d"</string>
+    <string name="place_automatically">"自動新增"</string>
+    <string name="all_apps_search_bar_hint">"搜尋應用程式"</string>
+    <string name="all_apps_loading_message">"正在載入應用程式…"</string>
+    <!--<string name="all_apps_no_search_results">"找不到符合「<xliff:g id="QUERY">%1$s</xliff:g>」的應用程式"</string>-->
+    <string name="all_apps_no_search_results">"找不到符合的應用程式"</string>
+    <string name="all_apps_search_market_message">"前往 <xliff:g id="QUERY">%1$s</xliff:g>"</string>
+    <string name="out_of_space">"這個主螢幕已無空間。"</string>
+    <string name="hotseat_out_of_space">"「我的最愛」匣已無可用空間"</string>
+    <string name="all_apps_button_label">"應用程式"</string>
+    <string name="all_apps_home_button_label">"主螢幕"</string>
+    <string name="delete_target_label">"移除"</string>
+    <string name="delete_target_uninstall_label">"解除安裝"</string>
+    <string name="info_target_label">"應用程式資訊"</string>
+    <string name="permlab_install_shortcut">"安裝捷徑"</string>
+    <string name="permdesc_install_shortcut">"允許應用程式自動新增捷徑。"</string>
+    <string name="permlab_read_settings">"讀取主螢幕的設定和捷徑"</string>
+    <string name="permdesc_read_settings">"允許應用程式讀取主螢幕中的設定和捷徑。"</string>
+    <string name="permlab_write_settings">"寫入主螢幕設定和捷徑"</string>
+    <string name="permdesc_write_settings">"允許應用程式變更主螢幕中的設定和捷徑。"</string>
+    <string name="gadget_error_text">"載入小工具時發生問題"</string>
+    <string name="gadget_setup_text">"設定"</string>
+    <string name="uninstall_system_app_text">"這是系統應用程式，不可解除安裝。"</string>
+    <string name="folder_hint_text">"未命名的資料夾"</string>
+    <string name="default_scroll_format">"第 %1$d 頁，共 %2$d 頁"</string>
+    <string name="workspace_scroll_format">"主螢幕：第 %1$d 頁，共 %2$d 頁"</string>
+    <string name="first_run_cling_title">"歡迎使用"</string>
+    <string name="migration_cling_title">"複製您的應用程式圖示"</string>
+    <string name="migration_cling_description">"要從舊的主螢幕匯入圖示和資料夾嗎？"</string>
+    <string name="migration_cling_copy_apps">"複製圖示"</string>
+    <string name="migration_cling_use_default">"重新開始"</string>
+    <string name="workspace_cling_longpress_title">"桌布、小工具和設定"</string>
+    <string name="workspace_cling_longpress_description">"輕觸並按住背景即可自訂"</string>
+    <string name="workspace_cling_longpress_dismiss">"知道了"</string>
+    <string name="folder_opened">"資料夾已開啟 (<xliff:g id="WIDTH">%1$d</xliff:g> x <xliff:g id="HEIGHT">%2$d</xliff:g>)"</string>
+    <string name="folder_tap_to_close">"輕觸即可關閉資料夾"</string>
+    <string name="folder_tap_to_rename">"輕觸即可儲存新名稱"</string>
+    <string name="folder_closed">"資料夾已關閉"</string>
+    <string name="folder_renamed">"已將資料夾重新命名為「<xliff:g id="NAME">%1$s</xliff:g>」"</string>
+    <string name="folder_name_format">"資料夾：<xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="widget_button_text">"小工具"</string>
+    <string name="wallpaper_button_text">"桌布"</string>
+    <string name="settings_label">"設定"</string>
+    <string name="allow_rotation_title">"允許輪播"</string>
+    <string name="icon_badging_service_title">"顯示通知圓點"</string>
+    <string name="package_state_unknown">"不明"</string>
+    <string name="abandoned_clean_this">"移除"</string>
+    <string name="abandoned_search">"搜尋"</string>
+    <string name="abandoned_promises_title">"尚未安裝這個應用程式"</string>
+    <string name="abandoned_promise_explanation">"您尚未安裝這個圖示代表的應用程式。您可以移除這個圖示，也可以搜尋該應用程式並手動安裝。"</string>
+    <string name="action_add_to_workspace">"新增至主畫面"</string>
+    <string name="action_move_here">"將項目移至這裡"</string>
+    <string name="item_added_to_workspace">"已將項目新增到主畫面"</string>
+    <string name="item_removed">"已移除項目"</string>
+    <string name="action_move">"移動項目"</string>
+    <string name="move_to_empty_cell">"移至第 <xliff:g id="NUMBER_0">%1$s</xliff:g> 列第 <xliff:g id="NUMBER_1">%2$s</xliff:g> 欄"</string>
+    <string name="move_to_position">"移至位置 <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="move_to_hotseat_position">"移至收藏位置 <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="item_moved">"已移動項目"</string>
+    <string name="add_to_folder">"新增到「<xliff:g id="NAME">%1$s</xliff:g>」資料夾"</string>
+    <string name="add_to_folder_with_app">"新增到「<xliff:g id="NAME">%1$s</xliff:g>」所在資料夾"</string>
+    <string name="added_to_folder">"已將項目新增到資料夾"</string>
+    <string name="create_folder_with">"建立「<xliff:g id="NAME">%1$s</xliff:g>」資料夾"</string>
+    <string name="folder_created">"已建立資料夾"</string>
+    <string name="action_move_to_workspace">"移至主畫面"</string>
+    <string name="action_move_screen_left">"將畫面往左移"</string>
+    <string name="action_move_screen_right">"將畫面往右移"</string>
+    <string name="screen_moved">"已移動畫面"</string>
+    <string name="action_resize">"調整大小"</string>
+    <string name="action_increase_width">"增加寬度"</string>
+    <string name="action_increase_height">"增加高度"</string>
+    <string name="action_decrease_width">"減少寬度"</string>
+    <string name="action_decrease_height">"減少高度"</string>
+    <string name="widget_resized">"已將小工具的寬度和高度分別調整為 <xliff:g id="NUMBER_0">%1$s</xliff:g> 和 <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+    <string name="friends">喊朋友一起來使用！</string>
+    <string name="point">賺積分</string>
+    <string name="allapps_alhpa_exclusive">劃</string>
+    <string name="theme_club_button_text">美化中心</string>
+    <string name="ios_welcome_text">歡迎使用</string>
+    <string name="ios_detail_one_text">您將使用全新版的操作用戶系統</string>
+    <string name="ios_detail_two_text">更快更輕更簡單</string>
+	
+	<string name="main_menu_launcher_settings">桌面設置</string>
+    <string name="main_menu_sys_settings">系統設置</string>
+    <string name="shortcut_wallpaper">壁紙</string>
+    <string name="shortcut_theme">主題</string>
+    <string name="shortcut_power_save">省電模式</string>
+    <string name="widget_section_title_ios">Launcher</string>
+    <string name="widget_section_title_more">更多</string>
+    <string name="launcher_loading_first_time">系統正在為您佈置桌面</string>
+    <string name="launcher_settings">桌面設置</string>
+    <string name="settings_default_launcher">設置為默認桌面</string>
+    <string name="contact_us">聯繫我們</string>
+    <string name="setting_appearance">外觀設置</string>
+    <string name="setting_category_desktop">桌面</string>
+    <string name="setting_category_drawer">抽屜</string>
+    <string name="setting_effects">效果設置</string>
+    <string name="setting_magic_finger">魔法手指</string>
+    <string name="setting_magic_finger_summary">手指觸摸桌面是顯示動畫</string>
+    <string name="setting_category_layout">佈局</string>
+    <string name="drawer_style">抽屜風格</string>
+    <string name="home_screen_style">桌面風格</string>
+    <string name="home_screen_standard">標準</string>
+    <string name="home_screen_standard_des">在主界面顯示所有應用</string>
+    <string name="home_screen_drawer">抽屜風格</string>
+    <string name="home_screen_drawer_des">在抽屜界面顯示所有應用</string>
+    <string name="drawer_alpha_vertical_title">字母分組</string>
+    <string name="drawer_alpha_vertical_des">所有應用垂直滾動,按首字母分組</string>
+    <string name="drawer_full_vertical_title">網格</string>
+    <string name="drawer_full_vertical_des">所有應用垂直滾動,不分組</string>
+    <string name="setting_desktop_grid">桌面網格</string>
+    <string name="setting_desktop_grid_summary">桌面網格大小設置</string>
+    <string name="desktop_grid_layout_title">桌面圖標行列數</string>
+    <string name="setting_icon_layout">圖標佈局</string>
+    <string name="setting_icon_layout_summary">尺寸與文本</string>
+    <string name="setting_icon_layout_preview">預覽</string>
+    <string name="setting_icon_category">圖標</string>
+    <string name="setting_label_category">標籤</string>
+    <string name="setting_icon_size">圖標大小</string>
+    <string name="setting_label_size">字體大小</string>
+    <string name="setting_label_color">字體顏色</string>
+    <string name="setting_label_custom_color">自定義顏色</string>
+    <string name="setting_label_common_color">常用顏色</string>
+    <string name="setting_wallpaper_scrolling">壁紙滾動</string>
+    <string name="setting_wallpaper_scrolling_summary">滑屏時壁紙隨屏幕滾動</string>
+    <string name="setting_features">功能設置</string>
+    <string name="desktop_auto_align">自動對齊</string>
+    <string name="desktop_auto_align_desc">刪除應用後自動對齊桌面圖標</string>
+    <string name="apps_smart_category_title">智能整理</string>
+    <string name="apps_smart_category_desc">新安裝應用自動分類到桌面文件夾</string>
+    <string name="setting_category_widgets">組件</string>
+    <string name="setting_category_msg">消息</string>
+    <string name="setting_backup">備份與恢復</string>
+    <string name="setting_backup_desktop_title">備份桌面</string>
+    <string name="setting_category_backup">備份</string>
+    <string name="setting_category_restore">恢復</string>
+    <string name="setting_backup_desktop_summary">備份當前桌面的數據（應用，文件夾，快捷方式，小部件等）到存儲空間中。</string>
+    <string name="setting_backup_desktop_time">備份時間</string>
+    <string name="setting_import_desktop_title">恢復桌面</string>
+    <string name="setting_import_desktop_summary">從存儲空間中恢復桌面數據（應用，文件夾，快捷方式，小部件等）。</string>
+    <string name="setting_reset_desktop_title">重置桌面</string>
+    <string name="setting_reset_desktop_summary">重置桌面數據（應用，文件夾，快捷方式，小部件等）到默認狀態。</string>
+    <string name="launcher_settings_have_no_sdcard">没有存儲空間</string>
+    <string name="launcher_settings_backup_sucess">備份成功</string>
+    <string name="launcher_settings_backup_failed">備份失敗</string>
+    <string name="launcher_settings_restore_sucess">恢復成功</string>
+    <string name="launcher_settings_restore_failed">恢復失敗</string>
+    <string name="launcher_settings_restore_no_data">沒有備份數據</string>
+    <string name="launcher_settings_restore_confirm">是否確認要恢復桌面 ?</string>
+    <string name="setting_gesture">手勢</string>
+    <string name="setting_gesture_swipe_down">單指下滑</string>
+    <string name="setting_gesture_swipe_up">單指上滑</string>
+    <string name="setting_gesture_double_tap">單指雙擊</string>
+    <string name="setting_gesture_none">未設置手勢</string>
+    <string name="gesture_tab_ios">行為</string>
+    <string name="gesture_tab_apps">應用程序</string>
+    <string name="gesture_tab_shortcut">快捷方式</string>
+    <string name="news_center_title">頭條新聞</string>
+    <string name="news_center_desc">桌面負一屏幕熱點新聞</string>
+    <string name="search_bar_title">顯示搜索框</string>
+    <string name="search_bar_desc">桌面頂部搜索框</string>
+    <string name="app_recommend_title">Launcher 探索發現</string>
+    <string name="app_recommend_desc">文件夾下方的探索發現</string>
+    <string name="ios_konw_title">Launcher Know</string>
+    <string name="ios_konw_desc">桌面主頁頂部懸浮控件</string>
+    <string name="setting_nofify_manager">通知管理</string>
+    <string name="setting_nofify_manager_des">通知欄消息管理</string>
+    <string name="setting_def_home">設置默認桌面</string>
+    <string name="setting_low_memory">内存清理提醒</string>
+    <string name="setting_low_battery">低電量提醒</string>
+    <string name="setting_new_wallpaper">精選壁紙</string>
+    <string name="setting_new_theme">精選主題</string>
+    <string name="setting_advanced">高級設置</string>
+    <string name="settings_category_more">更多</string>
+    <string name="check_update">檢查更新</string>
+    <string name="update_start_download_apk">開始下載最新版本，可以在通知欄查看詳情。</string>
+    <string name="update_to_latest_version">立即更新到最新版</string>
+    <string name="menu_share">推薦給朋友</string>
+    <string name="menu_about">關於</string>
+    <string name="menu_ios_summary">世界上最小，最快的用戶系統</string>
+    <string name="about_website">官方網站</string>
+    <string name="about_communities_summary">在Google+上</string>
+    <string name="about_email">電子郵件</string>
+    <string name="terms_of_service">服务条款</string>
+    <string name="menu_privacy_notice">隐私声明</string>
+    <string name="about_version">版本信息</string>
+
+    <string name="drop_delete_anim_title">刪除動畫</string>
+    <string name="drop_delete_anim_summary">當從桌面刪除小部件或快捷方式時所使用的動畫效</string>
+    <string name="drop_delete_anim_system">系統</string>
+    <string name="drop_delete_anim_explosion">煙花</string>
+    <string name="pending_anim_system">系統</string>
+    <string name="pending_anim_title">應用切換動畫</string>
+    <string name="pending_anim_summary">當從桌面打開應用或者從應用返回桌面時所使用的動畫效果</string>
+    <string name="pending_transition_down">下滑動</string>
+    <string name="pending_transition_left">左滑動</string>
+    <string name="pending_transition_right">右滑動</string>
+    <string name="pending_transition_rotate">旋轉</string>
+    <string name="pending_transition_system">系統</string>
+    <string name="pending_transition_up">上滑動</string>
+    <string name="pending_transition_zoom">縮放</string>
+
+    <!-- Version Update  -->
+    <string name="update_self_dialog_title">更新版本</string>
+    <string name="update_self_dialog_content">新版本可用，點擊更新</string>
+    <string name="software_share_titile">分享</string>
+    <string name="update_start">正在檢查新版本，請稍候…</string>
+    <string name="update_check_no_update">恭喜！你現在已經是最新版本。</string>
+
+    <!-- Guide  -->
+    <string name="launcher_guide_allapps_content">所有應用，盡在其中；通過字母排序查找應用，又快又簡單</string>
+    <string name="launcher_guide_allapps_title">全部應用</string>
+    <string name="launcher_guide_got_it">我知道了</string>
+
+    <!-- Network State  -->
+    <string name="network_error_tip">網絡連接失敗，請確認網絡狀態。</string>
+    <string name="effect_button_text">滑屏效果</string>
+    <string name="screen_edit_add_tools">小工具</string>
+    <string name="transition_effect_none">默認滑屏</string>
+    <string name="transition_effect_stack">卡片堆</string>
+    <string name="transition_effect_windmill">風車</string>
+    <string name="transition_effect_wheel">輪子</string>
+    <string name="transition_effect_flip">垂直翻轉</string>
+    <string name="transition_effect_cross">交叉</string>
+    <string name="transition_effect_accordion">手風琴</string>
+    <string name="transition_effect_cubein">向內立方體</string>
+    <string name="transition_effect_cubeout">向外立方體</string>
+    <string name="transition_effect_carousel_left">旋轉木馬(左)</string>
+    <string name="transition_effect_carousel_right">旋轉木馬(右)</string>
+    <string name="transition_effect_overview">概覽</string>
+    <string name="screen_edit_effect_transition">滑屏效果</string>
+    <string name="screen_edit_label_color">顏色</string>
+    <string name="screen_edit_icon_size">圖標大小</string>
+    <string name="screen_edit_label_size">字體大小</string>
+    <string name="setting_size_big">大</string>
+    <string name="setting_size_normal">標準</string>
+    <string name="setting_size_small">小</string>
+    <string name="screen_edit_drop_delete_anim">刪除動畫</string>
+
+    <!-- tips -->
+    <string name="desktop_reset">重置</string>
+    <string name="desktop_reset_confirm">恢復桌面為默認狀態 ?</string>
+    <string name="program_restart">重啟</string>
+    <string name="program_restart_confirm">重啟桌面使設置生效？</string>
+    <string name="backup_permission_title">權限說明</string>
+    <string name="backup_permission_ration">桌面備份文件需要使用外部存儲權限.</string>
+
+    <string name="color_black">黑色</string>
+    <string name="color_white">白色</string>
+    <string name="rec_apps_predicted">猜你喜歡</string>
+    <string name="folder_discovery_label">Launcher 探索發現</string>
+
+    <string name="sort_button_text">圖標整理</string>
+    <string name="sort_icon_cur_up_screen_text">Top</string>
+    <string name="sort_icon_cur_down_screen_text">Bottom</string>
+    <string name="sort_icon_all_top_screen_text">All Top</string>
+    <string name="sort_icon_all_bottom_screen_text">All Bottom</string>
+    <string name="desktop_target_label">移至桌面</string>
+    <string name="unable_install_app_label">系統應用，無法卸載</string>
+    <string name="unable_remove_remove_label">文件夾不可刪除</string>
+
+    <string name="desktop_loop">開啓循環滑動</string>
+    <string name="category_folder_default">文件夾</string>
+    <string name="category_folder_entertainment">娛樂</string>
+    <string name="category_folder_finance_shopping">理財購物</string>
+    <string name="category_folder_ios_tools">Launcher工具箱</string>
+    <string name="category_folder_game">遊戲</string>
+    <string name="category_folder_lifestyle">便捷生活</string>
+    <string name="category_folder_media">影音播放</string>
+    <string name="category_folder_news_books">資訊閱讀</string>
+    <string name="category_folder_others">其他</string>
+    <string name="category_folder_photo">攝影美化</string>
+    <string name="category_folder_social">社交通訊</string>
+    <string name="category_folder_system">系統</string>
+    <string name="category_folder_tools">工具</string>
+    <string name="category_folder_traffic">旅遊出行</string>
+    <string name="category_folder_work_study">辦公學習</string>
+
+    <string name="sd_permission_title">權限說明</string>
+    <string name="sd_permission_ration">安裝應用需要使用外部存儲權限</string>
+    <string name="permlab_uninstall_shortcut">"解除安裝捷徑"</string>
+    <string name="permdesc_uninstall_shortcut">"允許應用程式自動移除捷徑。"</string>
+    <string name="shortcut_uninstalled">"已移除「<xliff:g id="NAME">%s</xliff:g>」捷徑。"</string>
+    <string name="drag_later">請稍後拖動</string>
+    <string name="overview_panel_set_home_page_text">點擊圖標可設為主頁</string>
+    <string name="folder_app_recommended_text">猜你喜歡</string>
+    <string name="shortcut_discovery">探索</string>
+
+    <string name="notification_badging_title">"通知圓點"</string>
+    <string name="msg_missing_notification_access">"如要顯示通知圓點，請開啟桌面的應用程式通知功能"</string>
+    <string name="title_missing_notification_access">"需要取得通知存取權"</string>
+    <string name="title_change_settings">"變更設定"</string>
+    <string name="icon_badging_desc_on">"已啟用"</string>
+    <string name="icon_badging_desc_off">"已停用"</string>
+
+</resources>

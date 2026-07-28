@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/* //device/apps/common/assets/res/any/colors.xml
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources>
+    <!-- Common colors -->
+    <color name="launcher_white">#FFFFFFFF</color>
+    <color name="launcher_green">#0F9F5A</color>
+    <color name="launcher_light_green">#990F9F5A</color>
+    <color name="launcher_light_grey">#80444444</color>
+    <color name="launcher_grey">#aa444444</color>
+    <color name="launcher_dark">#ff444444</color>
+    <color name="launcher_black">#FF000000</color>
+    <color name="launcher_transparent">#00000000</color>
+    <color name="launcher_transparent_black">#55000000</color>
+
+    <color name="wallpaper_bg_dim_color">#FFaaaaaa</color>
+
+    <!-- Over screen edit view  -->
+    <color name="screen_edit_tab_line">#4cffffff</color>
+    <color name="screen_edit_tab_txt_unchecked_color">#a3ffffff</color>
+    <color name="screen_edit_tab_pressed">#22ffffff</color>
+    <color name="screen_edit_gallery_cursor_bg">#22ffffff</color>
+    <color name="screen_edit_item_bg_normal">#22ffffff</color>
+    <color name="screen_edit_item_bg_pressed">#44ffffff</color>
+
+    <!-- Workspace -->
+    <color name="launcher_window_background_color">#00000000</color>
+
+    <!-- OvervewPanel -->
+
+    <!-- The color tints to apply to the text and drag view when hovering
+         over the delete target or the info target -->
+    <color name="delete_target_hover_tint">#FFC1C1C1</color>
+    <color name="uninstall_target_hover_tint">#FFF0592B</color>
+    <color name="info_target_hover_tint">#FF009688</color>
+    <color name="cling_scrim_background">#80000000</color>
+
+    <color name="focused_background">#00000000</color>
+
+    <color name="workspace_icon_text_color">#FFF</color>
+
+    <color name="workspace_edge_effect_color">#FFFFFFFF</color>
+    <color name="folder_edge_effect_color">#FF757575</color>
+
+    <color name="quantum_panel_bg_color">#FFF5F5F5</color>
+    <color name="quantum_panel_bg_color_dark">#FF374248</color>
+
+    <color name="outline_color">#FFFFFFFF</color>
+
+    <!-- Containers -->
+    <color name="container_fastscroll_thumb_inactive_color">#009688</color>
+    <color name="container_fastscroll_thumb_active_color">#009688</color>
+
+    <!-- Folders -->
+    <color name="folder_preview_bg_color">#33d6dedc</color>
+    <color name="folder_pageview_bg_color">#32c3ccd4</color>
+
+    <!-- FolderPager -->
+    <color name="folder_root_layout_bg_color">#99000000</color>
+    <color name="folder_cl_title_text">#FFFFFFFF</color>
+
+    <!-- All Apps -->
+    <color name="all_apps_search_bar_text_color">#FFFFFF</color>
+    <color name="all_apps_search_background_color">#15000000</color>
+    <color name="all_apps_search_divider_color">#55FFFFFF</color>
+    <color name="all_apps_background_color">#15000000</color>
+    <color name="all_apps_icon_text_color">#FFFFFF</color>
+    <color name="all_apps_search_market_button_focused_bg_color">#DDDDDD</color>
+
+    <!-- Widgets view -->
+    <color name="widgets_background_color">#FF374248</color>
+    <color name="widgets_section_title_selected_txt_color">#FFFFFF</color>
+    <color name="widgets_section_title_normal_txt_color">#66FFFFFF</color>
+    <color name="widgets_section_divider_color">#44FFFFFF</color>
+    <color name="widgets_view_section_text_color">#FFFFFF</color>
+    <color name="widgets_view_item_text_color">#C4C4C4</color>
+
+    <!-- ThemeManager-->
+    <color name="live_calendar_icon_txt_color_red">#F35738</color>
+    <color name="live_calendar_icon_txt_color">#000000</color>
+
+    <!-- Recommend Apps-->
+    <color name="folder_rec_apps_text_color">#88FFFFFF</color>
+    <color name="folder_rec_apps_layout_bg_color">#22FFFFFF</color>
+    <color name="folder_discovery_text_color">#FFFFFFFF</color>
+
+    <!-- Popup container -->
+    <color name="popup_header_background_color">#EEEEEE</color> <!-- Gray 200 -->
+    <color name="popup_background_color">#FFF</color>
+    <color name="notification_icon_default_color">#757575</color> <!-- Gray 600 -->
+    <color name="notification_color_beneath">#E0E0E0</color> <!-- Gray 300 -->
+
+    <color name="badge_color">#ff0000</color> <!-- Teal A400 -->
+    <color name="folder_badge_color">#ffff0000</color> <!-- Teal A400 -->
+
+    <!-- System shortcuts -->
+    <color name="system_shortcuts_icon_color">@android:color/tertiary_text_light</color>
+
+    <color name="legacy_icon_background">#FFFFFF</color>
+
+    <!--white-->
+    <color name="white10">#1affffff</color>
+    <color name="white20">#33ffffff</color>
+    <color name="white30">#4dffffff</color>
+    <color name="white40">#66ffffff</color>
+    <color name="white50">#80ffffff</color>
+    <color name="white60">#99ffffff</color>
+    <color name="white70">#b3ffffff</color>
+    <color name="white80">#ccffffff</color>
+    <color name="white90">#e6ffffff</color>
+    <color name="white100">#ffffffff</color>
+
+    <!-- QuickAccess Colors -->
+    <color name="quick_color">#56b541</color>
+    <color name="ios_launcher_folder_group_title_color">#ffffffff</color>
+    <color name="folder_recommen_title_color">#ffffffff</color>
+    <color name="ios_launcher_folder_group_spantitle_color">#ffdddddd</color>
+    <color name="ios_launcher_folder_group_text_color">#ffffffff</color>
+    <color name="ios_launcher_mainmenu_default_text_shadow_color">#ff000000</color>
+    <color name="ios_launcher_mainmenu_default_text_color">#ffffffff</color>
+    <color name="default_unsettle_event_text_color">#ffffffff</color>
+
+    <color name="common_action_bar_splitter">#d2d2d2</color>
+    <color name="common_dialog_button_tcolor">#ff4e4f4c</color>
+    <color name="common_dialog_message_tcolor">#ff4f504d</color>
+    <color name="common_dialog_title_tcolor">#ff0b984c</color>
+    <color name="common_divider_color">#ffd4d4d4</color>
+    <color name="common_setting_item_pressed">#ffdddddd</color>
+
+    <!-- AppLock Attributes -->
+    <color name="colorPrimaryDark_black">#FF000000</color>
+    <color name="colorwhite">#FFFFFFFF</color>
+
+    <!-- app freeze begin -->
+    <color name="hct_app_frozen_count_hint_color">#ffff7838</color>
+    <!-- app freeze end -->
+    <color name="rubbish_clean_complete_btn_color">#44FFFFFF</color>
+
+    <color name="colorblack">#ff000000</color>
+    <color name="coloraccent">#ff7fcac3</color>
+    <color name="colorlightblack">#ff252525</color>
+    <color name="colordarkgrey">#ff848484</color>
+    <color name="colordarkwhite">#ffeaeaea</color>
+    <color name="colorgrey">#ffeeeeee</color>
+    <color name="coloryellow">#ffffe9a1</color>
+    <color name="colordarkgray">#aab6c8</color>
+    <color name="colordeeporange">#fff4511e</color>
+    <drawable name="colordarkblue">#ff314D79</drawable>
+    <drawable name="colorgraydrawable">#CCE7E7E7</drawable>
+    <drawable name="colorwhitedrawable">#ffffffff</drawable>
+    <color name="white_50">#80ffffff</color>
+    <color name="custom_card_bottom_part">#78ffffff</color>
+    <color name="contact_typeface">#cc131313</color>
+    <color name="accent">#ec2045</color>
+    <color name="red">#ff0000</color>
+    <color name="quantum_panel_text_color">#ff666666</color>
+    <color name="color_bg_main">#f2f2f2</color>
+    <color name="divider_color">#808b8b8b</color>
+    <color name="action_back_color">#3a93ff</color>
+    <color name="white_background">#e9e9e9</color>
+    <color name="ic_launcher_background">#f55eb5</color>
+    <color name="bg_color_normal">#4deeeeee</color>
+    <color name="bg_search">#35ffffff</color>
+</resources>

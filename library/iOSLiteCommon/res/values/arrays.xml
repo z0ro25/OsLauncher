@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clock_packages" translatable="false">
+        <item>com.android.timemanager</item>
+        <item>com.android.BBKClock</item>
+        <item>com.android.deskclock</item>
+        <item>com.oppo.alarmclock</item>
+        <item>com.lenovo.deskclock</item>
+        <item>com.android.alarmclock</item>
+        <item>com.sec.android.app.clockpackage</item>
+        <item>com.sonyericsson.organizer</item>
+        <item>com.lenovo.deskclock</item>
+        <item>com.yulong.android.xtime</item>
+        <item>com.htc.android.worldclock</item>
+        <item>com.lge.clock</item>
+        <item>zte.com.cn.alarmclock</item>
+        <item>com.google.android.deskclock</item>
+    </string-array>
+</resources>

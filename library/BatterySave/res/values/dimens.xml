@@ -1,0 +1,17 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="bs_Bar_text_size">17dp</dimen>
+    <dimen name="bs_margin">16dp</dimen>
+    <dimen name="bs_card_text_size">12dp</dimen>
+    <dimen name="bs_card_below_size">15dp</dimen>
+    <dimen name="bs_activitybutton_height">40dp</dimen>
+    <dimen name="bs_Bar_height">48dp</dimen>
+    <dimen name="bs_margin_bottom">8dp</dimen>
+    <dimen name="bs_prc_height">254dp</dimen>
+    <dimen name="bs_card_height">100dp</dimen>
+    <dimen name="bs_title_bar_height">48dp</dimen>
+    <dimen name="bs_title_bar_texp_gap">7dp</dimen>
+    <dimen name="bs_checking_margin_bottom">60dp</dimen>
+    <dimen name="bs_Bar_margin_top">20dp</dimen>
+    <dimen name="bs_lv_item_left2">72dp</dimen>
+</resources>

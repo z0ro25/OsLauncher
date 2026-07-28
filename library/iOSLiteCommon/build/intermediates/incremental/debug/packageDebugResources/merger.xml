@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res"/><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\generated\res\rs\debug"/><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res"><file name="in_from_down" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\in_from_down.xml" qualifiers="" type="anim"/><file name="in_from_left" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\in_from_left.xml" qualifiers="" type="anim"/><file name="in_from_right" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\in_from_right.xml" qualifiers="" type="anim"/><file name="in_from_up" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\in_from_up.xml" qualifiers="" type="anim"/><file name="out_to_down" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\out_to_down.xml" qualifiers="" type="anim"/><file name="out_to_left" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\out_to_left.xml" qualifiers="" type="anim"/><file name="out_to_right" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\out_to_right.xml" qualifiers="" type="anim"/><file name="out_to_up" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\anim\out_to_up.xml" qualifiers="" type="anim"/><file name="pref_title_selector" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\color\pref_title_selector.xml" qualifiers="" type="color"/><file name="ad_btn_view_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ad_btn_view_bg.xml" qualifiers="" type="drawable"/><file name="ad_fb_banner_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ad_fb_banner_bg.xml" qualifiers="" type="drawable"/><file name="ad_rating_bar_drawable" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ad_rating_bar_drawable.xml" qualifiers="" type="drawable"/><file name="ad_toolbox_card_btn_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ad_toolbox_card_btn_bg.xml" qualifiers="" type="drawable"/><file name="ad_topic_item_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ad_topic_item_bg.xml" qualifiers="" type="drawable"/><file name="bg_toast_shape" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\bg_toast_shape.xml" qualifiers="" type="drawable"/><file name="ic_search" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ic_search.png" qualifiers="" type="drawable"/><file name="ic_search_white" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\ic_search_white.png" qualifiers="" type="drawable"/><file name="pref_btn_selector_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_btn_selector_bg.xml" qualifiers="" type="drawable"/><file name="pref_item_selector_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_item_selector_bg.xml" qualifiers="" type="drawable"/><file name="pref_red_dot" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_red_dot.xml" qualifiers="" type="drawable"/><file name="pref_selector_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_selector_bg.xml" qualifiers="" type="drawable"/><file name="pref_spinner_list_selector" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_spinner_list_selector.xml" qualifiers="" type="drawable"/><file name="pref_title_back_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_title_back_bg.xml" qualifiers="" type="drawable"/><file name="pref_triangle" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable\pref_triangle.xml" qualifiers="" type="drawable"/><file name="ad_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_bg.9.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_bg_pressed" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_bg_pressed.9.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_fb_card_badge" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_fb_card_badge.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_rate_star" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_rate_star.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_rate_star_half" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_rate_star_half.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_toolbox_card_btn_normal_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_toolbox_card_btn_normal_bg.9.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_toolbox_card_btn_pressed_bg" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ad_toolbox_card_btn_pressed_bg.9.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ic_version_update" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\ic_version_update.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="pref_right_arrow" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\pref_right_arrow.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="pref_tips_bg_whole" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\pref_tips_bg_whole.9.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="pref_title_back" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\pref_title_back.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="pref_update" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\drawable-xxhdpi\pref_update.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ad_native_view_container" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\layout\ad_native_view_container.xml" qualifiers="" type="layout"/><file name="pref_gap" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\layout\pref_gap.xml" qualifiers="" type="layout"/><file name="pref_info_item_layout" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\layout\pref_info_item_layout.xml" qualifiers="" type="layout"/><file name="pref_list_divider" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\layout\pref_list_divider.xml" qualifiers="" type="layout"/><file name="toast_layout" path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\layout\toast_layout.xml" qualifiers="" type="layout"/><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\arrays.xml" qualifiers=""><string-array name="clock_packages" translatable="false">
+        <item>com.android.timemanager</item>
+        <item>com.android.BBKClock</item>
+        <item>com.android.deskclock</item>
+        <item>com.oppo.alarmclock</item>
+        <item>com.lenovo.deskclock</item>
+        <item>com.android.alarmclock</item>
+        <item>com.sec.android.app.clockpackage</item>
+        <item>com.sonyericsson.organizer</item>
+        <item>com.lenovo.deskclock</item>
+        <item>com.yulong.android.xtime</item>
+        <item>com.htc.android.worldclock</item>
+        <item>com.lge.clock</item>
+        <item>zte.com.cn.alarmclock</item>
+        <item>com.google.android.deskclock</item>
+    </string-array></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\attrs.xml" qualifiers=""><declare-styleable name="IOSLoadingView">
+        <attr format="dimension" name="minWidth"/>
+        <attr format="dimension" name="maxWidth"/>
+        <attr format="dimension" name="minHeight"/>
+        <attr format="dimension" name="maxHeight"/>
+        <attr format="color" name="indicatorColor"/>
+        <attr format="integer" name="indicatorType">
+            <enum name="BallPaulseIndicator" value="1"/>
+            <enum name="IOSDotIndicator" value="2"/>
+        </attr>
+    </declare-styleable><declare-styleable name="SmoothCheckBox">
+        <attr format="integer" name="duration"/>
+        <attr format="dimension" name="stroke_width"/>
+        <attr format="color" name="color_tick"/>
+        <attr format="color" name="color_checked"/>
+        <attr format="color" name="color_unchecked"/>
+        <attr format="color" name="color_unchecked_stroke"/>
+        <attr format="boolean" name="check_box_clickable"/>
+    </declare-styleable><declare-styleable name="EnhancedTextView">
+        <attr format="dimension" name="drawableLeftWidth"/>
+        <attr format="dimension" name="drawableLeftHeight"/>
+        <attr format="dimension" name="drawableRightWidth"/>
+        <attr format="dimension" name="drawableRightHeight"/>
+        <attr format="dimension" name="drawableTopWidth"/>
+        <attr format="dimension" name="drawableTopHeight"/>
+        <attr format="dimension" name="drawableBottomWidth"/>
+        <attr format="dimension" name="drawableBottomHeight"/>
+        <attr format="dimension" name="drawablePadding"/>
+    </declare-styleable><declare-styleable name="Switch">
+        <attr format="color" name="lineCheckedColor"/>
+        <attr format="color" name="lineUnCheckedColor"/>
+        <attr format="dimension" name="lineHeight"/>
+        <attr format="color" name="innerCheckedBroderColor"/>
+        <attr format="color" name="innerUnCheckedBroderColor"/>
+        <attr format="dimension" name="innerBroderWidth"/>
+        <attr format="color" name="btnCheckedColor"/>
+        <attr format="color" name="btnUnCheckedColor"/>
+        <attr format="dimension" name="innerPadding"/>
+    </declare-styleable><declare-styleable name="IOSPreference">
+        <attr format="reference" name="preferenceBackground"/>
+        <attr format="reference" name="preferenceIcon"/>
+        <attr format="color" name="PreferencetitleColor"/>
+        <attr format="string" name="preferenceTitle"/>
+        <attr format="reference" name="preferenceTitleRightIcon"/>
+        <attr format="color" name="PreferenceSummaryColor"/>
+        <attr format="string" name="preferenceSummary"/>
+        <attr format="boolean" name="showSwitch"/>
+        <attr format="boolean" name="hideDivider"/>
+        <attr format="integer" name="rightImage">
+            <enum name="redDot" value="0"/>
+            <enum name="showSwitch" value="1"/>
+            <enum name="rightArrow" value="2"/>
+            <enum name="showSpinner" value="3"/>
+        </attr>
+    </declare-styleable><declare-styleable name="Titlebar">
+        <attr format="string" name="titleText"/>
+        <attr format="color" name="back_color"/>
+        <attr format="color" name="background_color"/>
+        <attr format="boolean" name="hideTitleDivider"/>
+    </declare-styleable><declare-styleable name="ItemInfoLayout">
+        <attr format="reference" name="itemInfoTitle"/>
+        <attr format="reference" name="itemInfoDescription"/>
+    </declare-styleable><declare-styleable name="CircleButton">
+        <attr format="color" name="CircleBtncolor"/>
+        <attr format="dimension" name="CircleBtnRingWidth"/>
+    </declare-styleable><declare-styleable name="NativeAdCardView">
+
+    </declare-styleable></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\colors.xml" qualifiers=""><color name="ios_accent_color">#41d4ad</color><color name="transparent">#00000000</color><color name="grey">#ff797979</color><color name="white">#ffffffff</color><color name="white05percent">#0dffffff</color><color name="white8percent">#18ffffff</color><color name="white10percent">#1affffff</color><color name="white15percent">#26ffffff</color><color name="white20percent">#32ffffff</color><color name="white25percent">#40ffffff</color><color name="white30percent">#47ffffff</color><color name="white40percent">#63ffffff</color><color name="white45percent">#72ffffff</color><color name="white50percent">#80ffffff</color><color name="white51percent">#51ffffff</color><color name="white60percent">#9affffff</color><color name="white66percent">#a8ffffff</color><color name="white70percent">#b3ffffff</color><color name="white80percent">#cdffffff</color><color name="white87percent">#dfffffff</color><color name="white95">#e0ffffff</color><color name="black">#FF000000</color><color name="black05percent">#0d000000</color><color name="black8percent">#18000000</color><color name="black10percent">#1a000000</color><color name="black15percent">#26000000</color><color name="black20percent">#33000000</color><color name="black25percent">#40000000</color><color name="black30percent">#61000000</color><color name="black40percent">#66000000</color><color name="black45percent">#73000000</color><color name="black50percent">#80000000</color><color name="black51percent">#51000000</color><color name="black60percent">#9a000000</color><color name="black66percent">#a8000000</color><color name="black70percent">#b3000000</color><color name="black80percent">#cd000000</color><color name="black87percent">#df000000</color><color name="black95">#95000000</color><color name="pref_active">#0F9F5A</color><color name="pref_active_light">#990F9F5A</color><color name="pref_dark">#ff444444</color><color name="pref_spinner_list_item_pressed">#1b444444</color><color name="pref_item_pressed">#19ffffff</color><color name="pref_item_divider">#19000000</color><color name="pref_category_grey">#90222222</color><color name="pref_category_green">#FF0F9F5A</color><color name="pref_title">#ff222222</color><color name="pref_desc">#aa222222</color><color name="pref_summary">#90222222</color><color name="pref_bg">#fff4f4f4</color><color name="pref_btn_divider">#90222222</color><color name="pref_btn_press">#33000000</color><color name="pref_item_layout_press">#22000000</color><color name="title_bar_back_button_tint">#aa444444</color><color name="title_bar_label">#FF444444</color><color name="title_bar_back_pressed">#33000000</color><color name="title_bar_divider">#19444444</color><color name="common_desc">#aa222222</color><color name="ios_gray1">#1A000000</color><color name="ios_gray2">#34000000</color><color name="ios_gray3">#61000000</color></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\common_develop.xml" qualifiers=""><string name="ad_des_all_apps" translatable="false">AllApp</string><string name="ad_des_clean_widget" translatable="false">一键加速</string><string name="ad_des_wallpaper_detail" translatable="false">壁纸详情</string><string name="ad_des_theme_detail" translatable="false">主题详情</string><string name="ad_des_search" translatable="false">搜索</string><string name="ad_des_weather" translatable="false">天气</string><string name="ad_des_ioskonw" translatable="false">IOSKnow</string><string name="ad_des_theme_list" translatable="false">主题列表</string><string name="ad_des_wallpaper_list" translatable="false">壁纸列表</string><string name="ad_des_theme_min" translatable="false">极简主题</string><string name="ad_des_default" translatable="false">默认</string><string name="ad_des_stackwidget_list" translatable="false">广告卡片</string><string name="ad_des_app_recommend_newspage" translatable="false">新闻页应用推荐</string><string name="ad_des_app_recommend_folder" translatable="false">文件夹应用推荐</string><string name="ad_des_app_recommend_market" translatable="false">应用市场</string><string name="ad_des_app_recommend_discovery" translatable="false">探索</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\config.xml" qualifiers=""><bool name="is_tablet">false</bool><bool name="is_large_tablet">false</bool></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\custom_config.xml" qualifiers=""><string name="def_apply_theme_package">com.ios.ioslite.global</string><color name="def_workspace_label_color">#FFFFFFFF</color><string name="def_launcher_significant_move_threshold">0.4</string><integer name="def_grid_rows_columns">1</integer><bool name="def_grid_icon_custom_enable">true</bool><dimen name="def_grid_icon_size">54dp</dimen><dimen name="def_grid_label_size">14dp</dimen><bool name="def_hotseat_label_show_enable">true</bool><bool name="def_hotseat_label_forced_show">false</bool><string name="def_workspace_scroll_effect">none</string><string name="def_workspace_magic_thumb">none</string><integer name="def_pending_anim_style">1</integer><bool name="feature_icon_unread_support">true</bool><bool name="feature_ota2_enable">false</bool><bool name="def_launcher_loading_view_enable">true</bool><bool name="feature_desktop_style_change_enable">true</bool><bool name="feature_desktop_gesture_enable">true</bool><bool name="feature_ios_discovery_enable">false</bool><bool name="def_use_icon_in_apk_enable">false</bool><bool name="feature_desktop_trans_anim_enable">true</bool><bool name="def_user_guide_enable">false</bool><bool name="def_use_system_default_wallpaper">false</bool><bool name="feature_desktop_grid_change_enable">true</bool><bool name="def_desktop_auto_align_enable">false</bool><bool name="def_wallpaper_scroll_enabled">true</bool><bool name="def_news_page_switch_enabled">false</bool><integer name="def_launcher_db_version">9</integer><integer name="def_iconcache_db_version">11</integer><integer name="def_setting_db_version">5</integer><integer name="def_weather_db_version">5</integer><bool name="feature_desktop_loop_enable">true</bool><bool name="def_desktop_loop_enable">false</bool><bool name="def_sleep_mode_enable">true</bool><bool name="feature_sort_icon_enable">false</bool><bool name="feature_new_install_icon_enable">true</bool><bool name="def_allapp_enable">true</bool><integer name="def_allapp_display_mode">0</integer><bool name="feature_allapp_recently_apps_enable">true</bool><bool name="feature_torch_enable">true</bool><bool name="feature_auto_light_enable">true</bool><bool name="feature_battery_save_enable">false</bool><bool name="feature_wifi_ap_enable">true</bool><bool name="feature_quick_settings_enable">false</bool><bool name="def_clean_widget_show_percent">true</bool><bool name="feature_left_news_page_enable">false</bool><bool name="def_left_news_page_enable">false</bool><bool name="feature_search_box_enable">true</bool><bool name="def_search_box_enable">true</bool><bool name="feature_app_manager_enable">false</bool><bool name="def_app_manager_enable">false</bool><bool name="feature_local_push_enable">true</bool><bool name="feature_live_wallpaper_enable">false</bool><bool name="feature_lock_screen_enable">false</bool><string name="feature_lock_screen_version">v700</string><bool name="feature_set_as_default_theme_enable">false</bool><bool name="def_category_default_layout">false</bool><bool name="def_category_new_apps">false</bool><bool name="feature_category_new_apps_enable">true</bool><bool name="feature_check_update_support">true</bool><bool name="feature_sw_share_support">true</bool><bool name="def_desktop_lazy_load_newspager_enable">true</bool><bool name="feature_drop_info_enable">false</bool><bool name="feature_drop_uninstall_enable">true</bool><bool name="feature_drop_unavailable_enable">false</bool><bool name="feature_desktop_effect_enable">true</bool><bool name="feature_delete_effect_enable">true</bool><bool name="feature_install_shortcut_enable">true</bool><string-array name="def_widget_black_list" translatable="false">
+        <item>com.ios.biglauncher</item>
+    </string-array><string-array name="def_shortcut_black_list" translatable="false"/><string-array name="def_cts_app_list" translatable="false">
+        <item>com.google.android.googlequicksearchbox</item>
+        <item>com.google.android.gm</item>
+        <item>com.google.android.apps.maps</item>
+        <item>com.google.android.music</item>
+        <item>com.google.android.videos</item>
+        <item>com.google.android.apps.photos</item>
+        <item>com.google.android.apps.tachyon</item>
+        <item>com.google.android.apps.docs</item>
+        <item>com.google.android.youtube</item>
+        <item>com.android.vending</item>
+        <item>com.android.chrome</item>
+    </string-array><string-array name="def_hide_app_list" translatable="false"/><string-array name="def_not_uninstall_app_list" translatable="false">
+        <item>com.baidu.searchbox</item>
+    </string-array><bool name="feature_start_location_when_mobile_data_open">true</bool><string-array name="def_gesture_setting"/><bool name="feature_display_cutout_mode">true</bool></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\custom_product.xml" qualifiers=""><string name="product_name">IOS</string><string name="product_offical_website">http://os.droi.com</string><string name="product_facebook_website">https://www.facebook.com/droigroup</string><string name="product_email">droi@gmail.com</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\dimens.xml" qualifiers=""><dimen name="pref_title_size">16sp</dimen><dimen name="pref_desc_size">14sp</dimen><dimen name="pref_summary_size">12sp</dimen><dimen name="pref_title_bar_height">48dp</dimen></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\freeme_common_attrs.xml" qualifiers=""><declare-styleable name="PrivatePage">
+        <attr format="reference" name="pointIndicator"/>
+        <attr format="reference" name="pointIndicatorFocus"/>
+        <attr format="reference" name="dockIntent1"/>
+        <attr format="reference" name="dockIntent2"/>
+        <attr format="reference" name="dockIntent3"/>
+    </declare-styleable></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\inner_config.xml" qualifiers=""/><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\strings.xml" qualifiers=""><string name="ios_product_name">Launcher</string><string name="update_start">Checking update. Please wait a moment.</string><string name="update_check_no_update">No update found! You are using the latest version.</string><string name="update_to_latest_version">Update to latest version</string><string name="network_error_tip">"Connection error.Please check your network."</string><string name="error_activity_not_found">App isn\'t installed.</string><string name="error_email_not_login">Please login your email account.</string><string name="discovery_data_warn_tips">Whether to continue downloading under the data flow</string><string name="discovery_sure">sure</string><string name="discovery_cancel">cancel</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values\style.xml" qualifiers=""><style name="IOSLoadingView">
+        <item name="minWidth">48dip</item>
+        <item name="maxWidth">48dip</item>
+        <item name="minHeight">48dip</item>
+        <item name="maxHeight">48dip</item>
+        <item name="indicatorType">BallPaulseIndicator</item>
+    </style><style name="PrefSettingsBase" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/pref_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style><style name="PrefSettings" parent="PrefSettingsBase">
+        <item name="android:statusBarColor">@color/white</item>
+    </style><style name="PrefSettings.Immerse" parent="PrefSettings"/><style name="PrefSettings.Wallpaper" parent="PrefSettings">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style><style name="pref_subtitle">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/pref_category_green</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style><style name="pref_settingtitle">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/ios_gray1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style><style name="AdTopic">
+        <item name="android:background">@drawable/ad_topic_item_bg</item>
+    </style><style name="ADCardName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#494b4c</item>
+        <item name="android:textSize">16sp</item>
+    </style><style name="ADDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#a2a2a2</item>
+        <item name="android:textSize">13sp</item>
+    </style><style name="ADCardFreeBtn">
+        <item name="android:background">@drawable/ad_toolbox_card_btn_normal_bg</item>
+        <item name="android:textColor">@android:color/background_light</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+    </style></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-ar\strings.xml" qualifiers="ar"><string name="settings_error_text">بسبب قيود النظام لايمكن الاستخدام!</string><string name="settings_sim_error_text">لا توجد بطاقة SIM!</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-sw320dp-hdpi\freeme_common_dimens.xml" qualifiers="sw320dp-hdpi-v13"><dimen name="common_dialog_width">272dip</dimen></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-sw600dp\config.xml" qualifiers="sw600dp-v13"><bool name="is_tablet">true</bool><bool name="is_large_tablet">false</bool></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-v21\styles.xml" qualifiers="v21"><style name="PrefSettings" parent="PrefSettingsBase">
+        <item name="android:colorControlActivated">@color/ios_accent_color</item>
+        <item name="android:colorAccent">@color/ios_accent_color</item>
+        <item name="android:colorPrimary">@color/ios_accent_color</item>
+        <item name="android:colorPrimaryDark">@color/ios_accent_color</item>
+    </style></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-v23\styles.xml" qualifiers="v23"><style name="PrefSettings" parent="PrefSettingsBase">
+        <item name="android:windowBackground">@color/pref_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/ios_accent_color</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-xhdpi\freeme_common_dimens.xml" qualifiers="xhdpi-v4"><dimen name="common_dialog_width">312dip</dimen></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-xxhdpi\freeme_common_dimens.xml" qualifiers="xxhdpi-v4"><dimen name="common_dialog_width">312dip</dimen></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-zh-rCN\strings.xml" qualifiers="zh-rCN"><string name="settings_error_text">由于系统限制，不可使用！</string><string name="settings_sim_error_text">无SIM卡！!</string><string name="network_error_tip">网络连接失败，请确认网络状态。</string><string name="error_activity_not_found">"未安装应用。"</string><string name="error_email_not_login">请先在邮箱应用中登录。</string><string name="discovery_start_download">开始下载</string><string name="discovery_downloading">该应用正在下载</string><string name="discovery_data_warn_tips">是否在数据流量下继续下载？</string><string name="discovery_sure">确认</string><string name="discovery_cancel">取消</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\res\values-zh-rTW\strings.xml" qualifiers="zh-rTW"><string name="settings_error_text">由於系統限制，不可使用！</string><string name="settings_sim_error_text">無SIM卡！</string><string name="discovery_start_download">開始下載</string><string name="discovery_downloading">該應用正在下載</string><string name="discovery_data_warn_tips">是否在數據流量下繼續下載？</string><string name="discovery_sure">確認</string><string name="discovery_cancel">取消</string></file></source><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\generated\res\rs\debug"/><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"/><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"/><mergedItems><configuration qualifiers=""><declare-styleable name="CircleButton">
+        <attr format="color" name="CircleBtncolor"/>
+        <attr format="dimension" name="CircleBtnRingWidth"/>
+    </declare-styleable><declare-styleable name="NativeAdCardView">
+
+    </declare-styleable><declare-styleable name="EnhancedTextView">
+        <attr format="dimension" name="drawableLeftWidth"/>
+        <attr format="dimension" name="drawableLeftHeight"/>
+        <attr format="dimension" name="drawableRightWidth"/>
+        <attr format="dimension" name="drawableRightHeight"/>
+        <attr format="dimension" name="drawableTopWidth"/>
+        <attr format="dimension" name="drawableTopHeight"/>
+        <attr format="dimension" name="drawableBottomWidth"/>
+        <attr format="dimension" name="drawableBottomHeight"/>
+        <attr format="dimension" name="drawablePadding"/>
+    </declare-styleable><declare-styleable name="ItemInfoLayout">
+        <attr format="reference" name="itemInfoTitle"/>
+        <attr format="reference" name="itemInfoDescription"/>
+    </declare-styleable><declare-styleable name="Switch">
+        <attr format="color" name="lineCheckedColor"/>
+        <attr format="color" name="lineUnCheckedColor"/>
+        <attr format="dimension" name="lineHeight"/>
+        <attr format="color" name="innerCheckedBroderColor"/>
+        <attr format="color" name="innerUnCheckedBroderColor"/>
+        <attr format="dimension" name="innerBroderWidth"/>
+        <attr format="color" name="btnCheckedColor"/>
+        <attr format="color" name="btnUnCheckedColor"/>
+        <attr format="dimension" name="innerPadding"/>
+    </declare-styleable><declare-styleable name="IOSLoadingView">
+        <attr format="dimension" name="minWidth"/>
+        <attr format="dimension" name="maxWidth"/>
+        <attr format="dimension" name="minHeight"/>
+        <attr format="dimension" name="maxHeight"/>
+        <attr format="color" name="indicatorColor"/>
+        <attr format="integer" name="indicatorType">
+            <enum name="BallPaulseIndicator" value="1"/>
+            <enum name="IOSDotIndicator" value="2"/>
+        </attr>
+    </declare-styleable><declare-styleable name="SmoothCheckBox">
+        <attr format="integer" name="duration"/>
+        <attr format="dimension" name="stroke_width"/>
+        <attr format="color" name="color_tick"/>
+        <attr format="color" name="color_checked"/>
+        <attr format="color" name="color_unchecked"/>
+        <attr format="color" name="color_unchecked_stroke"/>
+        <attr format="boolean" name="check_box_clickable"/>
+    </declare-styleable><declare-styleable name="IOSPreference">
+        <attr format="reference" name="preferenceBackground"/>
+        <attr format="reference" name="preferenceIcon"/>
+        <attr format="color" name="PreferencetitleColor"/>
+        <attr format="string" name="preferenceTitle"/>
+        <attr format="reference" name="preferenceTitleRightIcon"/>
+        <attr format="color" name="PreferenceSummaryColor"/>
+        <attr format="string" name="preferenceSummary"/>
+        <attr format="boolean" name="showSwitch"/>
+        <attr format="boolean" name="hideDivider"/>
+        <attr format="integer" name="rightImage">
+            <enum name="redDot" value="0"/>
+            <enum name="showSwitch" value="1"/>
+            <enum name="rightArrow" value="2"/>
+            <enum name="showSpinner" value="3"/>
+        </attr>
+    </declare-styleable><declare-styleable name="PrivatePage">
+        <attr format="reference" name="pointIndicator"/>
+        <attr format="reference" name="pointIndicatorFocus"/>
+        <attr format="reference" name="dockIntent1"/>
+        <attr format="reference" name="dockIntent2"/>
+        <attr format="reference" name="dockIntent3"/>
+    </declare-styleable><declare-styleable name="Titlebar">
+        <attr format="string" name="titleText"/>
+        <attr format="color" name="back_color"/>
+        <attr format="color" name="background_color"/>
+        <attr format="boolean" name="hideTitleDivider"/>
+    </declare-styleable></configuration></mergedItems></merger>

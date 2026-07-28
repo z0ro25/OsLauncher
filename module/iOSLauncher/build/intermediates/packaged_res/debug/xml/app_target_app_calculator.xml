@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_CALCULATOR;end" />
+
+    <favorite
+        launcher:className="com.ios.calculator.Calculator"
+        launcher:packageName="com.ios.calculator" />
+
+    <favorite
+        launcher:className="com.ios.calculator.AdvancedCalulator"
+        launcher:packageName="com.ios.calculator" />
+
+    <favorite
+        launcher:className="com.android.calculator2.Calculator"
+        launcher:packageName="com.android.calculator2" />
+
+    <favorite
+        launcher:className="com.sec.android.app.popupcalculator.Calculator"
+        launcher:packageName="com.sec.android.app.popupcalculator" />
+
+    <favorite
+        launcher:className="com.android.bbkcalculator.Calculator"
+        launcher:packageName="com.android.bbkcalculator" />
+</items>

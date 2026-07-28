@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <dimen name="launcher_status_bar_height">25dp</dimen>
+    <dimen name="launcher_navigation_bar_height">48dp</dimen>
+
+    <!-- Dynamic Grid -->
+    <dimen name="dynamic_grid_hotseatbar_compensation_height">20dp</dimen>
+    <!--@{ios.xiaomin.liao,20180725,change height(indicator and hotseatbar).-->
+    <dimen name="dynamic_grid_hotseatbar_add_height">12dp</dimen>
+
+    <dimen name="dynamic_grid_page_indicator_add_height">16dp</dimen>
+    <!--}@-->
+    <dimen name="dynamic_grid_padding_bottom">12dp</dimen>
+    <dimen name="dynamic_grid_edge_margin_normal">12dp</dimen>
+    <dimen name="dynamic_grid_edge_margin_allapps_enable">7dp</dimen>
+    <dimen name="dynamic_grid_edge_margin_top">0dp</dimen>
+    <dimen name="dynamic_grid_search_bar_max_width">500dp</dimen>
+
+    <dimen name="dynamic_grid_edge_margin">0dp</dimen>
+    <dimen name="dynamic_grid_folder_padding">20dp</dimen>
+    <dimen name="dynamic_grid_folder_padding_top">15dp</dimen>
+    <dimen name="dynamic_grid_icon_drawable_padding">1dp</dimen>
+    <dimen name="dynamic_grid_overview_bar_item_width">80dp</dimen>
+    <dimen name="dynamic_grid_overview_bar_spacer_width">20dp</dimen>
+    <dimen name="dynamic_grid_overview_max_icon_zone_height">120dp</dimen>
+    <dimen name="dynamic_grid_overview_min_icon_zone_height">80dp</dimen>
+    <dimen name="dynamic_grid_page_indicator_height">25dp</dimen>
+    <dimen name="dynamic_grid_page_indicator_margin">4dp</dimen>
+    <dimen name="dynamic_grid_search_bar_bottom_negative_padding_short">-6dp</dimen>
+    <dimen name="dynamic_grid_search_bar_bottom_padding">4dp</dimen>
+    <dimen name="dynamic_grid_search_bar_bottom_padding_tablet">16dp</dimen>
+    <dimen name="dynamic_grid_search_bar_extra_top_padding">0dp</dimen>
+    <dimen name="dynamic_grid_search_bar_height">8dp</dimen>
+    <dimen name="dynamic_grid_search_bar_height_tall">0dp</dimen>
+    <dimen name="dynamic_grid_search_bar_negative_top_padding_short">-4dp</dimen>
+    <dimen name="dynamic_grid_workspace_page_spacing">0dp</dimen>
+    <!-- App Widget resize frame -->
+    <dimen name="default_widget_padding">8dp</dimen>
+    <dimen name="widget_handle_margin">13dp</dimen>
+    <dimen name="resize_frame_background_padding">24dp</dimen>
+
+    <!-- Cling -->
+    <dimen name="cling_migration_logo_height">240dp</dimen>
+    <dimen name="cling_migration_logo_width">165dp</dimen>
+    <dimen name="cling_migration_bg_size">400dp</dimen>
+    <dimen name="cling_migration_bg_shift">-200dp</dimen>
+    <dimen name="cling_migration_content_margin">16dp</dimen>
+    <dimen name="cling_migration_content_width">280dp</dimen>
+
+    <!-- Workspace -->
+    <dimen name="workspace_max_gap">16dp</dimen>
+    <dimen name="workspace_default_home_button_height">40dp</dimen>
+
+    <!-- QSB -->
+    <dimen name="drop_target_bar_height">20dip</dimen>
+    <dimen name="search_drop_target_bar_height">84dip</dimen>
+    <dimen name="quick_search_bar_height">48dip</dimen>
+    <dimen name="quick_search_bar_margin_top">32dip</dimen>
+    <dimen name="quick_search_bar_horizontal_padding">12dip</dimen>
+
+
+    <!-- Over screen edit view  -->
+    <!--<dimen name="overview_panel_bottom_menu_height">140.0dip</dimen>-->
+    <dimen name="overview_panel_bottom_menu_height">170.0dip</dimen>
+    <dimen name="overview_panel_bottom_menu_title_bar_height">30.0dip</dimen>
+    <dimen name="overview_panel_top_menu_height">50.0dip</dimen>
+    <dimen name="screen_edit_view_top_layout_height">40.0dip</dimen>
+    <dimen name="screen_edit_gallery_indicator_height">10.0dip</dimen>
+    <dimen name="screen_edit_gallery_height">210.0dip</dimen>
+    <dimen name="screen_edit_view_top_layout_text_size">16.0dip</dimen>
+    <dimen name="overview_panel_main_menu_padding_top">15dp</dimen>
+    <dimen name="overview_panel_main_menu_padding_right">16dp</dimen>
+    <dimen name="overview_panel_main_menu_padding_left">16dp</dimen>
+
+    <!-- Container -->
+    <!-- Note: This needs to match the fixed insets for the search box. -->
+    <dimen name="widgets_container_bounds_inset">16dp</dimen>
+    <dimen name="container_fastscroll_thumb_touch_inset">-24dp</dimen>
+
+    <!-- All Apps -->
+    <dimen name="all_apps_search_bar_bg_padding_inset">2dp</dimen>
+
+    <dimen name="all_apps_scrollbar_alpha_text_size">12sp</dimen>
+    <dimen name="all_apps_scrollbar_alpha_icon_size">10dp</dimen>
+    <dimen name="all_apps_scrollbar_section_height">18dp</dimen>
+    <dimen name="all_apps_scrollbar_section_width">24dp</dimen>
+
+    <dimen name="all_apps_grid_view_start_margin">40dp</dimen>
+    <dimen name="all_apps_grid_section_y_offset">15dp</dimen>
+    <dimen name="all_apps_grid_section_text_size">24dp</dimen>
+    <dimen name="all_apps_grid_section_icon_size">18dp</dimen>
+    <dimen name="all_apps_search_bar_prediction_bar_padding">8dp</dimen>
+    <dimen name="all_apps_ad_view_height">68dp</dimen>
+    <dimen name="all_apps_ad_top_bottom_padding">8dp</dimen>
+    <dimen name="all_apps_icon_drawable_padding">0dp</dimen>
+    <dimen name="all_apps_icon_top_bottom_padding">15dp</dimen>
+    <dimen name="all_apps_icon_width_gap">28dp</dimen>
+    <!-- The top padding should account for the existing all_apps_list_top_bottom_padding -->
+    <dimen name="all_apps_prediction_icon_top_padding">8dp</dimen>
+    <dimen name="all_apps_prediction_icon_bottom_padding">18dp</dimen>
+    <dimen name="all_apps_list_top_bottom_padding">8dp</dimen>
+    <dimen name="all_apps_empty_search_message_top_offset">40dp</dimen>
+    <dimen name="all_apps_empty_search_bg_top_offset">144dp</dimen>
+    <dimen name="all_apps_background_canvas_width">700dp</dimen>
+    <dimen name="all_apps_background_canvas_height">475dp</dimen>
+
+    <!-- Widget tray -->
+    <dimen name="widget_container_inset">8dp</dimen>
+    <dimen name="widget_preview_img_top_padding">8dp</dimen>
+    <dimen name="widget_preview_label_vertical_padding">8dp</dimen>
+    <dimen name="widget_preview_label_horizontal_padding">8dp</dimen>
+    <dimen name="widget_preview_horizontal_padding">8dp</dimen>
+
+    <dimen name="widget_preview_img_size">48dp</dimen>
+
+
+    <!-- Padding applied to shortcut previews -->
+    <dimen name="shortcut_preview_padding_left">0dp</dimen>
+    <dimen name="shortcut_preview_padding_right">0dp</dimen>
+    <dimen name="shortcut_preview_padding_top">0dp</dimen>
+
+    <!-- Dragging -->
+    <!-- Drag padding to add to the bottom of drop targets -->
+    <dimen name="drop_target_drag_padding">14dp</dimen>
+    <dimen name="drop_target_text_size">14sp</dimen>
+
+    <!-- the area at the edge of the screen that makes the workspace go left
+         or right while you're dragging. -->
+    <dimen name="scroll_zone">20dp</dimen>
+
+    <!-- When dragging an item, how much bigger (fixed dps) the dragged view
+         should be. If 0, it will not be scaled at all. -->
+    <dimen name="dragViewScale">12dp</dimen>
+
+    <!-- Elevation for the drag view. It should be larger than elevation of all other drag sources
+         and drop targets like all-apps and folders -->
+    <dimen name="drag_elevation">30dp</dimen>
+
+    <!-- Theme -->
+    <dimen name="quantum_panel_outer_padding">4dp</dimen>
+
+    <!-- Folders -->
+    <!-- The amount that the preview contents are inset from the preview background -->
+    <dimen name="folder_preview_padding">5dp</dimen>
+    <dimen name="folder_preview_icon_gap">5dp</dimen>
+    <dimen name="folder_pagedview_padding_top">48dp</dimen>
+    <dimen name="folder_pagedview_padding_bottom">15dp</dimen>
+    <dimen name="folder_pagedview_indicator_height">15dp</dimen>
+
+
+    <!-- FolderPager -->
+    <dimen name="folder_view_title_editor_height">34.0dip</dimen>
+    <dimen name="folder_dm_title_text_inner_padding">4.0dip</dimen>
+    <dimen name="folder_dm_title_text_shift">34.0dip</dimen>
+    <dimen name="folder_dm_title_text_size">24.0sp</dimen>
+    <dimen name="folder_cell_width">109dp</dimen>
+    <dimen name="folder_cell_height">98dp</dimen>
+
+    <!-- Sizes for managed profile badges -->
+    <dimen name="profile_badge_size">24dp</dimen>
+    <dimen name="profile_badge_margin">5dp</dimen>
+    <dimen name="profile_badge_minimum_top">2dp</dimen>
+
+    <!-- Shadows and outlines -->
+    <dimen name="blur_size_thin_outline">1dp</dimen>
+    <dimen name="blur_size_medium_outline">2dp</dimen>
+    <dimen name="blur_size_click_shadow">4dp</dimen>
+    <dimen name="click_shadow_high_shift">2dp</dimen>
+
+    <!-- Pending widget -->
+    <dimen name="pending_widget_min_padding">8dp</dimen>
+    <dimen name="pending_widget_elevation">2dp</dimen>
+
+
+    <!-- Launcher Settings Activity -->
+    <dimen name="launcher_pref_title_size">16sp</dimen>
+    <dimen name="launcher_pref_desc_size">14sp</dimen>
+    <dimen name="launcher_pref_summary_size">12sp</dimen>
+    <dimen name="launcher_title_bar_height">48dp</dimen>
+
+
+    <!-- Add for unread events feature. -->
+    <dimen name="unread_event_bg_width">18dp</dimen>
+    <dimen name="unread_event_bg_height">18dp</dimen>
+    <dimen name="unread_event_bg_padding">1dp</dimen>
+    <dimen name="unread_event_y_offset">1dp</dimen>
+    <dimen name="unread_text_number_size">12dp</dimen>
+    <dimen name="unread_text_plus_size">10dp</dimen>
+    <dimen name="hotseat_unread_margin_top">10dp</dimen>
+    <dimen name="hotseat_unread_margin_right">2dp</dimen>
+    <dimen name="folder_unread_margin_top">0dp</dimen>
+    <dimen name="folder_unread_margin_right">8dp</dimen>
+    <dimen name="workspace_unread_margin_top">12dp</dimen>
+    <dimen name="workspace_unread_margin_right">12dp</dimen>
+    <dimen name="app_list_unread_margin_top">8dp</dimen>
+    <dimen name="app_list_unread_margin_right">10dp</dimen>
+
+    <dimen name="rec_apps_text_size">11dp</dimen>
+    <dimen name="icon_textview_default_icon_size">40dp</dimen>
+
+    <dimen name="news_page_margin">8dp</dimen>
+
+    <dimen name="discovery_layout_icon_size">54dp</dimen>
+    <dimen name="discovery_layout_icon_margin">4dp</dimen>
+
+    <dimen name="widget_row_padding">8dp</dimen>
+    <dimen name="widget_row_divider">2dp</dimen>
+
+    <!-- Deep shortcuts -->
+    <dimen name="deep_shortcuts_elevation">9dp</dimen>
+    <dimen name="bg_popup_item_width">220dp</dimen>
+    <dimen name="bg_popup_item_height">56dp</dimen>
+    <dimen name="popup_items_spacing">4dp</dimen>
+    <dimen name="pre_drag_view_scale">6dp</dimen>
+    <!-- an icon with shortcuts must be dragged this far before the container is removed. -->
+    <dimen name="deep_shortcuts_start_drag_threshold">16dp</dimen>
+    <dimen name="deep_shortcut_icon_size">36dp</dimen>
+    <dimen name="deep_shortcut_drawable_padding">8dp</dimen>
+    <dimen name="deep_shortcut_drag_handle_size">16dp</dimen>
+    <dimen name="popup_padding_start">10dp</dimen>
+    <dimen name="popup_padding_end">16dp</dimen>
+    <dimen name="popup_arrow_width">10dp</dimen>
+    <dimen name="popup_arrow_height">8dp</dimen>
+    <dimen name="popup_arrow_vertical_offset">-2dp</dimen>
+    <!-- popup_padding_start + deep_shortcut_icon_size / 2 -->
+    <dimen name="popup_arrow_horizontal_center_start">28dp</dimen>
+    <!-- popup_padding_end + deep_shortcut_drag_handle_size / 2 -->
+    <dimen name="popup_arrow_horizontal_center_end">24dp</dimen>
+    <!-- popup_arrow_center_start - popup_arrow_width / 2-->
+    <dimen name="popup_arrow_horizontal_offset_start">23dp</dimen>
+    <!-- popup_arrow_center_end - popup_arrow_width / 2-->
+    <dimen name="popup_arrow_horizontal_offset_end">19dp</dimen>
+    <dimen name="popup_arrow_corner_radius">2dp</dimen>
+    <!-- popup_padding_start + icon_size + 10dp -->
+    <dimen name="deep_shortcuts_text_padding_start">56dp</dimen>
+    <!-- popup_item_width - deep_shortcuts_text_padding_start -->
+    <dimen name="deep_shortcuts_divider_width">164dp</dimen>
+    <dimen name="system_shortcut_icon_size">24dp</dimen>
+    <!-- popup_arrow_center_start - system_shortcut_icon_size / 2 -->
+    <dimen name="system_shortcut_margin_start">16dp</dimen>
+    <dimen name="system_shortcut_header_height">40dp</dimen>
+    <dimen name="system_shortcut_header_icon_touch_size">48dp</dimen>
+    <!-- (touch_size - icon_size) / 2 -->
+    <dimen name="system_shortcut_header_icon_padding">12dp</dimen>
+
+    <!-- Icon badges (with notification counts) -->
+    <dimen name="badge_small_padding">0dp</dimen>
+    <dimen name="badge_large_padding">3dp</dimen>
+
+    <!-- Notifications -->
+    <dimen name="bg_round_rect_radius">12dp</dimen>
+    <dimen name="notification_padding_start">16dp</dimen>
+    <dimen name="notification_padding_end">12dp</dimen>
+    <!-- notification_padding_end + (icon_size - footer_icon_size) / 2 -->
+    <dimen name="notification_footer_icon_row_padding">15dp</dimen>
+    <dimen name="notification_header_height">32dp</dimen>
+    <dimen name="notification_main_height">80dp</dimen>
+    <dimen name="notification_footer_height">32dp</dimen>
+    <dimen name="notification_header_text_size">13sp</dimen>
+    <dimen name="notification_header_count_text_size">12sp</dimen>
+    <dimen name="notification_main_text_size">14sp</dimen>
+    <dimen name="notification_icon_size">24dp</dimen>
+    <dimen name="notification_footer_icon_size">18dp</dimen>
+    <!-- notification_icon_size + notification_padding_end + 16dp padding between icon and text -->
+    <dimen name="notification_main_text_padding_end">52dp</dimen>
+    <dimen name="notification_elevation">2dp</dimen>
+    <dimen name="horizontal_ellipsis_size">18dp</dimen>
+    <!-- arrow_horizontal_offset_start - (ellipsis_size - arrow_width) / 2 -->
+    <dimen name="horizontal_ellipsis_offset">19dp</dimen>
+    <dimen name="popup_item_divider_height">0.5dp</dimen>
+    <dimen name="swipe_helper_falsing_threshold">70dp</dimen>
+
+    <!--grid gallery-->
+    <dimen name="grid_gallery_item_text_size">12sp</dimen>
+    <dimen name="grid_gallery_item_padding_bottom">47dp</dimen>
+    <dimen name="grid_gallery_item_padding_left">1dp</dimen>
+    <dimen name="grid_gallery_item_padding_right">1dp</dimen>
+    <dimen name="grid_gallery_item_margin_top">11dp</dimen>
+    <dimen name="grid_gallery_padding_left">16dp</dimen>
+    <dimen name="grdi_gallery_padding_right">16dp</dimen>
+
+    <dimen name="widget_preview_shadow_blur">0.5dp</dimen>
+    <dimen name="widget_preview_key_shadow_distance">1dp</dimen>
+    <dimen name="widget_preview_corner_radius">2dp</dimen>
+    <dimen name="widget_preview_cell_divider_width">0.5dp</dimen>
+    <dimen name="widget_preview_shortcut_padding">8dp</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
+    <dimen name="status_bar_heightex">32dp</dimen>
+
+    <dimen name="app_name_width">48.0dip</dimen>
+    <dimen name="app_size">45.0dip</dimen>
+    <dimen name="selection_image_height">64dp</dimen>
+    <dimen name="selection_image_width">42dp</dimen>
+    <dimen name="quickaccess_selection_textsize">12sp</dimen>
+
+    <dimen name="uninstall_app_icon_height">25dp</dimen>
+    <dimen name="uninstall_app_icon_width">25dp</dimen>
+    <dimen name="uninstall_app_toppadding">0dp</dimen>
+    <dimen name="folder_recommen_title_size">13dp</dimen>
+    <dimen name="folder_name_height">23dp</dimen>
+    <dimen name="folder_name_width">100dp</dimen>
+    <dimen name="folder_recommend_item_marginleft">0dp</dimen>
+    <dimen name="folder_bg_padding">10dp</dimen>
+    <dimen name="folder_shadow_width">7dp</dimen>
+    <dimen name="folder_selected_size">23dp</dimen>
+    <dimen name="app_icon_paddingEdge">6dp</dimen>
+    <dimen name="default_unsettle_event_textsize">15sp</dimen>
+    <dimen name="default_unsettle_event_numBg_rightpadding">4dp</dimen>
+    <dimen name="default_unsettle_event_numBg_toppadding">3dp</dimen>
+
+    <dimen name="common_dialog_bottom_height">48dp</dimen>
+    <dimen name="common_dialog_bottom_margin">0dp</dimen>
+    <dimen name="common_dialog_bottom_top">0dp</dimen>
+    <dimen name="common_dialog_content_height">180dp</dimen>
+    <dimen name="common_dialog_divide_bottom_margin">1dp</dimen>
+    <dimen name="common_dialog_divide_top_margin">0dp</dimen>
+    <dimen name="common_dialog_divide_width">1dp</dimen>
+    <dimen name="common_dialog_left_margin">0dp</dimen>
+    <dimen name="common_dialog_message_height">64dp</dimen>
+    <dimen name="common_dialog_message_tsize">17sp</dimen>
+    <dimen name="common_dialog_text_padding">12dp</dimen>
+    <dimen name="common_dialog_text_paddingLeft">20dp</dimen>
+    <dimen name="common_dialog_text_paddingRight">20dp</dimen>
+    <dimen name="common_dialog_title_height">48dp</dimen>
+    <dimen name="common_dialog_title_tsize">20sp</dimen>
+    <dimen name="thumbnail_icon_size">54dp</dimen>
+    <dimen name="recommand_icon_height">18dp</dimen>
+    <dimen name="recommand_icon_width">18dp</dimen>
+
+    <dimen name="powersaving_item_font_size">16dip</dimen>
+
+    <dimen name="folder_add_hint_size">30dp</dimen>
+    <dimen name="folder_addbtn_height">46dp</dimen>
+    <dimen name="folder_addbtn_width">46dp</dimen>
+    <dimen name="folder_addhint_numbersize">17dp</dimen>
+    <dimen name="folder_addhint_textsize">20dp</dimen>
+    <dimen name="folder_content_height_gap">0dp</dimen>
+    <dimen name="folder_content_padding">4dp</dimen>
+    <dimen name="folder_content_width">82dp</dimen>
+    <dimen name="folder_content_width_gap">0dp</dimen>
+    <dimen name="folder_mask_content">17dp</dimen>
+    <dimen name="folder_name_margin_left">6dp</dimen>
+    <dimen name="folder_name_margin_right">50dp</dimen>
+    <dimen name="folder_name_paddingbottom">50dp</dimen>
+    <dimen name="folder_name_paddingtop">6dp</dimen>
+    <dimen name="folder_padding">0dp</dimen>
+    <dimen name="folder_preview_subicon_gap">2dp</dimen>
+    <dimen name="folder_preview_topMargin">0dp</dimen>
+    <dimen name="folder_savebtn_height">30dp</dimen>
+    <dimen name="folder_savebtn_width">30dp</dimen>
+    <dimen name="folder_scroll_paddbottom">6dp</dimen>
+    <dimen name="folder_scroll_paddleft">4dp</dimen>
+    <dimen name="folder_scroll_paddright">4dp</dimen>
+    <dimen name="folder_scroll_paddtop">10dp</dimen>
+    <dimen name="folder_tail_button_margin">20dp</dimen>
+    <dimen name="folder_tail_button_padding">12dp</dimen>
+    <dimen name="folder_tail_button_text_size">17dp</dimen>
+    <dimen name="folder_tail_height">36dp</dimen>
+    <dimen name="folder_title_height">40dp</dimen>
+    <dimen name="folder_topMargin">0dp</dimen>
+
+    <dimen name="search_margin_top">60dp</dimen>
+    <dimen name="realtime_blur_height_search_view">130dp</dimen>
+    <dimen name="realtime_blur_height_clock_view">150dp</dimen>
+    <dimen name="search_height">60dp</dimen>
+    <dimen name="widget_round_corner">18dp</dimen>
+    <dimen name="icon_round_corner">13dp</dimen>
+
+    <dimen name="clock_hand_size">1dp</dimen>
+    <dimen name="clock_padding">3dp</dimen>
+    <dimen name="clock_text_size">3dp</dimen>
+    <dimen name="icon_delete_size">20dp</dimen>
+    <dimen name="edit_text_padding">1dp</dimen>
+    <dimen name="widget_padding">10dp</dimen>
+    <dimen name="battery_widget_progress_size">60dp</dimen>
+    <dimen name="battery_widget_progress_stroke">4dp</dimen>
+    <dimen name="small_icon_size">20dp</dimen>
+    <dimen name="small_icon_round_corner">6dp</dimen>
+
+    <dimen name="widget_margin_top_bottom">10dp</dimen>
+    <dimen name="widget_padding_top">100dp</dimen>
+
+    <dimen name="icon_badge_size">20dp</dimen>
+    <dimen name="margin_small_icon">6dp</dimen>
+    <dimen name="margin_icon">8dp</dimen>
+
+    <dimen name="sliding_up_widgets_app_style_item_margin_offset">50dp</dimen>
+    <dimen name="sliding_up_widgets_app_style_page_margin">30dp</dimen>
+    <dimen name="sliding_up_widgets_app_style_page_offset">20dp</dimen>
+
+    <dimen name="base_widget_size">110dp</dimen>
+    <dimen name="picture_widget_size">110dp</dimen>
+
+    <dimen name="clock_widget_size">90dp</dimen>
+
+    <dimen name="card_round_corner">12dp</dimen>
+
+    <dimen name="custom_action_bar_height">68dp</dimen>
+
+    <dimen name="search_bar_round_corner">10dp</dimen>
+    <dimen name="search_bar_rounded_corner">10dp</dimen>
+    <dimen name="search_icon_size">48dp</dimen>
+    <dimen name="search_text_size">16sp</dimen>
+    <dimen name="all_apps_search_bar_field_height">44dp</dimen>
+    <dimen name="all_apps_search_bar_height">52dp</dimen>
+    <dimen name="folder_background_radius">18dp</dimen>
+</resources>

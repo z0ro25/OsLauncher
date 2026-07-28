@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bs_baterry_bg">#4676E4</color>
+    <color name="bs_test">#2374fa</color>
+    <color name="bs_TextColor">#FFFFFF</color>
+    <color name="bs_ripple_material_light">#FFDDDDDD</color>
+    <color name="bs_Rank_TextColor">#000000</color>
+    <color name="bs_line">#30000000</color>
+    <color name="bs_low_baterry_bg">#F6432B</color>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="fmsearch_app_name">Chercher</string>
+    <string name="fmsearch_txt_head_online_app">Application suggérée</string>
+    <string name="fmsearch_txt_head_local_app">App</string>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Trouvez vos CONTACTS ici</item>
+        <item>Trouvez vos APPLICATIONS ici</item>
+        <item>Trouvez vos MUSIQUES ici</item>
+        <item>Appuyez ici</item>
+        <item>Les FOND D\'ECRANS parfaits sont ici.</item>
+        <item>Essayez ceci pour accélérer votre téléphone!</item>
+        <item>Consultez la METEO ici</item>
+        <item>Un nouveau THEME arrive</item>
+    </string-array>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Entrez le nom de votre ami ici</item>
+        <item>Trouvez l\'Application que vous cherchez</item>
+        <item>Cherchez vos musiques</item>
+    </string-array>
+    <string name="fmsearch_tips">Conseils</string>
+    <string name="fmsearch_str_contact">Contacts</string>
+    <string name="fmsearch_str_music">Musique</string>
+    <string name="fmsearch_search_websit">Chercher un site internet</string>
+    <string name="fmsearch_search_pic">Chercher une photo</string>
+    <string name="fmsearch_search_video">Chercher une vidéo</string>
+    <string name="fmsearch_download_market_warning_message">Cette fonction diffère d\'un client de marché zhouyi personnalisé à un autre. Voulez-vous continuer le téléchargement (l\'utilisation du wifi est suggérée)?</string>
+    <string name="fmsearch_download_market_update_message">Cette fonction diffère d\'un client personnalisé à un autre du dernier marché zhouyi. Voulez-vous continuer le téléchargement (l\'utilisation du wifi est suggérée)?</string>
+    <string name="fmsearch_activity_not_found">L\'application n\'a pas été installée.</string>
+    <string name="fmsearch_download">Télécharger</string>
+</resources>

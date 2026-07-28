@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res"/><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\generated\res\rs\debug"/><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res"><file name="ad_rating_style" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\ad_rating_style.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_arrow_back" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_arrow_back.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_blue_corner_bg" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_blue_corner_bg.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_blue_corner_bg_default" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_blue_corner_bg_default.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_blue_corner_bg_focus" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_blue_corner_bg_focus.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_common_bg" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_common_bg.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_common_bg_default" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_common_bg_default.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_common_bg_focus" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_common_bg_focus.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_divider" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_divider.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_ic_tel" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_ic_tel.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_input_cusor" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_input_cusor.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_seach_widget_bg_default" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_seach_widget_bg_default.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_seach_widget_bg_focus" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_seach_widget_bg_focus.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_search_icon" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_search_icon.xml" qualifiers="" type="drawable"/><file name="fmsearch_dw_search_widget_bg" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_dw_search_widget_bg.xml" qualifiers="" type="drawable"/><file name="fmsearch_webview_progressbar_bg" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable\fmsearch_webview_progressbar_bg.xml" qualifiers="" type="drawable"/><file name="ic_search_default" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\drawable-xhdpi\ic_search_default.png" qualifiers="xhdpi-v4" type="drawable"/><file name="fmsearch_error_page" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_error_page.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_ad_common" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_ad_common.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_ad_tag" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_ad_tag.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_ad_text_item" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_ad_text_item.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_app_content" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_app_content.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_autoshow_textview" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_autoshow_textview.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_contact_content" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_contact_content.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_contact_head" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_contact_head.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_default_wraper" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_default_wraper.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_file_content" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_file_content.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_file_head" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_file_head.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_item_contact" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_item_contact.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_item_file" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_item_file.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_item_hotapp" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_item_hotapp.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_item_music" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_item_music.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_music_content" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_music_content.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_music_header" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_music_header.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_search_bottom" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_search_bottom.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_search_content" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_search_content.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_search_head" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_search_head.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_search_main" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_search_main.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_search_webcontent" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_search_webcontent.xml" qualifiers="" type="layout"/><file name="fmsearch_layout_widget_search" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\layout\fmsearch_layout_widget_search.xml" qualifiers="" type="layout"/><file name="ad_star_gray" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ad_star_gray.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ad_star_yellow" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ad_star_yellow.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_arrow_right" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_arrow_right.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_cancel" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_cancel.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_cancel_focus" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_cancel_focus.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_default_img" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_default_img.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_music" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_music.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_pic" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_pic.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_search_default" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_search_default.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_search_focus" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_search_focus.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_tel" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_tel.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_video" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_video.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_websit" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\mipmap-xxhdpi\ic_websit.png" qualifiers="xxhdpi-v4" type="mipmap"/><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values\colors.xml" qualifiers=""><color name="fmsearch_cl_item_divider_bg">#e5e5e5</color><color name="fmsearch_cl_item_hotapp_txt">#4c4c4c</color><color name="fmsearch_cl_item_head_txt">#757575</color><color name="fmsearch_cl_item_music_title_txt">#cc000000</color><color name="fmsearch_cl_item_music_subtitle_txt">#55000000</color><color name="fmsearch_cl_search_head_hint_txt">#80000000</color><color name="fmsearch_cl_main_bg">#f7f7f7</color><color name="fmsearch_cl_cursor">#3f51b5</color><color name="fmsearch_cl_flash">#88ffffff</color><color name="fmsearch_cl_blue_bg">#1b9cd8</color><color name="fmsearch_cl_blue_bg_focus">#661b9cd8</color><color name="fmsearch_white">#ffffff</color><color name="fmsearch_black">#000000</color></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values\dimens.xml" qualifiers=""><dimen name="fmsearch_dp_item_inner_common_padding">8dp</dimen><dimen name="fmsearch_dp_item_haf_inner_common_padding">4dp</dimen><dimen name="fmsearch_dp_item_head_height">42dp</dimen><dimen name="fmsearch_dp_item_outer_common_padding">16dp</dimen><dimen name="fmsearch_dp_item_common_space_padding">4dp</dimen><dimen name="fmsearch_dp_item_head_padding_left">@dimen/fmsearch_dp_item_outer_common_padding
+    </dimen><dimen name="fmsearch_dp_item_content_height">42dp</dimen><dimen name="fmsearch_dp_item_corner_radius">2dp</dimen><dimen name="fmsearch_dp_ad_image_height">40dip</dimen><dimen name="fmsearch_dp_ad_image_width">40dip</dimen><dimen name="fmsearch_dp_search_widget_height">48dip</dimen><dimen name="fmsearch_dp_search_min_width">348dip</dimen><dimen name="fmsearch_dp_search_min_height">64dp</dimen><dimen name="fmsearch_dm_search_divider_height">1px</dimen><dimen name="fmsearch_dp_item_hotapp_width">86dp</dimen><dimen name="fmsearch_dp_item_hotapp_height">89dp</dimen><dimen name="fmsearch_dp_item_search_content_height">@dimen/fmsearch_dp_item_content_height
+    </dimen><dimen name="fmsearch_dp_cardelevation">2dp</dimen><dimen name="fmsearch_sp_search_widget_txt">15sp</dimen><dimen name="fmsearch_sp_search_head_txt">15sp</dimen><dimen name="fmsearch_pivotX">12dp</dimen><dimen name="fmsearch_pivotY">12dp</dimen></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values\strings.xml" qualifiers=""><string name="fmsearch_app_name">Search</string><string name="fmsearch_txt_head_online_app">Application Recommendation</string><string name="fmsearch_txt_head_local_app">Application</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Find your CONTACTS here</item>
+        <item>Find your APPS here</item>
+        <item>Find your MUSIC here</item>
+        <item>Try to click here</item>
+        <item>Perfect WALLPAPER is here</item>
+        <item>I heard that with this, the phone faster!</item>
+        <item>Query the WEATHER information here</item>
+        <item>A new THEME is coming now</item>
+    </string-array><string name="fmsearch_search_tip_string"> Search apps, contacts, files</string><string name="fmsearch_tips">tips</string><string name="fmsearch_str_contact">Contacts</string><string name="fmsearch_str_file">Files</string><string name="fmsearch_str_music">Music</string><string name="fmsearch_search_websit">Search Website</string><string name="fmsearch_search_pic">Search Picture</string><string name="fmsearch_search_video">Search Video</string><string name="fmsearch_download_market_warning_message">This feature depend on a custom version
+        of the
+        zhouyi market client,whether or not to continue to download(it is recommended to use wifi)?
+    </string><string name="fmsearch_download_market_update_message">This feature depend on a custom version
+        of the
+        latest market zhouyi market client, whether or not to continue to update download(it is
+        recommended to use wifi)?
+    </string><string name="fmsearch_activity_not_found">App isn\'t installed.</string><string name="fmsearch_download">Download</string><string name="fmsearch_apkid_error">Apk id is wrong </string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values\styles.xml" qualifiers=""><style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar"/><style name="BaseTheme.NoTitle" parent="BaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/fmsearch_black</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+        <item name="android:divider">@drawable/fmsearch_dw_divider</item>
+        <item name="android:listSelector">?android:attr/selectableItemBackground</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style><style name="AdRatingBarStyle" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ad_rating_style</item>
+        <item name="android:minHeight">14dp</item>
+        <item name="android:maxHeight">14dp</item>
+    </style></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values\thirdpart_attrs.xml" qualifiers=""><declare-styleable name="TagFlowLayout">
+        <attr format="boolean" name="auto_select_effect"/>
+        <attr format="integer" name="max_select"/>
+        <attr name="gravity">
+            <enum name="left" value="-1"/>
+            <enum name="center" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable><declare-styleable name="MaskImageView">
+
+        <attr format="enum" name="mask_level">
+            <enum name="background" value="1"/>
+            <enum name="foreground" value="2"/>
+        </attr>
+        
+        <attr format="boolean" name="is_show_mask_on_click"/>
+        <attr format="color" name="mask_color"/>
+        
+        <attr format="boolean" name="is_ignore_alpha"/>
+
+    </declare-styleable></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-ar\strings.xml" qualifiers="ar"><string name="fmsearch_app_name"> البحث </string><string name="fmsearch_txt_head_online_app"> تطبيقات توصية </string><string name="fmsearch_txt_head_local_app">التطبيقات</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>يمكنك البحث عن جهات الاتصال</item>
+        <item>البحث عن التطبيقات المحبة </item>
+        <item>يمكنك العثور على الموسيقى</item>
+        <item>اضغط على هنا</item>
+        <item>تعالى هنا لرؤية الصور الخلفية </item>
+        <item>شغله فيكون هاتفك على أسرع حال</item>
+        <item>تعالى وانظر إلى الطقس</item>
+        <item>تم تحديث موضوع، التحقق من ذلك!</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>حاول إدخال اسم صديقك </item>
+        <item>ابحث عما تريد من التطبيقات</item>
+        <item> حاول البحث عن اسم الموسيقى</item>
+    </string-array><string name="fmsearch_tips">تذكيرة</string><string name="fmsearch_str_contact">جهات الاتصال</string><string name="fmsearch_str_music">الموسيقى</string><string name="fmsearch_search_websit">البحث عن الصفحة</string><string name="fmsearch_search_pic"> البحث عن الصور </string><string name="fmsearch_search_video">البحث عن الفيديو</string><string name="fmsearch_download_market_warning_message">تعتمد هذه الميزة على نسخة مخصصة من طرف عملاء سوق zhouyi,هل ترغب في الاستمرار على تحميلها(واي فاي موصى به)؟
+    </string><string name="fmsearch_download_market_update_message"> هذه الميزة تعتمد على تعريف السوق من أحدث نسخة من طرف عملاء سوق zhouyi، هل ترغب في الاستمرار على تحميلها (واي فاي موصى به)؟    </string><string name="fmsearch_activity_not_found">لم يتم تركيب التطبيق</string><string name="fmsearch_download">تحميل</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-bg\strings.xml" qualifiers="bg"><string name="fmsearch_app_name">Търсене</string><string name="fmsearch_txt_head_online_app">Препоръчано приложение</string><string name="fmsearch_txt_head_local_app">Приложение</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Намерете вашите КОНТАКТИ тук</item>
+        <item>Намерете вашите ПРИЛОЖЕНИЯ тук</item>
+        <item>Намерете вашата МУЗИКА тук</item>
+        <item>Чукнете тук</item>
+        <item>Перфектните ТАПЕТИ са тук</item>
+        <item>Опитайте това за да ви отговаря телефона по-бързо!</item>
+        <item>Поискайте ИНФОРМАЦИЯ за времето тук</item>
+        <item>Идва нова ТЕМА</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Въведете името на вашия приятел тук</item>
+        <item>Открийте желаното от вас приложение</item>
+        <item>Потърсете вашата музика</item>
+    </string-array><string name="fmsearch_tips">Полезни съвети</string><string name="fmsearch_str_contact">Контакти</string><string name="fmsearch_str_music">Музика</string><string name="fmsearch_search_websit">Търсене уебсайт</string><string name="fmsearch_search_pic">Търсене снимка</string><string name="fmsearch_search_video">Търсене видео</string><string name="fmsearch_download_market_warning_message">Тази функция е различна за потребителските клиенти на Zhouyi пазар. Желаете ли да продължите изтеглянето (Препоръчва се използването на WiFi)?</string><string name="fmsearch_download_market_update_message">Тази функция е различна за потребителските клиенти на Zhouyi пазар. Желаете ли да продължите изтеглянето на актуализации (Препоръчва се използването на WiFi)?</string><string name="fmsearch_activity_not_found">Приложението не е инсталирано.</string><string name="fmsearch_download">Изтегли</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-bn\strings.xml" qualifiers="bn"><string name="fmsearch_app_name">খুঁজুন</string><string name="fmsearch_txt_head_online_app">সুপারিশ করা অ্যাপ</string><string name="fmsearch_txt_head_local_app">অ্যাপ</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>আপনার যোগাযোগ এখানে খুঁজুন</item>
+        <item>আপনার অ্যাপ এখানে খুঁজুন</item>
+        <item>আপনার গান এখানে খুঁজুন</item>
+        <item>এখানে টিপুন</item>
+        <item>যথাযথ ওয়ালপেপার এখানে আছে</item>
+        <item>আপনার ফোনকে দ্রুত করতে এটি ব্যবহার করুন!</item>
+        <item>আবহাওয়া সংক্রান্ত তথ্য এখানে অনুসন্ধান করুন</item>
+        <item>একটি নতুন থিম এখন আসছে</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>আপনার বন্ধুর নাম এখানে টিপুন</item>
+        <item>আপনার অ্যাপটি এখানে খুঁজুন </item>
+        <item>আপনার গানগুলো খুঁজুন</item>
+    </string-array><string name="fmsearch_tips">পরামর্শ সমূহ</string><string name="fmsearch_str_contact">যোগাযোগ</string><string name="fmsearch_str_music">গান</string><string name="fmsearch_search_websit">ওয়েবসাইট খুঁজুন</string><string name="fmsearch_search_pic">ছবি খুঁজুন</string><string name="fmsearch_search_video">ভিডিও খুঁজুন</string><string name="fmsearch_download_market_warning_message">এই বৈশিষ্ট্য প্রচলিত জাউই বাজারের ক্লায়েন্টের থেকে আলাদা করে আপনি কি ডাউনলোড চালিয়ে যেতে চান (ওয়াইফাই ব্যবহারের পরামর্শ দেওয়া হচ্ছে)?  </string><string name="fmsearch_download_market_update_message">এই বৈশিষ্ট্য প্রচলিত সর্বাধুনিক জাউই বাজারের একটি নির্দিষ্ট ক্লায়েন্টের থেকে আলাদা করে আপনি কি ডাউনলোড চালিয়ে যেতে চান (ওয়াইফাই ব্যবহারের পরামর্শ দেওয়া হচ্ছে)?  </string><string name="fmsearch_activity_not_found">অ্যাপ চালু হয় নি।</string><string name="fmsearch_download">ডাউনলোড</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-cs\strings.xml" qualifiers="cs"><string name="fmsearch_app_name">Hledat</string><string name="fmsearch_txt_head_online_app">Doporučená aplikace</string><string name="fmsearch_txt_head_local_app">Aplikace</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Najděte své KONTAKTY zde</item>
+        <item>Najděte své APLIKACE zde</item>
+        <item>Najděte svou HUDBU zde</item>
+        <item>Klepněte zde</item>
+        <item>Skvělá TAPETA se nachází zde</item>
+        <item>Vyzkoušejte toto, aby Váš telefon reagoval rychleji!</item>
+        <item>Vyžádejte si informace o POČASÍ zde</item>
+        <item>Nové TÉMA je na cestě</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Zde zadejte jméno svého přítele</item>
+        <item>Najděte Aplikaci, kterou hledáte</item>
+        <item>Hledejte svoji hudbu</item>
+    </string-array><string name="fmsearch_tips">Tipy</string><string name="fmsearch_str_contact">Kontakty</string><string name="fmsearch_str_music">Hudba</string><string name="fmsearch_search_websit">Prohledávat webovou stránku</string><string name="fmsearch_search_pic">Prohledávat fotografie</string><string name="fmsearch_search_video">Prohledávat videa</string><string name="fmsearch_download_market_warning_message">Tato funkce se liší jeden klient zhouyi trhu od druhého. Přejete si pokračovat ve stahování (doporučujeme použít wifi)?</string><string name="fmsearch_download_market_update_message">Tato funkce se liší jeden klient nejnovějšího zhouyi trhu od druhého. Přejete si pokračovat ve stahování aktualizací (pokud ano, doporučujeme použít wifi)?</string><string name="fmsearch_activity_not_found">Aplikace nebyla nainstalována.</string><string name="fmsearch_download">Stáhnout</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-de\strings.xml" qualifiers="de"><string name="fmsearch_app_name">Suchen</string><string name="fmsearch_txt_head_online_app">Empfohlene App</string><string name="fmsearch_txt_head_local_app">App</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Hier finden Sie Ihre KONTAKTE</item>
+        <item>Hier finden Sie Ihre APPS</item>
+        <item>Hier finden Sie Ihre MUSIK</item>
+        <item>Hier Antippen</item>
+        <item>Hier finden Sie ein perfektes WALLPAPER</item>
+        <item>Probieren Sie dies aus, um Ihr Handy schneller zu machen!</item>
+        <item>Hier finden Sie WETTER-Infos</item>
+        <item>Ein neues THEME wird jetzt verfügbar</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Geben Sie hier den Namen Ihres Freundes ein</item>
+        <item>Finden Sie die App, die Sie suchen</item>
+        <item>Suchen Sie nach Musik</item>
+    </string-array><string name="fmsearch_tips">Tipps</string><string name="fmsearch_str_contact">Kontakte</string><string name="fmsearch_str_music">Musik</string><string name="fmsearch_search_websit">Website suchen</string><string name="fmsearch_search_pic">Foto suchen</string><string name="fmsearch_search_video">Video suchen</string><string name="fmsearch_download_market_warning_message">Dieses Feature weist Unterschiede bei den verschiedenen Zhouyi-Markt-Clients auf. Möchten Sie es dennoch herunterladen (hierfür wird WLAN empfohlen)?</string><string name="fmsearch_download_market_update_message">Dieses Feature weist Unterschiede bei den verschiedenen neusten Zhouyi-Markt-Clients auf. Möchten Sie dennoch weiterhin Updates herunterladen (hierfür wird WLAN empfohlen)?</string><string name="fmsearch_activity_not_found">App wurde nicht installiert.</string><string name="fmsearch_download">Herunterladen</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-es\strings.xml" qualifiers="es"><string name="fmsearch_app_name">Buscar</string><string name="fmsearch_txt_head_online_app">Aplicación recomendada</string><string name="fmsearch_txt_head_local_app">Aplicación</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Encuentra tus CONTACTOS aquí</item>
+        <item>Encuentra tus APPS aquí</item>
+        <item>Encuentra tu MÚSICA aquí</item>
+        <item>Toca aquí</item>
+        <item>El FONDO DE PANTALLA perfecto está aquí</item>
+        <item>¡Pruébalo y acelera el funcionamiento del teléfono!</item>
+        <item>Consulta la información del TIEMPO aquí</item>
+        <item>Un nuevo TEMA ya está aquí</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Introduce el nombre de tu amigo</item>
+        <item>Encuentra la aplicación que quieras</item>
+        <item>Busca tu música</item>
+    </string-array><string name="fmsearch_tips">Consejos</string><string name="fmsearch_str_contact">Contactos</string><string name="fmsearch_str_music">Música</string><string name="fmsearch_search_websit">Buscar página web</string><string name="fmsearch_search_pic">Buscar foto</string><string name="fmsearch_search_video">Buscar video</string><string name="fmsearch_download_market_warning_message">Esta característica difiere de un cliente de un Mercado Zhouyi a otro. ¿Quieres continuar descargando (se recomienda el uso de Wi-Fi)?</string><string name="fmsearch_download_market_update_message">Esta característica difiere de un cliente a otro del último Mercado Zhouyi. ¿Quieres continuar descargando actualizaciones? (Se recomienda el uso de Wi-Fi)</string><string name="fmsearch_activity_not_found">Aplicación no instalada</string><string name="fmsearch_download">Descargar</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-fr\strings.xml" qualifiers="fr"><string name="fmsearch_app_name">Chercher</string><string name="fmsearch_txt_head_online_app">Application suggérée</string><string name="fmsearch_txt_head_local_app">App</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Trouvez vos CONTACTS ici</item>
+        <item>Trouvez vos APPLICATIONS ici</item>
+        <item>Trouvez vos MUSIQUES ici</item>
+        <item>Appuyez ici</item>
+        <item>Les FOND D\'ECRANS parfaits sont ici.</item>
+        <item>Essayez ceci pour accélérer votre téléphone!</item>
+        <item>Consultez la METEO ici</item>
+        <item>Un nouveau THEME arrive</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Entrez le nom de votre ami ici</item>
+        <item>Trouvez l\'Application que vous cherchez</item>
+        <item>Cherchez vos musiques</item>
+    </string-array><string name="fmsearch_tips">Conseils</string><string name="fmsearch_str_contact">Contacts</string><string name="fmsearch_str_music">Musique</string><string name="fmsearch_search_websit">Chercher un site internet</string><string name="fmsearch_search_pic">Chercher une photo</string><string name="fmsearch_search_video">Chercher une vidéo</string><string name="fmsearch_download_market_warning_message">Cette fonction diffère d\'un client de marché zhouyi personnalisé à un autre. Voulez-vous continuer le téléchargement (l\'utilisation du wifi est suggérée)?</string><string name="fmsearch_download_market_update_message">Cette fonction diffère d\'un client personnalisé à un autre du dernier marché zhouyi. Voulez-vous continuer le téléchargement (l\'utilisation du wifi est suggérée)?</string><string name="fmsearch_activity_not_found">L\'application n\'a pas été installée.</string><string name="fmsearch_download">Télécharger</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-hi\strings.xml" qualifiers="hi"><string name="fmsearch_app_name"> खोज </string><string name="fmsearch_txt_head_online_app">अनुप्रयोग सिफारिश</string><string name="fmsearch_txt_head_local_app">अनुप्रयोग</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>आप संपर्कों आप संपर्कों</item>
+        <item>स्थानीय खोज आवेदन </item>
+        <item>संगीत भी पा सकते हैं </item>
+        <item> यहाँ आओ </item>
+        <item>कुछ लोगों को आप वॉलपेपर देखें कॉल </item>
+        <item> मैं इस फोन में तेजी ओह इस्तेमाल किया सुना है!</item>
+        <item>विषय अद्यतन किया गया है, यह देखो!</item>
+        <item> क्या मौसम में यह देखने के लिए! </item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>अपने मित्र का नाम प्रवेश करने की कोशिश</item>
+        <item>आप एक app देख रहे हैं </item>
+        <item>संगीत नाम के लिए खोज का प्रयास करें</item>
+    </string-array><string name="fmsearch_tips">युक्ति</string><string name="fmsearch_str_contact">संपर्क</string><string name="fmsearch_str_music">संगीत</string><string name="fmsearch_search_websit">खोज Website</string><string name="fmsearch_search_pic">खोज छवि</string><string name="fmsearch_search_video">वीडियो खोज</string><string name="fmsearch_download_market_warning_message"> यह सुविधा Zhouyi बाजार में ग्राहकों की एक अनुकूलित संस्करण पर निर्भर करता है, डाउनलोड करने के लिए (अनुशंसित वाईफाई) जारी रखने के लिए है कि क्या?
+    </string><string name="fmsearch_download_market_update_message"> यह सुविधा Zhouyi बाजार ग्राहकों के नवीनतम संस्करण से बाजार की परिभाषा पर निर्भर करता है, (वाईफाई का उपयोग करने के लिए सिफारिश की है) अद्यतन डाउनलोड करने के लिए जारी रखने के लिए है कि क्या?
+    </string><string name="fmsearch_activity_not_found">एप्लिकेशन स्थापित नहीं है।</string><string name="fmsearch_download">डाउनलोड</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-hr\strings.xml" qualifiers="hr"><string name="fmsearch_app_name">Pretraga</string><string name="fmsearch_txt_head_online_app">Preporučena aplikacija</string><string name="fmsearch_txt_head_local_app">Aplikacija</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Pronađite svoje KONTAKTE ovdje</item>
+        <item>Pronađite svoje APLIKACIJE ovdje</item>
+        <item>Pronađite svoju GLAZBU ovdje</item>
+        <item>Dodirnite ovdje</item>
+        <item>Ovdje je savršena POZADINA</item>
+        <item>Pokušajte ovo kako bi Vaš telefon odgovarao brže!</item>
+        <item>Ovdje postavite pitanja vezana za VRIJEME</item>
+        <item>Nova TEMA sada dolazi</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Ovdje unesite ime svog prijatelja</item>
+        <item>Pronađite aplikaciju koju želite</item>
+        <item>Pretražite svoju glazbu</item>
+    </string-array><string name="fmsearch_tips">Savjeti</string><string name="fmsearch_str_contact">Kontakti</string><string name="fmsearch_str_music">Glazba</string><string name="fmsearch_search_websit">Pretražite internet stranicu</string><string name="fmsearch_search_pic">Pretražite fotografije</string><string name="fmsearch_search_video">Pretražite videozapise</string><string name="fmsearch_download_market_warning_message">Ova osobina se razlikuje od jednog prilagođenog klijenta zhouyi market do drugog. Želite li nastaviti s preuzimanjem (korištenje WiFi preporuča se)?</string><string name="fmsearch_download_market_update_message">Ova osobina se razlikuje od jednog prilagođenog klijenta do drugog posljednjeg zhouyi market. Želite li nastaviti preuzimanje ažuriranja (ako da, korištenje WiFi preporuča se)?</string><string name="fmsearch_activity_not_found">Aplikacija nije instalirana</string><string name="fmsearch_download">Preuzeti</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-hu\strings.xml" qualifiers="hu"><string name="fmsearch_app_name">Keresés</string><string name="fmsearch_txt_head_online_app">Ajánlott app</string><string name="fmsearch_txt_head_local_app">App</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Találja meg a  KAPCSOLATAIT itt</item>
+        <item>Találja meg az APPJAIT itt</item>
+        <item>Találja meg a ZENÉJÉT itt</item>
+        <item>Érintse itt</item>
+        <item>A tökéletes HÁTTÉR van itt</item>
+        <item>Próbálkozzon evvel, hogy a telefonját gyorsabbá tegye!</item>
+        <item>Keresse az IDŐJÁRÁSI információt itt</item>
+        <item>Most egy új TÉMA következik</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Vigye be itt a barátja nevét</item>
+        <item>Keresse meg az Appot, amit akar</item>
+        <item>Keresse meg a zenéjét</item>
+    </string-array><string name="fmsearch_tips">Tippek</string><string name="fmsearch_str_contact">Kapcsolatok</string><string name="fmsearch_str_music">Zene</string><string name="fmsearch_search_websit">Keressen web lapot</string><string name="fmsearch_search_pic">Keressen fényképet</string><string name="fmsearch_search_video">Keressen videót</string><string name="fmsearch_download_market_warning_message">Ez a tulajdonság eltér a legfrissebb zhouyi üzleti ügyfélé és a másik között. Kívánja folytatni a letöltést (Ajánlott a wifi használata)?</string><string name="fmsearch_download_market_update_message">Ez a tulajdonság eltér a legfrissebb zhouyi üzleti ügyfélé és a másik között. Kívánja folytatni a letöltést (Ha igen, ajánlott a wifi használata)?</string><string name="fmsearch_activity_not_found">Az app nem lett telepítve.</string><string name="fmsearch_download">Letöltés</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-in\strings.xml" qualifiers="in"><string name="fmsearch_app_name">Cari</string><string name="fmsearch_txt_head_online_app">Rekomendasi Aplikasi</string><string name="fmsearch_txt_head_local_app">Aplikasi</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Bisa mencari kontak</item>
+        <item>Cari aplikasi lokal</item>
+        <item>Musik juga dapat ditemukan</item>
+        <item>Segera klik di sini</item>
+        <item>Ada yang memanggilmu untuk melihat wallpaper</item>
+        <item>Kabarnya, kalau menggunakan ini, ponsel jadi lebih cepat loh!</item>
+        <item>Mari kita lihat cuaca!</item>
+        <item>Tema sudah diperbarui, mari kita lihat!</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Coba masukkan nama teman</item>
+        <item>Temukan aplikasi yang Anda inginkan</item>
+        <item>Coba cari judul lagu</item>
+    </string-array><string name="fmsearch_tips">Tips</string><string name="fmsearch_str_contact">Kontak</string><string name="fmsearch_str_music">Musik</string><string name="fmsearch_search_websit">Cari Web</string><string name="fmsearch_search_pic">Cari Foto</string><string name="fmsearch_search_video">Cari Video</string><string name="fmsearch_download_market_warning_message">Fitur ini tergantung pada versi pengguna pasar zhouyi, mau lanjut unduh (Disarankan untuk menggunakan wifi)?
+    </string><string name="fmsearch_download_market_update_message">Fitur ini tergantung pada versi pengguna terbaru pasar zhouyi, mau lanjut perbarui dan unduh (Disarankan untuk menggunakan wifi)?
+    </string><string name="fmsearch_activity_not_found">Aplikasi belum terpasang.</string><string name="fmsearch_download">Unduh</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-it\strings.xml" qualifiers="it"><string name="fmsearch_app_name">Cerca</string><string name="fmsearch_txt_head_online_app">App Raccomandate</string><string name="fmsearch_txt_head_local_app">App</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Trova i tuoi CONTATTI qui</item>
+        <item>Trova le tue APP qui</item>
+        <item>Trova la tua MUSICA qui</item>
+        <item>Premi qui</item>
+        <item>Lo SFONDO perfetto è qui</item>
+        <item>Provalo per incrementare la velocità di risposta del tuo telefono!</item>
+        <item>Leggi le informazioni METEO qui</item>
+        <item>Un nuovo TEMA è in arrivo</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Inserisci il nome del tuo amico qui</item>
+        <item>Trova le App che desideri</item>
+        <item>Cerca la tua musica</item>
+    </string-array><string name="fmsearch_tips">Note</string><string name="fmsearch_str_contact">Contatti</string><string name="fmsearch_str_music">Musica</string><string name="fmsearch_search_websit">Cerca Sito Web</string><string name="fmsearch_search_pic">Cerca Foto</string><string name="fmsearch_search_video">Cerca Video</string><string name="fmsearch_download_market_warning_message">Questa funzione differisce da un cliente del ZhouYi Market all\'altro. Desideri continuare il download (Si raccomanda l\'uso della rete Wi-Fi)?</string><string name="fmsearch_download_market_update_message">Questa funzione differisce da un cliente del ZhouYi Market all\'altro. Desideri continuare il download dell\'aggiornamento (Si raccomanda l\'uso della rete Wi-Fi)?</string><string name="fmsearch_activity_not_found">L\'App non è stata installata.</string><string name="fmsearch_download">Download</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-ms\strings.xml" qualifiers="ms"><string name="fmsearch_app_name">Carian</string><string name="fmsearch_txt_head_online_app">Aplikasi yang disyorkan</string><string name="fmsearch_txt_head_local_app">Aplikasi</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Boleh mencari kenalan</item>
+        <item>Carian aplikasi tempatan</item>
+        <item>Muzik boleh dijumpai</item>
+        <item>Datang ke sini</item>
+        <item>Seseorang memanggil anda melihat kertas dinding</item>
+        <item>Saya mendengar bahwa menggunakan telefon ini menjadi sangat cepat</item>
+        <item>Sila lihat cuaca!</item>
+        <item>Tema telah dikemas kini, sila lihat!</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Cuba masukkan nama rakan</item>
+        <item>Cari aplikasi yang anda inginkan</item>
+        <item>Cuba cari Judul muzik</item>
+    </string-array><string name="fmsearch_tips">Petua</string><string name="fmsearch_str_contact">Kenalan</string><string name="fmsearch_str_music">Muzik</string><string name="fmsearch_search_websit">Cari Laman web</string><string name="fmsearch_search_pic">Cari Gambar</string><string name="fmsearch_search_video">Cari Video</string><string name="fmsearch_download_market_warning_message">Versi ini bergantung kepada versi klien pasar zhouyi yang disesuaikan, mahu teruskan muat turun (wifi disyorkan)?    </string><string name="fmsearch_download_market_update_message">Versi ini bergantung kepada versi klien terkini pasar zhouyi yang disesuaikan, mahu teruskan muat turun (wifi disyorkan)?    
+    </string><string name="fmsearch_activity_not_found">Aplikasi tidak dipasang.</string><string name="fmsearch_download">Muat turun</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-pl\strings.xml" qualifiers="pl"><string name="fmsearch_app_name">Szukaj</string><string name="fmsearch_txt_head_online_app">Polecana aplikacja</string><string name="fmsearch_txt_head_local_app">Aplikacja</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Tutaj znajdziesz swoje KONTAKTY</item>
+        <item>Tutaj znajdziesz swoje APLIKAJCE</item>
+        <item>Tutaj znajdziesz swoją MUZYKĘ</item>
+        <item>Dotknij tutaj</item>
+        <item>Tutaj znajdziesz idealną TAPETĘ</item>
+        <item>Wypróbuj tego, aby uczynić swój telefon szybszym!</item>
+        <item>Tutaj znajdziesz informacje o POGODZIE</item>
+        <item>Niedługo dostępna będzie nowa SKÓRKA</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Jak nazywa się twój znajomy?</item>
+        <item>Znajdź poszukiwaną przez ciebie Aplikację</item>
+        <item>Szukaj muzykę</item>
+    </string-array><string name="fmsearch_tips">Wskazówki</string><string name="fmsearch_str_contact">Kontakty</string><string name="fmsearch_str_music">Muzyka</string><string name="fmsearch_search_websit">Wyszukaj stronę</string><string name="fmsearch_search_pic">Wyszukaj zdjęcie</string><string name="fmsearch_search_video">Wyszukaj wideo</string><string name="fmsearch_download_market_warning_message">Ta opcja różni się w zależności od wersji klienta sklepu zhouyi. Czy chcesz kontynuować pobieranie? (Zaleca się korzystanie z sieci Wi-Fi)</string><string name="fmsearch_download_market_update_message">Ta opcja różni się w zależności od wersji najnowszego klienta sklepu zhouyi. Czy chcesz kontynuować pobieranie aktualizacji? (Jeśli tak, to zaleca się korzystanie z sieci Wi-Fi)</string><string name="fmsearch_activity_not_found">Nie zainstalowano aplikacji</string><string name="fmsearch_download">Pobierz</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-pt\strings.xml" qualifiers="pt"><string name="fmsearch_app_name">Pesquisar</string><string name="fmsearch_txt_head_online_app">App recomendado</string><string name="fmsearch_txt_head_local_app">App</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Encontre aqui os seus CONTACTOS</item>
+        <item>Encontre aqui seus APPS</item>
+        <item>Encontre aqui suas MÚSICAS</item>
+        <item>Toque aqui</item>
+        <item>O PAPEL DE PAREDE perfeito está aqui</item>
+        <item>Tente fazer com que seu telefone responda mais rápido!</item>
+        <item>Consulte aqui a informação do CLIMA</item>
+        <item>Um novo TEMA está chegando</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Digite aqui o nome do seu amigo</item>
+        <item>Encontre a aplicação que você deseja</item>
+        <item>Pesquise sua música</item>
+    </string-array><string name="fmsearch_tips">Dicas</string><string name="fmsearch_str_contact">Contatos</string><string name="fmsearch_str_music">Música</string><string name="fmsearch_search_websit">Pesquisar no Site</string><string name="fmsearch_search_pic">Pesquisar Foto</string><string name="fmsearch_search_video">Procurar Vídeo</string><string name="fmsearch_download_market_warning_message">Este recurso difere de um cliente de mercado Zhouyi personalizado para outro. Deseja continuar a fazer o download (rede Wi-Fi recomendada)?</string><string name="fmsearch_download_market_update_message">Este recurso difere de um cliente personalizado para outro do mercado Zhouyi mais recente. Deseja continuar a fazer o download das atualizações (se sim, a rede Wi-Fi é recomendada)?</string><string name="fmsearch_activity_not_found">O aplicativo não foi instalado.</string><string name="fmsearch_download">Download</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-ro-Rro\strings.xml" qualifiers="ro-rRO"><string name="fmsearch_app_name">Căutați</string><string name="fmsearch_txt_head_online_app">Aplicații recomandate</string><string name="fmsearch_txt_head_local_app">Aplicații</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Vă puteți găsi CONTACTELE aici</item>
+        <item>Vă puteți găsi APLICAȚIILE aici</item>
+        <item>Vă puteți găsi MUZICA aici</item>
+        <item>Atingeți aici</item>
+        <item>TAPETUL perfect este aici</item>
+        <item>Încercați să faceți telefonul vostru să răspundă mai rapid!</item>
+        <item>Solicitați informații METEO aici</item>
+        <item>O nouă TEMĂ va fi disponibilă în curând</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Introduceți numele prietenului dumneavoastră aici</item>
+        <item>Găsiți aplicația pe care o doriți</item>
+        <item>Căutați-vă muzica</item>
+    </string-array><string name="fmsearch_tips">Sfaturi</string><string name="fmsearch_str_contact">Contacte</string><string name="fmsearch_str_music">Muzică</string><string name="fmsearch_search_websit">Caută site web</string><string name="fmsearch_search_pic">Caută fotografii</string><string name="fmsearch_search_video">Caută videoclipuri</string><string name="fmsearch_download_market_warning_message">Această funcție este diferită pentru fiecare client de la o piață la alta. Doriți să continuați descărcarea (Este recomandabilă folosirea wifi-ului)?</string><string name="fmsearch_download_market_update_message">Această funcție este diferită pentru fiecare client de la o piață la alta. Doriți să continuați descărcarea actualizărilor (Dacă da, este recomandabilă folosirea wifi-ului)?</string><string name="fmsearch_activity_not_found">Aplicația nu a fost instalată.</string><string name="fmsearch_download">Descarcă    </string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-ru\strings.xml" qualifiers="ru"><string name="fmsearch_app_name">Поиск</string><string name="fmsearch_txt_head_online_app">Рекомендуемое приложение</string><string name="fmsearch_txt_head_local_app">Приложение</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Ваши КОНТАКТЫ тут</item>
+        <item>Ваши ПРИЛОЖЕНИЯ тут</item>
+        <item>Ваша МУЗЫКА тут</item>
+        <item>Нажмите здесь</item>
+        <item>Идеальные ОБОИ здесь</item>
+        <item>Попробуйте, чтобы ваш телефон работал быстрее!</item>
+        <item>Информации о ПОГОДЕ здесь</item>
+        <item>Доступна новая ТЕМА</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Введите имя вашего друга</item>
+        <item>Найдите приложение, которое вы хотите</item>
+        <item>Поиск музыки</item>
+    </string-array><string name="fmsearch_tips">Советы</string><string name="fmsearch_str_contact">Контакты</string><string name="fmsearch_str_music">Музыка</string><string name="fmsearch_search_websit">Поиск Сайта</string><string name="fmsearch_search_pic">Поиск Фото</string><string name="fmsearch_search_video">Поиск Видео</string><string name="fmsearch_download_market_warning_message">Эта функция отличается от одного пользовательского клиента рынка zhouyi к другому. Вы хотите продолжить скачивание (использование WiFi рекомендуется)?</string><string name="fmsearch_download_market_update_message">Эта функция отличается от одного пользовательского клиента к другому из последних рынка zhouyi. Вы хотите продолжить скачивание обновления (если да, использование WiFi рекомендуется)?</string><string name="fmsearch_activity_not_found">Приложение не было установлено.</string><string name="fmsearch_download">Скачать</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-sk\strings.xml" qualifiers="sk"><string name="fmsearch_app_name">Vyhľadanie</string><string name="fmsearch_txt_head_online_app">Odporúčaná aplikácia</string><string name="fmsearch_txt_head_local_app">Aplikácia</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Nájdite svoje KONTAKTY tu</item>
+        <item>Nájdite svoje APLIKÁCIE tu</item>
+        <item>Nájdite svoju HUDBU tu</item>
+        <item>Kliknite tu</item>
+        <item>Dokonalá TAPETA je tu</item>
+        <item>Skúste toto, aby váš telefón reagoval rýchlejšie!</item>
+        <item>Vyžiadajte informácie o POČASÍ tu</item>
+        <item>Nová TÉMA prichádza teraz</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Zadajte meno vášho priateľa tu</item>
+        <item>Nájdite aplikáciu, ktorú chcete</item>
+        <item>Vyhľadávanie vaši hudby</item>
+    </string-array><string name="fmsearch_tips">Tipy</string><string name="fmsearch_str_contact">Kontakty</string><string name="fmsearch_str_music">Hudba</string><string name="fmsearch_search_websit">Vyhľadávanie na webovej stránke</string><string name="fmsearch_search_pic">Hľadanie fotiek</string><string name="fmsearch_search_video">Hľadanie videá</string><string name="fmsearch_download_market_warning_message">Táto funkcia sa líši od jedného užívateľského klienta zhouyi trhu k druhému. Chcete pokračovať v sťahovaní (Použitie wifi je odporúčané)?</string><string name="fmsearch_download_market_update_message">Táto funkcia sa líši od jedného užívateľského klienta najnovšieho zhouyi trhu k druhému. Chcete pokračovať v sťahovaní aktualizácií (Ak áno, je odporúčané použiť WiFi)?</string><string name="fmsearch_activity_not_found">Aplikácia nebola nainštalovaná.</string><string name="fmsearch_download">Stiahnuť </string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-th\strings.xml" qualifiers="th"><string name="fmsearch_app_name">ค้นหา</string><string name="fmsearch_txt_head_online_app">คำแนะนำการใช้งาน</string><string name="fmsearch_txt_head_local_app">แอพพลิเคชั่น</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>ค้นหารายชื่อได้ที่นี่</item>
+        <item>ค้นพาแอพท้องถิ่นได้ที่นี่</item>
+        <item>ค้นหาเพลงได้ที่นี่</item>
+        <item>คลิกที่นี่</item>
+        <item>ดูวอลล์เปเปอร์ได้ที่นี่</item>
+        <item>ได้ยินมาว่าถ้าใช้สิ่งนี้จะทำให้โทรศัพท์ไวขึ้น!</item>
+        <item>ตรวจสอบสภาพอากาศวันนี้!</item>
+        <item>มีธีมใหม่มาแล้ว รีบไปดูกัน!</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>ลองใส่รายชื่อของเพื่อนคุณดูสิ</item>
+        <item>ค้นพาแอพที่ต้องการ</item>
+        <item>ลองค้นหาชื่อเพลง</item>
+    </string-array><string name="fmsearch_tips">เคล็ดลับ</string><string name="fmsearch_str_contact">รายชื่อ</string><string name="fmsearch_str_music">เพลง
+    </string><string name="fmsearch_search_websit">ค้นหาเว็บไซต์
+    </string><string name="fmsearch_search_pic">ค้นหารูปภาพ</string><string name="fmsearch_search_video">ค้นหาวิดีโอ</string><string name="fmsearch_download_market_warning_message">
+        ฟังก์ชั่นนี้จะขึ้นอยู่กับเวอร์ชั่นที่กำหนดของลูกค้าของตลาด Zhouyi
+        ต้องการดำเนินการต่อเพื่อดาวน์โหลดหรือไม่(แนะนำให้ใช้WiFi)?
+    </string><string name="fmsearch_download_market_update_message">
+        ฟังก์ชั่นนี้จะขึ้นอยู่กับเวอร์ชั่นที่กำหนดล่าสุดของลูกค้าของตลาด Zhouyi
+        ต้องการดำเนินการต่อเพื่อดาวน์โหลดการปรับปรุงหรือไม่ (แนะนำให้ใช้ WiFi)?
+    </string><string name="fmsearch_activity_not_found">ยังไม่ได้ติดตั้งแอพ</string><string name="fmsearch_download">ดาวน์โหลด</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-uk\strings.xml" qualifiers="uk"><string name="fmsearch_app_name">Пошук</string><string name="fmsearch_txt_head_online_app">Рекомендоване додаток</string><string name="fmsearch_txt_head_local_app">Додаток</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Знайти ваші КОНТАКТИ тут</item>
+        <item>Знайти ваші ПРОГРАМИ тут</item>
+        <item>Знайти вашу МУЗИКУ тут</item>
+        <item>надрукувати тут</item>
+        <item>Відмінні шпалери тут</item>
+        <item>Спробуйте зробити Ваш телефон швидше!</item>
+        <item>Запит інформації про погоду тут</item>
+        <item>Зараз надходить нова ТЕМА</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Ввести ім\'я одного тут</item>
+        <item>Знайти додаток, яке ви бажаєте</item>
+        <item>Знайти вашу музику</item>
+    </string-array><string name="fmsearch_tips">Вказівки</string><string name="fmsearch_str_contact">Контакти</string><string name="fmsearch_str_music">Музика</string><string name="fmsearch_search_websit">знайти сайт</string><string name="fmsearch_search_pic">Знайти фото</string><string name="fmsearch_search_video">Знайти відео</string><string name="fmsearch_download_market_warning_message">Дані характеристики відрізняються від призначеного для користувача ринку чжуі. Бажаєте продовжити завантаження (рекомендується застосування wifi?)</string><string name="fmsearch_download_market_update_message">Дані характеристики відрізняються від призначеного для користувача ринку чжуі. Бажаєте продовжити завантаження поновлення (рекомендується застосування wifi?)</string><string name="fmsearch_activity_not_found">Додаток не було встановлено</string><string name="fmsearch_download">Завантаження</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-vi\strings.xml" qualifiers="vi"><string name="fmsearch_app_name">Tìm kiếm</string><string name="fmsearch_txt_head_online_app">Giới thiệu chương trình ứng dụng</string><string name="fmsearch_txt_head_local_app">Chương trình ứng dụng</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>Có thể tìm người liên hệ</item>
+        <item>Tìm ứng dụng tại chỗ</item>
+        <item>Có thể tìm thấy nhạc</item>
+        <item>Nhanh chân lên, đây rồi</item>
+        <item>Có người mời bạn xem hình nền</item>
+        <item>Tôi nghe nói dùng phần này, điện thoại sẽ nhanh hơn!</item>
+        <item>Hãy xem thời tiết nào!</item>
+        <item>Đã cập nhật chủ đề, hãy mau tới xem!</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>Thử nhập tên bạn bè</item>
+        <item>Tìm thấy chương trình ứng dụng bạn cần</item>
+        <item>Thử tìm tên bài nhạc</item>
+    </string-array><string name="fmsearch_tips">Nhắc nhở</string><string name="fmsearch_str_contact">Người liên hệ</string><string name="fmsearch_str_music">Âm nhạc</string><string name="fmsearch_search_websit">Tìm trang web</string><string name="fmsearch_search_pic">Tìm ảnh</string><string name="fmsearch_search_video">Tìm video</string><string name="fmsearch_download_market_warning_message">Chức năng này quyết định bởi đầu khách hàng thị trường zhouyi của phiên bản tùy chỉnh, có tiếp tục tải không (khuyến nghị dùng wifi)</string><string name="fmsearch_download_market_update_message">Chức năng này quyết định bởi đầu khách hàng thị trường zhouyi của phiên bản tùy chỉnh, có tiếp tục tải cập nhật không (có khuyến nghị dùng wifi)?</string><string name="fmsearch_activity_not_found">Chưa cài chương trình ứng dụng</string><string name="fmsearch_download">Tải</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-zh-rCN\strings.xml" qualifiers="zh-rCN"><string name="fmsearch_app_name">搜索</string><string name="fmsearch_txt_head_online_app">应用程序推荐</string><string name="fmsearch_txt_head_local_app">应用程序</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>可以搜索联系人</item>
+        <item>搜索本地应用</item>
+        <item>音乐也可以找到</item>
+        <item>快点这里</item>
+        <item>有人叫你来看壁纸</item>
+        <item>我听说用这个，手机更快哦！</item>
+        <item>来看看天气吧！</item>
+        <item>主题已经更新了，快来看看吧！</item>
+    </string-array><string name="fmsearch_search_tip_string">找到应用程序，联系人，文件</string><string name="fmsearch_tips">提示</string><string name="fmsearch_str_contact">联系人</string><string name="fmsearch_str_music">音乐</string><string name="fmsearch_str_file">文件</string><string name="fmsearch_search_websit">搜索网页</string><string name="fmsearch_search_pic">搜索图片</string><string name="fmsearch_search_video">搜索视频</string><string name="fmsearch_download_market_warning_message">此功能取决于自定义版本的zhouyi市场客户端，是否继续下载（建议使用wifi）？
+    </string><string name="fmsearch_download_market_update_message">此功能取决于自定义版本的最新市场的zhouyi市场客户端，是否继续更新下载（是的推荐使用wifi）？
+    </string><string name="fmsearch_activity_not_found">应用程式尚未安装。</string><string name="fmsearch_apkid_error">ApkId错误，不能打开卓易市场</string><string name="fmsearch_download">下载</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-zh-rHK\strings.xml" qualifiers="zh-rHK"><string name="fmsearch_app_name">搜索</string><string name="fmsearch_txt_head_online_app">應用程序推薦</string><string name="fmsearch_txt_head_local_app">應用程序</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>可以搜索聯繫人</item>
+        <item>搜索本地應用</item>
+        <item>音樂也可以找到</item>
+        <item>快點這裡</item>
+        <item>有人叫你來看壁紙</item>
+        <item>我聽說用這個，手機更快哦！</item>
+        <item>來看看天氣吧！ </item>
+        <item>主題已經更新了，快來看看吧！</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>嘗試輸入朋友的姓名</item>
+        <item>找到您想要的應用程式</item>
+        <item>嘗試搜索音樂名稱</item>
+    </string-array><string name="fmsearch_tips">提示</string><string name="fmsearch_str_contact">聯繫人</string><string name="fmsearch_str_music">音樂</string><string name="fmsearch_search_websit">搜索Websit</string><string name="fmsearch_search_pic">搜索照片</string><string name="fmsearch_search_video">搜索視頻</string><string name="fmsearch_download_market_warning_message">此功能取決於自定義版本
+            的
+            zhouyi市場客戶端，是否繼續下載（建議使用wifi）？
+        </string><string name="fmsearch_download_market_update_message">此功能取決於自定義版本
+            的
+            最新市場的zhouyi市場客戶端，是否繼續更新下載（是的
+            推薦使用wifi）？
+        </string><string name="fmsearch_activity_not_found">應用程式尚未安裝。</string><string name="fmsearch_apkid_error">ApkId错误，不能打开卓易市场</string><string name="fmsearch_download">下載</string></file><file path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\values-zh-rTW\strings.xml" qualifiers="zh-rTW"><string name="fmsearch_app_name">搜索</string><string name="fmsearch_txt_head_online_app">應用程序推薦</string><string name="fmsearch_txt_head_local_app">應用程序</string><string-array name="fmsearch_search_widget_show_strings">
+        <item>可以搜索聯繫人</item>
+        <item>搜索本地應用</item>
+        <item>音樂也可以找到</item>
+        <item>快點這裡</item>
+        <item>有人叫你來看壁紙</item>
+        <item>我聽說用這個，手機更快哦！</item>
+        <item>來看看天氣吧！ </item>
+        <item>主題已經更新了，快來看看吧！</item>
+    </string-array><string-array name="fmsearch_search_show_strings">
+        <item>嘗試輸入朋友的姓名</item>
+        <item>找到您想要的應用程式</item>
+        <item>嘗試搜索音樂名稱</item>
+    </string-array><string name="fmsearch_tips">提示</string><string name="fmsearch_str_contact">聯繫人</string><string name="fmsearch_str_music">音樂</string><string name="fmsearch_search_websit">搜索Websit</string><string name="fmsearch_search_pic">搜索照片</string><string name="fmsearch_search_video">搜索視頻</string><string name="fmsearch_download_market_warning_message">此功能取決於自定義版本
+            的
+            zhouyi市場客戶端，是否繼續下載（建議使用wifi）？
+        </string><string name="fmsearch_download_market_update_message">此功能取決於自定義版本
+            的
+            最新市場的zhouyi市場客戶端，是否繼續更新下載（是的
+            推薦使用wifi）？
+        </string><string name="fmsearch_activity_not_found">應用程式尚未安裝。</string><string name="fmsearch_apkid_error">ApkId错误，不能打开卓易市场</string><string name="fmsearch_download">下載</string></file><file name="file_paths" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\xml\file_paths.xml" qualifiers="" type="xml"/><file name="fmsearch_search_widget_info" path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\res\xml\fmsearch_search_widget_info.xml" qualifiers="" type="xml"/></source><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\generated\res\rs\debug"/><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"/><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"/><mergedItems><configuration qualifiers=""><declare-styleable name="MaskImageView">
+
+        <attr format="enum" name="mask_level">
+            <enum name="background" value="1"/>
+            <enum name="foreground" value="2"/>
+        </attr>
+        
+        <attr format="boolean" name="is_show_mask_on_click"/>
+        <attr format="color" name="mask_color"/>
+        
+        <attr format="boolean" name="is_ignore_alpha"/>
+
+    </declare-styleable><declare-styleable name="TagFlowLayout">
+        <attr format="boolean" name="auto_select_effect"/>
+        <attr format="integer" name="max_select"/>
+        <attr name="gravity">
+            <enum name="left" value="-1"/>
+            <enum name="center" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable></configuration></mergedItems></merger>

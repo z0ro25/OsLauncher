@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abandoned_clean_this">"Уклони"</string>
+    <string name="abandoned_promise_explanation">"Апликација за ову икону није инсталирана. Можете да је уклоните или да потражите апликацију и инсталирате је ручно."</string>
+    <string name="abandoned_promises_title">"Ова апликација није инсталирана"</string>
+    <string name="abandoned_search">"Претражи"</string>
+    <string name="action_add_to_workspace">"Додај на почетни екран"</string>
+    <string name="action_decrease_height">"Смањи висину"</string>
+    <string name="action_decrease_width">"Смањи ширину"</string>
+    <string name="action_increase_height">"Повећај висину"</string>
+    <string name="action_increase_width">"Повећај ширину"</string>
+    <string name="action_move">"Премести ставку"</string>
+    <string name="action_move_here">"Премести ставку овде"</string>
+    <string name="action_move_screen_left">"Помери екран улево"</string>
+    <string name="action_move_screen_right">"Помери екран удесно"</string>
+    <string name="action_move_to_workspace">"Премести на почетни екран"</string>
+    <string name="action_resize">"Промени величину"</string>
+    <string name="activity_not_available">"Апликација није доступна"</string>
+    <string name="activity_not_found">"Апликација није инсталирана."</string>
+    <string name="add_to_folder">"Додај у директоријум: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Додај у директоријум у коме је <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Ставка је додата у директоријум"</string>
+    <string name="all_apps_button_label">"Апликације"</string>
+    <string name="all_apps_home_button_label">"Почетна"</string>
+    <string name="all_apps_loading_message">"Апликације се учитавају..."</string>
+    <string name="all_apps_no_search_results">"Није пронађена ниједна апликација за „<ns1:g id="QUERY">%1$s</ns1:g>“"</string>
+    <string name="all_apps_search_bar_hint">"Претражите апликације"</string>
+    <string name="all_apps_search_market_message">"Иди на апликацију <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Дозволи ротацију"</string>
+    <string name="create_folder_with">"Направите директоријум са: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"%1$d. страница од %2$d"</string>
+    <string name="delete_target_label">"Уклони"</string>
+    <string name="delete_target_uninstall_label">"Деинсталирај"</string>
+    <string name="first_run_cling_title">"Добро дошли"</string>
+    <string name="folder_closed">"Директоријум је затворен"</string>
+    <string name="folder_created">"Директоријум је направљен"</string>
+    <string name="folder_hint_text">"Неименовани директоријум"</string>
+    <string name="folder_name_format">"Директоријум: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Директоријум је отворен, <ns1:g id="WIDTH">%1$d</ns1:g> пута <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"Директоријум је преименован у <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Додирните да бисте затворили директоријум"</string>
+    <string name="folder_tap_to_rename">"Додирните да бисте сачували промену имена"</string>
+    <string name="gadget_error_text">"Проблем при учитавању виџета"</string>
+    <string name="gadget_setup_text">"Подешавање"</string>
+    <string name="hotseat_out_of_space">"Нема више простора на траци Омиљено"</string>
+    <string name="info_target_label">"Информације о апликацији"</string>
+    <string name="item_added_to_workspace">"Ставка је додата на почетни екран"</string>
+    <string name="item_moved">"Ставка је премештена"</string>
+    <string name="item_removed">"Ставка је уклоњена"</string>
+    <string name="long_press_widget_to_add">"Додирните и задржите да бисте изабрали виџет."</string>
+    <string name="migration_cling_copy_apps">"КОПИРАЈТЕ ИКОНЕ"</string>
+    <string name="migration_cling_description">"Увести иконе и директоријуме са старих почетних екрана?"</string>
+    <string name="migration_cling_title">"Копирајте иконе апликација"</string>
+    <string name="migration_cling_use_default">"ПОЧНИТЕ ИСПОЧЕТКА"</string>
+    <string name="move_to_empty_cell">"Премести у ред <ns1:g id="NUMBER_0">%1$s</ns1:g> и колону <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Премести на <ns1:g id="NUMBER">%1$s</ns1:g>. позицију у омиљеним"</string>
+    <string name="move_to_position">"Премести на <ns1:g id="NUMBER">%1$s</ns1:g>. позицију"</string>
+    <string name="out_of_space">"Нема више простора на овом почетном екрану."</string>
+    <string name="package_state_unknown">"Непознато"</string>
+    <string name="permdesc_install_shortcut">"Дозвољава апликацији да додаје пречице без интервенције корисника."</string>
+    <string name="permdesc_read_settings">"Дозвољава апликацији да чита подешавања и пречице на почетном екрану."</string>
+    <string name="permdesc_write_settings">"Дозвољава апликацији да мења подешавања и пречице на почетном екрану."</string>
+    <string name="permlab_install_shortcut">"инсталирање пречица"</string>
+    <string name="permlab_read_settings">"читање подешавања и пречица на почетном екрану"</string>
+    <string name="permlab_write_settings">"уписивање подешавања и пречица на почетном екрану"</string>
+    <string name="safemode_shortcut_error">"Преузета апликација је онемогућена у Безбедном режиму"</string>
+    <string name="safemode_widget_error">"Виџети су онемогућени у Безбедном режиму"</string>
+    <string name="screen_moved">"Екран је померен"</string>
+    <string name="settings_label">"Подешавања"</string>
+    <string name="toggle_weight_watcher">"Прикажи меморију"</string>
+    <string name="uninstall_system_app_text">"Ово је системска апликација и не може да се деинсталира."</string>
+    <string name="wallpaper_button_text">"Позадине"</string>
+    <string name="widget_button_text">"Виџети"</string>
+    <string name="widget_dims_format">"%1$d×%2$d"</string>
+    <string name="widget_resized">"Величина виџета је промењена на ширину <ns1:g id="NUMBER_0">%1$s</ns1:g> и висину <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Work"</string>
+    <string name="workspace_cling_longpress_description">"Додирните и задржите позадину да бисте прилагодили"</string>
+    <string name="workspace_cling_longpress_dismiss">"ВАЖИ"</string>
+    <string name="workspace_cling_longpress_title">"Позадине, виџети и подешавања"</string>
+    <string name="workspace_scroll_format">"%1$d. почетни екран од %2$d"</string>
+</resources>

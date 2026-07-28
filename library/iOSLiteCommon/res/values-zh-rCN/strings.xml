@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="settings_error_text">由于系统限制，不可使用！</string>
+    <string name="settings_sim_error_text">无SIM卡！!</string>
+    <string name="network_error_tip">网络连接失败，请确认网络状态。</string>
+    <!-- Utilis -->
+    <string name="error_activity_not_found">"未安装应用。"</string>
+    <string name="error_email_not_login">请先在邮箱应用中登录。</string>
+    <string name="discovery_start_download">开始下载</string>
+    <string name="discovery_downloading">该应用正在下载</string>
+    <string name="discovery_data_warn_tips">是否在数据流量下继续下载？</string>
+    <string name="discovery_sure">确认</string>
+    <string name="discovery_cancel">取消</string>
+</resources>

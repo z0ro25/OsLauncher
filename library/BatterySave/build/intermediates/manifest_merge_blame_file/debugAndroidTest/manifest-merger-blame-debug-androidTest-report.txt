@@ -1,0 +1,322 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.zhuoyi.security.batterysave.test" >
+4
+5    <uses-sdk
+5-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:5:5-74
+6        android:minSdkVersion="26"
+6-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:5:15-41
+7        android:targetSdkVersion="34" />
+7-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:5:42-71
+8
+9    <instrumentation
+9-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:11:5-15:86
+10        android:name="android.test.InstrumentationTestRunner"
+10-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:11:22-75
+11        android:functionalTest="false"
+11-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:14:22-52
+12        android:handleProfiling="false"
+12-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:13:22-53
+13        android:label="Tests for com.zhuoyi.security.batterysave.test"
+13-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:15:22-84
+14        android:targetPackage="com.zhuoyi.security.batterysave.test" />
+14-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:12:22-82
+15    <!-- <uses-permission android:name="android.permission.BLUETOOTH" /> -->
+16    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
+17    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
+18    <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> -->
+19    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
+20    <!-- <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> -->
+21    <!-- <uses-permission android:name="android.permission.READ_SYNC_STATS" /> -->
+22    <!-- <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" /> -->
+23    <!-- <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" /> -->
+24    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+24-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:5-84
+24-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:22-81
+25    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
+25-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:5-68
+25-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:22-65
+26    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
+26-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:23:5-78
+26-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:23:22-75
+27    <!-- <uses-permission android:name="android.permission.BATTERY_STATS" /> -->
+28    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+28-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:5-80
+28-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:22-77
+29    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+29-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:5-81
+29-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:22-78
+30
+31    <permission
+31-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+32        android:name="com.zhuoyi.security.batterysave.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+32-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+33        android:protectionLevel="signature" />
+33-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+34
+35    <uses-permission android:name="com.zhuoyi.security.batterysave.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+35-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+35-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+36
+37    <application
+37-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:7:5-9:19
+38        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+38-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+39        android:debuggable="true"
+40        android:extractNativeLibs="false" >
+41        <uses-library android:name="android.test.runner" />
+41-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:8:9-60
+41-->E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest8768274904392413353.xml:8:23-57
+42
+43        <activity
+43-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:9-35:56
+44            android:name="com.zhuoyi.security.batterysave.BS_RankingActivity"
+44-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-78
+45            android:excludeFromRecents="true"
+45-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-46
+46            android:exported="true"
+46-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-36
+47            android:screenOrientation="portrait"
+47-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-49
+48            android:theme="@style/bs_app_base_theme" />
+48-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-53
+49        <activity
+49-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-49:20
+50            android:name="com.zhuoyi.security.batterysave.BS_MainActivity"
+50-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-75
+51            android:excludeFromRecents="true"
+51-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-46
+52            android:exported="true"
+52-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-36
+53            android:icon="@drawable/bs_logo"
+53-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-45
+54            android:label="@string/bs_app_name"
+54-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-48
+55            android:screenOrientation="portrait"
+55-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-49
+56            android:theme="@style/bs_app_base_theme" >
+56-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-53
+57            <intent-filter>
+57-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-48:29
+58                <action android:name="android.intent.action.MAIN" />
+58-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:17-69
+58-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:25-66
+59
+60                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+61            </intent-filter>
+62        </activity>
+63        <activity
+63-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:9-55:56
+64            android:name="com.zhuoyi.security.batterysave.BS_SettingsActivity"
+64-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-79
+65            android:excludeFromRecents="true"
+65-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-46
+66            android:exported="true"
+66-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:13-36
+67            android:screenOrientation="portrait"
+67-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:13-49
+68            android:theme="@style/bs_app_base_theme" />
+68-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:55:13-53
+69        <activity
+69-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:9-69:20
+70            android:name="com.zhuoyi.security.soft.lock.SL_SetPassWord"
+70-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:13-72
+71            android:excludeFromRecents="true"
+71-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:58:13-46
+72            android:exported="true"
+72-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:13-36
+73            android:screenOrientation="portrait"
+73-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:60:13-49
+74            android:theme="@style/bs_app_base_theme" >
+74-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:61:13-53
+75
+76            <!--
+77            <intent-filter>
+78                  <action android:name="android.intent.action.MAIN" />
+79                 <category android:name="android.intent.category.LAUNCHER" />
+80            </intent-filter>
+81            -->
+82        </activity>
+83        <activity
+83-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:70:9-74:56
+84            android:name="com.zhuoyi.security.soft.lock.SL_LockAppListActivity"
+84-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:71:13-80
+85            android:exported="false"
+85-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:72:13-37
+86            android:screenOrientation="portrait"
+86-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:73:13-49
+87            android:theme="@style/bs_app_base_theme" />
+87-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:74:13-53
+88        <activity
+88-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:75:9-79:56
+89            android:name="com.zhuoyi.security.soft.lock.SL_UnLocksoftListActivity"
+89-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:76:13-83
+90            android:exported="true"
+90-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:77:13-36
+91            android:screenOrientation="portrait"
+91-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:78:13-49
+92            android:theme="@style/bs_app_base_theme" />
+92-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:79:13-53
+93        <activity
+93-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:80:9-84:56
+94            android:name="com.zhuoyi.security.soft.lock.SL_LockSettingActivity"
+94-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:81:13-80
+95            android:exported="true"
+95-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:82:13-36
+96            android:screenOrientation="portrait"
+96-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:83:13-49
+97            android:theme="@style/bs_app_base_theme" />
+97-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:84:13-53
+98        <activity
+98-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:85:9-97:20
+99            android:name="com.zhuoyi.security.soft.lock.SL_EnterPassWord"
+99-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:86:13-74
+100            android:excludeFromRecents="true"
+100-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:87:13-46
+101            android:exported="true"
+101-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:88:13-36
+102            android:launchMode="singleInstance"
+102-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:89:13-48
+103            android:screenOrientation="portrait"
+103-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:90:13-49
+104            android:theme="@style/bs_app_base_theme" >
+104-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:91:13-53
+105            <intent-filter>
+105-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:92:13-96:29
+106                <action android:name="com.ios.sc.soft.lock.SL_EnterPassWord" />
+106-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:93:17-80
+106-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:93:25-77
+107
+108                <category android:name="android.intent.category.DEFAULT" />
+108-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:95:17-76
+108-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:95:27-73
+109            </intent-filter>
+110        </activity>
+111
+112        <receiver
+112-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:99:9-107:20
+113            android:name="com.zhuoyi.security.soft.lock.receiver.SL_ApkRemoveReceiver"
+113-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:100:13-87
+114            android:exported="true" >
+114-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:101:13-36
+115            <intent-filter>
+115-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:102:13-106:29
+116                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+116-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:103:17-80
+116-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:103:25-77
+117
+118                <data android:scheme="package" />
+118-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:105:17-50
+118-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:105:23-47
+119            </intent-filter>
+120        </receiver>
+121
+122        <service
+122-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:109:9-115:19
+123            android:name="com.zhuoyi.security.soft.lock.SL_LockSoftService"
+123-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:110:13-76
+124            android:exported="true" >
+124-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:111:13-36
+125            <intent-filter>
+125-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:112:13-114:29
+126                <action android:name="com.ios.sc.soft.lock.SL_LockSoftService" />
+126-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:113:17-82
+126-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:113:25-79
+127            </intent-filter>
+128        </service>
+129
+130        <meta-data
+130-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:117:9-119:58
+131            android:name="com.facebook.sdk.ApplicationId"
+131-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:118:13-58
+132            android:value="@string/sl_facebook_app_id" /> <!-- 应用使用统计 -->
+132-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:119:13-55
+133        <provider
+133-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-27:39
+134            android:name="com.amz.ios.ioslite.common.provider.AppUsagesProvider"
+134-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-81
+135            android:authorities="com.amz.ios.ioslite.provider.usages"
+135-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-70
+136            android:exported="true" /> <!-- 全局设置 -->
+136-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-36
+137        <provider
+137-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:9-33:39
+138            android:name="com.amz.ios.ioslite.common.setting.SettingProvider"
+138-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-78
+139            android:authorities="com.amz.ios.ioslite.common.setting"
+139-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-69
+140            android:exported="true" /> <!-- 内存监测 -->
+140-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-36
+141        <activity
+141-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-46:20
+142            android:name="com.amz.ios.ioslite.common.debug.MemoryDumpActivity"
+142-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-79
+143            android:excludeFromRecents="true"
+143-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-46
+144            android:exported="true"
+144-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-36
+145            android:theme="@android:style/Theme.NoDisplay" >
+145-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-59
+146            <intent-filter>
+146-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-45:29
+147                <action android:name="android.intent.action.MAIN" />
+147-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:17-69
+147-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:25-66
+148
+149                <category android:name="android.intent.category.DEFAULT" />
+149-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:95:17-76
+149-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:95:27-73
+150            </intent-filter>
+151        </activity> <!-- 内存监测服务 -->
+152        <service android:name="com.amz.ios.ioslite.common.debug.MemoryTracker" />
+152-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-82
+152-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:18-79
+153
+154        <receiver
+154-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:9-61:20
+155            android:name="com.amz.ios.ioslite.common.downloadapk.ApkReceiver"
+155-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-78
+156            android:exported="true" >
+156-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-36
+157            <intent-filter>
+157-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:13-55:29
+158                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+158-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:17-82
+158-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:25-79
+159            </intent-filter>
+160            <intent-filter>
+160-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:13-60:29
+161                <action android:name="android.intent.action.PACKAGE_ADDED" />
+161-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:17-78
+161-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:25-75
+162
+163                <data android:scheme="package" />
+163-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:105:17-50
+163-->[:library:BatterySave] E:\Amarzic\ASA155_IOSLauncher\library\BatterySave\build\intermediates\merged_manifest\debug\AndroidManifest.xml:105:23-47
+164            </intent-filter>
+165        </receiver>
+166
+167        <provider
+167-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+168            android:name="androidx.startup.InitializationProvider"
+168-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+169            android:authorities="com.zhuoyi.security.batterysave.test.androidx-startup"
+169-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+170            android:exported="false" >
+170-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+171            <meta-data
+171-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+172                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+172-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+173                android:value="androidx.startup" />
+173-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+174            <meta-data
+174-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+175                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+175-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+176                android:value="androidx.startup" />
+176-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+177        </provider>
+178    </application>
+179
+180</manifest>

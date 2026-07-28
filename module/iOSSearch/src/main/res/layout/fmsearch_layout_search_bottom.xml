@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.amz.ios.search.MerlinCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardElevation="@dimen/fmsearch_dp_cardelevation"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:paddingLeft="@dimen/fmsearch_dp_item_outer_common_padding"
+        android:paddingRight="@dimen/fmsearch_dp_item_outer_common_padding"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/btn_search_websit"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="@dimen/fmsearch_dp_item_content_height"
+            android:drawablePadding="@dimen/fmsearch_dp_item_outer_common_padding"
+            android:drawableLeft="@mipmap/ic_websit"
+            android:drawableStart="@mipmap/ic_websit"
+            android:text="@string/fmsearch_search_websit" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/cl_item_divider_bg" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/btn_search_pic"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fmsearch_dp_item_content_height"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/fmsearch_dp_item_outer_common_padding"
+            android:drawableLeft="@mipmap/ic_pic"
+            android:drawableStart="@mipmap/ic_pic"
+            android:text="@string/fmsearch_search_pic" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/cl_item_divider_bg" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/btn_search_video"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:drawablePadding="@dimen/fmsearch_dp_item_outer_common_padding"
+            android:layout_height="@dimen/fmsearch_dp_item_content_height"
+            android:drawableLeft="@mipmap/ic_video"
+            android:drawableStart="@mipmap/ic_video"
+            android:text="@string/fmsearch_search_video" />
+    </LinearLayout>
+</com.amz.ios.search.MerlinCardView>

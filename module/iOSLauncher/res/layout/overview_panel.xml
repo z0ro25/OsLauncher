@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<com.amz.ios.launcher.screenedit.OverviewPanel
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/overview_panel_top_menu_height"
+        android:layout_alignParentTop="true"
+        android:padding="10dip">
+
+       <!-- <com.amz.ios.launcher.views.CustomTextView
+            android:textSize="12sp"
+            android:textColor="@color/white80percent"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="16dp"
+            android:text="@string/overview_panel_set_home_page_text" />-->
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/overview_panel_set_home_page"
+            android:layout_width="34dip"
+            android:layout_height="34dip"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/home_icon"
+            />
+        <com.amz.ios.launcher.screenedit.BlurButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Add"
+            android:padding="5dip"
+            android:id="@+id/screen_edit_add"
+            android:layout_gravity="start"
+            />
+        <com.amz.ios.launcher.screenedit.BlurButton
+            android:layout_width="wrap_content"
+            android:id="@+id/screen_edit_done"
+            android:layout_height="match_parent"
+            android:text="Done"
+            android:padding="5dip"
+            android:layout_gravity="end"
+            />
+    </FrameLayout>
+
+
+    <View
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/overview_panel_bottom_menu_height"
+        android:background="@color/white8percent" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/overview_panel_bottom_menu_height"
+        android:layout_alignParentBottom="true"
+        >
+        <LinearLayout
+            android:id="@+id/overview_panel_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/overview_panel_bottom_menu_title_bar_height"
+            android:weightSum="4"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/overview_panel_title_bar">
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</com.amz.ios.launcher.screenedit.OverviewPanel>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="bs_app_name">Power Saving</string>
+    <string name="bs_baterry_text1_uncharge">Energy until</string>
+    <string name="bs_baterry_text3">Today</string>
+    <string name="bs_baterry_text1_charging">Fully charged by</string>
+    <string name="bs_baterry_text1_charged">Fully charged</string>
+    <string name="bs_Bar_Middle">Power Saving</string>
+    <string name="bs_app_baterry">Draining APPs</string>
+    <string name="bs_ranking_baterry">Consumption</string>
+    <string name="bs_switch_baterry">Saving Settings</string>
+    <string name="bs_bellow_btn">Proceeding...</string>
+    <string name="bs_prc_time" translatable="false">13:26</string>
+    <string name="bs_Bar_Rank_Middle">Consumption</string>
+    <string name="bs_use_time_title">Energy until</string>
+    <string name="bs_checking_text1">Checking usage of battery</string>
+    <string name="bs_checking_text2">Analyzing draining apps</string>
+    <string name="bs_bottom_btn">It\'s OK</string>
+    <string name="bs_unit_hour">Hours</string>
+    <string name="bs_mode_second">Minutes</string>
+    <string name="bs_bottom_btn_save">Tap to save battery</string>
+    <string name="bs_month">month</string>
+    <string name="bs_day">day</string>
+    <string name="bs_days">days</string>
+    <string name="bs_tomorrow">Tomorrow</string>
+    <string name="bs_clean_tost">"Optimized system status \nNo draining apps in the background"</string>
+</resources>

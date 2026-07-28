@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ios="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/progress_set"
+    android:visibility="gone"
+    android:background="@color/themeclub_setwallpaper_waiting_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.amz.ios.ioslite.common.view.IOSLoadingView
+        android:id="@+id/iosloadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ios:minHeight="30dp"
+        ios:minWidth="30dp"
+        ios:maxWidth="50dp"
+        ios:maxHeight="50dp"
+        android:layout_centerInParent="true"
+        ios:indicatorType="BallPaulseIndicator"
+        ios:indicatorColor="@android:color/white"/>
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:layout_below="@id/iosloadingView"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/loading_size"
+        android:textColor="@android:color/white"
+        android:text="@string/themeclub_waiting"/>
+
+</RelativeLayout>

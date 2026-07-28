@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="boot_first_start_btn_marginbottom">54dp</dimen>
+    <dimen name="boot_first_viewpager_background_height">352dp</dimen>
+    <dimen name="boot_first_viewpager_height">290dp</dimen>
+    <dimen name="boot_first_viewpager_item_width">145.2dp</dimen>
+    <dimen name="boot_first_viewpager_iv_width">174dp</dimen>
+    <dimen name="boot_first_viewpager_marginbottom">40dp</dimen>
+    <dimen name="boot_first_viewpager_width">162dp</dimen>
+    <dimen name="settings_activity_button_bottom">10dp</dimen>
+    <dimen name="settings_activity_button_left">30dp</dimen>
+    <dimen name="settings_activity_horizontal_margin">16dp</dimen>
+    <dimen name="settings_activity_image_title_bottom">20dp</dimen>
+    <dimen name="settings_activity_image_title_top">35dp</dimen>
+    <dimen name="settings_activity_vertical_margin">16dp</dimen>
+    <dimen name="settings_blow_top">20dp</dimen>
+</resources>

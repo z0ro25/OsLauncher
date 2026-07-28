@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">การแจ้งเตือนใหม่ %d รายการ</item>
+    <item quantity="other">การแจ้งเตือนใหม่ %d รายการ</item>
+  </plurals>
+    <string name="abandoned_clean_this">"ลบ"</string>
+    <string name="abandoned_promise_explanation">"ยังไม่ได้ติดตั้งแอพสำหรับไอคอนนี้ คุณสามารถนำไอคอนออกหรือค้นหาแอพดังกล่าวแล้วติดตั้งด้วยตนเอง"</string>
+    <string name="abandoned_promises_title">"ยังไม่ได้ติดตั้งแอพนี้"</string>
+    <string name="abandoned_search">"ค้นหา"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"นำทางไปหน้าแรก"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"กลับ"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"ตัวเลือกอื่น"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"เสร็จ"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"ดูทั้งหมด"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"เลือกแอป"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"ปิด"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"เปิด"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"ลบ"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"Space"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"เมนู+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"ค้นหา…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"ล้างคำค้นหา"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"คำค้นหา"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"ค้นหา"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"ส่งคำค้นหา"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"ค้นหาด้วยเสียง"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"แชร์กับ"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"แชร์ทาง <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"ยุบ"</string>
+    <string name="about_communities">กลุ่มผู้ใช้IOS</string>
+    <string name="about_communities_summary">ที่Google+</string>
+    <string name="about_email">อีเมล์</string>
+    <string name="about_legal_notices">ประกาศทางกฎหมาย</string>
+    <string name="about_version">เวอร์ชั่น</string>
+    <string name="about_website">เว็บไซต์</string>
+    <string name="action_add_to_workspace">"เพิ่มลงในหน้าแรก"</string>
+    <string name="action_decrease_height">"ลดความสูง"</string>
+    <string name="action_decrease_width">"ลดความกว้าง"</string>
+    <string name="action_increase_height">"เพิ่มความสูง"</string>
+    <string name="action_increase_width">"เพิ่มความกว้าง"</string>
+    <string name="action_move">"ย้ายรายการ"</string>
+    <string name="action_move_here">"ย้ายรายการมาที่นี่"</string>
+    <string name="action_move_screen_left">"เลื่อนหน้าจอไปทางซ้าย"</string>
+    <string name="action_move_screen_right">"เลื่อนหน้าจอไปทางขวา"</string>
+    <string name="action_move_to_workspace">"ย้ายไปที่หน้าจอหลัก"</string>
+    <string name="action_resize">"ปรับขนาด"</string>
+    <string name="activity_not_available">"แอพไม่พร้อมใช้งาน"</string>
+    <string name="activity_not_found">"ยังไม่ได้ติดตั้งแอพ"</string>
+    <string name="add_to_folder">"เพิ่มไปยังโฟลเดอร์: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"เพิ่มไปยังโฟลเดอร์ที่อยู่ <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"เพิ่มรายการไปยังโฟลเดอร์แล้ว"</string>
+    <string name="all_apps_button_label">"แอพ"</string>
+    <string name="all_apps_home_button_label">"หน้าแรก"</string>
+    <string name="all_apps_loading_message">"กำลังโหลดแอพ…"</string>
+    <string name="all_apps_no_search_results">"ไม่พบแอพที่ตรงกับ \"<ns1:g id="QUERY">%1$s</ns1:g>\""</string>
+    <string name="all_apps_search_bar_hint">"ค้นหาแอพ"</string>
+    <string name="all_apps_search_market_message">"ไปที่ <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"อนุญาตให้ใช้การหมุน"</string>
+    <string name="and">และ</string>
+    <string name="app_name">IOSBoot</string>
+    <string name="boot_setting_tv_text">ในภายหลัง</string>
+    <string name="boot_speedup_big_text">ให้เร็วฟ้าผ่าโทรศัพท์มือถือ</string>
+    <string name="boot_speedup_setting_btn_text">การตั้งค่าได้ทันที</string>
+    <string name="boot_speedup_small_text">โทรศัพท์มือถือที่ใช้ IOS บนเดสก์ทอปจะช่วยเพิ่มความเร็วที่คุณจะ IOS ถูกตั้งเป็นค่าเริ่มต้นสำหรับเดสก์ทอปของคุณ?</string>
+    <string name="boot_updateinfo_news">ข่าวข้อมูล</string>
+    <string name="boot_updateinfo_news_detail">บนหน้าจอหลักด้านขวาเลื่อนขนาดใหญ่เนื้อหาข้อมูลทั้งหมด</string>
+    <string name="boot_updateinfo_powersaveing">การประหยัดพลังงาน</string>
+    <string name="boot_updateinfo_powersaveing_detail">ไม่ต้องเป็นห่วงเรื่องปัญหาการใช้โทรศัพท์มือถือสำหรับโทรศัพท์มือถือของคุณช่วยให้โหมดสแตนด์บายพิเศษ</string>
+    <string name="boot_updateinfo_setting_btn_text">ลอง</string>
+    <string name="boot_updateinfo_speed">หนึ่งคลิกการเร่ง</string>
+    <string name="boot_updateinfo_speed_detail">หนึ่งคลิกการล้างหน่วยความจำของโทรศัพท์มือถือที่ช่วยให้คุณได้อย่างรวดเร็วดุจสายฟ้า!</string>
+    <string name="boot_updateinfo_suspendedball">ลูกบอลลอย</string>
+    <string name="boot_updateinfo_suspendedball_detail">เพิ่มเติมที่สามารถเปิดได้อย่างรวดเร็ววิธีที่รวดเร็วที่จะพบมันมาด้วยกัน</string>
+    <string name="boot_updateinfo_theme">หัวข้อ</string>
+    <string name="boot_updateinfo_theme_detail">ไอคอนที่สวยงามและโดดเด่นให้โทรศัพท์ของคุณ!</string>
+    <string name="boot_updateinfo_title">IOS สําหรับการปรับปรุงของคุณต่อไปนี้</string>
+    <string name="boot_updateinfo_tv_text">ผมรู้</string>
+    <string name="bottomsheet_action_collapse">ยุบ Bottom Sheet</string>
+    <string name="bottomsheet_action_expand">ขยาย Bottom Sheet</string>
+    <string name="bottomsheet_action_expand_halfway">ขยายรายการครึ่งหนึ่ง</string>
+    <string name="bottomsheet_drag_handle_clicked">แตะแฮนเดิลการลากสองครั้ง</string>
+    <string name="bottomsheet_drag_handle_content_description">แฮนเดิลการลาก</string>
+    <string name="character_counter_content_description">ป้อนอักขระแล้ว %1$d จาก %2$d ตัว</string>
+    <string name="character_counter_overflowed_content_description">เกินจำนวนอักขระสูงสุด %1$d จาก %2$d</string>
+    <string name="check_update">ตรวจสอบอัพเดท</string>
+    <string name="checkbox_text_name">เข้าร่วม“แผนประสบการณ์ผู้ใช้”</string>
+    <string name="chose_ok">ที่เลือก</string>
+    <string name="clause">เงื่อนไข</string>
+    <string name="clean_widget_name">บูสต์</string>
+    <string name="clear_text_end_icon_content_description">ล้างข้อความ</string>
+    <string name="contact_us">ติดต่อเรา</string>
+    <string name="create_folder_with">"สร้างโฟลเดอร์: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"หน้า %1$d จาก %2$d"</string>
+    <string name="delete_target_label">"ลบ"</string>
+    <string name="delete_target_uninstall_label">"ถอนการติดตั้ง"</string>
+    <string name="desktop_target_label">ไปยังเดสก์ท็อป</string>
+    <string name="detail">คุณกำลังจะเริ่มต้น\N ในโลกที่สุด , ที่เร็วที่สุดและง่ายที่สุดในการใช้ระบบ</string>
+    <string name="dialog_clean_memory">ความจุว่าง <ns1:g id="memory">%1$s</ns1:g>MB</string>
+    <string name="dialog_clean_memory_fullly">โทรศัพท์อยู่ในสภาพปกติ</string>
+    <string name="dialog_clean_memory_part1">เพิ่มความจุ</string>
+    <string name="dialog_clean_memory_part2">ความจุ</string>
+    <string name="drop_delete_anim_explosion">ดอกไม้ไฟ</string>
+    <string name="drop_delete_anim_system">ระบบ</string>
+    <string name="error_icon_content_description">ข้อผิดพลาด</string>
+    <string name="exposed_dropdown_menu_content_description">แสดงเมนูแบบเลื่อนลง</string>
+    <string name="first_run_cling_title">"ยินดีต้อนรับ"</string>
+    <string name="folder_closed">"โฟลเดอร์ปิดอยู่"</string>
+    <string name="folder_created">"สร้างโฟลเดอร์แล้ว"</string>
+    <string name="folder_hint_text">"โฟลเดอร์ที่ไม่มีชื่อ"</string>
+    <string name="folder_name">โฟลเดอร์</string>
+    <string name="folder_name_format">"โฟลเดอร์: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"เปิดโฟลเดอร์ <ns1:g id="WIDTH">%1$d</ns1:g> x <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"เปลี่ยนชื่อโฟลเดอร์เป็น <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"แตะเพื่อปิดโฟลเดอร์"</string>
+    <string name="folder_tap_to_rename">"แตะเพื่อบันทึกการเปลี่ยนชื่อ"</string>
+    <string name="friends">دعوة الأصدقاء معا للاستخدام!</string>
+    <string name="gadget_error_text">"มีปัญหาขณะโหลดวิดเจ็ต"</string>
+    <string name="gadget_setup_text">"ตั้งค่า"</string>
+    <string name="hotseat_out_of_space">"ไม่มีพื้นที่เหลือในแถบรายการโปรด"</string>
+    <string name="icon_content_description">ไอคอนกล่องโต้ตอบ</string>
+    <string name="info_target_label">"ข้อมูลแอพ"</string>
+    <string name="ios_konw_title">IOS Know บนหน้าโฮม</string>
+    <string name="item_added_to_workspace">"เพิ่มรายการไปยังหน้าจอหลักแล้ว"</string>
+    <string name="item_moved">"ย้ายรายการแล้ว"</string>
+    <string name="item_removed">"ลบรายการแล้ว"</string>
+    <string name="item_view_role_description">แท็บ</string>
+    <string name="launcher_guide_allapps_content">ค้นแอพทั้งหมดของคุณเรียงตามลำดับอักษรได้สะดวกในโฟลเดอร์เดียว</string>
+    <string name="launcher_guide_allapps_title">แอพทั้งหมด</string>
+    <string name="launcher_guide_got_it">รับทราบ</string>
+    <string name="launcher_loading_first_time">กำลังใช้งานIOSบนหน้าจอของคุณ</string>
+    <string name="launcher_settings">ตั้งค่าหน้าจอ</string>
+    <string name="layer">ดำเนินการซึ่งหมายความว่าคุณยอมรับ</string>
+    <string name="legal_network_fail">การเชื่อมต่อเครือข่ายล้มเหลว โปรดตรวจสอบการตั้งค่าเครือข่ายหรือลองใหม่อีกครั้งในภายหลัง</string>
+    <string name="legal_reload">ลองใหม่อีกครั้ง</string>
+    <string name="long_press_widget_to_add">"แตะค้างเพื่อรับวิดเจ็ต"</string>
+    <string name="main_menu_add_widget">เพิ่มเครื่องมือ</string>
+    <string name="main_menu_feedback">คำติชม</string>
+    <string name="main_menu_launcher_settings">ตั้งค่าหน้าจอ</string>
+    <string name="main_menu_login">เข้าสู่ระบบ</string>
+    <string name="main_menu_share">แชร์</string>
+    <string name="main_menu_sys_settings">ตั้งค่าระบบ</string>
+    <string name="main_menu_theme_wallpaper">ธีมและวอลล์เปเปอร์</string>
+    <string name="material_clock_toggle_content_description">เลือก AM หรือ PM</string>
+    <string name="material_hour_24h_suffix">%1$s ชั่วโมง</string>
+    <string name="material_hour_selection">เลือกชั่วโมง</string>
+    <string name="material_hour_suffix">%1$s นาฬิกา</string>
+    <string name="material_minute_selection">เลือกนาที</string>
+    <string name="material_minute_suffix">%1$s นาที</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">สลับไปโหมดนาฬิกาเพื่อป้อนเวลา</string>
+    <string name="material_timepicker_hour">ชั่วโมง</string>
+    <string name="material_timepicker_minute">นาที</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">เลือกเวลา</string>
+    <string name="material_timepicker_text_input_mode_description">สลับไปโหมดป้อนข้อความเพื่อป้อนเวลา</string>
+    <string name="menu_about">เกี่ยวกับIOS</string>
+    <string name="menu_ios_summary">ครบวงจรระบบ ใช้งานได้รวดเร็ว</string>
+    <string name="menu_privacy_notice">นโยบายความเป็นส่วนตัว</string>
+    <string name="menu_share">แชร์</string>
+    <string name="migration_cling_copy_apps">"คัดลอกไอคอน"</string>
+    <string name="migration_cling_description">"นำเข้าไอคอนและโฟลเดอร์จากหน้าจอหลักเก่าของคุณ"</string>
+    <string name="migration_cling_title">"คัดลอกไอคอนแอพของคุณ"</string>
+    <string name="migration_cling_use_default">"เริ่มต้นใหม่"</string>
+    <string name="move_to_empty_cell">"ย้ายไปแถวที่ <ns1:g id="NUMBER_0">%1$s</ns1:g> แถวที่ <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"ย้ายไปยังตำแหน่งที่ <ns1:g id="NUMBER">%1$s</ns1:g> ของรายการโปรด"</string>
+    <string name="move_to_position">"ย้ายไปยังตำแหน่ง <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">การแจ้งเตือนใหม่</string>
+    <string name="mtrl_chip_close_icon_content_description">นำ %1$s ออก</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">การแจ้งเตือนใหม่มากกว่า %1$d รายการ</string>
+    <string name="mtrl_picker_a11y_next_month">เปลี่ยนไปที่เดือนถัดไป</string>
+    <string name="mtrl_picker_a11y_prev_month">เปลี่ยนไปที่เดือนก่อนหน้า</string>
+    <string name="mtrl_picker_announce_current_range_selection">การเลือกวันที่เริ่มต้น: %1$s – การเลือกวันที่สิ้นสุด: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">การเลือกในปัจจุบัน: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">ไม่มี</string>
+    <string name="mtrl_picker_cancel">ยกเลิก</string>
+    <string name="mtrl_picker_confirm">ตกลง</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">เลือกวันที่</string>
+    <string name="mtrl_picker_date_header_unselected">วันที่ที่เลือก</string>
+    <string name="mtrl_picker_day_of_week_column_header">คอลัมน์ของวัน: %1$s</string>
+    <string name="mtrl_picker_end_date_description">วันที่สิ้นสุด %1$s</string>
+    <string name="mtrl_picker_invalid_format">รูปแบบไม่ถูกต้อง</string>
+    <string name="mtrl_picker_invalid_format_example">ตัวอย่าง: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">ใช้: %1$s</string>
+    <string name="mtrl_picker_invalid_range">ช่วงไม่ถูกต้อง</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">ไปยังปีปัจจุบัน %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">ไปที่ปี %1$d</string>
+    <string name="mtrl_picker_out_of_range">วันที่ไม่อยู่ในช่วงที่อนุญาต: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">วันที่เริ่มต้น – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – วันที่สิ้นสุด</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">เลือกช่วง</string>
+    <string name="mtrl_picker_range_header_unselected">วันที่เริ่มต้น – วันที่สิ้นสุด</string>
+    <string name="mtrl_picker_save">บันทึก</string>
+    <string name="mtrl_picker_start_date_description">วันที่เริ่มต้น %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">วันที่</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">วันที่สิ้นสุด</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">วันที่เริ่มต้น</string>
+    <string name="mtrl_picker_text_input_day_abbr">ว</string>
+    <string name="mtrl_picker_text_input_month_abbr">ด</string>
+    <string name="mtrl_picker_text_input_year_abbr">ป</string>
+    <string name="mtrl_picker_today_description">วันนี้ %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">สลับไปใช้โหมดป้อนข้อมูลปฏิทิน</string>
+    <string name="mtrl_picker_toggle_to_day_selection">แตะเพื่อเปลี่ยนเป็นมุมมองปฏิทิน</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">สลับไปใช้โหมดป้อนข้อมูลข้อความ</string>
+    <string name="mtrl_picker_toggle_to_year_selection">แตะเพื่อเปลี่ยนเป็นมุมมองปี</string>
+    <string name="mtrl_timepicker_cancel">ยกเลิก</string>
+    <string name="mtrl_timepicker_confirm">ตกลง</string>
+    <string name="network_error_tip">การเชื่อมต่อล้มเหลว โปรดตรวจสอบสภาพเครือข่าย</string>
+    <string name="news_center_title">ข่าวเด่น</string>
+    <string name="out_of_space">"ไม่มีที่ว่างในหน้าจอหลักนี้"</string>
+    <string name="package_state_unknown">"ไม่ทราบ"</string>
+    <string name="password_toggle_content_description">แสดงรหัสผ่าน</string>
+    <string name="pending_anim_title">ต้องเปลี่ยนภาพเคลื่อนไหว</string>
+    <string name="pending_transition_down">เลื่อนล่าง</string>
+    <string name="pending_transition_left">เลื่อนซ้าย</string>
+    <string name="pending_transition_right">เลื่อนขวา</string>
+    <string name="pending_transition_rotate">หมุน</string>
+    <string name="pending_transition_system">ระบบ</string>
+    <string name="pending_transition_up">เลื่อนบน</string>
+    <string name="pending_transition_zoom">ย่อขยาย</string>
+    <string name="permdesc_install_shortcut">"อนุญาตให้แอพเพิ่มทางลัดโดยได้ทันที"</string>
+    <string name="permdesc_read_settings">"อนุญาตให้แอพสร้างการตั้งค่าและทางลัดในหน้าแรก"</string>
+    <string name="permdesc_write_settings">"อนุญาตให้แอพเปลี่ยนการตั้งค่าและทางลัดในหน้าแรก"</string>
+    <string name="permlab_install_shortcut">"ติดตั้งทางลัด"</string>
+    <string name="permlab_read_settings">"สร้างการตั้งค่าและทางลัดหน้าแรกแล้ว"</string>
+    <string name="permlab_write_settings">"เขียนการตั้งค่าและทางลัดหน้าแรกแล้ว"</string>
+    <string name="point">كسب النقاط</string>
+    <string name="privacy">ความเป็นส่วนตัว</string>
+    <string name="safemode_shortcut_error">"โหมดความปลอดภัยไม่อนุญาตดาวน์โหลดแอพนี้"</string>
+    <string name="safemode_widget_error">"โหมดความปลอดภัยไม่อนุญาตให้ใช้งานวิตเจ็ต"</string>
+    <string name="screen_edit_drop_delete_anim">ลบภาพเคลื่อนไหว</string>
+    <string name="screen_edit_effect_transition">ผลเลื่อนหน้าจอ</string>
+    <string name="screen_edit_icon_size">ขนาดไอคอน</string>
+    <string name="screen_edit_label_color">สี</string>
+    <string name="screen_edit_label_size">ขนาดตัวอักษร</string>
+    <string name="screen_moved">"ย้ายหน้าจอแล้ว"</string>
+    <string name="search_bar_title">แถบค้นหา</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"ค้นหา"</string>
+    <string name="setting_advanced">ตั้งค่าอื่นๆ</string>
+    <string name="setting_appearance">แสดง</string>
+    <string name="setting_size_big">ใหญ่</string>
+    <string name="setting_size_normal">มาตรฐาน</string>
+    <string name="setting_size_small">เล็กๆน้อยๆ</string>
+    <string name="settings_category_more">อื่นๆ</string>
+    <string name="settings_default_launcher">ตั้งเป็นหน้าจอเริ่มต้น(แนำนะ)</string>
+    <string name="settings_label">"ตั้งค่า"</string>
+    <string name="shortcut_power_save">ประหยัดพลังงาน</string>
+    <string name="shortcut_theme">ธีม</string>
+    <string name="shortcut_wallpaper">วอลล์เปเปอร์</string>
+    <string name="sliding_wallpaper">เลื่อนการเลือกวอลล์เปเปอร์</string>
+    <string name="software_share_text">IOSเป็นหน้าจอที่ครบวงจร สวยงามและใช้งานได้ดี แนะนำให้คุณต้องลองใช้https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_titile">แบ่งปัน</string>
+    <string name="start">เริ่ม</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="terms_of_service">เงื่อนไขการบริการ</string>
+    <string name="toggle_weight_watcher">"แสดงเนื้อที่ความจำ"</string>
+    <string name="transition_effect_accordion">หีบเพลง</string>
+    <string name="transition_effect_carousel_left">ม้าหมุน(ซ้าย)</string>
+    <string name="transition_effect_carousel_right">ม้าหมุน(ขวา)</string>
+    <string name="transition_effect_cross">ตัด</string>
+    <string name="transition_effect_cubein">เข้าด้านใน</string>
+    <string name="transition_effect_cubeout">ออกด้านนอก</string>
+    <string name="transition_effect_flip">พลิก</string>
+    <string name="transition_effect_none">ไม่มี</string>
+    <string name="transition_effect_overview">ดู</string>
+    <string name="transition_effect_stack">การ์ดเต็ม</string>
+    <string name="transition_effect_wheel">วงล้อ</string>
+    <string name="transition_effect_windmill">กังหัน</string>
+    <string name="uninstall_system_app_text">"นี่เป็นแอพระบบและไม่สามารถถอนการติดตั้งได้"</string>
+    <string name="update_check_no_update">คุณกำลังใช้งานเวอร์ชั่นล่าสุด</string>
+    <string name="update_self_dialog_content">เวอร์ชั่นใหม่ใช้ได้แล้ว คลิกอัพเดท</string>
+    <string name="update_self_dialog_title">อัพเดทเวอร์ชั่น</string>
+    <string name="update_start">กำลังตรวจสอบเวอร์ชั่น โปรดรอสักครู่...</string>
+    <string name="update_start_download_apk">เริ่มดาวน์โหลดเวอร์ชั่นล่าสุด สามารถดูรายละเอียดที่แถบแจ้งเตือน</string>
+    <string name="update_to_latest_version">กำลังอัพเดทเวอร์ชั่นล่าสุด</string>
+    <string name="wallpaper_button_text">"วอลเปเปอร์"</string>
+    <string name="welcome">ยินดีต้อนรับ</string>
+    <string name="widget_button_text">"วิดเจ็ต"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"ปรับขนาดของวิดเจ็ตเป็นกว้าง <ns1:g id="NUMBER_0">%1$s</ns1:g> สูง <ns1:g id="NUMBER_1">%2$s</ns1:g> แล้ว"</string>
+    <string name="widget_section_title_ios">IOS</string>
+    <string name="widget_section_title_more">อื่นๆ</string>
+    <string name="work_folder_name">"งาน"</string>
+    <string name="workspace_cling_longpress_description">"แตะพื้นหลังค้างไว้เพื่อกำหนดค่า"</string>
+    <string name="workspace_cling_longpress_dismiss">"รับทราบ"</string>
+    <string name="workspace_cling_longpress_title">"วอลเปเปอร์ วิดเจ็ต และการตั้งค่า"</string>
+    <string name="workspace_scroll_format">"หน้าจอหลัก %1$d จาก %2$d"</string>
+</resources>

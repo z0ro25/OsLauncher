@@ -1,0 +1,807 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:19:1-531:12
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:19:1-531:12
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:19:1-531:12
+	package
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:19:1-531:12
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+	xmlns:tools
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:20:5-51
+	xmlns:android
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:19:11-69
+permission#com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:29:5-31:47
+	android:protectionLevel
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:31:9-44
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:30:9-81
+permission#com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:32:5-34:55
+	android:protectionLevel
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:34:9-52
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:33:9-84
+uses-permission#android.permission.SET_WALLPAPER
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:42:5-72
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:42:22-69
+uses-permission#android.permission.SET_WALLPAPER_HINTS
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:43:5-78
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:43:22-75
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:45:5-80
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:45:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:46:5-81
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:46:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:47:5-77
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:47:22-74
+uses-permission#android.permission.BROADCAST_STICKY
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:49:5-75
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:49:22-72
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:50:5-81
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:50:22-78
+uses-permission#com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:51:5-97
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:51:22-94
+uses-permission#com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:52:5-100
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:52:22-97
+uses-permission#android.permission.INTERNET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:56:5-67
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:56:22-64
+uses-permission#android.permission.STATUS_BAR
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:59:5-61:47
+	tools:ignore
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:61:9-44
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:60:9-53
+uses-permission#android.permission.GET_PACKAGE_SIZE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:62:5-75
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:62:22-72
+uses-permission#android.permission.QUERY_ALL_PACKAGES
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:63:5-65:53
+	tools:ignore
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:65:9-50
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:64:9-61
+uses-permission#android.permission.BIND_NOTIFICATION_LISTENER_SERVICE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:66:5-68:47
+	tools:ignore
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:68:9-44
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:67:9-77
+uses-permission#android.permission.KILL_BACKGROUND_PROCESSES
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:71:5-84
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:71:22-81
+uses-permission#android.permission.ACTION_MANAGE_OVERLAY_PERMISSION
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:73:5-91
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:73:22-88
+uses-permission#android.permission.ACCESS_NOTIFICATION_POLICY
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:75:5-85
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:75:22-82
+uses-permission#android.permission.UPDATE_DEVICE_STATS
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:76:5-78:47
+	tools:ignore
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:78:9-44
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:77:9-62
+uses-permission#android.permission.REBOOT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:79:5-81:47
+	tools:ignore
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:81:9-44
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:80:9-49
+application
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:86:5-530:19
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:90:9-45
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:89:9-58
+	android:hardwareAccelerated
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:88:9-43
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:87:9-47
+activity#com.amz.ios.launcher.searchlauncher.SearchLauncher
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:92:9-115:20
+	android:clearTaskOnLaunch
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:94:13-45
+	android:stateNotNeeded
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:103:13-42
+	android:excludeFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:97:13-46
+	android:launchMode
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:99:13-44
+	android:windowSoftInputMode
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:106:13-52
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:98:13-36
+	android:resumeWhilePausing
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:101:13-46
+	android:configChanges
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:95:13-204
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:102:13-49
+	android:enabled
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:96:13-35
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:100:13-46
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:105:13-49
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:104:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:93:13-78
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.HOME+category:name:android.intent.category.LAUNCHER_APP+category:name:android.intent.category.MONKEY
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:107:13-114:29
+action#android.intent.action.MAIN
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:17-69
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:25-66
+category#android.intent.category.HOME
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-73
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:109:27-70
+category#android.intent.category.DEFAULT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
+category#android.intent.category.MONKEY
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-75
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-72
+category#android.intent.category.LAUNCHER_APP
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:112:17-81
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:112:27-78
+activity#com.amz.ios.launcher.DynamicVirtualEntryActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:117:9-130:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:122:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:121:13-62
+	android:excludeFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:119:13-46
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:120:13-36
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:123:13-72
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:118:13-76
+intent-filter#action:name:ioslite.intent.action.IOSLITE+category:name:android.intent.category.DEFAULT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:125:13-129:29
+action#ioslite.intent.action.IOSLITE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:128:17-72
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:128:25-69
+activity#com.amz.ios.launcher.config.LauncherSettingActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:132:9-148:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:139:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:137:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:134:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:135:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:138:13-47
+	android:icon
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:136:13-48
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:141:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:140:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:133:13-59
+intent-filter#category:name:android.intent.category.HOME+category:name:android.intent.category.LAUNCHER
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:142:13-147:29
+category#android.intent.category.LAUNCHER
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:145:17-77
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:145:27-74
+activity#com.amz.ios.launcher.config.AppearanceActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:150:9-158:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:156:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:154:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:152:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:153:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:155:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:158:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:157:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:151:13-54
+activity#com.amz.ios.launcher.config.DesktopStyleActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:160:9-168:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:166:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:164:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:162:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:163:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:165:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:168:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:167:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:161:13-56
+activity#com.amz.ios.launcher.config.DrawerStyleActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:170:9-178:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:176:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:174:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:172:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:173:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:175:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:178:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:177:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:171:13-55
+activity#com.amz.ios.launcher.config.FeatureSettingActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:180:9-193:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:186:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:184:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:182:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:183:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:185:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:188:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:187:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:181:13-58
+intent-filter#action:name:ioslite.intent.action.OPEN_FEATURE_SETTING+category:name:android.intent.category.DEFAULT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:189:13-192:29
+action#ioslite.intent.action.OPEN_FEATURE_SETTING
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:190:17-85
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:190:25-82
+activity#com.amz.ios.launcher.config.GestureSettingActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:195:9-203:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:201:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:199:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:197:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:198:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:200:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:203:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:202:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:196:13-58
+activity#com.amz.ios.launcher.config.GesturePickerActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:205:9-213:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:211:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:209:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:207:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:208:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:210:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:213:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:212:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:206:13-57
+activity#com.amz.ios.launcher.config.NotificationMgrActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:215:9-223:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:221:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:219:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:217:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:218:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:220:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:223:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:222:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:216:13-59
+activity#com.amz.ios.launcher.config.BackupActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:225:9-233:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:231:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:229:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:227:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:228:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:230:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:233:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:232:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:226:13-50
+activity#com.amz.ios.launcher.config.EffectSettingsActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:235:9-243:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:241:13-49
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:239:13-51
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:237:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:238:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:240:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:243:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:242:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:236:13-58
+activity#com.amz.ios.launcher.config.AboutActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:245:9-252:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:250:13-49
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:247:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:248:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:249:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:252:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:251:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:246:13-49
+activity#com.amz.ios.launcher.config.DeveloperActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:254:9-261:51
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:259:13-49
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:256:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:257:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:258:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:261:13-48
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:260:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:255:13-53
+activity#com.amz.ios.launcher.config.IconLayoutActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:263:9-270:61
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:268:13-49
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:265:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:266:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:267:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:270:13-58
+	android:taskAffinity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:269:13-65
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:264:13-54
+activity#com.amz.ios.launcher.widget.configure.PictureAppWidgetProviderConfigureActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:272:9-279:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:274:13-36
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:275:13-69
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:273:13-87
+intent-filter#action:name:android.appwidget.action.APPWIDGET_CONFIGURE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:276:13-278:29
+action#android.appwidget.action.APPWIDGET_CONFIGURE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:277:17-87
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:277:25-84
+receiver#com.amz.ios.launcher.WallpaperChangedReceiver
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:281:9-287:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:283:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:282:13-73
+intent-filter#action:name:android.intent.action.WALLPAPER_CHANGED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:284:13-286:29
+action#android.intent.action.WALLPAPER_CHANGED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:285:17-82
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:285:25-79
+receiver#com.amz.ios.launcher.InstallShortcutReceiver
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:290:9-298:20
+	android:enabled
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:292:13-64
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:293:13-36
+	android:permission
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:294:13-82
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:291:13-72
+intent-filter#action:name:com.android.launcher.action.INSTALL_SHORTCUT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:295:13-297:29
+action#com.android.launcher.action.INSTALL_SHORTCUT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:296:17-87
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:296:25-84
+receiver#com.amz.ios.launcher.UninstallShortcutReceiver
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:301:9-308:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:303:13-36
+	android:permission
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:304:13-84
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:302:13-74
+intent-filter#action:name:com.android.launcher.action.UNINSTALL_SHORTCUT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:305:13-307:29
+action#com.android.launcher.action.UNINSTALL_SHORTCUT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:306:17-89
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:306:25-86
+receiver#com.amz.ios.launcher.AppWidgetsRestoredReceiver
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:311:9-317:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:313:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:312:13-75
+intent-filter#action:name:android.appwidget.action.APPWIDGET_HOST_RESTORED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:314:13-316:29
+action#android.appwidget.action.APPWIDGET_HOST_RESTORED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:315:17-91
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:315:25-88
+receiver#com.amz.ios.launcher.StartupReceiver
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:319:9-325:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:321:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:320:13-64
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:322:13-324:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:323:17-79
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:323:25-76
+receiver#com.amz.ios.launcher.util.AdminManager
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:327:9-339:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:329:13-36
+	android:permission
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:330:13-70
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:328:13-46
+meta-data#android.app.device_admin
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:331:13-333:61
+	android:resource
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:333:17-58
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:332:17-56
+intent-filter#action:name:android.app.action.DEVICE_ADMIN_DISABLED+action:name:android.app.action.DEVICE_ADMIN_ENABLED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:335:13-338:29
+action#android.app.action.DEVICE_ADMIN_ENABLED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:336:17-82
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:336:25-79
+action#android.app.action.DEVICE_ADMIN_DISABLED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:337:17-83
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:337:25-80
+provider#com.amz.ios.launcher.LauncherProvider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:342:9-345:39
+	android:authorities
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:344:13-64
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:345:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:343:13-65
+provider#com.amz.ios.launcher.provider.AppConfigureProvider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:348:9-351:39
+	android:authorities
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:350:13-68
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:351:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:349:13-78
+provider#com.amz.ios.launcher.provider.AppTypeProvider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:354:9-357:39
+	android:authorities
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:356:13-63
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:357:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:355:13-73
+activity#com.amz.ios.launcher.shortcut.AllApps
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:362:9-367:59
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:366:13-58
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:364:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:367:13-47
+	android:icon
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:365:13-55
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:363:13-65
+activity#com.ios.boot.iosboot.FirstRunActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:371:9-383:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:377:13-49
+	android:excludeFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:373:13-46
+	android:launchMode
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:375:13-43
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:374:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:376:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:378:13-57
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:372:13-65
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:379:13-382:29
+activity#com.ios.boot.iosboot.SpeedUpActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:385:9-395:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:389:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:387:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:388:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:390:13-58
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:386:13-64
+activity#com.ios.boot.iosboot.UpdateInfoActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:396:9-406:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:400:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:398:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:399:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:401:13-61
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:397:13-67
+activity#com.ios.boot.iosboot.LegalNoticesActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:407:9-418:20
+	android:screenOrientation
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:412:13-49
+	android:launchMode
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:410:13-44
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:409:13-36
+	android:resizeableActivity
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:411:13-47
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:413:13-72
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:408:13-69
+activity#com.amz.ios.ui.cropimage.CropImageActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:420:9-424:72
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:423:13-37
+	android:configChanges
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:422:13-72
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:424:13-69
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:421:13-70
+receiver#com.ios.cleanwidget.CleanWidgetProvider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:428:9-439:20
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:431:13-54
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:430:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:429:13-67
+intent-filter#action:name:android.appwidget.action.IOS_WIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:432:13-434:29
+action#android.appwidget.action.IOS_WIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:17-78
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:25-75
+meta-data#android.appwidget.provider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:436:13-438:61
+	android:resource
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:437:17-58
+receiver#com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:441:9-453:20
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:444:13-44
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:443:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:442:13-75
+intent-filter#action:name:android.appwidget.action.APPWIDGET_CONFIGURE+action:name:android.appwidget.action.APPWIDGET_UPDATE+action:name:android.appwidget.action.IOS_WIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:445:13-449:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:447:17-84
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:447:25-81
+receiver#com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:455:9-472:20
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:458:13-44
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:457:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:456:13-72
+intent-filter#action:name:android.appwidget.action.APPWIDGET_DISABLED+action:name:android.appwidget.action.APPWIDGET_ENABLED+action:name:android.appwidget.action.APPWIDGET_UPDATE+action:name:android.appwidget.action.IOS_WIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:459:13-464:29
+action#android.appwidget.action.APPWIDGET_ENABLED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:461:17-85
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:461:25-82
+action#android.appwidget.action.APPWIDGET_DISABLED
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:462:17-86
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:462:25-83
+intent-filter#action:name:com.ios.ACTION_UPDATE_BATTERY_WIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:465:13-467:29
+action#com.ios.ACTION_UPDATE_BATTERY_WIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:466:17-79
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:466:25-76
+receiver#com.amz.ios.launcher.WorkspaceReceiver
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:474:9-486:20
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:476:13-36
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:475:13-66
+intent-filter#action:name:com.ios.workspace.ACTION_DEBUG
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:477:13-479:29
+action#com.ios.workspace.ACTION_DEBUG
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:478:17-73
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:478:25-70
+intent-filter#action:name:android.provider.Telephony.SECRET_CODE+data:host:6633+data:scheme:android_secret_code
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:480:13-485:29
+action#android.provider.Telephony.SECRET_CODE
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:481:17-81
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:481:25-78
+data
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:482:17-484:60
+	android:host
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:483:21-40
+	android:scheme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:484:21-57
+service#com.amz.ios.launcher.dynamicui.WallpaperManagerCompatVL$ColorExtractionService
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:488:9-492:52
+	android:process
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:492:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:490:13-37
+	android:permission
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:491:13-69
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:489:13-106
+service#com.amz.ios.launcher.notification.NotificationListener
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:494:9-503:19
+	android:enabled
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:496:13-65
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:498:13-63
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:497:13-36
+	android:permission
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:499:13-87
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:495:13-82
+intent-filter#action:name:android.service.notification.NotificationListenerService
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:500:13-502:29
+action#android.service.notification.NotificationListenerService
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:501:17-99
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:501:25-96
+meta-data#android.nfc.disable_beam_default
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:505:9-507:36
+	android:value
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:507:13-33
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:506:13-60
+activity#com.amz.ios.launcher.dragndrop.AddItemActivity
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:509:9-520:20
+	android:label
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:514:13-60
+	android:excludeFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:512:13-46
+	android:autoRemoveFromRecents
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:511:13-49
+	android:exported
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:513:13-36
+	android:theme
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:515:13-82
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:510:13-74
+intent-filter#action:name:android.content.pm.action.CONFIRM_PIN_APPWIDGET+action:name:android.content.pm.action.CONFIRM_PIN_SHORTCUT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:516:13-519:29
+action#android.content.pm.action.CONFIRM_PIN_SHORTCUT
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:517:17-89
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:517:25-86
+action#android.content.pm.action.CONFIRM_PIN_APPWIDGET
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:518:17-90
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:518:25-87
+meta-data#com.android.launcher3.launcher_dump_provider
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:522:9-524:69
+	android:value
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:524:13-66
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:523:13-72
+meta-data#com.google.android.actions
+ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:526:9-528:47
+	android:resource
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:528:13-44
+	android:name
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:527:13-54
+uses-sdk
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml

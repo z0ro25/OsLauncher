@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abandoned_clean_this">"Pašalinti"</string>
+    <string name="abandoned_promise_explanation">"Šios piktogramos programa neįdiegta. Galite ją pašalinti arba bandyti ieškoti programos ir ją įdiegti patys."</string>
+    <string name="abandoned_promises_title">"Ši programa neįdiegta"</string>
+    <string name="abandoned_search">"Ieškoti"</string>
+    <string name="action_add_to_workspace">"Pridėti prie pagrind. ekrano"</string>
+    <string name="action_decrease_height">"Sumažinti aukštį"</string>
+    <string name="action_decrease_width">"Sumažinti plotį"</string>
+    <string name="action_increase_height">"Padidinti aukštį"</string>
+    <string name="action_increase_width">"Padidinti plotį"</string>
+    <string name="action_move">"Perkelti elementą"</string>
+    <string name="action_move_here">"Perkelti elementą čia"</string>
+    <string name="action_move_screen_left">"Perkelti ekraną į kairę"</string>
+    <string name="action_move_screen_right">"Perkelti ekraną į dešinę"</string>
+    <string name="action_move_to_workspace">"Perkelti į pagrindinį ekraną"</string>
+    <string name="action_resize">"Pakeisti dydį"</string>
+    <string name="activity_not_available">"Programa nepasiekiama"</string>
+    <string name="activity_not_found">"Programa neįdiegta."</string>
+    <string name="add_to_folder">"Pridėti prie aplanko: „<ns1:g id="NAME">%1$s</ns1:g>“"</string>
+    <string name="add_to_folder_with_app">"Pridėti prie aplanko su „<ns1:g id="NAME">%1$s</ns1:g>“"</string>
+    <string name="added_to_folder">"Elementas pridėtas prie aplanko"</string>
+    <string name="all_apps_button_label">"Programos"</string>
+    <string name="all_apps_home_button_label">"Pagrindinis"</string>
+    <string name="all_apps_loading_message">"Įkeliamos programos..."</string>
+    <string name="all_apps_no_search_results">"Nerasta jokių užklausą „<ns1:g id="QUERY">%1$s</ns1:g>“ atitinkančių programų"</string>
+    <string name="all_apps_search_bar_hint">"Ieškoti programų"</string>
+    <string name="all_apps_search_market_message">"Eiti į <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Leisti kaitaliojimą"</string>
+    <string name="create_folder_with">"Kurti aplanką naudojant: „<ns1:g id="NAME">%1$s</ns1:g>“"</string>
+    <string name="default_scroll_format">"%1$d psl. iš %2$d"</string>
+    <string name="delete_target_label">"Pašalinti"</string>
+    <string name="delete_target_uninstall_label">"Pašalinti"</string>
+    <string name="first_run_cling_title">"Sveiki"</string>
+    <string name="folder_closed">"Aplankas uždarytas"</string>
+    <string name="folder_created">"Aplankas sukurtas"</string>
+    <string name="folder_hint_text">"Aplankas be pavadinimo"</string>
+    <string name="folder_name_format">"Aplankas: „<ns1:g id="NAME">%1$s</ns1:g>“"</string>
+    <string name="folder_opened">"Atidarytas aplankas, <ns1:g id="WIDTH">%1$d</ns1:g> ir <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"Aplankas pervardytas kaip „<ns1:g id="NAME">%1$s</ns1:g>“"</string>
+    <string name="folder_tap_to_close">"Palieskite, kad uždarytumėte aplanką"</string>
+    <string name="folder_tap_to_rename">"Palieskite, kad išsaugotumėte naują pavadinimą"</string>
+    <string name="gadget_error_text">"Problema įkeliant valdiklį"</string>
+    <string name="gadget_setup_text">"Sąranka"</string>
+    <string name="hotseat_out_of_space">"Mėgstamiausių dėkle nebėra vietos"</string>
+    <string name="info_target_label">"Programos informacija"</string>
+    <string name="item_added_to_workspace">"Elementas pridėtas prie pagrindinio ekrano"</string>
+    <string name="item_moved">"Elementas perkeltas"</string>
+    <string name="item_removed">"Elementas perkeltas"</string>
+    <string name="long_press_widget_to_add">"Palieskite ir laikykite, kad pasirinkt. valdiklį."</string>
+    <string name="migration_cling_copy_apps">"KOPIJUOTI PIKTOGRAMAS"</string>
+    <string name="migration_cling_description">"Importuoti piktogramas ir aplankus iš senų pagr. ekranų?"</string>
+    <string name="migration_cling_title">"Programų piktogramų kopij."</string>
+    <string name="migration_cling_use_default">"PRADĖTI IŠ NAUJO"</string>
+    <string name="move_to_empty_cell">"Perkelti į <ns1:g id="NUMBER_0">%1$s</ns1:g> eilutę, <ns1:g id="NUMBER_1">%2$s</ns1:g> stulpelį"</string>
+    <string name="move_to_hotseat_position">"Perkelti į <ns1:g id="NUMBER">%1$s</ns1:g> mėgstamiausių poziciją"</string>
+    <string name="move_to_position">"Perkelti į <ns1:g id="NUMBER">%1$s</ns1:g> poziciją"</string>
+    <string name="out_of_space">"Šiame pagrindiniame ekrane vietos nebėra."</string>
+    <string name="package_state_unknown">"Nežinoma"</string>
+    <string name="permdesc_install_shortcut">"Programai leidžiama pridėti sparčiuosius klavišus be naudotojo įsikišimo."</string>
+    <string name="permdesc_read_settings">"Programai leidžiama skaityti pagrindinio puslapio nustatymus ir sparčiuosius klavišus."</string>
+    <string name="permdesc_write_settings">"Programai leidžiama keisti pagrindinio puslapio nustatymus ir sparčiuosius klavišus."</string>
+    <string name="permlab_install_shortcut">"įdiegti sparčiuosius klavišus"</string>
+    <string name="permlab_read_settings">"skaityti pagrindinio puslapio nustatymus ir sparčiuosius klavišus"</string>
+    <string name="permlab_write_settings">"rašyti pagrindinio puslapio nustatymus ir sparčiuosius klavišus"</string>
+    <string name="safemode_shortcut_error">"Atsisiųsta programa išjungta Saugos režimu"</string>
+    <string name="safemode_widget_error">"Valdikliai išjungti Saugiame režime"</string>
+    <string name="screen_moved">"Ekranas perkeltas"</string>
+    <string name="settings_label">"Nustatymai"</string>
+    <string name="toggle_weight_watcher">"Rodyti atmintinę"</string>
+    <string name="uninstall_system_app_text">"Tai sistemos programa ir jos negalima pašalinti."</string>
+    <string name="wallpaper_button_text">"Ekrano fonai"</string>
+    <string name="widget_button_text">"Valdikliai"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Valdiklio dydis pakeistas: plotis – <ns1:g id="NUMBER_0">%1$s</ns1:g>, aukštis – <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Darbas"</string>
+    <string name="workspace_cling_longpress_description">"Jei norite tinkinti, palieskite ir palaikykite foną"</string>
+    <string name="workspace_cling_longpress_dismiss">"SUPRATAU"</string>
+    <string name="workspace_cling_longpress_title">"Ekrano fonai, valdikliai ir nustatymai"</string>
+    <string name="workspace_scroll_format">"%1$d pagrindinis ekranas iš %2$d"</string>
+</resources>

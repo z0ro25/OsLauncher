@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item-->
+        <!--android:drawable="@drawable/default_wallpaper"-->
+        <!--android:left="0dp"-->
+        <!--android:right="0dp"-->
+        <!--android:top="0dp"-->
+        <!--android:bottom="0dp"-->
+        <!--&gt;-->
+
+    <!--</item>-->
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid
+                android:color="#1c6c8efc"
+                />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp"
+        android:bottom="0dp">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+            <solid android:color="@android:color/white" />
+
+            <stroke
+                android:width="2px"
+                android:color="#40000000" />
+        </shape>    </item>
+
+</layer-list>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d notificare nouă</item>
+    <item quantity="few">%d notificări noi</item>
+    <item quantity="other">%d de notificări noi</item>
+  </plurals>
+    <string name="abandoned_clean_this">"Eliminați"</string>
+    <string name="abandoned_promise_explanation">"Aplicația pentru această pictogramă nu este instalată. Puteți să ștergeți pictograma sau să căutați aplicația și s-o instalați manual."</string>
+    <string name="abandoned_promises_title">"Aplicația nu este instalată"</string>
+    <string name="abandoned_search">"Căutați"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Navigați la ecranul de pornire"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Navigați în sus"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Mai multe opțiuni"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Gata"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Afișați tot"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Alegeți o aplicație"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"DEZACTIVAT"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"ACTIVAT"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"delete"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"space"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Meniu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Căutați…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Ștergeți interogarea"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Termen de căutare"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Căutați"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Trimiteți interogarea"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Căutare vocală"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Trimiteți la"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Trimiteți folosind <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Restrângeți"</string>
+    <string name="action_add_to_workspace">"Adăugați pe ecranul de pornire"</string>
+    <string name="action_decrease_height">"Reduceți înălțimea"</string>
+    <string name="action_decrease_width">"Reduceți lățimea"</string>
+    <string name="action_increase_height">"Creșteți înălțimea"</string>
+    <string name="action_increase_width">"Creșteți lățimea"</string>
+    <string name="action_move">"Mutați elementul"</string>
+    <string name="action_move_here">"Mutați elementul aici"</string>
+    <string name="action_move_screen_left">"Mutați ecranul la stânga"</string>
+    <string name="action_move_screen_right">"Mutați ecranul la dreapta"</string>
+    <string name="action_move_to_workspace">"Mutați pe ecranul de pornire"</string>
+    <string name="action_resize">"Redimensionați"</string>
+    <string name="activity_not_available">"Aplicația nu este disponibilă"</string>
+    <string name="activity_not_found">"Aplicația nu este instalată."</string>
+    <string name="add_to_folder">"Adăugați în dosar: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Adăugați în dosarul cu <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Element adăugat în dosar"</string>
+    <string name="all_apps_button_label">"Aplicații"</string>
+    <string name="all_apps_home_button_label">"Ecran de pornire"</string>
+    <string name="all_apps_loading_message">"Se încarcă aplicațiile..."</string>
+    <string name="all_apps_no_search_results">"Nu s-a găsit nicio aplicație pentru „<ns1:g id="QUERY">%1$s</ns1:g>”"</string>
+    <string name="all_apps_search_bar_hint">"Căutați aplicații"</string>
+    <string name="all_apps_search_market_message">"Accesați <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Permiteți rotirea"</string>
+    <string name="bottomsheet_action_collapse">Restrângeți foaia din partea de jos</string>
+    <string name="bottomsheet_action_expand">Extindeți foaia din partea de jos</string>
+    <string name="bottomsheet_action_expand_halfway">Extinde pe ecran complet</string>
+    <string name="bottomsheet_drag_handle_clicked">Ghidaj de tragere atins de două ori</string>
+    <string name="bottomsheet_drag_handle_content_description">Ghidaj de tragere</string>
+    <string name="character_counter_content_description">Caractere introduse: %1$d din %2$d</string>
+    <string name="character_counter_overflowed_content_description">Limita de caractere a depășit %1$d din %2$d</string>
+    <string name="clear_text_end_icon_content_description">Ștergeți textul</string>
+    <string name="create_folder_with">"Creați dosar cu: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"Pagina %1$d din %2$d"</string>
+    <string name="delete_target_label">"Eliminați"</string>
+    <string name="delete_target_uninstall_label">"Dezinstalați"</string>
+    <string name="error_icon_content_description">Eroare</string>
+    <string name="exposed_dropdown_menu_content_description">Afișați meniul drop-down</string>
+    <string name="first_run_cling_title">"Bun venit"</string>
+    <string name="folder_closed">"Dosar închis"</string>
+    <string name="folder_created">"Dosar creat"</string>
+    <string name="folder_hint_text">"Dosar fără nume"</string>
+    <string name="folder_name_format">"Dosar: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Dosar deschis, <ns1:g id="WIDTH">%1$d</ns1:g> pe <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"Dosar redenumit <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Atingeți pentru a închide dosarul"</string>
+    <string name="folder_tap_to_rename">"Atingeți pentru a salva redenumirea"</string>
+    <string name="gadget_error_text">"Problemă la încărcarea widgetului"</string>
+    <string name="gadget_setup_text">"Configurați"</string>
+    <string name="hotseat_out_of_space">"Spațiu epuizat în bara Preferate"</string>
+    <string name="icon_content_description">Pictogramă de dialog</string>
+    <string name="info_target_label">"Informații despre aplicație"</string>
+    <string name="item_added_to_workspace">"Element adăugat pe ecranul de pornire"</string>
+    <string name="item_moved">"Element mutat"</string>
+    <string name="item_removed">"Element eliminat"</string>
+    <string name="item_view_role_description">Filă</string>
+    <string name="long_press_widget_to_add">"Atingeți lung un widget pentru a-l alege."</string>
+    <string name="material_clock_toggle_content_description">Selectați ora</string>
+    <string name="material_hour_24h_suffix">%1$s ore</string>
+    <string name="material_hour_selection">Selectați ora</string>
+    <string name="material_hour_suffix">Ora %1$s</string>
+    <string name="material_minute_selection">Selectați minutele</string>
+    <string name="material_minute_suffix">%1$s minute</string>
+    <string name="material_timepicker_am">a.m.</string>
+    <string name="material_timepicker_clock_mode_description">Pentru a introduce ora, comutați la modul ceas.</string>
+    <string name="material_timepicker_hour">Ora</string>
+    <string name="material_timepicker_minute">Minut</string>
+    <string name="material_timepicker_pm">p.m.</string>
+    <string name="material_timepicker_select_time">Selectați ora</string>
+    <string name="material_timepicker_text_input_mode_description">Pentru a introduce ora, comutați la modul de introducere a textului.</string>
+    <string name="migration_cling_copy_apps">"COPIAȚI PICTOGRAMELE"</string>
+    <string name="migration_cling_description">"Import. pictogr. și dosare de pe ecranele de pornire anter.?"</string>
+    <string name="migration_cling_title">"Copiați pictogr. aplicațiilor"</string>
+    <string name="migration_cling_use_default">"REÎNCEPEȚI"</string>
+    <string name="move_to_empty_cell">"Mutați pe rândul <ns1:g id="NUMBER_0">%1$s</ns1:g>, coloana <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Mutați în preferate, pe poziția <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"Mutați pe poziția <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">Notificare nouă</string>
+    <string name="mtrl_chip_close_icon_content_description">Eliminați %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Peste %1$d notificări noi</string>
+    <string name="mtrl_picker_a11y_next_month">Treceți la luna următoare</string>
+    <string name="mtrl_picker_a11y_prev_month">Treceți la luna anterioară</string>
+    <string name="mtrl_picker_announce_current_range_selection">Selectarea datei de începere: %1$s – selectarea datei de încheiere: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Selecția actuală: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">niciuna</string>
+    <string name="mtrl_picker_cancel">Anulați</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Selectați data</string>
+    <string name="mtrl_picker_date_header_unselected">Data selectată</string>
+    <string name="mtrl_picker_day_of_week_column_header">Coloana cu zile: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Data de încheiere: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Format nevalid.</string>
+    <string name="mtrl_picker_invalid_format_example">Exemplu: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Folosiți: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Interval nevalid.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Navigați la anul actual %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Navigați la anul %1$d</string>
+    <string name="mtrl_picker_out_of_range">Fără acoperire: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Data de începere – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – data de încheiere</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Selectați intervalul</string>
+    <string name="mtrl_picker_range_header_unselected">Data de începere – data de încheiere</string>
+    <string name="mtrl_picker_save">Salvați</string>
+    <string name="mtrl_picker_start_date_description">Data de începere: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Dată</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Data de încheiere</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Data de începere</string>
+    <string name="mtrl_picker_text_input_day_abbr">z</string>
+    <string name="mtrl_picker_text_input_month_abbr">l</string>
+    <string name="mtrl_picker_text_input_year_abbr">a</string>
+    <string name="mtrl_picker_today_description">Astăzi, la %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Comutați la modul introducere în calendar</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Atingeți pentru a comuta la afișarea Calendar</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Comutați la modul de introducere a textului</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Atingeți pentru a comuta la afișarea An</string>
+    <string name="mtrl_timepicker_cancel">Anulați</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string name="out_of_space">"Nu mai este loc pe acest Ecran de pornire."</string>
+    <string name="package_state_unknown">"Necunoscut"</string>
+    <string name="password_toggle_content_description">Afișați parola</string>
+    <string name="permdesc_install_shortcut">"Permite unei aplicații să adauge comenzi rapide fără intervenția utilizatorului."</string>
+    <string name="permdesc_read_settings">"Permite aplicației să citească setările și comenzile rapide din ecranul de pornire."</string>
+    <string name="permdesc_write_settings">"Permite aplicației să modifice setările și comenzile rapide din ecranul de pornire."</string>
+    <string name="permlab_install_shortcut">"instalează comenzi rapide"</string>
+    <string name="permlab_read_settings">"citește setări și comenzi rapide pentru ecranul de pornire"</string>
+    <string name="permlab_write_settings">"scrie setări și comenzi rapide pentru ecranul de pornire"</string>
+    <string name="safemode_shortcut_error">"Aplicația descărcată este dezactivată în modul de siguranță"</string>
+    <string name="safemode_widget_error">"Widgeturile sunt dezactivate în modul de siguranță"</string>
+    <string name="screen_moved">"Ecran mutat"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Căutați"</string>
+    <string name="settings_label">"Setări"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"Afișați memoria"</string>
+    <string name="uninstall_system_app_text">"Aceasta este o aplicație de sistem și nu poate fi dezinstalată."</string>
+    <string name="wallpaper_button_text">"Imagini de fundal"</string>
+    <string name="widget_button_text">"Widgeturi"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Widgetul a fost redimensionat la lățimea <ns1:g id="NUMBER_0">%1$s</ns1:g> și înălțimea <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Work"</string>
+    <string name="workspace_cling_longpress_description">"Atingeți lung fundalul pentru a-l personaliza"</string>
+    <string name="workspace_cling_longpress_dismiss">"AM ÎNȚELES"</string>
+    <string name="workspace_cling_longpress_title">"Imagini de fundal, widgeturi și setări"</string>
+    <string name="workspace_scroll_format">"Ecranul de pornire %1$d din %2$d"</string>
+</resources>

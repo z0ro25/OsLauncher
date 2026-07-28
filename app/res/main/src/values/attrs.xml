@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RippleBackground">
+        <attr name="rb_color" format="color" />
+        <attr name="rb_strokeWidth" format="dimension" />
+        <attr name="rb_radius" format="dimension" />
+        <attr name="rb_duration" format="integer" />
+        <attr name="rb_rippleAmount" format="integer" />
+        <attr name="rb_scale" format="float" />
+        <attr name="rb_type" format="enum">
+            <enum name="fillRipple" value="0" />
+            <enum name="strokeRipple" value="1" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="IndicatorView">
+
+    </declare-styleable>
+
+    <attr name="dotIndicatorStyle" />
+    <declare-styleable name="DotIndicator">
+        <attr name="di_dotColor" format="color" />
+        <attr name="di_dotSelectedColor" format="color" />
+        <attr name="di_dotSize" format="dimension" />
+        <attr name="di_dotSelectedSize" format="dimension" />
+        <attr name="di_dotMinimumSize" format="dimension" />
+        <attr name="di_dotSpacing" format="dimension" />
+        <attr name="di_visibleDotCount" format="integer" />
+        <attr name="di_visibleDotThreshold" format="integer" />
+        <attr name="di_looped" format="boolean" />
+        <attr name="di_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <style name="DotIndicator">
+        <item name="di_dotColor">#66718096</item>
+        <item name="di_dotSelectedColor">#46CDFB</item>
+        <item name="di_dotSize">10dp</item>
+        <item name="di_dotSelectedSize">18dp</item>
+        <item name="di_dotSpacing">10dp</item>
+        <item name="di_visibleDotCount">5</item>
+        <item name="di_visibleDotThreshold">2</item>
+        <item name="di_looped">false</item>
+    </style>
+
+
+    <declare-styleable name="WallpaperToolView">
+        <attr name="toolType" format="enum">
+            <enum name="Blur" value="0" />
+            <enum name="Pair" value="1" />
+            <enum name="Color" value="2" />
+            <enum name="Gradient" value="3" />
+            <enum name="Photo" value="4" />
+        </attr>
+
+    </declare-styleable>
+
+</resources>

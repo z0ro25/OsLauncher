@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- item common start-->
+    <dimen name="fmsearch_dp_item_inner_common_padding">8dp</dimen>
+    <dimen name="fmsearch_dp_item_haf_inner_common_padding">4dp</dimen>
+    <dimen name="fmsearch_dp_item_head_height">42dp</dimen>
+    <dimen name="fmsearch_dp_item_outer_common_padding">16dp</dimen>
+    <dimen name="fmsearch_dp_item_common_space_padding">4dp</dimen>
+    <dimen name="fmsearch_dp_item_head_padding_left">@dimen/fmsearch_dp_item_outer_common_padding
+    </dimen>
+    <dimen name="fmsearch_dp_item_content_height">42dp</dimen>
+    <dimen name="fmsearch_dp_item_corner_radius">2dp</dimen>
+    <!-- item common end-->
+
+    <dimen name="fmsearch_dp_ad_image_height">40dip</dimen>
+    <dimen name="fmsearch_dp_ad_image_width">40dip</dimen>
+
+    <dimen name="fmsearch_dp_search_widget_height">48dip</dimen>
+    <dimen name="fmsearch_dp_search_min_width">348dip</dimen>
+    <dimen name="fmsearch_dp_search_min_height">64dp</dimen>
+    <dimen name="fmsearch_dm_search_divider_height">1px</dimen>
+
+    <dimen name="fmsearch_dp_item_hotapp_width">86dp</dimen>
+    <dimen name="fmsearch_dp_item_hotapp_height">89dp</dimen>
+
+
+    <dimen name="fmsearch_dp_item_search_content_height">@dimen/fmsearch_dp_item_content_height
+    </dimen>
+    <dimen name="fmsearch_dp_cardelevation">2dp</dimen>
+
+    <dimen name="fmsearch_sp_search_widget_txt">15sp</dimen>
+    <dimen name="fmsearch_sp_search_head_txt">15sp</dimen>
+    <dimen name="fmsearch_pivotX">12dp</dimen>
+    <dimen name="fmsearch_pivotY">12dp</dimen>
+</resources>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d nieuwe melding</item>
+    <item quantity="other">%d nieuwe meldingen</item>
+  </plurals>
+    <string name="abandoned_clean_this">"Verwijderen"</string>
+    <string name="abandoned_promise_explanation">"De app voor dit pictogram is niet geïnstalleerd. U kunt het pictogram verwijderen of de app zoeken en handmatig installeren."</string>
+    <string name="abandoned_promises_title">"Deze app is niet geïnstalleerd"</string>
+    <string name="abandoned_search">"Zoeken"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Navigeren naar startpositie"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Omhoog navigeren"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Meer opties"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Klaar"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Alles tonen"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Een app selecteren"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"UIT"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"AAN"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt +"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl +"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Delete"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Functie +"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta +"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift +"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"spatie"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym +"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu +"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Zoeken…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Zoekopdracht wissen"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Zoekopdracht"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Zoeken"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Zoekopdracht verzenden"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Gesproken zoekopdracht"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Delen met"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Delen met <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Samenvouwen"</string>
+    <string name="action_add_to_workspace">"Toevoegen aan startpagina"</string>
+    <string name="action_decrease_height">"Hoogte verkleinen"</string>
+    <string name="action_decrease_width">"Breedte verkleinen"</string>
+    <string name="action_increase_height">"Hoogte vergroten"</string>
+    <string name="action_increase_width">"Breedte vergroten"</string>
+    <string name="action_move">"Item verplaatsen"</string>
+    <string name="action_move_here">"Item hier naartoe verplaatsen"</string>
+    <string name="action_move_screen_left">"Scherm naar links verplaatsen"</string>
+    <string name="action_move_screen_right">"Scherm naar rechts verplaatsen"</string>
+    <string name="action_move_to_workspace">"Verplaatsen naar startscherm"</string>
+    <string name="action_resize">"Formaat aanpassen"</string>
+    <string name="activity_not_available">"App is niet beschikbaar"</string>
+    <string name="activity_not_found">"App is niet geïnstalleerd."</string>
+    <string name="add_to_folder">"Toevoegen aan map: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Toevoegen aan map met <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Item toegevoegd aan map"</string>
+    <string name="all_apps_button_label">"Apps"</string>
+    <string name="all_apps_home_button_label">"Startpagina"</string>
+    <string name="all_apps_loading_message">"Apps laden…"</string>
+    <string name="all_apps_no_search_results">"Er zijn geen apps gevonden die overeenkomen met \'<ns1:g id="QUERY">%1$s</ns1:g>\'"</string>
+    <string name="all_apps_search_bar_hint">"Apps zoeken"</string>
+    <string name="all_apps_search_market_message">"Ga naar <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Draaien toestaan"</string>
+    <string name="bottomsheet_action_collapse">Het blad onderaan samenvouwen</string>
+    <string name="bottomsheet_action_expand">Het blad onderaan uitvouwen</string>
+    <string name="bottomsheet_action_expand_halfway">Half uitvouwen</string>
+    <string name="bottomsheet_drag_handle_clicked">Dubbelgetikt op handgreep voor slepen</string>
+    <string name="bottomsheet_drag_handle_content_description">Handgreep voor slepen</string>
+    <string name="character_counter_content_description">%1$d van %2$d tekens opgegeven</string>
+    <string name="character_counter_overflowed_content_description">Tekenlimiet heeft %1$d van %2$d overschreden</string>
+    <string name="clear_text_end_icon_content_description">Tekst wissen</string>
+    <string name="create_folder_with">"Map maken met: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="crop_image_activity_no_permissions">Wordt geannuleerd, vereiste machtigingen zijn niet toegekend</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">Bijsnijden</string>
+    <string name="crop_image_menu_flip">Spiegelen</string>
+    <string name="crop_image_menu_flip_horizontally">Horizontaal spiegelen</string>
+    <string name="crop_image_menu_flip_vertically">Verticaal spiegelen</string>
+    <string name="crop_image_menu_rotate_left">Tegen de klok in draaien</string>
+    <string name="crop_image_menu_rotate_right">Draaien</string>
+    <string name="default_scroll_format">"Pagina %1$d van %2$d"</string>
+    <string name="delete_target_label">"Verwijderen"</string>
+    <string name="delete_target_uninstall_label">"Verwijderen"</string>
+    <string name="error_icon_content_description">Fout</string>
+    <string name="exposed_dropdown_menu_content_description">Dropdownmenu tonen</string>
+    <string name="first_run_cling_title">"Welkom"</string>
+    <string name="folder_closed">"Map gesloten"</string>
+    <string name="folder_created">"Map gemaakt"</string>
+    <string name="folder_hint_text">"Naamloze map"</string>
+    <string name="folder_name_format">"Map: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Map geopend, <ns1:g id="WIDTH">%1$d</ns1:g> bij <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"De naam van de map is gewijzigd in <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Raak dit aan om de map te sluiten"</string>
+    <string name="folder_tap_to_rename">"Raak dit aan om de gewijzigde naam op te slaan"</string>
+    <string name="gadget_error_text">"Probleem bij het laden van widget"</string>
+    <string name="gadget_setup_text">"Configuratie"</string>
+    <string name="hotseat_out_of_space">"Geen ruimte meer in het vak \'Favorieten\'"</string>
+    <string name="icon_content_description">Icoon voor dialoogvenster</string>
+    <string name="info_target_label">"App-info"</string>
+    <string name="item_added_to_workspace">"Item toegevoegd aan startscherm"</string>
+    <string name="item_moved">"Item verplaatst"</string>
+    <string name="item_removed">"Item verwijderd"</string>
+    <string name="item_view_role_description">Tabblad</string>
+    <string name="long_press_widget_to_add">"Blijf aanraken om een widget toe te voegen."</string>
+    <string name="material_clock_toggle_content_description">Selecteer a.m. of p.m.</string>
+    <string name="material_hour_24h_suffix">%1$s uur</string>
+    <string name="material_hour_selection">Selecteer uur</string>
+    <string name="material_hour_suffix">%1$s uur</string>
+    <string name="material_minute_selection">Minuten selecteren</string>
+    <string name="material_minute_suffix">%1$s minuten</string>
+    <string name="material_timepicker_am">a.m.</string>
+    <string name="material_timepicker_clock_mode_description">Schakel naar de klokmodus om de tijd in te voeren.</string>
+    <string name="material_timepicker_hour">Uur</string>
+    <string name="material_timepicker_minute">Minuut</string>
+    <string name="material_timepicker_pm">p.m.</string>
+    <string name="material_timepicker_select_time">Tijd selecteren</string>
+    <string name="material_timepicker_text_input_mode_description">Schakel naar de tekstinvoermodus om de tijd in te voeren.</string>
+    <string name="migration_cling_copy_apps">"PICTOGRAMMEN KOPIËREN"</string>
+    <string name="migration_cling_description">"Pictogrammen en mappen importeren uit uw oude startschermen?"</string>
+    <string name="migration_cling_title">"Uw app-pictogrammen kopiëren"</string>
+    <string name="migration_cling_use_default">"OPNIEUW BEGINNEN"</string>
+    <string name="move_to_empty_cell">"Verplaatsen naar rij <ns1:g id="NUMBER_0">%1$s</ns1:g>, kolom <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Verplaatsen naar positie <ns1:g id="NUMBER">%1$s</ns1:g> voor favorieten"</string>
+    <string name="move_to_position">"Verplaatsen naar positie <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">Nieuwe melding</string>
+    <string name="mtrl_chip_close_icon_content_description">%1$s verwijderen</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Meer dan %1$d nieuwe meldingen</string>
+    <string name="mtrl_picker_a11y_next_month">Naar volgende maand gaan</string>
+    <string name="mtrl_picker_a11y_prev_month">Naar vorige maand gaan</string>
+    <string name="mtrl_picker_announce_current_range_selection">Startdatumselectie: %1$s – Einddatumselectie: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Huidige selectie: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">geen</string>
+    <string name="mtrl_picker_cancel">Annuleren</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Selecteer een datum</string>
+    <string name="mtrl_picker_date_header_unselected">Geselecteerde datum</string>
+    <string name="mtrl_picker_day_of_week_column_header">Kolom met dagen: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Einddatum %1$s</string>
+    <string name="mtrl_picker_invalid_format">Ongeldige indeling.</string>
+    <string name="mtrl_picker_invalid_format_example">Voorbeeld: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Gebruik: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Ongeldig bereik.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Naar het huidige jaar %1$d gaan</string>
+    <string name="mtrl_picker_navigate_to_year_description">Naar jaar %1$d navigeren</string>
+    <string name="mtrl_picker_out_of_range">Valt buiten bereik: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Startdatum - %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – einddatum</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Selecteer een periode</string>
+    <string name="mtrl_picker_range_header_unselected">Startdatum - einddatum</string>
+    <string name="mtrl_picker_save">Opslaan</string>
+    <string name="mtrl_picker_start_date_description">Startdatum %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Datum</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Einddatum</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Startdatum</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">j</string>
+    <string name="mtrl_picker_today_description">Vandaag %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Overschakelen naar agenda-invoermodus</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Tik om over te schakelen naar de agendaweergave</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Overschakelen naar tekstinvoermodus</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Tik om over te schakelen naar de jaarweergave</string>
+    <string name="mtrl_timepicker_cancel">Annuleren</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string name="out_of_space">"Er is geen ruimte meer op dit startscherm."</string>
+    <string name="package_state_unknown">"Onbekend"</string>
+    <string name="password_toggle_content_description">Wachtwoord tonen</string>
+    <string name="permdesc_install_shortcut">"Een app toestaan snelkoppelingen toe te voegen zonder tussenkomst van de gebruiker."</string>
+    <string name="permdesc_read_settings">"De app toestaan de instellingen en snelkoppelingen op de startpagina te lezen."</string>
+    <string name="permdesc_write_settings">"De app toestaan de instellingen en snelkoppelingen op de startpagina te wijzigen."</string>
+    <string name="permlab_install_shortcut">"Snelkoppelingen instellen"</string>
+    <string name="permlab_read_settings">"instellingen en snelkoppelingen op de startpagina lezen"</string>
+    <string name="permlab_write_settings">"instellingen en snelkoppelingen op de startpagina schrijven"</string>
+    <string name="pick_image_intent_chooser_title">Bron selecteren</string>
+    <string name="safemode_shortcut_error">"Gedownloade app uitgeschakeld in veilige modus"</string>
+    <string name="safemode_widget_error">"Widgets uitgeschakeld in Veilige modus"</string>
+    <string name="screen_moved">"Scherm verplaatst"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Zoeken"</string>
+    <string name="settings_label">"Instellingen"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"Geheugen weergeven"</string>
+    <string name="uninstall_system_app_text">"Dit is een systeemapp die niet kan worden verwijderd."</string>
+    <string name="wallpaper_button_text">"Achtergronden"</string>
+    <string name="widget_button_text">"Widgets"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Formaat van widget gewijzigd in breedte <ns1:g id="NUMBER_0">%1$s</ns1:g> en hoogte <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Werk"</string>
+    <string name="workspace_cling_longpress_description">"Blijf de achtergrond aanraken om deze aan te passen"</string>
+    <string name="workspace_cling_longpress_dismiss">"OK"</string>
+    <string name="workspace_cling_longpress_title">"Achtergronden, widgets en instellingen"</string>
+    <string name="workspace_scroll_format">"Startscherm %1$d van %2$d"</string>
+</resources>

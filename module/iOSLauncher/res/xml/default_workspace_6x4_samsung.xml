@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<favorites xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <include launcher:workspace="@xml/dw_phone_hotseat_samsung"/>
+    <!-- Bỏ toàn bộ app cố định + folder: các app thật sẽ được tự động xếp kín. -->
+</favorites>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ConstraintSet android:id="@+id/apps_library_start">
+        <Constraint android:id="@+id/search_box_apps_library"/>
+        <Constraint android:id="@+id/apps_library_search_view"/>
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/apps_library_end">
+        <Constraint android:id="@+id/search_box_apps_library" android:background="@drawable/round_rect_qsb" android:layout_width="0dp" android:layout_height="@dimen/search_height" app:layout_constraintWidth_default="percent" app:layout_constraintWidth_percent="0.68"/>
+        <Constraint android:id="@+id/ic_search" android:layout_width="wrap_content" android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="@+id/search_box_apps_library" app:layout_constraintStart_toStartOf="@+id/search_box_apps_library" app:layout_constraintTop_toTopOf="@+id/search_box_apps_library"/>
+        <Constraint android:layout_gravity="start" android:id="@+id/et_search" android:layout_width="0dp" android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="@+id/search_box_apps_library" app:layout_constraintEnd_toEndOf="@+id/search_box_apps_library" app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintStart_toEndOf="@+id/ic_search" app:layout_constraintTop_toTopOf="@+id/search_box_apps_library"/>
+        <Constraint android:id="@+id/cancel_button" android:visibility="visible" android:layout_width="0dp" android:layout_height="0dp" android:translationX="0dp" app:layout_constraintBottom_toBottomOf="@+id/search_box_apps_library" app:layout_constraintEnd_toEndOf="@+id/layout_list_apps_library" app:layout_constraintStart_toEndOf="@+id/search_box_apps_library" app:layout_constraintTop_toTopOf="@+id/search_box_apps_library"/>
+        <Constraint android:id="@+id/apps_library_search_view">
+            <PropertySet android:visibility="visible"/>
+        </Constraint>
+    </ConstraintSet>
+    <Transition app:constraintSetEnd="@+id/apps_library_end" app:constraintSetStart="@+id/apps_library_start" app:duration="368">
+        <OnClick app:clickAction="transitionToStart" app:targetId="@+id/cancel_button"/>
+        <KeyFrameSet>
+            <KeyAttribute android:alpha="1" app:framePosition="0" app:motionTarget="@+id/list_apps_library"/>
+            <KeyAttribute android:alpha="0" app:framePosition="100" app:motionTarget="@+id/list_apps_library"/>
+        </KeyFrameSet>
+        <KeyFrameSet>
+            <KeyAttribute android:alpha="1" app:framePosition="100" app:motionTarget="@+id/apps_library_search_view"/>
+            <KeyAttribute android:alpha="0" app:framePosition="0" app:motionTarget="@+id/apps_library_search_view"/>
+        </KeyFrameSet>
+    </Transition>
+</MotionScene>

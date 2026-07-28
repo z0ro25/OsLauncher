@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abandoned_clean_this">"Usuń"</string>
+    <string name="abandoned_promise_explanation">"Aplikacja, której odpowiada ta ikona, nie jest zainstalowana. Możesz usunąć ikonę lub wyszukać aplikację i zainstalować ją ręcznie."</string>
+    <string name="abandoned_promises_title">"Ta aplikacja nie jest zainstalowana"</string>
+    <string name="abandoned_search">"Szukaj"</string>
+    <string name="action_add_to_workspace">"Dodaj do strony głównej"</string>
+    <string name="action_decrease_height">"Zmniejsz wysokość"</string>
+    <string name="action_decrease_width">"Zmniejsz szerokość"</string>
+    <string name="action_increase_height">"Zwiększ wysokość"</string>
+    <string name="action_increase_width">"Zwiększ szerokość"</string>
+    <string name="action_move">"Przenieś element"</string>
+    <string name="action_move_here">"Przenieś element tutaj"</string>
+    <string name="action_move_screen_left">"Przenieś ekran w lewo"</string>
+    <string name="action_move_screen_right">"Przenieś ekran w prawo"</string>
+    <string name="action_move_to_workspace">"Przenieś na ekran główny"</string>
+    <string name="action_resize">"Zmień rozmiar"</string>
+    <string name="activity_not_available">"Aplikacja niedostępna"</string>
+    <string name="activity_not_found">"Aplikacja nie jest zainstalowana."</string>
+    <string name="add_to_folder">"Dodaj do folderu: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Dodaj do folderu z: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Element został dodany do folderu"</string>
+    <string name="all_apps_button_label">"Aplikacje"</string>
+    <string name="all_apps_home_button_label">"Ekran główny"</string>
+    <string name="all_apps_loading_message">"Wczytuję aplikacje…"</string>
+    <string name="all_apps_no_search_results">"Nie znaleziono aplikacji pasujących do zapytania „<ns1:g id="QUERY">%1$s</ns1:g>”"</string>
+    <string name="all_apps_search_bar_hint">"Szukaj w aplikacjach"</string>
+    <string name="all_apps_search_market_message">"Otwórz <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Zezwól na obrót"</string>
+    <string name="create_folder_with">"Utwórz folder z: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"Strona %1$d z %2$d"</string>
+    <string name="delete_target_label">"Usuń"</string>
+    <string name="delete_target_uninstall_label">"Odinstaluj"</string>
+    <string name="first_run_cling_title">"Witamy"</string>
+    <string name="folder_closed">"Folder zamknięty"</string>
+    <string name="folder_created">"Folder został utworzony"</string>
+    <string name="folder_hint_text">"Folder bez nazwy"</string>
+    <string name="folder_name_format">"Folder: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Folder otwarty, <ns1:g id="WIDTH">%1$d</ns1:g> na <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"Nazwa folderu zmieniona na <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Kliknij, by zamknąć folder"</string>
+    <string name="folder_tap_to_rename">"Kliknij, by zapisać zmianę nazwy"</string>
+    <string name="gadget_error_text">"Problem podczas ładowania widżetu"</string>
+    <string name="gadget_setup_text">"Konfiguracja"</string>
+    <string name="hotseat_out_of_space">"Brak miejsca w Ulubionych"</string>
+    <string name="info_target_label">"Informacje o aplikacji"</string>
+    <string name="item_added_to_workspace">"Element został dodany do ekranu głównego"</string>
+    <string name="item_moved">"Element został przeniesiony"</string>
+    <string name="item_removed">"Element został usunięty"</string>
+    <string name="long_press_widget_to_add">"Aby dodać widżet, kliknij go i przytrzymaj."</string>
+    <string name="migration_cling_copy_apps">"KOPIUJ IKONY"</string>
+    <string name="migration_cling_description">"Zaimportować ikony i foldery ze starych ekranów głównych?"</string>
+    <string name="migration_cling_title">"Kopiuj ikony aplikacji"</string>
+    <string name="migration_cling_use_default">"ZACZNIJ OD NOWA"</string>
+    <string name="move_to_empty_cell">"Przenieś do wiersza <ns1:g id="NUMBER_0">%1$s</ns1:g> w kolumnie <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Przenieś do pozycji ulubionych: <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"Przenieś do pozycji <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="out_of_space">"Brak miejsca na tym ekranie głównym."</string>
+    <string name="package_state_unknown">"Brak informacji"</string>
+    <string name="permdesc_install_shortcut">"Pozwala aplikacji dodawać skróty bez interwencji użytkownika."</string>
+    <string name="permdesc_read_settings">"Pozwala aplikacji na odczytywanie ustawień i skrótów na ekranie głównym."</string>
+    <string name="permdesc_write_settings">"Umożliwia aplikacji zmianę ustawień i skrótów na ekranie głównym."</string>
+    <string name="permlab_install_shortcut">"instalowanie skrótów"</string>
+    <string name="permlab_read_settings">"odczytywanie ustawień i skrótów na ekranie głównym"</string>
+    <string name="permlab_write_settings">"zapisywanie ustawień i skrótów na ekranie głównym"</string>
+    <string name="safemode_shortcut_error">"Pobrana aplikacja została wyłączona w trybie awaryjnym"</string>
+    <string name="safemode_widget_error">"Widżety są wyłączone w trybie bezpiecznym"</string>
+    <string name="screen_moved">"Ekran został przeniesiony"</string>
+    <string name="settings_label">"Ustawienia"</string>
+    <string name="toggle_weight_watcher">"Pokaż pamięć"</string>
+    <string name="uninstall_system_app_text">"To aplikacja systemowa i nie można jej odinstalować."</string>
+    <string name="wallpaper_button_text">"Tapety"</string>
+    <string name="widget_button_text">"Widżety"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Szerokość i wysokość widżetu zmieniła się na <ns1:g id="NUMBER_0">%1$s</ns1:g> x <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Praca"</string>
+    <string name="workspace_cling_longpress_description">"Kliknij i przytrzymaj tło, by dostosować"</string>
+    <string name="workspace_cling_longpress_dismiss">"OK"</string>
+    <string name="workspace_cling_longpress_title">"Tapety, widżety i ustawienia"</string>
+    <string name="workspace_scroll_format">"Ekran główny %1$d z %2$d"</string>
+</resources>

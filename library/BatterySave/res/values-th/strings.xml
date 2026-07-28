@@ -1,0 +1,25 @@
+<resources>
+    <string name="bs_app_name">ประหยัดพลังงาน</string>
+    <string name="bs_baterry_text1_uncharge">จนกว่าพลังงาน</string>
+    <string name="bs_baterry_text3">ในวันนี้</string>
+    <string name="bs_baterry_text1_charging">คิดค่าบริการอย่างเต็มที่โดย</string>
+    <string name="bs_baterry_text1_charged">ค่าบริการอย่างเต็มที่</string>
+    <string name="bs_Bar_Middle">ประหยัดพลังงาน</string>
+    <string name="bs_app_baterry">การระบายน้ำปพลิเคชัน</string>
+    <string name="bs_ranking_baterry">การบริโภค</string>
+    <string name="bs_switch_baterry">บันทึกการตั้งค่า</string>
+    <string name="bs_bellow_btn">การดำเนินการ ...</string>
+    <string name="bs_Bar_Rank_Middle">การบริโภค</string>
+    <string name="bs_use_time_title">จนกว่าพลังงาน</string>
+    <string name="bs_checking_text1">การตรวจสอบการใช้งานของแบตเตอรี่</string>
+    <string name="bs_checking_text2">วิเคราะห์ปพลิเคชันการระบายน้ำ</string>
+    <string name="bs_bottom_btn">ไม่เป็นไร</string>
+    <string name="bs_unit_hour">ชั่วโมง</string>
+    <string name="bs_mode_second">รายงานการประชุม</string>
+    <string name="bs_bottom_btn_save">แตะเพื่อประหยัดแบตเตอรี่</string>
+    <string name="bs_month">เดือน</string>
+    <string name="bs_day">วัน</string>
+    <string name="bs_days">วัน</string>
+    <string name="bs_tomorrow">พรุ่งนี้</string>
+    <string name="bs_clean_tost">"สถานะของระบบ Optimized \nไม่มีแอประบายน้ำในพื้นหลัง"</string>
+</resources>

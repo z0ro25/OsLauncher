@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.amz.ios.themeclub.MainActivity">
+    <!--<item-->
+        <!--android:id="@+id/delete"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/themeclub_delete"-->
+        <!--android:icon="@drawable/themeclub_delete"-->
+        <!--app:showAsAction="always"-->
+        <!--/>-->
+    <!--<item-->
+        <!--android:id="@+id/share"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/themeclub_share"-->
+        <!--android:icon="@drawable/themeclub_share"-->
+        <!--app:showAsAction="always" />-->
+    <item
+        android:id="@+id/crop"
+        android:orderInCategory="100"
+        android:title="@string/themeclub_crop"
+        android:icon="@drawable/themeclub_crop"
+        app:showAsAction="always"
+        />
+</menu>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>自动同步</item>
+        <item>屏幕亮度</item>
+        <item>屏幕旋转</item>
+        <item>屏幕超时等待</item>
+        <item>震动</item>
+        <item>数据</item>
+        <item>WiFi热点</item>
+        <item>WI-FI</item>
+        <item>蓝牙</item>
+        <item>铃声</item>
+        <item>触感反馈</item>
+    </string-array>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"转到首页"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"转到上一层级"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"更多选项"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"完成"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"查看全部"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"选择应用"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"关闭"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"开启"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Delete 键"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Enter 键"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Fn+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"空格键"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"搜索…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"清除查询"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"搜索查询"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"搜索"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"提交查询"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"语音搜索"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"分享对象"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"与<ns1:g id="APPLICATION_NAME">%s</ns1:g>分享"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"收起"</string>
+    <string name="bs_Bar_Middle">省电</string>
+    <string name="bs_Bar_Rank_Middle">耗电量排行</string>
+    <string name="bs_app_baterry">耗电应用</string>
+    <string name="bs_app_name">省电</string>
+    <string name="bs_baterry_text1_charged">电量已充满</string>
+    <string name="bs_baterry_text1_charging">预计充满时间</string>
+    <string name="bs_baterry_text1_uncharge">电量能坚持到</string>
+    <string name="bs_baterry_text3">今天</string>
+    <string name="bs_bellow_btn">请稍后...</string>
+    <string name="bs_bottom_btn">完成</string>
+    <string name="bs_bottom_btn_save">一键省电</string>
+    <string name="bs_checking_text1">正在检查电池使用状态</string>
+    <string name="bs_checking_text2">分析耗电原因</string>
+    <string name="bs_clean_tost">"已优化系统运行状态 \n目前没有软件后台运行耗电"</string>
+    <string name="bs_day">日</string>
+    <string name="bs_days">天</string>
+    <string name="bs_min">分钟</string>
+    <string name="bs_mode_second">分钟</string>
+    <string name="bs_month">月</string>
+    <string name="bs_ranking_baterry">耗电排行</string>
+    <string name="bs_switch_baterry">节能开关</string>
+    <string name="bs_switcher">节能开关</string>
+    <string name="bs_tomorrow">明天</string>
+    <string name="bs_unit_hour">小时</string>
+    <string name="bs_use_time_title">可以持续</string>
+    <string name="discovery_cancel">取消</string>
+    <string name="discovery_data_warn_tips">是否在数据流量下继续下载？</string>
+    <string name="discovery_downloading">该应用正在下载</string>
+    <string name="discovery_start_download">开始下载</string>
+    <string name="discovery_sure">确认</string>
+    <string name="error_activity_not_found">"未安装应用。"</string>
+    <string name="error_email_not_login">请先在邮箱应用中登录。</string>
+    <string name="network_error_tip">网络连接失败，请确认网络状态。</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"搜索"</string>
+    <string name="settings_error_text">由于系统限制，不可使用！</string>
+    <string name="settings_sim_error_text">无SIM卡！!</string>
+    <string name="sl_app_list_add_listbutton">添加要锁定的软件</string>
+    <string name="sl_app_list_empty">软件空空如也</string>
+    <string name="sl_change_password_sucessed">密码修改成功</string>
+    <string name="sl_dialog_text">开启权限,让软件锁正常运行</string>
+    <string name="sl_enter_new_psw">新密码和旧密码不能相同！</string>
+    <string name="sl_enter_new_psw_16">请输入新密码(6位)</string>
+    <string name="sl_enter_new_psw_16_again">请再次输入新密码</string>
+    <string name="sl_enter_psw_16">请输入密码(6位)</string>
+    <string name="sl_enter_psw_16_again">请再次输入密码</string>
+    <string name="sl_enter_psw_16_again_error">两次密码输入不一致</string>
+    <string name="sl_enter_psw_16_empty">密码不能为空</string>
+    <string name="sl_enter_psw_16_error">密码错误</string>
+    <string name="sl_facebook">去Facebook关注我们</string>
+    <string name="sl_finger_print_lock_screen_tv">支持指纹解锁</string>
+    <string name="sl_float_hint_tv">如不能正常使用,请在设置或者安全中开启"悬浮窗"！</string>
+    <string name="sl_hint_tv">再一步就完成啦！选择IOS打开</string>
+    <string name="sl_lock_setting">设置</string>
+    <string name="sl_lock_temp_addapp">添加软件</string>
+    <string name="sl_my_common_loading">加载中…</string>
+    <string name="sl_ok">确定</string>
+    <string name="sl_security_item_change_password">修改密码</string>
+    <string name="sl_security_item_hint2">软件锁</string>
+    <string name="sl_set_psw">请设置新密码(6位)</string>
+    <string name="sl_un_locking">解锁中...</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="fmsearch_app_name">Hledat</string>
+    <string name="fmsearch_txt_head_online_app">Doporučená aplikace</string>
+    <string name="fmsearch_txt_head_local_app">Aplikace</string>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Najděte své KONTAKTY zde</item>
+        <item>Najděte své APLIKACE zde</item>
+        <item>Najděte svou HUDBU zde</item>
+        <item>Klepněte zde</item>
+        <item>Skvělá TAPETA se nachází zde</item>
+        <item>Vyzkoušejte toto, aby Váš telefon reagoval rychleji!</item>
+        <item>Vyžádejte si informace o POČASÍ zde</item>
+        <item>Nové TÉMA je na cestě</item>
+    </string-array>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Zde zadejte jméno svého přítele</item>
+        <item>Najděte Aplikaci, kterou hledáte</item>
+        <item>Hledejte svoji hudbu</item>
+    </string-array>
+    <string name="fmsearch_tips">Tipy</string>
+    <string name="fmsearch_str_contact">Kontakty</string>
+    <string name="fmsearch_str_music">Hudba</string>
+    <string name="fmsearch_search_websit">Prohledávat webovou stránku</string>
+    <string name="fmsearch_search_pic">Prohledávat fotografie</string>
+    <string name="fmsearch_search_video">Prohledávat videa</string>
+    <string name="fmsearch_download_market_warning_message">Tato funkce se liší jeden klient zhouyi trhu od druhého. Přejete si pokračovat ve stahování (doporučujeme použít wifi)?</string>
+    <string name="fmsearch_download_market_update_message">Tato funkce se liší jeden klient nejnovějšího zhouyi trhu od druhého. Přejete si pokračovat ve stahování aktualizací (pokud ano, doporučujeme použít wifi)?</string>
+    <string name="fmsearch_activity_not_found">Aplikace nebyla nainstalována.</string>
+    <string name="fmsearch_download">Stáhnout</string>
+</resources>

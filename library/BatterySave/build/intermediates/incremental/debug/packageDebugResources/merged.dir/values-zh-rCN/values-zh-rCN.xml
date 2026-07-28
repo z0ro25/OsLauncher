@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>自动同步</item>
+        <item>屏幕亮度</item>
+        <item>屏幕旋转</item>
+        <item>屏幕超时等待</item>
+        <item>震动</item>
+        <item>数据</item>
+        <item>WiFi热点</item>
+        <item>WI-FI</item>
+        <item>蓝牙</item>
+        <item>铃声</item>
+        <item>触感反馈</item>
+    </string-array>
+    <string name="bs_Bar_Middle">省电</string>
+    <string name="bs_Bar_Rank_Middle">耗电量排行</string>
+    <string name="bs_app_baterry">耗电应用</string>
+    <string name="bs_app_name">省电</string>
+    <string name="bs_baterry_text1_charged">电量已充满</string>
+    <string name="bs_baterry_text1_charging">预计充满时间</string>
+    <string name="bs_baterry_text1_uncharge">电量能坚持到</string>
+    <string name="bs_baterry_text3">今天</string>
+    <string name="bs_bellow_btn">请稍后...</string>
+    <string name="bs_bottom_btn">完成</string>
+    <string name="bs_bottom_btn_save">一键省电</string>
+    <string name="bs_checking_text1">正在检查电池使用状态</string>
+    <string name="bs_checking_text2">分析耗电原因</string>
+    <string name="bs_clean_tost">"已优化系统运行状态 \n目前没有软件后台运行耗电"</string>
+    <string name="bs_day">日</string>
+    <string name="bs_days">天</string>
+    <string name="bs_min">分钟</string>
+    <string name="bs_mode_second">分钟</string>
+    <string name="bs_month">月</string>
+    <string name="bs_ranking_baterry">耗电排行</string>
+    <string name="bs_switch_baterry">节能开关</string>
+    <string name="bs_switcher">节能开关</string>
+    <string name="bs_tomorrow">明天</string>
+    <string name="bs_unit_hour">小时</string>
+    <string name="bs_use_time_title">可以持续</string>
+    <string name="sl_app_list_add_listbutton">添加要锁定的软件</string>
+    <string name="sl_app_list_empty">软件空空如也</string>
+    <string name="sl_change_password_sucessed">密码修改成功</string>
+    <string name="sl_dialog_text">开启权限,让软件锁正常运行</string>
+    <string name="sl_enter_new_psw">新密码和旧密码不能相同！</string>
+    <string name="sl_enter_new_psw_16">请输入新密码(6位)</string>
+    <string name="sl_enter_new_psw_16_again">请再次输入新密码</string>
+    <string name="sl_enter_psw_16">请输入密码(6位)</string>
+    <string name="sl_enter_psw_16_again">请再次输入密码</string>
+    <string name="sl_enter_psw_16_again_error">两次密码输入不一致</string>
+    <string name="sl_enter_psw_16_empty">密码不能为空</string>
+    <string name="sl_enter_psw_16_error">密码错误</string>
+    <string name="sl_facebook">去Facebook关注我们</string>
+    <string name="sl_finger_print_lock_screen_tv">支持指纹解锁</string>
+    <string name="sl_float_hint_tv">如不能正常使用,请在设置或者安全中开启"悬浮窗"！</string>
+    <string name="sl_hint_tv">再一步就完成啦！选择IOS打开</string>
+    <string name="sl_lock_setting">设置</string>
+    <string name="sl_lock_temp_addapp">添加软件</string>
+    <string name="sl_my_common_loading">加载中…</string>
+    <string name="sl_ok">确定</string>
+    <string name="sl_security_item_change_password">修改密码</string>
+    <string name="sl_security_item_hint2">软件锁</string>
+    <string name="sl_set_psw">请设置新密码(6位)</string>
+    <string name="sl_un_locking">解锁中...</string>
+</resources>

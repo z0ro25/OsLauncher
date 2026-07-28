@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Введите имя вашего друга</item>
+        <item>Найдите приложение, которое вы хотите</item>
+        <item>Поиск музыки</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Ваши КОНТАКТЫ тут</item>
+        <item>Ваши ПРИЛОЖЕНИЯ тут</item>
+        <item>Ваша МУЗЫКА тут</item>
+        <item>Нажмите здесь</item>
+        <item>Идеальные ОБОИ здесь</item>
+        <item>Попробуйте, чтобы ваш телефон работал быстрее!</item>
+        <item>Информации о ПОГОДЕ здесь</item>
+        <item>Доступна новая ТЕМА</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">Приложение не было установлено.</string>
+    <string name="fmsearch_app_name">Поиск</string>
+    <string name="fmsearch_download">Скачать</string>
+    <string name="fmsearch_download_market_update_message">Эта функция отличается от одного пользовательского клиента к другому из последних рынка zhouyi. Вы хотите продолжить скачивание обновления (если да, использование WiFi рекомендуется)?</string>
+    <string name="fmsearch_download_market_warning_message">Эта функция отличается от одного пользовательского клиента рынка zhouyi к другому. Вы хотите продолжить скачивание (использование WiFi рекомендуется)?</string>
+    <string name="fmsearch_search_pic">Поиск Фото</string>
+    <string name="fmsearch_search_video">Поиск Видео</string>
+    <string name="fmsearch_search_websit">Поиск Сайта</string>
+    <string name="fmsearch_str_contact">Контакты</string>
+    <string name="fmsearch_str_music">Музыка</string>
+    <string name="fmsearch_tips">Советы</string>
+    <string name="fmsearch_txt_head_local_app">Приложение</string>
+    <string name="fmsearch_txt_head_online_app">Рекомендуемое приложение</string>
+</resources>

@@ -1,0 +1,7 @@
+int attr realtimeBlurRadius 0x0
+int attr realtimeDownsampleFactor 0x0
+int attr realtimeOverlayColor 0x0
+int[] styleable RealtimeBlurView { 0x0, 0x0, 0x0 }
+int styleable RealtimeBlurView_realtimeBlurRadius 0
+int styleable RealtimeBlurView_realtimeDownsampleFactor 1
+int styleable RealtimeBlurView_realtimeOverlayColor 2

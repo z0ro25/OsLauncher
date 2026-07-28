@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="we_are_working_hard_for_a_better_user_experience">Estamos trabalhando duro para uma melhor experiência do usuário.</string>
+    <string name="we_d_greatly_appreciate_if_you_can_rate_us">Agradeceríamos muito se você pudesse nos avaliar.</string>
+    <string name="may_be_later">Talvez mais tarde</string>
+    <string name="rate">Avaliar</string>
+    <string name="The_best_we_can_get">O melhor que podemos conseguir :)</string>
+    <string name="Writing_something">Escrevendo algo...</string>
+    <string name="Send">Enviar</string>
+    <string name="Oh_no">Oh não!</string>
+    <string name="Please_leave_us_some_feedback">Por favor, deixe-nos algum feedback</string>
+    <string name="We_like_you_too">Nós também gostamos de você!</string>
+    <string name="Thank_for_your_feedback">Obrigado pelo seu feedback.</string>
+    <string name="We_are_working">Estamos trabalhando duro para uma melhor experiência do usuário.</string>
+    <string name="We_greatly_appreciate">Agradeceríamos muito se você pudesse nos avaliar.</string>
+    <string name="Please_feedback">Por favor, envie sua opinião</string>
+    <string name="do_you_really_want_to_exit">Você realmente quer sair</string>
+    <string name="please_wait">Por favor, aguarde</string>
+    <string name="cannot_back">Não posso voltar!</string>
+    <string name="cannot_next">Não é possível seguir</string>
+    <string name="there_are_no_email">Não há clientes de e-mail instalados.</string>
+    <string name="go_to_launcher">Vá para o iniciador</string>
+    <string name="explore_your_os_interface">Explore a interface do seu sistema operacional</string>
+    <string name="explore">Explorar</string>
+    <string name="set_as_default_launcher">Definir como inicializador padrão</string>
+    <string name="to_access_all_features_of_launcher_os_17_youneed_to_set_it_as_your_default_app">Para acessar todos os recursos do OSLauncher 17: Theme Launcher, você precisa defini-lo como seu aplicativo padrão.</string>
+    <string name="select_default_home_screen">Selecione a tela inicial padrão</string>
+    <string name="weather">Clima</string>
+    <string name="wallpaper">Papel de parede</string>
+    <string name="tap_to_start">Clique para começar</string>
+    <string name="hide_navigation">Ocultar navegação</string>
+    <string name="hidden_app">Aplicativo oculto</string>
+    <string name="page_transition">Transição de página</string>
+    <string name="done">Feito</string>
+    <string name="default_">Padrão</string>
+    <string name="rotation">Rotação</string>
+    <string name="flip">Virar</string>
+    <string name="zoom_in">Mais Zoom</string>
+    <string name="set_as_current">Definir como atual</string>
+    <string name="add_new_wallpaper">Adicionar novo papel de parede</string>
+    <string name="customize">Customizar</string>
+    <string name="photos">Fotos</string>
+    <string name="emoji">Emoji</string>
+    <string name="color">Cor</string>
+    <string name="see_all">Ver tudo</string>
+    <string name="add">Adicionar</string>
+    <string name="save">Salvar</string>
+    <string name="blur">Borrão</string>
+    <string name="pair">Par</string>
+    <string name="gradient">Gradiente</string>
+    <string name="background_color">Cor de fundo</string>
+    <string name="opacity">Opacidade</string>
+    <string name="select_option">Selecione a opção</string>
+    <string name="set_wallpaper">Definir papel de parede</string>
+    <string name="customize_home_screen">Personalizar tela inicial</string>
+    <string name="current">Atual</string>
+    <string name="ads_are_about_to_be_shown">Os anúncios estão prestes a ser exibidos</string>
+    <string name="permission">Permissão</string>
+    <string name="this_app_needs_permissions_below_to_work_properly">Este aplicativo precisa das permissões abaixo para funcionar corretamente</string>
+    <string name="external_storage">Armazenamento externo</string>
+    <string name="continue_">Continuar</string>
+    <string name="your_file_is_empty">Seu arquivo está vazio</string>
+    <string name="looks_like_you_haven_t_added_anything_nyet">Parece que você ainda não adicionou nada.</string>
+    <string name="setting">Contexto</string>
+    <string name="share">Compartilhar</string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="Thankyou" translatable="false">Obrigado!</string>
+    <string name="your_opinion_matter_to_us" translatable="false">Sua opinião é importante para nós!</string>
+    <string name="content_dialog" translatable="false">Se você gosta deste tema OSLauncher 17: Theme Launcher, você se importaria de nos avaliar no Google Play?</string>
+    <string name="Send_Email" translatable="false">Enviar email</string>
+    <string name="There_is_no" translatable="false">Não há nenhum cliente de e-mail instalado.</string>
+    <string name="not_now" translatable="false">Agora não</string>
+    <string name="rate_us" translatable="false">Nos avalie</string>
+    <string name="rate_success">Avalie o sucesso</string>
+    <string name="please_reate_use">Por favor, avalie-nos</string>
+    <string name="message1">Tela inicial exclusiva</string>
+    <string name="message2">Personalizar papel de parede</string>
+    <string name="message3">Pesquise rapidamente</string>
+    <string name="next">Próximo</string>
+    <string name="language">Linguagem</string>
+    <string name="general">Em geral</string>
+</resources>

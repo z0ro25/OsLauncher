@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fmsearch_cl_item_divider_bg">#e5e5e5</color>
+    <color name="fmsearch_cl_item_hotapp_txt">#4c4c4c</color>
+    <color name="fmsearch_cl_item_head_txt">#757575</color>
+    <color name="fmsearch_cl_item_music_title_txt">#cc000000</color>
+    <color name="fmsearch_cl_item_music_subtitle_txt">#55000000</color>
+    <color name="fmsearch_cl_search_head_hint_txt">#80000000</color>
+    <color name="fmsearch_cl_main_bg">#f7f7f7</color>
+    <color name="fmsearch_cl_cursor">#3f51b5</color>
+    <color name="fmsearch_cl_flash">#88ffffff</color>
+    <color name="fmsearch_cl_blue_bg">#1b9cd8</color>
+    <color name="fmsearch_cl_blue_bg_focus">#661b9cd8</color>
+
+    <color name="fmsearch_white">#ffffff</color>
+    <color name="fmsearch_black">#000000</color>
+</resources>

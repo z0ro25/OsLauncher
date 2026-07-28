@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d új értesítés</item>
+    <item quantity="other">%d új értesítés</item>
+  </plurals>
+    <string name="abandoned_clean_this">"Eltávolítás"</string>
+    <string name="abandoned_promise_explanation">"Az ikonhoz tartozó alkalmazás nincs telepítve. Törölheti az ikont, vagy az alkalmazás megkeresése után manuálisan telepítheti azt."</string>
+    <string name="abandoned_promises_title">"Az alkalmazás nincs telepítve"</string>
+    <string name="abandoned_search">"Keresés"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Ugrás a főoldalra"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Fel"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"További lehetőségek"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Kész"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Az összes megtekintése"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Válasszon alkalmazást"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"KI"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"BE"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Delete"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"Szóköz"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Keresés…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Lekérdezés törlése"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Keresési lekérdezés"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Keresés"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Lekérdezés küldése"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Hangalapú keresés"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Megosztás a következővel:"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Megosztás a következő alkalmazással: <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Összecsukás"</string>
+    <string name="action_add_to_workspace">"Hozzáadás a kezdőképernyőhöz"</string>
+    <string name="action_decrease_height">"Magasság csökkentése"</string>
+    <string name="action_decrease_width">"Szélesség csökkentése"</string>
+    <string name="action_increase_height">"Magasság növelése"</string>
+    <string name="action_increase_width">"Szélesség növelése"</string>
+    <string name="action_move">"Elem mozgatása"</string>
+    <string name="action_move_here">"Elem áthelyezése ide"</string>
+    <string name="action_move_screen_left">"Képernyő mozgatása balra"</string>
+    <string name="action_move_screen_right">"Képernyő mozgatása jobbra"</string>
+    <string name="action_move_to_workspace">"Áthelyezés a kezdőképernyőre"</string>
+    <string name="action_resize">"Átméretezés"</string>
+    <string name="activity_not_available">"Az alkalmazás nem érhető el"</string>
+    <string name="activity_not_found">"Az alkalmazás nincs telepítve."</string>
+    <string name="add_to_folder">"Hozzáadás a(z) <ns1:g id="NAME">%1$s</ns1:g> mappához"</string>
+    <string name="add_to_folder_with_app">"Hozzáadás a mappához a következővel: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Elem hozzáadva a mappához"</string>
+    <string name="all_apps_button_label">"Alkalmazások"</string>
+    <string name="all_apps_home_button_label">"Főoldal"</string>
+    <string name="all_apps_loading_message">"Alkalmazások betöltése…"</string>
+    <string name="all_apps_no_search_results">"Egy alkalmazás sem található a(z) „<ns1:g id="QUERY">%1$s</ns1:g>” lekérdezésre."</string>
+    <string name="all_apps_search_bar_hint">"Alkalmazások keresése"</string>
+    <string name="all_apps_search_market_message">"Keresse fel ezt: <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Elforgatás engedélyezése"</string>
+    <string name="bottomsheet_action_collapse">Az alsó lap összecsukása</string>
+    <string name="bottomsheet_action_expand">Az alsó lap kibontása</string>
+    <string name="bottomsheet_action_expand_halfway">Kibontás félig</string>
+    <string name="bottomsheet_drag_handle_clicked">Duplán koppintott a csúszkára</string>
+    <string name="bottomsheet_drag_handle_content_description">Csúszka</string>
+    <string name="character_counter_content_description">Begépelt karakterszám: %2$d/%1$d</string>
+    <string name="character_counter_overflowed_content_description">Maximális karakterszám túllépve: %2$d/%1$d</string>
+    <string name="clear_text_end_icon_content_description">Szöveg törlése</string>
+    <string name="create_folder_with">"Mappa létrehozása a következővel: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"%2$d/%1$d. oldal"</string>
+    <string name="delete_target_label">"Eltávolítás"</string>
+    <string name="delete_target_uninstall_label">"Eltávolítás"</string>
+    <string name="error_icon_content_description">Hiba</string>
+    <string name="exposed_dropdown_menu_content_description">Legördülő menü megjelenítése</string>
+    <string name="first_run_cling_title">"Üdvözöljük!"</string>
+    <string name="folder_closed">"Mappa lezárva"</string>
+    <string name="folder_created">"Mappa létrehozva"</string>
+    <string name="folder_hint_text">"Névtelen mappa"</string>
+    <string name="folder_name_format">"Mappa: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Mappa megnyitva – szélesség: <ns1:g id="WIDTH">%1$d</ns1:g>; magasság: <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"A mappa új neve: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Érintse meg a mappa bezárásához"</string>
+    <string name="folder_tap_to_rename">"Érintse meg az átnevezés mentéséhez"</string>
+    <string name="gadget_error_text">"Probléma történt a modul betöltésekor"</string>
+    <string name="gadget_setup_text">"Beállítás"</string>
+    <string name="hotseat_out_of_space">"Nincs több hely a Kedvencek tálcán"</string>
+    <string name="icon_content_description">Párbeszédpanel ikonja</string>
+    <string name="info_target_label">"Alkalmazásinformáció"</string>
+    <string name="item_added_to_workspace">"Elem hozzáadva a kezdőképernyőhöz"</string>
+    <string name="item_moved">"Elem áthelyezve"</string>
+    <string name="item_removed">"Elem eltávolítva"</string>
+    <string name="item_view_role_description">Lap</string>
+    <string name="long_press_widget_to_add">"Modul felvételéhez érintse meg, és tartsa lenyomva"</string>
+    <string name="material_clock_toggle_content_description">Válassza ki, hogy délelőtt vagy délután</string>
+    <string name="material_hour_24h_suffix">%1$s óra</string>
+    <string name="material_hour_selection">Óra kiválasztása</string>
+    <string name="material_hour_suffix">%1$s óra</string>
+    <string name="material_minute_selection">Perc kiválasztása</string>
+    <string name="material_minute_suffix">%1$s perc</string>
+    <string name="material_timepicker_am">de.</string>
+    <string name="material_timepicker_clock_mode_description">Időbevitelhez váltson óramódba.</string>
+    <string name="material_timepicker_hour">Óra</string>
+    <string name="material_timepicker_minute">Perc</string>
+    <string name="material_timepicker_pm">du.</string>
+    <string name="material_timepicker_select_time">Időpont kiválasztása</string>
+    <string name="material_timepicker_text_input_mode_description">Időbevitelhez váltson szövegbeviteli módba.</string>
+    <string name="migration_cling_copy_apps">"IKONOK MÁSOLÁSA"</string>
+    <string name="migration_cling_description">"Importálja ikonjait és mappáit régi kezdőképernyőiről?"</string>
+    <string name="migration_cling_title">"Alkalmazásikonok másolása"</string>
+    <string name="migration_cling_use_default">"TELJESEN ÚJ"</string>
+    <string name="move_to_empty_cell">"Áthelyezés ide: <ns1:g id="NUMBER_0">%1$s</ns1:g>. sor, <ns1:g id="NUMBER_1">%2$s</ns1:g>. oszlop"</string>
+    <string name="move_to_hotseat_position">"Áthelyezés a kedvencek <ns1:g id="NUMBER">%1$s</ns1:g>. pozíciójába"</string>
+    <string name="move_to_position">"Áthelyezés a(z) <ns1:g id="NUMBER">%1$s</ns1:g>. pozícióba"</string>
+    <string name="mtrl_badge_numberless_content_description">Új értesítés</string>
+    <string name="mtrl_chip_close_icon_content_description">Eltávolítás (%1$s)</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Több mint %1$d új értesítés</string>
+    <string name="mtrl_picker_a11y_next_month">Váltás a következő hónapra</string>
+    <string name="mtrl_picker_a11y_prev_month">Váltás az előző hónapra</string>
+    <string name="mtrl_picker_announce_current_range_selection">Kiválasztott kezdő dátum: %1$s – Kiválasztott befejező dátum: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Jelenleg kiválasztva: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">egyik sem</string>
+    <string name="mtrl_picker_cancel">Mégse</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Válasszon dátumot</string>
+    <string name="mtrl_picker_date_header_unselected">Kiválasztott dátum</string>
+    <string name="mtrl_picker_day_of_week_column_header">Napok oszlopa: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Befejezés dátuma: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Érvénytelen formátum.</string>
+    <string name="mtrl_picker_invalid_format_example">Példa: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Használja ezt: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Érvénytelen tartomány.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Ugrás az aktuális évre %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Ugrás ehhez az évhez: %1$d</string>
+    <string name="mtrl_picker_out_of_range">Tartományon kívül: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Kezdés dátuma – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Befejezés dátuma</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Válasszon dátumtartományt</string>
+    <string name="mtrl_picker_range_header_unselected">Kezdés dátuma – Befejezés dátuma</string>
+    <string name="mtrl_picker_save">Mentés</string>
+    <string name="mtrl_picker_start_date_description">Kezdés dátuma: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Dátum</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Befejezés dátuma</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Kezdés dátuma</string>
+    <string name="mtrl_picker_text_input_day_abbr">N</string>
+    <string name="mtrl_picker_text_input_month_abbr">H</string>
+    <string name="mtrl_picker_text_input_year_abbr">É</string>
+    <string name="mtrl_picker_today_description">Ma %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Váltás naptárbeviteli módra</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Koppintson a naptárnézetre való váltáshoz</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Váltás szövegbeviteli módra</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Koppintson az éves nézetre való váltáshoz</string>
+    <string name="mtrl_timepicker_cancel">Mégse</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string name="out_of_space">"Nincs több hely ezen a kezdőképernyőn."</string>
+    <string name="package_state_unknown">"Ismeretlen"</string>
+    <string name="password_toggle_content_description">Jelszó megjelenítése</string>
+    <string name="permdesc_install_shortcut">"Lehetővé teszi egy alkalmazás számára, hogy felhasználói beavatkozás nélkül adjon hozzá parancsikonokat."</string>
+    <string name="permdesc_read_settings">"Lehetővé teszi az alkalmazás számára, hogy beolvassa a kezdőképernyő beállításait és parancsikonjait."</string>
+    <string name="permdesc_write_settings">"Lehetővé teszi az alkalmazás számára, hogy módosítsa a kezdőképernyő beállításait és parancsikonjait."</string>
+    <string name="permlab_install_shortcut">"parancsikonok telepítése"</string>
+    <string name="permlab_read_settings">"Főoldal beállításainak és parancsikonjainak beolvasása"</string>
+    <string name="permlab_write_settings">"Főoldal beállításainak és parancsikonjainak írása"</string>
+    <string name="safemode_shortcut_error">"A letöltött alkalmazás Csökkentett módban ki van kapcsolva"</string>
+    <string name="safemode_widget_error">"A modulok ki vannak kapcsolva Csökkentett módban"</string>
+    <string name="screen_moved">"Képernyő áthelyezve"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Keresés"</string>
+    <string name="settings_label">"Beállítások"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"Mem. megjelenítése"</string>
+    <string name="uninstall_system_app_text">"Ez egy rendszeralkalmazás, és nem lehet eltávolítani."</string>
+    <string name="wallpaper_button_text">"Háttérképek"</string>
+    <string name="widget_button_text">"Modulok"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Modul átméretezve <ns1:g id="NUMBER_0">%1$s</ns1:g> szélességre és <ns1:g id="NUMBER_1">%2$s</ns1:g> magasságra"</string>
+    <string name="work_folder_name">"Munka"</string>
+    <string name="workspace_cling_longpress_description">"Érintse meg és tartsa lenyomva a személyre szabáshoz"</string>
+    <string name="workspace_cling_longpress_dismiss">"MEGÉRTETTEM"</string>
+    <string name="workspace_cling_longpress_title">"Háttérképek, modulok és beállítások"</string>
+    <string name="workspace_scroll_format">"%2$d/%1$d. kezdőképernyő"</string>
+</resources>

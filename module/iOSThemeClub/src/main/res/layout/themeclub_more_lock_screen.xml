@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    xmlns:lockscreen="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/more_lock_screen_constainer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="232dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="4dp"
+                                    android:orientation="vertical"
+                                    android:visibility="visible"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="start">
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/more_screen_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:text="@string/themeclub_more_lock_screen_source"
+                android:textColor="#8A000000"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/themeclub_arrow_more"/>
+        </RelativeLayout>
+
+        <com.amz.ios.themeclub.view.LockScreenItemView
+            android:id="@+id/more_lock_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            lockscreen:themeclubChildHeight="168dp"
+            lockscreen:themeclubChildRightMargin="8dp"
+            lockscreen:themeclubDataSize="3"
+            lockscreen:themeclubLeftMargin="8dp"
+            lockscreen:themeclubParentViewMargin="16dp"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

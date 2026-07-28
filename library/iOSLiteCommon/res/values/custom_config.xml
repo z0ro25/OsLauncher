@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 功能配置文件 -->
+
+    <!-- 注：
+       ××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+       优先级  客户配置文件 > 主工程配置文件 >  common模块配置文件
+       ××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+    -->
+
+
+    <!--  ××××××××××××××××××××××××××××  桌面风格  ××××××××××××××××××××××××××××  -->
+
+    <!--  主题的默认包名  -->
+    <string name="def_apply_theme_package">com.ios.ioslite.global</string>
+
+    <!--  桌面字体颜色 , 默认白色 -->
+    <color name="def_workspace_label_color">#FFFFFFFF</color>
+    <!--桌面滑动阀值-->
+    <string name="def_launcher_significant_move_threshold">0.4</string>
+
+    <!--  桌面行列数 （ 行 × 列）
+        -1: 自适应
+        0: 4 x 4
+        1: 5 x 4
+        2: 4 x 5
+        3: 5 x 5-->
+    <integer name="def_grid_rows_columns">1</integer>
+
+
+    <!-- def_grid_icon_custom_enable 为true时，自定义图标文字大小生效，
+         包含： def_grid_icon_size
+               def_grid_label_size
+               def_hotseat_icon_size
+         false : 则自适应屏幕
+     -->
+    <bool name="def_grid_icon_custom_enable">true</bool>
+
+    <!-- 桌面应用图标大小 -->
+    <dimen name="def_grid_icon_size">54dp</dimen>
+    <!-- 桌面应用名称大小 -->
+    <dimen name="def_grid_label_size">14dp</dimen>
+    <!--hotseat区是否显示名称-->
+    <bool name="def_hotseat_label_show_enable">true</bool>
+    <!--hotseat区是否强制显示名称，navigationbar的弹出与否，将无法影响该属性的值，默认配置false,**主要针对navigationbar固定的情况,如果navigationbar不固定，此属性直接置为false**-->
+    <bool name="def_hotseat_label_forced_show">false</bool>
+
+    <!-- 滑动效果
+         none：无
+         stack：卡片堆
+         accordion：手风琴
+         cube-in：向内立方体
+         cube-out：向外立方体
+         overview：概览
+         cross：交叉
+         flip：垂直翻转
+         rotate-up：风车
+         rotate-down：轮子
+         carousel-left：旋转木马(左)
+         carousel-right：旋转木马(右)     -->
+    <string name="def_workspace_scroll_effect">none</string>
+
+    <!--
+    none
+    random
+    heart
+    stars
+    heartbeat
+    halo
+    -->
+    <string name="def_workspace_magic_thumb">none</string>
+
+    <!-- 桌面应用切换动画
+     0:  系统
+     1:  左滑动
+     2:  右滑动
+     3:  上滑动
+     4:  下滑动
+     5:  缩放
+     6:  旋转    -->
+    <integer name="def_pending_anim_style">1</integer>
+
+    <!-- 桌面图标未读信息角标显示 -->
+    <bool name="feature_icon_unread_support">true</bool>
+
+    <!--  OTA2  -->
+    <bool name="feature_ota2_enable">false</bool>
+
+    <!--  桌面加载动画  -->
+    <bool name="def_launcher_loading_view_enable">true</bool>
+
+    <!-- 桌面风格切换 -->
+    <bool name="feature_desktop_style_change_enable">true</bool>
+
+    <!-- 桌面手势 -->
+    <bool name="feature_desktop_gesture_enable">true</bool>
+
+    <!--文件夹探索-->
+    <bool name="feature_ios_discovery_enable">false</bool>
+    <!--从apk获取背景图标-->
+    <bool name="def_use_icon_in_apk_enable">false</bool>
+
+    <!--桌面应用打开动画-->
+    <bool name="feature_desktop_trans_anim_enable">true</bool>
+
+    <!-- 用户向导动画 -->
+    <bool name="def_user_guide_enable">false</bool>
+
+    <!--  使用系统默认壁纸作为默认主题壁纸  -->
+    <bool name="def_use_system_default_wallpaper">false</bool>
+
+    <!-- 桌面布局行列切换 -->
+    <!--<bool name="feature_desktop_grid_change_enable">false</bool>-->
+    <bool name="feature_desktop_grid_change_enable">true</bool>
+
+    <!-- 删除应用后,桌面图标自动对齐 -->
+    <bool name="def_desktop_auto_align_enable">false</bool>
+
+    <!-- 壁纸滑动是否开启 -->
+    <bool name="def_wallpaper_scroll_enabled">true</bool>
+
+    <bool name="def_news_page_switch_enabled">false</bool>
+
+    <!-- default launcher database version -->
+    <integer name="def_launcher_db_version">9</integer>
+
+    <!-- default launcher iconcahe version -->
+    <integer name="def_iconcache_db_version">11</integer>
+
+    <!-- default launcher setting version -->
+    <integer name="def_setting_db_version">5</integer>
+
+    <!-- default launcher weather version -->
+    <integer name="def_weather_db_version">5</integer>
+
+    <!-- desktop loop -->
+    <bool name="feature_desktop_loop_enable">true</bool>
+    <bool name="def_desktop_loop_enable">false</bool>
+
+    <!--sleep mode-->
+    <bool name="def_sleep_mode_enable">true</bool>
+
+    <!-- sort icon -->
+    <bool name="feature_sort_icon_enable">false</bool>
+
+    <bool name="feature_new_install_icon_enable">true</bool>
+
+    <!-- ××××××××××××××××××××××××××××  AllApps  ××××××××××××××××××××××××××××  -->
+
+    <!-- 是否启用AllApp, 进入双层桌面 -->
+    <bool name="def_allapp_enable">true</bool>
+    <!--  ALLAPP显示模式
+    0: 字母分组
+    1: 垂直滚动不分组  -->
+    <integer name="def_allapp_display_mode">0</integer>
+
+    <!-- AllApps 显示最近打开应用 -->
+    <bool name="feature_allapp_recently_apps_enable">true</bool>
+
+
+    <!-- ××××××××××××××××××××××××××××  小部件，快捷方式，设置  ××××××××××××××××××××××××××××  -->
+    <!-- 手电筒 -->
+    <bool name="feature_torch_enable">true</bool>
+    <!-- 自动亮度 -->
+    <bool name="feature_auto_light_enable">true</bool>
+    <!-- 省电模式 -->
+    <bool name="feature_battery_save_enable">false</bool>
+    <!--热点-->
+    <bool name="feature_wifi_ap_enable">true</bool>
+    <!-- 快捷设置 -->
+    <bool name="feature_quick_settings_enable">false</bool>
+
+    <!-- 一键加速是否显示内存使用百分比 -->
+    <bool name="def_clean_widget_show_percent">true</bool>
+
+    <!-- ××××××××××××××××××××××××××××  负一瓶新闻页  ××××××××××××××××××××××××××××  -->
+    <bool name="feature_left_news_page_enable">false</bool>
+    <bool name="def_left_news_page_enable">false</bool>
+
+    <!-- ××××××××××××××××××××××××××××  桌面搜索框  ××××××××××××××××××××××××××××  -->
+    <bool name="feature_search_box_enable">true</bool>
+    <bool name="def_search_box_enable">true</bool>
+
+    <!-- ××××××××××××××××××××××××××××  应用管理   ××××××××××××××××××××××××××××  -->
+    <bool name="feature_app_manager_enable">false</bool>
+    <bool name="def_app_manager_enable">false</bool>
+    <!-- ××××××××××××××××××××××××××××  本地通知   ××××××××××××××××××××××××××××  -->
+    <bool name="feature_local_push_enable">true</bool>
+
+    <!-- ××××××××××××××××××××××××××××  美化中心   ××××××××××××××××××××××××××××  -->
+    <bool name="feature_live_wallpaper_enable">false</bool>
+    <!-- ××××××××××××××××××××××××××××  美化中心是否显示锁屏   ××××××××××××××××××××××××××××  -->
+    <bool name="feature_lock_screen_enable">false</bool>
+    <!-- ××××××××××××××美化中心锁屏版本,根据系统不同版本设置不同的锁屏版本，可设置为v600,v700××××××××××××  -->
+    <string name="feature_lock_screen_version">v700</string>
+
+    <bool name="feature_set_as_default_theme_enable">false</bool>
+    <!-- ××××××××××××××××××××××××××××  应用分类   ××××××××××××××××××××××××××××  -->
+    <!-- 默认布局分类 -->
+    <bool name="def_category_default_layout">false</bool>
+    <!-- 新安装应用自动分类 -->
+    <bool name="def_category_new_apps">false</bool>
+    <bool name="feature_category_new_apps_enable">true</bool>
+
+    <!-- ××××××××××××××××××××××××××××  桌面设置   ××××××××××××××××××××××××××××  -->
+    <!-- 检查更新 -->
+    <bool name="feature_check_update_support">true</bool>
+    <!-- 用户推荐 -->
+    <bool name="feature_sw_share_support">true</bool>
+    <!--是否懒加载新闻页-->
+    <bool name="def_desktop_lazy_load_newspager_enable">true</bool>
+
+    <bool name="feature_drop_info_enable">false</bool>
+
+    <bool name="feature_drop_uninstall_enable">true</bool>
+
+    <bool name="feature_drop_unavailable_enable">false</bool>
+    <bool name="feature_desktop_effect_enable">true</bool>
+
+    <bool name="feature_delete_effect_enable">true</bool>
+
+    <!-- ××××××××××××××××××××××××××××  快捷方式 , 小部件  ××××××××××××××××××××××××××××  -->
+    <bool name="feature_install_shortcut_enable">true</bool>
+    <string-array name="def_widget_black_list" translatable="false">
+        <item>com.ios.biglauncher</item>
+    </string-array>
+    <string-array name="def_shortcut_black_list" translatable="false"></string-array>
+    <string-array name="def_cts_app_list" translatable="false">
+        <item>com.google.android.googlequicksearchbox</item>
+        <item>com.google.android.gm</item>
+        <item>com.google.android.apps.maps</item>
+        <item>com.google.android.music</item>
+        <item>com.google.android.videos</item>
+        <item>com.google.android.apps.photos</item>
+        <item>com.google.android.apps.tachyon</item>
+        <item>com.google.android.apps.docs</item>
+        <item>com.google.android.youtube</item>
+        <item>com.android.vending</item>
+        <item>com.android.chrome</item>
+    </string-array>
+    <string-array name="def_hide_app_list" translatable="false"></string-array>
+    <string-array name="def_not_uninstall_app_list" translatable="false">
+        <item>com.baidu.searchbox</item>
+    </string-array>
+
+    <!--天气是否在数据流量打开时自动定位，true自动定位，false不自动定位，否认false-->
+    <bool name="feature_start_location_when_mobile_data_open">true</bool>
+
+    <!--手势默认设置-->
+    <!--
+    单指上滑:1
+    单指下滑:2
+    单指双击:3
+    单指斜向上滑:4
+    -->
+    <!--
+    IOS行为：
+    <item>1:com.oslauncher.applauncher.themelauncher/com.amz.ios.launcher.shortcut.Theme:主题</item>
+    <item>1:com.oslauncher.applauncher.themelauncher/com.amz.ios.launcher.shortcut.Wallpaper:壁纸</item>
+    <item>1:com.oslauncher.applauncher.themelauncher/com.amz.ios.launcher.shortcut.BatterySave:省电模式</item>
+    <item>1:quick_access:快速访问</item>
+    <item>1:com.oslauncher.applauncher.themelauncher/com.ios.iossettings.SettingsActivity:快捷设置</item>
+    其他app：
+    格式：手势码:包名/类名:描述
+    (之间用的是英文字符冒号隔开)
+    <item>1:com.android.ios.calendar/com.android.ios.calendar.LaunchActivity:日历</item>
+    -->
+    <string-array name="def_gesture_setting"></string-array>
+    <!--是否是刘海屏-->
+    <bool name="feature_display_cutout_mode">true</bool>
+</resources>

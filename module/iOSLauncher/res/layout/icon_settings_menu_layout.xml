@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pref_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.amz.ios.launcher.views.IOSPreference
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            launcher:hideDivider="true"
+            launcher:preferenceTitle="@string/setting_icon_size" />
+
+        <include
+            android:id="@+id/icon_size_setting"
+            layout="@layout/icon_text_size_setting" />
+
+        <include
+            android:id="@+id/divider"
+            layout="@layout/pref_list_divider" />
+
+        <com.amz.ios.launcher.views.IOSPreference
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            launcher:hideDivider="true"
+            launcher:preferenceTitle="@string/setting_label_size" />
+
+        <include
+            android:id="@+id/label_size_setting"
+            layout="@layout/icon_text_size_setting" />
+
+        <include
+            android:id="@+id/divider"
+            layout="@layout/pref_list_divider" />
+
+        <com.amz.ios.launcher.views.IOSPreference
+            android:id="@+id/color_pref"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            launcher:preferenceTitle="@string/setting_label_color"
+            launcher:rightImage="rightArrow" />
+    </LinearLayout>
+</ScrollView>

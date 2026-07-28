@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="12dp">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/crop_iamge_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize">
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/my_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/themeclub_crop_wallpaper"
+            android:textSize="18dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/ScroolView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/crop_iamge_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/cropImageView_contaier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <com.theartofdev.edmodo.cropper.CropImageView
+                    android:id="@+id/cropImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="8dp"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/cropImageView_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/fixed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/fixed_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/themeclub_fixed_drawable"/>
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        android:id="@+id/fixed_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/fixed_image"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/themeclub_fixed_wallpaper"
+                        android:textColor="@color/themeclub_crop_text"
+                        android:textSize="13dp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/scrollable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/scrollable_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/themeclub_scrollable_drawable"/>
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        android:id="@+id/scrollable_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/scrollable_image"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/themeclub_scrollable_wallpaper"
+                        android:textColor="@color/themeclub_crop_text"
+                        android:textSize="13dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        <Button
+            android:id="@+id/set_as_wallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/themeclub_crop_set_as_wallpaper_bg"
+            android:text="@string/themeclub_set_as_wallpaper"
+            android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+    </ScrollView>
+    <include
+        layout="@layout/themeclub_setwallpaper_waiting"/>
+</RelativeLayout>

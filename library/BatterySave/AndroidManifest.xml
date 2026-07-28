@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="10"
+    android:versionName="1.0">
+
+<!--    <uses-permission android:name="android.permission.BLUETOOTH" />-->
+<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
+<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+<!--    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+<!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />-->
+<!--    <uses-permission android:name="android.permission.READ_SYNC_STATS" />-->
+<!--    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />-->
+<!--    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />-->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+<!--    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<!--    <uses-permission android:name="android.permission.INTERNET" />-->
+<!--    <uses-permission android:name="android.permission.BATTERY_STATS" />-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application>
+        <activity
+            android:exported="true"
+            android:name=".BS_RankingActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+
+        <activity
+            android:name=".BS_MainActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:icon="@drawable/bs_logo"
+            android:label="@string/bs_app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:exported="true"
+            android:name=".BS_SettingsActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+
+        <activity
+            android:exported="true"
+            android:name="com.zhuoyi.security.soft.lock.SL_SetPassWord"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme">
+            <!-- <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+        <activity
+            android:exported="false"
+            android:name="com.zhuoyi.security.soft.lock.SL_LockAppListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme"></activity>
+        <activity
+            android:exported="true"
+            android:name="com.zhuoyi.security.soft.lock.SL_UnLocksoftListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:exported="true"
+            android:name="com.zhuoyi.security.soft.lock.SL_LockSettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme" />
+        <activity
+            android:name="com.zhuoyi.security.soft.lock.SL_EnterPassWord"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/bs_app_base_theme">
+            <intent-filter>
+                <action android:name="com.ios.sc.soft.lock.SL_EnterPassWord" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.zhuoyi.security.soft.lock.receiver.SL_ApkRemoveReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.zhuoyi.security.soft.lock.SL_LockSoftService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ios.sc.soft.lock.SL_LockSoftService" />
+            </intent-filter>
+        </service>
+
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/sl_facebook_app_id" />
+
+    </application>
+
+</manifest>

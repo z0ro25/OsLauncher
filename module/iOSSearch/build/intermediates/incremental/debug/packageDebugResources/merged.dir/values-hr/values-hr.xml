@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Ovdje unesite ime svog prijatelja</item>
+        <item>Pronađite aplikaciju koju želite</item>
+        <item>Pretražite svoju glazbu</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Pronađite svoje KONTAKTE ovdje</item>
+        <item>Pronađite svoje APLIKACIJE ovdje</item>
+        <item>Pronađite svoju GLAZBU ovdje</item>
+        <item>Dodirnite ovdje</item>
+        <item>Ovdje je savršena POZADINA</item>
+        <item>Pokušajte ovo kako bi Vaš telefon odgovarao brže!</item>
+        <item>Ovdje postavite pitanja vezana za VRIJEME</item>
+        <item>Nova TEMA sada dolazi</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">Aplikacija nije instalirana</string>
+    <string name="fmsearch_app_name">Pretraga</string>
+    <string name="fmsearch_download">Preuzeti</string>
+    <string name="fmsearch_download_market_update_message">Ova osobina se razlikuje od jednog prilagođenog klijenta do drugog posljednjeg zhouyi market. Želite li nastaviti preuzimanje ažuriranja (ako da, korištenje WiFi preporuča se)?</string>
+    <string name="fmsearch_download_market_warning_message">Ova osobina se razlikuje od jednog prilagođenog klijenta zhouyi market do drugog. Želite li nastaviti s preuzimanjem (korištenje WiFi preporuča se)?</string>
+    <string name="fmsearch_search_pic">Pretražite fotografije</string>
+    <string name="fmsearch_search_video">Pretražite videozapise</string>
+    <string name="fmsearch_search_websit">Pretražite internet stranicu</string>
+    <string name="fmsearch_str_contact">Kontakti</string>
+    <string name="fmsearch_str_music">Glazba</string>
+    <string name="fmsearch_tips">Savjeti</string>
+    <string name="fmsearch_txt_head_local_app">Aplikacija</string>
+    <string name="fmsearch_txt_head_online_app">Preporučena aplikacija</string>
+</resources>

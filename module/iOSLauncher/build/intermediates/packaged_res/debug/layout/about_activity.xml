@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <com.amz.ios.launcher.views.TopTitlebar
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            launcher:titleText="@string/menu_about" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/website"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/about_website" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/facebook"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/about_facebook"
+                    launcher:rightImage="rightArrow" />
+
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/communities"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/about_communities_summary"
+                    launcher:preferenceTitle="@string/about_communities"
+                    launcher:rightImage="rightArrow" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/email"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/menu_email"
+                    launcher:preferenceTitle="@string/about_email"
+                    launcher:rightImage="rightArrow" />
+
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/terms_of_service"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/terms_of_service"
+                    launcher:rightImage="rightArrow" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/privacy"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/menu_privacy_notice"
+                    launcher:rightImage="rightArrow" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/version"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:hideDivider="true"
+                    launcher:preferenceTitle="@string/about_version" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/develop"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:hideDivider="true"
+                    launcher:preferenceTitle="@string/developer_mode"
+                    launcher:rightImage="rightArrow" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:paddingBottom="10.0dip"
+            android:paddingTop="10.0dip"
+            android:textColor="#b2444444"
+            android:textSize="12.0sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</FrameLayout>

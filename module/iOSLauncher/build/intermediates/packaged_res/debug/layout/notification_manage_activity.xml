@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.amz.ios.launcher.views.TopTitlebar
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            launcher:titleText="@string/setting_nofify_manager" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/default_home"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/setting_def_home"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/low_battery"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/setting_low_battery"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/low_memory"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/setting_low_memory"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/new_wallpaper"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/setting_new_wallpaper"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/new_theme"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/setting_new_theme"
+                    launcher:rightImage="showSwitch" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

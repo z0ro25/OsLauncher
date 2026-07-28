@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.amz.ios.themeclub.view.LockScreenItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lockscreen="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    lockscreen:themeclubChildHeight="195dp"
+    lockscreen:themeclubChildRightMargin="2dp"
+    lockscreen:themeclubDataSize="3"
+    lockscreen:themeclubLeftMargin="2dp"
+    lockscreen:themeclubTopMargin="0.5dp">
+</com.amz.ios.themeclub.view.LockScreenItemView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<favorites
+    xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <include launcher:workspace="@xml/dw_phone_hotseat_4" />
+    <!-- Giữ widget đồng hồ (4x2) ở đầu page 1. Máy nào có app deskclock thì hiện;
+         không có thì ô này được app khác lấp kín. -->
+    <appwidget launcher:className="com.lava.lavaclockwidget.LavaClockWidgetProvider" launcher:packageName="com.android.deskclock" launcher:screen="0" launcher:spanX="4" launcher:spanY="2" launcher:x="0" launcher:y="0" />
+    <!-- Bỏ toàn bộ app cố định và widget dọn dẹp: các app thật sẽ được tự động xếp kín. -->
+</favorites>

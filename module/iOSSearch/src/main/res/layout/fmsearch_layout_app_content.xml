@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/tag_container"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="@dimen/fmsearch_dp_item_common_space_padding"
+    android:paddingRight="@dimen/fmsearch_dp_item_common_space_padding"
+    android:paddingStart="@dimen/fmsearch_dp_item_common_space_padding"
+    android:paddingEnd="@dimen/fmsearch_dp_item_common_space_padding"
+    android:layout_width="80dp"
+    android:layout_height="89dp">
+
+    <com.amz.ios.search.widget.MaskImageView
+        android:clickable="false"
+        app:is_ignore_alpha="false"
+        android:layout_margin="4dp"
+        android:id="@+id/image"
+        android:src="@mipmap/ic_default_img"
+        android:background="@drawable/fmsearch_dw_common_bg"
+        android:scaleType="centerCrop"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+    <com.amz.ios.launcher.views.CustomTextView
+        android:layout_marginTop="6dp"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:drawablePadding="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/fmsearch_white"
+        android:layout_centerInParent="true"
+        android:id="@+id/txt_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

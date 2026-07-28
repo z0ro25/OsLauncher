@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="enable_install_shortcut_api">false</bool>
+    <bool name="notification_badging_enabled">true</bool>
+    <style name="AllAppsNavBarProtection">
+        <item name="android:alpha">0.6</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
+    </style>
+    <style name="Base.Theme.AppCompat" parent="Base.V26.Theme.AppCompat"/>
+    <style name="Base.Theme.AppCompat.Light" parent="Base.V26.Theme.AppCompat.Light"/>
+    <style name="Base.V26.Theme.AppCompat" parent="Base.V23.Theme.AppCompat">
+        
+        <item name="colorError">?android:attr/colorError</item>
+    </style>
+    <style name="Base.V26.Theme.AppCompat.Light" parent="Base.V23.Theme.AppCompat.Light">
+        
+        <item name="colorError">?android:attr/colorError</item>
+    </style>
+    <style name="Base.V26.Widget.AppCompat.Toolbar" parent="Base.V7.Widget.AppCompat.Toolbar">
+        <item name="android:touchscreenBlocksFocus">true</item>
+        <item name="android:keyboardNavigationCluster">true</item>
+    </style>
+    <style name="Base.Widget.AppCompat.Toolbar" parent="Base.V26.Widget.AppCompat.Toolbar"/>
+    <style name="WidgetContainerTheme" parent="@android:style/Theme.DeviceDefault.Settings">
+        <item name="android:colorEdgeEffect">?android:attr/textColorSecondary</item>
+    </style>
+</resources>

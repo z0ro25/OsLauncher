@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">IOSBoot</string>
+    <string name="start">開始</string>
+    <string name="welcome">歡迎</string>
+    <string name="detail">您即將啟動世界上\n最小、最快、最簡單的用戶系統</string>
+    <string name="layer">繼續操作，即表示您接受</string>
+    <string name="privacy">隱私 </string>
+    <string name="and">和</string>
+    <string name="clause">條款</string>
+    <string name="sliding_wallpaper">滑動選擇桌面</string>
+    <string name="chose_ok">選好了</string>
+    <string name="boot_speedup_big_text">讓手機快如閃電</string>
+    <string name="boot_speedup_small_text">IOS案頭可以提高手機運行速度，您願意將IOS設為默認案頭嗎？</string>
+    <string name="boot_speedup_setting_btn_text">立即設定</string>
+    <string name="boot_setting_tv_text">稍後再說</string>
+    <string name="boot_updateinfo_title">IOS Lite為你更新以下內容</string>
+    <string name="boot_updateinfo_suspendedball">懸浮球</string>
+    <string name="boot_updateinfo_suspendedball_detail">可快速打開更多快捷方式，快來一起體驗吧</string>
+    <string name="boot_updateinfo_tv_text">我知道了</string>
+    <string name="boot_updateinfo_news">新聞資訊</string>
+    <string name="boot_updateinfo_news_detail">在主荧幕上右滑，海量內容資訊盡收眼底</string>
+    <string name="boot_updateinfo_powersaveing">省電王</string>
+    <string name="boot_updateinfo_powersaveing_detail">再也不用擔心手機耗電問題，讓你的手機超常待機</string>
+    <string name="boot_updateinfo_setting_btn_text">去試試</string>
+    <string name="legal_network_fail">網絡連接失敗，請檢查網絡設置或稍後重試</string>
+    <string name="legal_reload">重試</string>
+    <string name="checkbox_text_name">加入“用戶體驗計劃”</string>
+    <string name="about_legal_notices">法律聲明</string>
+    <string name="period">。</string>
+    <string name="boot_updateinfo_speed">一鍵加速</string>
+    <string name="boot_updateinfo_speed_detail">一鍵清理手機記憶體，讓你的手機快如閃電！</string>
+    <string name="boot_updateinfo_theme">極簡主題</string>
+    <string name="boot_updateinfo_theme_detail">圖標美輪美奐，讓你的手機與眾不同！</string>
+</resources>

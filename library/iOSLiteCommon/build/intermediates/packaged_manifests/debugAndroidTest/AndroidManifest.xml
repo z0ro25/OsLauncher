@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.amz.ios.ioslite.common.test" >
+
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="34" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for com.amz.ios.ioslite.common.test"
+        android:targetPackage="com.amz.ios.ioslite.common.test" />
+
+    <permission
+        android:name="com.amz.ios.ioslite.common.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.amz.ios.ioslite.common.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
+    <application
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:extractNativeLibs="false" >
+        <uses-library android:name="android.test.runner" />
+        <!-- 应用使用统计 -->
+        <provider
+            android:name="com.amz.ios.ioslite.common.provider.AppUsagesProvider"
+            android:authorities="com.amz.ios.ioslite.provider.usages"
+            android:exported="true" /> <!-- 全局设置 -->
+        <provider
+            android:name="com.amz.ios.ioslite.common.setting.SettingProvider"
+            android:authorities="com.amz.ios.ioslite.common.setting"
+            android:exported="true" /> <!-- 内存监测 -->
+        <activity
+            android:name="com.amz.ios.ioslite.common.debug.MemoryDumpActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- 内存监测服务 -->
+        <service android:name="com.amz.ios.ioslite.common.debug.MemoryTracker" />
+
+        <receiver
+            android:name="com.amz.ios.ioslite.common.downloadapk.ApkReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.amz.ios.ioslite.common.test.androidx-startup"
+            android:exported="false" >
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>

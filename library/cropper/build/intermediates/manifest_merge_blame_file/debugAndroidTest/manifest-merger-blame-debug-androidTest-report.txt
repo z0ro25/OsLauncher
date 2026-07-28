@@ -1,0 +1,68 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.theartofdev.edmodo.cropper.test" >
+4
+5    <uses-sdk
+5-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:5:5-74
+6        android:minSdkVersion="14"
+6-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:5:15-41
+7        android:targetSdkVersion="34" />
+7-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:5:42-71
+8
+9    <instrumentation
+9-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:11:5-15:85
+10        android:name="android.test.InstrumentationTestRunner"
+10-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:11:22-75
+11        android:functionalTest="false"
+11-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:14:22-52
+12        android:handleProfiling="false"
+12-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:13:22-53
+13        android:label="Tests for com.theartofdev.edmodo.cropper.test"
+13-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:15:22-83
+14        android:targetPackage="com.theartofdev.edmodo.cropper.test" />
+14-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:12:22-81
+15
+16    <permission
+16-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+17        android:name="com.theartofdev.edmodo.cropper.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+17-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+18        android:protectionLevel="signature" />
+18-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+19
+20    <uses-permission android:name="com.theartofdev.edmodo.cropper.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+20-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+20-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+21
+22    <application
+22-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:7:5-9:19
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+24        android:debuggable="true" >
+25        <uses-library android:name="android.test.runner" />
+25-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:8:9-60
+25-->E:\Amarzic\ASA155_IOSLauncher\library\cropper\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest4838559437530350152.xml:8:23-57
+26
+27        <provider
+27-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+28            android:name="androidx.startup.InitializationProvider"
+28-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+29            android:authorities="com.theartofdev.edmodo.cropper.test.androidx-startup"
+29-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+30            android:exported="false" >
+30-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+31            <meta-data
+31-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+32                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+32-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+33                android:value="androidx.startup" />
+33-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+34            <meta-data
+34-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+35                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+35-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+36                android:value="androidx.startup" />
+36-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+37        </provider>
+38    </application>
+39
+40</manifest>

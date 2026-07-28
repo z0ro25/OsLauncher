@@ -1,0 +1,79 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.ios.ioslite.odm.test.iOSSettings-mergeDebugAndroidTestResources-41:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSLauncher\\build\\intermediates\\packaged_res\\debug\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,99,165,230,293,355,419,477,533,595,657,717,776",
+                        "endColumns": "43,65,64,62,61,63,57,55,61,61,59,58,67",
+                        "endOffsets": "94,160,225,288,350,414,472,528,590,652,712,771,839"
+                    },
+                    "to": {
+                        "startLines": "2,13,14,15,16,17,18,19,20,21,22,23,35",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,740,806,871,934,996,1060,1118,1174,1236,1298,1358,2094",
+                        "endColumns": "43,65,64,62,61,63,57,55,61,61,59,58,67",
+                        "endOffsets": "94,801,866,929,991,1055,1113,1169,1231,1293,1353,1412,2157"
+                    }
+                },
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\library\\iOSLiteCommon\\build\\intermediates\\packaged_res\\debug\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,101",
+                        "endColumns": "45,38",
+                        "endOffsets": "96,135"
+                    },
+                    "to": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "99,145",
+                        "endColumns": "45,38",
+                        "endOffsets": "140,179"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\5c79f33f1c6adfcc4a5b494a4bae1b86\\transformed\\material-1.11.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,115,185,256,328,386,444,553,617,673,732,795",
+                        "endLines": "2,3,4,5,6,7,9,10,11,12,13,17",
+                        "endColumns": "59,69,70,71,57,57,10,63,55,58,62,10",
+                        "endOffsets": "110,180,251,323,381,439,548,612,668,727,790,962"
+                    },
+                    "to": {
+                        "startLines": "24,25,26,27,28,29,30,32,33,34,36,37",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1417,1477,1547,1618,1690,1748,1806,1915,1979,2035,2162,2225",
+                        "endLines": "24,25,26,27,28,29,31,32,33,34,36,40",
+                        "endColumns": "59,69,70,71,57,57,10,63,55,58,62,10",
+                        "endOffsets": "1472,1542,1613,1685,1743,1801,1910,1974,2030,2089,2220,2392"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\3cb10093019ae5ec879f919a78f23112\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,124,193,263,337,413,472,543",
+                        "endColumns": "68,68,69,73,75,58,70,67",
+                        "endOffsets": "119,188,258,332,408,467,538,606"
+                    },
+                    "to": {
+                        "startLines": "5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "184,253,322,392,466,542,601,672",
+                        "endColumns": "68,68,69,73,75,58,70,67",
+                        "endOffsets": "248,317,387,461,537,596,667,735"
+                    }
+                }
+            ]
+        }
+    ]
+}

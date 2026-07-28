@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>আপনার বন্ধুর নাম এখানে টিপুন</item>
+        <item>আপনার অ্যাপটি এখানে খুঁজুন </item>
+        <item>আপনার গানগুলো খুঁজুন</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>আপনার যোগাযোগ এখানে খুঁজুন</item>
+        <item>আপনার অ্যাপ এখানে খুঁজুন</item>
+        <item>আপনার গান এখানে খুঁজুন</item>
+        <item>এখানে টিপুন</item>
+        <item>যথাযথ ওয়ালপেপার এখানে আছে</item>
+        <item>আপনার ফোনকে দ্রুত করতে এটি ব্যবহার করুন!</item>
+        <item>আবহাওয়া সংক্রান্ত তথ্য এখানে অনুসন্ধান করুন</item>
+        <item>একটি নতুন থিম এখন আসছে</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">অ্যাপ চালু হয় নি।</string>
+    <string name="fmsearch_app_name">খুঁজুন</string>
+    <string name="fmsearch_download">ডাউনলোড</string>
+    <string name="fmsearch_download_market_update_message">এই বৈশিষ্ট্য প্রচলিত সর্বাধুনিক জাউই বাজারের একটি নির্দিষ্ট ক্লায়েন্টের থেকে আলাদা করে আপনি কি ডাউনলোড চালিয়ে যেতে চান (ওয়াইফাই ব্যবহারের পরামর্শ দেওয়া হচ্ছে)?  </string>
+    <string name="fmsearch_download_market_warning_message">এই বৈশিষ্ট্য প্রচলিত জাউই বাজারের ক্লায়েন্টের থেকে আলাদা করে আপনি কি ডাউনলোড চালিয়ে যেতে চান (ওয়াইফাই ব্যবহারের পরামর্শ দেওয়া হচ্ছে)?  </string>
+    <string name="fmsearch_search_pic">ছবি খুঁজুন</string>
+    <string name="fmsearch_search_video">ভিডিও খুঁজুন</string>
+    <string name="fmsearch_search_websit">ওয়েবসাইট খুঁজুন</string>
+    <string name="fmsearch_str_contact">যোগাযোগ</string>
+    <string name="fmsearch_str_music">গান</string>
+    <string name="fmsearch_tips">পরামর্শ সমূহ</string>
+    <string name="fmsearch_txt_head_local_app">অ্যাপ</string>
+    <string name="fmsearch_txt_head_online_app">সুপারিশ করা অ্যাপ</string>
+</resources>

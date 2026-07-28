@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fmsearch_app_name">MNewsQuelle</string>
+    <string name="news">News</string>
+    <string name="read_more">Weiter lesen</string>
+</resources>

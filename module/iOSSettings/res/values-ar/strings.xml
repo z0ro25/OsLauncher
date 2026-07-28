@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="settings_app_name">الإعداد السريع</string>
+    <string name="settings_action_settings">اعدادات</string>
+    <string name="settings_setting_title">نظام التشغيل IOS</string>
+    <string name="settings_airplane_mode_text">وضع الطيران</string>
+    <string name="settings_traffic_data_text"> البيانات</string>
+    <string name="settings_wifi_text">WIFI</string>
+    <string name="settings_ringtone_text">نغمة الرنين</string>
+    <string name="settings_power_saving_text">وضع الطاقة المنخفضة</string>
+    <string name="settings_auto_rotate_text">الدوران التلقائي</string>
+    <string name="settings_blue_touch_text">البلوتوث</string>
+    <string name="settings_location_mode_text">الموقع</string>
+    <string name="settings_brightness_text">الإضاءة</string>
+    <string name="settings_auto_brightness_text">الإضاءة التلقائية</string>
+    <string name="settings_flash_light_text">مصباح يدوي</string>
+    <string name="settings_application_management_text">ادارة التطبيقات</string>
+    <string name="settings_settings_text">اعدادات النظام</string>
+    <string name="settings_traffic_monitoring_text">استخدام البيانات</string>
+    <string name="settings_desk">اعدادات IOS</string>
+    <string name="settings_settings_hot_spot">نقطة ساخنة</string>
+    <string name="settings_error_text">بسبب قيود النظام,لا يمكن الاستخدام!</string>
+    <string name="settings_light_error_text">لا يوجد وميض، لا يمكن الاستخدام!</string>
+    <string name="settings_sim_error_text">لا توجد بطاقة SIM!</string>
+    <string name="torch_widget_name">مصباح يدوي</string>
+</resources>

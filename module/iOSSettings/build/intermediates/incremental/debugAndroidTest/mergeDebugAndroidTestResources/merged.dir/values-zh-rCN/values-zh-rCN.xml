@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>自动同步</item>
+        <item>屏幕亮度</item>
+        <item>屏幕旋转</item>
+        <item>屏幕超时等待</item>
+        <item>震动</item>
+        <item>数据</item>
+        <item>WiFi热点</item>
+        <item>WI-FI</item>
+        <item>蓝牙</item>
+        <item>铃声</item>
+        <item>触感反馈</item>
+    </string-array>
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d 条新通知</item>
+    <item quantity="other">%d 条新通知</item>
+  </plurals>
+    <string name="abandoned_clean_this">"移除"</string>
+    <string name="abandoned_promise_explanation">"未安装此图标对应的应用。您可以移除此图标，也可以尝试搜索相应的应用并手动安装。"</string>
+    <string name="abandoned_promises_title">"未安装此应用"</string>
+    <string name="abandoned_search">"搜索"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"转到首页"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"转到上一层级"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"更多选项"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"完成"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"查看全部"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"选择应用"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"关闭"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"开启"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Delete 键"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Enter 键"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Fn+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"空格键"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"搜索…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"清除查询"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"搜索查询"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"搜索"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"提交查询"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"语音搜索"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"分享对象"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"与<ns1:g id="APPLICATION_NAME">%s</ns1:g>分享"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"收起"</string>
+    <string name="about_communities">Launcher用户社区</string>
+    <string name="about_communities_summary">在Google+上</string>
+    <string name="about_email">电子邮件</string>
+    <string name="about_legal_notices">使用条款</string>
+    <string name="about_version">版本信息</string>
+    <string name="about_website">官方网站</string>
+    <string name="action_add_to_workspace">"添加到主屏幕"</string>
+    <string name="action_decrease_height">"减小高度"</string>
+    <string name="action_decrease_width">"减小宽度"</string>
+    <string name="action_increase_height">"增加高度"</string>
+    <string name="action_increase_width">"增加宽度"</string>
+    <string name="action_move">"移动项目"</string>
+    <string name="action_move_here">"将项目移至此处"</string>
+    <string name="action_move_screen_left">"将屏幕向左移动"</string>
+    <string name="action_move_screen_right">"将屏幕向右移动"</string>
+    <string name="action_move_to_workspace">"移至主屏幕"</string>
+    <string name="action_resize">"调整大小"</string>
+    <string name="activity_not_available">"应用不可用"</string>
+    <string name="activity_not_found">"未安装该应用。"</string>
+    <string name="add_to_folder">"添加到“<ns1:g id="NAME">%1$s</ns1:g>”文件夹"</string>
+    <string name="add_to_folder_with_app">"添加到“<ns1:g id="NAME">%1$s</ns1:g>”所在文件夹"</string>
+    <string name="added_to_folder">"项目已添加到文件夹"</string>
+    <string name="all_apps_button_label">"应用"</string>
+    <string name="all_apps_home_button_label">"主屏幕"</string>
+    <string name="all_apps_loading_message">"正在加载应用…"</string>
+    <string name="all_apps_no_search_results">"未找到与相符的应用"</string>
+    <string name="all_apps_search_bar_hint">"搜索应用"</string>
+    <string name="all_apps_search_market_message">"转到 <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"允许旋转"</string>
+    <string name="and">和</string>
+    <string name="app_name">IOSBoot</string>
+    <string name="app_recommend_desc">文件夹下方的探索发现</string>
+    <string name="app_recommend_title">Launcher 探索发现</string>
+    <string name="applock_app_name">应用锁</string>
+    <string name="applock_list_title">加密的应用在使用前需要先输入密码</string>
+    <string name="applock_pws_mode_dialog_independent_password">独立密码</string>
+    <string name="applock_pws_mode_dialog_login_password">登录密码</string>
+    <string name="applock_pws_mode_dialog_message">请选择您需要的密码模式</string>
+    <string name="applock_pws_mode_dialog_title">密码模式</string>
+    <string name="applock_setpws_cancel">取消</string>
+    <string name="applock_setpws_change">修改密码</string>
+    <string name="applock_setpws_state_error">密码错误，请重试</string>
+    <string name="applock_setpws_state_error_fingerprint">密码或指纹验证失败，请重试</string>
+    <string name="applock_setpws_state_input">请输入密码</string>
+    <string name="applock_setpws_state_input_before_change">请输入密码</string>
+    <string name="applock_setpws_state_input_confirm">请再次输入密码</string>
+    <string name="applock_setpws_state_input_fingerprint">请用指纹或密码</string>
+    <string name="applock_setpws_state_input_first">首次使用，请输入登录密码</string>
+    <string name="applock_setpws_state_input_nomatch">两次密码不匹配，请重新输入</string>
+    <string name="applock_setting_change_password">修改登录密码</string>
+    <string name="applock_setting_open_close">打开应用锁</string>
+    <string name="applock_setting_title">应用锁设置</string>
+    <string name="applock_support_owner">应用锁不支持访客模式</string>
+    <string name="apps_smart_category_desc">新安装应用自动分类到桌面文件夹</string>
+    <string name="apps_smart_category_title">智能整理</string>
+    <string name="backup_permission_ration">桌面备份文件需要使用外部存储权限.</string>
+    <string name="backup_permission_title">权限说明</string>
+    <string name="boot_setting_tv_text">稍后再说</string>
+    <string name="boot_speedup_big_text">让手机快如闪电</string>
+    <string name="boot_speedup_setting_btn_text">立即设置</string>
+    <string name="boot_speedup_small_text">此桌面可以提高手机运行速度，您愿意设为默认桌面吗？</string>
+    <string name="boot_updateinfo_news">新闻资讯</string>
+    <string name="boot_updateinfo_news_detail">在主屏幕上右滑，海量内容信息尽收眼底</string>
+    <string name="boot_updateinfo_powersaveing">省电王</string>
+    <string name="boot_updateinfo_powersaveing_detail">再也不用担心手机耗电问题，让你的手机超常待机</string>
+    <string name="boot_updateinfo_setting_btn_text">去试试</string>
+    <string name="boot_updateinfo_speed">一键加速</string>
+    <string name="boot_updateinfo_speed_detail">一键清理手机内存，让你的手机快如闪电！</string>
+    <string name="boot_updateinfo_suspendedball">悬浮球</string>
+    <string name="boot_updateinfo_suspendedball_detail">可快速打开更多快捷方式，快来一起体验吧</string>
+    <string name="boot_updateinfo_theme">极简主题</string>
+    <string name="boot_updateinfo_theme_detail">图标美轮美奂，让你的手机与众不同！</string>
+    <string name="boot_updateinfo_title">为你更新以下内容</string>
+    <string name="boot_updateinfo_tv_text">我知道了</string>
+    <string name="bottomsheet_action_collapse">收起底部动作条</string>
+    <string name="bottomsheet_action_expand">展开底部动作条</string>
+    <string name="bottomsheet_action_expand_halfway">展开到一半高度</string>
+    <string name="bottomsheet_drag_handle_clicked">拖动手柄被点按两次</string>
+    <string name="bottomsheet_drag_handle_content_description">拖动手柄</string>
+    <string name="bs_Bar_Middle">省电</string>
+    <string name="bs_Bar_Rank_Middle">耗电量排行</string>
+    <string name="bs_app_baterry">耗电应用</string>
+    <string name="bs_app_name">省电</string>
+    <string name="bs_baterry_text1_charged">电量已充满</string>
+    <string name="bs_baterry_text1_charging">预计充满时间</string>
+    <string name="bs_baterry_text1_uncharge">电量能坚持到</string>
+    <string name="bs_baterry_text3">今天</string>
+    <string name="bs_bellow_btn">请稍后...</string>
+    <string name="bs_bottom_btn">完成</string>
+    <string name="bs_bottom_btn_save">一键省电</string>
+    <string name="bs_checking_text1">正在检查电池使用状态</string>
+    <string name="bs_checking_text2">分析耗电原因</string>
+    <string name="bs_clean_tost">"已优化系统运行状态 \n目前没有软件后台运行耗电"</string>
+    <string name="bs_day">日</string>
+    <string name="bs_days">天</string>
+    <string name="bs_min">分钟</string>
+    <string name="bs_mode_second">分钟</string>
+    <string name="bs_month">月</string>
+    <string name="bs_ranking_baterry">耗电排行</string>
+    <string name="bs_switch_baterry">节能开关</string>
+    <string name="bs_switcher">节能开关</string>
+    <string name="bs_tomorrow">明天</string>
+    <string name="bs_unit_hour">小时</string>
+    <string name="bs_use_time_title">可以持续</string>
+    <string name="cancel_action">取消</string>
+    <string name="category_folder_default">文件夹</string>
+    <string name="category_folder_entertainment">娱乐</string>
+    <string name="category_folder_finance_shopping">理财购物</string>
+    <string name="category_folder_game">游戏</string>
+    <string name="category_folder_ios_tools">Launcher工具箱</string>
+    <string name="category_folder_lifestyle">便捷生活</string>
+    <string name="category_folder_media">影音播放</string>
+    <string name="category_folder_news_books">资讯阅读</string>
+    <string name="category_folder_others">文件夹</string>
+    <string name="category_folder_photo">摄影美化</string>
+    <string name="category_folder_social">社交通讯</string>
+    <string name="category_folder_system">系统应用</string>
+    <string name="category_folder_tools">工具</string>
+    <string name="category_folder_traffic">旅游出行</string>
+    <string name="category_folder_work_study">办公学习</string>
+    <string name="category_to_folder">移动至文件夹</string>
+    <string name="character_counter_content_description">输入了 %1$d 个字符（上限为 %2$d 个）</string>
+    <string name="character_counter_overflowed_content_description">超出字符数限制（共 %1$d 个，上限为 %2$d 个）</string>
+    <string name="check_update">检查更新</string>
+    <string name="checkbox_text_name">加入“用户体验计划”</string>
+    <string name="chose_ok">选好了</string>
+    <string name="clause">条款</string>
+    <string name="clean_widget_name">一键加速</string>
+    <string name="clear_text_end_icon_content_description">清除文字</string>
+    <string name="color_black">黑色</string>
+    <string name="color_white">白色</string>
+    <string name="contact_us">联系我们</string>
+    <string name="create_folder_with">"创建“<ns1:g id="NAME">%1$s</ns1:g>”文件夹"</string>
+    <string name="crop_image_activity_no_permissions">取消中，未授予所需权限</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">裁切</string>
+    <string name="crop_image_menu_flip">翻转</string>
+    <string name="crop_image_menu_flip_horizontally">水平翻转</string>
+    <string name="crop_image_menu_flip_vertically">垂直翻转</string>
+    <string name="crop_image_menu_rotate_left">逆时针旋转</string>
+    <string name="crop_image_menu_rotate_right">旋转</string>
+    <string name="default_scroll_format">"第%1$d页，共%2$d页"</string>
+    <string name="delete_target_label">"删除"</string>
+    <string name="delete_target_uninstall_label">"卸载"</string>
+    <string name="desktop_auto_align">自动对齐</string>
+    <string name="desktop_auto_align_desc">删除应用后自动对齐桌面图标</string>
+    <string name="desktop_grid_layout_title">桌面图标行列数</string>
+    <string name="desktop_loop">开启循环滑动</string>
+    <string name="desktop_reset">重置</string>
+    <string name="desktop_reset_confirm">恢复桌面为默认状态 ?</string>
+    <string name="desktop_target_label">移至桌面</string>
+    <string name="detail">您即将启动世界上\n最小、最快、最简单的用户系统</string>
+    <string name="dialog_clean_memory">已释放 <ns1:g id="memory">%1$s</ns1:g>MB 内存</string>
+    <string name="dialog_clean_memory_fullly">手机已达到最佳状态</string>
+    <string name="discovery_cancel">取消</string>
+    <string name="discovery_data_warn_tips">是否在数据流量下继续下载？</string>
+    <string name="discovery_downloading">该应用正在下载</string>
+    <string name="discovery_start_download">开始下载</string>
+    <string name="discovery_sure">确认</string>
+    <string name="drag_later">请稍后拖动</string>
+    <string name="drawer_alpha_vertical_des">所有应用垂直滚动,按首字母分组</string>
+    <string name="drawer_alpha_vertical_title">字母分组</string>
+    <string name="drawer_full_vertical_des">所有应用垂直滚动,不分组</string>
+    <string name="drawer_full_vertical_title">网格</string>
+    <string name="drawer_style">抽屉风格</string>
+    <string name="drop_delete_anim_explosion">烟花</string>
+    <string name="drop_delete_anim_summary">当从桌面删除小部件或快捷方式时所使用的动画效果</string>
+    <string name="drop_delete_anim_system">系统</string>
+    <string name="drop_delete_anim_title">删除动画</string>
+    <string name="effect_button_text">滑屏效果</string>
+    <string name="error_activity_not_found">"未安装应用。"</string>
+    <string name="error_email_not_login">请先在邮箱应用中登录。</string>
+    <string name="error_icon_content_description">错误</string>
+    <string name="explorer">购物</string>
+    <string name="exposed_dropdown_menu_content_description">显示下拉菜单</string>
+    <string name="first_run_cling_title">"欢迎使用"</string>
+    <string name="folder_app_recommended_text">猜你喜欢</string>
+    <string name="folder_batchadd_hint">Batch edit</string>
+    <string name="folder_closed">"文件夹已关闭"</string>
+    <string name="folder_created">"文件夹已创建"</string>
+    <string name="folder_discovery_label">Launcher探索发现</string>
+    <string name="folder_hint_text">"未命名文件夹"</string>
+    <string name="folder_menu_rename">文件夹重命名</string>
+    <string name="folder_menu_sort_alphabet">按名称排序</string>
+    <string name="folder_menu_sort_use">按使用情况排序</string>
+    <string name="folder_name">文件夹</string>
+    <string name="folder_name_format">"文件夹：<ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_name_toolkit">Toolkit</string>
+    <string name="folder_opened">"文件夹已打开，大小为<ns1:g id="WIDTH">%1$d</ns1:g>×<ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"已将文件夹重命名为“<ns1:g id="NAME">%1$s</ns1:g>”"</string>
+    <string name="folder_tap_to_close">"触摸可关闭文件夹"</string>
+    <string name="folder_tap_to_rename">"触摸可保存新名称"</string>
+    <string name="frequent">最常用</string>
+    <string name="gadget_error_text">"加载小部件时出现问题"</string>
+    <string name="gadget_setup_text">"设置"</string>
+    <string name="games">游戏</string>
+    <string name="gesture_tab_apps">应用程序</string>
+    <string name="gesture_tab_ios">行为</string>
+    <string name="gesture_tab_shortcut">快捷方式</string>
+    <string name="hide_apps_guide_page_title">隐藏应用</string>
+    <string name="home_screen_drawer">抽屉风格</string>
+    <string name="home_screen_drawer_des">在抽屉界面显示所有应用</string>
+    <string name="home_screen_standard">标准</string>
+    <string name="home_screen_standard_des">在主界面显示所有应用</string>
+    <string name="home_screen_style">桌面风格</string>
+    <string name="hotseat_out_of_space">"收藏栏已满"</string>
+    <string name="icon_badging_desc_off">"关闭"</string>
+    <string name="icon_badging_desc_on">"开启"</string>
+    <string name="icon_badging_service_title">"显示通知圆点"</string>
+    <string name="icon_content_description">对话框图标</string>
+    <string name="info_target_label">"应用信息"</string>
+    <string name="ios_detail_one_text">您将使用全新版本的操作用户系统</string>
+    <string name="ios_detail_two_text">更快更轻更简单</string>
+    <string name="ios_konw_desc">桌面主页顶部悬浮控件</string>
+    <string name="ios_konw_title">Launcher Know</string>
+    <string name="ios_welcome_text">欢迎使用</string>
+    <string name="item_added_to_workspace">"已将项目添加到主屏幕"</string>
+    <string name="item_moved">"已移动项目"</string>
+    <string name="item_removed">"项目已移除"</string>
+    <string name="item_view_role_description">标签页</string>
+    <string name="jobs">工作</string>
+    <string name="latest">新安装</string>
+    <string name="launcher_guide_allapps_content">所有应用，尽在其中；通过字母排序查找应用，又快又简单</string>
+    <string name="launcher_guide_allapps_title">全部应用</string>
+    <string name="launcher_guide_got_it">我知道了</string>
+    <string name="launcher_loading_first_time">系统正在为您布置桌面</string>
+    <string name="launcher_settings">桌面设置</string>
+    <string name="launcher_settings_backup_failed">备份失败</string>
+    <string name="launcher_settings_backup_sucess">备份成功</string>
+    <string name="launcher_settings_have_no_sdcard">没有存储空间</string>
+    <string name="launcher_settings_reset_failed">Reset failed</string>
+    <string name="launcher_settings_reset_success">Reset successfully</string>
+    <string name="launcher_settings_restore_confirm">是否确认要恢复桌面 ?</string>
+    <string name="launcher_settings_restore_failed">恢复失败</string>
+    <string name="launcher_settings_restore_no_data">没有备份数据</string>
+    <string name="launcher_settings_restore_sucess">恢复成功</string>
+    <string name="layer">继续操作，即表示您接受</string>
+    <string name="left_custom_content_loading">加载中</string>
+    <string name="legal_network_fail">网络连接失败，请检查网络设置或稍后重试</string>
+    <string name="legal_reload">重试</string>
+    <string name="library">词典</string>
+    <string name="life">生活</string>
+    <string name="long_press_widget_to_add">"触摸并按住小部件即可选择。"</string>
+    <string name="low_battery_flashlight_canot_use">电量过低，手电筒不能使用！</string>
+    <string name="magicthumb_button_text">魔法手指</string>
+    <string name="main_menu_add_widget">添加小工具</string>
+    <string name="main_menu_effect">滑屏效果</string>
+    <string name="main_menu_feedback">意见反馈</string>
+    <string name="main_menu_launcher_settings">桌面设置</string>
+    <string name="main_menu_login">登录</string>
+    <string name="main_menu_share">分享</string>
+    <string name="main_menu_sys_settings">系统设置</string>
+    <string name="main_menu_theme_wallpaper">主题和壁纸</string>
+    <string name="material_clock_toggle_content_description">选择上午或下午</string>
+    <string name="material_hour_24h_suffix">%1$s 小时</string>
+    <string name="material_hour_selection">选择小时</string>
+    <string name="material_hour_suffix">%1$s 点</string>
+    <string name="material_minute_selection">选择分钟</string>
+    <string name="material_minute_suffix">%1$s 分</string>
+    <string name="material_timepicker_am">上午</string>
+    <string name="material_timepicker_clock_mode_description">切换到时钟模式来输入时间。</string>
+    <string name="material_timepicker_hour">小时</string>
+    <string name="material_timepicker_minute">分钟</string>
+    <string name="material_timepicker_pm">下午</string>
+    <string name="material_timepicker_select_time">选择时间</string>
+    <string name="material_timepicker_text_input_mode_description">切换到文字输入模式来输入时间。</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_button_text">菜单</string>
+    <string name="menu_ios_summary">世界上最小，最快的用户系统</string>
+    <string name="menu_privacy_notice">隐私声明</string>
+    <string name="menu_share">推荐给朋友</string>
+    <string name="migration_cling_copy_apps">"复制图标"</string>
+    <string name="migration_cling_description">"要导入旧的主屏幕中的图标和文件夹吗？"</string>
+    <string name="migration_cling_title">"复制应用图标"</string>
+    <string name="migration_cling_use_default">"使用全新配置"</string>
+    <string name="move_to_empty_cell">"移至第 <ns1:g id="NUMBER_0">%1$s</ns1:g> 行第 <ns1:g id="NUMBER_1">%2$s</ns1:g> 列"</string>
+    <string name="move_to_hotseat_position">"移至收藏夹第 <ns1:g id="NUMBER">%1$s</ns1:g> 个位置"</string>
+    <string name="move_to_position">"移至第 <ns1:g id="NUMBER">%1$s</ns1:g> 个位置"</string>
+    <string name="msg_missing_notification_access">"要显示通知圆点，请开启桌面的应用通知功能"</string>
+    <string name="mtrl_badge_numberless_content_description">新通知</string>
+    <string name="mtrl_chip_close_icon_content_description">移除%1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">有 %1$d 条以上的新通知</string>
+    <string name="mtrl_picker_a11y_next_month">转到下个月</string>
+    <string name="mtrl_picker_a11y_prev_month">转到上个月</string>
+    <string name="mtrl_picker_announce_current_range_selection">开始日期选择：%1$s – 结束日期选择：%2$s</string>
+    <string name="mtrl_picker_announce_current_selection">当前的选择是：%1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">无</string>
+    <string name="mtrl_picker_cancel">取消</string>
+    <string name="mtrl_picker_confirm">确定</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">请选择日期</string>
+    <string name="mtrl_picker_date_header_unselected">选定的日期</string>
+    <string name="mtrl_picker_day_of_week_column_header">表示周几的列：%1$s</string>
+    <string name="mtrl_picker_end_date_description">结束日期 %1$s</string>
+    <string name="mtrl_picker_invalid_format">格式无效。</string>
+    <string name="mtrl_picker_invalid_format_example">示例：%1$s</string>
+    <string name="mtrl_picker_invalid_format_use">使用：%1$s</string>
+    <string name="mtrl_picker_invalid_range">范围无效。</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">转到今年%1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">转到 %1$d 年</string>
+    <string name="mtrl_picker_out_of_range">不在允许的范围内：%1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">开始日期 – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – 结束日期</string>
+    <string name="mtrl_picker_range_header_selected">%1$s - %2$s</string>
+    <string name="mtrl_picker_range_header_title">请选择范围</string>
+    <string name="mtrl_picker_range_header_unselected">开始日期 - 结束日期</string>
+    <string name="mtrl_picker_save">保存</string>
+    <string name="mtrl_picker_start_date_description">开始日期 %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">日期</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">结束日期</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">开始日期</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_today_description">今天%1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">切换到日历输入模式</string>
+    <string name="mtrl_picker_toggle_to_day_selection">点按即可切换到日历视图</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">切换到文本字段输入模式</string>
+    <string name="mtrl_picker_toggle_to_year_selection">点按即可切换到年视图</string>
+    <string name="mtrl_timepicker_cancel">取消</string>
+    <string name="mtrl_timepicker_confirm">确定</string>
+    <string name="network_error_tip">网络连接失败，请确认网络状态。</string>
+    <string name="news_center_desc">桌面负一屏幕热点新闻</string>
+    <string name="news_center_title">头条新闻</string>
+    <string name="no_use">不常用</string>
+    <string name="notification_badging_title">"通知圆点"</string>
+    <string name="out_of_space">"此主屏幕上已没有空间。"</string>
+    <string name="overview_panel_set_home_page_text">点击图标可设为主页</string>
+    <string name="package_state_unknown">"未知"</string>
+    <string name="particle_effect_name_halo">光圈</string>
+    <string name="particle_effect_name_heart">爱心</string>
+    <string name="particle_effect_name_heartbeat">心动</string>
+    <string name="particle_effect_name_none">无</string>
+    <string name="particle_effect_name_random">随机</string>
+    <string name="particle_effect_name_stars">星星</string>
+    <string name="password_toggle_content_description">显示密码</string>
+    <string name="pending_anim_summary">当从桌面打开应用或者从应用返回桌面时所使用的动画效果</string>
+    <string name="pending_anim_system">系统</string>
+    <string name="pending_anim_title">应用切换动画</string>
+    <string name="pending_transition_down">下滑动</string>
+    <string name="pending_transition_left">左滑动</string>
+    <string name="pending_transition_right">右滑动</string>
+    <string name="pending_transition_rotate">旋转</string>
+    <string name="pending_transition_system">系统</string>
+    <string name="pending_transition_up">上滑动</string>
+    <string name="pending_transition_zoom">缩放</string>
+    <string name="period">。</string>
+    <string name="permdesc_install_shortcut">"允许应用自行添加快捷方式。"</string>
+    <string name="permdesc_read_settings">"允许应用读取主屏幕中的设置和快捷方式。"</string>
+    <string name="permdesc_uninstall_shortcut">"允许应用自行删除快捷方式。"</string>
+    <string name="permdesc_write_settings">"允许应用更改主屏幕中的设置和快捷方式。"</string>
+    <string name="permlab_install_shortcut">"安装快捷方式"</string>
+    <string name="permlab_read_settings">"读取主屏幕设置和快捷方式"</string>
+    <string name="permlab_uninstall_shortcut">"卸载快捷方式"</string>
+    <string name="permlab_write_settings">"写入主屏幕设置和快捷方式"</string>
+    <string name="pick_image_intent_chooser_title">选择来源</string>
+    <string name="place_automatically">"自动添加"</string>
+    <string name="preDay">日</string>
+    <string name="preHour">时</string>
+    <string name="preMinute">分</string>
+    <string name="preMonth">月</string>
+    <string name="preSecond">秒</string>
+    <string name="preYear">年</string>
+    <string name="privacy">隐私</string>
+    <string name="program_restart">重启</string>
+    <string name="program_restart_confirm">重启桌面使设置生效？</string>
+    <string name="rec_apps_predicted">猜你喜欢</string>
+    <string name="recommon_name">推荐名称:</string>
+    <string name="rename_action">确定</string>
+    <string name="safemode_shortcut_error">"安全模式下不允许使用下载的此应用"</string>
+    <string name="safemode_widget_error">"安全模式下不允许使用小部件"</string>
+    <string name="sc_app_name">安全中心</string>
+    <string name="screen_edit_add_tools">小工具</string>
+    <string name="screen_edit_drop_delete_anim">删除动画</string>
+    <string name="screen_edit_effect_transition">滑屏效果</string>
+    <string name="screen_edit_icon_size">图标大小</string>
+    <string name="screen_edit_label_color">颜色</string>
+    <string name="screen_edit_label_size">字体大小</string>
+    <string name="screen_moved">"屏幕已移动"</string>
+    <string name="sd_permission_ration">安装应用需要使用外部存储权限</string>
+    <string name="sd_permission_title">权限说明</string>
+    <string name="search_bar_desc">桌面顶部搜索框</string>
+    <string name="search_bar_title">显示搜索框</string>
+    <string name="search_button_text">搜索</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"搜索"</string>
+    <string name="select_apps">选择应用</string>
+    <string name="setting_advanced">高级设置</string>
+    <string name="setting_appearance">外观设置</string>
+    <string name="setting_backup">备份与恢复</string>
+    <string name="setting_backup_desktop_summary">备份当前桌面的数据（应用，文件夹，快捷方式，小部件等）到存储空间中。</string>
+    <string name="setting_backup_desktop_time">备份时间</string>
+    <string name="setting_backup_desktop_title">备份桌面</string>
+    <string name="setting_category_backup">备份</string>
+    <string name="setting_category_desktop">桌面</string>
+    <string name="setting_category_drawer">抽屉</string>
+    <string name="setting_category_layout">布局</string>
+    <string name="setting_category_msg">消息</string>
+    <string name="setting_category_others">功能</string>
+    <string name="setting_category_restore">恢复</string>
+    <string name="setting_category_widgets">组件</string>
+    <string name="setting_def_home">设置默认桌面</string>
+    <string name="setting_desktop_grid">桌面网格</string>
+    <string name="setting_desktop_grid_summary">桌面网格大小设置</string>
+    <string name="setting_effects">效果设置</string>
+    <string name="setting_features">功能设置</string>
+    <string name="setting_gesture">手势</string>
+    <string name="setting_gesture_double_tap">单指双击</string>
+    <string name="setting_gesture_none">未设置手势</string>
+    <string name="setting_gesture_press_action">按住</string>
+    <string name="setting_gesture_swipe_action">单指</string>
+    <string name="setting_gesture_swipe_down">单指下滑</string>
+    <string name="setting_gesture_swipe_obliquely">斜向上滑动</string>
+    <string name="setting_gesture_swipe_up">单指上滑</string>
+    <string name="setting_icon_category">图标</string>
+    <string name="setting_icon_layout">图标布局</string>
+    <string name="setting_icon_layout_preview">预览</string>
+    <string name="setting_icon_layout_summary">尺寸与文本</string>
+    <string name="setting_icon_size">图标尺寸</string>
+    <string name="setting_import_desktop_summary">从存储空间中恢复桌面数据（应用，文件夹，快捷方式，小部件等）。</string>
+    <string name="setting_import_desktop_title">恢复桌面</string>
+    <string name="setting_label_category">标签</string>
+    <string name="setting_label_color">字体颜色</string>
+    <string name="setting_label_common_color">常用颜色</string>
+    <string name="setting_label_custom_color">自定义颜色</string>
+    <string name="setting_label_size">字体大小</string>
+    <string name="setting_low_battery">低电量提醒</string>
+    <string name="setting_low_memory">内存清理提醒</string>
+    <string name="setting_magic_finger">魔法手指</string>
+    <string name="setting_magic_finger_summary">手指触摸桌面时显示动画</string>
+    <string name="setting_new_theme">精选主题</string>
+    <string name="setting_new_wallpaper">精选壁纸</string>
+    <string name="setting_nofify_manager">通知管理</string>
+    <string name="setting_nofify_manager_des">通知栏消息管理</string>
+    <string name="setting_reset">重置桌面</string>
+    <string name="setting_reset_description">重置桌面数据（应用，文件夹，快捷方式，小部件等）到默认状态。</string>
+    <string name="setting_reset_desktop_summary">重置桌面数据（应用，文件夹，快捷方式，小部件等）到默认状态。</string>
+    <string name="setting_reset_desktop_title">重置桌面</string>
+    <string name="setting_restore">恢复桌面</string>
+    <string name="setting_restore_description">从存储空间中恢复桌面数据（应用，文件夹，快捷方式，小部件等）。</string>
+    <string name="setting_size_big">大</string>
+    <string name="setting_size_normal">标准</string>
+    <string name="setting_size_small">小</string>
+    <string name="setting_wallpaper_scrolling">壁纸滚动</string>
+    <string name="setting_wallpaper_scrolling_summary">滑屏时壁纸随屏幕滚动</string>
+    <string name="settings_action_settings">设置</string>
+    <string name="settings_airplane_mode_text">飞行模式</string>
+    <string name="settings_app_name">快捷设置</string>
+    <string name="settings_application_management_text">应用管理</string>
+    <string name="settings_auto_brightness_text">自动亮度</string>
+    <string name="settings_auto_rotate_text">自动旋转</string>
+    <string name="settings_backup">备份桌面</string>
+    <string name="settings_blue_touch_text">蓝牙</string>
+    <string name="settings_brightness_text">屏幕亮度</string>
+    <string name="settings_category_more">更多</string>
+    <string name="settings_default_launcher">设置为默认桌面</string>
+    <string name="settings_desk">桌面设置</string>
+    <string name="settings_error_text">由于系统限制，不可使用！</string>
+    <string name="settings_flash_light_text">手电筒</string>
+    <string name="settings_general">一般</string>
+    <string name="settings_gesture">魔法手指</string>
+    <string name="settings_icon_design">图标布局</string>
+    <string name="settings_icon_design_description">尺寸与文本</string>
+    <string name="settings_label">"设置"</string>
+    <string name="settings_light_error_text">无闪光灯，不可使用！</string>
+    <string name="settings_location_mode_text">位置</string>
+    <string name="settings_power_saving_text"> 省电模式</string>
+    <string name="settings_ringtone_text">情景模式</string>
+    <string name="settings_save_restore">备份与恢复</string>
+    <string name="settings_screen_feature">高级功能</string>
+    <string name="settings_screen_layout">画面排列</string>
+    <string name="settings_setting_title">IOS OS</string>
+    <string name="settings_settings_hot_spot">热点</string>
+    <string name="settings_settings_text">系统设置</string>
+    <string name="settings_sim_error_text">无SIM卡！!</string>
+    <string name="settings_traffic_data_text"> 数据</string>
+    <string name="settings_traffic_monitoring_text">流量监控</string>
+    <string name="settings_wifi_text"> WIFI</string>
+    <string name="shortcut_change_theme">更换主题</string>
+    <string name="shortcut_discovery">探索</string>
+    <string name="shortcut_hide_app">隐藏应用</string>
+    <string name="shortcut_lock_screen">一键锁屏</string>
+    <string name="shortcut_os_setting">桌面设置</string>
+    <string name="shortcut_power_save">省电模式</string>
+    <string name="shortcut_response">快速反馈</string>
+    <string name="shortcut_search_app">T9搜索</string>
+    <string name="shortcut_theme">主题</string>
+    <string name="shortcut_uninstalled">"已删除“<ns1:g id="NAME">%s</ns1:g>”快捷方式。"</string>
+    <string name="shortcut_wallpaper">壁纸</string>
+    <string name="sl_app_list_add_listbutton">添加要锁定的软件</string>
+    <string name="sl_app_list_empty">软件空空如也</string>
+    <string name="sl_change_password_sucessed">密码修改成功</string>
+    <string name="sl_dialog_text">开启权限,让软件锁正常运行</string>
+    <string name="sl_enter_new_psw">新密码和旧密码不能相同！</string>
+    <string name="sl_enter_new_psw_16">请输入新密码(6位)</string>
+    <string name="sl_enter_new_psw_16_again">请再次输入新密码</string>
+    <string name="sl_enter_psw_16">请输入密码(6位)</string>
+    <string name="sl_enter_psw_16_again">请再次输入密码</string>
+    <string name="sl_enter_psw_16_again_error">两次密码输入不一致</string>
+    <string name="sl_enter_psw_16_empty">密码不能为空</string>
+    <string name="sl_enter_psw_16_error">密码错误</string>
+    <string name="sl_facebook">去Facebook关注我们</string>
+    <string name="sl_finger_print_lock_screen_tv">支持指纹解锁</string>
+    <string name="sl_float_hint_tv">如不能正常使用,请在设置或者安全中开启"悬浮窗"！</string>
+    <string name="sl_hint_tv">再一步就完成啦！选择IOS打开</string>
+    <string name="sl_lock_setting">设置</string>
+    <string name="sl_lock_temp_addapp">添加软件</string>
+    <string name="sl_my_common_loading">加载中…</string>
+    <string name="sl_ok">确定</string>
+    <string name="sl_security_item_change_password">修改密码</string>
+    <string name="sl_security_item_hint2">软件锁</string>
+    <string name="sl_set_psw">请设置新密码(6位)</string>
+    <string name="sl_un_locking">解锁中...</string>
+    <string name="sleep_mode_desc">双击灭屏幕空白外灭屏</string>
+    <string name="sleep_mode_title">双击灭屏</string>
+    <string name="sliding_wallpaper">滑动选择壁纸</string>
+    <string name="software_share_text">IOS是世界上最快，最美，最好用的桌面，推荐你也试试~ https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_titile">分享</string>
+    <string name="sort_button_text">图标整理</string>
+    <string name="sort_icon_all_bottom_screen_text">全部 上面</string>
+    <string name="sort_icon_all_top_screen_text">全部 上面</string>
+    <string name="sort_icon_cur_down_screen_text">下面</string>
+    <string name="sort_icon_cur_up_screen_text">上面</string>
+    <string name="start">开始</string>
+    <string name="started">刚打开</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="sysfolder_safe">Security Settings</string>
+    <string name="sysfolder_tool">工具</string>
+    <string name="system">系统</string>
+    <string name="terms_of_service">服务条款</string>
+    <string name="theme_club_button_text">美化中心</string>
+    <string name="themeclub_app_name">美化中心</string>
+    <string name="title_change_settings">"更改设置"</string>
+    <string name="title_missing_notification_access">"需要获取通知使用权"</string>
+    <string name="toggle_weight_watcher">"显示内存空间"</string>
+    <string name="tools">工具</string>
+    <string name="torch_widget_name">手电筒</string>
+    <string name="transition_effect_accordion">手风琴</string>
+    <string name="transition_effect_carousel_left">旋转木马(左)</string>
+    <string name="transition_effect_carousel_right">旋转木马(右)</string>
+    <string name="transition_effect_cross">交叉</string>
+    <string name="transition_effect_cubein">向内立方体</string>
+    <string name="transition_effect_cubeout">向外立方体</string>
+    <string name="transition_effect_flip">垂直翻转</string>
+    <string name="transition_effect_none">默认滑屏</string>
+    <string name="transition_effect_overview">概览</string>
+    <string name="transition_effect_stack">卡片堆</string>
+    <string name="transition_effect_wheel">轮子</string>
+    <string name="transition_effect_windmill">风车</string>
+    <string name="unable_install_app_label">系统应用,无法卸载</string>
+    <string name="unable_remove_remove_label">文件夹不可刪除</string>
+    <string name="uninstall_action">卸载</string>
+    <string name="uninstall_app_label">卸载</string>
+    <string name="uninstall_app_message">卸载时其数据也会一起删除。</string>
+    <string name="uninstall_system_app_text">"这是系统应用，无法卸载。"</string>
+    <string name="update_check_no_update">恭喜！你现在已经是最新版本。</string>
+    <string name="update_self_dialog_content">新版本可用，点击更新</string>
+    <string name="update_self_dialog_title">更新版本</string>
+    <string name="update_start">正在检查新版本，请稍候…</string>
+    <string name="update_start_download_apk">开始下载最新版本，可以在通知栏查看详情。</string>
+    <string name="update_to_latest_version">立即更新到最新版</string>
+    <string name="wait_when_loading">Loading data, please wait…</string>
+    <string name="wallpaper_button_text">"壁纸"</string>
+    <string name="wallpaper_settings">壁纸</string>
+    <string name="welcome">欢迎</string>
+    <string name="widget_accessible_dims_format">"宽 %1$d，高 %2$d"</string>
+    <string name="widget_button_text">"小部件"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"小部件尺寸已调整为：宽度 <ns1:g id="NUMBER_0">%1$s</ns1:g>，高度 <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="widget_section_title_ios">Launcher</string>
+    <string name="widget_section_title_more">更多</string>
+    <string name="work_folder_name">"Work"</string>
+    <string name="workspace_cling_longpress_description">"触摸并按住背景，即可进行个性化设置"</string>
+    <string name="workspace_cling_longpress_dismiss">"知道了"</string>
+    <string name="workspace_cling_longpress_title">"壁纸、小部件和设置"</string>
+    <string name="workspace_scroll_format">"主屏幕：第%1$d屏，共%2$d屏"</string>
+</resources>

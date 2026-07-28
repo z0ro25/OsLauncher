@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tog_title_text_color">#ffb2b2b2</color>
+    <color name="tog_title_text_color_press">#ff086a34</color>
+
+    <!-- AppLock Attributes -->
+    <color name="colorPrimaryDark_black">#FF000000</color>
+    <color name="colorwhite">#FFFFFFFF</color>
+
+    <!-- app freeze begin -->
+    <color name="hct_app_frozen_count_hint_color">#ffff7838</color>
+    <!-- app freeze end -->
+    <color name="rubbish_clean_complete_btn_color">#44FFFFFF</color>
+
+    <color name="colorblack">#ff000000</color>
+    <color name="coloraccent">#ff7fcac3</color>
+    <color name="colorlightblack">#ff252525</color>
+    <color name="colordarkgrey">#ff848484</color>
+    <color name="colordarkwhite">#ffeaeaea</color>
+    <color name="colorgrey">#ffeeeeee</color>
+    <color name="coloryellow">#ffffe9a1</color>
+    <color name="colordarkgray">#aab6c8</color>
+    <color name="colordeeporange">#fff4511e</color>
+    <drawable name="colordarkblue">#ff314D79</drawable>
+    <drawable name="colorgraydrawable">#CCE7E7E7</drawable>
+    <drawable name="colorwhitedrawable">#ffffffff</drawable>
+
+</resources>

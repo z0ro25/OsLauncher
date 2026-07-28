@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <gradient android:startColor="#3ca141" android:endColor="#67ff6c" android:angle="90"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_message_new" android:left="@dimen/margin_small_icon" android:top="@dimen/margin_small_icon" android:right="@dimen/margin_small_icon" android:bottom="@dimen/margin_small_icon"/>
+</layer-list>

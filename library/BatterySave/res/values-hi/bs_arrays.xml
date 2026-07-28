@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>स्वतः सिंक</item>
+        <item>चमक</item>
+        <item>अपने आप घूमना</item>
+        <item>स्क्रीन टाइमआउट</item>
+        <item>कंपन</item>
+        <item>जानकारी</item>
+        <item>गर्म स्थान</item>
+        <item>WI-FI</item>
+        <item>ब्लूटूथ</item>
+        <item>रिंगटोन</item>
+        <item>छूने पर कांपना</item>
+    </string-array>
+
+</resources>

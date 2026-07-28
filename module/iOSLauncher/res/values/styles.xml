@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/*
+* Copyright (C) 2008 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+-->
+
+<resources>
+
+    <style name="BaseWallpaperTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/launcher_window_background_color</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="workspaceStatusBarScrim">@drawable/workspace_bg</item>
+        <!--<item name="android:fontFamily">@font/default_cb</item>-->
+    </style>
+
+    <style name="LauncherTheme" parent="@style/BaseWallpaperTheme"></style>
+
+    <style name="BaseLauncherThemeWithCustomAttrs" parent="@style/BaseWallpaperTheme">
+        <item name="allAppsScrimColor">#EAFFFFFF</item>
+        <item name="allAppsInterimScrimAlpha">46</item>
+        <item name="allAppsNavBarScrimColor">#66FFFFFF</item>
+        <item name="popupColorPrimary">#FFF</item>
+        <item name="popupColorSecondary">#F5F5F5</item> <!-- Gray 100 -->
+        <item name="popupColorTertiary">#E0E0E0</item> <!-- Gray 300 -->
+        <item name="isMainColorDark">false</item>
+        <item name="isWorkspaceDarkText">false</item>
+        <item name="workspaceTextColor">@android:color/white</item>
+        <item name="workspaceShadowColor">#B0000000</item>
+        <item name="workspaceAmbientShadowColor">#33000000</item>
+        <item name="workspaceKeyShadowColor">#44000000</item>
+        <item name="workspaceStatusBarScrim">@drawable/workspace_bg</item>
+        <item name="widgetsTheme">@style/WidgetContainerTheme</item>
+    </style>
+
+    <style name="LauncherTheme.DarkText" parent="@style/BaseLauncherThemeWithCustomAttrs">
+        <item name="workspaceTextColor">#FF212121</item>
+        <item name="allAppsInterimScrimAlpha">128</item>
+        <item name="workspaceShadowColor">@android:color/transparent</item>
+        <item name="workspaceAmbientShadowColor">@android:color/transparent</item>
+        <item name="workspaceKeyShadowColor">@android:color/transparent</item>
+        <item name="isWorkspaceDarkText">true</item>
+        <item name="workspaceStatusBarScrim">@null</item>
+    </style>
+
+    <style name="LauncherThemeDark" parent="@style/BaseLauncherThemeWithCustomAttrs">
+        <item name="android:textColorHint">#A0FFFFFF</item>
+        <item name="android:colorControlHighlight">#A0FFFFFF</item>
+        <item name="android:colorPrimary">#FF212121</item>
+        <item name="allAppsScrimColor">#EA212121</item>
+        <item name="allAppsInterimScrimAlpha">102</item>
+        <item name="allAppsNavBarScrimColor">#80000000</item>
+        <item name="popupColorPrimary">?android:attr/colorPrimary</item>
+        <item name="popupColorSecondary">#424242</item> <!-- Gray 800 -->
+        <item name="popupColorTertiary">#757575</item> <!-- Gray 600 -->
+        <item name="widgetsTheme">@style/WidgetContainerTheme.Dark</item>
+        <item name="isMainColorDark">true</item>
+    </style>
+
+    <style name="LauncherThemeDark.DarKText" parent="@style/BaseLauncherThemeWithCustomAttrs">
+        <item name="allAppsInterimScrimAlpha">25</item>
+        <item name="workspaceTextColor">#FF212121</item>
+        <item name="workspaceShadowColor">@android:color/transparent</item>
+        <item name="workspaceAmbientShadowColor">@android:color/transparent</item>
+        <item name="workspaceKeyShadowColor">@android:color/transparent</item>
+        <item name="isWorkspaceDarkText">true</item>
+        <item name="workspaceStatusBarScrim">@null</item>
+    </style>
+
+    <!-- Theme for the widget container. Overridden on API 26. -->
+    <style name="WidgetContainerTheme" parent="@android:style/Theme.DeviceDefault.Settings">
+        <item name="android:colorEdgeEffect">?android:attr/textColorSecondaryInverse</item>
+        <item name="android:textColorPrimary">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textColorSecondary">?android:attr/textColorSecondaryInverse</item>
+    </style>
+
+    <style name="WidgetContainerTheme.Dark" />
+
+    <style name="Theme.Light.CustomOverscroll" parent="@android:style/Theme.DeviceDefault">
+        <item name="android:colorEdgeEffect">@color/folder_edge_effect_color</item>
+    </style>
+
+    <style name="Theme.Dark.CustomOverscroll" parent="@android:style/Theme.DeviceDefault">
+        <item name="android:colorEdgeEffect">@color/workspace_edge_effect_color</item>
+    </style>
+
+    <style name="BaseIcon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+
+        <!-- No shadows in the base theme -->
+        <item name="android:shadowRadius">0</item>
+        <item name="customShadows">false</item>
+    </style>
+
+    <style name="Icon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textColor">@color/workspace_icon_text_color</item>
+        <item name="android:shadowRadius">2.0</item>
+        <item name="android:shadowColor">#B0000000</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="customShadows">false</item>
+    </style>
+
+    <style name="SearchViewTitle">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="SearchViewSubTitle">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Icon.AllApps">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/all_apps_icon_text_color</item>
+        <item name="android:drawablePadding">@dimen/dynamic_grid_icon_drawable_padding</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="customShadows">false</item>
+    </style>
+
+    <style name="Icon.Widgets">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/launcher_white</item>
+        <item name="android:drawablePadding">@dimen/dynamic_grid_icon_drawable_padding</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="customShadows">false</item>
+    </style>
+
+    <style name="Icon.Folder">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/launcher_white</item>
+        <item name="android:drawablePadding">@dimen/dynamic_grid_icon_drawable_padding</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="customShadows">false</item>
+    </style>
+
+    <style name="PreviewIcon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:shadowRadius">0</item>
+        <item name="android:shadowColor">#B0000000</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="customShadows">false</item>
+    </style>
+
+
+    <style name="DropTargetButtonContainer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="DropTargetButtonBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">7.5dp</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textSize">@dimen/drop_target_text_size</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">4.0</item>
+    </style>
+
+    <style name="DropTargetButton" parent="DropTargetButtonBase" />
+
+    <style name="DropTargetButtonLable">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">8.0dp</item>
+        <item name="android:textColor">@color/launcher_white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDy">2.0</item>
+        <item name="android:shadowRadius">6.0</item>
+    </style>
+
+    <style name="PreloadIcon">
+        <item name="iconBackground">@drawable/virtual_preload</item>
+        <item name="indicatorSize">4dp</item>
+        <item name="ringOutset">4dp</item>
+    </style>
+
+    <style name="PreloadIcon.Folder">
+        <item name="iconBackground">@drawable/virtual_preload_folder</item>
+        <item name="indicatorSize">4dp</item>
+        <item name="ringOutset">4dp</item>
+    </style>
+
+    <style name="folder_popup_menu_item_style">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/menu_item_text_sel_color</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="LauncherAlertDialog" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@color/launcher_transparent</item>
+    </style>
+
+    <style name="BaseLauncherDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowAnimationStyle">@style/fade_menu_dialog_anim</item>
+    </style>
+
+    <style name="LauncherDialog" parent="@style/BaseLauncherDialog"></style>
+
+    <style name="fade_menu_dialog_anim" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/fade_in_short_time</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_short_time</item>
+    </style>
+
+    <style name="main_menu_dialog_anim" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/main_menu_enter_ainm</item>
+        <item name="android:windowExitAnimation">@anim/main_menu_exit_anim</item>
+    </style>
+
+    <style name="WidgetsSectionTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/widgets_section_title_txt_color</item>
+    </style>
+
+
+    <style name="MainMenuPre">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="hideDivider">true</item>
+        <item name="PreferencetitleColor">@color/launcher_white</item>
+        <item name="PreferenceSummaryColor">@color/launcher_white</item>
+        <item name="preferenceBackground">@drawable/main_menu_item_bg</item>
+    </style>
+
+
+    <style name="ScreenEditTab">
+        <item name="android:layout_width">0.0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:background">@drawable/screen_edit_tab_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/screen_edit_tab_txt_color</item>
+        <item name="android:textSize">@dimen/screen_edit_view_top_layout_text_size</item>
+    </style>
+
+    <style name="PanelTitleButton">
+        <item name="android:layout_width">0.0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.0</item>
+        <!--<item name="android:fontFamily">sans-serif-condensed</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconSizePx">60dp</item>
+    </style>
+
+    <style name="PannelButton">
+        <item name="android:layout_width">0.0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:drawablePadding">10dp</item>
+        <!--<item name="android:fontFamily">sans-serif-condensed</item>-->
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconSizePx">60dp</item>
+    </style>
+
+    <style name="GridGalleryItemText">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/grid_gallery_item_margin_top</item>
+        <item name="android:paddingLeft">@dimen/grid_gallery_item_padding_left</item>
+        <item name="android:paddingRight">@dimen/grid_gallery_item_padding_right</item>
+        <item name="android:paddingBottom">@dimen/grid_gallery_item_padding_bottom</item>
+        <item name="android:textColor">@color/launcher_white</item>
+        <item name="android:textSize">@dimen/grid_gallery_item_text_size</item>
+    </style>
+
+    <style name="GridGallery">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:paddingLeft">@dimen/grid_gallery_padding_left</item>
+        <item name="android:paddingRight">@dimen/grdi_gallery_padding_right</item>
+    </style>
+
+    <style name="OverViewPanelMainMenu">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingRight">@dimen/overview_panel_main_menu_padding_right</item>
+        <item name="android:paddingStart">@dimen/overview_panel_main_menu_padding_left</item>
+        <item name="android:paddingLeft">@dimen/overview_panel_main_menu_padding_left</item>
+        <item name="android:paddingEnd">@dimen/overview_panel_main_menu_padding_right</item>
+        <item name="android:paddingTop">@dimen/overview_panel_main_menu_padding_top</item>
+    </style>
+
+    <style name="PageIndicatorMarker">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_marginBottom">9dp</item>
+        <item name="android:layout_marginTop">11dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="DiscoveryAppsContainer">
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+    </style>
+
+    <style name="FolderRecommenNameStyle">
+        <item name="android:textSize">@dimen/folder_recommen_name_size</item>
+        <item name="android:textColor">@drawable/folder_recommen_item_color</item>
+        <item name="android:gravity">center|center_horizontal|clip_horizontal</item>
+        <item name="android:background">@drawable/folder_recommen_item_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/folder_name_height</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="FolderScrollbarStyle">
+        <item name="android:scrollbarSize">4dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/freeme_scrollbar_handle_vertical</item>
+        <item name="android:scrollbarTrackHorizontal">@null</item>
+        <item name="android:scrollbarTrackVertical">@null</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbarFadeDuration">250</item>
+        <item name="android:scrollbarDefaultDelayBeforeFade">250</item>
+    </style>
+
+    <style name="WorkspaceIcon">
+        <item name="android:textSize">@dimen/app_text_size</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">left|right|center_vertical|center_horizontal|fill_horizontal|center|clip_horizontal</item>
+        <item name="android:layout_gravity">left|center_horizontal|clip_horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:shadowColor">#b0000000</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="WorkspaceIcon.Portrait" parent="@style/WorkspaceIcon">
+        <item name="android:textColor">@color/ios_launcher_mainmenu_default_text_color</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">@dimen/app_icon_paddingEdge</item>
+        <item name="android:paddingTop">@dimen/app_icon_padding_top</item>
+        <item name="android:paddingRight">@dimen/app_icon_paddingEdge</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:shadowColor">@color/ios_launcher_mainmenu_default_text_shadow_color</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:drawablePadding">@dimen/app_icon_drawablePadding</item>
+        <item name="unsettleEventNumBg">@drawable/unsettle_event_bg</item>
+        <item name="unsettleEventNumTextSize">@dimen/default_unsettle_event_textsize</item>
+        <item name="unsettleEventNumBgRightPadding">@dimen/default_unsettle_event_numBg_rightpadding</item>
+        <item name="unsettleEventNumBgTopPadding">@dimen/default_unsettle_event_numBg_toppadding</item>
+        <item name="unsettleEventNumTextColor">@color/default_unsettle_event_text_color</item>
+        <item name="uninstallAppTopPadding">@dimen/uninstall_app_toppadding</item>
+        <item name="uninstallAppLeftPadding">@dimen/uninstall_app_leftpadding</item>
+    </style>
+
+    <style name="WorkspaceIcon.Portrait.Folder" parent="@style/WorkspaceIcon.Portrait">
+        <item name="android:textColor">@color/ios_launcher_folder_group_text_color</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">@dimen/app_icon_paddingEdge</item>
+        <item name="android:paddingTop">@dimen/app_icon_padding_top</item>
+        <item name="android:paddingRight">@dimen/app_icon_paddingEdge</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:shadowColor">#b0000000</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="Common_Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <!-- Used to color the switch bar controls -->
+    <style name="ThemeOverlay.SwitchBar" parent="@android:style/ThemeOverlay">
+        <!-- Used by controls, e.g. CheckBox, ProgressBar, etc. -->
+        <item name="android:colorAccent">@color/coloraccent</item>
+    </style>
+
+    <style name="SearchViewLayout" parent="">
+        <item name="voiceHintPrompt">@string/hint_prompt</item>
+    </style>
+
+</resources>

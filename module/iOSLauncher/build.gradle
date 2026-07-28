@@ -1,0 +1,100 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    namespace "com.amz.ios.launcher"
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        renderscriptSupportModeEnabled true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    kotlinOptions {
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = ['res',
+                           'plugins/UserGuide/res',
+                           'plugins/CleanWidget/res',
+                           'plugins/AppManager/res']
+            main.java.srcDirs = ['src',
+                                 'plugins/UserGuide/src',
+                                 'plugins/CleanWidget/src',
+                                 'plugins/AppManager/src']
+            assets.srcDirs = ['assets']
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+
+    buildFeatures {
+        // for view binding:
+        buildConfig = true
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
+    implementation 'androidx.core:core-ktx:1.9.0'
+
+//    implementation libs['support-v4']
+//    implementation libs['recyclerview-v7']
+//    implementation libs['design']
+    implementation "androidx.dynamicanimation:dynamicanimation:1.0.0"
+    implementation "androidx.exifinterface:exifinterface:1.0.0"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:4.13.2"
+    implementation project(':library:iOSLiteCommon')
+    implementation project(':library:ThemeResource:ThemeDefault')
+    implementation project(':library:RealTimeBlurView')
+    implementation project(':library:cropper')
+    implementation project(':library:iosdialogs4android')
+
+    //Room
+    implementation "androidx.room:room-runtime:2.6.1"
+    kapt  "androidx.room:room-compiler:2.6.1"
+
+    //play core
+    implementation 'com.google.android.play:review:2.0.1'
+}
+

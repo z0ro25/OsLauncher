@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d اعلان جدید</item>
+    <item quantity="other">%d اعلان جدید</item>
+  </plurals>
+    <string name="abandoned_clean_this">"حذف"</string>
+    <string name="abandoned_promise_explanation">"برنامه برای این نماد نصب نشده است. می‌توانید آن را حذف کنید یا سعی کنید برنامه را جستجو کنید و آن را به صورت دستی نصب کنید."</string>
+    <string name="abandoned_promises_title">"این برنامه نصب نشده است."</string>
+    <string name="abandoned_search">"جستجو"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"پیمایش به صفحه اصلی"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"رفتن به بالا"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"گزینه‌های بیشتر"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"تمام"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"دیدن همه"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"انتخاب برنامه"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"خاموش"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"روشن"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"‎Alt+‎"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"‎Ctrl+‎"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"حذف"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"‎Function+‎"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"‎Meta+‎"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"‎Shift+‎"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"فاصله"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"‎Sym+‎"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"منو+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"جستجو…‏"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"پاک کردن پُرسمان"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"درخواست جستجو"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"جستجو"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"ارسال پُرسمان"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"جستجوی گفتاری"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"هم‌رسانی با"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"هم‌رسانی با <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"کوچک کردن"</string>
+    <string name="action_add_to_workspace">"افزودن به صفحه اصلی"</string>
+    <string name="action_decrease_height">"کاهش ارتفاع"</string>
+    <string name="action_decrease_width">"کاهش عرض"</string>
+    <string name="action_increase_height">"افزایش ارتفاع"</string>
+    <string name="action_increase_width">"افزایش عرض"</string>
+    <string name="action_move">"انتقال مورد"</string>
+    <string name="action_move_here">"انتقال مورد به اینجا"</string>
+    <string name="action_move_screen_left">"انتقال صفحه به چپ"</string>
+    <string name="action_move_screen_right">"انتقال صفحه به راست"</string>
+    <string name="action_move_to_workspace">"انتقال به صفحه اصلی"</string>
+    <string name="action_resize">"تغییر اندازه"</string>
+    <string name="activity_not_available">"برنامه در دسترس نیست"</string>
+    <string name="activity_not_found">"برنامه نصب نشده است."</string>
+    <string name="add_to_folder">"افزودن به پوشه: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"افزودن به پوشه حاوی <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"مورد به پوشه اضافه شد"</string>
+    <string name="all_apps_button_label">"برنامه‌ها"</string>
+    <string name="all_apps_home_button_label">"صفحه اصلی"</string>
+    <string name="all_apps_loading_message">"در حال بارگیری برنامه‌ها..."</string>
+    <string name="all_apps_no_search_results">"هیچ برنامه‌ای مطابق با «<ns1:g id="QUERY">%1$s</ns1:g>» پیدا نشد"</string>
+    <string name="all_apps_search_bar_hint">"جستجوی برنامه‌ها"</string>
+    <string name="all_apps_search_market_message">"رفتن به <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"چرخش مجاز است"</string>
+    <string name="bottomsheet_action_collapse">جمع کردن برگ زیرین</string>
+    <string name="bottomsheet_action_expand">ازهم بازکردن برگ زیرین</string>
+    <string name="bottomsheet_action_expand_halfway">گسترده کردن تا نیمه</string>
+    <string name="bottomsheet_drag_handle_clicked">روی دستگیره کشاندن دوضربه زده شد</string>
+    <string name="bottomsheet_drag_handle_content_description">دستگیره کشاندن</string>
+    <string name="character_counter_content_description">نویسه‌های واردشده %1$d از %2$d</string>
+    <string name="character_counter_overflowed_content_description">محدودیت نویسه از حد مجاز %1$d از %2$d بیشتر شده است</string>
+    <string name="clear_text_end_icon_content_description">پاک کردن نوشتار</string>
+    <string name="create_folder_with">"ایجاد پوشه با: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="crop_image_activity_no_permissions">لغو، مجوزهای مورد نیاز ارائه نشده</string>
+    <string name="crop_image_menu_crop">بریدن (کراپ)</string>
+    <string name="crop_image_menu_flip">آیینه کردن</string>
+    <string name="crop_image_menu_flip_horizontally">آیینه کردن به صورت افقی</string>
+    <string name="crop_image_menu_flip_vertically">آیینه کردن به صورت عمودی</string>
+    <string name="crop_image_menu_rotate_left">چرخش در جهت عقربه های ساعت</string>
+    <string name="crop_image_menu_rotate_right">چرخش</string>
+    <string name="default_scroll_format">"‏صفحه %1$d از %2$d"</string>
+    <string name="delete_target_label">"حذف"</string>
+    <string name="delete_target_uninstall_label">"حذف نصب"</string>
+    <string name="error_icon_content_description">خطا</string>
+    <string name="exposed_dropdown_menu_content_description">نمایش منوی کرکره‌ای</string>
+    <string name="first_run_cling_title">"خوش آمدید"</string>
+    <string name="folder_closed">"پوشه بسته شد"</string>
+    <string name="folder_created">"پوشه ایجاد شد"</string>
+    <string name="folder_hint_text">"پوشه بی‌نام"</string>
+    <string name="folder_name_format">"پوشه: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"پوشه باز شده، <ns1:g id="WIDTH">%1$d</ns1:g> در <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"نام پوشه به <ns1:g id="NAME">%1$s</ns1:g> تغییر کرد"</string>
+    <string name="folder_tap_to_close">"برای بستن پوشه لمس کنید"</string>
+    <string name="folder_tap_to_rename">"برای ذخیره تغییر نام لمس کنید"</string>
+    <string name="gadget_error_text">"مشکل در بارگیری ابزارک"</string>
+    <string name="gadget_setup_text">"تنظیم"</string>
+    <string name="hotseat_out_of_space">"فضای بیشتری در سینی موارد دلخواه وجود ندارد"</string>
+    <string name="icon_content_description">نماد کادر گفتگو</string>
+    <string name="info_target_label">"اطلاعات برنامه"</string>
+    <string name="item_added_to_workspace">"مورد به صفحه اصلی اضافه شد"</string>
+    <string name="item_moved">"مورد منتقل شد"</string>
+    <string name="item_removed">"مورد حذف شد"</string>
+    <string name="item_view_role_description">برگه</string>
+    <string name="long_press_widget_to_add">"برای انتخاب ابزارک لمس کنید و نگه دارید."</string>
+    <string name="material_clock_toggle_content_description">انتخاب .ق.ظ. یا ب.ظ.</string>
+    <string name="material_hour_24h_suffix">%1$s ساعت</string>
+    <string name="material_hour_selection">انتخاب ساعت</string>
+    <string name="material_hour_suffix">ساعت %1$s</string>
+    <string name="material_minute_selection">انتخاب دقیقه</string>
+    <string name="material_minute_suffix">%1$s دقیقه</string>
+    <string name="material_timepicker_am">ق.ظ</string>
+    <string name="material_timepicker_clock_mode_description">برای وارد کردن زمان، به حالت ساعت تغییر وضعیت دهید.</string>
+    <string name="material_timepicker_hour">ساعت</string>
+    <string name="material_timepicker_minute">دقیقه</string>
+    <string name="material_timepicker_pm">ب.ظ</string>
+    <string name="material_timepicker_select_time">انتخاب زمان</string>
+    <string name="material_timepicker_text_input_mode_description">برای وارد کردن زمان، به حالت ورودی نوشتاری تغییر وضعیت دهید.</string>
+    <string name="migration_cling_copy_apps">"کپی نمادها"</string>
+    <string name="migration_cling_description">"نمادها و پوشه‌ها از صفحه‌های اصلی قدیمی شما وارد شوند؟"</string>
+    <string name="migration_cling_title">"کپی کردن نمادهای برنامه شما"</string>
+    <string name="migration_cling_use_default">"شروع تازه"</string>
+    <string name="move_to_empty_cell">"انتقال به سطر <ns1:g id="NUMBER_0">%1$s</ns1:g> ستون <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"انتقال به موقعیت دلخواه <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"انتقال به موقعیت <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">اعلان جدید</string>
+    <string name="mtrl_chip_close_icon_content_description">برداشتن %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">بیش از %1$d اعلان جدید</string>
+    <string name="mtrl_picker_a11y_next_month">تغییر به ماه بعدی</string>
+    <string name="mtrl_picker_a11y_prev_month">تغییر به ماه قبلی</string>
+    <string name="mtrl_picker_announce_current_range_selection">تاریخ شروع انتخاب‌شده: %1$s – تاریخ پایان انتخاب‌شده: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">انتخاب کنونی: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">خالی</string>
+    <string name="mtrl_picker_cancel">لغو</string>
+    <string name="mtrl_picker_confirm">تأیید</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">انتخاب تاریخ</string>
+    <string name="mtrl_picker_date_header_unselected">تاریخ انتخابی</string>
+    <string name="mtrl_picker_day_of_week_column_header">ستون روز: %1$s</string>
+    <string name="mtrl_picker_end_date_description">تاریخ پایان: %1$s</string>
+    <string name="mtrl_picker_invalid_format">قالب نامعتبر است.</string>
+    <string name="mtrl_picker_invalid_format_example">مثال: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">قالب: %1$s</string>
+    <string name="mtrl_picker_invalid_range">محدوده نامعتبر است.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">پیمایش به سال فعلی %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">رفتن به سال %1$d</string>
+    <string name="mtrl_picker_out_of_range">خارج از محدوده: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">تاریخ شروع – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – تاریخ پایان</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">انتخاب محدوده</string>
+    <string name="mtrl_picker_range_header_unselected">تاریخ شروع – تاریخ پایان</string>
+    <string name="mtrl_picker_save">ذخیره</string>
+    <string name="mtrl_picker_start_date_description">تاریخ شروع: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">تاریخ</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">تاریخ پایان</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">تاریخ شروع</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_today_description">امروز %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">رفتن به روش ورودی تقویم</string>
+    <string name="mtrl_picker_toggle_to_day_selection">برای رفتن به نمای «تقویم» ضربه بزنید</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">رفتن به حالت ورودی نوشتاری</string>
+    <string name="mtrl_picker_toggle_to_year_selection">برای رفتن به نمای سال ضربه بزنید</string>
+    <string name="mtrl_timepicker_cancel">لغو</string>
+    <string name="mtrl_timepicker_confirm">تأیید</string>
+    <string name="out_of_space">"فضای بیشتری در این صفحه اصلی موجود نیست."</string>
+    <string name="package_state_unknown">"نامشخص"</string>
+    <string name="password_toggle_content_description">نمایش گذرواژه</string>
+    <string name="permdesc_install_shortcut">"به برنامه اجازه می‌دهد میان‌برها را بدون دخالت کاربر اضافه کند."</string>
+    <string name="permdesc_read_settings">"به برنامه اجازه می‌دهد تنظیمات و میان‌برها را در صفحه اصلی بخواند."</string>
+    <string name="permdesc_write_settings">"به برنامه اجازه می‌دهد تنظیمات و میان‌برها را در صفحه اصلی تغییر دهد."</string>
+    <string name="permlab_install_shortcut">"نصب میان‌برها"</string>
+    <string name="permlab_read_settings">"خواندن تنظیمات و میان‌برهای صفحه اصلی"</string>
+    <string name="permlab_write_settings">"نوشتن تنظیمات و میان‌برهای صفحه اصلی"</string>
+    <string name="pick_image_intent_chooser_title">منبع را انتخاب کنید</string>
+    <string name="safemode_shortcut_error">"برنامه دانلود شده در حالت ایمن غیرفعال شد"</string>
+    <string name="safemode_widget_error">"ابزارک‌ها در حالت ایمن غیرفعال هستند"</string>
+    <string name="screen_moved">"صفحه منتقل شد"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"جستجو"</string>
+    <string name="settings_label">"تنظیمات"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"‏نمایش Mem"</string>
+    <string name="uninstall_system_app_text">"این برنامه سیستمی است و حذف نصب نمی‌شود."</string>
+    <string name="wallpaper_button_text">"کاغذدیواری‌ها"</string>
+    <string name="widget_button_text">"ابزارک‌ها"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"اندازه ابزارک به عرض <ns1:g id="NUMBER_0">%1$s</ns1:g> ارتفاع <ns1:g id="NUMBER_1">%2$s</ns1:g> تغییر کرد"</string>
+    <string name="work_folder_name">"کاری"</string>
+    <string name="workspace_cling_longpress_description">"برای سفارشی کردن، پس‌زمینه را لمس کنید و نگه‌دارید"</string>
+    <string name="workspace_cling_longpress_dismiss">"متوجه شدم"</string>
+    <string name="workspace_cling_longpress_title">"کاغذدیواری‌ها، ابزارک‌ها و تنظیمات"</string>
+    <string name="workspace_scroll_format">"‏صفحه اصلی %1$d از %2$d"</string>
+</resources>

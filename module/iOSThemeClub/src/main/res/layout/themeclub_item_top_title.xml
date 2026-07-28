@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/top_area"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/special_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:layout_marginTop="@dimen/wallpaper_selection_margin"
+            android:gravity="center_vertical"
+            android:textColor="@color/title_color"
+            android:layout_marginStart="@dimen/wallpaper_selection_margin"
+            android:textSize="@dimen/title_size"
+            android:textDirection="locale"
+            android:layout_marginLeft="@dimen/wallpaper_selection_margin" />
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/special_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textDirection="locale"
+            android:gravity="center_vertical"
+            android:textColor="@color/des_color"
+            android:layout_marginTop="@dimen/text_between"
+            android:layout_marginBottom="@dimen/wallpaper_selection_margin"
+            android:layout_marginStart="@dimen/wallpaper_selection_margin"
+            android:layout_marginLeft="@dimen/wallpaper_selection_margin"
+            android:textSize="@dimen/title_size"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:src="@drawable/themeclub_arrow"/>
+</LinearLayout>

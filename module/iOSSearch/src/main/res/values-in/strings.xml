@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="fmsearch_app_name">Cari</string>
+    <string name="fmsearch_txt_head_online_app">Rekomendasi Aplikasi</string>
+    <string name="fmsearch_txt_head_local_app">Aplikasi</string>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Bisa mencari kontak</item>
+        <item>Cari aplikasi lokal</item>
+        <item>Musik juga dapat ditemukan</item>
+        <item>Segera klik di sini</item>
+        <item>Ada yang memanggilmu untuk melihat wallpaper</item>
+        <item>Kabarnya, kalau menggunakan ini, ponsel jadi lebih cepat loh!</item>
+        <item>Mari kita lihat cuaca!</item>
+        <item>Tema sudah diperbarui, mari kita lihat!</item>
+    </string-array>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Coba masukkan nama teman</item>
+        <item>Temukan aplikasi yang Anda inginkan</item>
+        <item>Coba cari judul lagu</item>
+    </string-array>
+    <string name="fmsearch_tips">Tips</string>
+    <string name="fmsearch_str_contact">Kontak</string>
+    <string name="fmsearch_str_music">Musik</string>
+    <string name="fmsearch_search_websit">Cari Web</string>
+    <string name="fmsearch_search_pic">Cari Foto</string>
+    <string name="fmsearch_search_video">Cari Video</string>
+    <string name="fmsearch_download_market_warning_message">Fitur ini tergantung pada versi pengguna pasar zhouyi, mau lanjut unduh (Disarankan untuk menggunakan wifi)?
+    </string>
+    <string name="fmsearch_download_market_update_message">Fitur ini tergantung pada versi pengguna terbaru pasar zhouyi, mau lanjut perbarui dan unduh (Disarankan untuk menggunakan wifi)?
+    </string>
+    <string name="fmsearch_activity_not_found">Aplikasi belum terpasang.</string>
+    <string name="fmsearch_download">Unduh</string>
+</resources>

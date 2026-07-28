@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cl_item_divider_bg">#e5e5e5</color>
+    <color name="cl_news_item_title_txt">#404040</color>
+    <color name="cl_news_item_source_txt">#b2b2b2</color>
+
+    <color name="cl_news_foot_readmore_txt">#29bd68</color>
+    <color name="cl_news_head_title_txt">#757575</color>
+    <color name="cl_search_background">#f7f7f7</color>
+    <color name="cl_transparent">#00000000</color>
+    <color name="cl_common_focus">#22000000</color>
+    <color name="cl_search_widget_default">#44ffffff</color>
+    <color name="cl_search_widget_focus">#22ffffff</color>
+    <color name="cl_item_backgroud">#ffffff</color>
+    <color name="cl_item_backgroud_focus">#77ffffff</color>
+</resources>

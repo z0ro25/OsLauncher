@@ -1,0 +1,92 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: "config.gradle"
+
+buildscript {
+    ext {
+        agp_version = '7.0.2'
+        agp_version1 = '8.2.1'
+        agp_version2 = '4.2.1'
+        agp_version3 = '7.3.1'
+    }
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        gradlePluginPortal()
+
+        maven {
+            url 'https://maven.google.com/'
+        }
+
+        maven { url 'https://jitpack.io' }
+
+        maven { url 'https://android-sdk.is.com/' }
+        maven {
+            url 'https://artifact.bytedance.com/repository/pangle/'
+        }
+        maven {
+            url 'https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea'
+
+        }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$agp_version3"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.8'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        google()
+
+        maven {
+            url 'https://maven.google.com'
+        }
+
+        maven {
+            url "https://jitpack.io"
+        }
+        maven { url 'https://android-sdk.is.com/' }
+        maven {
+            url 'https://artifact.bytedance.com/repository/pangle/'
+        }
+        maven {
+            url 'https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea'
+        }
+
+
+
+        maven {
+            url "https://github.com/DroiBaaS/DroiBaaS-SDK-Android/raw/master/"
+        }
+
+        maven {
+            url "https://github.com/IDroi/AdZodiac/raw/master/"
+        }
+
+
+        flatDir {
+            dirs 'libs'
+            dirs '../libs'
+            dirs '../../libs'
+        }
+
+        gradle.projectsEvaluated {
+            tasks.withType(JavaCompile) {
+                options.compilerArgs.add('-Xbootclasspath/p:module/iOSLauncher/plugins/PowerKey/libs/framework.jar')
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+def buildTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT+8"))
+}

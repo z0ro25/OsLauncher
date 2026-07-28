@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>ลองใส่รายชื่อของเพื่อนคุณดูสิ</item>
+        <item>ค้นพาแอพที่ต้องการ</item>
+        <item>ลองค้นหาชื่อเพลง</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>ค้นหารายชื่อได้ที่นี่</item>
+        <item>ค้นพาแอพท้องถิ่นได้ที่นี่</item>
+        <item>ค้นหาเพลงได้ที่นี่</item>
+        <item>คลิกที่นี่</item>
+        <item>ดูวอลล์เปเปอร์ได้ที่นี่</item>
+        <item>ได้ยินมาว่าถ้าใช้สิ่งนี้จะทำให้โทรศัพท์ไวขึ้น!</item>
+        <item>ตรวจสอบสภาพอากาศวันนี้!</item>
+        <item>มีธีมใหม่มาแล้ว รีบไปดูกัน!</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">ยังไม่ได้ติดตั้งแอพ</string>
+    <string name="fmsearch_app_name">ค้นหา</string>
+    <string name="fmsearch_download">ดาวน์โหลด</string>
+    <string name="fmsearch_download_market_update_message">
+        ฟังก์ชั่นนี้จะขึ้นอยู่กับเวอร์ชั่นที่กำหนดล่าสุดของลูกค้าของตลาด Zhouyi
+        ต้องการดำเนินการต่อเพื่อดาวน์โหลดการปรับปรุงหรือไม่ (แนะนำให้ใช้ WiFi)?
+    </string>
+    <string name="fmsearch_download_market_warning_message">
+        ฟังก์ชั่นนี้จะขึ้นอยู่กับเวอร์ชั่นที่กำหนดของลูกค้าของตลาด Zhouyi
+        ต้องการดำเนินการต่อเพื่อดาวน์โหลดหรือไม่(แนะนำให้ใช้WiFi)?
+    </string>
+    <string name="fmsearch_search_pic">ค้นหารูปภาพ</string>
+    <string name="fmsearch_search_video">ค้นหาวิดีโอ</string>
+    <string name="fmsearch_search_websit">ค้นหาเว็บไซต์
+    </string>
+    <string name="fmsearch_str_contact">รายชื่อ</string>
+    <string name="fmsearch_str_music">เพลง
+    </string>
+    <string name="fmsearch_tips">เคล็ดลับ</string>
+    <string name="fmsearch_txt_head_local_app">แอพพลิเคชั่น</string>
+    <string name="fmsearch_txt_head_online_app">คำแนะนำการใช้งาน</string>
+</resources>

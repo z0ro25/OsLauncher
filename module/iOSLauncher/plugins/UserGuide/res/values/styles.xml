@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="IOSBootBase" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar" >
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>>
+
+    <!-- Base application theme. -->
+    <style name="IOSBootAppTheme.Start" parent="IOSBootBase">
+        <item name="android:windowShowWallpaper">false</item>
+    </style>
+
+    <style name="IOSBootAppTheme" parent="IOSBootBase">
+    </style>
+
+    <style name="IOSBootSpeddUpAppTheme" parent="IOSBootAppTheme">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowShowWallpaper">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="IOSBootUpdateInfoAppTheme" parent="IOSBootAppTheme">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowShowWallpaper">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+</resources>

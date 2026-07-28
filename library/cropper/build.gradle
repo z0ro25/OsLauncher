@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+
+android {
+    namespace "com.theartofdev.edmodo.cropper"
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+        minSdkVersion 14
+        versionCode 1
+    }
+
+    buildFeatures {
+        // for view binding:
+        buildConfig = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+// This configuration is used to publish the library to a local repo while a being forked and modified.
+// It should really be set up so that the version are all in line, and set to be a SNAPSHOT.
+// The version listed here is a temp hack to allow me to keep working.
+
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation "androidx.exifinterface:exifinterface:1.0.0"
+}
+

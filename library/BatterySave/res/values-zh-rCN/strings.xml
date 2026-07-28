@@ -1,0 +1,25 @@
+<resources>
+    <string name="bs_app_name">省电</string>
+    <string name="bs_baterry_text1_uncharge">电量能坚持到</string>
+    <string name="bs_baterry_text3">今天</string>
+    <string name="bs_baterry_text1_charging">预计充满时间</string>
+    <string name="bs_baterry_text1_charged">电量已充满</string>
+    <string name="bs_Bar_Middle">省电</string>
+    <string name="bs_app_baterry">耗电应用</string>
+    <string name="bs_ranking_baterry">耗电排行</string>
+    <string name="bs_switch_baterry">节能开关</string>
+    <string name="bs_Bar_Rank_Middle">耗电量排行</string>
+    <string name="bs_use_time_title">可以持续</string>
+    <string name="bs_checking_text1">正在检查电池使用状态</string>
+    <string name="bs_checking_text2">分析耗电原因</string>
+    <string name="bs_unit_hour">小时</string>
+    <string name="bs_mode_second">分钟</string>
+    <string name="bs_bellow_btn">请稍后...</string>
+    <string name="bs_bottom_btn_save">一键省电</string>
+    <string name="bs_bottom_btn">完成</string>
+    <string name="bs_month">月</string>
+    <string name="bs_day">日</string>
+    <string name="bs_days">天</string>
+    <string name="bs_tomorrow">明天</string>
+    <string name="bs_clean_tost">"已优化系统运行状态 \n目前没有软件后台运行耗电"</string>
+</resources>

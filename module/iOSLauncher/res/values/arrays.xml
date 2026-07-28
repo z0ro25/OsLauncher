@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pending_transition_entries" translatable="false">
+        <item>@string/pending_transition_system</item>
+        <item>@string/pending_transition_left</item>
+        <item>@string/pending_transition_right</item>
+        <item>@string/pending_transition_up</item>
+        <item>@string/pending_transition_down</item>
+        <item>@string/pending_transition_zoom</item>
+        <item>@string/pending_transition_rotate</item>
+    </string-array>
+
+    <string-array name="pending_transition_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="common_color_entries" translatable="false">
+        <item>@string/color_white</item>
+        <item>@string/color_black</item>
+    </string-array>
+
+    <string-array name="common_color_values" translatable="false">
+        <item>\#ffffff</item>
+        <item>\#000000</item>
+    </string-array>
+
+    <string-array name="drop_delete_anim_entries" translatable="false">
+        <item>@string/drop_delete_anim_system</item>
+        <item>@string/drop_delete_anim_explosion</item>
+    </string-array>
+
+    <string-array name="desktop_grid_layout_entries" translatable="false">
+        <item>@string/desktop_gird_4_4</item>
+        <item>@string/desktop_gird_5_4</item>
+        <item>@string/desktop_gird_4_5</item>
+        <item>@string/desktop_gird_5_5</item>
+    </string-array>
+
+    <string-array name="item_type">
+        <item>@string/started</item>
+        <item>@string/frequent</item>
+        <item>@string/latest</item>
+    </string-array>
+
+    <array name="system_folder_title">
+        <item> Tools</item>
+        <item> SecurityService</item>
+    </array>
+
+    <array name="system_foldertitle_res">
+        <item>@string/sysfolder_tool</item>
+        <item>@string/sysfolder_safe</item>
+    </array>
+
+    <array name="folder_types">
+        <item>聊天通讯</item>
+        <item>影音视听</item>
+        <item>阅读学习</item>
+        <item>购物时尚</item>
+        <item>拍摄美化</item>
+        <item>生活娱乐</item>
+        <item>系统输入</item>
+        <item>出行地图</item>
+        <item>办公商务</item>
+        <item>实用工具</item>
+    </array>
+
+    <array name="specialicons_indefaultheme">
+        <item>com.ios.speechassist</item>
+    </array>
+
+    <!-- add lock below -->
+    <string-array name="not_need_protect" translatable="false">
+        <item>com.mediatek.StkSelection</item>
+        <item>com.lewaos.launcher</item>
+        <item>com.android.launcher3</item>
+        <item>com.hct.gamemode</item>
+        <item>com.hct.chlidmode</item>
+    </string-array>
+    <string-array name="not_need_protect_classname" translatable="false">
+        <item>com.android.incallui.InCallActivity</item>
+        <item>com.android.deskclock.alarms.AlarmActivity</item>
+        <item>com.android.gallery3d.app.MovieActivity</item>
+    </string-array>
+
+</resources>

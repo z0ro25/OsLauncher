@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent">
+
+    <RelativeLayout
+        android:id="@+id/legal_network_fail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/legal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/legal_network_fail"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginRight="5dip"
+            android:layout_marginLeft="5dip"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/legal_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/legal_text"
+            android:layout_centerHorizontal="true"
+            android:text="@string/legal_reload" />
+    </RelativeLayout>
+
+    <com.ios.boot.iosboot.widget.ScrollWebView
+        android:id="@+id/legal_webView"
+        android:layout_above="@+id/legal_notices_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/legal_notices_check"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/legal_check_bg"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/legal_notices_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:checked="true" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/legal_notices_checkbox"
+            android:text="@string/checkbox_text_name"
+            android:textColor="#3f3f3f"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_loading"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+</RelativeLayout>

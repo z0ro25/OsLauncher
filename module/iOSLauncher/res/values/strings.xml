@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/*
+* Copyright (C) 2008 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- General -->
+    <skip />
+    <!-- Permission to receive the com.amz.ios.launcher.action.LAUNCH intent. [DO NOT TRANSLATE] -->
+    <string name="receive_launch_broadcasts_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
+
+    <!-- Permission to receive the com.amz.ios.launcher.action.FIRST_LOAD_COMPLETE intent. [DO NOT TRANSLATE] -->
+    <string name="receive_first_load_broadcast_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
+
+    <!-- Application name -->
+    <string name="launcher_application_name">Launcher</string>
+    <!-- Default folder name -->
+    <string name="folder_name">Folder</string>
+    <!-- Work folder name -->
+    <string name="work_folder_name">Work</string>
+    <!-- Displayed when user selects a shortcut for an app that was uninstalled [CHAR_LIMIT=none]-->
+    <string name="activity_not_found">App isn\'t installed.</string>
+    <!-- Displayed when user selects a shortcut for an app that is current not available [CHAR_LIMIT=none]-->
+    <string name="activity_not_available">App isn\'t available</string>
+    <!-- SafeMode shortcut error string -->
+    <string name="safemode_shortcut_error">Downloaded app disabled in Safe mode</string>
+    <!-- SafeMode widget error string -->
+    <string name="safemode_widget_error">Widgets disabled in Safe mode</string>
+
+    <string name="toggle_weight_watcher">Show Mem</string>
+
+    <string name="please_grant">Please grant this app permission in order to use selected features</string>
+    <string name="receiver_expl">Allow "Lock" to turn the screen off?</string>
+
+    <!-- Widgets -->
+    <!-- Message to tell the user to press and hold on a widget to add it [CHAR_LIMIT=50] -->
+    <string name="long_press_widget_to_add">Touch &amp; hold to pick up a widget.</string>
+    <!-- The format string for the dimensions of a widget in the drawer -->
+    <!-- There is a special version of this format string for Farsi -->
+    <string name="widget_dims_format">%1$d \u00d7 %2$d</string>
+    <!-- Accessibility spoken message format for the dimensions of a widget in the drawer -->
+    <string name="widget_accessible_dims_format">%1$d wide by %2$d high</string>
+    <!-- Button label to automatically add icon on home screen [CHAR_LIMIT=50] -->
+    <string name="place_automatically">Add automatically</string>
+
+    <!-- All Apps -->
+    <!-- Search bar text in the apps view. [CHAR_LIMIT=50] -->
+    <string name="all_apps_search_bar_hint">Search Apps</string>
+    <!-- Loading apps text. [CHAR_LIMIT=50] -->
+    <string name="all_apps_loading_message">Loading Apps&#8230;</string>
+    <!-- No-search-results text. [CHAR_LIMIT=50] -->
+    <!--<string name="all_apps_no_search_results">No Apps found matching \"<xliff:g example="Android" id="query">%1$s</xliff:g>\"</string>-->
+    <string name="all_apps_no_search_results">No Apps found matching</string>
+    <!-- Search market text.  This is a format string where the first argument is the name of the activity
+         handling the search.  The format string does not need to handle both of these arguments. [CHAR_LIMIT=50] -->
+    <string name="all_apps_search_market_message">Go to <xliff:g example="Play Store" id="query">%1$s</xliff:g></string>
+
+    <!-- Drag and drop -->
+    <skip />
+    <!-- Error message when user has filled a home screen -->
+    <string name="out_of_space">No more room on this Home screen.</string>
+    <!-- Error message when user has filled the hotseat -->
+    <string name="hotseat_out_of_space">No more room in the Favorites tray</string>
+
+    <!-- All applications label -->
+    <string name="all_apps_button_label">Apps</string>
+    <!-- Label for button in all applications label to go back home (to the workspace / desktop)
+         for accessibilty (spoken when the button gets focus). -->
+    <string name="all_apps_home_button_label">Home</string>
+
+    <!-- Label for delete drop target. [CHAR_LIMIT=20] -->
+    <string name="delete_target_label">Remove</string>
+    <!-- Label for uninstall drop target. [CHAR_LIMIT=20]-->
+    <string name="delete_target_uninstall_label">Uninstall</string>
+    <!-- Label for the info icon. [CHAR_LIMIT=20] -->
+    <string name="info_target_label">App Info</string>
+
+    <string name="desktop_target_label">Back Desktop</string>
+
+    <string name="unable_install_app_label">System application, cannot be uninstalled</string>
+    <string name="unable_remove_remove_label">Folders can not be deleted</string>
+
+    <!-- Permissions: -->
+    <skip />
+    <!-- Permission short label -->
+    <string name="permlab_install_shortcut">install shortcuts</string>
+    <!-- Permission description -->
+    <string name="permdesc_install_shortcut">Allows an app to add
+        shortcuts without user intervention.</string>
+    <!-- Permission short label -->
+    <string name="permlab_read_settings">read Home settings and shortcuts</string>
+    <!-- Permission description -->
+    <string name="permdesc_read_settings">Allows the app to read the settings and
+        shortcuts in Home.</string>
+    <!-- Permission short label -->
+    <string name="permlab_write_settings">write Home settings and shortcuts</string>
+    <!-- Permission description -->
+    <string name="permdesc_write_settings">Allows the app to change the settings and
+        shortcuts in Home.</string>
+
+    <!-- Widgets: -->
+    <skip />
+
+    <!-- Text to show user in place of a gadget when we can't display it properly -->
+    <string name="gadget_error_text">Problem loading widget</string>
+
+    <!-- Text to show user in place of a gadget when it is not yet initialized. -->
+    <string name="gadget_setup_text">Setup</string>
+
+    <!-- Text to inform the user that they can't uninstall a system application -->
+    <string name="uninstall_system_app_text">This is a system app and can\'t be uninstalled.</string>
+
+    <!-- Default folder title -->
+    <string name="folder_hint_text">Unnamed Folder</string>
+
+    <!-- Accessibility -->
+    <skip />
+
+    <!-- The format string for default page scroll text [CHAR_LIMIT=none] -->
+    <string name="default_scroll_format">Page %1$d of %2$d</string>
+    <!-- The format string for Workspace page scroll text [CHAR_LIMIT=none] -->
+    <string name="workspace_scroll_format">Home screen %1$d of %2$d</string>
+
+    <!-- Clings -->
+    <!-- The title text for the workspace cling [CHAR_LIMIT=30] -->
+    <string name="first_run_cling_title">Welcome</string>
+    <!-- The title text for the migration cling [CHAR_LIMIT=30] -->
+    <string name="migration_cling_title">Copy your app icons</string>
+    <!-- The description of what migration does [CHAR_LIMIT=70] -->
+    <string name="migration_cling_description">Import icons and folders from your old Home screens?</string>
+    <!-- The description of the button to migrate apps from another launcher [CHAR_LIMIT=30] -->
+    <string name="migration_cling_copy_apps">COPY ICONS</string>
+    <!-- The description of the button to use the default launcher layout [CHAR_LIMIT=30] -->
+    <string name="migration_cling_use_default">START FRESH</string>
+    <!-- The title text for workspace longpress action [CHAR_LIMIT=40] -->
+    <string name="workspace_cling_longpress_title">Wallpapers, widgets, &amp; settings</string>
+    <!-- The description of how to use the workspace [CHAR_LIMIT=70] -->
+    <string name="workspace_cling_longpress_description">Touch &amp; hold background to customize</string>
+    <!-- The description of the button to dismiss the cling [CHAR_LIMIT=30] -->
+    <string name="workspace_cling_longpress_dismiss">GOT IT</string>
+
+    <!-- Folder accessibility -->
+    <!-- The format string for when a folder is opened, speaks the dimensions -->
+    <string name="folder_opened">Folder opened, <xliff:g example="5" id="width">%1$d</xliff:g> by <xliff:g example="3" id="height">%2$d</xliff:g></string>
+    <!-- Instruction that clicking outside will close folder -->
+    <string name="folder_tap_to_close">Touch to close folder</string>
+    <!-- Instruction that clicking outside will commit folder rename -->
+    <string name="folder_tap_to_rename">Touch to save rename</string>
+    <!-- Indication that folder closed -->
+    <string name="folder_closed">Folder closed</string>
+    <!-- Folder renamed format -->
+    <string name="folder_renamed">Folder renamed to <xliff:g example="Games" id="name">%1$s</xliff:g></string>
+    <!-- Folder name format -->
+    <string name="folder_name_format">Folder: <xliff:g example="Games" id="name">%1$s</xliff:g></string>
+
+    <string name="folder_menu_rename">Rename</string>
+    <string name="folder_menu_sort_alphabet">Sort alphabetically</string>
+    <string name="folder_menu_sort_use">Sort by most used</string>
+
+    <!-- Debug-only activity name. [DO NOT TRANSLATE] -->
+    <string name="debug_memory_activity">* HPROF</string>
+    <string name="settings_label">Settings</string>
+
+    <!-- Strings for settings -->
+    <!-- Title for Allow Rotation setting. [CHAR LIMIT=50] -->
+    <string name="allow_rotation_title">Allow rotation</string>
+    <string name="icon_badging_service_title">Show notification dots</string>
+
+    <!-- Label on an icon that references an uninstalled package, for which we have no information about when it might be installed. [CHAR_LIMIT=15] -->
+    <string name="package_state_unknown">Unknown</string>
+
+    <!-- Button for abandoned promises dialog, to removes this abandoned promise icon. -->
+    <string name="abandoned_clean_this">Remove</string>
+    <!-- Button for abandoned promise dialog, to search in the market for the missing package. -->
+    <string name="abandoned_search">Search</string>
+    <!-- Title for abandoned promise dialog. -->
+    <string name="abandoned_promises_title">This app is not installed</string>
+    <!-- Explanation for abandoned promise dialog. "The first 'it' refers to the shortcut icon.
+    The second "it" refers to the app. -->
+    <string name="abandoned_promise_explanation">The app for this icon isn\'t installed.
+        You can remove it, or search for the app and install it manually.
+    </string>
+
+    <!-- Strings for accessibility actions -->
+    <!-- Accessibility action to add an app to workspace. [CHAR_LIMIT=30] -->
+    <string name="action_add_to_workspace">Add to Home screen</string>
+
+    <!-- Accessibility action to move item to the current location. [CHAR_LIMIT=30] -->
+    <string name="action_move_here">Move item here</string>
+
+    <!-- Accessibility confirmation for item added to workspace. -->
+    <string name="item_added_to_workspace">Item added to home screen</string>
+
+    <!-- Accessibility confirmation for item removed. -->
+    <string name="item_removed">Item removed</string>
+
+    <!-- Accessibility action to move an item on the workspace. [CHAR_LIMIT=30] -->
+    <string name="action_move">Move item</string>
+
+    <!-- Accessibility description to move item to empty cell. -->
+    <string name="move_to_empty_cell">Move to row <xliff:g example="1" id="number">%1$s</xliff:g> column <xliff:g example="1" id="number">%2$s</xliff:g></string>
+
+    <!-- Accessibility description to move item inside a folder. -->
+    <string name="move_to_position">Move to position <xliff:g example="1" id="number">%1$s</xliff:g></string>
+
+    <!-- Accessibility description to move item to the hotseat. -->
+    <string name="move_to_hotseat_position">Move to favorites position <xliff:g example="1" id="number">%1$s</xliff:g></string>
+
+    <!-- Accessibility confirmation for item move. -->
+    <string name="item_moved">Item moved</string>
+
+    <!-- Accessibility description to move item into an existing folder. -->
+    <string name="add_to_folder">Add to folder: <xliff:g example="Games" id="name">%1$s</xliff:g></string>
+
+    <!-- Accessibility description to move item into an existing folder containing an app. -->
+    <string name="add_to_folder_with_app">Add to folder with <xliff:g example="Messenger" id="name">%1$s</xliff:g></string>
+
+    <!-- Accessibility confirmation for item added to folder. -->
+    <string name="added_to_folder">Item added to folder</string>
+
+    <!-- Accessibility description to create folder with another item. -->
+    <string name="create_folder_with">Create folder with: <xliff:g example="Game" id="name">%1$s</xliff:g></string>
+
+    <!-- Accessibility confirmation for folder created. -->
+    <string name="folder_created">Folder created</string>
+
+    <!-- Accessibility action to move an item from folder to workspace. [CHAR_LIMIT=30] -->
+    <string name="action_move_to_workspace">Move to Home screen</string>
+
+    <!-- Accessibility action to move an homescreen to the left. [CHAR_LIMIT=30] -->
+    <string name="action_move_screen_left">Move screen to left</string>
+
+    <!-- Accessibility action to move an homescreen to the right. [CHAR_LIMIT=30] -->
+    <string name="action_move_screen_right">Move screen to right</string>
+
+    <!-- Accessibility confirmation when a screen was moved. -->
+    <string name="screen_moved">Screen moved</string>
+
+    <!-- Accessibility action to resize a widget. [CHAR_LIMIT=30] -->
+    <string name="action_resize">Resize</string>
+
+    <!-- Accessibility action to increase width of a widget. [CHAR_LIMIT=30] -->
+    <string name="action_increase_width">Increase width</string>
+
+    <!-- Accessibility action to increase height of a widget. [CHAR_LIMIT=30] -->
+    <string name="action_increase_height">Increase height</string>
+
+    <!-- Accessibility action to decrease width of a widget. [CHAR_LIMIT=30] -->
+    <string name="action_decrease_width">Decrease width</string>
+
+    <!-- Accessibility action to decrease height of a widget. [CHAR_LIMIT=30] -->
+    <string name="action_decrease_height">Decrease height</string>
+
+    <!-- Accessibility confirmation for widget resize. -->
+    <string name="widget_resized">Widget resized to width <xliff:g example="2" id="number">%1$s</xliff:g> height <xliff:g example="1" id="number">%2$s</xliff:g></string>
+
+    <!-- Folder : Category folder name-->
+    <string name="category_folder_google" translatable="false">Google</string>
+    <string name="category_folder_ios_tools">Launcher Tools</string>
+
+    <string name="category_folder_game">Game</string>
+    <string name="category_folder_entertainment">Entertainment</string>
+    <string name="category_folder_media">Media</string>
+    <string name="category_folder_photo">Photo</string>
+    <string name="category_folder_social">Social</string>
+    <string name="category_folder_news_books">News and Books</string>
+    <string name="category_folder_finance_shopping">Finance Shopping</string>
+    <string name="category_folder_lifestyle">Lifestyle</string>
+    <string name="category_folder_tools">Tool</string>
+    <string name="category_folder_traffic">Traffic</string>
+    <string name="category_folder_work_study">Work</string>
+    <string name="category_folder_system">System</string>
+    <string name="category_folder_others">Folder</string>
+    <string name="category_folder_default">Folder</string>
+    <string name="category_to_folder">Move to folder</string>
+
+    <!-- Main Menu -->
+    <string name="main_menu_login">Login</string>
+    <string name="main_menu_effect">Scroll Effect</string>
+    <string name="main_menu_theme_wallpaper">Theme,Wallpaper</string>
+    <string name="main_menu_add_widget">Add Tools</string>
+    <string name="main_menu_feedback">Feedback</string>
+    <string name="main_menu_share">Share</string>
+    <string name="main_menu_launcher_settings">Launcher Settings</string>
+    <string name="main_menu_sys_settings">System Settings</string>
+
+    <!-- Shortcut -->
+    <string name="shortcut_wallpaper">Wallpaper</string>
+    <string name="shortcut_theme">Theme</string>
+    <string name="shortcut_power_save">Power Save</string>
+
+    <!-- Widgets View -->
+    <string name="widget_section_title_ios">Launcher</string>
+    <string name="widget_section_title_more">More</string>
+
+
+    <!-- Loading -->
+    <string name="launcher_loading_first_time">Please wait while prepares your launcher</string>
+
+
+    <!-- Launcher Settings Activity -->
+    <string name="launcher_settings">Launcher Settings</string>
+    <string name="settings_default_launcher">Set as Default Launcher (Recommended)</string>
+    <string name="contact_us">Contact Us</string>
+
+    <!-- Appearance Settings Activity -->
+    <string name="setting_appearance">Appearance</string>
+    <string name="settings_icon_design">Icon Design</string>
+    <string name="settings_icon_design_description">Design Icon and font size</string>
+    <string name="setting_category_desktop">Desktop</string>
+    <string name="setting_category_drawer">Drawer</string>
+    <string name="setting_effects">Effect</string>
+    <string name="settings_general">General</string>
+    <string name="settings_gesture">Gesture</string>
+
+    <string name="settings_save_restore">Backup and Restore</string>
+    <string name="settings_backup">Backup Settings</string>
+    <string name="setting_restore">Restore Settings</string>
+    <string name="setting_restore_description">Import desktop data (apps, folders, shortcuts, and widgets on the home screen) from storage space.</string>
+    <string name="setting_reset">Reset Settings</string>
+    <string name="setting_reset_description">Reset launcher data (apps, folders, shortcuts, settings, etc.) to default launcher data.</string>
+
+    <string name="setting_magic_finger">Magic Finger</string>
+    <string name="setting_magic_finger_summary">Show touch effects on </string>
+    <string name="home_screen_style">Home screen style</string>
+    <string name="drawer_style">App drawer style</string>
+    <string name="home_screen_standard">Standard</string>
+    <string name="home_screen_standard_des">Show all apps on home screen</string>
+    <string name="home_screen_drawer">Drawer</string>
+    <string name="home_screen_drawer_des">Show all apps on drawer screen</string>
+    <string name="setting_desktop_grid">Desktop grid</string>
+    <string name="setting_desktop_grid_summary">Grid size for apps and widgets on the desktop</string>
+    <string name="setting_icon_layout">Icon layout</string>
+    <string name="setting_icon_layout_summary">Size and label</string>
+    <string name="setting_icon_layout_preview">Preview</string>
+    <string name="setting_icon_category">Icon</string>
+    <string name="setting_label_category">Label</string>
+    <string name="setting_icon_size">Icon Size</string>
+    <string name="setting_label_size">Label Size</string>
+    <string name="setting_label_color">Label Color</string>
+    <string name="setting_label_custom_color">Custom Color</string>
+    <string name="setting_label_common_color">Common color</string>
+    <string name="setting_wallpaper_scrolling">Wallpaper scrolling</string>
+    <string name="setting_wallpaper_scrolling_summary">Scroll wallpaper when scrolling homescreens</string>
+    <string name="desktop_grid_layout_title">Grid Layout</string>
+    <string name="desktop_gird_4_4">4 x 4</string>
+    <string name="desktop_gird_5_4">5 x 4</string>
+    <string name="desktop_gird_4_5">4 x 5</string>
+    <string name="desktop_gird_5_5">5 x 5</string>
+
+    <string name="drawer_alpha_vertical_title">Vertical Sort alphabetically</string>
+    <string name="drawer_alpha_vertical_des">Apps merge in sections by alphabetical</string>
+    <string name="drawer_full_vertical_title">Vertical Scroll</string>
+    <string name="drawer_full_vertical_des">Apps can scroll in vertical direction</string>
+
+    <!-- Fratures Settings -->
+    <string name="setting_features">Features</string>
+    <string name="setting_category_others">Features</string>
+    <string name="setting_category_widgets">Widgets</string>
+    <string name="setting_category_msg">Message</string>
+    <string name="desktop_auto_align">Auto Align</string>
+    <string name="desktop_auto_align_desc">Auto align desktop after app uninstall.</string>
+    <string name="apps_smart_category_title">Smart Category</string>
+    <string name="apps_smart_category_desc">New install apps  auto category to folders</string>
+    <string name="news_center_title">Headlines</string>
+    <string name="news_center_desc">Headlines on Left Screen</string>
+    <string name="search_bar_title">Search Bar</string>
+    <string name="search_bar_desc">Search Bar on Home Screen</string>
+    <string name="sleep_mode_desc">Double click the blank space of desktop to sleep mode</string>
+    <string name="sleep_mode_title">Quick lock screen</string>
+    <string name="app_recommend_title">Launcher Discovery</string>
+    <string name="app_recommend_desc">Launcher Discovery on Folder</string>
+    <string name="ios_konw_title">Launcher Know</string>
+    <string name="ios_konw_desc">Float content On Home Screen</string>
+    <string name="setting_nofify_manager">Notification Manager</string>
+    <string name="setting_nofify_manager_des">Manage messages in notification bar</string>
+    <string name="setting_def_home">Set Default Launcher</string>
+    <string name="setting_low_memory">Memory Clean notification</string>
+    <string name="setting_low_battery">Low battery notification</string>
+    <string name="setting_new_wallpaper">Wallpaper recommendation</string>
+    <string name="setting_new_theme">Theme recommendation</string>
+    <string name="desktop_loop">Desktop loop</string>
+    <string name="notification_badging_title">Notification dots</string>
+    <string name="msg_missing_notification_access">To show Notification Dots, turn on app notifications for Launcher</string>
+    <string name="derived_app_name" translatable="false">Launcher</string>
+    <string name="title_missing_notification_access">Notification access needed</string>
+    <string name="title_change_settings">Change settings</string>
+    <string name="icon_badging_desc_on">On</string>
+    <string name="icon_badging_desc_off">Off</string>
+
+    <!-- Launcher Home -->
+    <string name="settings_screen_layout">Screen Layout</string>
+    <string name="settings_screen_feature">Features</string>
+
+    <!-- Gesture Settings -->
+    <string name="setting_gesture">Gestures</string>
+    <string name="setting_gesture_swipe_down">Swipe Down</string>
+    <string name="setting_gesture_swipe_up">Swipe Up</string>
+    <string name="setting_gesture_double_tap">Double Tap</string>
+    <string name="setting_gesture_none">Not Set</string>
+    <string name="setting_gesture_swipe_obliquely">Slide Obliquely</string>
+    <string name="setting_gesture_swipe_action">Swipe Action</string>
+    <string name="setting_gesture_press_action">Press Action</string>
+    <string name="gesture_tab_ios">Actions</string>
+    <string name="gesture_tab_apps">Applications</string>
+    <string name="gesture_tab_shortcut">Shortcuts</string>
+    <string name="setting_advanced">Advanced Settings</string>
+
+    <string name="setting_gesture_shortcut_show_alarm">Show Alarm</string>
+    <string name="setting_gesture_shortcut_show_hidden_folder">Show Hidden Folder</string>
+    <string name="setting_gesture_shortcut_show_quick_access">Show Quick Access</string>
+    <string name="setting_gesture_shortcut_show_search">Show Search</string>
+    <!-- Backup Settings -->
+    <string name="setting_backup">Backup &amp; Restore</string>
+    <string name="setting_category_backup">Backup</string>
+    <string name="setting_category_restore">Restore</string>
+    <string name="setting_backup_desktop_title">Backup Desktop Data</string>
+    <string name="setting_backup_desktop_summary">Backup current desktop data (apps, folders, shortcuts, and widgets on the home screen) to storage space.</string>
+    <string name="setting_backup_desktop_time">Backup time</string>
+    <string name="setting_import_desktop_title">Import Desktop Data</string>
+    <string name="setting_import_desktop_summary">Import desktop data (apps, folders, shortcuts, and widgets on the home screen) from storage space.</string>
+    <string name="setting_reset_desktop_title">Reset Launcher Data</string>
+    <string name="setting_reset_desktop_summary">Reset launcher data (apps, folders, shortcuts, settings, etc.) to default launcher data.</string>
+    <string name="launcher_settings_have_no_sdcard">No storage space found</string>
+    <string name="launcher_settings_backup_sucess">Backup is completed</string>
+    <string name="launcher_settings_backup_failed">Backup could not be completed</string>
+    <string name="launcher_settings_restore_sucess">The recovery is completed</string>
+    <string name="launcher_settings_restore_failed">The recovery could not be completed</string>
+    <string name="launcher_settings_restore_no_data">No backup data</string>
+    <string name="launcher_settings_restore_confirm">Make sure to restore desktop ?</string>
+
+    <string name="settings_category_more">More</string>
+    <string name="check_update">Check Update</string>
+    <string name="update_start_download_apk">The latest version has started to download, check details in Notification bar.</string>
+    <string name="update_to_latest_version">Update to latest version</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_about">About</string>
+    <string name="menu_ios_summary">The smallest &amp; fastest user system</string>
+
+    <string name="about_website">Website</string>
+    <string name="about_facebook" translatable="false">FACEBOOK</string>
+    <string name="menu_facebook" translatable="false">IOSGroup</string>
+    <string name="about_communities">APUS User Community</string>
+    <string name="about_communities_summary">On Google+</string>
+    <string name="about_email">Email</string>
+    <string name="menu_email" translatable="false">ioslite@droi.com</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="menu_privacy_notice">Privacy Policy</string>
+    <string name="about_version">Version</string>
+    <string name="copyright" translatable="false"> ©2017 <xliff:g id="product">%1$s</xliff:g> Group. All Rights Reserved.</string>
+
+
+    <string name="software_share_text">IOS Launcher:beautiful launcher with fast speed and good use experience, just try it~https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_titile">Share</string>
+    <string name="update_start">Checking update. Please wait a moment.</string>
+    <string name="update_check_no_update">No update found! You are using the latest version.</string>
+
+    <!-- Network state -->
+    <string name="network_error_tip">"Connection error.Please check your network."</string>
+
+    <!-- Version Update  -->
+    <string name="update_self_dialog_title">Update version</string>
+    <string name="update_self_dialog_content">New version available. Tap to update.</string>
+
+    <!-- Guide  -->
+    <string name="launcher_guide_allapps_content">Find all of your apps listed in alphabetical order in one convenient folder</string>
+    <string name="launcher_guide_allapps_title">AllApps</string>
+    <string name="launcher_guide_got_it">GOT IT</string>
+
+    <!-- Effect  -->
+    <string name="drop_delete_anim_title">Delete animation</string>
+    <string name="drop_delete_anim_summary">When delete a shortcut or widget on the home screen</string>
+    <!--<string name="drop_delete_anim_system">System</string>-->
+    <!--<string name="drop_delete_anim_explosion">Fireworks</string>-->
+    <string name="drop_delete_anim_system">Animation1</string>
+    <string name="drop_delete_anim_explosion">Animation2</string>
+    <string name="pending_anim_title">App animation</string>
+    <string name="pending_anim_summary">When opening a new app or returning to the home screen</string>
+    <string name="pending_transition_down">Slide Down</string>
+    <string name="pending_transition_left">Slide Left</string>
+    <string name="pending_transition_right">Slide Right</string>
+    <string name="pending_transition_rotate">Rotate</string>
+    <string name="pending_transition_system">System</string>
+    <string name="pending_transition_up">Slide Up</string>
+    <string name="pending_transition_zoom">Zoom</string>
+
+
+    <!-- Screen Edit -->
+    <string name="screen_edit_add_tools">Tools</string>
+    <string name="transition_effect_none">None</string>
+    <string name="transition_effect_stack">Card Stack</string>
+    <string name="transition_effect_windmill">Windmill</string>
+    <string name="transition_effect_wheel">Wheel</string>
+    <string name="transition_effect_flip">Vertical Flip</string>
+    <string name="transition_effect_cross">Cross</string>
+    <string name="transition_effect_accordion">Accordion</string>
+    <string name="transition_effect_cubein">Cube In</string>
+    <string name="transition_effect_cubeout">Cube Out</string>
+    <string name="transition_effect_carousel_left">Carousel Left</string>
+    <string name="transition_effect_carousel_right">Carousel Right</string>
+    <string name="transition_effect_overview">Overview</string>
+
+    <string name="particle_effect_name_none">None</string>
+    <string name="particle_effect_name_random">Random</string>
+    <string name="particle_effect_name_heart">Heart</string>
+    <string name="particle_effect_name_stars">Stars</string>
+    <string name="particle_effect_name_heartbeat">HeartBeat</string>
+    <string name="particle_effect_name_halo">Halo</string>
+
+    <string name="setting_size_big">Big</string>
+    <string name="setting_size_normal">Default</string>
+    <string name="setting_size_small">Small</string>
+
+    <!-- tips -->
+    <string name="desktop_reset">Reset</string>
+    <string name="desktop_reset_confirm">Make sure to reset desktop ?</string>
+    <string name="program_restart">Restart</string>
+    <string name="program_restart_confirm">Restart Launcher to apply your changes ?</string>
+    <string name="backup_permission_title">Ration</string>
+    <string name="backup_permission_ration">Backup desktop data need use external storage.</string>
+    <string name="color_black">Black</string>
+    <string name="color_white">White</string>
+    <string name="rec_apps_predicted">Guess</string>
+    <string name="folder_discovery_label">Launcher Discovery</string>
+    <string name="ios_welcome_text">Welcome</string>
+    <string name="ios_detail_one_text">You will use a new version of the operating user system</string>
+    <string name="ios_detail_two_text">Faster, lighter and simpler</string>
+    <string name="allapps_alhpa_exclusive"></string>
+    <string name="menu_button_text">Menu</string>
+    <string name="widget_button_text">Widgets</string>
+    <string name="effect_button_text">Effect</string>
+    <string name="magicthumb_button_text">Magic Thumb</string>
+
+    <string name="search_button_text">Search</string>
+    <string name="wallpaper_button_text">Wallpapers</string>
+    <string name="theme_club_button_text">ThemeClub</string>
+    <string name="sort_button_text">Icon Sort</string>
+    <string name="sort_icon_cur_up_screen_text">Top</string>
+    <string name="sort_icon_cur_down_screen_text">Bottom</string>
+    <string name="sort_icon_all_top_screen_text">All Top</string>
+    <string name="sort_icon_all_bottom_screen_text">All Bottom</string>
+    <string name="left_custom_content_loading">Loading</string>
+    <string name="sd_permission_title">Ration</string>
+    <string name="sd_permission_ration">Install app need use external storage.</string>
+    <string name="permlab_uninstall_shortcut">uninstall shortcuts</string>
+    <string name="permdesc_uninstall_shortcut">Allows the app to remove shortcuts without user intervention.</string>
+    <string name="shortcut_uninstalled">Shortcut \"<xliff:g id="name" example="Browser">%s</xliff:g>\" was removed.</string>
+    <string name="drag_later">Please drag it later</string>
+    <string name="font_description"></string>
+    <!-- Strings for widgets & more in the popup container/bottom sheet -->
+    <!-- Title for a bottom sheet that shows widgets for a particular app -->
+    <string name="widgets_bottom_sheet_title"><xliff:g id="name" example="Messenger">%1$s</xliff:g> widgets</string>
+
+    <!-- Popup items -->
+    <!-- Text to display as the header above notifications. [CHAR_LIMIT=30] -->
+    <string name="notifications_header">Notifications</string>
+
+    <!-- Accessibility action to show quick actions menu for an icon. [CHAR_LIMIT=30] -->
+    <string name="action_deep_shortcut">Shortcuts</string>
+
+    <!-- Accessibility description for the shortcuts menu shown for an app. -->
+    <string name="shortcuts_menu_description"><xliff:g id="number_of_shortcuts" example="3">%1$d</xliff:g> shortcuts for <xliff:g id="app_name" example="Messenger">%2$s</xliff:g></string>
+    <!-- Accessibility description when the shortcuts menu has notifications as well as shortcuts. -->
+    <string name="shortcuts_menu_with_notifications_description"><xliff:g id="number_of_shortcuts" example="3">%1$d</xliff:g> shortcuts and <xliff:g id="number_of_notifications" example="3">%2$d</xliff:g> notifications for <xliff:g id="app_name" example="Messenger">%3$s</xliff:g></string>
+
+    <!-- Accessibility action to dismiss a notification in the shortcuts menu for an icon. [CHAR_LIMIT=30] -->
+    <string name="action_dismiss_notification">Dismiss</string>
+
+    <!-- Accessibility confirmation for notification being dismissed. -->
+    <string name="notification_dismissed">Notification dismissed</string>
+    <string name="overview_panel_set_home_page_text">Click the icon to set as homepage</string>
+    
+    <string name="ios_colon">:</string>
+    <string name="ios_slash">/</string>
+    <string name="folder_app_recommended_text">You may also like</string>
+    <string name="shortcut_discovery">Discovery</string>
+    <string name="icon_shape_override_progress">Applying icon shape changes</string>
+    
+    <string name="wallpaper_settings">Wallpaper Settings</string>
+
+    <string name="fmsearch_search_tip_string"> Search apps, messages, contacts</string>
+
+    <string name="activity_unavailable">Application can\'t be launched, SD card is unavailable!</string>
+
+    <string name="rename_action">OK</string>
+    <string name="cancel_action">Cancel</string>
+    <string name="recommon_name">Recommends:</string>
+    <string name="games">Games</string>
+    <string name="tools">Tools</string>
+    <string name="jobs">Jobs</string>
+    <string name="life">Life</string>
+    <string name="explorer">Explorer</string>
+    <string name="system">System</string>
+    <string name="library">Library</string>
+    <string name="no_use">Useless</string>
+
+    <string name="sysfolder_tool">Tools</string>
+    <string name="sysfolder_safe">Security Settings</string>
+    <string name="wait_when_loading">Loading data, please wait…</string>
+    <string name="folder_name_toolkit">Toolkit</string>
+    <string name="folder_batchadd_hint">Batch edit</string>
+
+    <string name="uninstall_action">Delete</string>
+    <string name="uninstall_app_label">Delete</string>
+    <string name="uninstall_app_message">Data will also be deleted when the app is uninstalled.</string>
+    <string name="select_apps">Select apps</string>
+    <string name="hide_apps_guide_page_title">Hide apps</string>
+    <string name="launcher_settings_reset_success">Reset successfully</string>
+    <string name="launcher_settings_reset_failed">Reset failed</string>
+
+    <string name="started">Started</string>
+    <string name="frequent">Frequent</string>
+    <string name="latest">Latest</string>
+
+    <string name="shortcut_hide_app">Hide apps</string>
+    <string name="shortcut_search_app">T9 search</string>
+    <string name="shortcut_lock_screen">One-key locker</string>
+    <string name="shortcut_os_setting">Launcher setting</string>
+    <string name="shortcut_response">Suggestion</string>
+    <string name="shortcut_change_theme">Change theme</string>
+    <string name="themeclub_app_name">ThemeClub</string>
+    <string name="sc_app_name">Security Center</string>
+
+    <!-- AppLock Strings -->
+    <string name="applock_list_title">Encrypted applications need to enter the password before use</string>
+    <string name="applock_app_name">App Lock</string>
+    <string name="applock_pws_mode_dialog_title">Password mode</string>
+    <string name="applock_pws_mode_dialog_message">Please select the password mode you need</string>
+    <string name="applock_pws_mode_dialog_independent_password">Independent password</string>
+    <string name="applock_pws_mode_dialog_login_password">Login password</string>
+    <string name="applock_setpws_state_input">Please enter a password</string>
+    <string name="applock_setpws_state_input_before_change">Please enter a password</string>
+    <string name="applock_setpws_state_input_first">For the first time, please enter the login password</string>
+    <string name="applock_setpws_state_input_confirm">Please enter the password again</string>
+    <string name="applock_setpws_state_input_nomatch">Two passwords do not match, please re-enter</string>
+    <string name="applock_setpws_state_error">The password is incorrect. Please try again</string>
+    <string name="applock_setpws_state_input_fingerprint">Please use a fingerprint or password</string>
+    <string name="applock_setpws_state_error_fingerprint">Password or fingerprint verification failed. Please try again</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="applock_setpws_cancel">Cancel</string>
+    <string name="applock_setpws_change">Change Password</string>
+    <string name="applock_setting_title">AppLock Setting</string>
+    <string name="applock_setting_change_password">Modify the login password</string>
+    <string name="applock_setting_open_close">Open the application lock</string>
+    <string name="applock_support_owner">The guest mode is not supported AppLock</string>
+
+    <string name="preYear">-</string>
+    <string name="preMonth">-</string>
+    <string name="preDay"></string>
+    <string name="preHour">:</string>
+    <string name="preMinute">:</string>
+    <string name="preSecond"></string>
+
+
+    <!-- Add New Strings KDH 20231030 -->
+
+    <string name="remove_app">Remove App</string>
+    <string name="share_app">Share App</string>
+    <string name="edit_home_screen">Edit Home Screen</string>
+    <string name="hidden_app">Hidden App</string>
+
+    <string name="app_library">App Library</string>
+    <string name="done">Done</string>
+    <string name="search_web">Search Web</string>
+    <string name="edit">Edit</string>
+    <string name="application_not_found">Application not found!</string>
+    <string name="no_more_events">No more events</string>
+    <string name="all_day">All day</string>
+    <string name="unknown">Unknown</string>
+    <string name="battery">Batteries</string>
+    <string name="warning_contact_permission">No READ CONTACT permission, grant the permission to loading favorite contacts.</string>
+    <string name="grant_contact_permission">Grant Read Contact Permission</string>
+    <string name="calendar">Calendar</string>
+    <string name="grant_calendar_permission">Grant Read Calendar Permission</string>
+    <string name="warning_calendar_permission">No READ CALENDAR permission, grant the permission to loading events.</string>
+    <string name="grant_storage_permission">Grant Read Storage Permission</string>
+    <string name="warning_storage_permission">No READ STORAGE permission, grant the permission to loading photo.</string>
+    <string name="hint_prompt">Speak a keyword</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="search_store">Search Store</string>
+    <string name="search_maps">Search Maps</string>
+    <string name="picture">Picture</string>
+    <string name="add_widget">Add widget</string>
+    <string name="favorites">Favorites</string>
+    <string name="pick_image">My photos</string>
+    <string name="change_icon">Change icon</string>
+    <string name="app_manager">App Manager</string>
+    <string name="app_manager_desc"></string>
+    <string name="cancel_state">Cancel</string>
+    <string name="not_support">Not Support</string>
+    <string name="Thankyou" translatable="false">Thank you!</string>
+    <string name="not_now" translatable="false">Not now</string>
+    <string name="rate_us" translatable="false">Rate us</string>
+    <string name="rate_success">Rate Success</string>
+    <string name="please_reate_use">Please rate us</string>
+</resources>

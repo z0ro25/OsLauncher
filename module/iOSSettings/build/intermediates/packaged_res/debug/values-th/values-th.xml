@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_action_settings">ตั้งค่า</string>
+    <string name="settings_airplane_mode_text">โหมดเครื่องบิน</string>
+    <string name="settings_app_name">การตั้งค่าด่วน</string>
+    <string name="settings_application_management_text">จัดการแอพ</string>
+    <string name="settings_auto_brightness_text">ความสว่างอัตโนมัติ</string>
+    <string name="settings_auto_rotate_text">หมุนหน้าจออัตโนมัติ</string>
+    <string name="settings_blue_touch_text">บลูทูธ</string>
+    <string name="settings_brightness_text">ความสว่าง</string>
+    <string name="settings_desk">ตั้งค่าหน้าจอ</string>
+    <string name="settings_error_text">ระบบถูกจำกัด ไม่สามารถใช้งานได้!</string>
+    <string name="settings_flash_light_text">ไฟฉาย</string>
+    <string name="settings_light_error_text">ไม่มีไฟแฟลช ไม่สามารถใช้งานได้!</string>
+    <string name="settings_location_mode_text">ตำแหน่ง</string>
+    <string name="settings_power_saving_text">โหมดประหยัดแบตเตอรี่</string>
+    <string name="settings_ringtone_text">ริงโทน</string>
+    <string name="settings_setting_title">IOS OS</string>
+    <string name="settings_settings_hot_spot">ฮอตสปอต</string>
+    <string name="settings_settings_text">ตั้งค่าระบบ</string>
+    <string name="settings_sim_error_text">ไม่มีซิมการ์ด!!</string>
+    <string name="settings_traffic_data_text">ข้อมูล</string>
+    <string name="settings_traffic_monitoring_text">ข้อมูลการใช้งาน</string>
+    <string name="settings_wifi_text">WIFI</string>
+    <string name="torch_widget_name">ไฟฉาย</string>
+</resources>

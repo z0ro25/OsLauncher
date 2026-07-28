@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:arc="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_clean_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_clean_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:antialias="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/clean_circle_view_bg" />
+
+    <ImageView
+        android:id="@+id/iv_out_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:antialias="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/clean_circle_out_light" />
+
+    <ImageView
+        android:id="@+id/iv_out_circle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:antialias="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/clean_circle_out_circle" />
+
+    <ImageView
+        android:id="@+id/iv_in_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:antialias="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/clean_circle_in_light" />
+
+    <ImageView
+        android:id="@+id/iv_in_circle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:antialias="true"
+        android:src="@drawable/clean_circle_in_circle" />
+
+    <com.ios.cleanwidget.arc.ArcLayout
+        android:id="@+id/arcLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        arc:arc_origin="center"
+        arc:arc_radius="@dimen/clean_widget_circle_arc_radius">
+
+        <ImageView
+            style="@style/ActItemStyle"
+            android:background="@drawable/ic_clean_target_1" />
+
+        <ImageView
+            style="@style/ActItemStyle"
+            android:background="@drawable/ic_clean_target_2" />
+
+        <ImageView
+            style="@style/ActItemStyle"
+            android:background="@drawable/ic_clean_target_3" />
+
+        <ImageView
+            style="@style/ActItemStyle"
+            android:background="@drawable/ic_clean_target_4" />
+
+    </com.ios.cleanwidget.arc.ArcLayout>
+
+
+    <ImageView
+        android:id="@+id/clean_start"
+        android:layout_width="@dimen/clean_widget_circle_star_size"
+        android:layout_height="@dimen/clean_widget_circle_star_size"
+        android:layout_gravity="center"
+        android:antialias="true"
+        android:background="@drawable/clean_star_light"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+</FrameLayout>

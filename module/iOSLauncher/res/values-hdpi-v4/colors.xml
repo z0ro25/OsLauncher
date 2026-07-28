@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="TurnSceneItem_detail_color">#ff969696</color>
+    <color name="TurnSceneItem_text_color">#ffebebeb</color>
+    <color name="calendar_monthday_text_color">#fff16822</color>
+    <color name="calendar_week_text_color">#ff3d3d3d</color>
+    <color name="dialog_button_tcolor">#ff4e4f4c</color>
+    <color name="dialog_message_tcolor">#ff4f504d</color>
+    <color name="dialog_title_tcolor">#ff0b984c</color>
+    <color name="drag_outside_text_color">#ffebebeb</color>
+    <color name="loading_dialog_text_color">#ff323232</color>
+    <color name="widget_icon_text_color">#ffebebeb</color>
+    <color name="workspace_preview_textcolor">#ffebebeb</color>
+    <color name="workspace_preview_title_textcolor">#ffebebeb</color>
+    <color name="workspace_preview_title_textcolor_press">#ff2182ad</color>
+</resources>

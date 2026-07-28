@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/sl_title_bar_rl"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/sl_title_bar_height"
+    android:background="@color/sl_title_bar_color" >
+
+    <LinearLayout
+        android:id="@id/sl_title_bar_ll_left"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/sl_title_bar_selector_background"
+        android:clickable="true"
+        android:gravity="center_vertical|left"
+        android:orientation="horizontal"
+        android:paddingLeft="13dip"
+        android:paddingRight="13dip" >
+
+        <ImageView
+            android:id="@id/sl_title_bar_left_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sl_back" />
+
+        <TextView
+            android:id="@id/sl_title_bar_left_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sl_title_bar_texp_gap"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/sl_white"
+            android:textSize="@dimen/sl_title_bar_text_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/sl_title_bar_ll_right"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/sl_title_bar_selector_background"
+        android:clickable="true"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:paddingLeft="13dip"
+        android:paddingRight="13dip" >
+
+        <TextView
+            android:id="@id/sl_title_bar_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/sl_title_bar_texp_gap"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/sl_white"
+            android:textSize="@dimen/sl_title_bar_text_size" />
+
+        <ImageView
+            android:id="@id/sl_title_bar_right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sl_setting" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/sl_title_bar_ll_center"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal" >
+        <!-- android:layout_toLeftOf="@id/c_title_bar_ll_right"
+        android:layout_toRightOf="@id/c_title_bar_ll_left" -->
+
+        <TextView
+            android:id="@id/sl_title_bar_center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/bs_app_name"
+            android:textColor="@color/sl_white"
+            android:textSize="@dimen/sl_title_bar_text_size" />
+    </LinearLayout>
+
+</RelativeLayout>

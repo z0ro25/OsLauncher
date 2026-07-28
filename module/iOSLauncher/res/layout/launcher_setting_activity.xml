@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.amz.ios.launcher.views.TopTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        launcher:titleText="@string/launcher_settings" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/settings_default_launcher_gap"
+                layout="@layout/preference_gap" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                style="@style/pref_settingtitle"
+                android:text="@string/settings_screen_layout"
+                android:textColor="@color/pref_category_grey" />
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_appearance"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_icon_layout"
+                launcher:preferenceTitle="@string/setting_appearance"
+                launcher:rightImage="rightArrow" />
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_icon_design"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_icon_design"
+                launcher:preferenceTitle="@string/settings_icon_design"
+                launcher:preferenceSummary="@string/settings_icon_design_description"
+                launcher:rightImage="rightArrow" />
+
+            <include
+                android:id="@+id/settings_default_launcher_gap"
+                layout="@layout/preference_gap" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                style="@style/pref_settingtitle"
+                android:text="@string/settings_screen_feature"
+                android:textColor="@color/pref_category_grey" />
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_general"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_general"
+                launcher:preferenceTitle="@string/settings_general"
+                launcher:rightImage="rightArrow" />
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_effect"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_effect"
+                launcher:preferenceTitle="@string/setting_effects"
+                launcher:rightImage="rightArrow" />
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_gesture"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_gesture"
+                launcher:preferenceTitle="@string/settings_gesture"
+                launcher:rightImage="rightArrow" />
+
+            <include
+                android:id="@+id/settings_default_launcher_gap"
+                layout="@layout/preference_gap" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                style="@style/pref_settingtitle"
+                android:text="@string/settings_save_restore"
+                android:textColor="@color/pref_category_grey" />
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_backup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_backup"
+                launcher:preferenceTitle="@string/settings_backup"/>
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_restore"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_restore"
+                launcher:preferenceTitle="@string/setting_restore"
+                launcher:preferenceSummary="@string/setting_restore_description"/>
+
+            <com.amz.ios.launcher.views.IOSPreference
+                android:id="@+id/settings_reset"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                launcher:preferenceIcon="@drawable/ic_settings_reset"
+                launcher:preferenceTitle="@string/setting_reset"
+                launcher:preferenceSummary="@string/setting_reset_description"/>
+
+            <include layout="@layout/preference_gap" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

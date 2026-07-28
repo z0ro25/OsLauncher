@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ioslauncher.iossearch.test.iOSSearch-mergeDebugAndroidTestResources-41:/values-sw720dp-v13/values-sw720dp-v13.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSLauncher\\build\\intermediates\\packaged_res\\debug\\values-sw720dp-v13\\values-sw720dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,127,195,267,331,389,451,513,556,621,684,760,1153",
+                        "endLines": "2,3,4,5,6,7,8,9,10,11,12,20,24",
+                        "endColumns": "71,67,71,63,57,61,61,42,64,62,75,12,12",
+                        "endOffsets": "122,190,262,326,384,446,508,551,616,679,755,1148,1322"
+                    }
+                }
+            ]
+        }
+    ]
+}

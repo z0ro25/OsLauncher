@@ -1,0 +1,28 @@
+<resources>
+    <string name="news">News</string>
+    <string name="read_more">Read More</string>
+
+    <!--"local","world","business","entertainment","sports"-->
+    <!--新闻栏目-->
+    <string-array name="news_channel_name">
+        <item>headline</item>
+        <item>local</item>
+        <item>world</item>
+        <item>business</item>
+        <item>entertainment</item>
+        <item>sports</item>
+        <item>cars</item>
+        <item>food</item>
+        <item>art</item>
+        <item>movies</item>
+        <item>fashion</item>
+        <item>technology</item>
+        <item>music</item>
+        <item>politics</item>
+        <item>health</item>
+        <item>lifestyle</item>
+        <item>pets</item>
+        <item>science</item>
+        <item>travel</item>
+    </string-array>
+</resources>

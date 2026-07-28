@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MUSIC;end" />
+    <favorite launcher:uri="#Intent;action=android.intent.action.MUSIC_PLAYER;end" />
+
+    <favorite
+        launcher:className="com.ios.music.MusicBrowserActivity"
+        launcher:packageName="com.ios.music" />
+
+    <favorite
+        launcher:className="com.android.music.MusicBrowserActivity"
+        launcher:packageName="com.android.music" />
+
+    <favorite
+        launcher:className="com.android.mediacenter.PageActivity"
+        launcher:packageName="com.android.mediacenter" />
+    <favorite
+        launcher:className="com.android.mediacenter.ui.main.MainActivity"
+        launcher:packageName="com.android.mediacenter" />
+    <favorite
+        launcher:className="com.android.mediacenter.PageActivity"
+        launcher:packageName="com.android.mediacenter" />
+    <favorite
+        launcher:className="com.android.music.StarMusicBrowserActivity"
+        launcher:packageName="com.android.music" />
+    <favorite
+        launcher:className="com.imusic.musicplayer.ui.WelcomeActivity"
+        launcher:packageName="com.imusic.musicplayer" />
+    <favorite
+        launcher:className="com.lge.music.MusicBrowserActivity"
+        launcher:packageName="com.lge.music" />
+    <favorite
+        launcher:className="com.meizu.media.music.MusicActivity"
+        launcher:packageName="com.meizu.media.music" />
+    <favorite
+        launcher:className="com.sec.android.app.music.MusicActionTabActivity"
+        launcher:packageName="com.sec.android.app.music" />
+    <favorite
+        launcher:className="com.sonyericsson.music.MusicActivity"
+        launcher:packageName="com.sonyericsson.music" />
+    <favorite
+        launcher:className="com.android.music.MusicScanResultActivity"
+        launcher:packageName="com.android.music" />
+    <favorite
+        launcher:className="com.miui.player.ui.MusicBrowserActivity"
+        launcher:packageName="com.miui.player" />
+    <favorite
+        launcher:className="com.android.music.MusicPlayerTab"
+        launcher:packageName="com.android.music" />
+    <favorite
+        launcher:className="com.htc.music.browserlayer.MusicBrowserTabActivity"
+        launcher:packageName="com.htc.music" />
+    <favorite
+        launcher:className="com.oppo.music.MainListActivity"
+        launcher:packageName="com.oppo.music" />
+    <favorite
+        launcher:className="com.lenovo.music.ui.LeAppLoadingActivity"
+        launcher:packageName="com.lenovo.music" />
+    <favorite
+        launcher:className="com.android.strengthenmusic.ui.MusicAppStart"
+        launcher:packageName="com.android.strengthenmusic" />
+    <favorite
+        launcher:className="com.android.bbkmusic.WidgetToTrackActivity"
+        launcher:packageName="com.android.bbkmusic" />
+    <favorite
+        launcher:className="com.lewa.player.activity.SplashActivity"
+        launcher:packageName="com.lewa.player" />
+    <favorite
+        launcher:className="com.android.music.activitymanagement.TopLevelActivity"
+        launcher:packageName="com.google.android.music" />
+    <favorite
+        launcher:className="cmccwm.mobilemusic.ui.activity.PreSplashActivityMigu"
+        launcher:packageName="cmccwm.mobilemusic"/>
+</items>

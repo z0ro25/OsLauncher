@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    namespace "com.amz.ioslauncher.iossearch"
+    resourcePrefix 'fmsearch'
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+        }
+    }
+
+    buildFeatures {
+        // for view binding:
+        buildConfig = true
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile "src/main/AndroidManifest.xml"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation project(':library:iOSAppsNewsProvider')
+    implementation project(':library:iOSLiteCommon')
+    implementation project(':module:iOSLauncher')
+    implementation project(':library:RealTimeBlurView')
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'com.google.android.material:material:1.11.0'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+}

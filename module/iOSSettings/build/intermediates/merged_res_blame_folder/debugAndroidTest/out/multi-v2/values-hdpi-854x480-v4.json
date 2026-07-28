@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.ios.ioslite.odm.test.iOSSettings-mergeDebugAndroidTestResources-41:/values-hdpi-854x480-v4/values-hdpi-854x480-v4.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSSettings\\build\\intermediates\\packaged_res\\debug\\values-hdpi-854x480-v4\\values-hdpi-854x480-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,117,178,245,313,378,443",
+                        "endColumns": "61,60,66,67,64,64,47",
+                        "endOffsets": "112,173,240,308,373,438,486"
+                    },
+                    "to": {
+                        "startLines": "9,10,11,12,13,14,15",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "503,565,626,693,761,826,891",
+                        "endColumns": "61,60,66,67,64,64,47",
+                        "endOffsets": "560,621,688,756,821,886,934"
+                    }
+                },
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSLauncher\\build\\intermediates\\packaged_res\\debug\\values-hdpi-854x480-v4\\values-hdpi-854x480-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,120,191,251,317,379,444",
+                        "endColumns": "64,70,59,65,61,64,58",
+                        "endOffsets": "115,186,246,312,374,439,498"
+                    }
+                }
+            ]
+        }
+    ]
+}

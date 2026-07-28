@@ -1,0 +1,18 @@
+<resources>
+
+    <dimen name="clean_widget_min_width">0dp</dimen>
+    <dimen name="clean_widget_min_height">0dp</dimen>
+
+    <dimen name="clean_widget_icon_default_size">48dp</dimen>
+    <dimen name="clean_widget_icon_default_padding">4dp</dimen>
+    <dimen name="clean_widget_text_default_size">11sp</dimen>
+
+    <dimen name="clean_widget_circle_view_size">60dp</dimen>
+    <dimen name="clean_widget_circle_star_size">36dp</dimen>
+    <dimen name="clean_widget_circle_arc_radius">52dp</dimen>
+
+    <dimen name="icon_boost_size">50dp</dimen>
+    <dimen name="toast_content_width">210dp</dimen>
+    <dimen name="dialog_y_offset">80dp</dimen>
+    <dimen name="dialog_margin">4dp</dimen>
+</resources>

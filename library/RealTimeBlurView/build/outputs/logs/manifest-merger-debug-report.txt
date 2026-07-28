@@ -1,0 +1,29 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:2:1-6:12
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:2:1-6:12
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:2:1-6:12
+	package
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:2:1-6:12
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+	android:versionName
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:4:5-30
+	xmlns:android
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml:3:5-28
+uses-sdk
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+		ADDED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+		INJECTED from E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml

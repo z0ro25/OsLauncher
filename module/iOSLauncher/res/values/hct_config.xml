@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="hct_show_badge_number">true</bool>
+    <string name="show_badge_list">com.google.android.dialer|com.android.dialer|com.google.android.apps.messaging|com.android.mms</string>
+    
+    <bool name="hct_bool_gms_custom_default">true</bool>
+    
+</resources>

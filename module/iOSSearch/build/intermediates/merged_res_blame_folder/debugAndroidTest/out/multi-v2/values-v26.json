@@ -1,0 +1,47 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ioslauncher.iossearch.test.iOSSearch-mergeDebugAndroidTestResources-41:/values-v26/values-v26.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSLauncher\\build\\intermediates\\packaged_res\\debug\\values-v26\\values-v26.xml",
+                    "from": {
+                        "startLines": "2,3,4,8",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,113,171,347",
+                        "endLines": "2,3,7,10",
+                        "endColumns": "57,57,12,12",
+                        "endOffsets": "108,166,342,533"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,23",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,113,171,1181",
+                        "endLines": "2,3,7,25",
+                        "endColumns": "57,57,12,12",
+                        "endOffsets": "108,166,342,1367"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\3cb10093019ae5ec879f919a78f23112\\transformed\\appcompat-1.6.1\\res\\values-v26\\values-v26.xml",
+                    "from": {
+                        "startLines": "2,3,4,8,12,16",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,130,217,381,557,796",
+                        "endLines": "2,3,7,11,15,16",
+                        "endColumns": "74,86,12,12,12,92",
+                        "endOffsets": "125,212,376,552,791,884"
+                    },
+                    "to": {
+                        "startLines": "8,9,10,14,18,22",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "347,422,509,673,849,1088",
+                        "endLines": "8,9,13,17,21,22",
+                        "endColumns": "74,86,12,12,12,92",
+                        "endOffsets": "417,504,668,844,1083,1176"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="config_ToggleBarHeightPercentage">185</integer>
+    <integer name="config_mainmenuPagePointTranslationY">16</integer>
+    <integer name="config_pagePointDownTranslationY">114</integer>
+    <integer name="config_workspaceSpringLoadShrinkPercentage">82</integer>
+    <integer name="config_MaxDegreeWiget">28</integer>
+    <integer name="config_SlantEffectScaleFactorInMini">1200</integer>
+    <integer name="config_gaussianBlurParameter">2</integer>
+    <integer name="config_pageToMiniModeTranslationY">-90</integer>
+    <integer name="ios_dockbar_gesture_distance">50</integer>
+</resources>

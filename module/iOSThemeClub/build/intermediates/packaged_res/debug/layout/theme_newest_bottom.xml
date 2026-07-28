@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/theme_icon"
+        android:layout_width="@dimen/theme_icon_witdh"
+        android:layout_height="@dimen/theme_icon_height"
+        android:layout_marginStart="@dimen/theme_img_margin"
+        android:layout_marginLeft="@dimen/theme_img_margin"
+        android:layout_marginBottom="@dimen/theme_img_margin"
+        android:layout_marginTop="@dimen/theme_img_margin"
+        android:scaleType="centerCrop"/>
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/theme_newest_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/theme_icon"
+        android:layout_toEndOf="@id/theme_icon"
+        android:layout_toRightOf="@id/theme_icon"
+        android:textSize="@dimen/title_size"
+        android:textColor="@color/title_color"
+        android:layout_marginLeft="@dimen/theme_img_margin"
+        android:layout_marginStart="@dimen/theme_img_margin"
+        android:gravity="center"/>
+    <ImageView
+        android:id="@+id/downlaod_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/download"
+        android:scaleType="centerCrop"
+        android:layout_alignStart="@id/theme_newest_name"
+        android:layout_alignLeft="@id/theme_newest_name"
+        android:layout_below="@id/theme_newest_name"
+        android:layout_toEndOf="@id/theme_icon"
+        android:layout_toRightOf="@id/theme_icon"
+        android:layout_alignBottom="@id/theme_icon"/>
+    <com.amz.ios.launcher.views.CustomTextView
+        android:textSize="@dimen/title_size"
+        android:id="@+id/newest_downlaod_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_download_color"
+        android:layout_alignTop="@id/downlaod_icon"
+        android:layout_alignBottom="@id/downlaod_icon"
+        android:layout_toEndOf="@id/downlaod_icon"
+        android:layout_toRightOf="@id/downlaod_icon"
+        android:gravity="center" />
+</RelativeLayout>

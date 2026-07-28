@@ -1,0 +1,286 @@
+package com.amz.ios.launcher.leftpage.adapter;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.amz.ios.launcher.LauncherAnimUtils;
+import com.amz.ios.launcher.R;
+import com.amz.ios.launcher.bounce.BouncyRecyclerView;
+import com.amz.ios.launcher.leftpage.views.CustomContentView;
+import com.amz.ios.launcher.leftpage.custom.CustomZoomImageView;
+import com.amz.ios.launcher.leftpage.database.WidgetInfo;
+
+import java.util.ArrayList;
+
+public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter<RecyclerView.ViewHolder> {
+
+    private final CustomContentView mCustomContentView;
+    private final ArrayList<WidgetInfo> mWidgetInfoArrayList;
+
+    public CustomContentWidgetAdapter(CustomContentView customContentView, ArrayList<WidgetInfo> arrayList) {
+        this.mCustomContentView = customContentView;
+        this.mWidgetInfoArrayList = arrayList;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        if (i == 100){
+            return new WidgetItemViewHolder(
+                    inflater.inflate(R.layout.edit_widget_button,parent,false)
+            );
+        }
+
+        int resId = -1;
+
+        if (i == 20) {
+            resId = R.layout.widget_clock_2x2;
+        }
+        else if (i == 21) {
+            resId = R.layout.widget_clock_2x4;
+        }
+        else if (i == 30) {
+            resId = R.layout.widget_photo_2x2;
+        }
+        else if (i == 40) {
+            resId = R.layout.widget_calendar_2x2;
+        }
+        else if (i == 41) {
+            resId = R.layout.widget_calendar_2x4;
+        }
+        else if (i == 61) {
+            resId = R.layout.widget_battery_2x2;
+        }
+        else if (i == 60) {
+            resId = R.layout.widget_battery_2x4;
+        }
+        else if (i == 70 || i == 71) {
+            resId = R.layout.widget_suggestion_2x4;
+        }
+        else if (i == 51){
+            resId = R.layout.widget_layout_favourite_contact_2x4;
+        }
+        else {
+            resId = R.layout.widget_clock_2x4;
+//            return new LauncherWidgetListViewHolder(null);
+        }
+        return new LauncherWidgetListViewHolder(
+                inflater.inflate(resId,parent,false)
+        );
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof WidgetItemViewHolder) {
+            WidgetItemViewHolder viewHolder = (WidgetItemViewHolder) holder;
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public final void onClick(View view) {
+                    mCustomContentView.startShaking();
+                    mCustomContentView.enableButtons();
+                }
+            });
+            ((StaggeredGridLayoutManager.LayoutParams) ((viewHolder).itemView.getLayoutParams())).setFullSpan(true);
+        }
+        else if (holder instanceof LauncherWidgetListViewHolder) {
+            LauncherWidgetListViewHolder viewHolder = (LauncherWidgetListViewHolder) holder;
+            CustomZoomImageView customZoomImageView = viewHolder.mDeleteBtn;
+            final int pos = position;
+            if (customZoomImageView != null) {
+                customZoomImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public final void onClick(View view) {
+                        if (pos >= mWidgetInfoArrayList.size())
+                            return;
+                        if (mCustomContentView.mListWidgetRV == null || mCustomContentView.mWidgetListAdapter == null)
+                            return;
+                        final WidgetInfo info = mWidgetInfoArrayList.get(pos);
+                        mWidgetInfoArrayList.remove(pos);
+                        notifyItemRemoved(pos);
+                        notifyItemRangeChanged(pos, mWidgetInfoArrayList.size(),null);
+                        new Thread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mCustomContentView.mWidgetInfoList.remove(info);
+                                        info.delete();
+                                    }
+                                }
+                        ).start();
+                    }
+                });
+            }
+
+            if (this.mWidgetInfoArrayList.get(pos).type % 10 >= 1) {
+                ((StaggeredGridLayoutManager.LayoutParams) viewHolder.itemView.getLayoutParams()).setFullSpan(true);
+            }
+
+            CustomContentView customContentView = this.mCustomContentView;
+            if (customContentView != null) {
+                if (customContentView.t) {
+                    viewHolder.startShaking();
+                } else {
+                    viewHolder.hide();
+                }
+            }
+            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public final boolean onLongClick(View view) {
+                    if (CustomContentWidgetAdapter.this.mCustomContentView == null) return true;
+                    CustomContentWidgetAdapter.this.mCustomContentView.enableButtons();
+                    CustomContentWidgetAdapter.this.mCustomContentView.startShaking();
+                    return true;
+                }
+            });
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        ArrayList<WidgetInfo> arrayList = this.mWidgetInfoArrayList;
+        if (arrayList != null) {
+            return 1 + arrayList.size();
+        }
+        return 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (this.mWidgetInfoArrayList != null) {
+            if (position == getItemCount() - 1) {
+                return 100;
+            }
+            return this.mWidgetInfoArrayList.get(position).type;
+        }
+        return 0;
+    }
+
+    @Override
+    public void onItemMoved(int fromPosition, int toPosition) {
+        if (this.mWidgetInfoArrayList.size() > fromPosition) {
+            this.mWidgetInfoArrayList.add(toPosition, this.mWidgetInfoArrayList.remove(fromPosition));
+            notifyItemMoved(fromPosition, toPosition);
+            final CustomContentView customContentView = this.mCustomContentView;
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    customContentView.getClass();
+                    for (int i = 0; i < customContentView.mWidgetInfoList.size(); i++) {
+                        try {
+                            WidgetInfo info = customContentView.mWidgetInfoList.get(i);
+                            int indexOf = customContentView.mWidgetInfoList.indexOf(info);
+                            info.order = indexOf;
+                            // TODO: 2023.11.17 DataBase save
+                            info.save();
+                        } catch (Throwable th) {
+                            th.getMessage();
+                            return;
+                        }
+                    }
+                }
+            }).start();
+
+        }
+    }
+
+    @Override
+    public void onItemSwipedToStart(RecyclerView.ViewHolder viewHolder, int positionOfItem) {
+
+    }
+
+    @Override
+    public void onItemSwipedToEnd(RecyclerView.ViewHolder viewHolder, int positionOfItem) {
+
+    }
+
+    @Override
+    public void onItemSelected(@NonNull RecyclerView.ViewHolder viewHolder) {
+
+    }
+
+    @Override
+    public void onItemReleased(RecyclerView.ViewHolder viewHolder) {
+
+    }
+
+    public class WidgetItemViewHolder extends RecyclerView.ViewHolder{
+
+        public WidgetItemViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    public static class LauncherWidgetListViewHolder extends RecyclerView.ViewHolder {
+
+        public CustomZoomImageView mDeleteBtn;
+        public ObjectAnimator mObjectAnimator;
+
+        public LauncherWidgetListViewHolder(View view) {
+            super(view);
+            float width = view.getWidth();
+            float height = view.getHeight();
+            this.mDeleteBtn = (CustomZoomImageView) view.findViewById(R.id.icon_delete_widget);
+            this.mObjectAnimator = LauncherAnimUtils.ofPropertyValuesHolder(view, PropertyValuesHolder.ofFloat("pivotX", ((((float) Math.random()) * 0.38f) + 0.2f) * width, ((((float) Math.random()) * 0.38f) + 0.2f) * width), PropertyValuesHolder.ofFloat("pivotY", ((((float) Math.random()) * 0.38f) + 0.2f) * height, ((((float) Math.random()) * 0.38f) + 0.2f) * height), PropertyValuesHolder.ofFloat("rotation", ((float) (Math.random() * 0.10000000149011612d)) - 0.3926991f, ((float) (Math.random() * 0.10000000149011612d)) + 0.3926991f));
+            mObjectAnimator.setDuration((long) ((Math.random() * 36.0d) + 113.0d));
+            mObjectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            mObjectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+            mObjectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            mObjectAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    animation.removeAllListeners();
+                }
+            });
+        }
+
+        public final void hide() {
+            if (this.mDeleteBtn != null) {
+                this.mDeleteBtn.setVisibility(View.INVISIBLE);
+            }
+            if (this.mObjectAnimator != null) {
+                this.mObjectAnimator.cancel();
+                this.itemView.setRotation(0.0f);
+            }
+        }
+
+        public final void startShaking() {
+            if (this.mDeleteBtn != null) {
+                this.mDeleteBtn.setVisibility(View.VISIBLE);
+            }
+        if (this.mObjectAnimator != null) {
+                this.mObjectAnimator.start();
+            }
+        }
+
+        public final void stopShaking(){
+            CustomZoomImageView customZoomImageView = this.mDeleteBtn;
+            if (customZoomImageView != null) {
+                customZoomImageView.setVisibility(View.INVISIBLE);
+            }
+            ObjectAnimator objectAnimator = this.mObjectAnimator;
+            if (objectAnimator != null) {
+                objectAnimator.cancel();
+                this.itemView.setRotation(0.0f);
+            }
+        }
+
+    }
+}

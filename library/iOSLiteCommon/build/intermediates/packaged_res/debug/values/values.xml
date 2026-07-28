@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clock_packages" translatable="false">
+        <item>com.android.timemanager</item>
+        <item>com.android.BBKClock</item>
+        <item>com.android.deskclock</item>
+        <item>com.oppo.alarmclock</item>
+        <item>com.lenovo.deskclock</item>
+        <item>com.android.alarmclock</item>
+        <item>com.sec.android.app.clockpackage</item>
+        <item>com.sonyericsson.organizer</item>
+        <item>com.lenovo.deskclock</item>
+        <item>com.yulong.android.xtime</item>
+        <item>com.htc.android.worldclock</item>
+        <item>com.lge.clock</item>
+        <item>zte.com.cn.alarmclock</item>
+        <item>com.google.android.deskclock</item>
+    </string-array>
+    <string-array name="def_cts_app_list" translatable="false">
+        <item>com.google.android.googlequicksearchbox</item>
+        <item>com.google.android.gm</item>
+        <item>com.google.android.apps.maps</item>
+        <item>com.google.android.music</item>
+        <item>com.google.android.videos</item>
+        <item>com.google.android.apps.photos</item>
+        <item>com.google.android.apps.tachyon</item>
+        <item>com.google.android.apps.docs</item>
+        <item>com.google.android.youtube</item>
+        <item>com.android.vending</item>
+        <item>com.android.chrome</item>
+    </string-array>
+    <string-array name="def_gesture_setting"/>
+    <string-array name="def_hide_app_list" translatable="false"/>
+    <string-array name="def_not_uninstall_app_list" translatable="false">
+        <item>com.baidu.searchbox</item>
+    </string-array>
+    <string-array name="def_shortcut_black_list" translatable="false"/>
+    <string-array name="def_widget_black_list" translatable="false">
+        <item>com.ios.biglauncher</item>
+    </string-array>
+    <bool name="def_allapp_enable">true</bool>
+    <bool name="def_app_manager_enable">false</bool>
+    <bool name="def_category_default_layout">false</bool>
+    <bool name="def_category_new_apps">false</bool>
+    <bool name="def_clean_widget_show_percent">true</bool>
+    <bool name="def_desktop_auto_align_enable">false</bool>
+    <bool name="def_desktop_lazy_load_newspager_enable">true</bool>
+    <bool name="def_desktop_loop_enable">false</bool>
+    <bool name="def_grid_icon_custom_enable">true</bool>
+    <bool name="def_hotseat_label_forced_show">false</bool>
+    <bool name="def_hotseat_label_show_enable">true</bool>
+    <bool name="def_launcher_loading_view_enable">true</bool>
+    <bool name="def_left_news_page_enable">false</bool>
+    <bool name="def_news_page_switch_enabled">false</bool>
+    <bool name="def_search_box_enable">true</bool>
+    <bool name="def_sleep_mode_enable">true</bool>
+    <bool name="def_use_icon_in_apk_enable">false</bool>
+    <bool name="def_use_system_default_wallpaper">false</bool>
+    <bool name="def_user_guide_enable">false</bool>
+    <bool name="def_wallpaper_scroll_enabled">true</bool>
+    <bool name="feature_allapp_recently_apps_enable">true</bool>
+    <bool name="feature_app_manager_enable">false</bool>
+    <bool name="feature_auto_light_enable">true</bool>
+    <bool name="feature_battery_save_enable">false</bool>
+    <bool name="feature_category_new_apps_enable">true</bool>
+    <bool name="feature_check_update_support">true</bool>
+    <bool name="feature_delete_effect_enable">true</bool>
+    <bool name="feature_desktop_effect_enable">true</bool>
+    <bool name="feature_desktop_gesture_enable">true</bool>
+    <bool name="feature_desktop_grid_change_enable">true</bool>
+    <bool name="feature_desktop_loop_enable">true</bool>
+    <bool name="feature_desktop_style_change_enable">true</bool>
+    <bool name="feature_desktop_trans_anim_enable">true</bool>
+    <bool name="feature_display_cutout_mode">true</bool>
+    <bool name="feature_drop_info_enable">false</bool>
+    <bool name="feature_drop_unavailable_enable">false</bool>
+    <bool name="feature_drop_uninstall_enable">true</bool>
+    <bool name="feature_icon_unread_support">true</bool>
+    <bool name="feature_install_shortcut_enable">true</bool>
+    <bool name="feature_ios_discovery_enable">false</bool>
+    <bool name="feature_left_news_page_enable">false</bool>
+    <bool name="feature_live_wallpaper_enable">false</bool>
+    <bool name="feature_local_push_enable">true</bool>
+    <bool name="feature_lock_screen_enable">false</bool>
+    <bool name="feature_new_install_icon_enable">true</bool>
+    <bool name="feature_ota2_enable">false</bool>
+    <bool name="feature_quick_settings_enable">false</bool>
+    <bool name="feature_search_box_enable">true</bool>
+    <bool name="feature_set_as_default_theme_enable">false</bool>
+    <bool name="feature_sort_icon_enable">false</bool>
+    <bool name="feature_start_location_when_mobile_data_open">true</bool>
+    <bool name="feature_sw_share_support">true</bool>
+    <bool name="feature_torch_enable">true</bool>
+    <bool name="feature_wifi_ap_enable">true</bool>
+    <bool name="is_large_tablet">false</bool>
+    <bool name="is_tablet">false</bool>
+    <color name="black">#FF000000</color>
+    <color name="black05percent">#0d000000</color>
+    <color name="black10percent">#1a000000</color>
+    <color name="black15percent">#26000000</color>
+    <color name="black20percent">#33000000</color>
+    <color name="black25percent">#40000000</color>
+    <color name="black30percent">#61000000</color>
+    <color name="black40percent">#66000000</color>
+    <color name="black45percent">#73000000</color>
+    <color name="black50percent">#80000000</color>
+    <color name="black51percent">#51000000</color>
+    <color name="black60percent">#9a000000</color>
+    <color name="black66percent">#a8000000</color>
+    <color name="black70percent">#b3000000</color>
+    <color name="black80percent">#cd000000</color>
+    <color name="black87percent">#df000000</color>
+    <color name="black8percent">#18000000</color>
+    <color name="black95">#95000000</color>
+    <color name="common_desc">#aa222222</color>
+    <color name="def_workspace_label_color">#FFFFFFFF</color>
+    <color name="grey">#ff797979</color>
+    <color name="ios_accent_color">#41d4ad</color>
+    <color name="ios_gray1">#1A000000</color>
+    <color name="ios_gray2">#34000000</color>
+    <color name="ios_gray3">#61000000</color>
+    <color name="pref_active">#0F9F5A</color>
+    <color name="pref_active_light">#990F9F5A</color>
+    <color name="pref_bg">#fff4f4f4</color>
+    <color name="pref_btn_divider">#90222222</color>
+    <color name="pref_btn_press">#33000000</color>
+    <color name="pref_category_green">#FF0F9F5A</color>
+    <color name="pref_category_grey">#90222222</color>
+    <color name="pref_dark">#ff444444</color>
+    <color name="pref_desc">#aa222222</color>
+    <color name="pref_item_divider">#19000000</color>
+    <color name="pref_item_layout_press">#22000000</color>
+    <color name="pref_item_pressed">#19ffffff</color>
+    <color name="pref_spinner_list_item_pressed">#1b444444</color>
+    <color name="pref_summary">#90222222</color>
+    <color name="pref_title">#ff222222</color>
+    <color name="title_bar_back_button_tint">#aa444444</color>
+    <color name="title_bar_back_pressed">#33000000</color>
+    <color name="title_bar_divider">#19444444</color>
+    <color name="title_bar_label">#FF444444</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="white05percent">#0dffffff</color>
+    <color name="white10percent">#1affffff</color>
+    <color name="white15percent">#26ffffff</color>
+    <color name="white20percent">#32ffffff</color>
+    <color name="white25percent">#40ffffff</color>
+    <color name="white30percent">#47ffffff</color>
+    <color name="white40percent">#63ffffff</color>
+    <color name="white45percent">#72ffffff</color>
+    <color name="white50percent">#80ffffff</color>
+    <color name="white51percent">#51ffffff</color>
+    <color name="white60percent">#9affffff</color>
+    <color name="white66percent">#a8ffffff</color>
+    <color name="white70percent">#b3ffffff</color>
+    <color name="white80percent">#cdffffff</color>
+    <color name="white87percent">#dfffffff</color>
+    <color name="white8percent">#18ffffff</color>
+    <color name="white95">#e0ffffff</color>
+    <dimen name="def_grid_icon_size">54dp</dimen>
+    <dimen name="def_grid_label_size">14dp</dimen>
+    <dimen name="pref_desc_size">14sp</dimen>
+    <dimen name="pref_summary_size">12sp</dimen>
+    <dimen name="pref_title_bar_height">48dp</dimen>
+    <dimen name="pref_title_size">16sp</dimen>
+    <integer name="def_allapp_display_mode">0</integer>
+    <integer name="def_grid_rows_columns">1</integer>
+    <integer name="def_iconcache_db_version">11</integer>
+    <integer name="def_launcher_db_version">9</integer>
+    <integer name="def_pending_anim_style">1</integer>
+    <integer name="def_setting_db_version">5</integer>
+    <integer name="def_weather_db_version">5</integer>
+    <string name="ad_des_all_apps" translatable="false">AllApp</string>
+    <string name="ad_des_app_recommend_discovery" translatable="false">探索</string>
+    <string name="ad_des_app_recommend_folder" translatable="false">文件夹应用推荐</string>
+    <string name="ad_des_app_recommend_market" translatable="false">应用市场</string>
+    <string name="ad_des_app_recommend_newspage" translatable="false">新闻页应用推荐</string>
+    <string name="ad_des_clean_widget" translatable="false">一键加速</string>
+    <string name="ad_des_default" translatable="false">默认</string>
+    <string name="ad_des_ioskonw" translatable="false">IOSKnow</string>
+    <string name="ad_des_search" translatable="false">搜索</string>
+    <string name="ad_des_stackwidget_list" translatable="false">广告卡片</string>
+    <string name="ad_des_theme_detail" translatable="false">主题详情</string>
+    <string name="ad_des_theme_list" translatable="false">主题列表</string>
+    <string name="ad_des_theme_min" translatable="false">极简主题</string>
+    <string name="ad_des_wallpaper_detail" translatable="false">壁纸详情</string>
+    <string name="ad_des_wallpaper_list" translatable="false">壁纸列表</string>
+    <string name="ad_des_weather" translatable="false">天气</string>
+    <string name="def_apply_theme_package">com.ios.ioslite.global</string>
+    <string name="def_launcher_significant_move_threshold">0.4</string>
+    <string name="def_workspace_magic_thumb">none</string>
+    <string name="def_workspace_scroll_effect">none</string>
+    <string name="discovery_cancel">cancel</string>
+    <string name="discovery_data_warn_tips">Whether to continue downloading under the data flow</string>
+    <string name="discovery_sure">sure</string>
+    <string name="error_activity_not_found">App isn\'t installed.</string>
+    <string name="error_email_not_login">Please login your email account.</string>
+    <string name="feature_lock_screen_version">v700</string>
+    <string name="ios_product_name">Launcher</string>
+    <string name="network_error_tip">"Connection error.Please check your network."</string>
+    <string name="product_email">droi@gmail.com</string>
+    <string name="product_facebook_website">https://www.facebook.com/droigroup</string>
+    <string name="product_name">IOS</string>
+    <string name="product_offical_website">http://os.droi.com</string>
+    <string name="update_check_no_update">No update found! You are using the latest version.</string>
+    <string name="update_start">Checking update. Please wait a moment.</string>
+    <string name="update_to_latest_version">Update to latest version</string>
+    <style name="ADCardFreeBtn">
+        <item name="android:background">@drawable/ad_toolbox_card_btn_normal_bg</item>
+        <item name="android:textColor">@android:color/background_light</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="ADCardName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#494b4c</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="ADDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#a2a2a2</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <style name="AdTopic">
+        <item name="android:background">@drawable/ad_topic_item_bg</item>
+    </style>
+    <style name="IOSLoadingView">
+        <item name="minWidth">48dip</item>
+        <item name="maxWidth">48dip</item>
+        <item name="minHeight">48dip</item>
+        <item name="maxHeight">48dip</item>
+        <item name="indicatorType">BallPaulseIndicator</item>
+    </style>
+    <style name="PrefSettings" parent="PrefSettingsBase">
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+    <style name="PrefSettings.Immerse" parent="PrefSettings"/>
+    <style name="PrefSettings.Wallpaper" parent="PrefSettings">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+    <style name="PrefSettingsBase" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/pref_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+    <style name="pref_settingtitle">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/ios_gray1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="pref_subtitle">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/pref_category_green</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <declare-styleable name="CircleButton">
+        <attr format="color" name="CircleBtncolor"/>
+        <attr format="dimension" name="CircleBtnRingWidth"/>
+    </declare-styleable>
+    <declare-styleable name="EnhancedTextView">
+        <attr format="dimension" name="drawableLeftWidth"/>
+        <attr format="dimension" name="drawableLeftHeight"/>
+        <attr format="dimension" name="drawableRightWidth"/>
+        <attr format="dimension" name="drawableRightHeight"/>
+        <attr format="dimension" name="drawableTopWidth"/>
+        <attr format="dimension" name="drawableTopHeight"/>
+        <attr format="dimension" name="drawableBottomWidth"/>
+        <attr format="dimension" name="drawableBottomHeight"/>
+        <attr format="dimension" name="drawablePadding"/>
+    </declare-styleable>
+    <declare-styleable name="IOSLoadingView">
+        <attr format="dimension" name="minWidth"/>
+        <attr format="dimension" name="maxWidth"/>
+        <attr format="dimension" name="minHeight"/>
+        <attr format="dimension" name="maxHeight"/>
+        <attr format="color" name="indicatorColor"/>
+        <attr format="integer" name="indicatorType">
+            <enum name="BallPaulseIndicator" value="1"/>
+            <enum name="IOSDotIndicator" value="2"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="IOSPreference">
+        <attr format="reference" name="preferenceBackground"/>
+        <attr format="reference" name="preferenceIcon"/>
+        <attr format="color" name="PreferencetitleColor"/>
+        <attr format="string" name="preferenceTitle"/>
+        <attr format="reference" name="preferenceTitleRightIcon"/>
+        <attr format="color" name="PreferenceSummaryColor"/>
+        <attr format="string" name="preferenceSummary"/>
+        <attr format="boolean" name="showSwitch"/>
+        <attr format="boolean" name="hideDivider"/>
+        <attr format="integer" name="rightImage">
+            <enum name="redDot" value="0"/>
+            <enum name="showSwitch" value="1"/>
+            <enum name="rightArrow" value="2"/>
+            <enum name="showSpinner" value="3"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ItemInfoLayout">
+        <attr format="reference" name="itemInfoTitle"/>
+        <attr format="reference" name="itemInfoDescription"/>
+    </declare-styleable>
+    <declare-styleable name="NativeAdCardView">
+
+    </declare-styleable>
+    <declare-styleable name="PrivatePage">
+        <attr format="reference" name="pointIndicator"/>
+        <attr format="reference" name="pointIndicatorFocus"/>
+        <attr format="reference" name="dockIntent1"/>
+        <attr format="reference" name="dockIntent2"/>
+        <attr format="reference" name="dockIntent3"/>
+    </declare-styleable>
+    <declare-styleable name="SmoothCheckBox">
+        <attr format="integer" name="duration"/>
+        <attr format="dimension" name="stroke_width"/>
+        <attr format="color" name="color_tick"/>
+        <attr format="color" name="color_checked"/>
+        <attr format="color" name="color_unchecked"/>
+        <attr format="color" name="color_unchecked_stroke"/>
+        <attr format="boolean" name="check_box_clickable"/>
+    </declare-styleable>
+    <declare-styleable name="Switch">
+        <attr format="color" name="lineCheckedColor"/>
+        <attr format="color" name="lineUnCheckedColor"/>
+        <attr format="dimension" name="lineHeight"/>
+        <attr format="color" name="innerCheckedBroderColor"/>
+        <attr format="color" name="innerUnCheckedBroderColor"/>
+        <attr format="dimension" name="innerBroderWidth"/>
+        <attr format="color" name="btnCheckedColor"/>
+        <attr format="color" name="btnUnCheckedColor"/>
+        <attr format="dimension" name="innerPadding"/>
+    </declare-styleable>
+    <declare-styleable name="Titlebar">
+        <attr format="string" name="titleText"/>
+        <attr format="color" name="back_color"/>
+        <attr format="color" name="background_color"/>
+        <attr format="boolean" name="hideTitleDivider"/>
+    </declare-styleable>
+</resources>

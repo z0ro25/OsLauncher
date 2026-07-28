@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ios.newssource.test.iOSAppsNewsProvider-mergeDebugAndroidTestResources-24:/values-v28/values-v28.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\3cb10093019ae5ec879f919a78f23112\\transformed\\appcompat-1.6.1\\res\\values-v28\\values-v28.xml",
+                    "from": {
+                        "startLines": "2,3,4,8",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,130,217,397",
+                        "endLines": "2,3,7,11",
+                        "endColumns": "74,86,12,12",
+                        "endOffsets": "125,212,392,584"
+                    }
+                }
+            ]
+        }
+    ]
+}

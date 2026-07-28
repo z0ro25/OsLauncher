@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ios.ioslite.common.test.iOSLiteCommon-mergeDebugAndroidTestResources-20:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\library\\iOSLiteCommon\\build\\intermediates\\packaged_res\\debug\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,101",
+                        "endColumns": "45,38",
+                        "endOffsets": "96,135"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\3cb10093019ae5ec879f919a78f23112\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,124,193,263,337,413,472,543",
+                        "endColumns": "68,68,69,73,75,58,70,67",
+                        "endOffsets": "119,188,258,332,408,467,538,606"
+                    },
+                    "to": {
+                        "startLines": "4,5,6,7,8,9,10,11",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "140,209,278,348,422,498,557,628",
+                        "endColumns": "68,68,69,73,75,58,70,67",
+                        "endOffsets": "204,273,343,417,493,552,623,691"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:gravity="center" android:orientation="vertical" android:padding="4dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <com.amz.ios.launcher.CircleImageView android:id="@+id/contact_avatar" android:layout_width="56dp" android:layout_height="56dp"/>
+    <com.amz.ios.launcher.TextViewCustomFont android:textSize="11sp" android:textStyle="bold" android:textColor="@color/contact_typeface" android:ellipsize="end" android:id="@+id/contact_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:singleLine="true" app:customFont="0"/>
+</LinearLayout>

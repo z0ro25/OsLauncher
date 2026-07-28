@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="settings_app_name">快捷设置</string>
+    <string name="settings_action_settings">设置</string>
+    <string name="settings_setting_title">IOS OS</string>
+    <string name="settings_airplane_mode_text">飞行模式</string>
+    <string name="settings_traffic_data_text"> 数据</string>
+    <string name="settings_wifi_text"> WIFI</string>
+    <string name="settings_ringtone_text">情景模式</string>
+    <string name="settings_power_saving_text"> 省电模式</string>
+    <string name="settings_auto_rotate_text">自动旋转</string>
+    <string name="settings_blue_touch_text">蓝牙</string>
+    <string name="settings_location_mode_text">位置</string>
+    <string name="settings_brightness_text">屏幕亮度</string>
+    <string name="settings_auto_brightness_text">自动亮度</string>
+    <string name="settings_flash_light_text">手电筒</string>
+    <string name="settings_application_management_text">应用管理</string>
+    <string name="settings_settings_text">系统设置</string>
+    <string name="settings_traffic_monitoring_text">流量监控</string>
+    <string name="settings_desk">桌面设置</string>
+    <string name="settings_settings_hot_spot">热点</string>
+    <string name="settings_error_text">由于系统限制，不可使用！</string>
+    <string name="settings_light_error_text">无闪光灯，不可使用！</string>
+    <string name="settings_sim_error_text">无SIM卡！!</string>
+    <string name="torch_widget_name">手电筒</string>
+    <string name="low_battery_flashlight_canot_use">电量过低，手电筒不能使用！</string>
+</resources>

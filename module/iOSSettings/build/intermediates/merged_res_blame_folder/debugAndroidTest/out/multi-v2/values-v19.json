@@ -1,0 +1,58 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.ios.ioslite.odm.test.iOSSettings-mergeDebugAndroidTestResources-41:/values-v19/values-v19.xml",
+            "map": [
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\library\\BatterySave\\build\\intermediates\\packaged_res\\debug\\values-v19\\values-v19.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "353"
+                    },
+                    "to": {
+                        "startLines": "23",
+                        "startColumns": "4",
+                        "startOffsets": "1158",
+                        "endLines": "27",
+                        "endColumns": "12",
+                        "endOffsets": "1456"
+                    }
+                },
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSLauncher\\build\\intermediates\\packaged_res\\debug\\values-v19\\values-v19.xml",
+                    "from": {
+                        "startLines": "2,6,10,14",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,277,487,703",
+                        "endLines": "5,9,13,17",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "272,482,698,913"
+                    }
+                },
+                {
+                    "source": "E:\\Amarzic\\ASA155_IOSLauncher\\module\\iOSSettings\\build\\intermediates\\packaged_res\\debug\\values-v19\\values-v19.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "290"
+                    },
+                    "to": {
+                        "startLines": "18",
+                        "startColumns": "4",
+                        "startOffsets": "918",
+                        "endLines": "22",
+                        "endColumns": "12",
+                        "endOffsets": "1153"
+                    }
+                }
+            ]
+        }
+    ]
+}

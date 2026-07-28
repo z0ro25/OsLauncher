@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.amz.ioslauncher.iossearch.test.iOSSearch-mergeDebugAndroidTestResources-41:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\OS\\.gradle\\caches\\transforms-3\\5c79f33f1c6adfcc4a5b494a4bae1b86\\transformed\\material-1.11.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}

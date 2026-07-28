@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/sl_background_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#f8f8f8"
+        android:orientation="vertical" >
+
+        <com.zhuoyi.security.batterysave.views.SL_TitleBar
+            xmlns:tb="http://schemas.android.com/apk/res-auto"
+            android:id="@id/sl_setting_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            tb:slcenterTitle="@string/sl_lock_setting"
+            tb:slshowCenterTitle="true"
+            tb:slshowLeftIcon="true" />
+
+        <LinearLayout
+            android:id="@id/sl_lock_switchbutton_linearlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bs_listview_item_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dip"
+            android:paddingRight="15dip" >
+
+            <TextView
+                style="@style/sl_common_Sett_TextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/sl_security_item_hint2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:id="@id/sl_lock_swtich_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/sl_checkbox_drawable"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bs_line_height"
+            android:layout_marginLeft="@dimen/sl_space_layout"
+            android:background="@drawable/bs_line" />
+
+        <LinearLayout
+            android:id="@id/sl_lock_switchbutton_linearlayout_change_password"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bs_listview_item_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dip"
+            android:paddingRight="15dip" >
+
+            <TextView
+                style="@style/sl_common_Sett_TextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/sl_security_item_change_password" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dip"
+                android:src="@drawable/sl_item_arrows" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bs_line_height"
+            android:layout_marginLeft="@dimen/sl_space_layout"
+            android:background="@drawable/bs_line" />
+
+        <LinearLayout
+            android:id="@id/sl_facebook"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bs_listview_item_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dip"
+            android:paddingRight="15dip" >
+
+            <TextView
+                style="@style/sl_common_Sett_TextBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/sl_facebook" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dip"
+                android:src="@drawable/sl_item_arrows" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bs_line_height"
+            android:layout_marginLeft="@dimen/sl_space_layout"
+            android:background="@drawable/bs_line" />
+        <TextView
+            android:layout_marginTop="@dimen/sl_settings_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dip"
+            android:paddingRight="15dip"
+            android:textColor="@color/sl_list_item_left_text_color"
+            android:text="@string/sl_float_hint_tv"/>
+    </LinearLayout>
+
+</LinearLayout>

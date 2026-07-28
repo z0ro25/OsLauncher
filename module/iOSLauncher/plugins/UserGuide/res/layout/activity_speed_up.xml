@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/boot_speedup_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_transparent_speedup"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/boot_speedup_ll"
+        android:layout_width="@dimen/boot_speedup_rl_width"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/boot_speedup_background_iv_height"
+            android:background="@mipmap/illustration" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
+            android:layout_marginRight="@dimen/boot_speedup_text_marginright"
+            android:layout_marginTop="@dimen/boot_speedup_text_margintop"
+            android:text="@string/boot_speedup_big_text"
+            android:textColor="@color/boot_speedup_big_text_color"
+            android:textSize="@dimen/boot_speedup_big_text_size" />
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
+            android:layout_marginRight="@dimen/boot_speedup_text_marginright"
+            android:layout_marginTop="@dimen/boot_speedup_text_margintop"
+            android:text="@string/boot_speedup_small_text"
+            android:textColor="@color/boot_speedup_small_text_color"
+            android:textSize="@dimen/boot_speedup_small_text_size" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/boot_speedup_setting_marginbottom"
+            android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
+            android:layout_marginRight="@dimen/boot_speedup_text_marginright"
+            android:layout_marginTop="@dimen/boot_speedup_setting_margintop">
+
+            <Button
+                android:id="@+id/boot_speedup_setting_btn"
+                android:layout_width="@dimen/boot_speedup_setting_width"
+                android:layout_height="@dimen/boot_speedup_setting_height"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/boot_speedup_setting_btn_shape"
+                android:gravity="center"
+                android:text="@string/boot_speedup_setting_btn_text"
+                android:textColor="@color/boot_speedup_setting_btn_text_color"
+                android:textSize="@dimen/boot_speedup_setting_text_size" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/boot_speedup_setting_tv"
+                android:layout_width="@dimen/boot_speedup_setting_width"
+                android:layout_height="@dimen/boot_speedup_setting_height"
+                android:layout_marginRight="@dimen/boot_speedup_setting_tv_marginright"
+                android:layout_toLeftOf="@id/boot_speedup_setting_btn"
+                android:gravity="center"
+                android:text="@string/boot_setting_tv_text"
+                android:textColor="@color/boot_speedup_setting_tv_text_color"
+                android:textSize="@dimen/boot_speedup_setting_text_size" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

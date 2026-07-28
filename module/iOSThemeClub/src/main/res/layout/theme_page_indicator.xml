@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.amz.ios.launcher.PageIndicator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    launcher:windowSize="@integer/config_maxNumberOfPageIndicatorsToShow">
+</com.amz.ios.launcher.PageIndicator>
+<!--<com.amz.ios.themeclub.PageIndicator-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:launcher="http://schemas.android.com/apk/res-auto"-->
+    <!--android:animateLayoutChanges="true"-->
+    <!--launcher:windowSize="@integer/config_maxNumberOfPageIndicatorsToShow">-->
+<!--</com.amz.ios.themeclub.PageIndicator>-->

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<com.amz.ios.launcher.SearchDropTargetBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false"
+    launcher:layout_ignoreInsets="true">
+
+    <FrameLayout
+        android:id="@+id/search_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/quick_search_bar_height"
+        android:layout_marginTop="@dimen/quick_search_bar_margin_top"
+        android:paddingLeft="@dimen/quick_search_bar_horizontal_padding"
+        android:paddingRight="@dimen/quick_search_bar_horizontal_padding"></FrameLayout>
+
+    <!-- Drag specific targets container -->
+
+    <FrameLayout
+        android:id="@+id/drag_target_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/drop_target_bar_height"
+        android:layout_gravity="center_horizontal|top">
+
+        <com.amz.ios.launcher.views.DropTargetBgBar
+            android:id="@+id/drop_target_bg_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.amz.ios.launcher.DeleteDropTarget
+                android:id="@+id/delete_drop_target"
+                style="@style/DropTargetButtonContainer"
+                android:background="@color/black15percent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/delete_target_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <FrameLayout
+                        android:id="@+id/delete_target_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/delete_target_line1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_delete_line" />
+
+                        <ImageView
+                            android:id="@+id/delete_target_line2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:clipChildren="true"
+                            android:src="@drawable/ic_delete_line" />
+                    </FrameLayout>
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        android:id="@+id/delete_target_title"
+                        style="@style/DropTargetButtonLable"
+                        android:text="@string/delete_target_label" />
+                </LinearLayout>
+            </com.amz.ios.launcher.DeleteDropTarget>
+
+            <com.amz.ios.launcher.InfoDropTarget
+                android:id="@+id/info_drop_target"
+                style="@style/DropTargetButtonContainer"
+                android:background="@color/black15percent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/info_target_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/info_target_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:id="@+id/info_target_circle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info_circle" />
+
+                        <ImageView
+                            android:id="@+id/info_target_dot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info_dot" />
+
+                        <ImageView
+                            android:id="@+id/info_target_line"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info_line" />
+                    </FrameLayout>
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        style="@style/DropTargetButtonLable"
+                        android:text="@string/info_target_label" />
+                </LinearLayout>
+            </com.amz.ios.launcher.InfoDropTarget>
+
+            <com.amz.ios.launcher.UninstallDropTarget
+                android:id="@+id/uninstall_drop_target"
+                style="@style/DropTargetButtonContainer"
+                android:background="@color/black15percent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/uninstall_target_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center">
+
+                    <FrameLayout
+                        android:id="@+id/uninstall_target_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/uninstall_target_trash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_trash" />
+
+                        <ImageView
+                            android:id="@+id/uninstall_target_trash_hat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:clipChildren="true"
+                            android:src="@drawable/ic_trash_hat" />
+                    </FrameLayout>
+
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        style="@style/DropTargetButtonLable"
+                        android:text="@string/delete_target_uninstall_label" />
+                </LinearLayout>
+            </com.amz.ios.launcher.UninstallDropTarget>
+
+            <com.amz.ios.launcher.UnavailableDropTarget
+                android:id="@+id/unavaliable_drop_target"
+                style="@style/DropTargetButtonContainer"
+                android:background="@color/black15percent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/unavaliable_target_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center">
+
+
+                    <FrameLayout
+                        android:id="@+id/unavaliable_target_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info_circle" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info_dot" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_info_line" />
+                    </FrameLayout>
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        android:id="@+id/unavaliable_prompt"
+                        style="@style/DropTargetButtonLable" />
+                </LinearLayout>
+            </com.amz.ios.launcher.UnavailableDropTarget>
+
+            <com.amz.ios.launcher.DesktopDropTarget
+                android:id="@+id/desktop_drop_target"
+                style="@style/DropTargetButtonContainer"
+                android:background="@color/black15percent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/desktop_target_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center">
+
+                    <FrameLayout
+                        android:id="@+id/desktop_target_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_target_desktop" />/>
+                    </FrameLayout>
+
+                    <com.amz.ios.launcher.views.CustomTextView
+                        style="@style/DropTargetButtonLable"
+                        android:text="@string/desktop_target_label" />
+                </LinearLayout>
+            </com.amz.ios.launcher.DesktopDropTarget>
+        </LinearLayout>
+    </FrameLayout>
+
+</com.amz.ios.launcher.SearchDropTargetBar>

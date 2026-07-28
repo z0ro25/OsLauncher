@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="abandoned_clean_this">"Eliminar"</string>
+    <string name="abandoned_promise_explanation">"La aplicación para este ícono no está instalada. Puedes eliminar el ícono o buscar la aplicación e instarla manualmente."</string>
+    <string name="abandoned_promises_title">"Esta aplicación no está instalada"</string>
+    <string name="abandoned_search">"Buscar"</string>
+    <string name="action_add_to_workspace">"Agregar a la pantalla principal"</string>
+    <string name="action_decrease_height">"Reducir la altura"</string>
+    <string name="action_decrease_width">"Reducir el ancho"</string>
+    <string name="action_increase_height">"Aumentar la altura"</string>
+    <string name="action_increase_width">"Aumentar el ancho"</string>
+    <string name="action_move">"Mover elemento"</string>
+    <string name="action_move_here">"Mover elemento aquí"</string>
+    <string name="action_move_screen_left">"Mover pantalla a la izquierda"</string>
+    <string name="action_move_screen_right">"Mover pantalla a la derecha"</string>
+    <string name="action_move_to_workspace">"Mover a la pantalla principal"</string>
+    <string name="action_resize">"Ajustar tamaño"</string>
+    <string name="activity_not_available">"La aplicación no está disponible."</string>
+    <string name="activity_not_found">"No se instaló la aplicación."</string>
+    <string name="add_to_folder">"Agregar a carpeta: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Agregar a la carpeta que contiene <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Elemento agregado a la carpeta"</string>
+    <string name="all_apps_button_label">"Aplicaciones"</string>
+    <string name="all_apps_home_button_label">"Pantalla principal"</string>
+    <string name="all_apps_loading_message">"Cargando aplicaciones…"</string>
+    <string name="all_apps_no_search_results">"No hay aplicaciones que coincidan con <ns1:g id="QUERY">%1$s</ns1:g>."</string>
+    <string name="all_apps_search_bar_hint">"Buscar aplicaciones"</string>
+    <string name="all_apps_search_market_message">"Ir a <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Permitir la rotación"</string>
+    <string name="create_folder_with">"Crear carpeta con: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"Página %1$d de %2$d"</string>
+    <string name="delete_target_label">"Eliminar"</string>
+    <string name="delete_target_uninstall_label">"Desinstalar"</string>
+    <string name="first_run_cling_title">"Bienvenido"</string>
+    <string name="folder_closed">"Carpeta cerrada"</string>
+    <string name="folder_created">"Carpeta creada"</string>
+    <string name="folder_hint_text">"Carpeta sin nombre"</string>
+    <string name="folder_name">Folder</string>
+    <string name="folder_name_format">"Carpeta: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Carpeta abierta, <ns1:g id="WIDTH">%1$d</ns1:g> por <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"El nombre de la carpeta se cambió a <ns1:g id="NAME">%1$s</ns1:g>."</string>
+    <string name="folder_tap_to_close">"Toca para cerrar la carpeta."</string>
+    <string name="folder_tap_to_rename">"Toca para guardar el nuevo nombre."</string>
+    <string name="gadget_error_text">"Problema al cargar el widget"</string>
+    <string name="gadget_setup_text">"Configuración"</string>
+    <string name="hotseat_out_of_space">"La bandeja de favoritos está llena."</string>
+    <string name="info_target_label">"Información de la aplicación"</string>
+    <string name="item_added_to_workspace">"Se agregó el elemento a la pantalla principal."</string>
+    <string name="item_moved">"Elemento movido"</string>
+    <string name="item_removed">"Se eliminó el elemento."</string>
+    <string name="long_press_widget_to_add">"Mantén presionado el widget que desees elegir."</string>
+    <string name="migration_cling_copy_apps">"COPIAR ÍCONOS"</string>
+    <string name="migration_cling_description">"¿Importar íconos y carpetas de pant. principales antiguas?"</string>
+    <string name="migration_cling_title">"Copiar íconos de aplicaciones"</string>
+    <string name="migration_cling_use_default">"EMPEZAR DE CERO"</string>
+    <string name="move_to_empty_cell">"Mover a fila <ns1:g id="NUMBER_0">%1$s</ns1:g>, columna <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Mover a la posición de favoritos número <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"Mover a la posición número <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="out_of_space">"No hay más espacio en esta pantalla principal."</string>
+    <string name="package_state_unknown">"Desconocido"</string>
+    <string name="permdesc_install_shortcut">"Permite que una aplicación agregue accesos directos sin que el usuario intervenga."</string>
+    <string name="permdesc_read_settings">"Permite que la aplicación lea la configuración y los accesos directos de la pantalla principal."</string>
+    <string name="permdesc_write_settings">"Permite que la aplicación cambie la configuración y los accesos directos de la pantalla principal."</string>
+    <string name="permlab_install_shortcut">"instalar accesos directos"</string>
+    <string name="permlab_read_settings">"leer configuración y accesos directos de la pantalla principal"</string>
+    <string name="permlab_write_settings">"escribir configuración y accesos directos de la pantalla principal"</string>
+    <string name="safemode_shortcut_error">"Aplicación descargada inhabilitada en modo seguro"</string>
+    <string name="safemode_widget_error">"Widgets inhabilitados en modo seguro"</string>
+    <string name="screen_moved">"Se movió la pantalla."</string>
+    <string name="settings_label">"Configuración"</string>
+    <string name="toggle_weight_watcher">"Mostrar memoria"</string>
+    <string name="uninstall_system_app_text">"Esta es una aplicación del sistema y no se puede desinstalar."</string>
+    <string name="wallpaper_button_text">"Fondos de pantalla"</string>
+    <string name="widget_button_text">"Widgets"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Se cambió la dimensión del widget a <ns1:g id="NUMBER_0">%1$s</ns1:g> de ancho y <ns1:g id="NUMBER_1">%2$s</ns1:g> de alto."</string>
+    <string name="work_folder_name">"Trabajo"</string>
+    <string name="workspace_cling_longpress_description">"Mantén presionado el fondo para personalizarlo"</string>
+    <string name="workspace_cling_longpress_dismiss">"ENTENDIDO"</string>
+    <string name="workspace_cling_longpress_title">"Fondos, widgets y configuración"</string>
+    <string name="workspace_scroll_format">"Pantalla principal %1$d de %2$d"</string>
+</resources>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="bs_app_name">حفظ الطاقة</string>
+    <string name="bs_baterry_text1_uncharge">الطاقة حتى</string>
+    <string name="bs_baterry_text3">اليوم</string>
+    <string name="bs_baterry_text1_charging">مشحونة بالكامل من قبل</string>
+    <string name="bs_baterry_text1_charged">مشحونة بالكامل</string>
+    <string name="bs_Bar_Middle">حفظ الطاقة</string>
+    <string name="bs_app_baterry">استنزاف خطط الشراء السنوية</string>
+    <string name="bs_ranking_baterry">استهلاك</string>
+    <string name="bs_switch_baterry">توفير إعدادات</string>
+    <string name="bs_bellow_btn">إجراءات ...</string>
+    <string name="bs_Bar_Rank_Middle">استهلاك</string>
+    <string name="bs_use_time_title">الطاقة حتى</string>
+    <string name="bs_checking_text1">التحقق من استخدام البطارية</string>
+    <string name="bs_checking_text2">تحليل التطبيقات استنزاف</string>
+    <string name="bs_bottom_btn">إنها جيدة</string>
+    <string name="bs_unit_hour">ساعات</string>
+    <string name="bs_mode_second">دقيقة</string>
+    <string name="bs_bottom_btn_save">انقر لحفظ البطارية</string>
+    <string name="bs_month">شهر</string>
+    <string name="bs_day">يوم</string>
+    <string name="bs_days">أيام</string>
+    <string name="bs_tomorrow">يوم غد</string>
+    <string name="bs_clean_tost">"حالة النظام الأمثل \nلا التطبيقات استنزاف في الخلفية"</string>
+</resources>

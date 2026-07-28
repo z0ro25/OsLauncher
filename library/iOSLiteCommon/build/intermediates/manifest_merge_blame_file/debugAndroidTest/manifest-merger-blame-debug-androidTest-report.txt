@@ -1,0 +1,134 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.amz.ios.ioslite.common.test" >
+4
+5    <uses-sdk
+5-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:5:5-74
+6        android:minSdkVersion="26"
+6-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:5:15-41
+7        android:targetSdkVersion="34" />
+7-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:5:42-71
+8
+9    <instrumentation
+9-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:11:5-15:81
+10        android:name="android.test.InstrumentationTestRunner"
+10-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:11:22-75
+11        android:functionalTest="false"
+11-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:14:22-52
+12        android:handleProfiling="false"
+12-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:13:22-53
+13        android:label="Tests for com.amz.ios.ioslite.common.test"
+13-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:15:22-79
+14        android:targetPackage="com.amz.ios.ioslite.common.test" />
+14-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:12:22-77
+15
+16    <permission
+16-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+17        android:name="com.amz.ios.ioslite.common.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+17-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+18        android:protectionLevel="signature" />
+18-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+19
+20    <uses-permission android:name="com.amz.ios.ioslite.common.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+20-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+20-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+21
+22    <application
+22-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:7:5-9:19
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+24        android:debuggable="true"
+25        android:extractNativeLibs="false" >
+26        <uses-library android:name="android.test.runner" />
+26-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:8:9-60
+26-->E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest18234295166205619728.xml:8:23-57
+27        <!-- 应用使用统计 -->
+28        <provider
+28-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-27:39
+29            android:name="com.amz.ios.ioslite.common.provider.AppUsagesProvider"
+29-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-81
+30            android:authorities="com.amz.ios.ioslite.provider.usages"
+30-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-70
+31            android:exported="true" /> <!-- 全局设置 -->
+31-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-36
+32        <provider
+32-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:9-33:39
+33            android:name="com.amz.ios.ioslite.common.setting.SettingProvider"
+33-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-78
+34            android:authorities="com.amz.ios.ioslite.common.setting"
+34-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-69
+35            android:exported="true" /> <!-- 内存监测 -->
+35-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-36
+36        <activity
+36-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-46:20
+37            android:name="com.amz.ios.ioslite.common.debug.MemoryDumpActivity"
+37-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-79
+38            android:excludeFromRecents="true"
+38-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-46
+39            android:exported="true"
+39-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-36
+40            android:theme="@android:style/Theme.NoDisplay" >
+40-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-59
+41            <intent-filter>
+41-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-45:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:17-69
+42-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:25-66
+43
+44                <category android:name="android.intent.category.DEFAULT" />
+44-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:17-76
+44-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:27-73
+45            </intent-filter>
+46        </activity> <!-- 内存监测服务 -->
+47        <service android:name="com.amz.ios.ioslite.common.debug.MemoryTracker" />
+47-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-82
+47-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:18-79
+48
+49        <receiver
+49-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:9-61:20
+50            android:name="com.amz.ios.ioslite.common.downloadapk.ApkReceiver"
+50-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-78
+51            android:exported="true" >
+51-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-36
+52            <intent-filter>
+52-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:13-55:29
+53                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+53-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:17-82
+53-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:25-79
+54            </intent-filter>
+55            <intent-filter>
+55-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:13-60:29
+56                <action android:name="android.intent.action.PACKAGE_ADDED" />
+56-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:17-78
+56-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:25-75
+57
+58                <data android:scheme="package" />
+58-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:17-50
+58-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:23-47
+59            </intent-filter>
+60        </receiver>
+61
+62        <provider
+62-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+63            android:name="androidx.startup.InitializationProvider"
+63-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+64            android:authorities="com.amz.ios.ioslite.common.test.androidx-startup"
+64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+65            android:exported="false" >
+65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+66            <meta-data
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+67                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+68                android:value="androidx.startup" />
+68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+69            <meta-data
+69-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+70                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+70-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+71                android:value="androidx.startup" />
+71-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+72        </provider>
+73    </application>
+74
+75</manifest>

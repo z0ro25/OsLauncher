@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 产品定义文件 -->
+
+    <!-- 注：
+       ××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+       优先级  客户配置文件 > 主工程配置文件 >  common模块配置文件
+       ××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+    -->
+
+    <!--  产品定义  -->
+    <string name="product_name">IOS</string>
+
+    <!--  官方网站  -->
+    <string name="product_offical_website">http://os.droi.com</string>
+
+    <!--  Facebook 主页  -->
+    <string name="product_facebook_website">https://www.facebook.com/droigroup</string>
+
+    <!--  邮箱  -->
+    <string name="product_email">droi@gmail.com</string>
+
+</resources>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="bs_app_name">बिजली की बचत</string>
+    <string name="bs_baterry_text1_uncharge">ऊर्जा तक</string>
+    <string name="bs_baterry_text3">आज </string>
+    <string name="bs_baterry_text1_charging">पूरी तरह से चार्ज किया</string>
+    <string name="bs_baterry_text1_charged">पूरी तरह से चार्ज</string>
+    <string name="bs_Bar_Middle">बिजली की बचत</string>
+    <string name="bs_app_baterry">बिजली की खपत अनुप्रयोगों</string>
+    <string name="bs_ranking_baterry">सेवन</string>
+    <string name="bs_switch_baterry">चत सेटिंग्स</string>
+    <string name="bs_bellow_btn">कार्यवाही ...</string>
+    <string name="bs_Bar_Rank_Middle">सेवन</string>
+    <string name="bs_use_time_title">ऊर्जा तक</string>
+    <string name="bs_checking_text1">बैटरी के उपयोग की जाँच</string>
+    <string name="bs_checking_text2">बिजली की खपत कारणों का विश्लेषण</string>
+    <string name="bs_bottom_btn">यह ठीक है</string>
+    <string name="bs_unit_hour">घंटे</string>
+    <string name="bs_mode_second">मिनट</string>
+    <string name="bs_bottom_btn_save">बैटरी बचाने के लिए ठोकर</string>
+    <string name="bs_month">महीना</string>
+    <string name="bs_day">दिन</string>
+    <string name="bs_days">दिन</string>
+    <string name="bs_tomorrow">आने वाला कल</string>
+    <string name="bs_clean_tost">"अनुकूलित व्यवस्था की स्थिति \nवर्तमान में कोई सॉफ्टवेयर पृष्ठभूमि में चल रहे बिजली नहीं है"</string>
+</resources>

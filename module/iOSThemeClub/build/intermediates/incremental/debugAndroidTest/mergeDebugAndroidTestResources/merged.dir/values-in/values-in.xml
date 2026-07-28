@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d notifikasi baru</item>
+    <item quantity="other">%d notifikasi baru</item>
+  </plurals>
+    <string name="abandoned_clean_this">"Buang"</string>
+    <string name="abandoned_promise_explanation">"Aplikasi untuk ikon ini belum dipasang. Anda dapat membuangnya, atau menelusuri aplikasi dan memasangnya secara manual."</string>
+    <string name="abandoned_promises_title">"Aplikasi ini belum terpasang"</string>
+    <string name="abandoned_search">"Telusuri"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Tunjukkan jalan ke rumah"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Kembali ke atas"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Opsi lain"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Selesai"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Lihat semua"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Pilih aplikasi"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"NONAKTIF"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"AKTIF"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"delete"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"spasi"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Telusuri..."</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Hapus kueri"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Telusuri kueri"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Telusuri"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Kirim kueri"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Penelusuran suara"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Bagikan dengan"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Bagikan dengan <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Ciutkan"</string>
+    <string name="action_add_to_workspace">"Tambahkan ke layar Utama"</string>
+    <string name="action_decrease_height">"Kurangi tinggi"</string>
+    <string name="action_decrease_width">"Kurangi lebar"</string>
+    <string name="action_increase_height">"Tambahi tinggi"</string>
+    <string name="action_increase_width">"Tambahi lebar"</string>
+    <string name="action_move">"Pindahkan item"</string>
+    <string name="action_move_here">"Pindahkan item ke sini"</string>
+    <string name="action_move_screen_left">"Pindahkan layar ke kiri"</string>
+    <string name="action_move_screen_right">"Pindahkan layar ke kanan"</string>
+    <string name="action_move_to_workspace">"Pindahkan ke layar Utama"</string>
+    <string name="action_resize">"Ubah ukuran"</string>
+    <string name="activity_not_available">"Aplikasi tidak tersedia"</string>
+    <string name="activity_not_found">"Aplikasi tidak dipasang."</string>
+    <string name="add_to_folder">"Tambahkan ke folder: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Tambahkan ke folder dengan <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Item ditambahkan ke folder"</string>
+    <string name="all_apps_button_label">"Aplikasi"</string>
+    <string name="all_apps_home_button_label">"Layar Utama"</string>
+    <string name="all_apps_loading_message">"Memuat Aplikasi..."</string>
+    <string name="all_apps_no_search_results">"Tidak ditemukan Aplikasi yang cocok dengan \"<ns1:g id="QUERY">%1$s</ns1:g>\""</string>
+    <string name="all_apps_search_bar_hint">"Telusuri Apps"</string>
+    <string name="all_apps_search_market_message">"Buka <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Izinkan putaran"</string>
+    <string name="bottomsheet_action_collapse">Menciutkan sheet bawah</string>
+    <string name="bottomsheet_action_expand">Meluaskan sheet bawah</string>
+    <string name="bottomsheet_action_expand_halfway">Luaskan setengah</string>
+    <string name="bottomsheet_drag_handle_clicked">Handel geser diketuk dua kali</string>
+    <string name="bottomsheet_drag_handle_content_description">Handel geser</string>
+    <string name="character_counter_content_description">Karakter yang dimasukkan %1$d dari %2$d</string>
+    <string name="character_counter_overflowed_content_description">Melebihi batas karakter %1$d dari %2$d</string>
+    <string name="clear_text_end_icon_content_description">Menghapus teks</string>
+    <string name="create_folder_with">"Buat folder dengan: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="crop_image_activity_no_permissions">Membatalkan, tidak mendapatkan izin yang diperlukan</string>
+    <string name="crop_image_menu_crop">Potong</string>
+    <string name="crop_image_menu_flip">Balik</string>
+    <string name="crop_image_menu_flip_horizontally">Balik secara horizontal</string>
+    <string name="crop_image_menu_flip_vertically">Balik secara vertikal</string>
+    <string name="crop_image_menu_rotate_left">Putar berlawanan arah jarum jam</string>
+    <string name="crop_image_menu_rotate_right">Putar</string>
+    <string name="default_scroll_format">"Laman %1$d dari %2$d"</string>
+    <string name="delete_target_label">"Hapus"</string>
+    <string name="delete_target_uninstall_label">"Copot pemasangan"</string>
+    <string name="error_icon_content_description">Error</string>
+    <string name="exposed_dropdown_menu_content_description">Tampilkan menu dropdown</string>
+    <string name="first_run_cling_title">"Selamat Datang"</string>
+    <string name="folder_closed">"Folder ditutup"</string>
+    <string name="folder_created">"Folder dibuat"</string>
+    <string name="folder_hint_text">"Folder Tanpa Nama"</string>
+    <string name="folder_name_format">"Folder: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"Folder dibuka, <ns1:g id="WIDTH">%1$d</ns1:g> x <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"Folder diganti namanya menjadi <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Sentuh untuk menutup folder"</string>
+    <string name="folder_tap_to_rename">"Sentuh untuk menyimpan ganti nama"</string>
+    <string name="gadget_error_text">"Masalah memuat widget"</string>
+    <string name="gadget_setup_text">"Siapkan"</string>
+    <string name="hotseat_out_of_space">"Tidak ada ruang tersisa di baki Favorit"</string>
+    <string name="icon_content_description">Ikon Dialog</string>
+    <string name="info_target_label">"Info aplikasi"</string>
+    <string name="item_added_to_workspace">"Item ditambahkan ke layar utama"</string>
+    <string name="item_moved">"Item dipindahkan"</string>
+    <string name="item_removed">"Item dihapus"</string>
+    <string name="item_view_role_description">Tab</string>
+    <string name="long_press_widget_to_add">"Sentuh lama untuk memilih widget."</string>
+    <string name="material_clock_toggle_content_description">Pilih AM atau PM</string>
+    <string name="material_hour_24h_suffix">%1$s jam</string>
+    <string name="material_hour_selection">Pilih jam</string>
+    <string name="material_hour_suffix">Pukul %1$s</string>
+    <string name="material_minute_selection">Pilih menit</string>
+    <string name="material_minute_suffix">%1$s menit</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Beralih ke mode jam untuk masukan waktu.</string>
+    <string name="material_timepicker_hour">Jam</string>
+    <string name="material_timepicker_minute">Menit</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Pilih waktu</string>
+    <string name="material_timepicker_text_input_mode_description">Beralih ke mode masukan teks untuk masukan waktu.</string>
+    <string name="migration_cling_copy_apps">"IKON SALIN"</string>
+    <string name="migration_cling_description">"Impor ikon dan folder dari layar Utama lama Anda?"</string>
+    <string name="migration_cling_title">"Salin ikon aplikasi Anda"</string>
+    <string name="migration_cling_use_default">"MULAI DARI AWAL"</string>
+    <string name="move_to_empty_cell">"Pindahkan ke baris <ns1:g id="NUMBER_0">%1$s</ns1:g> kolom <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Pindahkan ke posisi favorit <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"PIndahkan ke posisi <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">Notifikasi baru</string>
+    <string name="mtrl_chip_close_icon_content_description">Menghapus %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Lebih dari %1$d notifikasi baru</string>
+    <string name="mtrl_picker_a11y_next_month">Ubah ke bulan berikutnya</string>
+    <string name="mtrl_picker_a11y_prev_month">Ubah ke bulan sebelumnya</string>
+    <string name="mtrl_picker_announce_current_range_selection">Pemilihan tanggal mulai: %1$s – Pemilihan tanggal akhir: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Pilihan saat ini: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">tidak ada</string>
+    <string name="mtrl_picker_cancel">Batal</string>
+    <string name="mtrl_picker_confirm">Oke</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Pilih Tanggal</string>
+    <string name="mtrl_picker_date_header_unselected">Tanggal yang dipilih</string>
+    <string name="mtrl_picker_day_of_week_column_header">Kolom hari: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Tanggal akhir %1$s</string>
+    <string name="mtrl_picker_invalid_format">Format tidak valid.</string>
+    <string name="mtrl_picker_invalid_format_example">Contoh: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Gunakan: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Rentang tidak valid.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Pilih tahun ini %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Buka tahun %1$d</string>
+    <string name="mtrl_picker_out_of_range">Di luar rentang: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Tanggal mulai – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Tanggal akhir</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Pilih Rentang</string>
+    <string name="mtrl_picker_range_header_unselected">Tanggal mulai – Tanggal akhir</string>
+    <string name="mtrl_picker_save">Simpan</string>
+    <string name="mtrl_picker_start_date_description">Tanggal mulai %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Tanggal</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Tanggal akhir</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Tanggal mulai</string>
+    <string name="mtrl_picker_text_input_day_abbr">h</string>
+    <string name="mtrl_picker_text_input_month_abbr">b</string>
+    <string name="mtrl_picker_text_input_year_abbr">t</string>
+    <string name="mtrl_picker_today_description">Hari ini %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Beralih ke mode masukan kalender</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Ketuk untuk beralih ke tampilan Kalender</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Beralih ke mode masukan teks</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Ketuk untuk beralih ke tampilan tahun</string>
+    <string name="mtrl_timepicker_cancel">Batal</string>
+    <string name="mtrl_timepicker_confirm">Oke</string>
+    <string name="out_of_space">"Tidak ada ruang lagi pada layar Utama ini."</string>
+    <string name="package_state_unknown">"Tidak dikenal"</string>
+    <string name="password_toggle_content_description">Tampilkan sandi</string>
+    <string name="permdesc_install_shortcut">"Mengizinkan aplikasi menambahkan pintasan tanpa campur tangan pengguna."</string>
+    <string name="permdesc_read_settings">"Mengizinkan aplikasi membaca setelan dan pintasan di layar Utama."</string>
+    <string name="permdesc_write_settings">"Mengizinkan aplikasi mengubah setelan dan pintasan di layar Utama."</string>
+    <string name="permlab_install_shortcut">"memasang pintasan"</string>
+    <string name="permlab_read_settings">"membaca setelan dan pintasan layar Utama"</string>
+    <string name="permlab_write_settings">"menulis setelan dan pintasan layar Utama"</string>
+    <string name="pick_image_intent_chooser_title">Pilih sumber</string>
+    <string name="safemode_shortcut_error">"Aplikasi yang diunduh dinonaktifkan dalam mode Aman"</string>
+    <string name="safemode_widget_error">"Widget dinonaktifkan dalam mode Aman"</string>
+    <string name="screen_moved">"Layar dipindahkan"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Telusuri"</string>
+    <string name="settings_label">"Setelan"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"Tampilkan Memori"</string>
+    <string name="uninstall_system_app_text">"Ini adalah aplikasi sistem dan tidak dapat dicopot pemasangannya."</string>
+    <string name="wallpaper_button_text">"Wallpaper"</string>
+    <string name="widget_button_text">"Widget"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"Widget diubah ukurannya menjadi lebar <ns1:g id="NUMBER_0">%1$s</ns1:g> tinggi <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Kantor"</string>
+    <string name="workspace_cling_longpress_description">"Sentuh &amp; tahan latar belakang untuk menyesuaikan"</string>
+    <string name="workspace_cling_longpress_dismiss">"MENGERTI"</string>
+    <string name="workspace_cling_longpress_title">"Wallpaper, widget, &amp; setelan"</string>
+    <string name="workspace_scroll_format">"Layar utama %1$d dari %2$d"</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" android:gravity="center_horizontal" android:orientation="vertical" android:focusable="true" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/widget_text" android:paddingLeft="@dimen/widget_preview_label_horizontal_padding" android:paddingTop="@dimen/widget_preview_label_vertical_padding" android:paddingRight="@dimen/widget_preview_label_horizontal_padding" android:paddingBottom="@dimen/widget_preview_label_vertical_padding" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="14sp" android:textColor="@color/widgets_view_item_text_color" android:ellipsize="end" android:gravity="start" android:id="@+id/widget_name" android:fadingEdge="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:shadowColor="#b0000000" android:shadowRadius="2" android:fontFamily="sans-serif-condensed"/>
+        <TextView android:textSize="14sp" android:textColor="@color/widgets_view_item_text_color" android:id="@+id/widget_dims" android:layout_width="wrap_content" android:layout_height="wrap_content" android:shadowColor="#b0000000" android:shadowRadius="2" android:fontFamily="sans-serif-condensed" android:layout_marginStart="5dp"/>
+    </LinearLayout>
+    <com.amz.ios.launcher.widget.WidgetImageView android:layout_gravity="center" android:id="@+id/widget_preview" android:layout_width="match_parent" android:layout_height="match_parent"/>
+</merge>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.amz.ios.launcher.views.TopTitlebar
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            launcher:titleText="@string/settings_general" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/settings_default_launcher_gap"
+                    layout="@layout/preference_gap" />
+
+                <com.amz.ios.launcher.views.CustomTextView
+                    style="@style/pref_settingtitle"
+                    android:textColor="@color/pref_category_grey"
+                    android:text="@string/setting_category_desktop" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/desktop_loop"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/desktop_loop"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/desktop_auto_align"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/desktop_auto_align_desc"
+                    launcher:preferenceTitle="@string/desktop_auto_align"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/apps_smart_category"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/apps_smart_category_desc"
+                    launcher:preferenceTitle="@string/apps_smart_category_title"
+                    launcher:rightImage="showSwitch" />
+
+                <include
+                    android:id="@+id/settings_default_launcher_gap"
+                    layout="@layout/preference_gap" />
+
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/settings_leftpage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/news_center_desc"
+                    launcher:preferenceTitle="@string/news_center_title"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.CustomTextView
+                    style="@style/pref_settingtitle"
+                    android:textColor="@color/pref_category_grey"
+                    android:text="@string/setting_category_others" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/settings_searchbar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/search_bar_desc"
+                    launcher:preferenceTitle="@string/search_bar_title"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/notification_badging"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceTitle="@string/notification_badging_title"
+                    launcher:rightImage="rightArrow" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/settings_apprecommend"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/app_recommend_desc"
+                    launcher:preferenceTitle="@string/app_recommend_title"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/settings_float_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    launcher:preferenceSummary="@string/ios_konw_desc"
+                    launcher:preferenceTitle="@string/ios_konw_title"
+                    launcher:rightImage="showSwitch" />
+
+                <com.amz.ios.launcher.views.IOSPreference
+                    android:id="@+id/settings_appmgr"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    launcher:preferenceSummary="@string/app_manager_desc"
+                    launcher:preferenceTitle="@string/app_manager"
+                    launcher:rightImage="showSwitch" />
+
+                <include
+                    android:id="@+id/settings_default_launcher_gap"
+                    layout="@layout/preference_gap" />
+
+                <com.amz.ios.launcher.views.CustomTextView
+                    android:id="@+id/message_category"
+                    style="@style/pref_settingtitle"
+                    android:text="@string/setting_category_msg" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

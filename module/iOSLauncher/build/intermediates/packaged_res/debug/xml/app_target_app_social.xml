@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <favorite
+        launcher:className="com.facebook.katana.LoginActivity"
+        launcher:packageName="com.facebook.katana" />
+    <favorite
+        launcher:className="com.twitter.android.StartActivity"
+        launcher:packageName="com.twitter.android" />
+    <favorite
+        launcher:className="com.tencent.mobileqq.activity.SplashActivity"
+        launcher:packageName="com.tencent.mobileqq" />
+    <favorite
+        launcher:className="com.sina.weibo.SplashActivity"
+        launcher:packageName="com.sina.weibo" />
+    <favorite
+        launcher:className="com.ss.android.article.news.activity.SplashActivity"
+        launcher:packageName="com.ss.android.article.news" />
+
+    <favorite
+        launcher:className="com.netease.nr.biz.ad.AdActivity"
+        launcher:packageName="com.netease.newsreader.activity" />
+
+    <favorite
+        launcher:className="com.tencent.news.activity.SplashActivity"
+        launcher:packageName="com.tencent.news" />
+</items>

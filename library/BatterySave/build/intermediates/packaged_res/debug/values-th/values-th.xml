@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>ซิงค์อัตโนมัติ</item>
+        <item>ความสว่าง</item>
+        <item>หมุนอัตโนมัติ</item>
+        <item>หมดเวลาหน้าจอ</item>
+        <item>สั่น</item>
+        <item>ข้อมูล</item>
+        <item>ฮอตสปอตไร้สาย</item>
+        <item>WI-FI</item>
+        <item>บลูทู ธ</item>
+        <item>ริงโทน</item>
+        <item>สั่นเมื่อแตะ</item>
+    </string-array>
+    <string name="bs_Bar_Middle">ประหยัดพลังงาน</string>
+    <string name="bs_Bar_Rank_Middle">การบริโภค</string>
+    <string name="bs_app_baterry">การระบายน้ำปพลิเคชัน</string>
+    <string name="bs_app_name">ประหยัดพลังงาน</string>
+    <string name="bs_baterry_text1_charged">ค่าบริการอย่างเต็มที่</string>
+    <string name="bs_baterry_text1_charging">คิดค่าบริการอย่างเต็มที่โดย</string>
+    <string name="bs_baterry_text1_uncharge">จนกว่าพลังงาน</string>
+    <string name="bs_baterry_text3">ในวันนี้</string>
+    <string name="bs_bellow_btn">การดำเนินการ ...</string>
+    <string name="bs_bottom_btn">ไม่เป็นไร</string>
+    <string name="bs_bottom_btn_save">แตะเพื่อประหยัดแบตเตอรี่</string>
+    <string name="bs_checking_text1">การตรวจสอบการใช้งานของแบตเตอรี่</string>
+    <string name="bs_checking_text2">วิเคราะห์ปพลิเคชันการระบายน้ำ</string>
+    <string name="bs_clean_tost">"สถานะของระบบ Optimized \nไม่มีแอประบายน้ำในพื้นหลัง"</string>
+    <string name="bs_day">วัน</string>
+    <string name="bs_days">วัน</string>
+    <string name="bs_min">นาที</string>
+    <string name="bs_mode_second">รายงานการประชุม</string>
+    <string name="bs_month">เดือน</string>
+    <string name="bs_ranking_baterry">การบริโภค</string>
+    <string name="bs_switch_baterry">บันทึกการตั้งค่า</string>
+    <string name="bs_switcher">บันทึกการตั้งค่า</string>
+    <string name="bs_tomorrow">พรุ่งนี้</string>
+    <string name="bs_unit_hour">ชั่วโมง</string>
+    <string name="bs_use_time_title">จนกว่าพลังงาน</string>
+    <string name="sl_app_list_add_listbutton">เพิ่มปพลิเคชันเพื่อล็อค</string>
+    <string name="sl_app_list_empty">ไม่มีแอป</string>
+    <string name="sl_change_password_sucessed">เปลี่ยนรหัสผ่านเป็นที่เรียบร้อยแล้ว</string>
+    <string name="sl_dialog_text">โปรดให้ค่าเผื่อเรียกใช้โปรแกรมประยุกต์ล็อค</string>
+    <string name="sl_enter_new_psw">รหัสผ่านใหม่จะต้องมีความแตกต่างกัน!</string>
+    <string name="sl_enter_new_psw_16">ป้อนรหัสผ่านใหม่ (6 ตัวอักษร)</string>
+    <string name="sl_enter_new_psw_16_again">โปรดป้อนรหัสผ่านใหม่</string>
+    <string name="sl_enter_psw_16">ป้อนรหัสผ่าน (6 ตัวอักษร)</string>
+    <string name="sl_enter_psw_16_again">กรุณาป้อนรหัสผ่านใหม่</string>
+    <string name="sl_enter_psw_16_again_error">ใส่รหัสผ่านไม่สอดคล้อง!</string>
+    <string name="sl_enter_psw_16_empty">รหัสผ่านไม่สามารถเว้นว่าง</string>
+    <string name="sl_enter_psw_16_error">รหัสผ่านผิด</string>
+    <string name="sl_facebook">เช่นเดียวกับเรา Facebook</string>
+    <string name="sl_finger_print_lock_screen_tv">รองรับการปลดล็อคลายนิ้วมือ</string>
+    <string name="sl_float_hint_tv">ถ้าคุณไม่สามารถใช้งานได้ตามปกติให้เปิดหน้าต่าง "ลอย" ในการตั้งค่าหรือการรักษาความปลอดภัยศูนย์โปรด</string>
+    <string name="sl_hint_tv">ขั้นตอนต่อไปเปิด "IOS"</string>
+    <string name="sl_lock_setting">การตั้งค่า</string>
+    <string name="sl_lock_temp_addapp"> เพิ่มปพลิเคชัน </string>
+    <string name="sl_my_common_loading">กำลังโหลด…</string>
+    <string name="sl_ok">ยืนยัน</string>
+    <string name="sl_security_item_change_password">เปลี่ยนรหัสผ่าน</string>
+    <string name="sl_security_item_hint2">โปรแกรมล็อค</string>
+    <string name="sl_set_psw">กรุณาตั้งค่ารหัสผ่านใหม่ (6 ตัวอักษร)</string>
+    <string name="sl_un_locking">ปลดล็อค ...</string>
+</resources>

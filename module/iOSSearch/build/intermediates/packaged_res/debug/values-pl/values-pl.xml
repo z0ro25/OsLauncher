@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Jak nazywa się twój znajomy?</item>
+        <item>Znajdź poszukiwaną przez ciebie Aplikację</item>
+        <item>Szukaj muzykę</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Tutaj znajdziesz swoje KONTAKTY</item>
+        <item>Tutaj znajdziesz swoje APLIKAJCE</item>
+        <item>Tutaj znajdziesz swoją MUZYKĘ</item>
+        <item>Dotknij tutaj</item>
+        <item>Tutaj znajdziesz idealną TAPETĘ</item>
+        <item>Wypróbuj tego, aby uczynić swój telefon szybszym!</item>
+        <item>Tutaj znajdziesz informacje o POGODZIE</item>
+        <item>Niedługo dostępna będzie nowa SKÓRKA</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">Nie zainstalowano aplikacji</string>
+    <string name="fmsearch_app_name">Szukaj</string>
+    <string name="fmsearch_download">Pobierz</string>
+    <string name="fmsearch_download_market_update_message">Ta opcja różni się w zależności od wersji najnowszego klienta sklepu zhouyi. Czy chcesz kontynuować pobieranie aktualizacji? (Jeśli tak, to zaleca się korzystanie z sieci Wi-Fi)</string>
+    <string name="fmsearch_download_market_warning_message">Ta opcja różni się w zależności od wersji klienta sklepu zhouyi. Czy chcesz kontynuować pobieranie? (Zaleca się korzystanie z sieci Wi-Fi)</string>
+    <string name="fmsearch_search_pic">Wyszukaj zdjęcie</string>
+    <string name="fmsearch_search_video">Wyszukaj wideo</string>
+    <string name="fmsearch_search_websit">Wyszukaj stronę</string>
+    <string name="fmsearch_str_contact">Kontakty</string>
+    <string name="fmsearch_str_music">Muzyka</string>
+    <string name="fmsearch_tips">Wskazówki</string>
+    <string name="fmsearch_txt_head_local_app">Aplikacja</string>
+    <string name="fmsearch_txt_head_online_app">Polecana aplikacja</string>
+</resources>

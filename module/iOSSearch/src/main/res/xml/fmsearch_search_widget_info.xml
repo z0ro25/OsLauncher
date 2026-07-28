@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/fmsearch_layout_widget_search"
+    android:minHeight="@dimen/fmsearch_dp_search_min_height"
+    android:minWidth="@dimen/fmsearch_dp_search_min_width"
+    android:previewImage="@drawable/fmsearch_dw_search_icon"
+    android:updatePeriodMillis="0" />

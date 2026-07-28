@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d notificació nova</item>
+    <item quantity="other">%d notificacions noves</item>
+  </plurals>
+    <string name="abandoned_clean_this">"Suprimeix"</string>
+    <string name="abandoned_promise_explanation">"L\'aplicació d\'aquesta icona no està instal·lada. Pots suprimir-la o cercar l\'aplicació i instal·lar-la manualment."</string>
+    <string name="abandoned_promises_title">"Aquesta aplicació no està instal·lada"</string>
+    <string name="abandoned_search">"Cerca"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Navega fins a la pàgina d\'inici"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Navega cap amunt"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Més opcions"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Fet"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Mostra-ho tot"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Selecciona una aplicació"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"DESACTIVA"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"ACTIVA"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Supr"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Retorn"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Funció+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Maj+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"Espai"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menú+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Cerca…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Esborra la consulta"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Consulta de cerca"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Cerca"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Envia la consulta"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Cerca per veu"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Comparteix amb"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Comparteix amb <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Replega"</string>
+    <string name="action_add_to_workspace">"Afegeix a la pantalla d\'inici"</string>
+    <string name="action_decrease_height">"Redueix l\'alçada"</string>
+    <string name="action_decrease_width">"Redueix l\'amplada"</string>
+    <string name="action_increase_height">"Augmenta l\'alçada"</string>
+    <string name="action_increase_width">"Augmenta l\'amplada"</string>
+    <string name="action_move">"Desplaça l\'element"</string>
+    <string name="action_move_here">"Mou l\'element aquí"</string>
+    <string name="action_move_screen_left">"Desplaça pantalla a l\'esquerra"</string>
+    <string name="action_move_screen_right">"Desplaça pantalla a la dreta"</string>
+    <string name="action_move_to_workspace">"Desplaça a la pantalla d\'inici"</string>
+    <string name="action_resize">"Canvia la mida"</string>
+    <string name="activity_not_available">"L\'aplicació no està disponible."</string>
+    <string name="activity_not_found">"L\'aplicació no s\'ha instal·lat."</string>
+    <string name="add_to_folder">"Afegeix l\'element a la carpeta: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"Afegeix l\'element a la carpeta amb <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"Element afegit a la carpeta"</string>
+    <string name="all_apps_button_label">"Aplicacions"</string>
+    <string name="all_apps_home_button_label">"Inici"</string>
+    <string name="all_apps_loading_message">"S\'estan carregant les aplicacions..."</string>
+    <string name="all_apps_no_search_results">"No s\'ha trobat cap aplicació que coincideixi amb <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="all_apps_search_bar_hint">"Cerca a les aplicacions"</string>
+    <string name="all_apps_search_market_message">"Vés a <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"Permet la rotació"</string>
+    <string name="bottomsheet_action_collapse">Replega el full inferior</string>
+    <string name="bottomsheet_action_expand">Desplega el full inferior</string>
+    <string name="bottomsheet_action_expand_halfway">Desplega fins a la meitat</string>
+    <string name="bottomsheet_drag_handle_clicked">Has fet doble toc a l\'ansa per arrossegar</string>
+    <string name="bottomsheet_drag_handle_content_description">Ansa per arrossegar</string>
+    <string name="character_counter_content_description">Caràcters introduïts: %1$d de %2$d</string>
+    <string name="character_counter_overflowed_content_description">S\'ha superat el límit de caràcters (%1$d de %2$d)</string>
+    <string name="clear_text_end_icon_content_description">Esborra el text</string>
+    <string name="create_folder_with">"Crea una carpeta amb: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="default_scroll_format">"Pàgina %1$d de %2$d"</string>
+    <string name="delete_target_label">"Suprimeix"</string>
+    <string name="delete_target_uninstall_label">"Desinstal·la"</string>
+    <string name="error_icon_content_description">Error</string>
+    <string name="exposed_dropdown_menu_content_description">Mostra el menú desplegable</string>
+    <string name="first_run_cling_title">"Us donem la benvinguda"</string>
+    <string name="folder_closed">"Carpeta tancada"</string>
+    <string name="folder_created">"Carpeta creada"</string>
+    <string name="folder_hint_text">"Carpeta sense nom"</string>
+    <string name="folder_name_format">"Carpeta: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"S\'ha obert la carpeta, <ns1:g id="WIDTH">%1$d</ns1:g> per <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"S\'ha canviat el nom de la carpeta a <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"Toca per tancar la carpeta"</string>
+    <string name="folder_tap_to_rename">"Toca per desar el canvi de nom"</string>
+    <string name="gadget_error_text">"S\'ha produït un problema en carregar el widget"</string>
+    <string name="gadget_setup_text">"Configuració"</string>
+    <string name="hotseat_out_of_space">"No hi ha més espai a la safata Preferits."</string>
+    <string name="icon_content_description">Icona del quadre de diàleg</string>
+    <string name="info_target_label">"Informació de l\'aplicació"</string>
+    <string name="item_added_to_workspace">"S\'ha afegit l\'element a la pantalla d\'inici"</string>
+    <string name="item_moved">"Element desplaçat"</string>
+    <string name="item_removed">"S\'ha suprimit l\'element"</string>
+    <string name="item_view_role_description">Tabulador</string>
+    <string name="long_press_widget_to_add">"Mantén premut un widget per triar-lo."</string>
+    <string name="material_clock_toggle_content_description">Selecciona a. m. o p. m.</string>
+    <string name="material_hour_24h_suffix">%1$s hores</string>
+    <string name="material_hour_selection">Seleccioneu l\'hora</string>
+    <string name="material_hour_suffix">%1$s en punt</string>
+    <string name="material_minute_selection">Selecciona els minuts</string>
+    <string name="material_minute_suffix">%1$s minuts</string>
+    <string name="material_timepicker_am">a. m.</string>
+    <string name="material_timepicker_clock_mode_description">Canvia al mode de rellotge per introduir l\'hora.</string>
+    <string name="material_timepicker_hour">Hora</string>
+    <string name="material_timepicker_minute">Minut</string>
+    <string name="material_timepicker_pm">p. m.</string>
+    <string name="material_timepicker_select_time">Selecció de l\'hora</string>
+    <string name="material_timepicker_text_input_mode_description">Canvia al mode d\'introducció de text per introduir l\'hora.</string>
+    <string name="migration_cling_copy_apps">"COPIA LES ICONES."</string>
+    <string name="migration_cling_description">"Importar icones i carpetes de pantalles d\'inici anteriors?"</string>
+    <string name="migration_cling_title">"Copiar les icones d\'aplicació"</string>
+    <string name="migration_cling_use_default">"NOU COMENÇAMENT"</string>
+    <string name="move_to_empty_cell">"Desplaça l\'element a la fila <ns1:g id="NUMBER_0">%1$s</ns1:g> i la columna <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"Desplaça l\'element a la posició de preferits <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"Desplaça l\'element a la posició <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">Notificació nova</string>
+    <string name="mtrl_chip_close_icon_content_description">Suprimeix %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Més de %1$d notificacions noves</string>
+    <string name="mtrl_picker_a11y_next_month">Canvia al mes següent</string>
+    <string name="mtrl_picker_a11y_prev_month">Canvia al mes anterior</string>
+    <string name="mtrl_picker_announce_current_range_selection">Selecció de la data d\'inici: %1$s – Selecció de la data de finalització: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Selecció actual: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">cap</string>
+    <string name="mtrl_picker_cancel">Cancel·la</string>
+    <string name="mtrl_picker_confirm">D’acord</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Selecciona una data</string>
+    <string name="mtrl_picker_date_header_unselected">Data seleccionada</string>
+    <string name="mtrl_picker_day_of_week_column_header">Columna de dies: %1$s</string>
+    <string name="mtrl_picker_end_date_description">Data de finalització: %1$s</string>
+    <string name="mtrl_picker_invalid_format">El format no és vàlid.</string>
+    <string name="mtrl_picker_invalid_format_example">Exemple: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Utilitza: %1$s</string>
+    <string name="mtrl_picker_invalid_range">L\'interval no és vàlid.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Navega fins a l\'any actual %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Canvia a l\'any %1$d</string>
+    <string name="mtrl_picker_out_of_range">La data està fora de l\'interval: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Data d\'inici - %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s - data de finalització</string>
+    <string name="mtrl_picker_range_header_selected">%1$s - %2$s</string>
+    <string name="mtrl_picker_range_header_title">Selecciona un interval</string>
+    <string name="mtrl_picker_range_header_unselected">Data d\'inici - data de finalització</string>
+    <string name="mtrl_picker_save">Desa</string>
+    <string name="mtrl_picker_start_date_description">Data d\'inici: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Data</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Data de finalització</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Data d\'inici</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">a</string>
+    <string name="mtrl_picker_today_description">Avui, dia %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Canvia al mode d\'introducció de dades del calendari</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Toca per canviar a la visualització de calendari</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Canvia al mode d\'introducció de text</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Toca per canviar a la visualització d\'any</string>
+    <string name="mtrl_timepicker_cancel">Cancel·la</string>
+    <string name="mtrl_timepicker_confirm">D’acord</string>
+    <string name="out_of_space">"Ja no queda espai en aquesta pantalla d\'inici."</string>
+    <string name="package_state_unknown">"Desconegut"</string>
+    <string name="password_toggle_content_description">Mostra la contrasenya</string>
+    <string name="permdesc_install_shortcut">"Permet que una aplicació afegeixi dreceres sense la intervenció de l\'usuari."</string>
+    <string name="permdesc_read_settings">"Permet que l\'aplicació llegeixi la configuració i les dreceres de la pantalla d\'inici."</string>
+    <string name="permdesc_write_settings">"Permet que l\'aplicació canviï la configuració i les dreceres de la pantalla d\'inici."</string>
+    <string name="permlab_install_shortcut">"instal·la dreceres"</string>
+    <string name="permlab_read_settings">"llegeix la configuració i les dreceres de la pantalla d\'inici"</string>
+    <string name="permlab_write_settings">"escriu la configuració i les dreceres de la pantalla d\'inici"</string>
+    <string name="safemode_shortcut_error">"L\'aplicació que has baixat està desactivada al mode segur."</string>
+    <string name="safemode_widget_error">"En Mode segur, els widgets estan desactivats."</string>
+    <string name="screen_moved">"S\'ha desplaçat la pantalla"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Cerca"</string>
+    <string name="settings_label">"Configuració"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="toggle_weight_watcher">"Mostra la memòria"</string>
+    <string name="uninstall_system_app_text">"Aquesta aplicació és una aplicació del sistema i no es pot desinstal·lar."</string>
+    <string name="wallpaper_button_text">"Fons de pantalla"</string>
+    <string name="widget_button_text">"Widgets"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"S\'ha canviat la mida del widget a l\'amplada <ns1:g id="NUMBER_0">%1$s</ns1:g> i l\'alçada <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="work_folder_name">"Feina"</string>
+    <string name="workspace_cling_longpress_description">"Mantén premut el fons per fer personalitzacions."</string>
+    <string name="workspace_cling_longpress_dismiss">"D\'ACORD"</string>
+    <string name="workspace_cling_longpress_title">"Fons de pantalla, widgets i configuració"</string>
+    <string name="workspace_scroll_format">"Pantalla d\'inici %1$d de %2$d"</string>
+</resources>

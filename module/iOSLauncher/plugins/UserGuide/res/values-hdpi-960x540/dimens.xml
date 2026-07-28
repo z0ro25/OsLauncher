@@ -1,0 +1,10 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="boot_first_start_btn_marginbottom">54dp</dimen>
+    <dimen name="boot_first_viewpager_height">290dp</dimen>
+    <dimen name="boot_first_viewpager_background_height">352dp</dimen>
+    <dimen name="boot_first_viewpager_width">162dp</dimen>
+    <dimen name="boot_first_viewpager_iv_width">174dp</dimen>
+    <dimen name="boot_first_viewpager_item_width">145.2dp</dimen>
+    <dimen name="boot_first_viewpager_marginbottom">40dp</dimen>
+</resources>

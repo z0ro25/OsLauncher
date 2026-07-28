@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="@dimen/theme_margin"
+    android:layout_marginRight="@dimen/theme_margin"
+    app:cardCornerRadius="@dimen/theme_newest_radius"
+    app:cardPreventCornerOverlap="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/lock_newest_item"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/lock_top_banner"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="@dimen/theme_newest_image_height"/>
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/lock_newest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/title_color"
+            android:layout_marginLeft="@dimen/theme_img_margin"
+            android:layout_marginStart="@dimen/theme_img_margin"
+            android:gravity="center"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

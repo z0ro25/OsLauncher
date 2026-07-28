@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="clean_widget_name">Boost Speed</string>
+    <!-- IOS Booster -->
+    <string name="dialog_clean_memory">Free up <xliff:g id="memory">%1$s</xliff:g>MB memory</string>
+    <string name="dialog_clean_memory_part1">Free up</string>
+    <string name="dialog_clean_memory_part2">memory</string>
+    <string name="dialog_clean_memory_fullly">Your phone is optimized now</string>
+    <string name="download">Download</string>
+</resources>

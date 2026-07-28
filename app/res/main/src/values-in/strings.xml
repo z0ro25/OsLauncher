@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="we_are_working_hard_for_a_better_user_experience">Kami bekerja keras untuk pengalaman pengguna yang lebih baik.</string>
+    <string name="we_d_greatly_appreciate_if_you_can_rate_us">Kami akan sangat menghargai jika Anda dapat menilai kami.</string>
+    <string name="may_be_later">mungkin nanti</string>
+    <string name="rate">Kecepatan</string>
+    <string name="The_best_we_can_get">Yang terbaik yang bisa kita dapatkan :)</string>
+    <string name="Writing_something">Menulis sesuatu...</string>
+    <string name="Send">Mengirim</string>
+    <string name="Oh_no">Oh tidak!</string>
+    <string name="Please_leave_us_some_feedback">Silakan tinggalkan kami umpan balik</string>
+    <string name="We_like_you_too">Kami juga menyukaimu!</string>
+    <string name="Thank_for_your_feedback">Terima kasih atas tanggapan Anda.</string>
+    <string name="We_are_working">Kami bekerja keras untuk pengalaman pengguna yang lebih baik.</string>
+    <string name="We_greatly_appreciate">Kami akan sangat menghargai jika Anda dapat menilai kami.</string>
+    <string name="Please_feedback">Mohon masukannya</string>
+    <string name="do_you_really_want_to_exit">Apakah Anda benar-benar ingin keluar</string>
+    <string name="please_wait">Harap tunggu</string>
+    <string name="cannot_back">Tidak bisa kembali!</string>
+    <string name="cannot_next">Tidak bisa selanjutnya</string>
+    <string name="there_are_no_email">Tidak ada klien email yang diinstal.</string>
+    <string name="go_to_launcher">Buka peluncur</string>
+    <string name="explore_your_os_interface">Jelajahi antarmuka OS Anda</string>
+    <string name="explore">Mengeksplorasi</string>
+    <string name="set_as_default_launcher">Tetapkan sebagai peluncur default</string>
+    <string name="to_access_all_features_of_launcher_os_17_youneed_to_set_it_as_your_default_app">Untuk mengakses semua fitur OSLauncher 17: Theme Launcher, Anda perlu mengaturnya sebagai aplikasi default Anda.</string>
+    <string name="select_default_home_screen">Pilih layar beranda default</string>
+    <string name="weather">Cuaca</string>
+    <string name="wallpaper">kertas dinding</string>
+    <string name="tap_to_start">Ketuk untuk Memulai</string>
+    <string name="hide_navigation">Sembunyikan navigasi</string>
+    <string name="hidden_app">Aplikasi tersembunyi</string>
+    <string name="page_transition">Transisi halaman</string>
+    <string name="done">Selesai</string>
+    <string name="default_">Bawaan</string>
+    <string name="rotation">Rotasi</string>
+    <string name="flip">Balik</string>
+    <string name="zoom_in">Perbesar</string>
+    <string name="set_as_current">Tetapkan sebagai saat ini</string>
+    <string name="add_new_wallpaper">Tambahkan Wallpaper Baru</string>
+    <string name="customize">Sesuaikan</string>
+    <string name="photos">Foto</string>
+    <string name="emoji">emoji</string>
+    <string name="color">Warna</string>
+    <string name="see_all">Lihat semua</string>
+    <string name="add">Menambahkan</string>
+    <string name="save">Menyimpan</string>
+    <string name="blur">Mengaburkan</string>
+    <string name="pair">Pasangan</string>
+    <string name="gradient">Gradien</string>
+    <string name="background_color">Warna latar belakang</string>
+    <string name="opacity">Kegelapan</string>
+    <string name="select_option">Pilih opsi</string>
+    <string name="set_wallpaper">Memasang wallpaper</string>
+    <string name="customize_home_screen">Sesuaikan Layar Beranda</string>
+    <string name="current">Saat ini</string>
+    <string name="ads_are_about_to_be_shown">Iklan akan segera ditampilkan</string>
+    <string name="permission">Izin</string>
+    <string name="this_app_needs_permissions_below_to_work_properly">Aplikasi ini memerlukan izin di bawah agar berfungsi dengan baik</string>
+    <string name="external_storage">Penyimpanan luar</string>
+    <string name="continue_">Melanjutkan</string>
+    <string name="your_file_is_empty">File Anda kosong</string>
+    <string name="looks_like_you_haven_t_added_anything_nyet">Sepertinya Anda belum menambahkan apa pun.</string>
+    <string name="setting">Pengaturan</string>
+    <string name="share">Membagikan</string>
+    <string name="privacy_policy">Kebijakan pribadi</string>
+    <string name="Thankyou" translatable="false">Terima kasih!</string>
+    <string name="your_opinion_matter_to_us" translatable="false">Pendapat Anda Penting Bagi Kami!</string>
+    <string name="content_dialog" translatable="false">Jika Anda menyukai OSLauncher 17: Theme Launcher ini, maukah Anda memberi peringkat pada kami di Google Play?</string>
+    <string name="Send_Email" translatable="false">Mengirim email</string>
+    <string name="There_is_no" translatable="false">Tidak ada klien email yang terpasang.</string>
+    <string name="not_now" translatable="false">Tidak sekarang</string>
+    <string name="rate_us" translatable="false">Nilai kami</string>
+    <string name="rate_success">Nilai Keberhasilan</string>
+    <string name="please_reate_use">Silakan beri peringkat pada kami</string>
+    <string name="message1">Layar beranda yang unik</string>
+    <string name="message2">Sesuaikan Wallpaper</string>
+    <string name="message3">Pencarian Cepat</string>
+    <string name="next">Berikutnya</string>
+    <string name="language">Bahasa</string>
+    <string name="general">Umum</string>
+</resources>

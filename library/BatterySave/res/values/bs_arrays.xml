@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>AUTO SYNC</item>
+        <item>BRIGHTNESS</item>
+        <item>AUTO ROTATE</item>
+        <item>SCREEN TIMEOUT</item>
+        <item>VIBRATE</item>
+        <item>DATA</item>
+        <item>HOTSPOT</item>
+        <item>WI-FI</item>
+        <item>BLUETOOTH</item>
+        <item>RINGTONE</item>
+        <item>VIBRATE ON TOUCH</item>
+    </string-array>
+
+</resources>

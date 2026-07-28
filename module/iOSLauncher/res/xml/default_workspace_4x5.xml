@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<favorites
+  xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <include launcher:workspace="@xml/dw_phone_hotseat_5" />
+    <appwidget launcher:className="com.lava.lavaclockwidget.LavaClockWidgetProvider" launcher:packageName="com.android.deskclock" launcher:screen="0" launcher:spanX="5" launcher:spanY="1" launcher:x="0" launcher:y="0" />
+    <resolver launcher:screen="1" launcher:x="0" launcher:y="1">
+        <folder launcher:favoriteTitle="@string/sysfolder_tool">
+            <favorite launcher:appType="app_flashlight" />
+            <favorite launcher:appType="app_toolbag" />
+        </folder>
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="0" launcher:y="2">
+        <favorite launcher:appType="app_gallery" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="1" launcher:y="2">
+        <favorite launcher:appType="app_calendar" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="2" launcher:y="2">
+        <favorite launcher:appType="app_clock" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="3" launcher:y="2">
+        <favorite launcher:appType="app_note" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="4" launcher:y="2">
+        <favorite launcher:appType="app_music" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="0" launcher:y="3">
+        <favorite launcher:appType="app_filemanager" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="1" launcher:y="3">
+        <favorite launcher:appType="app_video" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="2" launcher:y="3">
+        <favorite launcher:appType="app_soundrecorder" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="3" launcher:y="3">
+        <favorite launcher:appType="app_calculator" />
+    </resolver>
+    <resolver launcher:screen="0" launcher:x="4" launcher:y="3">
+        <favorite launcher:appType="app_settings" />
+    </resolver>
+    <resolver launcher:screen="1" launcher:x="1" launcher:y="1">
+        <favorite launcher:appType="app_theme" />
+    </resolver>
+    <resolver launcher:screen="1" launcher:x="2" launcher:y="1">
+        <favorite launcher:appType="app_mirror" />
+    </resolver>
+    <resolver launcher:screen="1" launcher:x="3" launcher:y="1">
+        <favorite launcher:appType="app_systemmanager" />
+    </resolver>
+    <resolver launcher:screen="1" launcher:x="4" launcher:y="1">
+        <favorite launcher:appType="app_office" />
+    </resolver>
+    <resolver launcher:screen="1" launcher:x="1" launcher:y="2">
+        <favorite launcher:appType="app_steprecorder" />
+    </resolver>
+</favorites>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="folder_name">مؤلف</string>
+    <string name="work_folder_name">"العمل"</string>
+    <string name="activity_not_found">"لم يتم تثبيت التطبيق."</string>
+    <string name="activity_not_available">"التطبيق ليس متاحًا"</string>
+    <string name="safemode_shortcut_error">"تم تعطيل التطبيق الذي تم تنزيله في الوضع الآمن"</string>
+    <string name="safemode_widget_error">"الأدوات معطلة في الوضع الآمن"</string>
+    <string name="toggle_weight_watcher">"عرض الذاكرة"</string>
+    <string name="long_press_widget_to_add">"المس مع الاستمرار لاختيار إحدى الأدوات."</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="all_apps_search_bar_hint">"البحث عن التطبيقات "</string>
+    <string name="all_apps_loading_message">"جاري تحميل التطبيقات"</string>
+    <string name="all_apps_no_search_results">"لم يتم العثور على أية تطبيقات تتطابق مع \"<xliff:g id="QUERY">%1$s</xliff:g>\""</string>
+    <string name="all_apps_search_market_message">"الانتقال إلى <xliff:g id="QUERY">%1$s</xliff:g>"</string>
+    <string name="out_of_space">"ليس هناك مساحة أخرى في هذه الشاشة الرئيسية."</string>
+    <string name="hotseat_out_of_space">"لا يوجد المزيد من الحقول في علبة المفضلة"</string>
+    <string name="all_apps_button_label">"التطبيقات"</string>
+    <string name="all_apps_home_button_label">"الرئيسية"</string>
+    <string name="delete_target_label">"إزالة"</string>
+    <string name="delete_target_uninstall_label">"إلغاء التثبيت"</string>
+    <string name="desktop_target_label">إلى سطح المكتب</string>
+    <string name="info_target_label">"معلومات عن التطبيق"</string>
+    <string name="permlab_install_shortcut">"تثبيت اختصارات"</string>
+    <string name="permdesc_install_shortcut">"السماح للتطبيق في إضافة الاختصارات تلقائيا"</string>
+    <string name="permlab_read_settings">"قراءة إعدادات واختصارات الشاشة الرئيسية"</string>
+    <string name="permdesc_read_settings">"السماح للتطبيق في قراءة التطبيق والاختصارات في الشاشة الرئيسية"</string>
+    <string name="permlab_write_settings">"كتابة الإعدادات والاختصارات في الشاشة الرئيسية"</string>
+    <string name="permdesc_write_settings">السماح للتطبيق بتغيير الإعدادات والاختصارات على الشاشة الرئيسية</string>
+    <string name="gadget_error_text">"حدثت مشكلة أثناء تحميل الأداة"</string>
+    <string name="gadget_setup_text">"الإعداد"</string>
+    <string name="uninstall_system_app_text">"هذا تطبيق نظام وتتعذر إزالته."</string>
+    <string name="folder_hint_text">"مجلد بدون اسم"</string>
+    <string name="default_scroll_format">"‏الصفحة %1$d من %2$d"</string>
+    <string name="workspace_scroll_format">"‏الشاشة الرئيسية %1$d من %2$d"</string>
+    <string name="first_run_cling_title">"مرحبًا"</string>
+    <string name="migration_cling_title">"نسخ رموز التطبيقات"</string>
+    <string name="migration_cling_description">"هل تريد استيراد رموز ومجلدات من الشاشات الرئيسية القديمة؟"</string>
+    <string name="migration_cling_copy_apps">"نسخ الرموز"</string>
+    <string name="migration_cling_use_default">"بداية جديدة"</string>
+    <string name="workspace_cling_longpress_title">"الخلفيات والأدوات والإعدادات"</string>
+    <string name="workspace_cling_longpress_description">"المس مع الاستمرار على الخلفية لتخصيصها"</string>
+    <string name="workspace_cling_longpress_dismiss">"حسنًا"</string>
+    <string name="folder_opened">"تم فتح المجلد، بمقاس <xliff:g id="WIDTH">%1$d</xliff:g> في <xliff:g id="HEIGHT">%2$d</xliff:g>"</string>
+    <string name="folder_tap_to_close">"المس لإغلاق المجلد"</string>
+    <string name="folder_tap_to_rename">"المس لحفظ إعادة التسمية"</string>
+    <string name="folder_closed">"تم إغلاق المجلد"</string>
+    <string name="folder_renamed">"تمت إعادة تسمية المجلد إلى <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="folder_name_format">"المجلد: <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="widget_button_text">"الأدوات"</string>
+    <string name="wallpaper_button_text">"الخلفيات"</string>
+    <string name="settings_label">"الإعدادات"</string>
+    <string name="allow_rotation_title">"السماح بالتدوير"</string>
+    <string name="package_state_unknown">"غير معروفة"</string>
+    <string name="abandoned_clean_this">"إزالة"</string>
+    <string name="abandoned_search">"بحث"</string>
+    <string name="abandoned_promises_title">"لم يتم تثبيت هذا التطبيق"</string>
+    <string name="abandoned_promise_explanation">"لم يتم تثبيت تطبيق لهذا الرمز. يمكنك إزالته أو البحث عن التطبيق وتثبيته يدويًا."</string>
+    <string name="action_add_to_workspace">"إضافة إلى الشاشة الرئيسية"</string>
+    <string name="action_move_here">"نقل العنصر إلى هنا"</string>
+    <string name="item_added_to_workspace">"تمت إضافة العنصر إلى الشاشة الرئيسية"</string>
+    <string name="item_removed">"تم حذف العنصر"</string>
+    <string name="action_move">"نقل العنصر"</string>
+    <string name="move_to_empty_cell">"نقل إلى الصف <xliff:g id="NUMBER_0">%1$s</xliff:g> العمود <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+    <string name="move_to_position">"نقل إلى الموضع <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="move_to_hotseat_position">"نقل إلى الموضع المفضل <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="item_moved">"تم نقل العنصر"</string>
+    <string name="add_to_folder">"إضافة إلى المجلد: <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="add_to_folder_with_app">"إضافة إلى المجلد الذي به <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="added_to_folder">"تمت إضافة العنصر إلى المجلد"</string>
+    <string name="create_folder_with">"إنشاء مجلد يتضمن: <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="folder_created">"تم إنشاء المجلد"</string>
+    <string name="action_move_to_workspace">"نقل إلى الشاشة الرئيسية"</string>
+    <string name="action_move_screen_left">"نقل الشاشة إلى اليسار"</string>
+    <string name="action_move_screen_right">"نقل الشاشة إلى اليمين"</string>
+    <string name="screen_moved">"تم نقل الشاشة"</string>
+    <string name="action_resize">"تغيير حجم"</string>
+    <string name="action_increase_width">"زيادة العرض"</string>
+    <string name="action_increase_height">"زيادة الارتفاع"</string>
+    <string name="action_decrease_width">"تقليل العرض"</string>
+    <string name="action_decrease_height">"تقليل الارتفاع"</string>
+    <string name="widget_resized">"تم تغيير حجم الأداة إلى العرض <xliff:g id="NUMBER_0">%1$s</xliff:g> والارتفاع <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+    <string name="main_menu_login">دخول</string>
+    <string name="main_menu_theme_wallpaper">الموضوع والخلفية</string>
+    <string name="main_menu_add_widget">أضف المكون الإضافي</string>
+    <string name="main_menu_feedback">تعليقات</string>
+    <string name="main_menu_share">مشاركة</string>
+    <string name="main_menu_launcher_settings">إعدادات الشاشة الرئيسية</string>
+    <string name="main_menu_sys_settings">اعدادات النظام</string>
+    <string name="shortcut_wallpaper">الخلفية</string>
+    <string name="shortcut_theme">الموضوع</string>
+    <string name="shortcut_power_save">وضع الطاقة المنخفضة</string>
+    <string name="widget_section_title_ios">IOS</string>
+    <string name="widget_section_title_more">المزيد</string>
+    <string name="launcher_loading_first_time">يجري iosتدبير الشاشةالرئيسية لك</string>
+    <string name="launcher_settings">إعدادات الشاشة الرئيسية</string>
+    <string name="settings_default_launcher">تعيين كسطح المكتب الافتراضي </string>
+    <string name="contact_us">اعجب بنا على الفيسبوك</string>
+    <string name="setting_appearance">المظهر</string>
+    <string name="news_center_title">الاخبار</string>
+    <string name="search_bar_title">شريط البحث.</string>
+    <string name="ios_konw_title">IOS Know على الشاشة الرئيسية</string>
+    <string name="setting_advanced">الإعدادات الأخرى</string>
+    <string name="settings_category_more">المزيد</string>
+    <string name="check_update">التحقق من التحديثات</string>
+    <string name="update_start_download_apk">جاري تحميل نسخة جديدة ,يمكنك رؤية التفاصيل على الإشعارات.</string>
+    <string name="update_to_latest_version">التحديث إلى نسخة جديدة فورا</string>
+    <string name="menu_share">مشاركة</string>
+    <string name="menu_about">عن ios</string>
+    <string name="menu_ios_summary">أصغر وأسرع نظام التشغيل في العالم</string>
+    <string name="about_website">الصفحة الرئيسية </string>
+    <string name="about_communities">مجموعة عملاء IOS</string>
+    <string name="about_communities_summary">على +Google</string>
+    <string name="about_email">البريد</string>
+    <string name="terms_of_service">مادة الخدمة</string>
+    <string name="menu_privacy_notice">البيانات الخصوصية</string>
+    <string name="about_version">الاصدار الحالي</string>
+    <string name="software_share_text">أسرع وأجمل وأفضل سطح المكتب في العالم هو IOS،الرجاء التجريب عبر https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_titile">مشاركة</string>
+    <string name="update_start">الرجاء التحقق من نسخة جديدة،الرجاء الانتظار</string>
+    <string name="update_check_no_update">مبروك!أنت تستخدم آخر نسخة.</string>
+    <string name="network_error_tip">الشبكة غير متاحة ،رجاء التحقق من الانترنت</string>
+    <string name="update_self_dialog_title">تحديث النسخة</string>
+    <string name="update_self_dialog_content">يمكنك الاستخدام نسخة جديدة،اضغط للتحديث</string>
+    <string name="launcher_guide_allapps_content">اعثر على جميع تطبيقاتك مدرجة حسب الترتيب الأبجدي في مجلد واحد بسهولة</string>
+    <string name="launcher_guide_allapps_title">جميع التطبيقات</string>
+    <string name="launcher_guide_got_it">فهِمت</string>
+    <string name="pending_anim_title">استخدام تغيير الكارتون</string>
+    <string name="pending_transition_down">التمرير إلى الأسفل</string>
+    <string name="pending_transition_left">التمرير إلى اليسار</string>
+    <string name="pending_transition_right">التمرير إلى اليمين</string>
+    <string name="pending_transition_rotate">تدوير</string>
+    <string name="pending_transition_system">نظام</string>
+    <string name="pending_transition_up">التمرير إلى الأعلى</string>
+    <string name="pending_transition_zoom">التكبير/التصغير</string>
+    <string name="transition_effect_none">غير موجود</string>
+    <string name="transition_effect_stack">كوم البطاقات</string>
+    <string name="transition_effect_windmill">مروحة تذرية</string>
+    <string name="transition_effect_wheel">عجلة</string>
+    <string name="transition_effect_flip">انتكاس عمودي</string>
+    <string name="transition_effect_cross">تشابك</string>
+    <string name="transition_effect_accordion">أكورديون</string>
+    <string name="transition_effect_cubein">التكعيب إلى الداخل</string>
+    <string name="transition_effect_cubeout">التكعيب إلى الخارج</string>
+    <string name="transition_effect_carousel_left">الدوامة(الشمال)</string>
+    <string name="transition_effect_carousel_right">الدوامة(اليمين)</string>
+    <string name="transition_effect_overview">استعراض عام</string>
+    <string name="screen_edit_effect_transition">تأثير الشاشة المنزلقة</string>
+    <string name="screen_edit_label_color">اللون</string>
+    <string name="screen_edit_icon_size">حجم الرمز</string>
+    <string name="screen_edit_label_size">حجم الخط</string>
+    <string name="setting_size_big">كبير</string>
+    <string name="setting_size_normal">قياسية</string>
+    <string name="setting_size_small">صغير</string>
+    <string name="screen_edit_drop_delete_anim">حذف الكارتون</string>
+    <string name="drop_delete_anim_system">نظام</string>
+    <string name="drop_delete_anim_explosion">ألعاب نارية</string>
+</resources>

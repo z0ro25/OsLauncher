@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="bs_title_height">50dp</dimen>
+    <dimen name="bs_back_left">10dp</dimen>
+    <dimen name="bs_title_size">8.5dp</dimen>
+    <dimen name="bs_lv_item_height">48dp</dimen>
+    <dimen name="bs_lv_item_left">17dp</dimen>
+    <dimen name="bs_line_item_left">70dp</dimen>
+    <dimen name="bs_switcher_left">30dp</dimen>
+    <dimen name="bs_switcher_size">15dp</dimen>
+    <dimen name="bs_min_size">11dp</dimen>
+    <dimen name="bs_state_left">16dp</dimen>
+    <dimen name="bs_state_right">16dp</dimen>
+    <dimen name="bs_line_height">0.5dp</dimen>
+    <dimen name="sl_finger_print_margin_top">220dip</dimen>
+    <dimen name="sl_pwd_margin_top">18dp</dimen>
+    <dimen name="sl_num_height">63dp</dimen>
+    <dimen name="sl_pwd_top">105dp</dimen>
+    <dimen name="sl_add_margin">13dp</dimen>
+    <dimen name="sl_textview_size">16dip</dimen>
+    <dimen name="sl_space_layout">13dp</dimen>
+    <dimen name="sl_listview_height">56dp</dimen>
+    <dimen name="sl_btn_sure">9dp</dimen>
+    <dimen name="sl_icon_size">42dp</dimen>
+    <dimen name="sl_finger_tv_margin_left">3dip</dimen>
+    <dimen name="sl_pwd_size">20sp</dimen>
+    <dimen name="sl_pwd_ed">34sp</dimen>
+    <dimen name="sl_num_bottom">71dp</dimen>
+    <dimen name="sl_space_pwd">20dp</dimen>
+    <dimen name="sl_title_bar_height">48dp</dimen>
+    <dimen name="sl_title_bar_texp_gap">7dp</dimen>
+    <dimen name="sl_title_bar_text_size">22.22sp</dimen>
+    <dimen name="sl_loading_px_35_dp">12dp</dimen>
+    <dimen name="sl_lock_num_bottom">100dp</dimen>
+    <dimen name="sl_hint_space">6dp</dimen>
+    <dimen name="sl_hint_size">16sp</dimen>
+    <dimen name="sl_app_icon_size">50dp</dimen>
+    <dimen name="sl_settings_top">10dp</dimen>
+</resources>

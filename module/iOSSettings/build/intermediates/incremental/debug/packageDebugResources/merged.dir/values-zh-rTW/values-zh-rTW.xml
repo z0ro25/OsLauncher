@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="low_battery_flashlight_canot_use">電量過低，手電筒不能使用！</string>
+    <string name="settings_action_settings">設置</string>
+    <string name="settings_airplane_mode_text">飛行模式</string>
+    <string name="settings_app_name">快捷設置</string>
+    <string name="settings_application_management_text">應用管理</string>
+    <string name="settings_auto_brightness_text">自動亮度</string>
+    <string name="settings_auto_rotate_text">自動旋轉</string>
+    <string name="settings_blue_touch_text">藍牙</string>
+    <string name="settings_brightness_text">屏幕亮度</string>
+    <string name="settings_desk">桌面設置</string>
+    <string name="settings_error_text">由於系統限制，不可使用！</string>
+    <string name="settings_flash_light_text">手電筒</string>
+    <string name="settings_light_error_text">無閃光燈，不可使用！</string>
+    <string name="settings_location_mode_text">位置</string>
+    <string name="settings_power_saving_text"> 省電模式</string>
+    <string name="settings_ringtone_text">情景模式</string>
+    <string name="settings_setting_title">IOS OS</string>
+    <string name="settings_settings_hot_spot">熱點</string>
+    <string name="settings_settings_text">系統設置</string>
+    <string name="settings_sim_error_text">無SIM卡！</string>
+    <string name="settings_traffic_data_text"> 數據流量</string>
+    <string name="settings_traffic_monitoring_text">流量監控</string>
+    <string name="settings_wifi_text"> WIFI</string>
+    <string name="torch_widget_name">手電筒</string>
+</resources>

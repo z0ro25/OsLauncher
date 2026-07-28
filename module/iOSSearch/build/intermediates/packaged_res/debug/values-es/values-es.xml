@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_show_strings">
+        <item>Introduce el nombre de tu amigo</item>
+        <item>Encuentra la aplicación que quieras</item>
+        <item>Busca tu música</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Encuentra tus CONTACTOS aquí</item>
+        <item>Encuentra tus APPS aquí</item>
+        <item>Encuentra tu MÚSICA aquí</item>
+        <item>Toca aquí</item>
+        <item>El FONDO DE PANTALLA perfecto está aquí</item>
+        <item>¡Pruébalo y acelera el funcionamiento del teléfono!</item>
+        <item>Consulta la información del TIEMPO aquí</item>
+        <item>Un nuevo TEMA ya está aquí</item>
+    </string-array>
+    <string name="fmsearch_activity_not_found">Aplicación no instalada</string>
+    <string name="fmsearch_app_name">Buscar</string>
+    <string name="fmsearch_download">Descargar</string>
+    <string name="fmsearch_download_market_update_message">Esta característica difiere de un cliente a otro del último Mercado Zhouyi. ¿Quieres continuar descargando actualizaciones? (Se recomienda el uso de Wi-Fi)</string>
+    <string name="fmsearch_download_market_warning_message">Esta característica difiere de un cliente de un Mercado Zhouyi a otro. ¿Quieres continuar descargando (se recomienda el uso de Wi-Fi)?</string>
+    <string name="fmsearch_search_pic">Buscar foto</string>
+    <string name="fmsearch_search_video">Buscar video</string>
+    <string name="fmsearch_search_websit">Buscar página web</string>
+    <string name="fmsearch_str_contact">Contactos</string>
+    <string name="fmsearch_str_music">Música</string>
+    <string name="fmsearch_tips">Consejos</string>
+    <string name="fmsearch_txt_head_local_app">Aplicación</string>
+    <string name="fmsearch_txt_head_online_app">Aplicación recomendada</string>
+</resources>

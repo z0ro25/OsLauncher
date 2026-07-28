@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="bs_progressBar">
+        <attr name="progress1" format="integer" />
+        <attr name="text3" format="string" />
+        <attr name="timeStr" format="string" />
+        <attr name="chargeDrawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="bs_title_bar_attrs">
+        <attr name="bs_background" format="reference" />
+
+        <attr name="leftIcon" format="reference" />
+        <attr name="showLeftIcon" format="boolean" />
+
+        <attr name="rightIcon" format="reference" />
+        <attr name="showRightIcon" format="boolean" />
+
+        <attr name="centerTitle" format="string" />
+        <attr name="centerTitleColor" format="color" />
+        <attr name="centerTitleSize" format="dimension" />
+        <attr name="showCenterTitle" format="boolean" />
+        <attr name="centerTitleCanClick" format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="sl_title_bar_attrs">
+        <attr name="slbackground" format="reference|color" />
+        <attr name="slleftIcon" format="reference" />
+        <attr name="slrightIcon" format="reference" />
+        <attr name="slleftTitle" format="reference|string" />
+        <attr name="slcenterTitle" format="reference|string" />
+        <attr name="slrightTitle" format="reference|string" />
+        <attr name="slleftTitleColor" format="color" />
+        <attr name="slcenterTitleColor" format="color" />
+        <attr name="slrightTitleColor" format="color" />
+        <attr name="slleftTitleSize" format="dimension" />
+        <attr name="slcenterTitleSize" format="dimension" />
+        <attr name="slrightTitleSize" format="dimension" />
+        <attr name="slshowLeftTitle" format="boolean" />
+        <attr name="slshowCenterTitle" format="boolean" />
+        <attr name="slshowRightTitle" format="boolean" />
+        <attr name="slshowLeftIcon" format="boolean" />
+        <attr name="slshowRightIcon" format="boolean" />
+        <attr name="slcenterTitleCanClick" format="boolean" />
+    </declare-styleable>
+
+</resources>

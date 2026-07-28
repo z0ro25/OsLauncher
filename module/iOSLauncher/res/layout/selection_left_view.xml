@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_left_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.amz.ios.launcher.quickaccess.SelectionBg
+        android:id="@+id/bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageView android:id="@+id/img1"
+        android:background="@drawable/quick_access_section_indicator"
+        android:layout_width="@dimen/selection_image_width"
+        android:layout_height="@dimen/selection_image_height"
+        android:rotation="15"/>
+    <ImageView android:id="@+id/img2"
+        android:background="@drawable/quick_access_section_indicator"
+        android:visibility="invisible"
+        android:layout_width="@dimen/selection_image_width"
+        android:layout_height="@dimen/selection_image_height"
+        android:rotation="45"/>
+    <ImageView android:id="@+id/img3"
+        android:background="@drawable/quick_access_section_indicator"
+        android:visibility="invisible"
+        android:layout_width="@dimen/selection_image_width"
+        android:layout_height="@dimen/selection_image_height"
+        android:rotation="75"/>
+</RelativeLayout>

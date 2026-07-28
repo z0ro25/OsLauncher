@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+
+android {
+    namespace "com.amz.ios.newssource"
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    compile files('libs/AdudienceNetwork4.13.2.aar')
+//    compile files('libs/audience-network-sdk-4.99.0.aar')
+    implementation files('libs/droiselfupdate-1.1.019.jar')
+    implementation files('libs/commons-lang3-3.5.jar')
+//    implementation files('libs/ads-6.4.2.jar')
+//    implementation files('libs/inmobi-ads-7.0.4.jar')
+//    compile files('libs/fresco-1.4.0.aar')
+//    implementation files('libs/adzodiac-0.3.102.jar')
+
+//    implementation(name: 'audience-network-sdk-4.99.0', ext: 'aar')
+//    implementation(name: 'fresco-1.4.0', ext: 'aar')
+//    implementation(name: 'infohub-release', ext: 'aar')
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation libs['cardview-v7']
+    implementation libs['design']
+    implementation project(':library:iOSLiteCommon')
+//    //facebook
+//    compile libs['audience-network-sdk']
+    //infohub
+//    implementation libs['gms-play-services-ads']
+//    implementation libs['gms-play-services-analytics']
+//    implementation libs['gms-play-services-gcm']
+//    compile libs['droi-bass-selfupdate']
+//    compile libs['commons-lang']
+//    compile libs['flurry-ads']
+//    compile libs['inmobi-ads']
+//    compile libs['droi-adzodiac']
+//    compile libs['facebook-fresco']
+}

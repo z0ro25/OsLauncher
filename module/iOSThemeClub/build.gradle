@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+
+android {
+    namespace "com.amz.ios.themeclub"
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    resourcePrefix 'themeclub'
+
+    buildFeatures {
+        // for view binding:
+        buildConfig = true
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+//    implementation libs['appcompat-v7']
+    implementation libs['design']
+    implementation "com.github.bumptech.glide:glide:3.7.0"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation project(':library:iOSLiteCommon')
+    implementation project(':library:ThemeResource:ThemeDefault')
+    implementation project(':module:iOSLauncher')
+    implementation project(':library:cropper')
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+}

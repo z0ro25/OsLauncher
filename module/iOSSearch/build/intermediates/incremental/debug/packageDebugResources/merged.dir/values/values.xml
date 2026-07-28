@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Find your CONTACTS here</item>
+        <item>Find your APPS here</item>
+        <item>Find your MUSIC here</item>
+        <item>Try to click here</item>
+        <item>Perfect WALLPAPER is here</item>
+        <item>I heard that with this, the phone faster!</item>
+        <item>Query the WEATHER information here</item>
+        <item>A new THEME is coming now</item>
+    </string-array>
+    <color name="fmsearch_black">#000000</color>
+    <color name="fmsearch_cl_blue_bg">#1b9cd8</color>
+    <color name="fmsearch_cl_blue_bg_focus">#661b9cd8</color>
+    <color name="fmsearch_cl_cursor">#3f51b5</color>
+    <color name="fmsearch_cl_flash">#88ffffff</color>
+    <color name="fmsearch_cl_item_divider_bg">#e5e5e5</color>
+    <color name="fmsearch_cl_item_head_txt">#757575</color>
+    <color name="fmsearch_cl_item_hotapp_txt">#4c4c4c</color>
+    <color name="fmsearch_cl_item_music_subtitle_txt">#55000000</color>
+    <color name="fmsearch_cl_item_music_title_txt">#cc000000</color>
+    <color name="fmsearch_cl_main_bg">#f7f7f7</color>
+    <color name="fmsearch_cl_search_head_hint_txt">#80000000</color>
+    <color name="fmsearch_white">#ffffff</color>
+    <dimen name="fmsearch_dm_search_divider_height">1px</dimen>
+    <dimen name="fmsearch_dp_ad_image_height">40dip</dimen>
+    <dimen name="fmsearch_dp_ad_image_width">40dip</dimen>
+    <dimen name="fmsearch_dp_cardelevation">2dp</dimen>
+    <dimen name="fmsearch_dp_item_common_space_padding">4dp</dimen>
+    <dimen name="fmsearch_dp_item_content_height">42dp</dimen>
+    <dimen name="fmsearch_dp_item_corner_radius">2dp</dimen>
+    <dimen name="fmsearch_dp_item_haf_inner_common_padding">4dp</dimen>
+    <dimen name="fmsearch_dp_item_head_height">42dp</dimen>
+    <dimen name="fmsearch_dp_item_head_padding_left">@dimen/fmsearch_dp_item_outer_common_padding
+    </dimen>
+    <dimen name="fmsearch_dp_item_hotapp_height">89dp</dimen>
+    <dimen name="fmsearch_dp_item_hotapp_width">86dp</dimen>
+    <dimen name="fmsearch_dp_item_inner_common_padding">8dp</dimen>
+    <dimen name="fmsearch_dp_item_outer_common_padding">16dp</dimen>
+    <dimen name="fmsearch_dp_item_search_content_height">@dimen/fmsearch_dp_item_content_height
+    </dimen>
+    <dimen name="fmsearch_dp_search_min_height">64dp</dimen>
+    <dimen name="fmsearch_dp_search_min_width">348dip</dimen>
+    <dimen name="fmsearch_dp_search_widget_height">48dip</dimen>
+    <dimen name="fmsearch_pivotX">12dp</dimen>
+    <dimen name="fmsearch_pivotY">12dp</dimen>
+    <dimen name="fmsearch_sp_search_head_txt">15sp</dimen>
+    <dimen name="fmsearch_sp_search_widget_txt">15sp</dimen>
+    <string name="fmsearch_activity_not_found">App isn\'t installed.</string>
+    <string name="fmsearch_apkid_error">Apk id is wrong </string>
+    <string name="fmsearch_app_name">Search</string>
+    <string name="fmsearch_download">Download</string>
+    <string name="fmsearch_download_market_update_message">This feature depend on a custom version
+        of the
+        latest market zhouyi market client, whether or not to continue to update download(it is
+        recommended to use wifi)?
+    </string>
+    <string name="fmsearch_download_market_warning_message">This feature depend on a custom version
+        of the
+        zhouyi market client,whether or not to continue to download(it is recommended to use wifi)?
+    </string>
+    <string name="fmsearch_search_pic">Search Picture</string>
+    <string name="fmsearch_search_tip_string"> Search apps, contacts, files</string>
+    <string name="fmsearch_search_video">Search Video</string>
+    <string name="fmsearch_search_websit">Search Website</string>
+    <string name="fmsearch_str_contact">Contacts</string>
+    <string name="fmsearch_str_file">Files</string>
+    <string name="fmsearch_str_music">Music</string>
+    <string name="fmsearch_tips">tips</string>
+    <string name="fmsearch_txt_head_local_app">Application</string>
+    <string name="fmsearch_txt_head_online_app">Application Recommendation</string>
+    <style name="AdRatingBarStyle" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ad_rating_style</item>
+        <item name="android:minHeight">14dp</item>
+        <item name="android:maxHeight">14dp</item>
+    </style>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="BaseTheme.NoTitle" parent="BaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/fmsearch_black</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+        <item name="android:divider">@drawable/fmsearch_dw_divider</item>
+        <item name="android:listSelector">?android:attr/selectableItemBackground</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+    <declare-styleable name="MaskImageView">
+
+        <attr format="enum" name="mask_level">
+            <enum name="background" value="1"/>
+            <enum name="foreground" value="2"/>
+        </attr>
+        
+        <attr format="boolean" name="is_show_mask_on_click"/>
+        <attr format="color" name="mask_color"/>
+        
+        <attr format="boolean" name="is_ignore_alpha"/>
+
+    </declare-styleable>
+    <declare-styleable name="TagFlowLayout">
+        <attr format="boolean" name="auto_select_effect"/>
+        <attr format="integer" name="max_select"/>
+        <attr name="gravity">
+            <enum name="left" value="-1"/>
+            <enum name="center" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

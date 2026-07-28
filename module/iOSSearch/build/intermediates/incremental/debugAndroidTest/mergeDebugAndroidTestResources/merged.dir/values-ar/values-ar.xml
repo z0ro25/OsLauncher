@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <string-array name="fmsearch_search_show_strings">
+        <item>حاول إدخال اسم صديقك </item>
+        <item>ابحث عما تريد من التطبيقات</item>
+        <item> حاول البحث عن اسم الموسيقى</item>
+    </string-array>
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>يمكنك البحث عن جهات الاتصال</item>
+        <item>البحث عن التطبيقات المحبة </item>
+        <item>يمكنك العثور على الموسيقى</item>
+        <item>اضغط على هنا</item>
+        <item>تعالى هنا لرؤية الصور الخلفية </item>
+        <item>شغله فيكون هاتفك على أسرع حال</item>
+        <item>تعالى وانظر إلى الطقس</item>
+        <item>تم تحديث موضوع، التحقق من ذلك!</item>
+    </string-array>
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="zero">%d إشعار جديد</item>
+    <item quantity="one">إشعار جديد واحد (%d)</item>
+    <item quantity="two">إشعاران جديدان (%d)</item>
+    <item quantity="few">%d إشعارات جديدة</item>
+    <item quantity="many">%d إشعارًا جديدًا</item>
+    <item quantity="other">%d إشعار جديد</item>
+  </plurals>
+    <string name="abandoned_clean_this">"إزالة"</string>
+    <string name="abandoned_promise_explanation">"لم يتم تثبيت تطبيق لهذا الرمز. يمكنك إزالته أو البحث عن التطبيق وتثبيته يدويًا."</string>
+    <string name="abandoned_promises_title">"لم يتم تثبيت هذا التطبيق"</string>
+    <string name="abandoned_search">"بحث"</string>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"التوجه إلى المنزل"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"التنقل إلى أعلى"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"خيارات أكثر"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"تم"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"عرض الكل"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"اختيار تطبيق"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"إيقاف"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"مفعّلة"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"حذف"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"فضاء"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"القائمة+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"بحث…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"محو طلب البحث"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"طلب بحث"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"البحث"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"إرسال طلب البحث"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"بحث صوتي"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"مشاركة مع"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"مشاركة مع <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"تصغير"</string>
+    <string name="about_communities">مجموعة عملاء IOS</string>
+    <string name="about_communities_summary">على +Google</string>
+    <string name="about_email">البريد</string>
+    <string name="about_legal_notices">البيانات القانونية</string>
+    <string name="about_version">الاصدار الحالي</string>
+    <string name="about_website">الصفحة الرئيسية </string>
+    <string name="action_add_to_workspace">"إضافة إلى الشاشة الرئيسية"</string>
+    <string name="action_decrease_height">"تقليل الارتفاع"</string>
+    <string name="action_decrease_width">"تقليل العرض"</string>
+    <string name="action_increase_height">"زيادة الارتفاع"</string>
+    <string name="action_increase_width">"زيادة العرض"</string>
+    <string name="action_move">"نقل العنصر"</string>
+    <string name="action_move_here">"نقل العنصر إلى هنا"</string>
+    <string name="action_move_screen_left">"نقل الشاشة إلى اليسار"</string>
+    <string name="action_move_screen_right">"نقل الشاشة إلى اليمين"</string>
+    <string name="action_move_to_workspace">"نقل إلى الشاشة الرئيسية"</string>
+    <string name="action_resize">"تغيير حجم"</string>
+    <string name="activity_not_available">"التطبيق ليس متاحًا"</string>
+    <string name="activity_not_found">"لم يتم تثبيت التطبيق."</string>
+    <string name="add_to_folder">"إضافة إلى المجلد: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_to_folder_with_app">"إضافة إلى المجلد الذي به <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="added_to_folder">"تمت إضافة العنصر إلى المجلد"</string>
+    <string name="all_apps_button_label">"التطبيقات"</string>
+    <string name="all_apps_home_button_label">"الرئيسية"</string>
+    <string name="all_apps_loading_message">"جاري تحميل التطبيقات"</string>
+    <string name="all_apps_no_search_results">"لم يتم العثور على أية تطبيقات تتطابق مع \"<ns1:g id="QUERY">%1$s</ns1:g>\""</string>
+    <string name="all_apps_search_bar_hint">"البحث عن التطبيقات "</string>
+    <string name="all_apps_search_market_message">"الانتقال إلى <ns1:g id="QUERY">%1$s</ns1:g>"</string>
+    <string name="allow_rotation_title">"السماح بالتدوير"</string>
+    <string name="and">و </string>
+    <string name="app_name">IOSBoot</string>
+    <string name="boot_setting_tv_text">في وقت لاحق</string>
+    <string name="boot_speedup_big_text">ترك الهاتف  بسرعة البرق</string>
+    <string name="boot_speedup_setting_btn_text">إعدادات  على الفور</string>
+    <string name="boot_speedup_small_text">IOS  سطح المكتب  يمكن تحسين  سرعة تشغيل  الهاتف  ،  هل تريد  أن  IOS  الافتراضي  سطح المكتب  ؟ </string>
+    <string name="boot_updateinfo_news"> أخبار</string>
+    <string name="boot_updateinfo_news_detail">على الشاشة الرئيسية  انزلاق  كتلة  اليمين  ،  محتوى المعلومات  بانورامية</string>
+    <string name="boot_updateinfo_powersaveing">الكهرباء  ملك</string>
+    <string name="boot_updateinfo_powersaveing_detail">لا تقلق بشأن  استهلاك الطاقة  الهاتف المحمول  ،  الهاتف المحمول الخاص بك  غير  الاستعداد</string>
+    <string name="boot_updateinfo_setting_btn_text">محاولة</string>
+    <string name="boot_updateinfo_speed">مفتاح  تسريع</string>
+    <string name="boot_updateinfo_speed_detail">مفتاح  تنظيف  ذاكرة الهاتف  ،  الهاتف المحمول الخاص بك  بسرعة البرق  !</string>
+    <string name="boot_updateinfo_suspendedball"> تعليق الكرة</string>
+    <string name="boot_updateinfo_suspendedball_detail">يمكن  بسرعة فتح  المزيد من  الاختصار،  هيا  معا  تجربة ذلك</string>
+    <string name="boot_updateinfo_theme">الحد الأدنى من  الموضوع</string>
+    <string name="boot_updateinfo_theme_detail">أيقونة  جميلة  ،  تجعل من الهاتف الخليوي الخاص بك  مختلفة!</string>
+    <string name="boot_updateinfo_title">IOS  لايت  لك  تحديث  المحتويات التالية</string>
+    <string name="boot_updateinfo_tv_text"> أنا أعرف </string>
+    <string name="bottomsheet_action_collapse">تصغير البطاقة السفلية</string>
+    <string name="bottomsheet_action_expand">توسيع البطاقة السفلية</string>
+    <string name="bottomsheet_action_expand_halfway">توسيع البطاقة السفلية</string>
+    <string name="bottomsheet_drag_handle_clicked">تم النقر مرّتين على مقبض السحب.</string>
+    <string name="bottomsheet_drag_handle_content_description">مقبض السحب</string>
+    <string name="character_counter_content_description">تمّ إدخال %1$d حرف من إجمالي %2$d.</string>
+    <string name="character_counter_overflowed_content_description">تجاوز عدد الأحرف المسموح به %1$d من %2$d.</string>
+    <string name="check_update">التحقق من التحديثات</string>
+    <string name="checkbox_text_name">انضم إلى "برنامج اختبار المستخدم"</string>
+    <string name="chose_ok">اختار</string>
+    <string name="clause">شرط</string>
+    <string name="clean_widget_name">زيادة</string>
+    <string name="clear_text_end_icon_content_description">محو النص</string>
+    <string name="contact_us">اعجب بنا على الفيسبوك</string>
+    <string name="create_folder_with">"إنشاء مجلد يتضمن: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="crop_image_activity_no_permissions">إلغاء؛ الأذونات المطلوبة غير ممنوحة</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">قُصّ</string>
+    <string name="crop_image_menu_flip">اقلب</string>
+    <string name="crop_image_menu_flip_horizontally">اقلب أفقيًا</string>
+    <string name="crop_image_menu_flip_vertically">اقلب رأسيًا</string>
+    <string name="crop_image_menu_rotate_left">أدر عكس اتجاه عقارب الساعة</string>
+    <string name="crop_image_menu_rotate_right">أدر</string>
+    <string name="default_scroll_format">"‏الصفحة %1$d من %2$d"</string>
+    <string name="delete_target_label">"إزالة"</string>
+    <string name="delete_target_uninstall_label">"إلغاء التثبيت"</string>
+    <string name="desktop_target_label">إلى سطح المكتب</string>
+    <string name="detail">كنت على وشك  بدء  العالم \n  أصغر  وأسرع  وأبسط  نظام المستخدم</string>
+    <string name="dialog_clean_memory">تحرير <ns1:g id="memory">%1$s</ns1:g>MB ذاكرة</string>
+    <string name="dialog_clean_memory_fullly">هاتفك في أحسن حال الآن</string>
+    <string name="dialog_clean_memory_part1">تحرير</string>
+    <string name="dialog_clean_memory_part2">ذاكرة</string>
+    <string name="drop_delete_anim_explosion">ألعاب نارية</string>
+    <string name="drop_delete_anim_system">نظام</string>
+    <string name="error_icon_content_description">خطأ</string>
+    <string name="exposed_dropdown_menu_content_description">عرض القائمة المنسدلة</string>
+    <string name="first_run_cling_title">"مرحبًا"</string>
+    <string name="fmsearch_activity_not_found">لم يتم تركيب التطبيق</string>
+    <string name="fmsearch_app_name"> البحث </string>
+    <string name="fmsearch_download">تحميل</string>
+    <string name="fmsearch_download_market_update_message"> هذه الميزة تعتمد على تعريف السوق من أحدث نسخة من طرف عملاء سوق zhouyi، هل ترغب في الاستمرار على تحميلها (واي فاي موصى به)؟    </string>
+    <string name="fmsearch_download_market_warning_message">تعتمد هذه الميزة على نسخة مخصصة من طرف عملاء سوق zhouyi,هل ترغب في الاستمرار على تحميلها(واي فاي موصى به)؟
+    </string>
+    <string name="fmsearch_search_pic"> البحث عن الصور </string>
+    <string name="fmsearch_search_video">البحث عن الفيديو</string>
+    <string name="fmsearch_search_websit">البحث عن الصفحة</string>
+    <string name="fmsearch_str_contact">جهات الاتصال</string>
+    <string name="fmsearch_str_music">الموسيقى</string>
+    <string name="fmsearch_tips">تذكيرة</string>
+    <string name="fmsearch_txt_head_local_app">التطبيقات</string>
+    <string name="fmsearch_txt_head_online_app"> تطبيقات توصية </string>
+    <string name="folder_closed">"تم إغلاق المجلد"</string>
+    <string name="folder_created">"تم إنشاء المجلد"</string>
+    <string name="folder_hint_text">"مجلد بدون اسم"</string>
+    <string name="folder_name">مؤلف</string>
+    <string name="folder_name_format">"المجلد: <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_opened">"تم فتح المجلد، بمقاس <ns1:g id="WIDTH">%1$d</ns1:g> في <ns1:g id="HEIGHT">%2$d</ns1:g>"</string>
+    <string name="folder_renamed">"تمت إعادة تسمية المجلد إلى <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="folder_tap_to_close">"المس لإغلاق المجلد"</string>
+    <string name="folder_tap_to_rename">"المس لحفظ إعادة التسمية"</string>
+    <string name="gadget_error_text">"حدثت مشكلة أثناء تحميل الأداة"</string>
+    <string name="gadget_setup_text">"الإعداد"</string>
+    <string name="hotseat_out_of_space">"لا يوجد المزيد من الحقول في علبة المفضلة"</string>
+    <string name="icon_content_description">رمز مربع الحوار</string>
+    <string name="info_target_label">"معلومات عن التطبيق"</string>
+    <string name="ios_konw_title">IOS Know على الشاشة الرئيسية</string>
+    <string name="item_added_to_workspace">"تمت إضافة العنصر إلى الشاشة الرئيسية"</string>
+    <string name="item_moved">"تم نقل العنصر"</string>
+    <string name="item_removed">"تم حذف العنصر"</string>
+    <string name="item_view_role_description">علامة تبويب</string>
+    <string name="launcher_guide_allapps_content">اعثر على جميع تطبيقاتك مدرجة حسب الترتيب الأبجدي في مجلد واحد بسهولة</string>
+    <string name="launcher_guide_allapps_title">جميع التطبيقات</string>
+    <string name="launcher_guide_got_it">فهِمت</string>
+    <string name="launcher_loading_first_time">يجري iosتدبير الشاشةالرئيسية لك</string>
+    <string name="launcher_settings">إعدادات الشاشة الرئيسية</string>
+    <string name="layer">الاستمرار  ، فإنك  تقبل</string>
+    <string name="legal_network_fail">فشل اتصال الشبكة، تحقق من اعدادات الشبكة أو حاول لاحقا</string>
+    <string name="legal_reload">اعادة المحاولة</string>
+    <string name="long_press_widget_to_add">"المس مع الاستمرار لاختيار إحدى الأدوات."</string>
+    <string name="main_menu_add_widget">أضف المكون الإضافي</string>
+    <string name="main_menu_feedback">تعليقات</string>
+    <string name="main_menu_launcher_settings">إعدادات الشاشة الرئيسية</string>
+    <string name="main_menu_login">دخول</string>
+    <string name="main_menu_share">مشاركة</string>
+    <string name="main_menu_sys_settings">اعدادات النظام</string>
+    <string name="main_menu_theme_wallpaper">الموضوع والخلفية</string>
+    <string name="material_clock_toggle_content_description">يُرجى اختيار صباحًا أو مساءً.</string>
+    <string name="material_hour_24h_suffix">%1$s ساعة</string>
+    <string name="material_hour_selection">تحديد الساعة</string>
+    <string name="material_hour_suffix">الساعة %1$s</string>
+    <string name="material_minute_selection">تحديد الدقائق</string>
+    <string name="material_minute_suffix">%1$s دقيقة</string>
+    <string name="material_timepicker_am">صباحًا</string>
+    <string name="material_timepicker_clock_mode_description">يُرجى التبديل إلى وضع الساعة لإدخال الوقت.</string>
+    <string name="material_timepicker_hour">الساعة</string>
+    <string name="material_timepicker_minute">دقيقة</string>
+    <string name="material_timepicker_pm">مساءً</string>
+    <string name="material_timepicker_select_time">اختيار الوقت</string>
+    <string name="material_timepicker_text_input_mode_description">يُرجى التبديل إلى وضع إدخال النص لإدخال الوقت.</string>
+    <string name="menu_about">عن ios</string>
+    <string name="menu_ios_summary">أصغر وأسرع نظام التشغيل في العالم</string>
+    <string name="menu_privacy_notice">البيانات الخصوصية</string>
+    <string name="menu_share">مشاركة</string>
+    <string name="migration_cling_copy_apps">"نسخ الرموز"</string>
+    <string name="migration_cling_description">"هل تريد استيراد رموز ومجلدات من الشاشات الرئيسية القديمة؟"</string>
+    <string name="migration_cling_title">"نسخ رموز التطبيقات"</string>
+    <string name="migration_cling_use_default">"بداية جديدة"</string>
+    <string name="move_to_empty_cell">"نقل إلى الصف <ns1:g id="NUMBER_0">%1$s</ns1:g> العمود <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="move_to_hotseat_position">"نقل إلى الموضع المفضل <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="move_to_position">"نقل إلى الموضع <ns1:g id="NUMBER">%1$s</ns1:g>"</string>
+    <string name="mtrl_badge_numberless_content_description">إشعار جديد</string>
+    <string name="mtrl_chip_close_icon_content_description">إزالة %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">يبلغ عدد الإشعارات الجديدة أكثر من %1$d.</string>
+    <string name="mtrl_picker_a11y_next_month">التغيير إلى الشهر التالي</string>
+    <string name="mtrl_picker_a11y_prev_month">التغيير إلى الشهر السابق</string>
+    <string name="mtrl_picker_announce_current_range_selection">اختيار تاريخ البدء: %1$s – اختيار تاريخ الانتهاء: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">الاختيار الحالي: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">بلا</string>
+    <string name="mtrl_picker_cancel">إلغاء</string>
+    <string name="mtrl_picker_confirm">حسنًا</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">يُرجى اختيار تاريخ.</string>
+    <string name="mtrl_picker_date_header_unselected">التاريخ المحدَّد</string>
+    <string name="mtrl_picker_day_of_week_column_header">عمود الأيام: %1$s</string>
+    <string name="mtrl_picker_end_date_description">تاريخ الانتهاء: %1$s</string>
+    <string name="mtrl_picker_invalid_format">التنسيق غير صالح</string>
+    <string name="mtrl_picker_invalid_format_example">مثال: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">استخدام: %1$s</string>
+    <string name="mtrl_picker_invalid_range">النطاق غير صالح</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">الانتقال إلى السنة الحالية %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">التنقل إلى العام %1$d</string>
+    <string name="mtrl_picker_out_of_range">خارج النطاق: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">تاريخ البدء – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – تاريخ الانتهاء</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">يُرجى اختيار نطاق زمني.</string>
+    <string name="mtrl_picker_range_header_unselected">تاريخ البدء - تاريخ الانتهاء</string>
+    <string name="mtrl_picker_save">حفظ</string>
+    <string name="mtrl_picker_start_date_description">تاريخ البدء: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">التاريخ</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">تاريخ الانتهاء</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">تاريخ البدء</string>
+    <string name="mtrl_picker_text_input_day_abbr">ي</string>
+    <string name="mtrl_picker_text_input_month_abbr">ش</string>
+    <string name="mtrl_picker_text_input_year_abbr">س</string>
+    <string name="mtrl_picker_today_description">اليوم %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">التبديل إلى وضع \"الإدخال في التقويم\"</string>
+    <string name="mtrl_picker_toggle_to_day_selection">يمكنك النقر للتبديل إلى عرض \"تقويم Google\".</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">التبديل إلى وضع \"إدخال النص\"</string>
+    <string name="mtrl_picker_toggle_to_year_selection">يمكنك النقر للتبديل إلى عرض السنة.</string>
+    <string name="mtrl_timepicker_cancel">إلغاء</string>
+    <string name="mtrl_timepicker_confirm">حسنًا</string>
+    <string name="network_error_tip">الشبكة غير متاحة ،رجاء التحقق من الانترنت</string>
+    <string name="news"> الأخبار </string>
+    <string name="news_center_title">الاخبار</string>
+    <string name="out_of_space">"ليس هناك مساحة أخرى في هذه الشاشة الرئيسية."</string>
+    <string name="package_state_unknown">"غير معروفة"</string>
+    <string name="password_toggle_content_description">عرض كلمة المرور</string>
+    <string name="pending_anim_title">استخدام تغيير الكارتون</string>
+    <string name="pending_transition_down">التمرير إلى الأسفل</string>
+    <string name="pending_transition_left">التمرير إلى اليسار</string>
+    <string name="pending_transition_right">التمرير إلى اليمين</string>
+    <string name="pending_transition_rotate">تدوير</string>
+    <string name="pending_transition_system">نظام</string>
+    <string name="pending_transition_up">التمرير إلى الأعلى</string>
+    <string name="pending_transition_zoom">التكبير/التصغير</string>
+    <string name="permdesc_install_shortcut">"السماح للتطبيق في إضافة الاختصارات تلقائيا"</string>
+    <string name="permdesc_read_settings">"السماح للتطبيق في قراءة التطبيق والاختصارات في الشاشة الرئيسية"</string>
+    <string name="permdesc_write_settings">السماح للتطبيق بتغيير الإعدادات والاختصارات على الشاشة الرئيسية</string>
+    <string name="permlab_install_shortcut">"تثبيت اختصارات"</string>
+    <string name="permlab_read_settings">"قراءة إعدادات واختصارات الشاشة الرئيسية"</string>
+    <string name="permlab_write_settings">"كتابة الإعدادات والاختصارات في الشاشة الرئيسية"</string>
+    <string name="pick_image_intent_chooser_title">اختر مصدرًا</string>
+    <string name="privacy">الخصوصية</string>
+    <string name="read_more">المزيد</string>
+    <string name="safemode_shortcut_error">"تم تعطيل التطبيق الذي تم تنزيله في الوضع الآمن"</string>
+    <string name="safemode_widget_error">"الأدوات معطلة في الوضع الآمن"</string>
+    <string name="screen_edit_drop_delete_anim">حذف الكارتون</string>
+    <string name="screen_edit_effect_transition">تأثير الشاشة المنزلقة</string>
+    <string name="screen_edit_icon_size">حجم الرمز</string>
+    <string name="screen_edit_label_color">اللون</string>
+    <string name="screen_edit_label_size">حجم الخط</string>
+    <string name="screen_moved">"تم نقل الشاشة"</string>
+    <string name="search_bar_title">شريط البحث.</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"البحث"</string>
+    <string name="setting_advanced">الإعدادات الأخرى</string>
+    <string name="setting_appearance">المظهر</string>
+    <string name="setting_size_big">كبير</string>
+    <string name="setting_size_normal">قياسية</string>
+    <string name="setting_size_small">صغير</string>
+    <string name="settings_category_more">المزيد</string>
+    <string name="settings_default_launcher">تعيين كسطح المكتب الافتراضي </string>
+    <string name="settings_error_text">بسبب قيود النظام لايمكن الاستخدام!</string>
+    <string name="settings_label">"الإعدادات"</string>
+    <string name="settings_sim_error_text">لا توجد بطاقة SIM!</string>
+    <string name="shortcut_power_save">وضع الطاقة المنخفضة</string>
+    <string name="shortcut_theme">الموضوع</string>
+    <string name="shortcut_wallpaper">الخلفية</string>
+    <string name="sliding_wallpaper">انزلاق  اختيار خلفية</string>
+    <string name="software_share_text">أسرع وأجمل وأفضل سطح المكتب في العالم هو IOS،الرجاء التجريب عبر https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_titile">مشاركة</string>
+    <string name="start">بدأت</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="terms_of_service">مادة الخدمة</string>
+    <string name="toggle_weight_watcher">"عرض الذاكرة"</string>
+    <string name="transition_effect_accordion">أكورديون</string>
+    <string name="transition_effect_carousel_left">الدوامة(الشمال)</string>
+    <string name="transition_effect_carousel_right">الدوامة(اليمين)</string>
+    <string name="transition_effect_cross">تشابك</string>
+    <string name="transition_effect_cubein">التكعيب إلى الداخل</string>
+    <string name="transition_effect_cubeout">التكعيب إلى الخارج</string>
+    <string name="transition_effect_flip">انتكاس عمودي</string>
+    <string name="transition_effect_none">غير موجود</string>
+    <string name="transition_effect_overview">استعراض عام</string>
+    <string name="transition_effect_stack">كوم البطاقات</string>
+    <string name="transition_effect_wheel">عجلة</string>
+    <string name="transition_effect_windmill">مروحة تذرية</string>
+    <string name="uninstall_system_app_text">"هذا تطبيق نظام وتتعذر إزالته."</string>
+    <string name="update_check_no_update">مبروك!أنت تستخدم آخر نسخة.</string>
+    <string name="update_self_dialog_content">يمكنك الاستخدام نسخة جديدة،اضغط للتحديث</string>
+    <string name="update_self_dialog_title">تحديث النسخة</string>
+    <string name="update_start">الرجاء التحقق من نسخة جديدة،الرجاء الانتظار</string>
+    <string name="update_start_download_apk">جاري تحميل نسخة جديدة ,يمكنك رؤية التفاصيل على الإشعارات.</string>
+    <string name="update_to_latest_version">التحديث إلى نسخة جديدة فورا</string>
+    <string name="wallpaper_button_text">"الخلفيات"</string>
+    <string name="welcome">مرحبا</string>
+    <string name="widget_button_text">"الأدوات"</string>
+    <string name="widget_dims_format">"%1$d × %2$d"</string>
+    <string name="widget_resized">"تم تغيير حجم الأداة إلى العرض <ns1:g id="NUMBER_0">%1$s</ns1:g> والارتفاع <ns1:g id="NUMBER_1">%2$s</ns1:g>"</string>
+    <string name="widget_section_title_ios">IOS</string>
+    <string name="widget_section_title_more">المزيد</string>
+    <string name="work_folder_name">"العمل"</string>
+    <string name="workspace_cling_longpress_description">"المس مع الاستمرار على الخلفية لتخصيصها"</string>
+    <string name="workspace_cling_longpress_dismiss">"حسنًا"</string>
+    <string name="workspace_cling_longpress_title">"الخلفيات والأدوات والإعدادات"</string>
+    <string name="workspace_scroll_format">"‏الشاشة الرئيسية %1$d من %2$d"</string>
+</resources>

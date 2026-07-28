@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_background"
+                >
+
+    <com.ios.boot.iosboot.widget.RippleView
+        android:id="@+id/bo_bv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/background_iv2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/boot_first_start_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/boot_first_start_btn_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/boot_first_start_btn_marginbottom"
+        android:layout_marginLeft="@dimen/boot_first_text_margin_left"
+        android:layout_marginRight="@dimen/boot_first_text_margin_left"
+        android:background="@drawable/boot_first_start_btn_shape"
+        android:enabled="false"
+        android:text="@string/start"
+        android:textColor="@color/white"
+        android:textSize="@dimen/boot_first_start_btn_textsize"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/boot_first_ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/boot_first_start_btn_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/boot_first_start_btn_marginbottom"
+        android:layout_marginLeft="@dimen/boot_first_text_margin_left"
+        android:layout_marginRight="@dimen/boot_first_text_margin_left"
+        android:background="@drawable/boot_first_ok_btn_shape"
+        android:enabled="false"
+        android:text="@string/chose_ok"
+        android:textColor="@color/white"
+        android:textSize="@dimen/boot_first_start_btn_textsize"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/ios_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/boot_first_banner_margintop">
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/ios_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ios_welcome_text"
+            android:textSize="40sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            />
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/ios_detail_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ios_detail_one_text"
+            android:textSize="14sp"
+            android:layout_marginTop="42dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ios_welcome"
+            android:textColor="#ffffff"
+            />
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/ios_detail_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ios_detail_two_text"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ios_detail_1"
+            android:textColor="#ffffff"
+            />
+    </RelativeLayout>
+
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/boot_first_layer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/layer"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/boot_first_start_btn"
+        android:layout_marginBottom="@dimen/boot_first_text_ll_marginbottom"
+        android:textSize="@dimen/boot_first_start_text3_textsize" />
+
+    <RelativeLayout
+        android:id="@+id/wallpaper_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/boot_first_viewpager_background_height"
+        android:layout_above="@id/boot_first_ok_btn"
+        android:layout_marginBottom="@dimen/boot_first_viewpager_marginbottom"
+        android:clipChildren="false"
+        android:visibility="gone">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/boot_first_vp"
+            android:layout_width="@dimen/boot_first_viewpager_width"
+            android:layout_height="@dimen/boot_first_viewpager_height"
+            android:layout_centerInParent="true"
+            android:clipChildren="false" />
+
+        <ImageView
+            android:layout_width="@dimen/boot_first_viewpager_iv_width"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/desk" />
+    </RelativeLayout>
+
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/wallpaper_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/wallpaper_rl"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/boot_first_text_margin_bottom"
+        android:text="@string/sliding_wallpaper"
+        android:textColor="@color/white"
+        android:textSize="@dimen/boot_first_start_btn_textsize"
+        android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
+        android:layout_marginRight="@dimen/boot_speedup_text_marginright"
+        android:visibility="gone" />
+
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/setting_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/boot_first_text_margin_bottom"
+        android:text="@string/launcher_loading_first_time"
+        android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
+        android:layout_marginRight="@dimen/boot_speedup_text_marginright"
+        android:textColor="@color/white"
+        android:textSize="@dimen/boot_first_start_btn_textsize"
+        android:visibility="gone" />
+</RelativeLayout>

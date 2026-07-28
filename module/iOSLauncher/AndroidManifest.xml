@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/*
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--    <uses-sdk-->
+    <!--        android:minSdkVersion="21"-->
+    <!--        android:targetSdkVersion="28" />-->
+<!--    <uses-feature-->
+<!--        android:name="android.software.device_admin"-->
+<!--        android:required="true" />-->
+
+    <permission
+        android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST"
+        android:protectionLevel="signatureOrSystem" />
+
+<!--    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />-->
+<!--    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
+<!--    <uses-permission android:name="android.permission.FLASHLIGHT" />-->
+<!--    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />-->
+<!--    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />-->
+<!--    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+<!--    <uses-permission android:name="android.permission.VIBRATE" />-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<!--    <uses-permission android:name="android.permission.RECORD_AUDIO" />-->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS" />
+    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
+<!--    <uses-permission android:name="android.permission.READ_CALL_LOG" />-->
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
+<!--    <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" />-->
+<!--    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />-->
+    <uses-permission
+        android:name="android.permission.STATUS_BAR"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+    <uses-permission
+        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+        tools:ignore="ProtectedPermissions" />
+<!--    <uses-permission android:name="android.permission.READ_APP_BADGE" />-->
+<!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+<!--    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />-->
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+<!--    <uses-permission android:name="android.permission.WAKE_LOCK" />-->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission
+        android:name="android.permission.UPDATE_DEVICE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.REBOOT"
+        tools:ignore="ProtectedPermissions" />
+
+<!--    <uses-permission android:name="android.permission.READ_CALENDAR" />-->
+<!--    <uses-permission android:name="android.permission.READ_CONTACTS" />-->
+
+    <application
+        android:name="com.amz.ios.IOSLauncher"
+        android:hardwareAccelerated="true"
+        android:label="@string/launcher_application_name"
+        android:screenOrientation="portrait">
+
+        <activity
+            android:name="com.amz.ios.launcher.searchlauncher.SearchLauncher"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="fontScale|colorMode|layoutDirection|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc"
+            android:enabled="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:resumeWhilePausing="true"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/LauncherTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY" />
+                <category android:name="android.intent.category.LAUNCHER_APP" />
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.amz.ios.launcher.DynamicVirtualEntryActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/launcher_application_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+
+            <intent-filter>
+                <!--   App Lock Use -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="ioslite.intent.action.IOSLITE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".config.LauncherSettingActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:icon="@drawable/ic_setting"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings">
+            <intent-filter>
+                <!--   App Lock Use -->
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".config.AppearanceActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.DesktopStyleActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.DrawerStyleActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.FeatureSettingActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings">
+            <intent-filter>
+                <action android:name="ioslite.intent.action.OPEN_FEATURE_SETTING" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".config.GestureSettingActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.GesturePickerActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.NotificationMgrActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.BackupActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.EffectSettingsActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/settings_label"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.AboutActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.DeveloperActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings" />
+
+        <activity
+            android:name=".config.IconLayoutActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.amz.ios.launcher.Launcher"
+            android:theme="@style/PrefSettings.Wallpaper" />
+
+        <activity
+            android:name=".widget.configure.PictureAppWidgetProviderConfigureActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.amz.ios.launcher.WallpaperChangedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.WALLPAPER_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Intent received used to install shortcuts from other applications -->
+        <receiver
+            android:name="com.amz.ios.launcher.InstallShortcutReceiver"
+            android:enabled="@bool/enable_install_shortcut_api"
+            android:exported="true"
+            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT">
+            <intent-filter>
+                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Intent received used to uninstall shortcuts from other applications -->
+        <receiver
+            android:name="com.amz.ios.launcher.UninstallShortcutReceiver"
+            android:exported="true"
+            android:permission="com.android.launcher.permission.UNINSTALL_SHORTCUT">
+            <intent-filter>
+                <action android:name="com.android.launcher.action.UNINSTALL_SHORTCUT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Intent received used to initialize a restored widget -->
+        <receiver
+            android:name="com.amz.ios.launcher.AppWidgetsRestoredReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.amz.ios.launcher.StartupReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".util.AdminManager"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_info" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- The settings provider contains Home's data, like the workspace favorites -->
+        <provider
+            android:name="com.amz.ios.launcher.LauncherProvider"
+            android:authorities="com.amz.ios.launcher.settings"
+            android:exported="true" />
+
+        <!-- The hideapp provider contains like the workspace favorites -->
+        <provider
+            android:name="com.amz.ios.launcher.provider.AppConfigureProvider"
+            android:authorities="com.amz.ios.launcher.appconfigure"
+            android:exported="true" />
+
+        <!-- The settings provider contains Home's data, like the workspace favorites -->
+        <provider
+            android:name="com.amz.ios.launcher.provider.AppTypeProvider"
+            android:authorities="com.amz.ios.launcher.apptype"
+            android:exported="true" />
+
+
+        <!--     ***********************   IOS shortcuts   ******************************  -->
+
+        <activity
+            android:name="com.amz.ios.launcher.shortcut.AllApps"
+            android:exported="true"
+            android:icon="@drawable/lite_rom_all_apps"
+            android:label="@string/all_apps_button_label"
+            android:resizeableActivity="false"></activity>
+
+
+        <!--     ***********************    User Guide   ******************************  -->
+        <activity
+            android:name="com.ios.boot.iosboot.FirstRunActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/IOSBootAppTheme.Start">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.ios.boot.iosboot.SpeedUpActivity"
+            android:exported="true"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/IOSBootSpeddUpAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ios.boot.iosboot.UpdateInfoActivity"
+            android:exported="true"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/IOSBootUpdateInfoAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ios.boot.iosboot.LegalNoticesActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.amz.ios.ui.cropimage.CropImageActivity"
+            android:configChanges="screenSize|screenLayout|orientation"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--     ***********************    User Guide  End  ******************************  -->
+
+        <receiver
+            android:name="com.ios.cleanwidget.CleanWidgetProvider"
+            android:exported="true"
+            android:label="@string/clean_widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/clean_widget_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.PictureAppWidgetProvider"
+            android:exported="true"
+            android:label="@string/picture">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/picture_app_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.BatteryWidgetProvider"
+            android:exported="true"
+            android:label="@string/battery">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ios.ACTION_UPDATE_BATTERY_WIDGET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/battery_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name="com.amz.ios.launcher.WorkspaceReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ios.workspace.ACTION_DEBUG" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+                <data
+                    android:host="6633"
+                    android:scheme="android_secret_code" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.amz.ios.launcher.dynamicui.WallpaperManagerCompatVL$ColorExtractionService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":wallpaper_chooser" />
+
+        <service
+            android:name="com.amz.ios.launcher.notification.NotificationListener"
+            android:enabled="@bool/notification_badging_enabled"
+            android:exported="true"
+            android:label="@string/icon_badging_service_title"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="android.nfc.disable_beam_default"
+            android:value="true" />
+
+        <activity
+            android:name="com.amz.ios.launcher.dragndrop.AddItemActivity"
+            android:autoRemoveFromRecents="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/action_add_to_workspace"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.Alert">
+            <intent-filter>
+                <action android:name="android.content.pm.action.CONFIRM_PIN_SHORTCUT" />
+                <action android:name="android.content.pm.action.CONFIRM_PIN_APPWIDGET" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.android.launcher3.launcher_dump_provider"
+            android:value="com.amz.ios.launcher.LauncherProvider" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/litepal" />
+
+    </application>
+</manifest>

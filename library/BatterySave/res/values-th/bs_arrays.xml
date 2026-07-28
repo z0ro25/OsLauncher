@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>ซิงค์อัตโนมัติ</item>
+        <item>ความสว่าง</item>
+        <item>หมุนอัตโนมัติ</item>
+        <item>หมดเวลาหน้าจอ</item>
+        <item>สั่น</item>
+        <item>ข้อมูล</item>
+        <item>ฮอตสปอตไร้สาย</item>
+        <item>WI-FI</item>
+        <item>บลูทู ธ</item>
+        <item>ริงโทน</item>
+        <item>สั่นเมื่อแตะ</item>
+    </string-array>
+
+</resources>

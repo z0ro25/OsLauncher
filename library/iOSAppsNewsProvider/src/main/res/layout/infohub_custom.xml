@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/infohub_root_news"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen">-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/infohub_drag_category"
+        android:visibility="gone"
+        android:layout_above="@+id/infohub_bottom_layout">
+
+<!--        <include-->
+<!--            layout="@layout/infohub_choose_category"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/infohub_bottom_layout">
+
+
+        <RelativeLayout
+            android:id="@+id/infohub_setting_img_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/infohub_common_navigator_height"
+            android:layout_alignParentRight="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/infohub_setting_img"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+<!--        <net.lucode.hackware.magicindicator.MagicIndicator-->
+<!--            android:visibility="invisible"-->
+<!--            android:id="@+id/infohub_magic_indicator"-->
+<!--            android:layout_toLeftOf="@+id/infohub_setting_img_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/infohub_common_navigator_height"-->
+<!--            android:elevation="10dp" />-->
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:visibility="invisible"
+            android:id="@+id/infohub_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:elevation="10dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/infohub_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/infohub_fragment_select"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home_white_24dp"
+            android:background="@null" />
+
+        <ImageButton
+            android:id="@+id/infohub_category_select"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_dashboard_white_24dp"
+            android:background="@null"
+            android:text="2" />
+
+    </LinearLayout>
+
+</RelativeLayout>

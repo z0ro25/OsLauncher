@@ -1,0 +1,242 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.amz.ios.newssource.test" >
+4
+5    <uses-sdk
+5-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:5:5-74
+6        android:minSdkVersion="26"
+6-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:5:15-41
+7        android:targetSdkVersion="34" />
+7-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:5:42-71
+8
+9    <instrumentation
+9-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:11:5-15:77
+10        android:name="android.test.InstrumentationTestRunner"
+10-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:11:22-75
+11        android:functionalTest="false"
+11-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:14:22-52
+12        android:handleProfiling="false"
+12-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:13:22-53
+13        android:label="Tests for com.amz.ios.newssource.test"
+13-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:15:22-75
+14        android:targetPackage="com.amz.ios.newssource.test" />
+14-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:12:22-73
+15
+16    <permission
+16-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+17        android:name="com.amz.ios.newssource.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+17-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+18        android:protectionLevel="signature" />
+18-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+19
+20    <uses-permission android:name="com.amz.ios.newssource.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+20-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+20-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+21
+22    <application
+22-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:7:5-9:19
+23        android:allowBackup="true"
+23-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-35
+24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+24-->[androidx.core:core:1.9.0] C:\Users\OS\.gradle\caches\transforms-3\36f9cb8ccf9d0bae329e3b9fa2ef7dc8\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+25        android:debuggable="true"
+26        android:extractNativeLibs="false"
+27        android:supportsRtl="true" >
+27-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-35
+28        <uses-library android:name="android.test.runner" />
+28-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:8:9-60
+28-->E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest6339506704171545116.xml:8:23-57
+29
+30        <receiver
+30-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-18:20
+31            android:name="com.amz.newspage.newssource.LanguageBroadcastReceiver"
+31-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-81
+32            android:exported="true" >
+32-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-36
+33            <intent-filter>
+33-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:29
+34                <action android:name="android.intent.action.LOCALE_CHANGED" />
+34-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-79
+34-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:25-76
+35            </intent-filter>
+36        </receiver> <!-- Start Infohub -->
+37        <!-- Start of Flurry Permission -->
+38        <activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity" /> <!-- End of Flurry Permission -->
+38-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-88
+38-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:19-85
+39        <!-- AdZodiac: add this declarations -->
+40        <activity
+40-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:9-27:77
+41            android:name="com.adzodiac.mobileads.AdZodiacActivity"
+41-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-67
+42            android:configChanges="keyboardHidden|orientation|screenSize" />
+42-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-74
+43        <activity
+43-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:9-30:77
+44            android:name="com.adzodiac.mobileads.MraidActivity"
+44-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-64
+45            android:configChanges="keyboardHidden|orientation|screenSize" />
+45-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-74
+46        <activity
+46-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:9-33:77
+47            android:name="com.adzodiac.common.AdZodiacBrowser"
+47-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-63
+48            android:configChanges="keyboardHidden|orientation|screenSize" />
+48-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-74
+49        <activity
+49-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:34:9-36:77
+50            android:name="com.adzodiac.mobileads.MraidVideoPlayerActivity"
+50-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-75
+51            android:configChanges="keyboardHidden|orientation|screenSize" />
+51-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-74
+52        <activity
+52-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:9-39:77
+53            android:name="com.adzodiac.mobileads.RewardedMraidActivity"
+53-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-72
+54            android:configChanges="keyboardHidden|orientation|screenSize" /> <!-- AdZodiac: end -->
+54-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-74
+55        <activity
+55-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:9-45:75
+56            android:name="com.inmobi.rendering.InMobiAdActivity"
+56-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-65
+57            android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize"
+57-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-102
+58            android:hardwareAccelerated="true"
+58-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-47
+59            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+59-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-72
+60        <activity
+60-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:46:9-48:125
+61            android:name="com.google.android.gms.ads.AdActivity"
+61-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-65
+62            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+62-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:13-122
+63        <activity
+63-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:9-51:77
+64            android:name="com.facebook.ads.InterstitialAdActivity"
+64-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:13-67
+65            android:configChanges="keyboardHidden|orientation|screenSize" />
+65-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-74
+66
+67        <meta-data
+67-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:9-55:69
+68            android:name="com.google.android.gms.version"
+68-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:13-58
+69            android:value="@integer/google_play_services_version" />
+69-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:55:13-66
+70
+71        <receiver
+71-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:9-64:20
+72            android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver"
+72-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:58:13-92
+73            android:enabled="true"
+73-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:13-35
+74            android:exported="true" >
+74-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:60:13-36
+75            <intent-filter>
+75-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:61:13-63:29
+76                <action android:name="com.inmobi.share.id" />
+76-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:62:17-62
+76-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:62:25-59
+77            </intent-filter>
+78        </receiver>
+79
+80        <activity
+80-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:66:9-70:51
+81            android:name="com.idroi.infohub.fragments.news.NewsWebActivity"
+81-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:67:13-76
+82            android:configChanges="keyboardHidden|orientation|screenSize"
+82-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:68:13-74
+83            android:process=":webview"
+83-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:69:13-39
+84            android:theme="@style/IOSNewsTheme" /> <!-- 应用使用统计 -->
+84-->[:library:iOSAppsNewsProvider] E:\Amarzic\ASA155_IOSLauncher\library\iOSAppsNewsProvider\build\intermediates\merged_manifest\debug\AndroidManifest.xml:70:13-48
+85        <provider
+85-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:9-27:39
+86            android:name="com.amz.ios.ioslite.common.provider.AppUsagesProvider"
+86-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-81
+87            android:authorities="com.amz.ios.ioslite.provider.usages"
+87-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-70
+88            android:exported="true" /> <!-- 全局设置 -->
+88-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-36
+89        <provider
+89-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:9-33:39
+90            android:name="com.amz.ios.ioslite.common.setting.SettingProvider"
+90-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-78
+91            android:authorities="com.amz.ios.ioslite.common.setting"
+91-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-69
+92            android:exported="true" /> <!-- 内存监测 -->
+92-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-36
+93        <activity
+93-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:9-46:20
+94            android:name="com.amz.ios.ioslite.common.debug.MemoryDumpActivity"
+94-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-79
+95            android:excludeFromRecents="true"
+95-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-46
+96            android:exported="true"
+96-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-36
+97            android:theme="@android:style/Theme.NoDisplay" >
+97-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:13-59
+98            <intent-filter>
+98-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-45:29
+99                <action android:name="android.intent.action.MAIN" />
+99-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:17-69
+99-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:25-66
+100
+101                <category android:name="android.intent.category.DEFAULT" />
+101-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:17-76
+101-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:27-73
+102            </intent-filter>
+103        </activity> <!-- 内存监测服务 -->
+104        <service android:name="com.amz.ios.ioslite.common.debug.MemoryTracker" />
+104-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-82
+104-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:18-79
+105
+106        <receiver
+106-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:50:9-61:20
+107            android:name="com.amz.ios.ioslite.common.downloadapk.ApkReceiver"
+107-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-78
+108            android:exported="true" >
+108-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-36
+109            <intent-filter>
+109-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:53:13-55:29
+110                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+110-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:17-82
+110-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:54:25-79
+111            </intent-filter>
+112            <intent-filter>
+112-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:56:13-60:29
+113                <action android:name="android.intent.action.PACKAGE_ADDED" />
+113-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:17-78
+113-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:57:25-75
+114
+115                <data android:scheme="package" />
+115-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:17-50
+115-->[:library:iOSLiteCommon] E:\Amarzic\ASA155_IOSLauncher\library\iOSLiteCommon\build\intermediates\merged_manifest\debug\AndroidManifest.xml:59:23-47
+116            </intent-filter>
+117        </receiver>
+118
+119        <provider
+119-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+120            android:name="androidx.startup.InitializationProvider"
+120-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+121            android:authorities="com.amz.ios.newssource.test.androidx-startup"
+121-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+122            android:exported="false" >
+122-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+123            <meta-data
+123-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+124                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+124-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+125                android:value="androidx.startup" />
+125-->[androidx.emoji2:emoji2:1.2.0] C:\Users\OS\.gradle\caches\transforms-3\be57eae7355c89605044839b8f5b8131\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+126            <meta-data
+126-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+127                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+127-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+128                android:value="androidx.startup" />
+128-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\OS\.gradle\caches\transforms-3\fdf79b49ec052fe4c745f5d587060046\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+129        </provider>
+130    </application>
+131
+132</manifest>

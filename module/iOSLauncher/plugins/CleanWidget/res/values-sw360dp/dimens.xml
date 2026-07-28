@@ -1,0 +1,6 @@
+<resources>
+
+
+    <dimen name="toast_content_width">260dp</dimen>
+
+</resources>

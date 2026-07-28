@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="themeclub_accent_color">#41d4ad</color>
+
+
+    <color name="top_tab_text_normal_color">#FFFFFF</color>
+    <color name="top_tab_text_selected_color">#FFFFFF</color>
+
+
+    <!-- Theme -->
+    <color name="theme_top_tab_bg_color">#F6318B</color>
+
+
+    <!-- Wallpaper -->
+    <color name="wallpaper_top_tab_bg_color">#36D0C4</color>
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="mine_heard_bg">#6C67DE</color>
+    <color name="mine_gallery_bg">#F5B300</color>
+    <color name="mine_livewallpaper_bg">#2CB4A2</color>
+
+    <color name="title_color">#DF000000</color>
+    <color name="des_color">#8A000000</color>
+    <color name="retry_color">#D81B60</color>
+
+    <color name="wallpaper_tablayout_bg">#36D0C4</color>
+    <color name="theme_tablayout_bg">#F6318B</color>
+    <color name="mine_status_bar">#F6318B</color>
+
+    <color name="top_tablayout_text">#88FFFFFF</color>
+    <color name="top_tablayout_text_pressed">#FFFFFF</color>
+    <color name="mine_tablayout_text">#D81B60</color>
+    <color name="mine_tablayout_text_select">#9C9C9C</color>
+
+    <color name="bootom_tablayout_bg">#DCFFFFFF</color>
+    <color name="system_status_bar_color">#793EDE</color>
+    <color name="source_color_wallpaper">#36d0c4</color>
+    <color name="source_color_theme">#f6318b</color>
+    <color name="source_text">#8A000000</color>
+    <color name="progress_color">#888888</color>
+
+    <color name="themeclub_crop_text_color_pressed">#FFFFFF</color>
+    <color name="themeclub_crop_text_color">#88FFFFFF</color>
+    <color name="themeclub_crop_bg">#DC000000</color>
+    <color name="themeclub_crop_set_as_wallpaper_background">#30000000</color>
+    <color name="themeclub_crop_set_as_wallpaper_background_pressed">#19000000</color>
+
+    <color name="themeclub_translucent">#88000088</color>
+    <color name="themeclub_mine_viewpage_bg">#F4F4F4</color>
+
+    <color name="themeclub_setwallpaper_waiting_bg">#88000000</color>
+    <color name="themeclub_theme_color">#f6318b</color>
+    <color name="themeclub_loading_color">#8A000000</color>
+    <color name="themeclub_theme_blue_color">#36d0c4</color>
+    <color name="themeclub_theme_ad_background">#1B9CD8</color>
+    <color name="black_color">#DF000000</color>
+    <color name="yellow">#ffff00</color>
+    <color name="wallpaper_ad_text_background">#32000000</color>
+    <color name="text_download_color">#61000000</color>
+
+    <color name="ok_delete_color">#333333</color>
+
+    <color name="themeclub_common_title_bar_color">#41d4ab</color>
+
+    <color name="themeclub_theme_item_text_background">#55000000</color>
+    <color name="themeclub_theme_item_text_background_selected">#cc41d4ad</color>
+</resources>

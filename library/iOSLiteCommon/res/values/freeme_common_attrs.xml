@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PrivatePage">
+        <attr name="pointIndicator" format="reference" />
+        <attr name="pointIndicatorFocus" format="reference" />
+        <attr name="dockIntent1" format="reference" />
+        <attr name="dockIntent2" format="reference" />
+        <attr name="dockIntent3" format="reference" />
+    </declare-styleable>
+
+</resources>

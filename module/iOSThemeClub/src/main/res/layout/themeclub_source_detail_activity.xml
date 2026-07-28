@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:scrollview="http://schemas.android.com/apk/res-auto">
+    <androidx.viewpager.widget.ViewPager
+    android:id="@+id/my_source_viewpage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    scrollview:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/source_toor_bar_height"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/source_detail_toorbar_height"
+            scrollview:layout_scrollFlags="scroll|enterAlways|snap"/>
+
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            scrollview:layout_scrollFlags="scroll|enterAlways|snap"
+            android:layout_marginTop="@dimen/source_detail_maigin"
+            android:layout_marginLeft="@dimen/source_title_margin_left"/>
+        <com.amz.ios.launcher.views.CustomTextView
+            android:id="@+id/detail_des"
+            android:layout_width="wrap_content"
+            scrollview:layout_scrollFlags="scroll|enterAlways|snap"
+            android:layout_marginTop="@dimen/source_detail_maigin"
+            android:layout_marginLeft="@dimen/source_title_margin_left"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/source_detail_maigin"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/my_source_tab"
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            scrollview:tabTextAppearance="@style/SourceTypeTextApprance"
+            android:layout_height="@dimen/themeclub_tab_height"/>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

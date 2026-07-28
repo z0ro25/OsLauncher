@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>All_ads</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>banner_splash</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>open_splash</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>inter_splash</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>open_resume</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>banner_all</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_language</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_intro</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_intro_full</key>
+        <value>false</value>
+    </entry>
+
+    <entry>
+        <key>inter_intro</key>
+        <value>false</value>
+    </entry>
+
+    <entry>
+        <key>native_hello</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>inter_home</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>collapse_banner</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_home</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_general</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_current</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_wallpaper</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>inter_save</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>native_library</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>rate_aoa_inter_splash</key>
+        <value>30_70</value>
+    </entry>
+
+    <entry>
+        <key>interval_between_interstitial</key>
+        <value>20</value>
+    </entry>
+
+    <entry>
+        <key>interstitial_from_start</key>
+        <value>15</value>
+    </entry>
+</defaultsMap>

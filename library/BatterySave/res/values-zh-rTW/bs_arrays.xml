@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>自動同步</item>
+        <item>屏幕亮度</item>
+        <item>屏幕旋轉</item>
+        <item>屏幕超時等待</item>
+        <item>震動</item>
+        <item>數據</item>
+        <item>WiFi熱點</item>
+        <item>WI-FI</item>
+        <item>藍牙</item>
+        <item>鈴聲</item>
+        <item>觸感反饋</item>
+    </string-array>
+
+</resources>

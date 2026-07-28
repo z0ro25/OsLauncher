@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="bs_switcher">節能開關</string>
+    <string name="bs_min">分鐘</string>
+    <string name="sl_finger_print_lock_screen_tv">支持指紋解鎖</string>
+    <string name="sl_app_list_empty">軟體空空如也</string>
+    <string name="sl_enter_psw_16">請輸入密碼(6位)</string>
+    <string name="sl_enter_new_psw_16">請輸入新密碼(6位)</string>
+    <string name="sl_enter_psw_16_again">請再次輸入密碼</string>
+    <string name="sl_enter_new_psw">新密碼和舊密碼不能相同！</string>
+    <string name="sl_enter_new_psw_16_again">請再次輸入新密碼</string>
+    <string name="sl_enter_psw_16_error">密碼錯誤</string>
+    <string name="sl_enter_psw_16_again_error">兩次密碼輸入不壹致</string>
+    <string name="sl_enter_psw_16_empty">密碼不能為空</string>
+    <string name="sl_change_password_sucessed">密碼修改成功</string>
+    <string name="sl_security_item_hint2">軟體鎖</string>
+    <string name="sl_lock_temp_addapp">添加軟件</string>
+    <string name="sl_un_locking">解鎖中...</string>
+    <string name="sl_dialog_text">開啟權限,讓軟件鎖正常運行</string>
+    <string name="sl_ok">確定</string>
+    <string name="sl_lock_setting">設置</string>
+    <string name="sl_security_item_change_password">修改密碼</string>
+    <string name="sl_app_list_add_listbutton">添加要鎖定的軟體</string>
+    <string name="sl_my_common_loading">加載中&#8230;</string>
+    <string name="sl_facebook">去Facebook關註我們</string>
+    <string name="sl_set_psw">請設置新密碼(6位)</string>
+    <string name="sl_hint_tv">再壹步就完成啦！選擇IOS打開</string>
+    <string name="sl_float_hint_tv">如不能正常使用,請在設置或者安全中開啟"懸浮窗"！</string>
+</resources>

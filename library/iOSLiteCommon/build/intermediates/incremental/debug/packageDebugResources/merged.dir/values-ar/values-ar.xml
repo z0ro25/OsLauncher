@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_error_text">بسبب قيود النظام لايمكن الاستخدام!</string>
+    <string name="settings_sim_error_text">لا توجد بطاقة SIM!</string>
+</resources>

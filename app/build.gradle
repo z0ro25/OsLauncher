@@ -1,0 +1,175 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion 34
+    packagingOptions { //Fix: http://stackoverflow.com/a/20675331/860488
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+    defaultConfig {
+        applicationId "com.oslauncher.applauncher.themelauncher"
+        minSdkVersion 26
+        targetSdkVersion 34
+        versionCode 104
+        versionName "1.0.4"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        def formattedDate = new Date().format('MM.dd.yyyy')
+        archivesBaseName = "Launcher_OS_17_v${versionName}_${formattedDate}"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        // for view binding:
+        viewBinding true
+        buildConfig = true
+    }
+
+    kotlinOptions {
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
+    bundle {
+        language {
+            enableSplit = false
+        }
+        density {
+            // This property is set to true by default.
+            enableSplit = true
+        }
+        abi {
+            // This property is set to true by default.
+            enableSplit = true
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'  // Cập nhật nếu cần thiết
+            res.srcDirs = ['res/main/src', "../app/res"]
+            assets.srcDirs = ['src/main/assets', "../app/assets"]
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    configurations {
+        all {
+            exclude group: "com.google.android.play", module: "app-update"
+            exclude group: "com.google.android.play", module: "core"
+            exclude group: "com.android.installreferrer", module:"installreferrer"
+        }
+    }
+}
+
+dependencies {
+    // code của chó đẻ
+    // compileOnly  files('../module/iOSLauncher/plugins/PowerKey/libs/framework.jar')
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:4.13.2"
+
+//    implementation 'jp.wasabeef.transformers:glide:1.0.6'
+//    // Use the GPU Filters
+//    implementation 'jp.wasabeef.transformers:glide-gpu:1.0.6'
+
+    //play core
+    implementation 'com.google.android.play:review:2.0.1'
+    //gson
+    implementation 'com.google.code.gson:gson:2.9.1'
+
+//    implementation libs['multidex']
+    implementation project(':module:iOSLauncher')
+    implementation project(':module:iOSSettings')
+//    compile project(':module:IOSWeather')
+    implementation project(':module:iOSThemeClub')
+    implementation project(':module:iOSSearch')
+//    compile project(':module:IOSNewsPage')
+//    compile project(':module:IOSDiscovery')
+    implementation project(':library:iOSLiteCommon')
+
+    //lotte
+    implementation "com.airbnb.android:lottie:6.2.0"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+
+    implementation "androidx.emoji2:emoji2-emojipicker:1.4.0"
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.4.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.6.0'
+    implementation 'com.google.firebase:firebase-config:21.6.0'
+
+    // Ads/mediation đã được gỡ bỏ hoàn toàn.
+
+    //multidex
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //fb sdk
+    implementation 'com.facebook.android:facebook-android-sdk:16.0.1'
+
+    //adjust
+    implementation 'com.adjust.sdk:adjust-android:4.38.5'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    // Add the following if you're using the Adjust SDK inside web views on your app
+    implementation 'com.adjust.sdk:adjust-android-webbridge:4.38.5'
+}
+
+preBuild {
+    doLast {
+        def imlFile = file(project.name + ".iml")
+        println 'Change ' + project.name + '.iml order'
+        try {
+            def parsedXml = (new XmlParser()).parse(imlFile)
+            def jdkNode = parsedXml.component[1].orderEntry.find { it.'@type' == 'jdk' }
+            parsedXml.component[1].remove(jdkNode)
+            def sdkString = "Android API " + android.compileSdkVersion.substring("android-".length()) + " Platform"
+            new Node(parsedXml.component[1], 'orderEntry', ['type': 'jdk', 'jdkName': sdkString, 'jdkType': 'Android SDK'])
+            groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
+        } catch (FileNotFoundException e) {
+            // nop, iml not found
+        }
+    }
+}

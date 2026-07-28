@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bs_lv_item_height"
+    android:background="@drawable/bs_listview_item_bg" >
+
+    <ImageView
+        android:id="@id/bs_icon"
+        android:paddingLeft="@dimen/bs_lv_item_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@id/bs_switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/bs_icon"
+        android:paddingLeft="@dimen/bs_switcher_left"
+        android:textColor="@color/bs_switcher"
+        android:textSize="@dimen/bs_switcher_size" />
+    
+    <TextView
+        android:id="@id/bs_explain_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/bs_switcher_explain"
+        android:textColor="@color/bs_line"
+        android:textSize="@dimen/bs_min_size" />
+
+    <TextView
+        android:id="@id/bs_switcher_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/bs_state"
+        android:textColor="@color/bs_line"
+        android:textSize="@dimen/bs_min_size" />
+
+    <ImageView
+        android:id="@id/bs_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/bs_state_left"
+        android:paddingRight="@dimen/bs_state_right"
+        android:src="@drawable/bs_battery_item_status_good_icon" />
+    
+   <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bs_line_height"
+        android:layout_marginLeft="@dimen/bs_line_item_left"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/bs_state_right"
+        android:background="@drawable/bs_line" />
+</RelativeLayout>

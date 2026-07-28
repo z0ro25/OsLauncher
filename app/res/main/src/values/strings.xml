@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">OSLauncher 17: Theme Launcher</string>
+    //rate
+    <string name="we_are_working_hard_for_a_better_user_experience">We are working hard for a better user experience.</string>
+    <string name="we_d_greatly_appreciate_if_you_can_rate_us">We’d greatly appreciate if you can rate us.</string>
+    <string name="may_be_later">Maybe later</string>
+    <string name="rate">Rate</string>
+    <string name="The_best_we_can_get">The best we can get :)</string>
+    <string name="Writing_something">Writing something...</string>
+    <string name="Send">Send</string>
+    <string name="Oh_no">Oh, no!</string>
+    <string name="Please_leave_us_some_feedback">Please leave us some feedback</string>
+    <string name="We_like_you_too">We like you too!</string>
+    <string name="Thank_for_your_feedback">Thank for your feedback.</string>
+    <string name="We_are_working">We are working hard for a better user experience.</string>
+    <string name="We_greatly_appreciate">We’d greatly appreciate if you can rate us .</string>
+    <string name="Please_feedback">Please feedback</string>
+    <string name="do_you_really_want_to_exit">Do you really want to exit</string>
+    <string name="please_wait">Please wait</string>
+    <string name="cannot_back">Cannot back!</string>
+    <string name="cannot_next">Cannot next</string>
+    <string name="there_are_no_email">There are no email clients installed.</string>
+
+    <string name="go_to_launcher">Go to launcher</string>
+    <string name="explore_your_os_interface">Explore your OS interface</string>
+    <string name="explore">Explore</string>
+    <string name="set_as_default_launcher">Set as default launcher</string>
+    <string name="to_access_all_features_of_launcher_os_17_youneed_to_set_it_as_your_default_app">To access all features of OSLauncher 17: Theme Launcher, you need to set it as your default app.</string>
+    <string name="select_default_home_screen">Select default home screen</string>
+    <string name="weather">Weather</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="tap_to_start">Tap to Start</string>
+    <string name="hide_navigation">Hide navigation</string>
+    <string name="hidden_app">Hidden app</string>
+    <string name="page_transition">Page transition</string>
+    <string name="done">Done</string>
+    <string name="default_">Default</string>
+    <string name="rotation">Rotation</string>
+    <string name="flip">Flip</string>
+    <string name="zoom_in">Zoom in</string>
+    <string name="set_as_current">Set as current</string>
+    <string name="add_new_wallpaper">Add New Wallpaper</string>
+    <string name="customize">Customize</string>
+    <string name="photos">Photos</string>
+    <string name="emoji">Emoji</string>
+    <string name="color">Color</string>
+    <string name="see_all">See All</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="blur">Blur</string>
+    <string name="pair">Pair</string>
+    <string name="gradient">Gradient</string>
+    <string name="background_color">Background Color</string>
+    <string name="opacity">Opacity</string>
+    <string name="select_option">Select option</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="customize_home_screen">Customize Home Screen</string>
+    <string name="current">Current</string>
+    <string name="ads_are_about_to_be_shown">Ads are about to be shown</string>
+    <string name="permission">Permission</string>
+    <string name="this_app_needs_permissions_below_to_work_properly">This app needs permissions below to \nwork properly</string>
+    <string name="external_storage">External storage</string>
+    <string name="continue_">Continue</string>
+    <string name="your_file_is_empty">Your file is empty</string>
+    <string name="looks_like_you_haven_t_added_anything_nyet">Looks like you haven’t added anything \nyet.</string>
+    <string name="setting">Setting</string>
+    <string name="share">Share</string>
+    <string name="privacy_policy">Privacy policy</string>
+
+    <string name="Thankyou" translatable="false">Thank you!</string>
+    <string name="your_opinion_matter_to_us" translatable="false">Your Opinion \nMatter To Us!</string>
+    <string name="content_dialog" translatable="false">If you enjoy this OSLauncher 17: Theme Launcher, would \nyou mind rating us on the Google Play, then?</string>
+    <string name="Send_Email" translatable="false">Send Email</string>
+    <string name="There_is_no" translatable="false">There is no email client installed.</string>
+    <string name="not_now" translatable="false">Not now</string>
+    <string name="rate_us" translatable="false">Rate us</string>
+    <string name="rate_success">Rate Success</string>
+    <string name="please_reate_use">Please rate us</string>
+    <string name="message1">Unique home screen</string>
+    <string name="message2">Customize Wallpaper</string>
+    <string name="message3">Quickly Search</string>
+    <string name="next">Next</string>
+    <string name="language">Language</string>
+    <string name="general">General</string>
+    <string name="no_internet">No internet</string>
+    <string name="there_is_no_internet_connection">There is no internet connection! Please check your internet connection!</string>
+    <string name="try_again">Try again</string>
+</resources>

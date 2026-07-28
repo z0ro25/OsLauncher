@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">IOSBoot</string>
+    <string name="start">เริ่ม</string>
+    <string name="welcome">ยินดีต้อนรับ</string>
+    <string name="detail">คุณกำลังจะเริ่มต้น\N ในโลกที่สุด , ที่เร็วที่สุดและง่ายที่สุดในการใช้ระบบ</string>
+    <string name="layer">ดำเนินการซึ่งหมายความว่าคุณยอมรับ</string>
+    <string name="privacy">ความเป็นส่วนตัว</string>
+    <string name="and">และ</string>
+    <string name="clause">เงื่อนไข</string>
+    <string name="sliding_wallpaper">เลื่อนการเลือกวอลล์เปเปอร์</string>
+    <string name="chose_ok">ที่เลือก</string>
+    <string name="boot_speedup_big_text">ให้เร็วฟ้าผ่าโทรศัพท์มือถือ</string>
+    <string name="boot_speedup_small_text">โทรศัพท์มือถือที่ใช้ IOS บนเดสก์ทอปจะช่วยเพิ่มความเร็วที่คุณจะ IOS ถูกตั้งเป็นค่าเริ่มต้นสำหรับเดสก์ทอปของคุณ?</string>
+    <string name="boot_speedup_setting_btn_text">การตั้งค่าได้ทันที</string>
+    <string name="boot_setting_tv_text">ในภายหลัง</string>
+    <string name="boot_updateinfo_title">IOS สําหรับการปรับปรุงของคุณต่อไปนี้</string>
+    <string name="boot_updateinfo_suspendedball">ลูกบอลลอย</string>
+    <string name="boot_updateinfo_suspendedball_detail">เพิ่มเติมที่สามารถเปิดได้อย่างรวดเร็ววิธีที่รวดเร็วที่จะพบมันมาด้วยกัน</string>
+    <string name="boot_updateinfo_tv_text">ผมรู้</string>
+    <string name="boot_updateinfo_news">ข่าวข้อมูล</string>
+    <string name="boot_updateinfo_news_detail">บนหน้าจอหลักด้านขวาเลื่อนขนาดใหญ่เนื้อหาข้อมูลทั้งหมด</string>
+    <string name="boot_updateinfo_powersaveing">การประหยัดพลังงาน</string>
+    <string name="boot_updateinfo_powersaveing_detail">ไม่ต้องเป็นห่วงเรื่องปัญหาการใช้โทรศัพท์มือถือสำหรับโทรศัพท์มือถือของคุณช่วยให้โหมดสแตนด์บายพิเศษ</string>
+    <string name="boot_updateinfo_setting_btn_text">ลอง</string>
+    <string name="legal_network_fail">การเชื่อมต่อเครือข่ายล้มเหลว โปรดตรวจสอบการตั้งค่าเครือข่ายหรือลองใหม่อีกครั้งในภายหลัง</string>
+    <string name="legal_reload">ลองใหม่อีกครั้ง</string>
+    <string name="checkbox_text_name">เข้าร่วม“แผนประสบการณ์ผู้ใช้”</string>
+    <string name="about_legal_notices">ประกาศทางกฎหมาย</string>
+    <string name="boot_updateinfo_speed">หนึ่งคลิกการเร่ง</string>
+    <string name="boot_updateinfo_speed_detail">หนึ่งคลิกการล้างหน่วยความจำของโทรศัพท์มือถือที่ช่วยให้คุณได้อย่างรวดเร็วดุจสายฟ้า!</string>
+    <string name="boot_updateinfo_theme">หัวข้อ</string>
+    <string name="boot_updateinfo_theme_detail">ไอคอนที่สวยงามและโดดเด่นให้โทรศัพท์ของคุณ!</string>
+</resources>

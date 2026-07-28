@@ -1,0 +1,42 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.amz.ios.serverswitchcontrol" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="26"
+6-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml
+7        android:targetSdkVersion="34" />
+7-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml
+8
+9    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+9-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:4:5-79
+9-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:4:22-76
+10    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+10-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:5:5-75
+10-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:5:22-73
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:6:5-66
+11-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:6:22-64
+12
+13    <application
+13-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:8:5-19:19
+14        android:allowBackup="true"
+14-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:9:9-35
+15        android:supportsRtl="true" >
+15-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:10:9-35
+16        <receiver
+16-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:12:9-17:20
+17            android:name="com.amz.ios.serverswitchcontrol.LocationSuccessfulReceiver"
+17-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:12:19-92
+18            android:exported="true" >
+18-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:13:13-36
+19            <intent-filter>
+19-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:14:13-16:29
+20                <action android:name="ios.intent.action.LOCATION.SUCCESSFUL" />
+20-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:15:17-79
+20-->E:\Amarzic\ASA155_IOSLauncher\library\iOSSwitchControl\src\main\AndroidManifest.xml:15:25-77
+21            </intent-filter>
+22        </receiver>
+23    </application>
+24
+25</manifest>

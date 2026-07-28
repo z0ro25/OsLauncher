@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/themeclub_local_detail_title"
+        />
+
+    <RelativeLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_layout">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/font_theme_bg"
+            android:scaleType="centerCrop"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/themeclub_font_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20sp" />
+
+            <include
+                android:id="@+id/space_gap"
+                layout="@layout/preference_gap" />
+
+            <include
+                android:id="@+id/space_gap"
+                layout="@layout/preference_gap" />
+
+            <include
+                android:id="@+id/space_gap"
+                layout="@layout/preference_gap" />
+
+            <include
+                android:id="@+id/space_gap"
+                layout="@layout/preference_gap" />
+
+            <include
+                android:id="@+id/space_gap"
+                layout="@layout/preference_gap" />
+
+            <com.amz.ios.launcher.views.CustomTextView
+                android:id="@+id/themeclub_font_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.amz.ios.launcher.views.CustomTextView
+        android:id="@+id/setting_button"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:background="#1B9CD8"
+        android:gravity="center"
+        android:text="@string/themeclub_font_apply"
+        android:textColor="#FFFFFF" />
+</RelativeLayout>

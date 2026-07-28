@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="bs_switch_setting">
+        <item>GPS</item>
+        <item>تزامن تلقائي</item>
+        <item>سطوع</item>
+        <item>الدوران التلقائي</item>
+        <item>شاشة المهلة</item>
+        <item>تذبذب</item>
+        <item>البيانات</item>
+        <item>بؤرة</item>
+        <item>WI-FI</item>
+        <item>بلوتوث</item>
+        <item>نغمة</item>
+        <item>اهتزاز عند اللمس</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+
+android {
+//
+    namespace "com.amz.ios.ioslite.common"
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        buildConfigField "Boolean", "LOG_ENABLE", "true"
+
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    useLibrary 'org.apache.http.legacy'
+
+
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src', "Volley/src"]
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    api files('libs/launcher_client.jar')
+
+
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation files('libs/utdid4all-1.0.4.jar')
+    implementation files('libs/slf4j-api-1.7.6.jar')
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+
+//    compile(libs['droi-bass-core']) {
+//        changing = true
+//    }
+//
+//    compile(libs['droi-bass-analytics']) {
+//        changing = true
+//    }
+//    compile libs['okhttp-urlconnection']
+//    compile libs['okhttp']
+    api libs['gson']
+    implementation libs['support-v4']
+//    implementation libs['recyclerview-v7']
+//    api libs['appcompat-v7']
+//    api libs['cardview-v7']
+    api libs['palette-v7']
+//    compile libs['umeng']
+//    compile libs['glide']
+//    compile libs['okhttp-urlconnection']
+//    compile libs['okhttp']
+
+}

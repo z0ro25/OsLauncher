@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fmsearch_app_name">Search</string>
+    <string name="fmsearch_txt_head_online_app">Application Recommendation</string>
+    <string name="fmsearch_txt_head_local_app">Application</string>
+
+    <string-array name="fmsearch_search_widget_show_strings">
+        <item>Find your CONTACTS here</item>
+        <item>Find your APPS here</item>
+        <item>Find your MUSIC here</item>
+        <item>Try to click here</item>
+        <item>Perfect WALLPAPER is here</item>
+        <item>I heard that with this, the phone faster!</item>
+        <item>Query the WEATHER information here</item>
+        <item>A new THEME is coming now</item>
+    </string-array>
+
+
+    <!--<string-array name="fmsearch_search_show_strings">-->
+        <!--<item>Try to entry your CONTACTS\'s name</item>-->
+        <!--<item>Find your APPS you want</item>-->
+        <!--<item>Try to entry your MUSIC name</item>-->
+    <!--</string-array>-->
+    <string name="fmsearch_search_tip_string"> Search apps, contacts, files</string>
+    <string name="fmsearch_tips">tips</string>
+    <string name="fmsearch_str_contact">Contacts</string>
+    <string name="fmsearch_str_file">Files</string>
+    <string name="fmsearch_str_music">Music</string>
+
+    <string name="fmsearch_search_websit">Search Website</string>
+    <string name="fmsearch_search_pic">Search Picture</string>
+    <string name="fmsearch_search_video">Search Video</string>
+    <string name="fmsearch_download_market_warning_message">This feature depend on a custom version
+        of the
+        zhouyi market client,whether or not to continue to download(it is recommended to use wifi)?
+    </string>
+    <string name="fmsearch_download_market_update_message">This feature depend on a custom version
+        of the
+        latest market zhouyi market client, whether or not to continue to update download(it is
+        recommended to use wifi)?
+    </string>
+    <string name="fmsearch_activity_not_found">App isn\'t installed.</string>
+
+
+    <string name="fmsearch_download">Download</string>
+    <string name="fmsearch_apkid_error">Apk id is wrong </string>>
+
+</resources>
+
