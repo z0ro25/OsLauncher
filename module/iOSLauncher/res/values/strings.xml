@@ -702,7 +702,10 @@
     <string name="search_store">Search Store</string>
     <string name="search_maps">Search Maps</string>
     <string name="picture">Picture</string>
+    <string name="clock">Clock</string>
     <string name="add_widget">Add widget</string>
+    <string name="edit_page">Edit page</string>
+    <string name="background">Background</string>
     <string name="favorites">Favorites</string>
     <string name="pick_image">My photos</string>
     <string name="change_icon">Change icon</string>

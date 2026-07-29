@@ -5,257 +5,257 @@
 5
 6    <uses-sdk
 7        android:minSdkVersion="26"
-7-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml
+7-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml
 8        android:targetSdkVersion="34" />
-8-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml
+8-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml
 9    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
 10    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-10-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:5:5-82
-10-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:5:22-80
+10-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:5:5-82
+10-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:5:22-80
 11    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
-11-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:6:5-81
-11-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:6:22-79
+11-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:6:5-81
+11-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:6:22-79
 12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-12-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:7:5-80
-12-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:7:22-77
+12-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:7:5-80
+12-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:7:22-77
 13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-13-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:8:5-81
-13-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:8:22-78
+13-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:8:5-81
+13-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:8:22-78
 14    <uses-permission android:name="android.permission.SET_WALLPAPER" />
-14-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:9:5-72
-14-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:9:22-69
+14-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:9:5-72
+14-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:9:22-69
 15    <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" -->
 16    <!-- tools:ignore="ProtectedPermissions" /> -->
 17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-17-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:12:5-79
-17-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:12:22-76
+17-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:12:5-79
+17-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:12:22-76
 18    <uses-permission
-18-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:13:5-14:47
+18-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:13:5-14:47
 19        android:name="android.permission.WRITE_MEDIA_STORAGE"
-19-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:13:22-75
+19-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:13:22-75
 20        tools:ignore="ProtectedPermissions" />
-20-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:14:9-44
+20-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:14:9-44
 21    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
-21-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:15:5-78
-21-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:15:22-75
+21-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:15:5-78
+21-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:15:22-75
 22    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
-22-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:16:5-82
-22-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:16:22-79
+22-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:16:5-82
+22-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:16:22-79
 23
 24    <application
-24-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:18:5-173:19
+24-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:18:5-173:19
 25        android:allowBackup="true"
-25-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:19:9-35
+25-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:19:9-35
 26        android:largeHeap="true"
-26-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:20:9-33
+26-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:20:9-33
 27        android:supportsRtl="true" >
-27-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:21:9-35
+27-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:21:9-35
 28        <activity
-28-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:22:9-38:20
+28-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:22:9-38:20
 29            android:name="com.amz.ios.themeclub.MainActivity"
-29-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:27:13-41
+29-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:27:13-41
 30            android:autoRemoveFromRecents="true"
-30-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:25:13-49
+30-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:25:13-49
 31            android:exported="true"
-31-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:23:13-36
+31-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:23:13-36
 32            android:finishOnTaskLaunch="true"
-32-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:30:13-46
+32-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:30:13-46
 33            android:icon="@drawable/ic_app_theme"
-33-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:28:13-50
+33-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:28:13-50
 34            android:label="@string/themeclub_app_name"
-34-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:24:13-55
+34-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:24:13-55
 35            android:launchMode="singleTask"
-35-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:29:13-44
+35-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:29:13-44
 36            android:resizeableActivity="false"
-36-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:26:13-47
+36-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:26:13-47
 37            android:screenOrientation="portrait"
-37-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:31:13-49
+37-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:31:13-49
 38            android:theme="@style/AppThemeDetail" >
-38-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:32:13-50
+38-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:32:13-50
 39            <intent-filter>
-39-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:33:13-37:29
+39-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:33:13-37:29
 40                <action android:name="android.intent.action.MAIN" />
-40-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:34:17-69
-40-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:34:25-66
+40-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:34:17-69
+40-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:34:25-66
 41                <action android:name="ios.intent.action.ThemeClubActivity" />
-41-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:35:17-78
-41-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:35:25-75
+41-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:35:17-78
+41-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:35:25-75
 42
 43                <category android:name="android.intent.category.DEFAULT" />
-43-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:36:17-76
-43-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:36:27-73
+43-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:36:17-76
+43-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:36:27-73
 44            </intent-filter>
 45        </activity>
 46        <activity
-46-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:39:9-47:20
+46-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:39:9-47:20
 47            android:name="com.amz.ios.themeclub.ui.activity.OnlineThemeDetailActivity"
-47-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:43:13-66
+47-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:43:13-66
 48            android:exported="true"
-48-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:40:13-36
+48-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:40:13-36
 49            android:label="@string/themeclub_app_name"
-49-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:42:13-55
+49-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:42:13-55
 50            android:launchMode="singleTask"
-50-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:44:13-44
+50-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:44:13-44
 51            android:resizeableActivity="false"
-51-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:41:13-47
+51-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:41:13-47
 52            android:screenOrientation="portrait"
-52-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:45:13-49
+52-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:45:13-49
 53            android:theme="@style/AppThemeDetail" >
-53-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:46:13-50
+53-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:46:13-50
 54        </activity>
 55        <activity
-55-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:48:9-54:20
+55-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:48:9-54:20
 56            android:name="com.amz.ios.themeclub.ui.activity.LockScreenDetailActivity"
-56-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:50:13-65
+56-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:50:13-65
 57            android:exported="true"
-57-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:49:13-36
+57-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:49:13-36
 58            android:launchMode="singleTask"
-58-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:52:13-44
+58-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:52:13-44
 59            android:screenOrientation="portrait"
-59-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:51:13-49
+59-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:51:13-49
 60            android:theme="@style/AppThemeDetail" >
-60-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:53:13-50
+60-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:53:13-50
 61        </activity>
 62        <activity
-62-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:56:9-63:58
+62-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:56:9-63:58
 63            android:name="com.amz.ios.themeclub.ui.activity.OnlineWallpaperDetailActivity"
-63-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:60:13-70
+63-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:60:13-70
 64            android:exported="true"
-64-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:57:13-36
+64-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:57:13-36
 65            android:label="@string/themeclub_app_name"
-65-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:59:13-55
+65-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:59:13-55
 66            android:launchMode="singleTask"
-66-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:61:13-44
+66-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:61:13-44
 67            android:resizeableActivity="false"
-67-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:58:13-47
+67-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:58:13-47
 68            android:screenOrientation="portrait"
-68-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:62:13-49
+68-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:62:13-49
 69            android:theme="@style/AppThemeDetailLocal" />
-69-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:63:13-55
+69-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:63:13-55
 70        <activity
-70-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:64:9-69:67
+70-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:64:9-69:67
 71            android:name="com.amz.ios.themeclub.ui.activity.ShowDownloadedWallpaperActivity"
-71-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:68:13-72
+71-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:68:13-72
 72            android:exported="true"
-72-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:65:13-36
+72-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:65:13-36
 73            android:label="@string/themeclub_app_name"
-73-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:67:13-55
+73-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:67:13-55
 74            android:resizeableActivity="false"
-74-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:66:13-47
+74-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:66:13-47
 75            android:theme="@style/themeclub.setwallpaper.style" />
-75-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:69:13-64
+75-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:69:13-64
 76        <activity
-76-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:71:9-77:58
+76-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:71:9-77:58
 77            android:name="com.amz.ios.themeclub.ui.activity.LocalThemeDetailActivity"
-77-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:75:13-65
+77-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:75:13-65
 78            android:exported="true"
-78-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:72:13-36
+78-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:72:13-36
 79            android:label="@string/themeclub_app_name"
-79-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:74:13-55
+79-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:74:13-55
 80            android:launchMode="singleInstance"
-80-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:76:13-48
+80-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:76:13-48
 81            android:resizeableActivity="false"
-81-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:73:13-47
+81-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:73:13-47
 82            android:theme="@style/AppThemeDetailLocal" />
-82-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:77:13-55
+82-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:77:13-55
 83        <activity
-83-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:79:9-85:52
+83-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:79:9-85:52
 84            android:name="com.amz.ios.themeclub.ui.activity.LocalLockScreenDetailActivity"
-84-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:81:13-70
+84-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:81:13-70
 85            android:exported="true"
-85-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:80:13-36
+85-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:80:13-36
 86            android:label="@string/themeclub_app_name"
-86-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:84:13-55
+86-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:84:13-55
 87            android:launchMode="singleInstance"
-87-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:82:13-48
+87-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:82:13-48
 88            android:resizeableActivity="false"
-88-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:83:13-47
+88-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:83:13-47
 89            android:theme="@style/AppThemeDetail" />
-89-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:85:13-50
+89-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:85:13-50
 90        <activity
-90-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:87:9-93:52
+90-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:87:9-93:52
 91            android:name="com.amz.ios.themeclub.ui.activity.WallPaperSelectionSpecialActivity"
-91-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:91:13-74
+91-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:91:13-74
 92            android:exported="true"
-92-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:88:13-36
+92-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:88:13-36
 93            android:label="@string/themeclub_app_name"
-93-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:90:13-55
+93-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:90:13-55
 94            android:resizeableActivity="false"
-94-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:89:13-47
+94-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:89:13-47
 95            android:screenOrientation="portrait"
-95-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:92:13-49
+95-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:92:13-49
 96            android:theme="@style/AppThemeDetail" />
-96-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:93:13-50
+96-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:93:13-50
 97        <activity
-97-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:94:9-100:72
+97-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:94:9-100:72
 98            android:name="com.amz.ios.themeclub.ui.activity.SourceDetailActivity"
-98-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:98:13-61
+98-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:98:13-61
 99            android:exported="true"
-99-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:95:13-36
+99-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:95:13-36
 100            android:label="@string/themeclub_app_name"
-100-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:97:13-55
+100-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:97:13-55
 101            android:resizeableActivity="false"
-101-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:96:13-47
+101-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:96:13-47
 102            android:screenOrientation="portrait"
-102-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:99:13-49
+102-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:99:13-49
 103            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-103-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:100:13-69
+103-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:100:13-69
 104        <activity
-104-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:101:9-107:15
+104-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:101:9-107:15
 105            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-105-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:105:13-76
+105-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:105:13-76
 106            android:exported="true"
-106-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:102:13-36
+106-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:102:13-36
 107            android:label="@string/themeclub_app_name"
-107-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:104:13-55
+107-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:104:13-55
 108            android:resizeableActivity="false"
-108-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:103:13-47
+108-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:103:13-47
 109            android:screenOrientation="portrait" />
-109-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:106:13-49
+109-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:106:13-49
 110        <activity
-110-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:109:9-113:15
+110-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:109:9-113:15
 111            android:name="com.amz.ios.themeclub.ui.activity.FontDetailActivity"
-111-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:111:13-80
+111-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:111:13-80
 112            android:exported="true"
-112-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:110:13-36
+112-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:110:13-36
 113            android:theme="@style/AppThemeDetailLocal" />
-113-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:112:13-55
+113-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:112:13-55
 114        <activity
-114-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:114:9-117:56
+114-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:114:9-117:56
 115            android:name="com.amz.ios.themeclub.ui.activity.FullThemeActivity"
-115-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:116:13-58
+115-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:116:13-58
 116            android:exported="true"
-116-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:115:13-36
+116-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:115:13-36
 117            android:theme="@style/AppThemeFullTheme" />
-117-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:117:13-53
+117-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:117:13-53
 118        <activity
-118-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:118:9-124:60
+118-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:118:9-124:60
 119            android:name="com.amz.ios.themeclub.ui.activity.CropImageActivity"
-119-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:122:13-58
+119-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:122:13-58
 120            android:exported="true"
-120-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:119:13-36
+120-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:119:13-36
 121            android:label="@string/themeclub_app_name"
-121-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:121:13-55
+121-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:121:13-55
 122            android:resizeableActivity="false"
-122-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:120:13-47
+122-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:120:13-47
 123            android:screenOrientation="portrait"
-123-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:123:13-49
+123-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:123:13-49
 124            android:theme="@style/AppThemeWallpaperCrop" />
-124-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:124:13-57
+124-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:124:13-57
 125        <activity
-125-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:125:9-131:52
+125-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:125:9-131:52
 126            android:name="com.amz.ios.themeclub.ui.activity.ThemeSelectionSpecialActivity"
-126-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:129:13-70
+126-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:129:13-70
 127            android:exported="true"
-127-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:126:13-36
+127-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:126:13-36
 128            android:label="@string/themeclub_app_name"
-128-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:128:13-55
+128-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:128:13-55
 129            android:resizeableActivity="false"
-129-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:127:13-47
+129-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:127:13-47
 130            android:screenOrientation="portrait"
-130-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:130:13-49
+130-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:130:13-49
 131            android:theme="@style/AppThemeDetail" />
-131-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:131:13-50
+131-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:131:13-50
 132        <!-- <receiver android:name="com.amz.ios.themeclub.ui.activity.OnlineThemeDetailActivity$InstallReceiver"> -->
 133        <!-- <intent-filter> -->
 134        <!-- <action android:name="android.intent.action.PACKAGE_ADDED"/> -->
@@ -273,51 +273,51 @@
 146        <!-- </receiver> -->
 147
 148        <provider
-148-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:148:9-151:39
+148-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:148:9-151:39
 149            android:name="com.amz.ios.themeclub.dao.ThemeContentProvide"
-149-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:149:13-52
+149-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:149:13-52
 150            android:authorities="com.amz.ios.themeclub.provide"
-150-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:150:13-64
+150-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:150:13-64
 151            android:exported="true" />
-151-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:151:13-36
+151-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:151:13-36
 152        <provider
-152-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:153:9-161:20
+152-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:153:9-161:20
 153            android:name="androidx.core.content.FileProvider"
-153-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:155:13-62
+153-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:155:13-62
 154            android:authorities="com.amz.ios.themeclub.file.provider"
-154-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:154:13-70
+154-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:154:13-70
 155            android:exported="false"
-155-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:156:13-37
+155-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:156:13-37
 156            android:grantUriPermissions="true" >
-156-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:157:13-47
+156-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:157:13-47
 157            <meta-data
-157-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:158:13-160:63
+157-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:158:13-160:63
 158                android:name="android.support.FILE_PROVIDER_PATHS"
-158-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:159:17-67
+158-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:159:17-67
 159                android:resource="@xml/themeclub_apk_paths" />
-159-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:160:17-60
+159-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:160:17-60
 160        </provider>
 161
 162        <activity
-162-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:163:9-166:58
+162-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:163:9-166:58
 163            android:name="com.amz.ios.themeclub.ui.activity.OnlineWallpapersDetailActivity"
-163-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:165:13-71
+163-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:165:13-71
 164            android:exported="true"
-164-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:164:13-36
+164-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:164:13-36
 165            android:theme="@style/AppThemeDetailLocal" />
-165-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:166:13-55
+165-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:166:13-55
 166
 167        <receiver
-167-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:167:9-172:20
+167-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:167:9-172:20
 168            android:name="com.amz.ios.themeclub.DownloadReceiver"
-168-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:167:43-75
+168-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:167:43-75
 169            android:exported="true" >
-169-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:167:19-42
+169-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:167:19-42
 170            <intent-filter>
-170-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:168:13-170:29
+170-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:168:13-170:29
 171                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-171-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:169:17-81
-171-->E:\Amarzic\ASA155_IOSLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:169:25-79
+171-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:169:17-81
+171-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSThemeClub\src\main\AndroidManifest.xml:169:25-79
 172            </intent-filter>
 173        </receiver>
 174    </application>

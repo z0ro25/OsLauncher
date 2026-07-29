@@ -6,8 +6,8 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="26"
-8-->E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+8-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\library\RealTimeBlurView\AndroidManifest.xml
 9        android:targetSdkVersion="34" />
-9-->E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\AndroidManifest.xml
+9-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\library\RealTimeBlurView\AndroidManifest.xml
 10
 11</manifest>

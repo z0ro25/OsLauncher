@@ -23,9 +23,9 @@
 23
 24    <uses-sdk
 25        android:minSdkVersion="26"
-25-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+25-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml
 26        android:targetSdkVersion="34" />
-26-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml
+26-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml
 27
 28    <!-- <uses-sdk -->
 29    <!-- android:minSdkVersion="21" -->
@@ -35,17 +35,17 @@
 33    <!-- android:required="true" /> -->
 34
 35    <permission
-35-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:29:5-31:47
+35-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:29:5-31:47
 36        android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS"
-36-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:30:9-81
+36-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:30:9-81
 37        android:protectionLevel="signature" />
-37-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:31:9-44
+37-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:31:9-44
 38    <permission
-38-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:32:5-34:55
+38-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:32:5-34:55
 39        android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST"
-39-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:33:9-84
+39-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:33:9-84
 40        android:protectionLevel="signatureOrSystem" />
-40-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:34:9-52
+40-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:34:9-52
 41
 42    <!-- <uses-permission android:name="com.android.alarm.permission.SET_ALARM" /> -->
 43    <!-- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> -->
@@ -54,896 +54,930 @@
 46    <!-- <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" /> -->
 47    <!-- <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> -->
 48    <uses-permission android:name="android.permission.SET_WALLPAPER" />
-48-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:42:5-72
-48-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:42:22-69
+48-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:42:5-72
+48-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:42:22-69
 49    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
-49-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:43:5-78
-49-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:43:22-75
+49-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:43:5-78
+49-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:43:22-75
 50    <!-- <uses-permission android:name="android.permission.VIBRATE" /> -->
 51    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-51-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:45:5-80
-51-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:45:22-77
-52    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-52-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:46:5-81
-52-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:46:22-78
-53    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-53-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:47:5-77
-53-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:47:22-74
-54    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
-55    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-55-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:49:5-75
-55-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:49:22-72
-56    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-56-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:50:5-81
-56-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:50:22-78
-57    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS" />
-57-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:51:5-97
-57-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:51:22-94
-58    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
-58-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:52:5-100
-58-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:52:22-97
-59    <!-- <uses-permission android:name="android.permission.READ_CALL_LOG" /> -->
-60    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
-61    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
-62    <uses-permission android:name="android.permission.INTERNET" />
-62-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:56:5-67
-62-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:56:22-64
-63    <!-- <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" /> -->
-64    <!-- <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" /> -->
-65    <uses-permission
-65-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:59:5-61:47
-66        android:name="android.permission.STATUS_BAR"
-66-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:60:9-53
-67        tools:ignore="ProtectedPermissions" />
-67-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:61:9-44
-68    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
-68-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:62:5-75
-68-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:62:22-72
-69    <uses-permission
-69-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:63:5-65:53
-70        android:name="android.permission.QUERY_ALL_PACKAGES"
-70-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:64:9-61
-71        tools:ignore="QueryAllPackagesPermission" />
-71-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:65:9-50
-72    <uses-permission
-72-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:66:5-68:47
-73        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-73-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:67:9-77
-74        tools:ignore="ProtectedPermissions" />
-74-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:68:9-44
-75    <!-- <uses-permission android:name="android.permission.READ_APP_BADGE" /> -->
-76    <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
-77    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-77-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:71:5-84
-77-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:71:22-81
-78    <!-- <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" /> -->
-79    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
-79-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:73:5-91
-79-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:73:22-88
-80    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
-81    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-81-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:75:5-85
-81-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:75:22-82
-82    <uses-permission
-82-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:76:5-78:47
-83        android:name="android.permission.UPDATE_DEVICE_STATS"
-83-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:77:9-62
-84        tools:ignore="ProtectedPermissions" />
-84-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:78:9-44
-85    <uses-permission
-85-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:79:5-81:47
-86        android:name="android.permission.REBOOT"
-86-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:80:9-49
-87        tools:ignore="ProtectedPermissions" />
-87-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:81:9-44
-88    <!-- <uses-permission android:name="android.permission.READ_CALENDAR" /> -->
-89    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
-90    <application
-90-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:86:5-530:19
-91        android:name="com.amz.ios.IOSLauncher"
-91-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:87:9-47
-92        android:hardwareAccelerated="true"
-92-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:88:9-43
-93        android:label="@string/launcher_application_name"
-93-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:89:9-58
-94        android:screenOrientation="portrait" >
-94-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:90:9-45
-95        <activity
-95-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:92:9-115:20
-96            android:name="com.amz.ios.launcher.searchlauncher.SearchLauncher"
-96-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:93:13-78
-97            android:clearTaskOnLaunch="true"
-97-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:94:13-45
-98            android:configChanges="fontScale|colorMode|layoutDirection|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc"
-98-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:95:13-204
-99            android:enabled="true"
-99-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:96:13-35
-100            android:excludeFromRecents="true"
-100-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:97:13-46
-101            android:exported="true"
-101-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:98:13-36
-102            android:launchMode="singleTask"
-102-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:99:13-44
-103            android:resizeableActivity="true"
-103-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:100:13-46
-104            android:resumeWhilePausing="true"
-104-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:101:13-46
-105            android:screenOrientation="portrait"
-105-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:102:13-49
-106            android:stateNotNeeded="true"
-106-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:103:13-42
-107            android:taskAffinity="com.amz.ios.launcher.Launcher"
-107-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:104:13-65
-108            android:theme="@style/LauncherTheme"
-108-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:105:13-49
-109            android:windowSoftInputMode="adjustPan" >
-109-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:106:13-52
-110            <intent-filter>
-110-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:107:13-114:29
-111                <action android:name="android.intent.action.MAIN" />
-111-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:17-69
-111-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:25-66
-112
-113                <category android:name="android.intent.category.HOME" />
-113-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-73
-113-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:109:27-70
-114                <category android:name="android.intent.category.DEFAULT" />
-114-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-114-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-115                <category android:name="android.intent.category.MONKEY" />
-115-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-75
-115-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-72
-116                <category android:name="android.intent.category.LAUNCHER_APP" />
-116-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:112:17-81
-116-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:112:27-78
-117                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-118            </intent-filter>
-119        </activity>
-120        <activity
-120-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:117:9-130:20
-121            android:name="com.amz.ios.launcher.DynamicVirtualEntryActivity"
-121-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:118:13-76
-122            android:excludeFromRecents="true"
-122-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:119:13-46
-123            android:exported="true"
-123-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:120:13-36
-124            android:label="@string/launcher_application_name"
-124-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:121:13-62
-125            android:screenOrientation="portrait"
-125-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:122:13-49
-126            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-126-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:123:13-72
-127            <intent-filter>
-127-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:125:13-129:29
-128
-129                <!-- App Lock Use -->
-130                <category android:name="android.intent.category.DEFAULT" />
-130-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-130-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-131
-132                <action android:name="ioslite.intent.action.IOSLITE" />
-132-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:128:17-72
-132-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:128:25-69
-133            </intent-filter>
-134        </activity>
-135        <activity
-135-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:132:9-148:20
-136            android:name="com.amz.ios.launcher.config.LauncherSettingActivity"
-136-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:133:13-59
-137            android:autoRemoveFromRecents="true"
-137-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:134:13-49
-138            android:exported="true"
-138-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:135:13-36
-139            android:icon="@drawable/ic_setting"
-139-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:136:13-48
-140            android:label="@string/settings_label"
-140-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:137:13-51
-141            android:resizeableActivity="false"
-141-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:138:13-47
-142            android:screenOrientation="portrait"
-142-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:139:13-49
-143            android:taskAffinity="com.amz.ios.launcher.Launcher"
-143-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:140:13-65
-144            android:theme="@style/PrefSettings" >
-144-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:141:13-48
-145            <intent-filter>
-145-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:142:13-147:29
-146
-147                <!-- App Lock Use -->
-148                <!-- <action android:name="android.intent.action.MAIN" /> -->
-149                <category android:name="android.intent.category.LAUNCHER" />
-149-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:145:17-77
-149-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:145:27-74
-150                <category android:name="android.intent.category.HOME" />
-150-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-73
-150-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:109:27-70
-151            </intent-filter>
-152        </activity>
-153        <activity
-153-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:150:9-158:51
-154            android:name="com.amz.ios.launcher.config.AppearanceActivity"
-154-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:151:13-54
-155            android:autoRemoveFromRecents="true"
-155-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:152:13-49
-156            android:exported="true"
-156-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:153:13-36
-157            android:label="@string/settings_label"
-157-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:154:13-51
-158            android:resizeableActivity="false"
-158-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:155:13-47
-159            android:screenOrientation="portrait"
-159-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:156:13-49
-160            android:taskAffinity="com.amz.ios.launcher.Launcher"
-160-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:157:13-65
-161            android:theme="@style/PrefSettings" />
-161-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:158:13-48
-162        <activity
-162-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:160:9-168:51
-163            android:name="com.amz.ios.launcher.config.DesktopStyleActivity"
-163-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:161:13-56
-164            android:autoRemoveFromRecents="true"
-164-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:162:13-49
-165            android:exported="true"
-165-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:163:13-36
-166            android:label="@string/settings_label"
-166-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:164:13-51
-167            android:resizeableActivity="false"
-167-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:165:13-47
-168            android:screenOrientation="portrait"
-168-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:166:13-49
-169            android:taskAffinity="com.amz.ios.launcher.Launcher"
-169-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:167:13-65
-170            android:theme="@style/PrefSettings" />
-170-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:168:13-48
-171        <activity
-171-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:170:9-178:51
-172            android:name="com.amz.ios.launcher.config.DrawerStyleActivity"
-172-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:171:13-55
-173            android:autoRemoveFromRecents="true"
-173-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:172:13-49
-174            android:exported="true"
-174-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:173:13-36
-175            android:label="@string/settings_label"
-175-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:174:13-51
-176            android:resizeableActivity="false"
-176-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:175:13-47
-177            android:screenOrientation="portrait"
-177-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:176:13-49
-178            android:taskAffinity="com.amz.ios.launcher.Launcher"
-178-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:177:13-65
-179            android:theme="@style/PrefSettings" />
-179-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:178:13-48
-180        <activity
-180-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:180:9-193:20
-181            android:name="com.amz.ios.launcher.config.FeatureSettingActivity"
-181-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:181:13-58
-182            android:autoRemoveFromRecents="true"
-182-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:182:13-49
-183            android:exported="true"
-183-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:183:13-36
-184            android:label="@string/settings_label"
-184-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:184:13-51
-185            android:resizeableActivity="false"
-185-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:185:13-47
-186            android:screenOrientation="portrait"
-186-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:186:13-49
-187            android:taskAffinity="com.amz.ios.launcher.Launcher"
-187-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:187:13-65
-188            android:theme="@style/PrefSettings" >
-188-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:188:13-48
-189            <intent-filter>
-189-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:189:13-192:29
-190                <action android:name="ioslite.intent.action.OPEN_FEATURE_SETTING" />
-190-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:190:17-85
-190-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:190:25-82
-191
-192                <category android:name="android.intent.category.DEFAULT" />
-192-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-192-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-193            </intent-filter>
-194        </activity>
-195        <activity
-195-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:195:9-203:51
-196            android:name="com.amz.ios.launcher.config.GestureSettingActivity"
-196-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:196:13-58
-197            android:autoRemoveFromRecents="true"
-197-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:197:13-49
-198            android:exported="true"
-198-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:198:13-36
-199            android:label="@string/settings_label"
-199-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:199:13-51
-200            android:resizeableActivity="false"
-200-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:200:13-47
-201            android:screenOrientation="portrait"
-201-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:201:13-49
-202            android:taskAffinity="com.amz.ios.launcher.Launcher"
-202-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:202:13-65
-203            android:theme="@style/PrefSettings" />
-203-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:203:13-48
-204        <activity
-204-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:205:9-213:51
-205            android:name="com.amz.ios.launcher.config.GesturePickerActivity"
-205-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:206:13-57
-206            android:autoRemoveFromRecents="true"
-206-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:207:13-49
-207            android:exported="true"
-207-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:208:13-36
-208            android:label="@string/settings_label"
-208-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:209:13-51
-209            android:resizeableActivity="false"
-209-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:210:13-47
-210            android:screenOrientation="portrait"
-210-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:211:13-49
-211            android:taskAffinity="com.amz.ios.launcher.Launcher"
-211-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:212:13-65
-212            android:theme="@style/PrefSettings" />
-212-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:213:13-48
-213        <activity
-213-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:215:9-223:51
-214            android:name="com.amz.ios.launcher.config.NotificationMgrActivity"
-214-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:216:13-59
-215            android:autoRemoveFromRecents="true"
-215-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:217:13-49
-216            android:exported="true"
-216-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:218:13-36
-217            android:label="@string/settings_label"
-217-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:219:13-51
-218            android:resizeableActivity="false"
-218-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:220:13-47
-219            android:screenOrientation="portrait"
-219-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:221:13-49
-220            android:taskAffinity="com.amz.ios.launcher.Launcher"
-220-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:222:13-65
-221            android:theme="@style/PrefSettings" />
-221-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:223:13-48
-222        <activity
-222-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:225:9-233:51
-223            android:name="com.amz.ios.launcher.config.BackupActivity"
-223-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:226:13-50
-224            android:autoRemoveFromRecents="true"
-224-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:227:13-49
-225            android:exported="true"
-225-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:228:13-36
-226            android:label="@string/settings_label"
-226-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:229:13-51
-227            android:resizeableActivity="false"
-227-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:230:13-47
-228            android:screenOrientation="portrait"
-228-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:231:13-49
-229            android:taskAffinity="com.amz.ios.launcher.Launcher"
-229-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:232:13-65
-230            android:theme="@style/PrefSettings" />
-230-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:233:13-48
-231        <activity
-231-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:235:9-243:51
-232            android:name="com.amz.ios.launcher.config.EffectSettingsActivity"
-232-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:236:13-58
-233            android:autoRemoveFromRecents="true"
-233-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:237:13-49
-234            android:exported="true"
-234-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:238:13-36
-235            android:label="@string/settings_label"
-235-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:239:13-51
-236            android:resizeableActivity="false"
-236-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:240:13-47
-237            android:screenOrientation="portrait"
-237-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:241:13-49
-238            android:taskAffinity="com.amz.ios.launcher.Launcher"
-238-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:242:13-65
-239            android:theme="@style/PrefSettings" />
-239-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:243:13-48
-240        <activity
-240-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:245:9-252:51
-241            android:name="com.amz.ios.launcher.config.AboutActivity"
-241-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:246:13-49
-242            android:autoRemoveFromRecents="true"
-242-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:247:13-49
-243            android:exported="true"
-243-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:248:13-36
-244            android:resizeableActivity="false"
-244-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:249:13-47
-245            android:screenOrientation="portrait"
-245-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:250:13-49
-246            android:taskAffinity="com.amz.ios.launcher.Launcher"
-246-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:251:13-65
-247            android:theme="@style/PrefSettings" />
-247-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:252:13-48
-248        <activity
-248-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:254:9-261:51
-249            android:name="com.amz.ios.launcher.config.DeveloperActivity"
-249-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:255:13-53
-250            android:autoRemoveFromRecents="true"
-250-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:256:13-49
-251            android:exported="true"
-251-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:257:13-36
-252            android:resizeableActivity="false"
-252-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:258:13-47
-253            android:screenOrientation="portrait"
-253-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:259:13-49
-254            android:taskAffinity="com.amz.ios.launcher.Launcher"
-254-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:260:13-65
-255            android:theme="@style/PrefSettings" />
-255-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:261:13-48
-256        <activity
-256-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:263:9-270:61
-257            android:name="com.amz.ios.launcher.config.IconLayoutActivity"
-257-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:264:13-54
-258            android:autoRemoveFromRecents="true"
-258-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:265:13-49
-259            android:exported="true"
-259-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:266:13-36
-260            android:resizeableActivity="false"
-260-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:267:13-47
-261            android:screenOrientation="portrait"
-261-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:268:13-49
-262            android:taskAffinity="com.amz.ios.launcher.Launcher"
-262-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:269:13-65
-263            android:theme="@style/PrefSettings.Wallpaper" />
-263-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:270:13-58
-264        <activity
-264-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:272:9-279:20
-265            android:name="com.amz.ios.launcher.widget.configure.PictureAppWidgetProviderConfigureActivity"
-265-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:273:13-87
-266            android:exported="true"
-266-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:274:13-36
-267            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-267-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:275:13-69
-268            <intent-filter>
-268-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:276:13-278:29
-269                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-269-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:277:17-87
-269-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:277:25-84
-270            </intent-filter>
-271        </activity>
-272
-273        <receiver
-273-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:281:9-287:20
-274            android:name="com.amz.ios.launcher.WallpaperChangedReceiver"
-274-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:282:13-73
-275            android:exported="true" >
-275-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:283:13-36
-276            <intent-filter>
-276-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:284:13-286:29
-277                <action android:name="android.intent.action.WALLPAPER_CHANGED" />
-277-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:285:17-82
-277-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:285:25-79
-278            </intent-filter>
-279        </receiver>
-280
-281        <!-- Intent received used to install shortcuts from other applications -->
-282        <receiver
-282-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:290:9-298:20
-283            android:name="com.amz.ios.launcher.InstallShortcutReceiver"
-283-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:291:13-72
-284            android:enabled="@bool/enable_install_shortcut_api"
-284-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:292:13-64
-285            android:exported="true"
-285-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:293:13-36
-286            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT" >
-286-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:294:13-82
-287            <intent-filter>
-287-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:295:13-297:29
-288                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
-288-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:296:17-87
-288-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:296:25-84
-289            </intent-filter>
-290        </receiver>
-291
-292        <!-- Intent received used to uninstall shortcuts from other applications -->
-293        <receiver
-293-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:301:9-308:20
-294            android:name="com.amz.ios.launcher.UninstallShortcutReceiver"
-294-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:302:13-74
-295            android:exported="true"
-295-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:303:13-36
-296            android:permission="com.android.launcher.permission.UNINSTALL_SHORTCUT" >
-296-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:304:13-84
-297            <intent-filter>
-297-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:305:13-307:29
-298                <action android:name="com.android.launcher.action.UNINSTALL_SHORTCUT" />
-298-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:306:17-89
-298-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:306:25-86
-299            </intent-filter>
-300        </receiver>
-301
-302        <!-- Intent received used to initialize a restored widget -->
-303        <receiver
-303-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:311:9-317:20
-304            android:name="com.amz.ios.launcher.AppWidgetsRestoredReceiver"
-304-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:312:13-75
-305            android:exported="true" >
-305-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:313:13-36
-306            <intent-filter>
-306-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:314:13-316:29
-307                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />
-307-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:315:17-91
-307-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:315:25-88
-308            </intent-filter>
-309        </receiver>
-310        <receiver
-310-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:319:9-325:20
-311            android:name="com.amz.ios.launcher.StartupReceiver"
-311-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:320:13-64
-312            android:exported="true" >
-312-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:321:13-36
-313            <intent-filter>
-313-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:322:13-324:29
-314                <action android:name="android.intent.action.BOOT_COMPLETED" />
-314-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:323:17-79
-314-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:323:25-76
-315            </intent-filter>
-316        </receiver>
-317        <receiver
-317-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:327:9-339:20
-318            android:name="com.amz.ios.launcher.util.AdminManager"
-318-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:328:13-46
-319            android:exported="true"
-319-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:329:13-36
-320            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-320-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:330:13-70
-321            <meta-data
-321-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:331:13-333:61
-322                android:name="android.app.device_admin"
-322-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:332:17-56
-323                android:resource="@xml/device_admin_info" />
-323-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:333:17-58
-324
-325            <intent-filter>
-325-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:335:13-338:29
-326                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-326-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:336:17-82
-326-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:336:25-79
-327                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
-327-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:337:17-83
-327-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:337:25-80
-328            </intent-filter>
-329        </receiver>
-330
-331        <!-- The settings provider contains Home's data, like the workspace favorites -->
-332        <provider
-332-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:342:9-345:39
-333            android:name="com.amz.ios.launcher.LauncherProvider"
-333-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:343:13-65
-334            android:authorities="com.amz.ios.launcher.settings"
-334-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:344:13-64
-335            android:exported="true" />
-335-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:345:13-36
-336
-337        <!-- The hideapp provider contains like the workspace favorites -->
-338        <provider
-338-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:348:9-351:39
-339            android:name="com.amz.ios.launcher.provider.AppConfigureProvider"
-339-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:349:13-78
-340            android:authorities="com.amz.ios.launcher.appconfigure"
-340-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:350:13-68
-341            android:exported="true" />
-341-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:351:13-36
-342
-343        <!-- The settings provider contains Home's data, like the workspace favorites -->
-344        <provider
-344-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:354:9-357:39
-345            android:name="com.amz.ios.launcher.provider.AppTypeProvider"
-345-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:355:13-73
-346            android:authorities="com.amz.ios.launcher.apptype"
-346-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:356:13-63
-347            android:exported="true" />
-347-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:357:13-36
-348
-349        <!-- ***********************   IOS shortcuts   ****************************** -->
-350
-351        <activity
-351-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:362:9-367:59
-352            android:name="com.amz.ios.launcher.shortcut.AllApps"
-352-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:363:13-65
-353            android:exported="true"
-353-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:364:13-36
-354            android:icon="@drawable/lite_rom_all_apps"
-354-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:365:13-55
-355            android:label="@string/all_apps_button_label"
-355-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:366:13-58
-356            android:resizeableActivity="false" />
-356-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:367:13-47
-357
-358        <!-- ***********************    User Guide   ****************************** -->
-359        <activity
-359-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:371:9-383:20
-360            android:name="com.ios.boot.iosboot.FirstRunActivity"
-360-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:372:13-65
-361            android:excludeFromRecents="true"
-361-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:373:13-46
-362            android:exported="true"
-362-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:374:13-36
-363            android:launchMode="singleTop"
-363-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:375:13-43
-364            android:resizeableActivity="false"
-364-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:376:13-47
-365            android:screenOrientation="portrait"
-365-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:377:13-49
-366            android:theme="@style/IOSBootAppTheme.Start" >
-366-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:378:13-57
-367            <intent-filter>
-367-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:379:13-382:29
-368                <action android:name="android.intent.action.MAIN" />
-368-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:17-69
-368-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:25-66
-369
-370                <category android:name="android.intent.category.DEFAULT" />
-370-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-370-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-371            </intent-filter>
-372        </activity>
-373        <activity
-373-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:385:9-395:20
-374            android:name="com.ios.boot.iosboot.SpeedUpActivity"
-374-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:386:13-64
-375            android:exported="true"
-375-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:387:13-36
-376            android:resizeableActivity="false"
-376-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:388:13-47
-377            android:screenOrientation="portrait"
-377-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:389:13-49
-378            android:theme="@style/IOSBootSpeddUpAppTheme" >
-378-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:390:13-58
-379            <intent-filter>
-379-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:379:13-382:29
-380                <action android:name="android.intent.action.MAIN" />
-380-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:17-69
-380-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:25-66
-381
-382                <category android:name="android.intent.category.DEFAULT" />
-382-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-382-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-383            </intent-filter>
-384        </activity>
-385        <activity
-385-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:396:9-406:20
-386            android:name="com.ios.boot.iosboot.UpdateInfoActivity"
-386-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:397:13-67
-387            android:exported="true"
-387-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:398:13-36
-388            android:resizeableActivity="false"
-388-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:399:13-47
-389            android:screenOrientation="portrait"
-389-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:400:13-49
-390            android:theme="@style/IOSBootUpdateInfoAppTheme" >
-390-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:401:13-61
-391            <intent-filter>
-391-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:379:13-382:29
-392                <action android:name="android.intent.action.MAIN" />
-392-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:17-69
-392-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:25-66
-393
-394                <category android:name="android.intent.category.DEFAULT" />
-394-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-394-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-395            </intent-filter>
-396        </activity>
-397        <activity
-397-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:407:9-418:20
-398            android:name="com.ios.boot.iosboot.LegalNoticesActivity"
-398-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:408:13-69
-399            android:exported="true"
-399-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:409:13-36
-400            android:launchMode="singleTask"
-400-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:410:13-44
-401            android:resizeableActivity="false"
-401-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:411:13-47
-402            android:screenOrientation="portrait"
-402-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:412:13-49
-403            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
-403-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:413:13-72
-404            <intent-filter>
-404-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:379:13-382:29
-405                <action android:name="android.intent.action.MAIN" />
-405-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:17-69
-405-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:108:25-66
-406
-407                <category android:name="android.intent.category.DEFAULT" />
-407-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-76
-407-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-73
-408            </intent-filter>
-409        </activity>
-410        <activity
-410-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:420:9-424:72
-411            android:name="com.amz.ios.ui.cropimage.CropImageActivity"
-411-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:421:13-70
-412            android:configChanges="screenSize|screenLayout|orientation"
-412-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:422:13-72
-413            android:exported="false"
-413-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:423:13-37
-414            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-414-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:424:13-69
-415
-416        <!-- ***********************    User Guide  End  ****************************** -->
-417
-418        <receiver
-418-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:428:9-439:20
-419            android:name="com.ios.cleanwidget.CleanWidgetProvider"
-419-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:429:13-67
-420            android:exported="true"
-420-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:430:13-36
-421            android:label="@string/clean_widget_name" >
-421-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:431:13-54
-422            <intent-filter>
-422-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:432:13-434:29
-423                <action android:name="android.appwidget.action.IOS_WIDGET" />
-423-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:17-78
-423-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:25-75
-424            </intent-filter>
-425
-426            <meta-data
-426-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:436:13-438:61
-427                android:name="android.appwidget.provider"
-427-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:437:17-58
-428                android:resource="@xml/clean_widget_info" />
-428-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
-429        </receiver>
-430        <receiver
-430-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:441:9-453:20
-431            android:name="com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider"
-431-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:442:13-75
-432            android:exported="true"
-432-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:443:13-36
-433            android:label="@string/picture" >
-433-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:444:13-44
-434            <intent-filter>
-434-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:445:13-449:29
-435                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-435-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:277:17-87
-435-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:277:25-84
-436                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-436-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:447:17-84
-436-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:447:25-81
-437                <action android:name="android.appwidget.action.IOS_WIDGET" />
-437-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:17-78
-437-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:25-75
-438            </intent-filter>
-439
-440            <meta-data
-440-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:436:13-438:61
-441                android:name="android.appwidget.provider"
-441-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:437:17-58
-442                android:resource="@xml/picture_app_widget_provider_info" />
-442-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
-443        </receiver>
-444        <receiver
-444-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:455:9-472:20
-445            android:name="com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider"
-445-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:456:13-72
-446            android:exported="true"
-446-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:457:13-36
-447            android:label="@string/battery" >
-447-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:458:13-44
-448            <intent-filter>
-448-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:459:13-464:29
-449                <action android:name="android.appwidget.action.IOS_WIDGET" />
-449-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:17-78
-449-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:433:25-75
-450                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
-450-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:461:17-85
-450-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:461:25-82
-451                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
-451-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:462:17-86
-451-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:462:25-83
-452                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-452-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:447:17-84
-452-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:447:25-81
-453            </intent-filter>
-454            <intent-filter>
-454-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:465:13-467:29
-455                <action android:name="com.ios.ACTION_UPDATE_BATTERY_WIDGET" />
-455-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:466:17-79
-455-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:466:25-76
-456            </intent-filter>
-457
-458            <meta-data
-458-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:436:13-438:61
-459                android:name="android.appwidget.provider"
-459-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:437:17-58
-460                android:resource="@xml/battery_widget_provider_info" />
-460-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
-461        </receiver>
-462        <receiver
-462-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:474:9-486:20
-463            android:name="com.amz.ios.launcher.WorkspaceReceiver"
-463-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:475:13-66
-464            android:exported="true" >
-464-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:476:13-36
-465            <intent-filter>
-465-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:477:13-479:29
-466                <action android:name="com.ios.workspace.ACTION_DEBUG" />
-466-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:478:17-73
-466-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:478:25-70
-467            </intent-filter>
-468            <intent-filter>
-468-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:480:13-485:29
-469                <action android:name="android.provider.Telephony.SECRET_CODE" />
-469-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:481:17-81
-469-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:481:25-78
-470
-471                <data
-471-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:482:17-484:60
-472                    android:host="6633"
-472-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:483:21-40
-473                    android:scheme="android_secret_code" />
-473-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:484:21-57
-474            </intent-filter>
-475        </receiver>
-476
-477        <service
-477-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:488:9-492:52
-478            android:name="com.amz.ios.launcher.dynamicui.WallpaperManagerCompatVL$ColorExtractionService"
-478-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:489:13-106
-479            android:exported="false"
-479-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:490:13-37
-480            android:permission="android.permission.BIND_JOB_SERVICE"
-480-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:491:13-69
-481            android:process=":wallpaper_chooser" />
-481-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:492:13-49
-482        <service
-482-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:494:9-503:19
-483            android:name="com.amz.ios.launcher.notification.NotificationListener"
-483-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:495:13-82
-484            android:enabled="@bool/notification_badging_enabled"
-484-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:496:13-65
-485            android:exported="true"
-485-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:497:13-36
-486            android:label="@string/icon_badging_service_title"
-486-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:498:13-63
-487            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
-487-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:499:13-87
-488            <intent-filter>
-488-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:500:13-502:29
-489                <action android:name="android.service.notification.NotificationListenerService" />
-489-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:501:17-99
-489-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:501:25-96
+51-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:45:5-80
+51-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:45:22-77
+52    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+52-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:46:5-76
+52-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:46:22-73
+53    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+53-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:47:5-81
+53-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:47:22-78
+54    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+54-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:48:5-77
+54-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:48:22-74
+55    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
+56    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+56-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:50:5-75
+56-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:50:22-72
+57    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+57-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:51:5-81
+57-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:51:22-78
+58    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS" />
+58-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:52:5-97
+58-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:52:22-94
+59    <uses-permission android:name="com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
+59-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:53:5-100
+59-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:53:22-97
+60    <!-- <uses-permission android:name="android.permission.READ_CALL_LOG" /> -->
+61    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+62    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
+63    <uses-permission android:name="android.permission.INTERNET" />
+63-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:57:5-67
+63-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:57:22-64
+64    <!-- <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" /> -->
+65    <!-- <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" /> -->
+66    <uses-permission
+66-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:60:5-62:47
+67        android:name="android.permission.STATUS_BAR"
+67-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:61:9-53
+68        tools:ignore="ProtectedPermissions" />
+68-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:62:9-44
+69    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+69-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:63:5-75
+69-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:63:22-72
+70    <uses-permission
+70-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:64:5-66:53
+71        android:name="android.permission.QUERY_ALL_PACKAGES"
+71-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:65:9-61
+72        tools:ignore="QueryAllPackagesPermission" />
+72-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:66:9-50
+73    <uses-permission
+73-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:67:5-69:47
+74        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+74-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:68:9-77
+75        tools:ignore="ProtectedPermissions" />
+75-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:69:9-44
+76    <!-- <uses-permission android:name="android.permission.READ_APP_BADGE" /> -->
+77    <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
+78    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+78-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:72:5-84
+78-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:72:22-81
+79    <!-- <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" /> -->
+80    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+80-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:74:5-91
+80-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:74:22-88
+81    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+82    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+82-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:76:5-85
+82-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:76:22-82
+83    <uses-permission
+83-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:77:5-79:47
+84        android:name="android.permission.UPDATE_DEVICE_STATS"
+84-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:78:9-62
+85        tools:ignore="ProtectedPermissions" />
+85-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:79:9-44
+86    <uses-permission
+86-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:80:5-82:47
+87        android:name="android.permission.REBOOT"
+87-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:81:9-49
+88        tools:ignore="ProtectedPermissions" />
+88-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:82:9-44
+89    <!-- <uses-permission android:name="android.permission.READ_CALENDAR" /> -->
+90    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
+91    <application
+91-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:87:5-547:19
+92        android:name="com.amz.ios.IOSLauncher"
+92-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:88:9-47
+93        android:hardwareAccelerated="true"
+93-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:89:9-43
+94        android:label="@string/launcher_application_name"
+94-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:90:9-58
+95        android:screenOrientation="portrait" >
+95-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:91:9-45
+96        <activity
+96-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:93:9-116:20
+97            android:name="com.amz.ios.launcher.searchlauncher.SearchLauncher"
+97-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:94:13-78
+98            android:clearTaskOnLaunch="true"
+98-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:95:13-45
+99            android:configChanges="fontScale|colorMode|layoutDirection|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc"
+99-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:96:13-204
+100            android:enabled="true"
+100-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:97:13-35
+101            android:excludeFromRecents="true"
+101-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:98:13-46
+102            android:exported="true"
+102-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:99:13-36
+103            android:launchMode="singleTask"
+103-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:100:13-44
+104            android:resizeableActivity="true"
+104-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:101:13-46
+105            android:resumeWhilePausing="true"
+105-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:102:13-46
+106            android:screenOrientation="portrait"
+106-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:103:13-49
+107            android:stateNotNeeded="true"
+107-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:104:13-42
+108            android:taskAffinity="com.amz.ios.launcher.Launcher"
+108-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:105:13-65
+109            android:theme="@style/LauncherTheme"
+109-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:106:13-49
+110            android:windowSoftInputMode="adjustPan" >
+110-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:107:13-52
+111            <intent-filter>
+111-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:108:13-115:29
+112                <action android:name="android.intent.action.MAIN" />
+112-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-69
+112-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:25-66
+113
+114                <category android:name="android.intent.category.HOME" />
+114-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-73
+114-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-70
+115                <category android:name="android.intent.category.DEFAULT" />
+115-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+115-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+116                <category android:name="android.intent.category.MONKEY" />
+116-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:112:17-75
+116-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:112:27-72
+117                <category android:name="android.intent.category.LAUNCHER_APP" />
+117-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:113:17-81
+117-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:113:27-78
+118                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+119            </intent-filter>
+120        </activity>
+121        <activity
+121-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:118:9-131:20
+122            android:name="com.amz.ios.launcher.DynamicVirtualEntryActivity"
+122-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:119:13-76
+123            android:excludeFromRecents="true"
+123-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:120:13-46
+124            android:exported="true"
+124-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:121:13-36
+125            android:label="@string/launcher_application_name"
+125-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:122:13-62
+126            android:screenOrientation="portrait"
+126-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:123:13-49
+127            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+127-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:124:13-72
+128            <intent-filter>
+128-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:126:13-130:29
+129
+130                <!-- App Lock Use -->
+131                <category android:name="android.intent.category.DEFAULT" />
+131-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+131-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+132
+133                <action android:name="ioslite.intent.action.IOSLITE" />
+133-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:129:17-72
+133-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:129:25-69
+134            </intent-filter>
+135        </activity>
+136        <activity
+136-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:133:9-149:20
+137            android:name="com.amz.ios.launcher.config.LauncherSettingActivity"
+137-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:134:13-59
+138            android:autoRemoveFromRecents="true"
+138-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:135:13-49
+139            android:exported="true"
+139-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:136:13-36
+140            android:icon="@drawable/ic_setting"
+140-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:137:13-48
+141            android:label="@string/settings_label"
+141-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:138:13-51
+142            android:resizeableActivity="false"
+142-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:139:13-47
+143            android:screenOrientation="portrait"
+143-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:140:13-49
+144            android:taskAffinity="com.amz.ios.launcher.Launcher"
+144-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:141:13-65
+145            android:theme="@style/PrefSettings" >
+145-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:142:13-48
+146            <intent-filter>
+146-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:143:13-148:29
+147
+148                <!-- App Lock Use -->
+149                <!-- <action android:name="android.intent.action.MAIN" /> -->
+150                <category android:name="android.intent.category.LAUNCHER" />
+150-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:146:17-77
+150-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:146:27-74
+151                <category android:name="android.intent.category.HOME" />
+151-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:110:17-73
+151-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:110:27-70
+152            </intent-filter>
+153        </activity>
+154        <activity
+154-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:151:9-159:51
+155            android:name="com.amz.ios.launcher.config.AppearanceActivity"
+155-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:152:13-54
+156            android:autoRemoveFromRecents="true"
+156-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:153:13-49
+157            android:exported="true"
+157-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:154:13-36
+158            android:label="@string/settings_label"
+158-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:155:13-51
+159            android:resizeableActivity="false"
+159-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:156:13-47
+160            android:screenOrientation="portrait"
+160-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:157:13-49
+161            android:taskAffinity="com.amz.ios.launcher.Launcher"
+161-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:158:13-65
+162            android:theme="@style/PrefSettings" />
+162-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:159:13-48
+163        <activity
+163-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:161:9-169:51
+164            android:name="com.amz.ios.launcher.config.DesktopStyleActivity"
+164-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:162:13-56
+165            android:autoRemoveFromRecents="true"
+165-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:163:13-49
+166            android:exported="true"
+166-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:164:13-36
+167            android:label="@string/settings_label"
+167-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:165:13-51
+168            android:resizeableActivity="false"
+168-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:166:13-47
+169            android:screenOrientation="portrait"
+169-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:167:13-49
+170            android:taskAffinity="com.amz.ios.launcher.Launcher"
+170-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:168:13-65
+171            android:theme="@style/PrefSettings" />
+171-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:169:13-48
+172        <activity
+172-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:171:9-179:51
+173            android:name="com.amz.ios.launcher.config.DrawerStyleActivity"
+173-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:172:13-55
+174            android:autoRemoveFromRecents="true"
+174-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:173:13-49
+175            android:exported="true"
+175-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:174:13-36
+176            android:label="@string/settings_label"
+176-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:175:13-51
+177            android:resizeableActivity="false"
+177-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:176:13-47
+178            android:screenOrientation="portrait"
+178-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:177:13-49
+179            android:taskAffinity="com.amz.ios.launcher.Launcher"
+179-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:178:13-65
+180            android:theme="@style/PrefSettings" />
+180-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:179:13-48
+181        <activity
+181-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:181:9-194:20
+182            android:name="com.amz.ios.launcher.config.FeatureSettingActivity"
+182-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:182:13-58
+183            android:autoRemoveFromRecents="true"
+183-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:183:13-49
+184            android:exported="true"
+184-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:184:13-36
+185            android:label="@string/settings_label"
+185-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:185:13-51
+186            android:resizeableActivity="false"
+186-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:186:13-47
+187            android:screenOrientation="portrait"
+187-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:187:13-49
+188            android:taskAffinity="com.amz.ios.launcher.Launcher"
+188-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:188:13-65
+189            android:theme="@style/PrefSettings" >
+189-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:189:13-48
+190            <intent-filter>
+190-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:190:13-193:29
+191                <action android:name="ioslite.intent.action.OPEN_FEATURE_SETTING" />
+191-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:191:17-85
+191-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:191:25-82
+192
+193                <category android:name="android.intent.category.DEFAULT" />
+193-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+193-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+194            </intent-filter>
+195        </activity>
+196        <activity
+196-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:196:9-204:51
+197            android:name="com.amz.ios.launcher.config.GestureSettingActivity"
+197-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:197:13-58
+198            android:autoRemoveFromRecents="true"
+198-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:198:13-49
+199            android:exported="true"
+199-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:199:13-36
+200            android:label="@string/settings_label"
+200-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:200:13-51
+201            android:resizeableActivity="false"
+201-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:201:13-47
+202            android:screenOrientation="portrait"
+202-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:202:13-49
+203            android:taskAffinity="com.amz.ios.launcher.Launcher"
+203-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:203:13-65
+204            android:theme="@style/PrefSettings" />
+204-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:204:13-48
+205        <activity
+205-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:206:9-214:51
+206            android:name="com.amz.ios.launcher.config.GesturePickerActivity"
+206-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:207:13-57
+207            android:autoRemoveFromRecents="true"
+207-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:208:13-49
+208            android:exported="true"
+208-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:209:13-36
+209            android:label="@string/settings_label"
+209-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:210:13-51
+210            android:resizeableActivity="false"
+210-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:211:13-47
+211            android:screenOrientation="portrait"
+211-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:212:13-49
+212            android:taskAffinity="com.amz.ios.launcher.Launcher"
+212-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:213:13-65
+213            android:theme="@style/PrefSettings" />
+213-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:214:13-48
+214        <activity
+214-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:216:9-224:51
+215            android:name="com.amz.ios.launcher.config.NotificationMgrActivity"
+215-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:217:13-59
+216            android:autoRemoveFromRecents="true"
+216-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:218:13-49
+217            android:exported="true"
+217-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:219:13-36
+218            android:label="@string/settings_label"
+218-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:220:13-51
+219            android:resizeableActivity="false"
+219-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:221:13-47
+220            android:screenOrientation="portrait"
+220-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:222:13-49
+221            android:taskAffinity="com.amz.ios.launcher.Launcher"
+221-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:223:13-65
+222            android:theme="@style/PrefSettings" />
+222-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:224:13-48
+223        <activity
+223-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:226:9-234:51
+224            android:name="com.amz.ios.launcher.config.BackupActivity"
+224-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:227:13-50
+225            android:autoRemoveFromRecents="true"
+225-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:228:13-49
+226            android:exported="true"
+226-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:229:13-36
+227            android:label="@string/settings_label"
+227-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:230:13-51
+228            android:resizeableActivity="false"
+228-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:231:13-47
+229            android:screenOrientation="portrait"
+229-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:232:13-49
+230            android:taskAffinity="com.amz.ios.launcher.Launcher"
+230-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:233:13-65
+231            android:theme="@style/PrefSettings" />
+231-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:234:13-48
+232        <activity
+232-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:236:9-244:51
+233            android:name="com.amz.ios.launcher.config.EffectSettingsActivity"
+233-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:237:13-58
+234            android:autoRemoveFromRecents="true"
+234-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:238:13-49
+235            android:exported="true"
+235-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:239:13-36
+236            android:label="@string/settings_label"
+236-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:240:13-51
+237            android:resizeableActivity="false"
+237-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:241:13-47
+238            android:screenOrientation="portrait"
+238-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:242:13-49
+239            android:taskAffinity="com.amz.ios.launcher.Launcher"
+239-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:243:13-65
+240            android:theme="@style/PrefSettings" />
+240-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:244:13-48
+241        <activity
+241-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:246:9-253:51
+242            android:name="com.amz.ios.launcher.config.AboutActivity"
+242-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:247:13-49
+243            android:autoRemoveFromRecents="true"
+243-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:248:13-49
+244            android:exported="true"
+244-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:249:13-36
+245            android:resizeableActivity="false"
+245-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:250:13-47
+246            android:screenOrientation="portrait"
+246-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:251:13-49
+247            android:taskAffinity="com.amz.ios.launcher.Launcher"
+247-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:252:13-65
+248            android:theme="@style/PrefSettings" />
+248-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:253:13-48
+249        <activity
+249-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:255:9-262:51
+250            android:name="com.amz.ios.launcher.config.DeveloperActivity"
+250-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:256:13-53
+251            android:autoRemoveFromRecents="true"
+251-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:257:13-49
+252            android:exported="true"
+252-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:258:13-36
+253            android:resizeableActivity="false"
+253-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:259:13-47
+254            android:screenOrientation="portrait"
+254-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:260:13-49
+255            android:taskAffinity="com.amz.ios.launcher.Launcher"
+255-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:261:13-65
+256            android:theme="@style/PrefSettings" />
+256-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:262:13-48
+257        <activity
+257-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:264:9-271:61
+258            android:name="com.amz.ios.launcher.config.IconLayoutActivity"
+258-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:265:13-54
+259            android:autoRemoveFromRecents="true"
+259-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:266:13-49
+260            android:exported="true"
+260-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:267:13-36
+261            android:resizeableActivity="false"
+261-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:268:13-47
+262            android:screenOrientation="portrait"
+262-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:269:13-49
+263            android:taskAffinity="com.amz.ios.launcher.Launcher"
+263-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:270:13-65
+264            android:theme="@style/PrefSettings.Wallpaper" />
+264-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:271:13-58
+265        <activity
+265-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:273:9-280:20
+266            android:name="com.amz.ios.launcher.widget.configure.PictureAppWidgetProviderConfigureActivity"
+266-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:274:13-87
+267            android:exported="true"
+267-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:275:13-36
+268            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+268-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:276:13-69
+269            <intent-filter>
+269-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:277:13-279:29
+270                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+270-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:278:17-87
+270-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:278:25-84
+271            </intent-filter>
+272        </activity>
+273
+274        <receiver
+274-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:282:9-288:20
+275            android:name="com.amz.ios.launcher.WallpaperChangedReceiver"
+275-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:283:13-73
+276            android:exported="true" >
+276-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:284:13-36
+277            <intent-filter>
+277-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:285:13-287:29
+278                <action android:name="android.intent.action.WALLPAPER_CHANGED" />
+278-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:286:17-82
+278-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:286:25-79
+279            </intent-filter>
+280        </receiver>
+281
+282        <!-- Intent received used to install shortcuts from other applications -->
+283        <receiver
+283-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:291:9-299:20
+284            android:name="com.amz.ios.launcher.InstallShortcutReceiver"
+284-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:292:13-72
+285            android:enabled="@bool/enable_install_shortcut_api"
+285-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:293:13-64
+286            android:exported="true"
+286-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:294:13-36
+287            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT" >
+287-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:295:13-82
+288            <intent-filter>
+288-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:296:13-298:29
+289                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
+289-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:297:17-87
+289-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:297:25-84
+290            </intent-filter>
+291        </receiver>
+292
+293        <!-- Intent received used to uninstall shortcuts from other applications -->
+294        <receiver
+294-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:302:9-309:20
+295            android:name="com.amz.ios.launcher.UninstallShortcutReceiver"
+295-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:303:13-74
+296            android:exported="true"
+296-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:304:13-36
+297            android:permission="com.android.launcher.permission.UNINSTALL_SHORTCUT" >
+297-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:305:13-84
+298            <intent-filter>
+298-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:306:13-308:29
+299                <action android:name="com.android.launcher.action.UNINSTALL_SHORTCUT" />
+299-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:307:17-89
+299-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:307:25-86
+300            </intent-filter>
+301        </receiver>
+302
+303        <!-- Intent received used to initialize a restored widget -->
+304        <receiver
+304-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:312:9-318:20
+305            android:name="com.amz.ios.launcher.AppWidgetsRestoredReceiver"
+305-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:313:13-75
+306            android:exported="true" >
+306-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:314:13-36
+307            <intent-filter>
+307-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:315:13-317:29
+308                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />
+308-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:316:17-91
+308-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:316:25-88
+309            </intent-filter>
+310        </receiver>
+311        <receiver
+311-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:320:9-326:20
+312            android:name="com.amz.ios.launcher.StartupReceiver"
+312-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:321:13-64
+313            android:exported="true" >
+313-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:322:13-36
+314            <intent-filter>
+314-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:323:13-325:29
+315                <action android:name="android.intent.action.BOOT_COMPLETED" />
+315-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:324:17-79
+315-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:324:25-76
+316            </intent-filter>
+317        </receiver>
+318        <receiver
+318-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:328:9-340:20
+319            android:name="com.amz.ios.launcher.util.AdminManager"
+319-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:329:13-46
+320            android:exported="true"
+320-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:330:13-36
+321            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+321-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:331:13-70
+322            <meta-data
+322-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:332:13-334:61
+323                android:name="android.app.device_admin"
+323-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:333:17-56
+324                android:resource="@xml/device_admin_info" />
+324-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:334:17-58
+325
+326            <intent-filter>
+326-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:336:13-339:29
+327                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+327-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:337:17-82
+327-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:337:25-79
+328                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
+328-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:338:17-83
+328-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:338:25-80
+329            </intent-filter>
+330        </receiver>
+331
+332        <!-- The settings provider contains Home's data, like the workspace favorites -->
+333        <provider
+333-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:343:9-346:39
+334            android:name="com.amz.ios.launcher.LauncherProvider"
+334-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:344:13-65
+335            android:authorities="com.amz.ios.launcher.settings"
+335-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:345:13-64
+336            android:exported="true" />
+336-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:346:13-36
+337
+338        <!-- The hideapp provider contains like the workspace favorites -->
+339        <provider
+339-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:349:9-352:39
+340            android:name="com.amz.ios.launcher.provider.AppConfigureProvider"
+340-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:350:13-78
+341            android:authorities="com.amz.ios.launcher.appconfigure"
+341-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:351:13-68
+342            android:exported="true" />
+342-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:352:13-36
+343
+344        <!-- The settings provider contains Home's data, like the workspace favorites -->
+345        <provider
+345-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:355:9-358:39
+346            android:name="com.amz.ios.launcher.provider.AppTypeProvider"
+346-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:356:13-73
+347            android:authorities="com.amz.ios.launcher.apptype"
+347-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:357:13-63
+348            android:exported="true" />
+348-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:358:13-36
+349
+350        <!-- ***********************   IOS shortcuts   ****************************** -->
+351
+352        <activity
+352-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:363:9-368:59
+353            android:name="com.amz.ios.launcher.shortcut.AllApps"
+353-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:364:13-65
+354            android:exported="true"
+354-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:365:13-36
+355            android:icon="@drawable/lite_rom_all_apps"
+355-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:366:13-55
+356            android:label="@string/all_apps_button_label"
+356-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:367:13-58
+357            android:resizeableActivity="false" />
+357-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:368:13-47
+358
+359        <!-- ***********************    User Guide   ****************************** -->
+360        <activity
+360-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:372:9-384:20
+361            android:name="com.ios.boot.iosboot.FirstRunActivity"
+361-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:373:13-65
+362            android:excludeFromRecents="true"
+362-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:374:13-46
+363            android:exported="true"
+363-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:375:13-36
+364            android:launchMode="singleTop"
+364-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:376:13-43
+365            android:resizeableActivity="false"
+365-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:377:13-47
+366            android:screenOrientation="portrait"
+366-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:378:13-49
+367            android:theme="@style/IOSBootAppTheme.Start" >
+367-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:379:13-57
+368            <intent-filter>
+368-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:380:13-383:29
+369                <action android:name="android.intent.action.MAIN" />
+369-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-69
+369-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:25-66
+370
+371                <category android:name="android.intent.category.DEFAULT" />
+371-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+371-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+372            </intent-filter>
+373        </activity>
+374        <activity
+374-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:386:9-396:20
+375            android:name="com.ios.boot.iosboot.SpeedUpActivity"
+375-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:387:13-64
+376            android:exported="true"
+376-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:388:13-36
+377            android:resizeableActivity="false"
+377-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:389:13-47
+378            android:screenOrientation="portrait"
+378-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:390:13-49
+379            android:theme="@style/IOSBootSpeddUpAppTheme" >
+379-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:391:13-58
+380            <intent-filter>
+380-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:380:13-383:29
+381                <action android:name="android.intent.action.MAIN" />
+381-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-69
+381-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:25-66
+382
+383                <category android:name="android.intent.category.DEFAULT" />
+383-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+383-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+384            </intent-filter>
+385        </activity>
+386        <activity
+386-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:397:9-407:20
+387            android:name="com.ios.boot.iosboot.UpdateInfoActivity"
+387-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:398:13-67
+388            android:exported="true"
+388-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:399:13-36
+389            android:resizeableActivity="false"
+389-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:400:13-47
+390            android:screenOrientation="portrait"
+390-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:401:13-49
+391            android:theme="@style/IOSBootUpdateInfoAppTheme" >
+391-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:402:13-61
+392            <intent-filter>
+392-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:380:13-383:29
+393                <action android:name="android.intent.action.MAIN" />
+393-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-69
+393-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:25-66
+394
+395                <category android:name="android.intent.category.DEFAULT" />
+395-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+395-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+396            </intent-filter>
+397        </activity>
+398        <activity
+398-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:408:9-419:20
+399            android:name="com.ios.boot.iosboot.LegalNoticesActivity"
+399-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:409:13-69
+400            android:exported="true"
+400-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:410:13-36
+401            android:launchMode="singleTask"
+401-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:411:13-44
+402            android:resizeableActivity="false"
+402-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:412:13-47
+403            android:screenOrientation="portrait"
+403-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:413:13-49
+404            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+404-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:414:13-72
+405            <intent-filter>
+405-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:380:13-383:29
+406                <action android:name="android.intent.action.MAIN" />
+406-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:17-69
+406-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:109:25-66
+407
+408                <category android:name="android.intent.category.DEFAULT" />
+408-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:17-76
+408-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:111:27-73
+409            </intent-filter>
+410        </activity>
+411        <activity
+411-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:421:9-425:72
+412            android:name="com.amz.ios.ui.cropimage.CropImageActivity"
+412-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:422:13-70
+413            android:configChanges="screenSize|screenLayout|orientation"
+413-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:423:13-72
+414            android:exported="false"
+414-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:424:13-37
+415            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+415-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:425:13-69
+416
+417        <!-- ***********************    User Guide  End  ****************************** -->
+418
+419        <receiver
+419-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:429:9-440:20
+420            android:name="com.ios.cleanwidget.CleanWidgetProvider"
+420-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:430:13-67
+421            android:exported="true"
+421-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:431:13-36
+422            android:label="@string/clean_widget_name" >
+422-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:432:13-54
+423            <intent-filter>
+423-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:433:13-435:29
+424                <action android:name="android.appwidget.action.IOS_WIDGET" />
+424-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:17-78
+424-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:25-75
+425            </intent-filter>
+426
+427            <meta-data
+427-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:437:13-439:61
+428                android:name="android.appwidget.provider"
+428-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
+429                android:resource="@xml/clean_widget_info" />
+429-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:439:17-58
+430        </receiver>
+431        <receiver
+431-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:442:9-454:20
+432            android:name="com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider"
+432-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:443:13-75
+433            android:exported="true"
+433-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:444:13-36
+434            android:label="@string/picture" >
+434-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:445:13-44
+435            <intent-filter>
+435-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:446:13-450:29
+436                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+436-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:278:17-87
+436-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:278:25-84
+437                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+437-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:448:17-84
+437-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:448:25-81
+438                <action android:name="android.appwidget.action.IOS_WIDGET" />
+438-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:17-78
+438-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:25-75
+439            </intent-filter>
+440
+441            <meta-data
+441-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:437:13-439:61
+442                android:name="android.appwidget.provider"
+442-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
+443                android:resource="@xml/picture_app_widget_provider_info" />
+443-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:439:17-58
+444        </receiver>
+445        <receiver
+445-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:456:9-473:20
+446            android:name="com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider"
+446-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:457:13-72
+447            android:exported="true"
+447-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:458:13-36
+448            android:label="@string/battery" >
+448-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:459:13-44
+449            <intent-filter>
+449-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:460:13-465:29
+450                <action android:name="android.appwidget.action.IOS_WIDGET" />
+450-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:17-78
+450-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:25-75
+451                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+451-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:462:17-85
+451-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:462:25-82
+452                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+452-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:463:17-86
+452-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:463:25-83
+453                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+453-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:448:17-84
+453-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:448:25-81
+454            </intent-filter>
+455            <intent-filter>
+455-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:466:13-468:29
+456                <action android:name="com.ios.ACTION_UPDATE_BATTERY_WIDGET" />
+456-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:467:17-79
+456-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:467:25-76
+457            </intent-filter>
+458
+459            <meta-data
+459-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:437:13-439:61
+460                android:name="android.appwidget.provider"
+460-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
+461                android:resource="@xml/battery_widget_provider_info" />
+461-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:439:17-58
+462        </receiver>
+463        <receiver
+463-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:475:9-489:20
+464            android:name="com.amz.ios.launcher.widget.widgetprovider.ClockWidgetProvider"
+464-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:476:13-70
+465            android:exported="true"
+465-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:477:13-36
+466            android:label="@string/clock" >
+466-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:478:13-42
+467            <intent-filter>
+467-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:460:13-465:29
+468                <action android:name="android.appwidget.action.IOS_WIDGET" />
+468-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:17-78
+468-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:434:25-75
+469                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+469-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:462:17-85
+469-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:462:25-82
+470                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+470-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:463:17-86
+470-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:463:25-83
+471                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+471-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:448:17-84
+471-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:448:25-81
+472            </intent-filter>
+473
+474            <meta-data
+474-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:437:13-439:61
+475                android:name="android.appwidget.provider"
+475-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:438:17-58
+476                android:resource="@xml/clock_widget_provider_info" />
+476-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:439:17-58
+477        </receiver>
+478        <receiver
+478-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:491:9-503:20
+479            android:name="com.amz.ios.launcher.WorkspaceReceiver"
+479-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:492:13-66
+480            android:exported="true" >
+480-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:493:13-36
+481            <intent-filter>
+481-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:494:13-496:29
+482                <action android:name="com.ios.workspace.ACTION_DEBUG" />
+482-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:495:17-73
+482-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:495:25-70
+483            </intent-filter>
+484            <intent-filter>
+484-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:497:13-502:29
+485                <action android:name="android.provider.Telephony.SECRET_CODE" />
+485-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:498:17-81
+485-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:498:25-78
+486
+487                <data
+487-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:499:17-501:60
+488                    android:host="6633"
+488-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:500:21-40
+489                    android:scheme="android_secret_code" />
+489-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:501:21-57
 490            </intent-filter>
-491        </service>
+491        </receiver>
 492
-493        <meta-data
-493-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:505:9-507:36
-494            android:name="android.nfc.disable_beam_default"
-494-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:506:13-60
-495            android:value="true" />
-495-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:507:13-33
-496
-497        <activity
-497-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:509:9-520:20
-498            android:name="com.amz.ios.launcher.dragndrop.AddItemActivity"
-498-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:510:13-74
-499            android:autoRemoveFromRecents="true"
-499-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:511:13-49
-500            android:excludeFromRecents="true"
-500-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:512:13-46
+493        <service
+493-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:505:9-509:52
+494            android:name="com.amz.ios.launcher.dynamicui.WallpaperManagerCompatVL$ColorExtractionService"
+494-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:506:13-106
+495            android:exported="false"
+495-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:507:13-37
+496            android:permission="android.permission.BIND_JOB_SERVICE"
+496-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:508:13-69
+497            android:process=":wallpaper_chooser" />
+497-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:509:13-49
+498        <service
+498-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:511:9-520:19
+499            android:name="com.amz.ios.launcher.notification.NotificationListener"
+499-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:512:13-82
+500            android:enabled="@bool/notification_badging_enabled"
+500-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:513:13-65
 501            android:exported="true"
-501-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:513:13-36
-502            android:label="@string/action_add_to_workspace"
-502-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:514:13-60
-503            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" >
-503-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:515:13-82
+501-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:514:13-36
+502            android:label="@string/icon_badging_service_title"
+502-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:515:13-63
+503            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+503-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:516:13-87
 504            <intent-filter>
-504-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:516:13-519:29
-505                <action android:name="android.content.pm.action.CONFIRM_PIN_SHORTCUT" />
-505-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:517:17-89
-505-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:517:25-86
-506                <action android:name="android.content.pm.action.CONFIRM_PIN_APPWIDGET" />
-506-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:518:17-90
-506-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:518:25-87
-507            </intent-filter>
-508        </activity>
-509
-510        <meta-data
-510-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:522:9-524:69
-511            android:name="com.android.launcher3.launcher_dump_provider"
-511-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:523:13-72
-512            android:value="com.amz.ios.launcher.LauncherProvider" />
-512-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:524:13-66
-513        <meta-data
-513-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:526:9-528:47
-514            android:name="com.google.android.actions"
-514-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:527:13-54
-515            android:resource="@xml/litepal" />
-515-->E:\Amarzic\ASA155_IOSLauncher\module\iOSLauncher\AndroidManifest.xml:528:13-44
-516    </application>
-517
-518</manifest>
+504-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:517:13-519:29
+505                <action android:name="android.service.notification.NotificationListenerService" />
+505-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:518:17-99
+505-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:518:25-96
+506            </intent-filter>
+507        </service>
+508
+509        <meta-data
+509-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:522:9-524:36
+510            android:name="android.nfc.disable_beam_default"
+510-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:523:13-60
+511            android:value="true" />
+511-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:524:13-33
+512
+513        <activity
+513-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:526:9-537:20
+514            android:name="com.amz.ios.launcher.dragndrop.AddItemActivity"
+514-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:527:13-74
+515            android:autoRemoveFromRecents="true"
+515-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:528:13-49
+516            android:excludeFromRecents="true"
+516-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:529:13-46
+517            android:exported="true"
+517-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:530:13-36
+518            android:label="@string/action_add_to_workspace"
+518-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:531:13-60
+519            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" >
+519-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:532:13-82
+520            <intent-filter>
+520-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:533:13-536:29
+521                <action android:name="android.content.pm.action.CONFIRM_PIN_SHORTCUT" />
+521-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:534:17-89
+521-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:534:25-86
+522                <action android:name="android.content.pm.action.CONFIRM_PIN_APPWIDGET" />
+522-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:535:17-90
+522-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:535:25-87
+523            </intent-filter>
+524        </activity>
+525
+526        <meta-data
+526-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:539:9-541:69
+527            android:name="com.android.launcher3.launcher_dump_provider"
+527-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:540:13-72
+528            android:value="com.amz.ios.launcher.LauncherProvider" />
+528-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:541:13-66
+529        <meta-data
+529-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:543:9-545:47
+530            android:name="com.google.android.actions"
+530-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:544:13-54
+531            android:resource="@xml/litepal" />
+531-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSLauncher\AndroidManifest.xml:545:13-44
+532    </application>
+533
+534</manifest>

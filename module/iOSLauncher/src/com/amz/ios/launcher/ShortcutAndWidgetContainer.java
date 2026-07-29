@@ -233,6 +233,27 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements View.OnTouc
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int count = getChildCount();
+
+        // On large screens the hotseat grid has more columns (numHotseatIcons) than
+        // there are dock apps, so icons fill from the left and leave empty cells on the
+        // right, making the row look shifted left. Center the occupied icons instead.
+        int hotseatOffsetX = 0;
+        if (mIsHotseatLayout && count > 0) {
+            int minLeft = Integer.MAX_VALUE;
+            int maxRight = Integer.MIN_VALUE;
+            for (int i = 0; i < count; i++) {
+                final View child = getChildAt(i);
+                if (child.getVisibility() == GONE) continue;
+                BaseCellLayout.LayoutParams lp = (BaseCellLayout.LayoutParams) child.getLayoutParams();
+                minLeft = Math.min(minLeft, lp.x);
+                maxRight = Math.max(maxRight, lp.x + lp.width);
+            }
+            if (maxRight > minLeft) {
+                int occupiedWidth = maxRight - minLeft;
+                hotseatOffsetX = ((getMeasuredWidth() - occupiedWidth) / 2) - minLeft;
+            }
+        }
+
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
@@ -247,7 +268,7 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements View.OnTouc
                 }
 
                 BaseCellLayout.LayoutParams lp = (BaseCellLayout.LayoutParams) child.getLayoutParams();
-                int childLeft = lp.x;
+                int childLeft = lp.x + hotseatOffsetX;
                 int childTop = lp.y;
                 child.layout(childLeft, childTop, childLeft + lp.width, childTop + lp.height);
                 if (lp.dropped) {

@@ -80,4 +80,8 @@
     <string name="action_decrease_width">"Giảm chiều rộng"</string>
     <string name="action_decrease_height">"Giảm chiều cao"</string>
     <string name="widget_resized">"Đã đổi kích thước tiện ích thành chiều rộng <xliff:g id="NUMBER_0">%1$s</xliff:g> chiều cao <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+    <string name="edit">"Chỉnh sửa"</string>
+    <string name="add_widget">"Thêm tiện ích"</string>
+    <string name="edit_page">"Chỉnh sửa page"</string>
+    <string name="background">"Hình nền"</string>
 </resources>

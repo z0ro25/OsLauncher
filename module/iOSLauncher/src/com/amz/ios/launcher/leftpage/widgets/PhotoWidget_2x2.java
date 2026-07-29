@@ -231,7 +231,11 @@ public class PhotoWidget_2x2 extends BlurConstraintLayoutWidget {
                 canvas.drawRoundRect(rectF, mRadius, mRadius, paint);
                 canvas.setBitmap(null);
                 lock.unlock();
-                if (!bitmap.equals(bg)) bitmapPool.put(bg);
+                // NOTE: do NOT put `bg` into the BitmapPool here — `bg` is the
+                // bitmap we return to be displayed. Pooling it lets Glide reuse
+                // and recycle it while the widget-preview ImageView is still
+                // drawing it, throwing "trying to use a recycled bitmap" when the
+                // widgets panel builds its drawing cache during the slide-up.
                 return bg;
             } catch (Throwable th) {
                 lock.unlock();

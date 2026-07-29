@@ -19,6 +19,7 @@
     <string name="activity_not_found">"Ứng dụng chưa được cài đặt."</string>
     <string name="add_to_folder">"Thêm vào thư mục: <ns1:g id="NAME">%1$s</ns1:g>"</string>
     <string name="add_to_folder_with_app">"Thêm vào thư mục có <ns1:g id="NAME">%1$s</ns1:g>"</string>
+    <string name="add_widget">"Thêm tiện ích"</string>
     <string name="added_to_folder">"Đã thêm mục vào thư mục"</string>
     <string name="all_apps_button_label">"Ứng dụng"</string>
     <string name="all_apps_home_button_label">"Màn hình chính"</string>
@@ -27,10 +28,13 @@
     <string name="all_apps_search_bar_hint">"Tìm kiếm ứng dụng"</string>
     <string name="all_apps_search_market_message">"Chuyển tới <ns1:g id="QUERY">%1$s</ns1:g>"</string>
     <string name="allow_rotation_title">"Cho phép xoay"</string>
+    <string name="background">"Hình nền"</string>
     <string name="create_folder_with">"Tạo thư mục bằng: <ns1:g id="NAME">%1$s</ns1:g>"</string>
     <string name="default_scroll_format">"Trang %1$d / %2$d"</string>
     <string name="delete_target_label">"Xóa"</string>
     <string name="delete_target_uninstall_label">"Gỡ cài đặt"</string>
+    <string name="edit">"Chỉnh sửa"</string>
+    <string name="edit_page">"Chỉnh sửa page"</string>
     <string name="first_run_cling_title">"Chào mừng"</string>
     <string name="folder_closed">"Đã đóng thư mục"</string>
     <string name="folder_created">"Đã tạo thư mục"</string>

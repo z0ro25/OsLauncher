@@ -252,11 +252,26 @@ public class LauncherDragLayer extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
         int actionMasked = motionEvent.getActionMasked();
+        // Don't intercept horizontal swipes (to open the apps library / left page)
+        // while the search view is showing, otherwise it slides out on top of search.
+        if (isSearchViewShowing()) {
+            this.mDragHelperAppLibrary.cancel();
+            this.mDragHelperLeftPage.cancel();
+            return false;
+        }
         if (actionMasked != MotionEvent.ACTION_CANCEL && actionMasked != MotionEvent.ACTION_UP) {
             return (this.mDragHelperAppLibrary.shouldInterceptTouchEvent(motionEvent) || this.mDragHelperLeftPage.shouldInterceptTouchEvent(motionEvent)) && this.mGestureDetector.onTouchEvent(motionEvent);
         }
         this.mDragHelperAppLibrary.cancel();
         this.mDragHelperLeftPage.cancel();
+        return false;
+    }
+
+    private boolean isSearchViewShowing() {
+        Context context = getContext();
+        if (context instanceof Launcher) {
+            return ((Launcher) context).isOpeningSearchView();
+        }
         return false;
     }
 
@@ -298,6 +313,11 @@ public class LauncherDragLayer extends FrameLayout {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
+        if (isSearchViewShowing()) {
+            this.mDragHelperAppLibrary.cancel();
+            this.mDragHelperLeftPage.cancel();
+            return false;
+        }
         try {
             this.mDragHelperAppLibrary.processTouchEvent(motionEvent);
             this.mDragHelperLeftPage.processTouchEvent(motionEvent);

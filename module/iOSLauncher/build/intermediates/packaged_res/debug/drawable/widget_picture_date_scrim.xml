@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lớp phủ tối dần từ dưới lên để text ngày chụp luôn đọc được trên mọi ảnh.
+     Bo góc dưới trùng bán kính widget để khớp với ảnh đã bo góc. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="90"
+        android:startColor="#B3000000"
+        android:centerColor="#4D000000"
+        android:endColor="#00000000" />
+    <corners
+        android:bottomLeftRadius="@dimen/widget_round_corner"
+        android:bottomRightRadius="@dimen/widget_round_corner" />
+</shape>

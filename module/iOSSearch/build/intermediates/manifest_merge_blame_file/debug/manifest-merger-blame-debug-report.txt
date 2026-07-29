@@ -5,73 +5,73 @@
 5
 6    <uses-sdk
 7        android:minSdkVersion="26"
-7-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml
+7-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml
 8        android:targetSdkVersion="34" />
-8-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml
+8-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml
 9
 10    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
 11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-11-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:7:5-80
-11-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:7:22-77
+11-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:7:5-80
+11-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:7:22-77
 12    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-12-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:8:5-82
-12-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:8:22-80
+12-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:8:5-82
+12-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:8:22-80
 13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-13-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:9:5-81
-13-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:9:22-78
+13-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:9:5-81
+13-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:9:22-78
 14    <uses-permission
-14-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:10:5-11:47
+14-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:10:5-11:47
 15        android:name="android.permission.WRITE_SETTINGS"
-15-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:10:22-70
+15-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:10:22-70
 16        tools:ignore="ProtectedPermissions" />
-16-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:11:9-44
+16-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:11:9-44
 17
 18    <application
-18-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:13:5-39:19
+18-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:13:5-39:19
 19        android:allowBackup="true"
-19-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:14:9-35
+19-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:14:9-35
 20        android:supportsRtl="true" >
-20-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:15:9-35
+20-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:15:9-35
 21
 22        <!-- Search block -->
 23
 24        <receiver
-24-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:19:9-27:20
+24-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:19:9-27:20
 25            android:name="com.amz.ios.search.SearchWidgetProvider"
-25-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:19:43-97
+25-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:19:43-97
 26            android:exported="true" >
-26-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:19:19-42
+26-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:19:19-42
 27            <intent-filter>
-27-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:20:13-22:29
+27-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:20:13-22:29
 28                <action android:name="android.appwidget.action.IOS_SEARCH_WIDGET" />
-28-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:21:17-85
-28-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:21:25-82
+28-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:21:17-85
+28-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:21:25-82
 29            </intent-filter>
 30
 31            <meta-data
-31-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:24:13-26:71
+31-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:24:13-26:71
 32                android:name="android.appwidget.provider"
-32-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:25:17-58
+32-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:25:17-58
 33                android:resource="@xml/fmsearch_search_widget_info" />
-33-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:26:17-68
+33-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:26:17-68
 34        </receiver>
 35
 36        <provider
-36-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:29:9-37:20
+36-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:29:9-37:20
 37            android:name="com.amz.ios.search.SearchFileProvider"
-37-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:30:13-65
+37-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:30:13-65
 38            android:authorities="com.amz.ios.search.fileprovider"
-38-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:31:13-66
+38-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:31:13-66
 39            android:exported="false"
-39-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:33:13-37
+39-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:33:13-37
 40            android:grantUriPermissions="true" >
-40-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:32:13-47
+40-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:32:13-47
 41            <meta-data
-41-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:34:13-36:54
+41-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:34:13-36:54
 42                android:name="android.support.FILE_PROVIDER_PATHS"
-42-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:35:17-67
+42-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:35:17-67
 43                android:resource="@xml/file_paths" />
-43-->E:\Amarzic\ASA155_IOSLauncher\module\iOSSearch\src\main\AndroidManifest.xml:36:17-51
+43-->C:\Users\May Em Tung\TruongNTWork\mycode\OsLauncher\module\iOSSearch\src\main\AndroidManifest.xml:36:17-51
 44        </provider>
 45    </application>
 46

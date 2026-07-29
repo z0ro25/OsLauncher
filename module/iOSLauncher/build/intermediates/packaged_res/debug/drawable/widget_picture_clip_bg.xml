@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền bo góc cho widget ảnh: vừa tạo outline để clipToOutline bo tròn ảnh bên
+     trong, vừa là màu nền khi ảnh chưa tải xong. Bán kính khớp widget đồng hồ. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Phải là màu ĐỤC: GradientDrawable.getOutline() truyền alpha của nền sang
+         outline; alpha thấp khiến clipToOutline không cắt góc. Ảnh phủ kín nền nên
+         màu này không bao giờ lộ ra. -->
+    <solid android:color="#FF1C1C1E" />
+    <corners android:radius="@dimen/widget_round_corner" />
+</shape>

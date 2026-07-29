@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="corretto-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/library/BatterySave" />
+            <option value="$PROJECT_DIR$/library/RealTimeBlurView" />
+            <option value="$PROJECT_DIR$/library/ThemeResource" />
+            <option value="$PROJECT_DIR$/library/ThemeResource/ThemeDefault" />
+            <option value="$PROJECT_DIR$/library/cropper" />
+            <option value="$PROJECT_DIR$/library/iOSAppsNewsProvider" />
+            <option value="$PROJECT_DIR$/library/iOSLiteCommon" />
+            <option value="$PROJECT_DIR$/library/iOSSwitchControl" />
+            <option value="$PROJECT_DIR$/library/iosdialogs4android" />
+            <option value="$PROJECT_DIR$/module" />
+            <option value="$PROJECT_DIR$/module/iOSLauncher" />
+            <option value="$PROJECT_DIR$/module/iOSSearch" />
+            <option value="$PROJECT_DIR$/module/iOSSettings" />
+            <option value="$PROJECT_DIR$/module/iOSThemeClub" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

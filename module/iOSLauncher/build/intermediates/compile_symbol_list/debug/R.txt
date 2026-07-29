@@ -2040,6 +2040,8 @@ int drawable whatsapp_icon 0x0
 int drawable widget_background 0x0
 int drawable widget_left_page_background 0x0
 int drawable widget_left_page_background_night 0x0
+int drawable widget_picture_clip_bg 0x0
+int drawable widget_picture_date_scrim 0x0
 int drawable widget_resize_frame 0x0
 int drawable widget_resize_shadow 0x0
 int drawable widget_tile 0x0
@@ -2384,7 +2386,10 @@ int id low_memory 0x0
 int id main_view 0x0
 int id memoryTracker 0x0
 int id menuLayout 0x0
+int id menu_add_widget 0x0
+int id menu_background 0x0
 int id menu_button 0x0
+int id menu_edit_page 0x0
 int id message 0x0
 int id message_category 0x0
 int id more_icon 0x0
@@ -2557,10 +2562,16 @@ int id widget_battery_progress 0x0
 int id widget_battery_text 0x0
 int id widget_button 0x0
 int id widget_cell 0x0
+int id widget_clock_date 0x0
+int id widget_clock_layout 0x0
+int id widget_clock_time 0x0
 int id widget_dims 0x0
 int id widget_full_preview_text 0x0
 int id widget_name 0x0
+int id widget_picture_date 0x0
+int id widget_picture_image 0x0
 int id widget_picture_layout 0x0
+int id widget_picture_scrim 0x0
 int id widget_preview 0x0
 int id widget_section 0x0
 int id widget_square_preview_item_1 0x0
@@ -2670,6 +2681,7 @@ int layout clean_ad_layout 0x0
 int layout clean_widget_circle_view 0x0
 int layout clean_widget_view 0x0
 int layout clock_widget 0x0
+int layout clock_widget_provider 0x0
 int layout common_dialog 0x0
 int layout common_dialog_singlechoice 0x0
 int layout common_preference_listview 0x0
@@ -2683,6 +2695,7 @@ int layout dialog_rating_app 0x0
 int layout discovery_icon 0x0
 int layout drawer_style_setting_activity 0x0
 int layout dummy_widget 0x0
+int layout edit_home_menu 0x0
 int layout edit_widget_button 0x0
 int layout effect_settings_activity 0x0
 int layout event_item 0x0
@@ -2879,6 +2892,7 @@ int string applock_support_owner 0x0
 int string apps_smart_category_desc 0x0
 int string apps_smart_category_title 0x0
 int string audio 0x0
+int string background 0x0
 int string backup_permission_ration 0x0
 int string backup_permission_title 0x0
 int string battery 0x0
@@ -2942,6 +2956,7 @@ int string checkbox_text_name 0x0
 int string chose_ok 0x0
 int string clause 0x0
 int string clean_widget_name 0x0
+int string clock 0x0
 int string color_black 0x0
 int string color_extraction_impl_class 0x0
 int string color_white 0x0
@@ -2992,6 +3007,7 @@ int string drop_delete_anim_title 0x0
 int string dump_allapps 0x0
 int string edit 0x0
 int string edit_home_screen 0x0
+int string edit_page 0x0
 int string effect_button_text 0x0
 int string eight 0x0
 int string explorer 0x0
@@ -3563,6 +3579,7 @@ int xml app_target_app_weather 0x0
 int xml apps_library_layout_scene 0x0
 int xml battery_widget_provider_info 0x0
 int xml clean_widget_info 0x0
+int xml clock_widget_provider_info 0x0
 int xml default_workspace_4x4 0x0
 int xml default_workspace_4x5 0x0
 int xml default_workspace_5x4 0x0

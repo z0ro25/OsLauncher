@@ -9,44 +9,44 @@ public final class Converter {
         super();
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @androidx.room.TypeConverter()
-    public final java.lang.String fromUser(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @androidx.room.TypeConverter
+    public final java.lang.String fromUser(@org.jetbrains.annotations.NotNull
     com.amz.ios.launcher.compat.UserHandleCompat data) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @androidx.room.TypeConverter()
-    public final com.amz.ios.launcher.compat.UserHandleCompat toUser(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @androidx.room.TypeConverter
+    public final com.amz.ios.launcher.compat.UserHandleCompat toUser(@org.jetbrains.annotations.NotNull
     java.lang.String string) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @androidx.room.TypeConverter()
-    public final java.lang.String fromChar(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @androidx.room.TypeConverter
+    public final java.lang.String fromChar(@org.jetbrains.annotations.NotNull
     java.lang.CharSequence p0_1526187) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @androidx.room.TypeConverter()
-    public final java.lang.CharSequence toChar(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @androidx.room.TypeConverter
+    public final java.lang.CharSequence toChar(@org.jetbrains.annotations.NotNull
     java.lang.String string) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @androidx.room.TypeConverter()
-    public final java.lang.String fromIntArray(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @androidx.room.TypeConverter
+    public final java.lang.String fromIntArray(@org.jetbrains.annotations.NotNull
     int[] array) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @androidx.room.TypeConverter()
-    public final int[] toIntArray(@org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @androidx.room.TypeConverter
+    public final int[] toIntArray(@org.jetbrains.annotations.NotNull
     java.lang.String string) {
         return null;
     }

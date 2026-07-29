@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_picture_layout"
     android:focusable="true"
     android:clickable="true"
+    android:background="@drawable/widget_picture_clip_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop"/>
+    android:layout_height="match_parent">
+
+    <!-- Ảnh đã được bo góc trong code (RoundedBitmapDrawable). -->
+    <ImageView
+        android:id="@+id/widget_picture_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <!-- Lớp phủ tối dần ở đáy để text ngày chụp luôn đọc rõ. -->
+    <View
+        android:id="@+id/widget_picture_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/widget_picture_date_scrim" />
+
+    <!-- Ngày chụp của ảnh. -->
+    <TextView
+        android:id="@+id/widget_picture_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="3"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
+</FrameLayout>

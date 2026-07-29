@@ -868,7 +868,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mAddWidgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickAddWidgetButton(v);
+                showEditMenu(v);
             }
         });
 
@@ -3521,8 +3521,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     protected void onClickWallpaperPicker(View v) {
         if (LOGD)
             Log.d(TAG, "onClickWallpaperPicker");
-        startActivityForResult(new Intent(Intent.ACTION_SET_WALLPAPER).setPackage(getPackageName()),
-                REQUEST_PICK_WALLPAPER);
+        // Open the system wallpaper picker. Do NOT restrict to our own package
+        // (setPackage(getPackageName())) — this app has no SET_WALLPAPER activity,
+        // so that would throw ActivityNotFoundException. Wrap in a chooser and
+        // guard with resolveActivity so we never crash if no picker is present.
+        Intent intent = new Intent(Intent.ACTION_SET_WALLPAPER);
+        Intent chooser = Intent.createChooser(intent, getString(R.string.wallpaper_button_text));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooser, REQUEST_PICK_WALLPAPER);
+        } else {
+            Toast.makeText(this, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -4295,6 +4304,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void cancelShakingAnimation() {
         if (isShaking()) {
             mIsShaking = false;
+            dismissEditMenu();
             if (mWorkspace != null) {
                 mAddWidgetDoneBtn.setVisibility(View.GONE);
                 mAddWidgetBtn.setVisibility(View.GONE);
@@ -4824,31 +4834,18 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
 
         if (animateIcons) {
-            // Animate to the correct page
+            // Chạy bounce animation cho app mới cài, nhưng KHÔNG kéo màn hình sang
+            // page của app đó. Trước đây khi page đầu đã đầy, app mới rơi xuống page
+            // cuối và snapToPage() tự cuộn tới page cuối lúc mở launcher. Bỏ snapToPage
+            // để luôn ở lại page mặc định (page đầu, ngay dưới 2 widget).
             if (newShortcutsScreenId > -1) {
-                long currentScreenId = mWorkspace.getScreenIdForPageIndex(mWorkspace.getNextPage());
-                final int newScreenIndex = mWorkspace.getPageIndexForScreenId(newShortcutsScreenId);
                 final Runnable startBounceAnimRunnable = new Runnable() {
                     public void run() {
                         anim.playTogether(bounceAnims);
                         anim.start();
                     }
                 };
-                if (newShortcutsScreenId != currentScreenId) {
-                    // We post the animation slightly delayed to prevent slowdowns
-                    // when we are loading right after we return to launcher.
-                    mWorkspace.postDelayed(new Runnable() {
-                        public void run() {
-                            if (mWorkspace != null) {
-                                mWorkspace.snapToPage(newScreenIndex);
-                                mWorkspace.postDelayed(startBounceAnimRunnable,
-                                        NEW_APPS_ANIMATION_DELAY);
-                            }
-                        }
-                    }, NEW_APPS_PAGE_MOVE_DELAY);
-                } else {
-                    mWorkspace.postDelayed(startBounceAnimRunnable, NEW_APPS_ANIMATION_DELAY);
-                }
+                mWorkspace.postDelayed(startBounceAnimRunnable, NEW_APPS_ANIMATION_DELAY);
             }
         }
         workspace.requestLayout();
@@ -6720,6 +6717,84 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     public void onClickAddWidgetButton(View view) {
         openWidgetView(true, true);
+    }
+
+    private View mEditMenuView;
+
+    /**
+     * Dropdown hiển thị khi bấm nút "Edit" (góc trái-trên) trong chế độ chỉnh sửa home screen.
+     * Gồm 3 chức năng: thêm tiện ích, chỉnh sửa page, background.
+     *
+     * Menu được thêm trực tiếp vào DragLayer (cùng cửa sổ với launcher) thay vì dùng
+     * PopupWindow. PopupWindow tạo một cửa sổ riêng, khi đóng lại đúng lúc launcher đang
+     * dựng ảnh blur/drawing-cache để mở panel widget sẽ đụng vào bitmap đã bị recycle ->
+     * crash "trying to use a recycled bitmap" và chỉ hiện lớp phủ mờ.
+     */
+    public void showEditMenu(final View anchor) {
+        dismissEditMenu();
+
+        final DragLayer dragLayer = getDragLayer();
+        final View content = LayoutInflater.from(this).inflate(R.layout.edit_home_menu, dragLayer, false);
+
+        // Lớp phủ trong suốt phủ kín màn hình: chạm ra ngoài menu thì đóng menu.
+        final FrameLayout overlay = new FrameLayout(this);
+        overlay.setLayoutParams(new DragLayer.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        overlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissEditMenu();
+            }
+        });
+
+        FrameLayout.LayoutParams contentLp = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Rect r = new Rect();
+        dragLayer.getViewRectRelativeToSelf(anchor, r);
+        contentLp.leftMargin = r.left;
+        contentLp.topMargin = r.bottom + (int) (getResources().getDisplayMetrics().density * 6);
+        overlay.addView(content, contentLp);
+
+        content.findViewById(R.id.menu_add_widget).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissEditMenu();
+                onClickAddWidgetButton(anchor);
+            }
+        });
+        content.findViewById(R.id.menu_edit_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissEditMenu();
+                onClickEditPage();
+            }
+        });
+        content.findViewById(R.id.menu_background).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissEditMenu();
+                onClickWallpaperPicker(anchor);
+            }
+        });
+
+        dragLayer.addView(overlay);
+        mEditMenuView = overlay;
+    }
+
+    public boolean dismissEditMenu() {
+        if (mEditMenuView != null) {
+            getDragLayer().removeView(mEditMenuView);
+            mEditMenuView = null;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Chỉnh sửa page: placeholder. Sau này sẽ mở màn riêng để sắp xếp vị trí các page.
+     */
+    public void onClickEditPage() {
+        //todo: mở màn sắp xếp vị trí page
     }
 
     public void openWidgetView(boolean z, boolean z2) {

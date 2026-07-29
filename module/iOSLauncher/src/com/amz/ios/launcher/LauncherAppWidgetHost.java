@@ -121,6 +121,14 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
                 if (appWidget.isIOSIconWidget) {
                     lahv.setPadding(0, 0, 0, 0);
                 }
+                // Widget nội bộ không đi qua onUpdate() nên phải gắn nội dung động
+                // (ảnh gần đây) trực tiếp sau khi inflate.
+                if (appWidget.provider != null
+                        && com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.class
+                        .getName().equals(appWidget.provider.getClassName())) {
+                    com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
+                            .bindInflatedView(context, lahv);
+                }
 
             } else {
                 try {

@@ -745,6 +745,7 @@
     <string name="apps_smart_category_desc">New install apps  auto category to folders</string>
     <string name="apps_smart_category_title">Smart Category</string>
     <string name="audio">Audio</string>
+    <string name="background">Background</string>
     <string name="backup_permission_ration">Backup desktop data need use external storage.</string>
     <string name="backup_permission_title">Ration</string>
     <string name="battery">Batteries</string>
@@ -808,6 +809,7 @@
     <string name="chose_ok">ok</string>
     <string name="clause">Clause</string>
     <string name="clean_widget_name">Boost Speed</string>
+    <string name="clock">Clock</string>
     <string name="color_black">Black</string>
     <string name="color_extraction_impl_class"/>
     <string name="color_white">White</string>
@@ -858,6 +860,7 @@
     <string name="dump_allapps" translatable="false">导出所有应用</string>
     <string name="edit">Edit</string>
     <string name="edit_home_screen">Edit Home Screen</string>
+    <string name="edit_page">Edit page</string>
     <string name="effect_button_text">Effect</string>
     <string name="eight">8</string>
     <string name="explorer">Explorer</string>

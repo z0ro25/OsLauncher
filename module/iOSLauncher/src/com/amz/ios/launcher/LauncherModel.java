@@ -27,6 +27,7 @@ import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.content.IntentFilter;
@@ -138,6 +139,11 @@ public class LauncherModel extends BroadcastReceiver
         implements LauncherAppsCompat.OnAppsChangedCallbackCompat {
 
     static final String TAG = "Launcher.Model";
+
+    // Cờ đánh dấu đã ép app OsLauncher về ô (0,2) page 0 một lần duy nhất (xem
+    // enforceHomeAppDefaultPosition). Sau lần đầu, người dùng tự do sắp xếp lại.
+    private static final String PREF_HOME_APP_POSITION_ENFORCED =
+            "home_app_position_enforced";
 
     static final boolean DEBUG_LOADERS = true;
     private static final boolean DEBUG_RECEIVER = false;
@@ -2135,8 +2141,89 @@ public class LauncherModel extends BroadcastReceiver
                 }
             }
 
+            // Ép app OsLauncher (chính app này) về ô đầu tiên ngay dưới 2 widget
+            // (page 0, ô 0,2) đúng như bố cục mặc định mong muốn. Chạy sau loadWorkspace()
+            // (đã dựng xong sBgWorkspaceItems) và trước bindWorkspace() để view bind đúng vị
+            // trí mới. Chỉ chạy MỘT LẦN (gắn cờ pref) để không đè lên sắp xếp của người dùng
+            // về sau.
+            enforceHomeAppDefaultPosition();
+
             // Bind the workspace
             bindWorkspace(-1);
+        }
+
+        /**
+         * Di chuyển app OsLauncher về ô (0,2) trên page 0 — ngay dưới 2 widget. Vì app tự
+         * thân bị AppFilter loại khỏi danh sách component nên không thể ghim qua
+         * default_workspace; và trên máy đã cài sẵn thì DB đã có entry ở vị trí cũ. Cách
+         * chắc chắn cho cả máy mới lẫn máy cũ là dời tại runtime: hoán đổi (swap) với item
+         * đang chiếm ô (0,2) để lưới không bị lỗ trống.
+         */
+        private void enforceHomeAppDefaultPosition() {
+            final Context context = mContext;
+            if (context == null) return;
+
+            SharedPreferences prefs = context.getSharedPreferences(
+                    LauncherFiles.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+            if (prefs.getBoolean(PREF_HOME_APP_POSITION_ENFORCED, false)) {
+                return;
+            }
+
+            final String homePkg = context.getPackageName();
+            final int targetScreen = 0;
+            final int targetX = 0;
+            final int targetY = 2;
+
+            synchronized (sBgLock) {
+                ItemInfo homeItem = null;
+                ItemInfo occupant = null;
+
+                for (ItemInfo item : sBgWorkspaceItems) {
+                    if (item.container != LauncherSettings.Favorites.CONTAINER_DESKTOP) {
+                        continue;
+                    }
+                    ComponentName cn = item.getTargetComponent();
+                    if (cn != null && homePkg.equals(cn.getPackageName())) {
+                        homeItem = item;
+                    }
+                    if (item.screenId == targetScreen && item.cellX == targetX
+                            && item.cellY == targetY) {
+                        occupant = item;
+                    }
+                }
+
+                // Không tìm thấy app OsLauncher trên desktop -> không làm gì (đánh dấu đã xử
+                // lý để không quét lại mỗi lần load).
+                if (homeItem == null) {
+                    prefs.edit().putBoolean(PREF_HOME_APP_POSITION_ENFORCED, true).apply();
+                    return;
+                }
+
+                // Đã đúng vị trí rồi -> chỉ gắn cờ.
+                if (occupant == homeItem) {
+                    prefs.edit().putBoolean(PREF_HOME_APP_POSITION_ENFORCED, true).apply();
+                    return;
+                }
+
+                // Ghi lại vị trí cũ của app OsLauncher để hoán cho item đang chiếm ô đích.
+                final long homeOldScreen = homeItem.screenId;
+                final int homeOldX = homeItem.cellX;
+                final int homeOldY = homeItem.cellY;
+
+                if (occupant != null) {
+                    // Swap: item đang ở (0,2) nhảy về chỗ cũ của app OsLauncher.
+                    moveItemInDatabase(context, occupant,
+                            LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                            homeOldScreen, homeOldX, homeOldY);
+                }
+
+                // App OsLauncher về ô đích (0,2) page 0.
+                moveItemInDatabase(context, homeItem,
+                        LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                        targetScreen, targetX, targetY);
+
+                prefs.edit().putBoolean(PREF_HOME_APP_POSITION_ENFORCED, true).apply();
+            }
         }
 
         private void waitForIdle() {

@@ -2042,6 +2042,8 @@ drawable whatsapp_icon
 drawable widget_background
 drawable widget_left_page_background
 drawable widget_left_page_background_night
+drawable widget_picture_clip_bg
+drawable widget_picture_date_scrim
 drawable widget_resize_frame
 drawable widget_resize_shadow
 drawable widget_tile
@@ -2386,7 +2388,10 @@ id low_memory
 id main_view
 id memoryTracker
 id menuLayout
+id menu_add_widget
+id menu_background
 id menu_button
+id menu_edit_page
 id message
 id message_category
 id more_icon
@@ -2559,10 +2564,16 @@ id widget_battery_progress
 id widget_battery_text
 id widget_button
 id widget_cell
+id widget_clock_date
+id widget_clock_layout
+id widget_clock_time
 id widget_dims
 id widget_full_preview_text
 id widget_name
+id widget_picture_date
+id widget_picture_image
 id widget_picture_layout
+id widget_picture_scrim
 id widget_preview
 id widget_section
 id widget_square_preview_item_1
@@ -2672,6 +2683,7 @@ layout clean_ad_layout
 layout clean_widget_circle_view
 layout clean_widget_view
 layout clock_widget
+layout clock_widget_provider
 layout common_dialog
 layout common_dialog_singlechoice
 layout common_preference_listview
@@ -2685,6 +2697,7 @@ layout dialog_rating_app
 layout discovery_icon
 layout drawer_style_setting_activity
 layout dummy_widget
+layout edit_home_menu
 layout edit_widget_button
 layout effect_settings_activity
 layout event_item
@@ -2881,6 +2894,7 @@ string applock_support_owner
 string apps_smart_category_desc
 string apps_smart_category_title
 string audio
+string background
 string backup_permission_ration
 string backup_permission_title
 string battery
@@ -2944,6 +2958,7 @@ string checkbox_text_name
 string chose_ok
 string clause
 string clean_widget_name
+string clock
 string color_black
 string color_extraction_impl_class
 string color_white
@@ -2994,6 +3009,7 @@ string drop_delete_anim_title
 string dump_allapps
 string edit
 string edit_home_screen
+string edit_page
 string effect_button_text
 string eight
 string explorer
@@ -3461,6 +3477,7 @@ xml app_target_app_weather
 xml apps_library_layout_scene
 xml battery_widget_provider_info
 xml clean_widget_info
+xml clock_widget_provider_info
 xml default_workspace_4x4
 xml default_workspace_4x5
 xml default_workspace_5x4
