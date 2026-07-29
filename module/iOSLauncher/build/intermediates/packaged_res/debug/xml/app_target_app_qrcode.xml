@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
-    <favorite
-        launcher:className="com.android.qr_codescan.MipcaActivityCapture"
-        launcher:packageName="com.android.qr_codescan" />
-</items>

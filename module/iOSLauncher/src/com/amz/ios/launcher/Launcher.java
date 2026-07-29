@@ -1376,13 +1376,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         super.onResume();
         Log.i(TAG, "onResume Start");
         long startTime = 0;
-        int appCount = LauncherSharePrefUtils.getCountOpenApp(this);
-        Log.e("appCount", "count :"+ appCount );
-        if (appCount == 1 || appCount == 4 || appCount == 7 || appCount == 10) {
-            if (!LauncherSharePrefUtils.isRated(this)) {
-                showRateDialog();
-            }
-        }
+        // Đã tắt dialog "Rate us" hiện lên khi mở launcher theo yêu cầu.
 
         isPaused = false;
 
@@ -4725,7 +4719,33 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             try {
                 ArrayList<AppCategory> arrayList5 = mAppsLibraryLayout.mCategories;
                 if (arrayList5 == null || arrayList5.size() != 10) {
+                    // App Library CHƯA dựng category. Khi cold-load, apps được giao qua
+                    // bindAppsAdded (không qua bindAllApplications) nên setApps() chưa từng
+                    // chạy -> trước đây return ở đây khiến App Library trống trơn tới khi có
+                    // reload khác. Thay vì bỏ, gộp addedApps vào danh sách tổng rồi dựng
+                    // category ngay từ danh sách đó.
+                    if (allApp == null) {
+                        allApp = new ArrayList<>();
+                    }
+                    for (AppInfo ai : addedApps) {
+                        if (ai != null && !allApp.contains(ai)) {
+                            allApp.add(ai);
+                        }
+                    }
+                    mAppsLibraryLayout.setApps(allApp);
+                    if (mSearchViewLayout != null) {
+                        mSearchViewLayout.setApps(allApp);
+                    }
                     return;
+                }
+                // Category đã có sẵn: cập nhật tăng dần + đồng bộ danh sách tổng.
+                if (allApp == null) {
+                    allApp = new ArrayList<>();
+                }
+                for (AppInfo ai : addedApps) {
+                    if (ai != null && !allApp.contains(ai)) {
+                        allApp.add(ai);
+                    }
                 }
                 Iterator<AppInfo> it = addedApps.iterator();
                 while (it.hasNext()) {
@@ -5068,6 +5088,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             bindWorkspaceUnreadInfo();
         }
 
+        // Khôi phục các page đã ẩn (kiểu iOS): tháo khỏi view tree nhưng giữ app trong DB.
+        restoreHiddenPages();
+
         mBindingWorkspaceFinished = true;
     }
 
@@ -5132,7 +5155,6 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      */
     //todo bind all apps
     public void bindAllApplications(final ArrayList<AppInfo> apps) {
-
         if (waitUntilResume(mBindAllApplicationsRunnable, true)) {
             mTmpAppsList = apps;
             return;
@@ -6523,6 +6545,22 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         if (bouncyRecyclerView != null && bouncyRecyclerView.getVisibility() == View.VISIBLE) {
             this.mAppsLibraryLayout.transitionToStart();
         }
+        // Đảm bảo mỗi lần mở library đều có app: dựng lại category nếu trống + khôi phục
+        // hiển thị danh sách (phòng bind bị bỏ lỡ hoặc transition search để lại alpha=0).
+        //
+        // allApp chỉ được gán khi callback bind (bindAllApplications/bindAppsAdded) chạy tới
+        // đúng activity đang sống. Do vòng đời loader của Launcher3, callback có thể post vào
+        // activity cũ đã chết -> allApp còn null dù model ĐÃ nạp xong app. Khi đó đọc thẳng từ
+        // nguồn sự thật của model (mBgAllAppsList.data qua getAllAppInfo) để không bao giờ trống.
+        ArrayList<AppInfo> appsForLibrary = allApp;
+        if ((appsForLibrary == null || appsForLibrary.isEmpty()) && mModel != null) {
+            java.util.List<AppInfo> fromModel = mModel.getAllAppInfo();
+            if (fromModel != null && !fromModel.isEmpty()) {
+                appsForLibrary = new ArrayList<>(fromModel);
+                allApp = appsForLibrary;
+            }
+        }
+        this.mAppsLibraryLayout.ensureReady(appsForLibrary);
     }
 
     @Override
@@ -6790,11 +6828,60 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return false;
     }
 
+    private View mEditPagesOverlay;
+
     /**
-     * Chỉnh sửa page: placeholder. Sau này sẽ mở màn riêng để sắp xếp vị trí các page.
+     * Mở màn "Edit Pages" (kiểu iOS): thumbnail tất cả page, kéo-thả đổi thứ tự, tích ẩn/hiện.
      */
     public void onClickEditPage() {
-        //todo: mở màn sắp xếp vị trí page
+        showEditPages();
+    }
+
+    public void showEditPages() {
+        if (mEditPagesOverlay != null) {
+            return;
+        }
+        // Tắt rung icon để xem thumbnail rõ.
+        cancelShakingAnimation();
+
+        com.amz.ios.launcher.editpage.EditPagesOverlay overlay =
+                new com.amz.ios.launcher.editpage.EditPagesOverlay(this);
+        overlay.setLayoutParams(new DragLayer.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        getDragLayer().addView(overlay);
+        mEditPagesOverlay = overlay;
+    }
+
+    public void onEditPagesClosed() {
+        mEditPagesOverlay = null;
+    }
+
+    /**
+     * Áp thứ tự + trạng thái ẩn từ màn Edit Pages về Workspace và lưu bền vững.
+     * Page ẩn giữ nguyên app (chỉ tháo khỏi view tree); trạng thái ẩn lưu ở SharedPreferences.
+     */
+    public void applyPageChanges(ArrayList<Long> order, java.util.HashSet<Long> hidden) {
+        mEditPagesOverlay = null;
+        if (mWorkspace == null || order == null) {
+            return;
+        }
+        if (hidden == null) {
+            hidden = new java.util.HashSet<>();
+        }
+        com.amz.ios.launcher.editpage.HiddenPagesPrefs.setHidden(this, hidden);
+        mWorkspace.applyEditPages(order, hidden);
+    }
+
+    /** Khôi phục trạng thái ẩn page (tháo khỏi view tree) sau khi bind xong workspace. */
+    private void restoreHiddenPages() {
+        if (mWorkspace == null) {
+            return;
+        }
+        java.util.Set<Long> hidden =
+                com.amz.ios.launcher.editpage.HiddenPagesPrefs.getHidden(this);
+        if (!hidden.isEmpty()) {
+            mWorkspace.detachHiddenPages(hidden);
+        }
     }
 
     public void openWidgetView(boolean z, boolean z2) {

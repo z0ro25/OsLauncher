@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <corners android:radius="@dimen/fmsearch_dp_item_corner_radius" />
-    <solid android:color="@color/fmsearch_cl_blue_bg"></solid>
-</shape>

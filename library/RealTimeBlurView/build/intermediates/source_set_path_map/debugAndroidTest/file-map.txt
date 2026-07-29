@@ -1,8 +1,0 @@
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-androidTest-0 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\build\generated\res\resValues\androidTest\debug
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-androidTest-1 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\build\generated\res\rs\androidTest\debug
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-mergeDebugAndroidTestResources-2 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-mergeDebugAndroidTestResources-3 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-merged_res-4 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\build\intermediates\merged_res\debugAndroidTest
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-packaged_res-5 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\build\intermediates\packaged_res\debug
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-androidTest-6 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\src\androidTest\res
-com.github.mmin18.realtimeblurview.test.RealTimeBlurView-androidTestDebug-7 E:\Amarzic\ASA155_IOSLauncher\library\RealTimeBlurView\src\androidTestDebug\res

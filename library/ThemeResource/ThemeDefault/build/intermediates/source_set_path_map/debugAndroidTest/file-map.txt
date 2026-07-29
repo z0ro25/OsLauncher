@@ -1,8 +1,0 @@
-com.ios.theme.def.test.ThemeDefault-androidTest-0 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\build\generated\res\resValues\androidTest\debug
-com.ios.theme.def.test.ThemeDefault-androidTest-1 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\build\generated\res\rs\androidTest\debug
-com.ios.theme.def.test.ThemeDefault-mergeDebugAndroidTestResources-2 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.ios.theme.def.test.ThemeDefault-mergeDebugAndroidTestResources-3 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.ios.theme.def.test.ThemeDefault-merged_res-4 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\build\intermediates\merged_res\debugAndroidTest
-com.ios.theme.def.test.ThemeDefault-packaged_res-5 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\build\intermediates\packaged_res\debug
-com.ios.theme.def.test.ThemeDefault-androidTest-6 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\src\androidTest\res
-com.ios.theme.def.test.ThemeDefault-androidTestDebug-7 E:\Amarzic\ASA155_IOSLauncher\library\ThemeResource\ThemeDefault\src\androidTestDebug\res

@@ -1,2 +1,0 @@
-com.amz.ios.serverswitchcontrol
-string app_name

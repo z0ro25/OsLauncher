@@ -2309,6 +2309,120 @@ public class Workspace extends PagedView
         enableLayoutTransitions();
     }
 
+    // ===== Edit Pages (kiểu iOS): sắp xếp thứ tự + ẩn/hiện page, GIỮ app khi ẩn =====
+
+    /**
+     * Áp kết quả màn Edit Pages về Workspace.
+     *
+     * @param newOrder thứ tự mới của các screenId THẬT (>=0), gồm cả page ẩn.
+     * @param hidden   tập screenId THẬT bị ẩn.
+     *
+     * Page ẩn chỉ bị tháo khỏi cây view (removeView) nhưng vẫn giữ trong mWorkspaceScreens +
+     * mScreenOrder + DB -> app không mất. Toàn bộ mScreenOrder (cả ẩn lẫn hiện) được persist.
+     */
+    public void applyEditPages(ArrayList<Long> newOrder, java.util.Set<Long> hidden) {
+        if (newOrder == null) {
+            return;
+        }
+        if (hidden == null) {
+            hidden = new java.util.HashSet<>();
+        }
+
+        // 1. Tháo tất cả CellLayout page thật khỏi view tree (giữ nguyên trong map).
+        for (int i = 0; i < newOrder.size(); i++) {
+            long id = newOrder.get(i);
+            CellLayout cl = mWorkspaceScreens.get(id);
+            if (cl != null && indexOfChild(cl) != -1) {
+                removeView(cl);
+            }
+        }
+
+        // Sau bước 1, children còn lại chỉ là các screen đặc biệt: custom content (đầu),
+        // extra empty (cuối). Chèn page hiện vào ngay sau custom content.
+        int base = 0;
+        CellLayout custom = mWorkspaceScreens.get(CUSTOM_CONTENT_SCREEN_ID);
+        if (custom != null && indexOfChild(custom) == 0) {
+            base = 1;
+        }
+
+        // 2. Add lại các page HIỆN theo thứ tự mới (trước extra-empty nếu có).
+        int insertAt = base;
+        for (int i = 0; i < newOrder.size(); i++) {
+            long id = newOrder.get(i);
+            if (hidden.contains(id)) {
+                continue;
+            }
+            CellLayout cl = mWorkspaceScreens.get(id);
+            if (cl == null) {
+                continue;
+            }
+            addView(cl, insertAt);
+            insertAt++;
+        }
+
+        // 3. Dựng lại mScreenOrder = [custom content] + newOrder(cả ẩn) + [extra empty].
+        ArrayList<Long> full = new ArrayList<>();
+        if (mScreenOrder.contains(CUSTOM_CONTENT_SCREEN_ID)) {
+            full.add(CUSTOM_CONTENT_SCREEN_ID);
+        }
+        full.addAll(newOrder);
+        if (mScreenOrder.contains(EXTRA_EMPTY_SCREEN_ID1)) {
+            full.add(EXTRA_EMPTY_SCREEN_ID1);
+        }
+        mScreenOrder.clear();
+        mScreenOrder.addAll(full);
+
+        // 4. Persist TOÀN BỘ thứ tự (gồm page ẩn) -> app luôn được giữ.
+        mLauncher.getModel().updateWorkspaceScreenOrder(mLauncher, mScreenOrder);
+
+        // 5. Cập nhật chấm tròn/paging theo số page đang hiện.
+        int childCount = getChildCount();
+        if (getCurrentPage() >= childCount) {
+            setCurrentPage(Math.max(0, childCount - 1));
+        }
+        updateAllPageIndicatorMarker();
+        requestLayout();
+    }
+
+    /**
+     * Khôi phục trạng thái ẩn lúc khởi động: tháo các page ẩn khỏi view tree.
+     * Bảo toàn tối thiểu 1 page thật còn hiện.
+     */
+    public void detachHiddenPages(java.util.Set<Long> hidden) {
+        if (hidden == null || hidden.isEmpty()) {
+            return;
+        }
+        for (Long id : hidden) {
+            if (id == null || id < 0) {
+                continue;
+            }
+            if (countRealVisiblePages() <= 1) {
+                break;
+            }
+            CellLayout cl = mWorkspaceScreens.get(id);
+            if (cl != null && indexOfChild(cl) != -1) {
+                removeView(cl);
+            }
+        }
+        updateAllPageIndicatorMarker();
+        requestLayout();
+    }
+
+    /** Số page THẬT (screenId >= 0) hiện đang gắn trong view tree. */
+    private int countRealVisiblePages() {
+        int n = 0;
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            if (child instanceof CellLayout) {
+                if (getIdForScreen((CellLayout) child) >= 0) {
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
     public boolean isInOverviewMode() {
         return mState == State.OVERVIEW;
     }

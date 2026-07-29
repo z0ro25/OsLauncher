@@ -1,6 +1,0 @@
-R_DEF: Internal format may change without notice
-local
-attr? realtimeBlurRadius
-attr? realtimeDownsampleFactor
-attr? realtimeOverlayColor
-styleable RealtimeBlurView realtimeBlurRadius realtimeDownsampleFactor realtimeOverlayColor

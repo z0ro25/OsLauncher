@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:id="@+id/widget_battery_layout" android:background="@drawable/round_rect_qsb_dark" android:layout_width="match_parent" android:layout_height="match_parent">
-    <ImageView android:id="@+id/widget_battery_progress" android:paddingTop="@dimen/widget_padding" android:layout_width="match_parent" android:layout_height="0dp" android:scaleType="fitStart" android:layout_weight="1" android:paddingStart="@dimen/widget_padding" android:paddingEnd="@dimen/widget_padding"/>
-    <TextView android:textSize="36sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@+id/widget_battery_text" android:paddingBottom="@dimen/widget_padding" android:layout_width="match_parent" android:layout_height="0dp" android:text="100%" android:layout_weight="1" android:paddingStart="@dimen/widget_padding" android:paddingEnd="@dimen/widget_padding"/>
-</LinearLayout>

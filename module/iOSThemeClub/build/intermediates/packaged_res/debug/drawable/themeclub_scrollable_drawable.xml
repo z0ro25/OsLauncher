@@ -1,4 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/themeclub_scrollable" android:state_selected="true"  />
-    <item android:drawable="@drawable/themeclub_scrollable_pressed" android:state_selected="false"  />
-</selector>

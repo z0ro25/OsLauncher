@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="drop_target_drag_padding">20dp</dimen>
-    <dimen name="drop_target_text_size">16sp</dimen>
-    <dimen name="unread_event_y_offset">4dp</dimen>
-</resources>

@@ -12,7 +12,8 @@ android {
         targetSdkVersion cfgs.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        renderscriptSupportModeEnabled true
+        // renderscriptSupportModeEnabled đã tắt: gói libRSSupport/librsjni prebuilt (align 4KB,
+        // không có bản 16KB) khỏi APK. Blur dùng framework android.renderscript, không cần .so.
     }
 
     lintOptions {

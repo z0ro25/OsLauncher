@@ -1,10 +1,38 @@
-*.iml
+# Built application files / Gradle output (mọi module, mọi cấp)
+build/
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+
+# Gradle
+.gradle/
 .gradle
-/local.properties
-/.idea/
-.DS_Store
-/build
+
+# Local configuration (đường dẫn SDK/JDK riêng từng máy — KHÔNG commit)
+local.properties
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
+# Keystore / signing
+# *.jks
+# *.keystore
+
+# OS files
+.DS_Store
+Thumbs.db

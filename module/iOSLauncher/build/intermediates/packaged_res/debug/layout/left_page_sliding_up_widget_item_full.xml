@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-    <com.amz.ios.launcher.RoundedImageView android:id="@+id/left_page_sliding_up_widget_item_image" android:layout_width="match_parent" android:layout_height="wrap_content" android:scaleType="centerCrop" android:adjustViewBounds="true" android:contentDescription="@string/add_widget" app:imageCornerSize="@dimen/widget_round_corner"/>
-    <com.amz.ios.launcher.TextViewCustomFont android:textSize="12dp" android:textColor="@color/white" android:gravity="center" android:id="@+id/left_page_sliding_up_widget_item_text" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-</androidx.appcompat.widget.LinearLayoutCompat>

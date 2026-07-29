@@ -29,6 +29,13 @@ public class SortAppsCallable implements Callable<ArrayList<AppCategory>> {
                 AppsLibraryLayout layout = (AppsLibraryLayout) this.constraintLayout;
                 ArrayList<AppInfo> arrayList =(ArrayList) object;
 
+                // Xây lại từ đầu: setApps() có thể chạy nhiều lần (model reload, resume,
+                // lần bind rỗng thoáng qua rồi bind đủ). Nếu không clear, mỗi lần sẽ NỐI THÊM
+                // 10 category -> danh sách phình 20/30..., các mục rỗng của lần bind sớm nằm
+                // ở đầu khiến App Library hiển thị toàn mục trống. Guard size()==10 ở
+                // Launcher.bindAppsAdded cũng yêu cầu danh sách luôn đúng 10.
+                layout.mCategories.clear();
+
                 ArrayList<AppInfo> gameApps = new ArrayList<>();
                 ArrayList<AppInfo> audioApps = new ArrayList<>();
                 ArrayList<AppInfo> videoApps = new ArrayList<>();

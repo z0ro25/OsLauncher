@@ -683,6 +683,7 @@
 
     <string name="app_library">App Library</string>
     <string name="done">Done</string>
+    <string name="edit_pages_title">Edit Pages</string>
     <string name="search_web">Search Web</string>
     <string name="edit">Edit</string>
     <string name="application_not_found">Application not found!</string>

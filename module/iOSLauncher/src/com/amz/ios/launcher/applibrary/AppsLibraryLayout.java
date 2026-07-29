@@ -202,6 +202,29 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         mTotalLibraryRV.setAdapter(mAppLibraryAdapter);
     }
 
+    /**
+     * Đảm bảo App Library luôn sẵn sàng hiển thị app mỗi khi được mở (vuốt qua page cuối).
+     *
+     * Gọi từ {@link com.amz.ios.launcher.Launcher#onAppsLibraryOpened()}. Xử lý các trường hợp
+     * còn sót có thể khiến màn trống trơn:
+     *   1. setApps() chưa từng chạy (bind bị defer/clear lúc pause) -> adapter chưa gắn / category
+     *      rỗng: dựng lại từ danh sách app đã bind (apps).
+     *   2. MotionLayout kẹt ở trạng thái search -> danh sách category bị alpha=0 / RV search che:
+     *      ép về start và khôi phục alpha/visibility list.
+     *
+     * @param apps danh sách app đã bind gần nhất (Launcher.allApp); có thể null nếu chưa bind.
+     */
+    public void ensureReady(ArrayList<AppInfo> apps){
+        boolean categoriesEmpty = (mCategories == null || mCategories.size() != 10);
+        boolean adapterMissing = (mTotalLibraryRV.getAdapter() == null);
+        if ((categoriesEmpty || adapterMissing) && apps != null && !apps.isEmpty()) {
+            setApps(apps);
+        }
+        // Khôi phục hiển thị danh sách category (phòng khi transition search để lại alpha=0).
+        mTotalLibraryRV.setVisibility(View.VISIBLE);
+        mTotalLibraryRV.setAlpha(1.0f);
+    }
+
     public void setSubViewsLayoutParams(){
         int margin = mDeviceProfile.edgeMarginPx * 2;
 

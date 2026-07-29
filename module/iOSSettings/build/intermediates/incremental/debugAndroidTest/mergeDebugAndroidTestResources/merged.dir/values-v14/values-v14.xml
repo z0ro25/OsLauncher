@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="settings_AppTheme" parent="@android:style/Theme.Holo.Light.NoActionBar.Overscan">
-        
-             <item name="android:windowTranslucentStatus">true</item>
-        	<item name="android:windowFullscreen">false</item>
-    </style>
-</resources>
