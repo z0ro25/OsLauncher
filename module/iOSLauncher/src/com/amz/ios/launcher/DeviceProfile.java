@@ -281,7 +281,11 @@ public class DeviceProfile {
         hotseatCellHeightPx = iconSizePx;
         // Folder
         folderCellWidthPx = cellWidthPx + 3 * edgeMarginPx;
-        folderCellHeightPx = cellHeightPx + 2 * edgeMarginPx;
+        // Với folder: chiều rộng ô tự co theo khung, chiều cao ô = folderCellHeightPx (cố định).
+        // Khối app [icon + đệm + nhãn] cao cellHeightPx, canh giữa trong ô → hở dọc giữa 2
+        // hàng = folderCellHeightPx - cellHeightPx. Cho hở dọc ~ hở ngang giữa các icon
+        // (nhỏ, ~edgeMargin) để khoảng cách trông đều nhau, tính cả phần title.
+        folderCellHeightPx = cellHeightPx + edgeMarginPx;
         folderBackgroundOffset = 0;
         folderIconSizePx = iconSizePx;
     }

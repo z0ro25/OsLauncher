@@ -100,11 +100,11 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
             blurBmp = BitmapFactory.decodeResource(blurScreenLayout.getResources(), R.drawable.blur_default);
         }
 
-        // Màn trái (negative screen) kiểu iOS: hiển thị HÌNH NỀN THẬT làm mờ nhẹ
-        // (frosted glass), KHÔNG trộn ảnh màn home lên trên (tránh "loạn"), và KHÔNG
-        // dùng "blur" mờ scale 1/36 (nhìn như mảng xám). Ưu tiên wallpaper gốc mờ nhẹ.
+        // Màn trái (negative screen) kiểu iOS: dùng ĐÚNG bitmap frosted MÀU sẽ hiển thị
+        // lúc mở hẳn (mBlurBmp + base đen + scrim). Nhờ vậy mSliderBlurBg fade-in mượt
+        // khi kéo và KHÔNG "pop" đổi hình khi mở hẳn -> animation vuốt giống App Library.
         if (launcher.isOpeningLeftPage() && !launcher.isOpeningAppsLibrary()) {
-            Bitmap leftPageBmp = blurScreenLayout.getLeftPageWallpaper(deviceProfile);
+            Bitmap leftPageBmp = blurScreenLayout.getLeftPageFrostedBitmap();
             if (leftPageBmp != null) return leftPageBmp;
             if (blurBmp != null) return blurBmp;
         }
@@ -191,6 +191,56 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
         return layout.getAppsLibraryBlurBackground();
     }
 
+    // Nền kính mờ "đục" GIỐNG App Library để màn trái (negative page) dùng chung: wallpaper
+    // làm mờ mạnh + scrim tối. App Library đặc là nhờ root layout có nền base @color/black
+    // bên dưới bitmap; màn trái không có base nên bitmap (có thể chỉ là frost bán trong suốt
+    // khi API 36 chặn đọc wallpaper) để lộ wallpaper sắc nét. -> Trả LayerDrawable: nền tối
+    // ĐẶC ở dưới + bitmap frosted ở trên, đảm bảo đục đồng nhất với App Library.
+    // Bitmap frosted MÀU cho màn trái: dùng ĐÚNG nguồn App Library dùng — mBlurBmp
+    // (wallpaper đã blur bởi BlurWallpaperProvider, có màu sống động) + scrim tối baked-in,
+    // crop về đúng kích thước màn. Fallback: ảnh blur lưu sẵn -> blur_default. Dùng CHUNG
+    // cho mSliderBlurBg (fade khi kéo) và nền CustomContentView (lúc mở hẳn) để 2 pha
+    // GIỐNG HỆT nhau -> không bị "pop", animation vuốt mượt như App Library.
+    public Bitmap getLeftPageFrostedBitmap() {
+        try {
+            Bitmap src = mLauncher.getBlurWallpaperProvider().mBlurBmp;
+            if (src == null || src.isRecycled()) src = getBlurImageFromStorage();
+            if (src == null || src.isRecycled())
+                src = BitmapFactory.decodeResource(getResources(), R.drawable.blur_default);
+            if (src == null || src.isRecycled()) return null;
+            int w = mLauncher.getDeviceProfile().getCurrentWidth();
+            int h = mLauncher.getDeviceProfile().getCurrentHeight();
+            Bitmap sized;
+            try {
+                sized = Bitmap.createBitmap(src, 0, 0,
+                        Math.min(w, src.getWidth()), Math.min(h, src.getHeight()));
+            } catch (Throwable t) {
+                sized = Bitmap.createScaledBitmap(src, w, h, true);
+            }
+            // Vẽ base đen + bitmap + scrim vào 1 bitmap ĐẶC (opaque) để mSliderBlurBg
+            // hiển thị đầy đủ, không lộ layer sau.
+            Bitmap out = Bitmap.createBitmap(sized.getWidth(), sized.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(out);
+            c.drawColor(0xFF000000);
+            c.drawBitmap(sized, 0, 0, null);
+            c.drawColor(LEFT_PAGE_SCRIM);
+            return out;
+        } catch (Throwable t) {
+            return null;
+        }
+    }
+
+    public android.graphics.drawable.Drawable getFrostedWallpaperDrawable() {
+        try {
+            Bitmap bmp = getLeftPageFrostedBitmap();
+            if (bmp == null || bmp.isRecycled()) return null;
+            return new BitmapDrawable(getResources(), bmp);
+        } catch (Throwable t) {
+            return null;
+        }
+    }
+
     public Bitmap getAppsLibraryBlurBackground() {
         try {
             // App Library kiểu iOS: nền là HÌNH NỀN THẬT làm mờ nhẹ (thấy màu wallpaper
@@ -274,25 +324,59 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
         return bmp;
     }
 
-    // Nền cho màn trái (negative screen) kiểu iOS: lấy wallpaper gốc và chỉ làm mờ NHẸ
-    // (frosted glass) để vẫn nhận ra ảnh nền, thay vì mảng xám của "blur" (mờ scale 1/36).
+    // Lớp phủ tối (scrim) đặt lên trên wallpaper đã blur để ra "kính mờ đục kiểu iOS":
+    // wallpaper mờ mạnh + tối vừa phải, các pod/widget bên trên nổi rõ. ~28% đen.
+    private static final int LEFT_PAGE_SCRIM = 0x48000000;
+
+    // Vẽ lớp scrim tối lên trên bitmap (in-place). Trả lại chính bitmap đó.
+    private Bitmap applyScrim(Bitmap bmp, int scrimColor) {
+        try {
+            if (bmp == null) return null;
+            Bitmap target = bmp.isMutable() ? bmp : bmp.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(target);
+            canvas.drawColor(scrimColor);
+            return target;
+        } catch (Throwable t) {
+            return bmp;
+        }
+    }
+
+    // Nền cho màn trái (negative screen) & App Library kiểu iOS: wallpaper mờ MẠNH
+    // (frosted glass) + lớp phủ tối vừa phải để các pod/widget nổi rõ, đồng nhất 2 màn.
+    // Cache bitmap kính mờ ĐẸP gần nhất dựng được. App Library hay bắt được wallpaper
+    // (nên nền mờ sáng, có màu), còn màn trái đôi khi rơi vào fallback tối (API 36 đọc
+    // wallpaper chập chờn) -> 2 màn lệch tông. Dùng chung cache này để màn trái tái dùng
+    // ĐÚNG bitmap App Library đã dựng, đảm bảo đồng nhất.
+    private static Bitmap sLastGoodLeftPageBmp;
+
     private Bitmap getLeftPageWallpaper(DeviceProfile deviceProfile) {
         Bitmap original = getLiveWallpaperBitmap();
         if (original == null || original.isRecycled()) original = getOriginalWallpaperFromStorage();
-        // Không đọc được wallpaper (API 36 chặn) -> KHÔNG phủ ảnh xám: trả frost trong suốt
-        // để wallpaper thật của hệ thống hiện xuyên qua như kính mờ iOS. #33FFFFFF ~ 20% trắng.
-        if (original == null || original.isRecycled()) return makeFrostBitmap(0x33FFFFFF);
+        // Không đọc được wallpaper (API 36 chặn): ưu tiên tái dùng bitmap ĐẸP gần nhất
+        // (để 2 màn giống hệt); nếu chưa có thì mới trả frost tối mờ ~40% đen.
+        if (original == null || original.isRecycled()) {
+            if (sLastGoodLeftPageBmp != null && !sLastGoodLeftPageBmp.isRecycled())
+                return sLastGoodLeftPageBmp;
+            return makeFrostBitmap(0x66000000);
+        }
         try {
             int w = deviceProfile.getCurrentWidth();
             int h = deviceProfile.getCurrentHeight();
             Bitmap scaled = Bitmap.createScaledBitmap(original, w, h, true);
-            int dw = Math.max(1, Math.round(w * 0.25f));
-            int dh = Math.max(1, Math.round(h * 0.25f));
+            // Downsample mạnh hơn (12%) + blur radius lớn hơn (25) -> kính mờ "đục" iOS,
+            // không còn nhìn rõ chi tiết wallpaper gây rối mắt.
+            int dw = Math.max(1, Math.round(w * 0.12f));
+            int dh = Math.max(1, Math.round(h * 0.12f));
             Bitmap small = Bitmap.createScaledBitmap(scaled, dw, dh, true);
-            Bitmap blurred = BlurBuilder.fastBlur(small, 10);
+            Bitmap blurred = BlurBuilder.fastBlur(small, 25);
             if (blurred == null) blurred = small;
-            return Bitmap.createScaledBitmap(blurred, w, h, true);
+            Bitmap upscaled = Bitmap.createScaledBitmap(blurred, w, h, true);
+            Bitmap result = applyScrim(upscaled, LEFT_PAGE_SCRIM);
+            if (result != null && !result.isRecycled()) sLastGoodLeftPageBmp = result;
+            return result;
         } catch (Throwable t) {
+            if (sLastGoodLeftPageBmp != null && !sLastGoodLeftPageBmp.isRecycled())
+                return sLastGoodLeftPageBmp;
             return original;
         }
     }

@@ -109,6 +109,11 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        // Màn trái TRONG SUỐT: nền frosted do mSliderBlurBg (blur_apps_library_background)
+        // lo — nó fade dần theo changeBlur() khi vuốt, GIỐNG App Library. Nếu CustomContentView
+        // tự tô nền đặc thì lúc kéo sẽ trượt/pop đè lên -> mất animation fade. Để trong suốt.
+        setBackground(null);
+
         this.mSearchBoxLeftPage = findViewById(R.id.search_box_left_page);
         this.mListWidgetRV = findViewById(R.id.recycler_view_list_widget);
         this.mSlidingUpWidgetsAppStyle = findViewById(R.id.left_page_sliding_up_widgets_app_style);
@@ -348,6 +353,9 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
     }
 
     public void onOpenPage(){
+        // KHÔNG tự tô nền ở đây: nền frosted do mSliderBlurBg lo (fade khi vuốt, giống
+        // App Library). Giữ màn trái trong suốt để không "pop" đè lên lúc mở hẳn.
+        setBackground(null);
         if(mListWidgetRV == null) return;
         int childCount = mListWidgetRV.getChildCount();
         for (int i = 0; i < childCount; i++) {
