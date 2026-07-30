@@ -47,6 +47,7 @@ public class FavouriteContactWidget extends BlurConstraintLayoutWidget implement
     TextView mContactErrorTV;
     LinearLayoutCompat mPermissionRequestView;
     View mPermissionRequestBtn;
+    View mContactContentView;
 
     ArrayList<FavouriteContactInfo> mOneContactList;
     ArrayList<FavouriteContactInfo> mAllContactList;
@@ -118,6 +119,7 @@ public class FavouriteContactWidget extends BlurConstraintLayoutWidget implement
         mMoreIconIV = findViewById(R.id.more_icon);
         mContactErrorTV = findViewById(R.id.contact_error);
         mPermissionRequestView = findViewById(R.id.favorite_contact_widget_permission);
+        mContactContentView = findViewById(R.id.favorite_contact_widget_content);
     }
 
     void setAdapter(){
@@ -145,8 +147,7 @@ public class FavouriteContactWidget extends BlurConstraintLayoutWidget implement
 
     public void getFavouriteContacts(){
 
-        // TODO: 2023.11.21 Check Contact Load Permission
-        boolean isGrantedPermission = true;
+        boolean isGrantedPermission = hasContactPermission();
 
         if (isGrantedPermission){
             try {
@@ -175,20 +176,35 @@ public class FavouriteContactWidget extends BlurConstraintLayoutWidget implement
         reload();
     }
 
+    boolean hasContactPermission(){
+        return androidx.core.content.ContextCompat.checkSelfPermission(
+                mLauncher, android.Manifest.permission.READ_CONTACTS
+        ) == android.content.pm.PackageManager.PERMISSION_GRANTED;
+    }
+
     public void reload(){
-        // TODO: 2023.11.21 Check permission
-        boolean isGrantedPermission = true;
+        boolean isGrantedPermission = hasContactPermission();
 
         if (isGrantedPermission){
+            if (mPermissionRequestView != null) mPermissionRequestView.setVisibility(View.GONE);
+            if (mContactContentView != null) mContactContentView.setVisibility(View.VISIBLE);
             this.mContactErrorTV.setVisibility(View.GONE);
             this.mPermissionRequestBtn.setVisibility(View.GONE);
-            this.mLauncher.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_STREQUENT_URI, true, mContactContentObserver);
+            // Quyền READ_CONTACTS có thể không được cấp (đã gỡ khỏi manifest) => bọc để
+            // tránh SecurityException gây crash khi mở màn trái.
+            try {
+                this.mLauncher.getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_STREQUENT_URI, true, mContactContentObserver);
+            } catch (Throwable t) {
+                t.getMessage();
+            }
             if (!this.canReload || (this.mOneContactList != null && mOneContactList.size() <= 0)) {
                 this.mHandler.removeCallbacksAndMessages(null);
                 this.mHandler.postDelayed(this.mReloadRunnable, 1000L);
             }
         }
         else {
+            if (mPermissionRequestView != null) mPermissionRequestView.setVisibility(View.VISIBLE);
+            if (mContactContentView != null) mContactContentView.setVisibility(View.GONE);
             this.mContactErrorTV.setVisibility(View.VISIBLE);
             this.mPermissionRequestBtn.setVisibility(View.VISIBLE);
         }
@@ -197,7 +213,15 @@ public class FavouriteContactWidget extends BlurConstraintLayoutWidget implement
     @Override
     public void onClick(View v) {
         if (v == mPermissionRequestBtn){
-
+            // Bấm nút trên màn permission => thực sự xin quyền READ_CONTACTS.
+            try {
+                androidx.core.app.ActivityCompat.requestPermissions(
+                        mLauncher,
+                        new String[]{android.Manifest.permission.READ_CONTACTS},
+                        Launcher.PERMISSION_ALL
+                );
+            } catch (Throwable ignored) {
+            }
         }
         else if (v == mMoreIconIV){
             boolean z = true;

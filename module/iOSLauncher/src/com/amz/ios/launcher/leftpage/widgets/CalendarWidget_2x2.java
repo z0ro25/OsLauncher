@@ -1,8 +1,10 @@
 package com.amz.ios.launcher.leftpage.widgets;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -55,6 +57,7 @@ public class CalendarWidget_2x2 extends BlurConstraintLayoutWidget implements Vi
     public TextViewCustomFont mCalendarDayInWeekView;
     public TextViewCustomFont mRequestPermissionBtn;
     public LinearLayoutCompat mCalendarPermissionView;
+    public LinearLayoutCompat mCalendarContentView;
     public Locale mLocale;
     public CalendarContentObserver mContentObserver;
     public boolean canLoadingEvents = true;
@@ -110,6 +113,7 @@ public class CalendarWidget_2x2 extends BlurConstraintLayoutWidget implements Vi
         mCalendarDayView = findViewById(R.id.calendar_day);
         mCalendarDayInWeekView = findViewById(R.id.calendar_day_in_week);
         mCalendarPermissionView = findViewById(R.id.calendar_widget_permission);
+        mCalendarContentView = findViewById(R.id.calendar_widget_content);
         mRequestPermissionBtn = findViewById(R.id.button_request_calendar_permission);
         mLocale = Locale.getDefault();
         mHandler = new Handler();
@@ -135,8 +139,15 @@ public class CalendarWidget_2x2 extends BlurConstraintLayoutWidget implements Vi
     @Override
     public void onClick(View v) {
         if (v != mRequestPermissionBtn) return;
-        // TODO: 2023.11.20 Request Calendar Permission
-
+        // Bấm nút trên màn permission => thực sự xin quyền READ_CALENDAR.
+        try {
+            androidx.core.app.ActivityCompat.requestPermissions(
+                    mLauncher,
+                    new String[]{Manifest.permission.READ_CALENDAR},
+                    Launcher.PERMISSION_ALL
+            );
+        } catch (Throwable ignored) {
+        }
     }
 
     public void getEvents(){
@@ -250,17 +261,26 @@ public class CalendarWidget_2x2 extends BlurConstraintLayoutWidget implements Vi
         String format2 = new SimpleDateFormat("EEEE", Locale.getDefault()).format(time);
         this.mCalendarDayView.setText(format);
         this.mCalendarDayInWeekView.setText(format2);
-//        if (bb0.a(this.j)) {
+        // Chỉ đăng ký observer + load sự kiện khi ĐÃ có quyền READ_CALENDAR.
+        // Trước đây phần check quyền bị comment nên luôn gọi registerContentObserver
+        // -> SecurityException (requires READ_CALENDAR) -> crash cả màn trái.
+        boolean hasCalendarPermission = ContextCompat.checkSelfPermission(
+                mLauncher, Manifest.permission.READ_CALENDAR
+        ) == PackageManager.PERMISSION_GRANTED;
+        if (hasCalendarPermission) {
             mCalendarPermissionView.setVisibility(View.GONE);
-            mLauncher.getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI, true, this.mContentObserver);
+            if (mCalendarContentView != null) mCalendarContentView.setVisibility(View.VISIBLE);
+            try {
+                mLauncher.getContentResolver().registerContentObserver(CalendarContract.Events.CONTENT_URI, true, this.mContentObserver);
+            } catch (Throwable ignored) {
+            }
             if (canLoadingEvents) {
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler.postDelayed(this.mReloadRunnable, 5000L);
             }
-            /*
         } else {
             mCalendarPermissionView.setVisibility(View.VISIBLE);
+            if (mCalendarContentView != null) mCalendarContentView.setVisibility(View.GONE);
         }
-             */
     }
 }

@@ -381,7 +381,10 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
         // When we're small, we are either drawn normally or in the "accepts drops" state (during
         // a drag). However, we also drag the mini hover background *over* one of those two
         // backgrounds
-        if (mBackgroundAlpha > 0.0f) {
+        // Dock (hotseat) dùng khung glass riêng (dock_glass_bg trong Hotseat) ôm sát
+        // hàng icon, nên KHÔNG vẽ panel nền mặc định của CellLayout ở hotseat để
+        // tránh hiện 2 background (1 rộng cách đều mép + 1 ôm app).
+        if (mBackgroundAlpha > 0.0f && !mIsHotseat) {
             mBackground.draw(canvas);
         }
 

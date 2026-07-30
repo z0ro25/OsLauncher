@@ -73,7 +73,7 @@
             android:paddingLeft="@dimen/folder_scroll_paddleft"
             android:paddingTop="@dimen/folder_scroll_paddtop"
             android:paddingRight="@dimen/folder_scroll_paddright"
-            android:layout_width="400dp"
+            android:layout_width="@dimen/folder_content_max_width"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/folder_pagedview_indicator_height"
             launcher:pageIndicator="@+id/page_indicator"/>

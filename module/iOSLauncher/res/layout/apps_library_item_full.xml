@@ -9,7 +9,7 @@
         android:id="@+id/app_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/icon_apps_library_background"
+        android:background="@drawable/bg_glass_tile"
         app:layout_constraintDimensionRatio="h, 1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

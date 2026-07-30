@@ -100,6 +100,15 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
             blurBmp = BitmapFactory.decodeResource(blurScreenLayout.getResources(), R.drawable.blur_default);
         }
 
+        // Màn trái (negative screen) kiểu iOS: hiển thị HÌNH NỀN THẬT làm mờ nhẹ
+        // (frosted glass), KHÔNG trộn ảnh màn home lên trên (tránh "loạn"), và KHÔNG
+        // dùng "blur" mờ scale 1/36 (nhìn như mảng xám). Ưu tiên wallpaper gốc mờ nhẹ.
+        if (launcher.isOpeningLeftPage() && !launcher.isOpeningAppsLibrary()) {
+            Bitmap leftPageBmp = blurScreenLayout.getLeftPageWallpaper(deviceProfile);
+            if (leftPageBmp != null) return leftPageBmp;
+            if (blurBmp != null) return blurBmp;
+        }
+
         curBlurBmp = BlurBuilder.getBlurBmp(
                 launcher,
                 view != null ? blurScreenLayout.makeRoundBitmap(
@@ -184,6 +193,11 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
 
     public Bitmap getAppsLibraryBlurBackground() {
         try {
+            // App Library kiểu iOS: nền là HÌNH NỀN THẬT làm mờ nhẹ (thấy màu wallpaper
+            // sống động xuyên qua như frosted glass), KHÔNG blur ảnh drag-layout nền đen
+            // (cho ra mảng xám mất màu). Fallback về cách cũ nếu chưa có wallpaper lưu.
+            Bitmap wp = getLeftPageWallpaper(mLauncher.getDeviceProfile());
+            if (wp != null && !wp.isRecycled()) return wp;
             return BlurBuilder.getBlurBmp(mLauncher, getBmpFromView(mLauncher.mDragAppsLibraryLayout));
         } catch (Throwable th) {
             th.getMessage();
@@ -208,6 +222,78 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
         } catch (Throwable th) {
             th.getMessage();
             return null;
+        }
+    }
+
+    // Nạp ảnh hình nền GỐC (chưa làm mờ mạnh) đã lưu ở getDir("image")/"wallpaper".
+    private Bitmap getOriginalWallpaperFromStorage() {
+        try {
+            return BitmapFactory.decodeStream(
+                    new FileInputStream(
+                            new File(
+                                    new ContextWrapper(this.mLauncher).getDir("image", Context.MODE_PRIVATE),
+                                    "wallpaper"
+                            )
+                    )
+            );
+        } catch (FileNotFoundException e) {
+            this.mLauncher.getBlurWallpaperProvider().reloadWallpaper();
+            return null;
+        } catch (Throwable th) {
+            return null;
+        }
+    }
+
+    // Đọc wallpaper ĐANG DÙNG (live) từ hệ thống, không phải file cache cũ.
+    // File cache getDir("image")/"wallpaper" chỉ cập nhật khi reloadWallpaper() chạy,
+    // nên có thể là ảnh nền CŨ (xám) trong khi màn home vẽ wallpaper mới nhiều màu.
+    // -> Ưu tiên WallpaperManager.getDrawable() để nền màn trái ăn đúng màu wallpaper hiện tại.
+    private Bitmap getLiveWallpaperBitmap() {
+        try {
+            android.app.WallpaperManager wm = android.app.WallpaperManager.getInstance(mLauncher);
+            if (wm == null) return null;
+            // Bỏ qua live wallpaper (dạng service) — getDrawable trả null/không phải bitmap.
+            if (wm.getWallpaperInfo() != null) return null;
+            android.graphics.drawable.Drawable d = wm.getDrawable();
+            if (d instanceof BitmapDrawable) {
+                Bitmap b = ((BitmapDrawable) d).getBitmap();
+                if (b != null && !b.isRecycled()) return b;
+            }
+        } catch (Throwable ignored) {
+        }
+        return null;
+    }
+
+    // Lớp "frost" bán trong suốt để hình nền HỆ THỐNG (đang được vẽ xuyên qua cửa sổ
+    // launcher trong suốt, windowShowWallpaper=true) HIỆN LÊN sống động thay vì bị phủ
+    // mảng xám. Dùng khi không đọc được bitmap wallpaper (Android 14+/API 36 chặn
+    // WallpaperManager.getDrawable() -> trả ảnh xám mặc định). 1x1 ARGB, view sẽ kéo dãn.
+    private Bitmap makeFrostBitmap(int argb) {
+        Bitmap bmp = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        bmp.eraseColor(argb);
+        return bmp;
+    }
+
+    // Nền cho màn trái (negative screen) kiểu iOS: lấy wallpaper gốc và chỉ làm mờ NHẸ
+    // (frosted glass) để vẫn nhận ra ảnh nền, thay vì mảng xám của "blur" (mờ scale 1/36).
+    private Bitmap getLeftPageWallpaper(DeviceProfile deviceProfile) {
+        Bitmap original = getLiveWallpaperBitmap();
+        if (original == null || original.isRecycled()) original = getOriginalWallpaperFromStorage();
+        // Không đọc được wallpaper (API 36 chặn) -> KHÔNG phủ ảnh xám: trả frost trong suốt
+        // để wallpaper thật của hệ thống hiện xuyên qua như kính mờ iOS. #33FFFFFF ~ 20% trắng.
+        if (original == null || original.isRecycled()) return makeFrostBitmap(0x33FFFFFF);
+        try {
+            int w = deviceProfile.getCurrentWidth();
+            int h = deviceProfile.getCurrentHeight();
+            Bitmap scaled = Bitmap.createScaledBitmap(original, w, h, true);
+            int dw = Math.max(1, Math.round(w * 0.25f));
+            int dh = Math.max(1, Math.round(h * 0.25f));
+            Bitmap small = Bitmap.createScaledBitmap(scaled, dw, dh, true);
+            Bitmap blurred = BlurBuilder.fastBlur(small, 10);
+            if (blurred == null) blurred = small;
+            return Bitmap.createScaledBitmap(blurred, w, h, true);
+        } catch (Throwable t) {
+            return original;
         }
     }
 
@@ -372,7 +458,17 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
         public final boolean handleMessage(Message message) {
             if (message != null && message.what == 2) {
                 try {
-                    mBlurScreenLayout.setAlpha(1.0f);
+                    // handleMessage chạy trên worker thread (sWorkerThread) => KHÔNG được
+                    // chạm view hierarchy trực tiếp. setAlpha phải chạy trên main thread,
+                    // nếu không sẽ ném CalledFromWrongThreadException. Dùng mHandler2 (đã bind
+                    // Looper.getMainLooper()) thay vì AsyncHandler.runOnUiThread — cái sau
+                    // gán sUiThread lúc static-init nên có thể trỏ nhầm sang worker thread.
+                    mBlurScreenLayout.mHandler2.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mBlurScreenLayout.setAlpha(1.0f);
+                        }
+                    });
                     Object obj = message.obj;
                     if (obj instanceof View){
                       Bitmap bitmap = BlurScreenLayout.getBlurBitmap(mBlurScreenLayout, (View) obj);
@@ -436,6 +532,10 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
                             if (drawable != null && isOpeningFolder) {
                                 this.mBlurScreenLayout.setAlpha(0.0f);
                                 this.mBlurScreenLayout.setBackground(drawable);
+                                // Mở folder: cả màn frost đều (alpha 1.0) như glass iOS thật.
+                                // Khung KHÔNG có nền đục riêng — chỉ là viền sáng mảnh bao quanh
+                                // lớp wallpaper-blur chung, nên trong/ngoài khung cùng độ mờ,
+                                // app nổi nhờ nằm trên nền blur tối + viền phân tách.
                                 interpolator = this.mBlurScreenLayout.animate().alpha(1.0f).setDuration(268L).setInterpolator(new DecelerateInterpolator());
                             } else {
                                 if (drawable == null) {

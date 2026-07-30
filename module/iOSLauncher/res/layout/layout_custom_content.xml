@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent">
     <com.amz.ios.launcher.bounce.BouncyRecyclerView
         android:id="@+id/recycler_view_list_widget"
-        android:paddingTop="@dimen/realtime_blur_height_clock_view"
+        android:paddingTop="@dimen/left_page_widget_padding_top"
         android:paddingBottom="@dimen/search_margin_top"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -18,15 +18,8 @@
         app:recyclerview_fling_animation_size="0.8"
         app:recyclerview_overscroll_animation_size="0.8"
         app:recyclerview_stiffness="1"/>
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:layout_gravity="start|top"
-        android:id="@+id/realtime_blur_search_box_custom_content"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/realtime_blur_height_search_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeOverlayColor="@color/transparent"/>
+    <!-- Đã bỏ dải blur ở đầu màn trái (realtime_blur_search_box_custom_content)
+         theo yêu cầu: không che phần trên cùng của màn negative screen. -->
     <com.amz.ios.launcher.leftpage.custom.CustomZoomButton
         android:textSize="20sp"
         android:textColor="#000000"
@@ -71,6 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/clock_widget_size"
         android:layout_marginTop="@dimen/search_margin_top"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/realtime_blur_search_box_custom_content"
         app:layout_constraintStart_toStartOf="@+id/realtime_blur_search_box_custom_content"
         app:layout_constraintTop_toTopOf="parent"/>

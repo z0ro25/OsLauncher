@@ -94,15 +94,104 @@ public class Hotseat extends FrameLayout implements Stats.LaunchSourceProvider {
         return mHasVerticalHotseat ? (mContent.getCountY() - (rank + 1)) : 0;
     }
 
+    private View mDockGlassBg;
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         DeviceProfile grid = mLauncher.getDeviceProfile();
         mContent = (CellLayout) findViewById(R.id.layout);
+        mDockGlassBg = findViewById(R.id.dock_glass_bg);
 
         mContent.setIsHotseat(true);
 
         resetLayout();
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        positionDockGlass();
+    }
+
+    /**
+     * CellLayout luôn đo full-width nên khung glass không thể "wrap" hàng icon
+     * bằng XML. Ở đây tính bounding-box THẬT của các icon dock (union các cell
+     * có child) rồi đặt khung glass ôm sát khối icon, cộng thêm padding.
+     */
+    private void positionDockGlass() {
+        if (mDockGlassBg == null || mContent == null) return;
+
+        ShortcutAndWidgetContainer container = mContent.getShortcutsAndWidgets();
+        int childCount = container.getChildCount();
+        if (childCount == 0) {
+            mDockGlassBg.setVisibility(GONE);
+            return;
+        }
+
+        // Union bounds của các icon, quy về hệ toạ độ của Hotseat (RelativeLayout parent).
+        int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE;
+        boolean any = false;
+        for (int i = 0; i < childCount; i++) {
+            View child = container.getChildAt(i);
+            if (child == null || child.getVisibility() == GONE) continue;
+            any = true;
+            int cl = container.getLeft() + mContent.getLeft() + child.getLeft();
+            int ct = container.getTop() + mContent.getTop() + child.getTop();
+            minX = Math.min(minX, cl);
+            minY = Math.min(minY, ct);
+            maxX = Math.max(maxX, cl + child.getWidth());
+            maxY = Math.max(maxY, ct + child.getHeight());
+        }
+        if (!any) {
+            mDockGlassBg.setVisibility(GONE);
+            return;
+        }
+
+        int padH = getResources().getDimensionPixelSize(R.dimen.dock_glass_padding_horizontal);
+        int padV = getResources().getDimensionPixelSize(R.dimen.dock_glass_padding_vertical);
+        int gl = minX - padH;
+        int gt = minY - padV;
+        int gr = maxX + padH;
+        int gb = maxY + padV;
+
+        View parent = (View) mDockGlassBg.getParent();
+        gl = Math.max(gl, 0);
+        gt = Math.max(gt, 0);
+        if (parent != null) {
+            gr = Math.min(gr, parent.getWidth());
+            gb = Math.min(gb, parent.getHeight());
+        }
+
+        // Khung glass là sibling của @id/layout trong RelativeLayout; toạ độ trên
+        // đã tính theo hệ Hotseat, mà RelativeLayout khớp full Hotseat nên dùng luôn.
+        int newW = gr - gl;
+        int newH = gb - gt;
+
+        android.view.ViewGroup.MarginLayoutParams lp =
+                (android.view.ViewGroup.MarginLayoutParams) mDockGlassBg.getLayoutParams();
+        // Guard: chỉ setLayoutParams khi giá trị đổi -> tránh vòng lặp requestLayout.
+        boolean changed = lp.width != newW || lp.height != newH
+                || lp.leftMargin != gl || lp.topMargin != gt;
+        if (changed) {
+            lp.width = newW;
+            lp.height = newH;
+            if (lp instanceof android.widget.RelativeLayout.LayoutParams) {
+                android.widget.RelativeLayout.LayoutParams rlp =
+                        (android.widget.RelativeLayout.LayoutParams) lp;
+                rlp.removeRule(android.widget.RelativeLayout.ALIGN_TOP);
+                rlp.removeRule(android.widget.RelativeLayout.ALIGN_BOTTOM);
+                rlp.removeRule(android.widget.RelativeLayout.ALIGN_START);
+                rlp.removeRule(android.widget.RelativeLayout.ALIGN_LEFT);
+            }
+            lp.leftMargin = gl;
+            lp.topMargin = gt;
+            mDockGlassBg.setLayoutParams(lp);
+        }
+        if (mDockGlassBg.getVisibility() != VISIBLE) {
+            mDockGlassBg.setVisibility(VISIBLE);
+        }
     }
 
     void resetLayout() {

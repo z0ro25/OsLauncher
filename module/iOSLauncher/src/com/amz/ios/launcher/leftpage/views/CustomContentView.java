@@ -146,12 +146,14 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
                 new OnOverPullListener() {
                     @Override
                     public void onOverPulledTop(float deltaDistance) {
-                        mSearchBoxRealtimeBlurView.invalidate();
+                        if (mSearchBoxRealtimeBlurView != null)
+                            mSearchBoxRealtimeBlurView.invalidate();
                     }
 
                     @Override
                     public void onOverPulledBottom(float deltaDistance) {
-                        mSearchBoxRealtimeBlurView.invalidate();
+                        if (mSearchBoxRealtimeBlurView != null)
+                            mSearchBoxRealtimeBlurView.invalidate();
                     }
 
                     @Override
@@ -250,7 +252,9 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
             }
             switch (c) {
                 case 0:
-                    i = 60;
+                    // battery: dùng loại 2x2 (half-span) thay vì 60 (full-span) để
+                    // không bị phóng thành khối vuông full-width khổng lồ.
+                    i = 61;
                     break;
                 case 1:
                     i = 40;
@@ -274,10 +278,10 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         info.order = mWidgetInfoList.size() + 1;
         info.type = i;
         this.mWidgetInfoList.add(info);
-                info.save();
-                mWidgetListAdapter.notifyItemInserted(
-                        info.order + 1
-                );
+        info.save();
+        // Item vừa được thêm vào cuối list => vị trí insert là (size - 1), KHÔNG phải order+1
+        // (order+1 vượt quá số item, gây RecyclerView "Inconsistency detected" -> crash).
+        mWidgetListAdapter.notifyItemInserted(mWidgetInfoList.size() - 1);
     }
 
     @Override

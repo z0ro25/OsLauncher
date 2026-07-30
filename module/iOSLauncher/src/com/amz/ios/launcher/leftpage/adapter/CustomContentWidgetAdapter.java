@@ -127,9 +127,9 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
                 });
             }
 
-            if (this.mWidgetInfoArrayList.get(pos).type % 10 >= 1) {
-                ((StaggeredGridLayoutManager.LayoutParams) viewHolder.itemView.getLayoutParams()).setFullSpan(true);
-            }
+            StaggeredGridLayoutManager.LayoutParams lp =
+                    (StaggeredGridLayoutManager.LayoutParams) viewHolder.itemView.getLayoutParams();
+            lp.setFullSpan(isFullSpanType(this.mWidgetInfoArrayList.get(pos).type));
 
             CustomContentView customContentView = this.mCustomContentView;
             if (customContentView != null) {
@@ -148,6 +148,23 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
                     return true;
                 }
             });
+        }
+    }
+
+    // Widget nào chiếm nguyên hàng (layout 2x4) thì full span; widget 2x2 thì nửa hàng.
+    // Ánh xạ khớp với resId trong onCreateViewHolder (tránh dựa vào type % 10 vốn sai với
+    // battery: 60=2x4 nhưng 60%10==0, 61=2x2 nhưng 61%10==1 -> bị đảo kích cỡ).
+    private static boolean isFullSpanType(int type) {
+        switch (type) {
+            case 21:  // clock 2x4
+            case 41:  // calendar 2x4
+            case 60:  // battery 2x4
+            case 51:  // favourite contact 2x4
+            case 70:  // app suggestion
+            case 71:  // app suggestion
+                return true;
+            default:  // 20/30/40/61 -> 2x2 (nửa hàng)
+                return false;
         }
     }
 

@@ -108,7 +108,7 @@
     <dimen name="folder_content_toppadding">2dp</dimen>
     <dimen name="folder_editname_margin_top">128dp</dimen>
     <dimen name="folder_icon_dockbarPadding">0dp</dimen>
-    <dimen name="folder_open_name_size">40dp</dimen>
+    <dimen name="folder_open_name_size">22dp</dimen>
     <dimen name="folder_preview_offsetX">0dp</dimen>
     <dimen name="folder_preview_padding">11dp</dimen>
     <dimen name="folder_preview_padding_top_offset">10dp</dimen>
@@ -148,13 +148,13 @@
     <dimen name="dockbar_app_icon_padding_top">4dp</dimen>
     <dimen name="dockbar_spring_translateY">24dp</dimen>
     <dimen name="expandbar_folder_scroll_padding_bottom">10dp</dimen>
-    <dimen name="folder_add_hint_size">40dp</dimen>
+    <dimen name="folder_add_hint_size">22dp</dimen>
     <dimen name="folder_addhint_numbersize">17dp</dimen>
     <dimen name="folder_addhint_textsize">22dp</dimen>
     <dimen name="folder_content_height_gap">2dp</dimen>
     <dimen name="folder_content_width_gap">0dp</dimen>
     <dimen name="folder_mask_content">14dp</dimen>
-    <dimen name="folder_name_paddingbottom">50dp</dimen>
+    <dimen name="folder_name_paddingbottom">12dp</dimen>
     <dimen name="folder_name_paddingtop">8dp</dimen>
     <dimen name="folder_savebtn_height">33dp</dimen>
     <dimen name="folder_savebtn_width">33dp</dimen>

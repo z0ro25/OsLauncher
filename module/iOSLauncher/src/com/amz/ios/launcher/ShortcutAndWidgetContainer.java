@@ -157,34 +157,9 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements View.OnTouc
     public void setIsHotseat(boolean isHotseat) {
         mIsHotseatLayout = isHotseat;
 
-        DeviceProfile profile = mLauncher.getDeviceProfile();
-        int widthPx = profile.widthPx;
-        int heightPx = profile.hotseatBarHeightPx;
-        int radius = profile.hotseatBarHeightPx / 3;
-
-        Path path = new Path();
-        path.addRoundRect(
-                new RectF(0,0,widthPx,heightPx),
-                radius,
-                radius,
-                Path.Direction.CCW
-        );
-
-        Bitmap bitmap = Bitmap.createBitmap(widthPx,heightPx, Bitmap.Config.ARGB_8888);
-
-        Paint paint = new Paint(2);
-        paint.setColor(
-                mLauncher.getResources().getColor(
-                        R.color.white90
-                )
-        );
-        paint.setAlpha(50);
-
-        Canvas canvas = new Canvas(bitmap);
-        canvas.clipPath(path);
-        canvas.drawPaint(paint);
-
-        setBackground(new FastBitmapDrawable(bitmap));
+        // Dock (hotseat) đã có khung glass riêng (dock_glass_bg trong Hotseat) ôm sát
+        // hàng icon. KHÔNG vẽ nền rounded-rect full-width ở đây nữa, nếu không sẽ hiện
+        // 2 background (1 rộng cách đều mép + 1 ôm app).
     }
 
     int getCellContentHeight() {

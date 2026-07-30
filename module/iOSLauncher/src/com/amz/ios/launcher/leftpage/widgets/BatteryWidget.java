@@ -136,8 +136,12 @@ public class BatteryWidget extends BlurConstraintLayoutWidget {
             battery.b = "iPhone";
             Intent registerReceiver = ContextHelper.registerReceiver(mLauncher,null, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
             int status = registerReceiver != null ? registerReceiver.getIntExtra("status", -1) : -1;
-            int level = (int) (((registerReceiver == null ? registerReceiver.getIntExtra("level", -1) : -1) / (registerReceiver != null ? registerReceiver.getIntExtra("scale", -1) : -1)) * 100.0f);
-            battery.c = String.format("%s%%", level);
+            // Ternary cũ bị đảo điều kiện (đọc level chỉ khi receiver==null) + chia số
+            // nguyên -1/scale => luôn ra 0%. Tính lại đúng: level/scale*100 (float).
+            int rawLevel = registerReceiver != null ? registerReceiver.getIntExtra("level", -1) : -1;
+            int scale = registerReceiver != null ? registerReceiver.getIntExtra("scale", -1) : -1;
+            int level = (scale > 0 && rawLevel >= 0) ? Math.round((rawLevel / (float) scale) * 100.0f) : 0;
+            battery.c = String.format("%d%%", level);
             if (status != 2 && status != 5) {
                 battery.d = getDrawable(false, level);
             }

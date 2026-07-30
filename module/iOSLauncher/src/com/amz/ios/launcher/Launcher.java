@@ -228,7 +228,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public static final String PREF_KEY = "com.aisoft.iosLauncher";
     static final boolean ENABLE_DEBUG_INTENTS = false; // allow DebugIntents to run
 
-    static int PERMISSION_ALL = 100;
+    public static int PERMISSION_ALL = 100;
     static final String CUSTOM_CONTENT_WIDGET_DB_NAME = "widgetinfo";
 
     private static final int REQUEST_CREATE_SHORTCUT = 1;
@@ -1259,6 +1259,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 //                    intent.setData(Uri.parse("package:" + getPackageName()));
 //                    startActivity(intent);
                 }
+            }
+            // Sau khi user cấp/từ chối quyền từ nút trên widget (calendar/contact),
+            // refresh lại màn trái để widget đọc lại trạng thái quyền và hiển thị
+            // nội dung (thay vì màn xin quyền) nếu đã được cấp.
+            if (perMissionGranted > 0 && mCustomContentView != null) {
+                mCustomContentView.onOpenPage();
             }
 //            initApp();
         }
@@ -6583,6 +6589,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageClosed() {
         hideKeyboard(this.mCustomContentView);
         mCustomContentView.onClosePage();
+        // Khôi phục workspace home sau khi đóng negative page (phòng khi slide không kết ở f=1).
+        getDragLayer().setAlpha(1.0f);
         //((CustomContentView.a) getWorkspace().getCustomContentCallbacks()).b(false);
     }
 
@@ -6591,6 +6599,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mCustomContentView.clearFocus();
         mCustomContentView.onOpenPage();
         hideKeyboard(mCustomContentView);
+        // Ghim trạng thái nghỉ khi ĐÃ mở hẳn: ẩn hoàn toàn DragLayer (workspace/hotseat/icon home)
+        // để không lộ page 1 xuyên qua kính. onLeftPageSlide chỉ chạy trong lúc kéo nên đôi khi
+        // không kết ở f=1 => alpha không về 0 => lúc hiện lúc không. Ghim cứng ở đây.
+        getDragLayer().setAlpha(0.0f);
     }
 
     @Override
@@ -6602,6 +6614,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         float f3 = 1.0f - (interpolation2 * 0.1f);
         getDragLayer().setScaleX(f3);
         getDragLayer().setScaleY(f3);
+        // Frost màn trái là kính BÁN TRONG SUỐT nên icon/workspace home lộ xuyên qua ở
+        // nửa trên. Mờ dần DragLayer (workspace + hotseat + icon home) khi mở negative page
+        // để chỉ còn HÌNH NỀN hệ thống hiện qua kính (đúng kiểu iOS). interpolation: 0 đóng -> 1 mở.
+        getDragLayer().setAlpha(1.0f - interpolation);
     }
 
     public static Interpolator initInterpolator(float control1, float control2, float control3, float control4) {
