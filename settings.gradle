@@ -1,4 +1,4 @@
-rootProject.name = "BaseAndroid"
+rootProject.name = "LauncherOS"
 include ':app'
 include ':library:BatterySave'
 include ':library:cropper'
