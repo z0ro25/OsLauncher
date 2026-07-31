@@ -1326,7 +1326,9 @@ public class IconCache {
         // v13: re-rendered the iOS icons from 256px sources, full-bleed & centered.
         // v14: pre-shaped iOS icons (đã bo góc sẵn, góc trong suốt) được render NGUYÊN XI —
         // bỏ bước mask/clip bo góc của launcher đè lên (làm cắt/lệch góc). Bump để dựng lại cache.
-        public static int DB_VERSION = 14;
+        // v15: nhận diện pre-shaped lấy mẫu góc sâu hơn (Utilities.hasTransparentCorners) để
+        // icon squircle thụt vào (Music/Phone) không bị tô nền trắng -> hết VÒNG TRẮNG ở mép.
+        public static int DB_VERSION = 15;
 
         public final static String TABLE_NAME = "icons";
         public final static String COLUMN_ROWID = "rowid";

@@ -5594,6 +5594,16 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      */
     public FastBitmapDrawable createIconDrawable(Bitmap icon) {
 
+        // Icon iOS đã tạo hình sẵn (bo góc baked-in, 4 góc trong suốt): KHÔNG tô nền trắng
+        // squircle của launcher đè lên. Squircle của launcher to hơn squircle thật của những
+        // icon thụt-vào (Music/Phone) nên nền trắng lòi ra thành VÒNG TRẮNG ở mép. Vẽ nguyên xi.
+        if (Utilities.hasTransparentCorners(icon)) {
+            FastBitmapDrawable d = new FastBitmapDrawable(icon);
+            d.setFilterBitmap(true);
+            resizeIconDrawable(d);
+            return d;
+        }
+
         Bitmap newBmp = Bitmap.createBitmap(icon.getWidth(), icon.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(newBmp);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

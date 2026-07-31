@@ -278,13 +278,18 @@ public final class Utilities {
         if (w < 8 || h < 8) {
             return false;
         }
-        // Ngưỡng alpha coi là "trong suốt". Lấy sát 4 góc (inset nhỏ) để tránh viền AA 1px.
-        final int inset = Math.max(1, Math.min(w, h) / 64);
+        // Lấy mẫu SÂU vào trong (min/24 ≈ 10px @256) chứ không sát mép. Squircle iOS trong suốt
+        // trên đường chéo tới ~pixel 16 @256, nên inset này nằm CHẮC trong vùng trong suốt của
+        // MỌI icon pre-shaped (kể cả full-bleed như App Store lẫn loại thụt vào như Music/Phone).
+        // Nếu lấy quá nông (min/64 ≈ 2px), sau khi ảnh bị scale nhỏ điểm mẫu rơi trúng viền AA
+        // (alpha ~38) làm guard trượt -> ảnh bị tô nền trắng squircle -> lộ VÒNG TRẮNG ở mép.
+        // Ngưỡng nới lên <24 để dung sai viền AA còn sót.
+        final int inset = Math.max(3, Math.min(w, h) / 24);
         int a1 = Color.alpha(bitmap.getPixel(inset, inset));
         int a2 = Color.alpha(bitmap.getPixel(w - 1 - inset, inset));
         int a3 = Color.alpha(bitmap.getPixel(inset, h - 1 - inset));
         int a4 = Color.alpha(bitmap.getPixel(w - 1 - inset, h - 1 - inset));
-        boolean cornersClear = a1 < 16 && a2 < 16 && a3 < 16 && a4 < 16;
+        boolean cornersClear = a1 < 24 && a2 < 24 && a3 < 24 && a4 < 24;
         if (!cornersClear) {
             return false;
         }
