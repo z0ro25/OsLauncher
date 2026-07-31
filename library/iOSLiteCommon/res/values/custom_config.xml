@@ -125,7 +125,12 @@
     <integer name="def_launcher_db_version">9</integer>
 
     <!-- default launcher iconcahe version -->
-    <integer name="def_iconcache_db_version">11</integer>
+    <!-- v16: đồng bộ với IconCache.IconDB.DB_VERSION. Partner config này GHI ĐÈ hằng số trong
+         code (IconCache.java:168), nên phải bump ở đây icon cache mới thực sự rebuild -> logo
+         iOS mới (Gmail/Maps/News/TV/Wallet/Meet) hiển thị thay logo gốc đã cache.
+         v17: gỡ gm/apps.maps/videos/apps.tachyon khỏi def_cts_app_list -> 4 app này thôi bị
+         CTS chặn; bump để xoá blob logo gốc đã cache, vẽ lại bằng ic_app_gmail/maps/gtv/gmeet. -->
+    <integer name="def_iconcache_db_version">17</integer>
 
     <!-- default launcher setting version -->
     <integer name="def_setting_db_version">5</integer>
@@ -229,15 +234,14 @@
          IconCache.getThemeIconForAppComp, so anything here bypasses the iOS theme icon.
          Chrome (com.android.chrome) and Play Store (com.android.vending) were removed so the
          iOS override applies: Chrome -> ic_app_browser (Safari), Play -> ic_app_market
-         (App Store), per app_target_app_browser.xml / app_target_app_market.xml classification. -->
+         (App Store), per app_target_app_browser.xml / app_target_app_market.xml classification.
+         Gỡ tiếp gm/apps.maps/videos/apps.tachyon để 4 app này nhận logo iOS mới
+         (Gmail->ic_app_gmail, Maps->ic_app_maps, Google TV->ic_app_gtv, Meet->ic_app_gmeet).
+         Trước đó chúng bị CTS chặn nên giữ logo gốc dù đã có app-type + drawable. -->
     <string-array name="def_cts_app_list" translatable="false">
         <item>com.google.android.googlequicksearchbox</item>
-        <item>com.google.android.gm</item>
-        <item>com.google.android.apps.maps</item>
         <item>com.google.android.music</item>
-        <item>com.google.android.videos</item>
         <item>com.google.android.apps.photos</item>
-        <item>com.google.android.apps.tachyon</item>
         <item>com.google.android.apps.docs</item>
         <item>com.google.android.youtube</item>
     </string-array>

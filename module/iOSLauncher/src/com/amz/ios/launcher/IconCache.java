@@ -1328,7 +1328,11 @@ public class IconCache {
         // bỏ bước mask/clip bo góc của launcher đè lên (làm cắt/lệch góc). Bump để dựng lại cache.
         // v15: nhận diện pre-shaped lấy mẫu góc sâu hơn (Utilities.hasTransparentCorners) để
         // icon squircle thụt vào (Music/Phone) không bị tô nền trắng -> hết VÒNG TRẮNG ở mép.
-        public static int DB_VERSION = 15;
+        // v16: thêm 6 logo iOS cho app Google (Gmail/Maps/News/TV/Wallet/Meet). Bump để xoá
+        // bitmap cache cũ (logo gốc) -> vẽ lại bằng logo iOS mới.
+        // v17: gỡ gm/apps.maps/videos/apps.tachyon khỏi def_cts_app_list (CTS chặn re-skin).
+        // Bump để xoá blob logo gốc của Gmail/Maps/Google TV/Meet -> vẽ lại bằng logo iOS.
+        public static int DB_VERSION = 17;
 
         public final static String TABLE_NAME = "icons";
         public final static String COLUMN_ROWID = "rowid";

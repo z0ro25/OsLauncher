@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <favorite launcher:uri="geo:0,0" />
+
+    <favorite
+        launcher:className="com.google.android.maps.MapsActivity"
+        launcher:packageName="com.google.android.apps.maps" />
+</items>

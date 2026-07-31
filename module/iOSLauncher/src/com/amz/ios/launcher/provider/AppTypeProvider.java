@@ -28,7 +28,9 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
     // forces onUpgrade → createEmptyDB so the market type is (re)inserted on existing installs.
     // v4: classify Google Clock (com.google.android.deskclock) via app_target_app_clock.xml so
     // ic_app_clock applies; re-parse app-type xmls to pick up the new clock entry.
-    private static final int DATABASE_VERSION = 4;
+    // v5: thêm 6 app Google (Gmail/Maps/News/TV/Wallet/Meet) -> logo iOS; bump để re-parse
+    // app-type xmls, nhận 6 type mới trên máy đã cài.
+    private static final int DATABASE_VERSION = 5;
     public static final String AUTHORITY = "com.amz.ios.launcher.apptype";
 
     public static final String TABLE_APP_TYPE = "apptypeitems";

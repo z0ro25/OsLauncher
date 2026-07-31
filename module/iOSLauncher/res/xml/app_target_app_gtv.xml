@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
+    <favorite
+        launcher:className="com.google.android.videos.GoogleTvEntryPoint"
+        launcher:packageName="com.google.android.videos" />
+</items>

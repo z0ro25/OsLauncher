@@ -63,6 +63,14 @@ public class AppTypeParser {
 //    private static final String APP_TYPE_BOOK = "app_book";
     // iOS override: map the app store (Google Play etc.) to the iOS App Store icon (ic_app_market).
     public static final String APP_TYPE_MARKET = "app_market";
+
+    // iOS override cho các app Google phổ biến -> logo iOS tương ứng (ic_app_<type>).
+    public static final String APP_TYPE_GMAIL = "app_gmail";       // Gmail -> Mail
+    public static final String APP_TYPE_MAPS = "app_maps";         // Google Maps -> Maps
+    public static final String APP_TYPE_GNEWS = "app_gnews";       // Google News -> News
+    public static final String APP_TYPE_GTV = "app_gtv";           // Google TV -> TV
+    public static final String APP_TYPE_GWALLET = "app_gwallet";   // Google Wallet -> Wallet
+    public static final String APP_TYPE_GMEET = "app_gmeet";       // Google Meet -> FaceTime
 //    private static final String APP_TYPE_DOWNLOAD = "app_download";
     //    public static final String APP_TYPE_TORCH = "app_torch";
 
@@ -116,6 +124,14 @@ public class AppTypeParser {
 //        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_BOOK);
         PRE_SYSTEM_APP_TYPES.add(APP_TYPE_MARKET);
 //        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_DOWNLOAD);
+
+        // Google apps -> logo iOS
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GMAIL);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_MAPS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GNEWS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GTV);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GWALLET);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GMEET);
 
         // third app types
         PRE_THIRD_APP_TYPES = new HashSet<>();
