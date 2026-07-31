@@ -1308,7 +1308,10 @@ public class IconCache {
     }
 
     public static final class IconDB extends SQLiteOpenHelper {
-        public static int DB_VERSION = 11;
+        // v12: iOS system-app icons (ic_app_browser/gallery/market/mms/note/settings/
+        // calendar/camera/clock/music/phone swapped to iOS art). Bump to invalidate the
+        // cached bitmaps so the new icons show on existing installs.
+        public static int DB_VERSION = 12;
 
         public final static String TABLE_NAME = "icons";
         public final static String COLUMN_ROWID = "rowid";
