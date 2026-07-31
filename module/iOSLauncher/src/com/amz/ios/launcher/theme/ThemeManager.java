@@ -38,6 +38,7 @@ import com.amz.ios.launcher.IconCache;
 import com.amz.ios.launcher.InvariantDeviceProfile;
 import com.amz.ios.launcher.LauncherModel;
 import com.amz.ios.launcher.R;
+import com.amz.ios.launcher.Utilities;
 import com.amz.ios.launcher.config.Settings;
 import com.amz.ios.launcher.leftpage.drawables.CalendarDrawable;
 import com.amz.ios.launcher.provider.AppTypeProvider;
@@ -424,9 +425,28 @@ public class ThemeManager {
             iconDrawable = readDrawableFromAssetForComp(cn, mThemePkgContext.getAssets(), mThemePkgResource);
         }
 
+        // Đọc thẳng bitmap gốc của drawable (KHÔNG qua drawableToBitmap — hàm đó nhét ảnh vào
+        // squircle của launcher, làm mất/che góc thật của ảnh nguồn). Chỉ khi không lấy được
+        // bitmap gốc mới rơi về đường cũ.
+        Bitmap rawBitmap = null;
+        if (iconDrawable instanceof BitmapDrawable) {
+            rawBitmap = ((BitmapDrawable) iconDrawable).getBitmap();
+        }
+
+        // Nếu ảnh nguồn ĐÃ được bo góc sẵn (logo iOS 256×256: 4 góc trong suốt) thì trả về
+        // NGUYÊN XI — hiển thị đúng "ảnh trong file", không mask/clip lại bằng bo góc khác.
+        if (rawBitmap != null && Utilities.hasTransparentCorners(rawBitmap)) {
+            return new FastBitmapDrawable(rawBitmap);
+        }
+
         Bitmap bitmap = mIconCache.drawableToBitmap(iconDrawable);
 
         if (bitmap == null) return null;
+
+        // Ảnh đã tạo hình sẵn (góc trong suốt) — giữ nguyên, không bo lại.
+        if (Utilities.hasTransparentCorners(bitmap)) {
+            return new FastBitmapDrawable(bitmap);
+        }
 
         Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 

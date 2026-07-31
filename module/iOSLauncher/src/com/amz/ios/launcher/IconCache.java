@@ -516,6 +516,18 @@ public class IconCache {
 
     public Drawable getRoundDrawable(Drawable drawable){
 
+        // Nếu drawable đã là ảnh tạo hình sẵn (logo iOS: 4 góc trong suốt) thì trả NGUYÊN XI —
+        // không nhét lại vào squircle/bo góc của launcher (sẽ cắt/lệch góc thật của ảnh).
+        Bitmap raw = null;
+        if (drawable instanceof BitmapDrawable) {
+            raw = ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof FastBitmapDrawable) {
+            raw = ((FastBitmapDrawable) drawable).getBitmap();
+        }
+        if (Utilities.hasTransparentCorners(raw)) {
+            return drawable;
+        }
+
         Bitmap bmp = drawableToBitmap(drawable);
         Bitmap bitmap = Utilities.createIconBitmap(bmp,mContext);
 
@@ -1311,7 +1323,10 @@ public class IconCache {
         // v12: iOS system-app icons (ic_app_browser/gallery/market/mms/note/settings/
         // calendar/camera/clock/music/phone swapped to iOS art). Bump to invalidate the
         // cached bitmaps so the new icons show on existing installs.
-        public static int DB_VERSION = 12;
+        // v13: re-rendered the iOS icons from 256px sources, full-bleed & centered.
+        // v14: pre-shaped iOS icons (đã bo góc sẵn, góc trong suốt) được render NGUYÊN XI —
+        // bỏ bước mask/clip bo góc của launcher đè lên (làm cắt/lệch góc). Bump để dựng lại cache.
+        public static int DB_VERSION = 14;
 
         public final static String TABLE_NAME = "icons";
         public final static String COLUMN_ROWID = "rowid";

@@ -263,6 +263,37 @@ public final class Utilities {
     }
 
     /**
+     * True nếu bitmap ĐÃ được tạo hình sẵn (bo góc kiểu iOS đã nướng vào ảnh) — nghĩa là
+     * 4 góc trong suốt còn tâm mờ đục. Các logo iOS 256×256 trong res/drawable-xxhdpi rơi vào
+     * nhóm này. Với ảnh như vậy, view PHẢI vẽ nguyên xi (chỉ scale), KHÔNG được clip/mask lại
+     * bằng bo góc khác của launcher — nếu không góc sẽ bị cắt/lệch so với "ảnh trong file".
+     * Ảnh vuông đặc (không trong suốt ở góc) trả về false để vẫn được bo góc kiểu iOS như cũ.
+     */
+    public static boolean hasTransparentCorners(Bitmap bitmap) {
+        if (bitmap == null || !bitmap.hasAlpha()) {
+            return false;
+        }
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        if (w < 8 || h < 8) {
+            return false;
+        }
+        // Ngưỡng alpha coi là "trong suốt". Lấy sát 4 góc (inset nhỏ) để tránh viền AA 1px.
+        final int inset = Math.max(1, Math.min(w, h) / 64);
+        int a1 = Color.alpha(bitmap.getPixel(inset, inset));
+        int a2 = Color.alpha(bitmap.getPixel(w - 1 - inset, inset));
+        int a3 = Color.alpha(bitmap.getPixel(inset, h - 1 - inset));
+        int a4 = Color.alpha(bitmap.getPixel(w - 1 - inset, h - 1 - inset));
+        boolean cornersClear = a1 < 16 && a2 < 16 && a3 < 16 && a4 < 16;
+        if (!cornersClear) {
+            return false;
+        }
+        // Tâm phải đục để chắc chắn đây là icon có nội dung (không phải ảnh rỗng toàn trong suốt).
+        int center = Color.alpha(bitmap.getPixel(w / 2, h / 2));
+        return center > 128;
+    }
+
+    /**
      * An extension of {@link BitmapDrawable} which returns the bitmap pixel size as intrinsic size.
      * This allows the badging to be done based on the action bitmap size rather than
      * the scaled bitmap size.
