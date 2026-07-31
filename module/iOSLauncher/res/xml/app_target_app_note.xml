@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <items xmlns:launcher="http://schemas.android.com/apk/res-auto/com.ios.launcher">
 
+    <!-- Google Keep -> logo iOS Notes (ic_app_note). Keep là app ghi chú Google phổ biến;
+         parser lấy favorite đầu tiên resolve được nên đặt lên đầu. -->
+    <favorite
+        launcher:className="com.google.android.keep.activities.BrowseActivity"
+        launcher:packageName="com.google.android.keep" />
+
     <favorite launcher:className="com.lava.notes.evermemo.StartActivity" launcher:packageName="com.fly.android.notes" />
     <favorite
         launcher:className="com.htc.lucy.editor.LandingActivity"

@@ -129,8 +129,10 @@
          code (IconCache.java:168), nên phải bump ở đây icon cache mới thực sự rebuild -> logo
          iOS mới (Gmail/Maps/News/TV/Wallet/Meet) hiển thị thay logo gốc đã cache.
          v17: gỡ gm/apps.maps/videos/apps.tachyon khỏi def_cts_app_list -> 4 app này thôi bị
-         CTS chặn; bump để xoá blob logo gốc đã cache, vẽ lại bằng ic_app_gmail/maps/gtv/gmeet. -->
-    <integer name="def_iconcache_db_version">17</integer>
+         CTS chặn; bump để xoá blob logo gốc đã cache, vẽ lại bằng ic_app_gmail/maps/gtv/gmeet.
+         v18: gỡ apps.photos khỏi CTS (Photos->ic_app_gallery) + thêm Keep vào app_note
+         (Keep->ic_app_note). Bump để xoá blob chong chóng Google Photos, dựng lại logo iOS. -->
+    <integer name="def_iconcache_db_version">18</integer>
 
     <!-- default launcher setting version -->
     <integer name="def_setting_db_version">5</integer>
@@ -237,11 +239,12 @@
          (App Store), per app_target_app_browser.xml / app_target_app_market.xml classification.
          Gỡ tiếp gm/apps.maps/videos/apps.tachyon để 4 app này nhận logo iOS mới
          (Gmail->ic_app_gmail, Maps->ic_app_maps, Google TV->ic_app_gtv, Meet->ic_app_gmeet).
-         Trước đó chúng bị CTS chặn nên giữ logo gốc dù đã có app-type + drawable. -->
+         Trước đó chúng bị CTS chặn nên giữ logo gốc dù đã có app-type + drawable.
+         Gỡ tiếp apps.photos để Google Photos nhận ic_app_gallery (bông hoa iOS Photos);
+         app-type app_gallery đã map sẵn package này, chỉ bị CTS chặn re-skin. -->
     <string-array name="def_cts_app_list" translatable="false">
         <item>com.google.android.googlequicksearchbox</item>
         <item>com.google.android.music</item>
-        <item>com.google.android.apps.photos</item>
         <item>com.google.android.apps.docs</item>
         <item>com.google.android.youtube</item>
     </string-array>

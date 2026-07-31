@@ -30,7 +30,9 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
     // ic_app_clock applies; re-parse app-type xmls to pick up the new clock entry.
     // v5: thêm 6 app Google (Gmail/Maps/News/TV/Wallet/Meet) -> logo iOS; bump để re-parse
     // app-type xmls, nhận 6 type mới trên máy đã cài.
-    private static final int DATABASE_VERSION = 5;
+    // v6: thêm Google Keep vào app_target_app_note.xml -> app_note giờ resolve được (trước đó
+    // không app note nào cài nên type app_note chưa vào DB). Bump để re-parse, insert app_note.
+    private static final int DATABASE_VERSION = 6;
     public static final String AUTHORITY = "com.amz.ios.launcher.apptype";
 
     public static final String TABLE_APP_TYPE = "apptypeitems";
