@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Outline + viền cho popup dropdown nút Edit — GIỐNG khung folder khi mở (folder_background):
+     panel gần như trong suốt (tint trắng ~8%) để lộ lớp wallpaper đã blur bên dưới
+     (RealtimeBlurView trong edit_home_menu), cộng viền sáng 1dp bao quanh.
+     Fill ở đây trong suốt (blur + tint do RealtimeBlurView lo); shape này tạo outline
+     bo góc cho clipToOutline + vẽ viền kính khi dùng làm foreground. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/bg_round_rect_radius"/>
+    <solid android:color="#00FFFFFF"/>
+    <stroke
+        android:width="1dp"
+        android:color="#80FFFFFF"/>
+</shape>

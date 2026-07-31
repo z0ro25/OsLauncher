@@ -1,103 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Dropdown hiển thị khi bấm nút "Edit" ở góc trái-trên trong chế độ chỉnh sửa home screen.
-     Gồm 3 chức năng: thêm tiện ích, chỉnh sửa page, background. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     Gồm 3 chức năng: thêm tiện ích, chỉnh sửa page, background.
+     Nền frosted-glass THẬT (blur wallpaper real-time) kiểu iOS: RelativeLayout wrap theo
+     LinearLayout menu (định kích thước), RealtimeBlurView neo (align) khít menu -> chỉ blur
+     ĐÚNG vùng popup (không phủ full màn). clipToOutline bo góc, foreground vẽ viền kính mảnh. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_white_round_rect"
-    android:minWidth="180dp"
-    android:orientation="vertical"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp">
+    android:background="@drawable/bg_glass_popup"
+    android:clipToOutline="true"
+    android:foreground="@drawable/bg_glass_popup">
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/menu_container"
+        android:layout_alignBottom="@+id/menu_container"
+        android:layout_alignStart="@+id/menu_container"
+        android:layout_alignEnd="@+id/menu_container"
+        app:realtimeBlurRadius="25dp"
+        app:realtimeDownsampleFactor="4"
+        app:realtimeOverlayColor="#73000000" />
 
     <LinearLayout
-        android:id="@+id/menu_add_widget"
-        android:layout_width="match_parent"
+        android:id="@+id/menu_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp">
+        android:minWidth="180dp"
+        android:orientation="vertical"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_widget" />
-
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/menu_add_widget"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:text="@string/add_widget"
-            android:textColor="#1E232E"
-            android:textSize="14sp" />
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_widget" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="@string/add_widget"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_edit_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_edit_home"
+                android:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="@string/edit_page"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_wallpaper" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="@string/background"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/menu_edit_page"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_edit_home" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:text="@string/edit_page"
-            android:textColor="#1E232E"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/menu_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_wallpaper" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:text="@string/background"
-            android:textColor="#1E232E"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -46,6 +46,20 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
             HeaderViewHolder header = (HeaderViewHolder) holder;
             TextViewCustomFont textViewCustomFont = (TextViewCustomFont)header.itemView;
             textViewCustomFont.setText(mLabel);
+
+            // Căn tiêu đề category thẳng với mép trái của icon app hàng đầu.
+            // Mỗi icon nằm GIỮA ô lưới (4 cột) nên icon đầu bị thụt vào (cellWidth - iconSize)/2,
+            // trong khi tiêu đề bắt đầu từ mép ô => trông "sát lề trái" hơn app bên dưới.
+            // Bù đúng khoảng thụt đó vào paddingStart để tiêu đề khớp với icon đầu tiên.
+            com.amz.ios.launcher.DeviceProfile dp = mLauncher.getDeviceProfile();
+            int gridWidth = dp.getCurrentWidth() - (dp.edgeMarginPx * 2);
+            int cellWidth = gridWidth / 4;
+            int indent = Math.max(0, (cellWidth - dp.iconSizePx) / 2);
+            textViewCustomFont.setPaddingRelative(
+                    indent,
+                    textViewCustomFont.getPaddingTop(),
+                    textViewCustomFont.getPaddingEnd(),
+                    textViewCustomFont.getPaddingBottom());
         }
         else if (holder instanceof ItemViewHolder){
             AppInfo appInfo = mApps.get(position - 1);

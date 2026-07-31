@@ -379,9 +379,9 @@
     <dimen name="search_margin_top">60dp</dimen>
     <dimen name="realtime_blur_height_search_view">130dp</dimen>
     <dimen name="realtime_blur_height_clock_view">150dp</dimen>
-    <!-- Padding trên của list widget màn trái. Đã bỏ đồng hồ (TimeView) ở đầu nên
-         không cần 150dp như cũ, nhưng vẫn cần đủ để widget đầu không chạm status bar. -->
-    <dimen name="left_page_widget_padding_top">100dp</dimen>
+    <!-- Padding trên của list widget màn trái. RecyclerView đã fitsSystemWindows nên tự
+         chừa status bar; thêm khoảng đệm để widget đầu KHÔNG dính sát status bar (kiểu iOS). -->
+    <dimen name="left_page_widget_padding_top">44dp</dimen>
     <dimen name="search_height">60dp</dimen>
     <dimen name="widget_round_corner">18dp</dimen>
     <dimen name="icon_round_corner">13dp</dimen>

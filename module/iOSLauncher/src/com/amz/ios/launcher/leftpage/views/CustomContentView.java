@@ -38,6 +38,7 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
     public CustomZoomButton mAppWidgetsAddBtn;
     public int mMargin;
     public CustomZoomButton mAppWidgetEditDoneBtn;
+    public CustomZoomButton mEditDoneTopBtn;
     public BouncyRecyclerView mListWidgetRV;
     public SlidingUpWidgetsAppStyle mSlidingUpWidgetsAppStyle;
     public SlidingUpWidgetsList mSlidingUpWidgetsList;
@@ -121,6 +122,7 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         this.mSearchBoxRealtimeBlurView = findViewById(R.id.realtime_blur_search_box_custom_content);
         this.mAppWidgetEditDoneBtn = findViewById(R.id.add_widgets_done);
         this.mAppWidgetsAddBtn = findViewById(R.id.add_widgets);
+        this.mEditDoneTopBtn = findViewById(R.id.edit_done_top);
 
         setUpView(mMargin / 2);
         setupListeners();
@@ -170,8 +172,43 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
 
         mSlidingUpWidgetsList.addPanelSlideListener(new WidgetsListSlideListener());
 
+        // Chạm vào vùng TRỐNG của list (không trúng widget nào) khi đang ở chế độ edit
+        // -> thoát edit, giống bấm "Done" ở màn app. Dùng OnItemTouchListener để không
+        // ảnh hưởng tới cuộn / kéo-thả (chỉ bắt tap ngắn, ít di chuyển, không trúng child).
+        mListWidgetRV.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+            float downX, downY;
+
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull android.view.MotionEvent e) {
+                switch (e.getActionMasked()) {
+                    case android.view.MotionEvent.ACTION_DOWN:
+                        downX = e.getX();
+                        downY = e.getY();
+                        break;
+                    case android.view.MotionEvent.ACTION_UP:
+                        if (t) {
+                            float slop = android.view.ViewConfiguration.get(getContext()).getScaledTouchSlop();
+                            boolean isTap = Math.abs(e.getX() - downX) < slop
+                                    && Math.abs(e.getY() - downY) < slop;
+                            if (isTap && rv.findChildViewUnder(e.getX(), e.getY()) == null) {
+                                exitEditMode();
+                            }
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
+
         mAppWidgetsAddBtn.setOnClickListener(this);
         mAppWidgetEditDoneBtn.setOnClickListener(this);
+        mEditDoneTopBtn.setOnClickListener(this);
+    }
+
+    // Thoát chế độ edit: dừng rung + ẩn badge xoá + ẩn nút Add/Done (giống bấm Done).
+    public void exitEditMode(){
+        stopShakingWidgets();
+        disableButtons();
     }
 
     void setAdapter(){
@@ -300,7 +337,11 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         if (id == R.id.ic_search || id == R.id.search_box_left_page) {
             ((Activity) this.mLauncher).startSearch("", false, null, true);
         }
-        if (v == mAppWidgetEditDoneBtn){
+        if (v == mEditDoneTopBtn){
+            // Nút Done góc trên phải: chỉ thoát edit (không đụng tới widget list panel).
+            exitEditMode();
+        }
+        else if (v == mAppWidgetEditDoneBtn){
             stopShakingWidgets();
             disableButtons();
             closeWidgetList();
@@ -329,11 +370,13 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
     public final void disableButtons(){
         this.mAppWidgetEditDoneBtn.setVisibility(GONE);
         this.mAppWidgetsAddBtn.setVisibility(GONE);
+        if (this.mEditDoneTopBtn != null) this.mEditDoneTopBtn.setVisibility(GONE);
     }
 
     public final void enableButtons() {
         this.mAppWidgetEditDoneBtn.setVisibility(VISIBLE);
         this.mAppWidgetsAddBtn.setVisibility(VISIBLE);
+        if (this.mEditDoneTopBtn != null) this.mEditDoneTopBtn.setVisibility(VISIBLE);
     }
 
     public final void startShaking() {

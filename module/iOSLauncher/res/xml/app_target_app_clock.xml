@@ -8,6 +8,12 @@
         launcher:className="com.android.deskclock.DeskClock"
         launcher:packageName="com.android.deskclock" />
 
+    <!-- Google Clock (default on many devices): pkg is com.google.android.deskclock but the
+         launcher activity class is com.android.deskclock.DeskClock. -->
+    <favorite
+        launcher:className="com.android.deskclock.DeskClock"
+        launcher:packageName="com.google.android.deskclock" />
+
     <favorite
         launcher:className="com.android.deskclock.DeskClockTabActivity"
         launcher:packageName="com.android.deskclock" />

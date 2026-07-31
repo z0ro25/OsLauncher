@@ -20,6 +20,33 @@
         app:recyclerview_stiffness="1"/>
     <!-- Đã bỏ dải blur ở đầu màn trái (realtime_blur_search_box_custom_content)
          theo yêu cầu: không che phần trên cùng của màn negative screen. -->
+    <!-- Nút Done ở GÓC TRÊN PHẢI: hiện khi vào chế độ edit (nhấn giữ widget) để tắt edit.
+         Style + kích thước GIỐNG nút Done ở các page app (launcher.xml): pill nhỏ cao 22dp,
+         12sp, nằm sát đỉnh trong khoảng trống giữa status bar và widget đầu -> KHÔNG đè widget.
+         fitsSystemWindows ở root đã chừa status bar nên marginTop nhỏ là đủ. -->
+    <com.amz.ios.launcher.leftpage.custom.CustomZoomButton
+        android:id="@+id/edit_done_top"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:minWidth="58dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/bg_glass_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:gravity="center"
+        android:scaleType="fitEnd"
+        android:text="@string/done"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/status_bar_heightex"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <com.amz.ios.launcher.leftpage.custom.CustomZoomButton
         android:textSize="20sp"
         android:textColor="#000000"

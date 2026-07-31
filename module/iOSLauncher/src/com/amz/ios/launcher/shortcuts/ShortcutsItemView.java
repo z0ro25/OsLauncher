@@ -141,12 +141,7 @@ public class ShortcutsItemView extends PopupItemView implements View.OnLongClick
             }
             mSystemShortcutIcons.addView(shortcutView, index);
         } else {
-            if (mShortcutsLayout.getChildCount() > 0) {
-                View prevChild = mShortcutsLayout.getChildAt(mShortcutsLayout.getChildCount() - 1);
-                if (prevChild instanceof DeepShortcutView) {
-                    prevChild.findViewById(R.id.divider).setVisibility(VISIBLE);
-                }
-            }
+            // Bỏ gạch ngang ngăn cách giữa các mục trong popup (giữ divider ẩn mặc định).
             mShortcutsLayout.addView(shortcutView, index);
         }
     }

@@ -61,7 +61,8 @@ public class AppTypeParser {
 //    private static final String APP_TYPE_EMAIL = "app_email";
 //    private static final String APP_TYPE_SECURITY = "app_security";
 //    private static final String APP_TYPE_BOOK = "app_book";
-//    private static final String APP_TYPE_MARKET = "app_market";
+    // iOS override: map the app store (Google Play etc.) to the iOS App Store icon (ic_app_market).
+    public static final String APP_TYPE_MARKET = "app_market";
 //    private static final String APP_TYPE_DOWNLOAD = "app_download";
     //    public static final String APP_TYPE_TORCH = "app_torch";
 
@@ -113,7 +114,7 @@ public class AppTypeParser {
 //        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_EMAIL);
 //        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_SECURITY);
 //        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_BOOK);
-//        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_MARKET);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_MARKET);
 //        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_DOWNLOAD);
 
         // third app types

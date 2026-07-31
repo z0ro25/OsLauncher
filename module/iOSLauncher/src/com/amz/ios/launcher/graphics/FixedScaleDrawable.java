@@ -18,7 +18,13 @@ import org.xmlpull.v1.XmlPullParser;
 public class FixedScaleDrawable extends DrawableWrapper {
 
     // TODO b/33553066 use the constant defined in MaskableIconDrawable
-    private static final float LEGACY_ICON_SCALE = .7f * .6667f;
+    // iOS-style uniform icons: legacy (non-adaptive) app icons are wrapped onto a white
+    // squircle background. Launcher3 default (.7f * .6667f ≈ 0.47) shrinks the logo hard,
+    // leaving lots of white padding around it — so those apps look inconsistent next to
+    // modern adaptive icons that fill the whole tile. Raise the scale so the wrapped logo
+    // fills the squircle edge-to-edge, matching the "fill up" adaptive icons.
+    // Tune this single value up/down if some logos crop (down) or still show padding (up).
+    private static final float LEGACY_ICON_SCALE = .92f;
     private float mScaleX, mScaleY;
 
     public FixedScaleDrawable() {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền glass cho nút Edit / Done (pill nhỏ). Mờ ĐẬM hơn khung app (bg_glass_tile)
+     để chữ trắng nổi rõ: phủ lớp tối bán trong suốt (~45% đen) + viền kính mảnh,
+     bo góc lớn cho dáng pill. Cùng "chất" frosted với popup nút Edit. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/widget_round_corner"/>
+    <solid android:color="#73000000"/>
+    <stroke
+        android:width="0.5dp"
+        android:color="#40FFFFFF"/>
+</shape>

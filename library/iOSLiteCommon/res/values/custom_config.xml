@@ -225,6 +225,11 @@
         <item>com.ios.biglauncher</item>
     </string-array>
     <string-array name="def_shortcut_black_list" translatable="false"></string-array>
+    <!-- CTS = "keep the app's own icon, never re-skin". isCtsApp() is the first gate in
+         IconCache.getThemeIconForAppComp, so anything here bypasses the iOS theme icon.
+         Chrome (com.android.chrome) and Play Store (com.android.vending) were removed so the
+         iOS override applies: Chrome -> ic_app_browser (Safari), Play -> ic_app_market
+         (App Store), per app_target_app_browser.xml / app_target_app_market.xml classification. -->
     <string-array name="def_cts_app_list" translatable="false">
         <item>com.google.android.googlequicksearchbox</item>
         <item>com.google.android.gm</item>
@@ -235,8 +240,6 @@
         <item>com.google.android.apps.tachyon</item>
         <item>com.google.android.apps.docs</item>
         <item>com.google.android.youtube</item>
-        <item>com.android.vending</item>
-        <item>com.android.chrome</item>
     </string-array>
     <string-array name="def_hide_app_list" translatable="false"></string-array>
     <string-array name="def_not_uninstall_app_list" translatable="false">

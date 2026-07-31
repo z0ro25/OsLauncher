@@ -24,7 +24,11 @@ import java.util.HashMap;
 
 public class AppTypeProvider extends ContentProvider implements AppTypeParser.AppTypeParserCallback {
     private static WeakReference<AppTypeProvider> sAppTypeProvider;
-    private static final int DATABASE_VERSION = 2;
+    // v3: re-enable APP_TYPE_MARKET (Google Play → iOS App Store icon). Bumping the version
+    // forces onUpgrade → createEmptyDB so the market type is (re)inserted on existing installs.
+    // v4: classify Google Clock (com.google.android.deskclock) via app_target_app_clock.xml so
+    // ic_app_clock applies; re-parse app-type xmls to pick up the new clock entry.
+    private static final int DATABASE_VERSION = 4;
     public static final String AUTHORITY = "com.amz.ios.launcher.apptype";
 
     public static final String TABLE_APP_TYPE = "apptypeitems";
@@ -38,6 +42,14 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
     DatabaseHelper mOpenHelper;
     private static HashMap<String, ComponentName> mAppTypeToCompMap = new HashMap<>();
     private static HashMap<ComponentName, String> mAppIconResMap = new HashMap<>();
+    // Package-level fallback: a favorite may store an abbreviated class (e.g.
+    // "com.android.vending/.AssetBrowserActivity") while the app-type map is keyed by the
+    // fully-qualified class resolved from PackageManager. ComponentName.equals is an exact
+    // string compare, so those miss. This maps packageName -> iconResName so we can still
+    // resolve the override. Packages that map to more than one distinct icon (ambiguous, e.g.
+    // a dialer package that also hosts contacts) are removed to avoid cross-assigning icons.
+    private static HashMap<String, String> mAppIconResByPkgMap = new HashMap<>();
+    private static java.util.HashSet<String> mAmbiguousPkgs = new java.util.HashSet<>();
     private boolean mHasLoaderCompletedOnce;
 
     @Override
@@ -77,6 +89,7 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
                 cn = ComponentName.unflattenFromString(componentName);
                 mAppIconResMap.put(cn, iconResName);
                 mAppTypeToCompMap.put(appType, cn);
+                putIconResForPkg(cn, iconResName);
             }
         }
 
@@ -100,7 +113,23 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
         values.put(APP_ICON_RESOURCE_NAME, iconResName);
         mAppIconResMap.put(componentName, iconResName);
         mAppTypeToCompMap.put(type, componentName);
+        putIconResForPkg(componentName, iconResName);
         mOpenHelper.getWritableDatabase().insert(TABLE_APP_TYPE, null, values);
+    }
+
+    // Record packageName -> iconResName, flagging the package ambiguous if two different
+    // icons ever map to it (so we only fall back when a package unambiguously means one icon).
+    private void putIconResForPkg(ComponentName cn, String iconResName) {
+        if (cn == null || iconResName == null) {
+            return;
+        }
+        String pkg = cn.getPackageName();
+        String existing = mAppIconResByPkgMap.get(pkg);
+        if (existing != null && !existing.equals(iconResName)) {
+            mAmbiguousPkgs.add(pkg);
+        } else {
+            mAppIconResByPkgMap.put(pkg, iconResName);
+        }
     }
 
     public ComponentName getComponentNameForAppType(String type) {
@@ -108,7 +137,18 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
     }
 
     public String getIconResNameForComp(ComponentName cn) {
-        return mAppIconResMap.get(cn);
+        String iconResName = mAppIconResMap.get(cn);
+        if (iconResName != null || cn == null) {
+            return iconResName;
+        }
+        // Exact ComponentName miss. Fall back to package-level match so an abbreviated vs
+        // fully-qualified class (e.g. "/.AssetBrowserActivity" vs the resolved full class)
+        // still gets the override — but only when the package maps to a single icon.
+        String pkg = cn.getPackageName();
+        if (mAmbiguousPkgs.contains(pkg)) {
+            return null;
+        }
+        return mAppIconResByPkgMap.get(pkg);
     }
 
 

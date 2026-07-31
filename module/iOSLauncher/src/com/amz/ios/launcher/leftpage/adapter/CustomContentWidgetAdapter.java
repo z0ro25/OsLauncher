@@ -26,6 +26,11 @@ import java.util.ArrayList;
 
 public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter<RecyclerView.ViewHolder> {
 
+    // Trạng thái edit khi kéo-thả: phóng to nhẹ + nâng bóng cho item đang kéo, giống
+    // cảm giác "nhấc" icon lên ở màn app.
+    private static final float DRAG_SCALE = 1.08f;
+    private static final float DRAG_ELEVATION = 24.0f;
+
     private final CustomContentView mCustomContentView;
     private final ArrayList<WidgetInfo> mWidgetInfoArrayList;
 
@@ -170,19 +175,18 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
 
     @Override
     public int getItemCount() {
+        // Bỏ nút "Chỉnh sửa" (item type 100 ở cuối). Vào chế độ edit bằng cách nhấn giữ
+        // widget (long-press) -> rung + kéo thả sắp xếp, giống màn app. Nên chỉ đếm số widget.
         ArrayList<WidgetInfo> arrayList = this.mWidgetInfoArrayList;
         if (arrayList != null) {
-            return 1 + arrayList.size();
+            return arrayList.size();
         }
-        return 1;
+        return 0;
     }
 
     @Override
     public int getItemViewType(int position) {
         if (this.mWidgetInfoArrayList != null) {
-            if (position == getItemCount() - 1) {
-                return 100;
-            }
             return this.mWidgetInfoArrayList.get(position).type;
         }
         return 0;
@@ -230,12 +234,37 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
 
     @Override
     public void onItemSelected(@NonNull RecyclerView.ViewHolder viewHolder) {
-
+        // Bắt đầu kéo: phóng to nhẹ + nâng bóng đổ giống khi kéo icon ở màn app
+        // (item được "nhấc lên" khỏi lưới). Tắt rung của chính item đang kéo cho gọn.
+        if (viewHolder == null) return;
+        if (viewHolder instanceof LauncherWidgetListViewHolder) {
+            ((LauncherWidgetListViewHolder) viewHolder).stopShaking();
+        }
+        View v = viewHolder.itemView;
+        v.animate()
+                .scaleX(DRAG_SCALE).scaleY(DRAG_SCALE)
+                .setDuration(150L)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .start();
+        v.setElevation(DRAG_ELEVATION);
     }
 
     @Override
     public void onItemReleased(RecyclerView.ViewHolder viewHolder) {
-
+        // Thả ra: item trở về kích cỡ thường + hạ bóng, và rung lại nếu vẫn đang ở
+        // chế độ edit (giống các item khác) để người dùng biết vẫn có thể tiếp tục sắp xếp.
+        if (viewHolder == null) return;
+        View v = viewHolder.itemView;
+        v.animate()
+                .scaleX(1.0f).scaleY(1.0f)
+                .setDuration(150L)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .start();
+        v.setElevation(0.0f);
+        if (mCustomContentView != null && mCustomContentView.t
+                && viewHolder instanceof LauncherWidgetListViewHolder) {
+            ((LauncherWidgetListViewHolder) viewHolder).startShaking();
+        }
     }
 
     public class WidgetItemViewHolder extends RecyclerView.ViewHolder{

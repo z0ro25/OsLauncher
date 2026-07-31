@@ -129,6 +129,11 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
                 return result;
             }
         }
+        // Màn Search (kéo xuống, view == null): phủ scrim tối để nền mờ ĐẬM hơn theo yêu cầu.
+        if (view == null && launcher.isOpeningSearchView()
+                && !launcher.isOpeningLeftPage() && !launcher.isOpeningAppsLibrary()) {
+            result = blurScreenLayout.applyScrim(result, SEARCH_SCRIM);
+        }
         return result;
     }
 
@@ -327,6 +332,11 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
     // Lớp phủ tối (scrim) đặt lên trên wallpaper đã blur để ra "kính mờ đục kiểu iOS":
     // wallpaper mờ mạnh + tối vừa phải, các pod/widget bên trên nổi rõ. ~28% đen.
     private static final int LEFT_PAGE_SCRIM = 0x48000000;
+
+    // Scrim cho màn Search (kéo xuống): trước đây nền search chỉ là wallpaper-blur nhạt
+    // (không scrim) nên nhìn còn "trong". Phủ thêm lớp tối để nền mờ ĐẬM hơn, ô search +
+    // icon gợi ý nổi rõ hơn. ~50% đen (đậm hơn LEFT_PAGE_SCRIM một chút cho giống ảnh mẫu).
+    private static final int SEARCH_SCRIM = 0x80000000;
 
     // Vẽ lớp scrim tối lên trên bitmap (in-place). Trả lại chính bitmap đó.
     private Bitmap applyScrim(Bitmap bmp, int scrimColor) {
