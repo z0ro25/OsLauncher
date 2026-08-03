@@ -55,37 +55,52 @@ public class CalendarDrawable extends Drawable {
 
     @Override
     public void draw(@NonNull Canvas canvas) {
-        int save = canvas.save();
-        if (!this.isFirstDraw) {
-            canvas.clipRect(
-                    new RectF(
-                            .0f, .0f, this.mWidth, this.mHeight
-                    )
-            );
-            this.isFirstDraw = true;
+        // Vẽ theo ĐÚNG ô launcher cấp (getBounds()) thay vì kích thước bitmap nguồn cố định.
+        // Trước đây dùng mWidth/mHeight (size png nguồn) và bỏ qua bounds → khi png nguồn khác
+        // cỡ ô icon thì nền + chữ bị lệch phải và cắt mép. Giờ canh giữa đúng ô.
+        Rect bounds = getBounds();
+        float w = bounds.width();
+        float h = bounds.height();
+        if (w <= 0 || h <= 0) {
+            w = this.mWidth;
+            h = this.mHeight;
         }
 
-        int midX = this.mWidth / 2;
+        int save = canvas.save();
+        canvas.translate(bounds.left, bounds.top);
+        canvas.clipRect(0f, 0f, w, h);
 
-        ClockDrawable.drawBg(canvas, this.mWidth, this.mHeight, this.mBgPaint);
+        float midX = w / 2f;
+
+        ClockDrawable.drawBg(canvas, w, h, this.mBgPaint);
 
         Calendar calendar = Calendar.getInstance();
         String weekDay = this.mDateFormat.format(calendar.getTime()).toUpperCase();
         this.mTextBound.setEmpty();
         String dayOfMonth = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        this.mDayOfMonthPaint.setTextSize(this.mHeight / 1.5f);
+        this.mDayOfMonthPaint.setTextSize(h / 1.5f);
         this.mDayOfMonthPaint.getTextBounds(dayOfMonth, 0, dayOfMonth.length(), this.mTextBound);
-        canvas.drawText(dayOfMonth, (float) midX, this.mHeight - (this.mHeight * 0.15f), this.mDayOfMonthPaint);
+        canvas.drawText(dayOfMonth, midX, h - (h * 0.15f), this.mDayOfMonthPaint);
 
         this.mTextBound.setEmpty();
-        float textSize = this.mHeight / 6.0f;
+        float textSize = h / 6.0f;
         this.mWeekDayPaint.setTextSize(textSize);
         this.mWeekDayPaint.getTextBounds(weekDay, 0, weekDay.length(), this.mTextBound);
-        this.mWeekDayPaint.setTextSize(Math.min(((this.mWidth * 0.9f) * textSize) / this.mTextBound.width(), textSize));
+        this.mWeekDayPaint.setTextSize(Math.min(((w * 0.9f) * textSize) / this.mTextBound.width(), textSize));
         this.mWeekDayPaint.getTextBounds(weekDay, 0, weekDay.length(), this.mTextBound);
-        canvas.drawText(weekDay, (float) midX, this.mHeight * 0.26f, this.mWeekDayPaint);
+        canvas.drawText(weekDay, midX, h * 0.26f, this.mWeekDayPaint);
 
         canvas.restoreToCount(save);
+    }
+
+    @Override
+    public int getIntrinsicWidth() {
+        return this.mWidth;
+    }
+
+    @Override
+    public int getIntrinsicHeight() {
+        return this.mHeight;
     }
 
     @Override
