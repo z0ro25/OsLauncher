@@ -3,7 +3,7 @@
     <include launcher:workspace="@xml/dw_phone_hotseat_4" />
     <!-- 2 widget mặc định ở page đầu: đồng hồ + ảnh gần đây từ thư viện (widget nội bộ,
          packageName trùng applicationId thật nên không cần bind như widget hệ thống). -->
-    <appwidget launcher:className="com.amz.ios.launcher.widget.widgetprovider.ClockWidgetProvider" launcher:packageName="com.oslauncher.applauncher.themelauncher" launcher:screen="0" launcher:spanX="2" launcher:spanY="2" launcher:x="0" launcher:y="0" />
+    <appwidget launcher:className="com.amz.ios.launcher.widget.widgetprovider.AnalogClockWidgetProvider" launcher:packageName="com.oslauncher.applauncher.themelauncher" launcher:screen="0" launcher:spanX="2" launcher:spanY="2" launcher:x="0" launcher:y="0" />
     <appwidget launcher:className="com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider" launcher:packageName="com.oslauncher.applauncher.themelauncher" launcher:screen="0" launcher:spanX="2" launcher:spanY="2" launcher:x="2" launcher:y="0" />
     <resolver launcher:screen="0" launcher:x="0" launcher:y="2">
         <favorite launcher:appType="app_gallery" />

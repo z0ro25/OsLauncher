@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World clock 4 thành phố (span 4x2). Nền glass, mỗi cột 1 đồng hồ kim nhỏ
+     (không số, không kim giây) + City + Today/Tomorrow + chênh lệch giờ.
+     Múi giờ & nhãn động khai báo trực tiếp qua custom attrs, không cần code bind. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_glass_tile"
+    android:baselineAligned="false"
+    android:padding="12dp"
+    android:weightSum="4">
+
+    <!-- City 1: New York -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <com.amz.ios.launcher.widget.view.AnalogClockView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:acvShowNumbers="false"
+            app:acvShowSecond="false"
+            app:acvTimeZone="America/New_York" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="NYC"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="day"
+            app:wctvTimeZone="America/New_York" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="diff"
+            app:wctvTimeZone="America/New_York" />
+    </LinearLayout>
+
+    <!-- City 2: London -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <com.amz.ios.launcher.widget.view.AnalogClockView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:acvShowNumbers="false"
+            app:acvShowSecond="false"
+            app:acvTimeZone="Europe/London" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="LON"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="day"
+            app:wctvTimeZone="Europe/London" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="diff"
+            app:wctvTimeZone="Europe/London" />
+    </LinearLayout>
+
+    <!-- City 3: Dubai -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <com.amz.ios.launcher.widget.view.AnalogClockView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:acvShowNumbers="false"
+            app:acvShowSecond="false"
+            app:acvTimeZone="Asia/Dubai" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="DXB"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="day"
+            app:wctvTimeZone="Asia/Dubai" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="diff"
+            app:wctvTimeZone="Asia/Dubai" />
+    </LinearLayout>
+
+    <!-- City 4: Sydney -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <com.amz.ios.launcher.widget.view.AnalogClockView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:acvShowNumbers="false"
+            app:acvShowSecond="false"
+            app:acvTimeZone="Australia/Sydney" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="SYD"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="day"
+            app:wctvTimeZone="Australia/Sydney" />
+
+        <com.amz.ios.launcher.widget.view.WorldClockTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:alpha="0.7"
+            app:wctvMode="diff"
+            app:wctvTimeZone="Australia/Sydney" />
+    </LinearLayout>
+</LinearLayout>

@@ -267,4 +267,26 @@
         <attr name="cropFlipVertically" format="boolean"/>
     </declare-styleable>
 
+    <!-- Đồng hồ kim tự vẽ dùng cho widget nội bộ. -->
+    <declare-styleable name="AnalogClockView">
+        <!-- Múi giờ hiển thị, vd "America/New_York". Rỗng = múi giờ máy. -->
+        <attr name="acvTimeZone" format="string"/>
+        <!-- Hiện kim giây (cam). Page 0 để false. -->
+        <attr name="acvShowSecond" format="boolean"/>
+        <!-- Hiện số 1-12 trên mặt. Mini analog nên tắt cho gọn. -->
+        <attr name="acvShowNumbers" format="boolean"/>
+        <!-- Vẽ vạch chia giờ/phút quanh mặt số (kiểu iOS). Page 0 bật. -->
+        <attr name="acvShowTicks" format="boolean"/>
+    </declare-styleable>
+
+    <!-- TextView tự tính nội dung theo múi giờ (world clock). -->
+    <declare-styleable name="WorldClockTextView">
+        <attr name="wctvTimeZone" format="string"/>
+        <!-- day = Today/Tomorrow/Yesterday; diff = chênh lệch giờ +3HRS. -->
+        <attr name="wctvMode" format="enum">
+            <enum name="day" value="0"/>
+            <enum name="diff" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

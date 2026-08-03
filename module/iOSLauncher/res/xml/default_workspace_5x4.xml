@@ -6,7 +6,7 @@
          sau đó các app thật sẽ tự động lấp kín các ô còn lại bên dưới.
          packageName phải trùng applicationId thật của app để parser nhận diện là
          widget nội bộ (IOS_WIDGET_ID) thay vì widget hệ thống. -->
-    <appwidget launcher:className="com.amz.ios.launcher.widget.widgetprovider.ClockWidgetProvider" launcher:packageName="com.oslauncher.applauncher.themelauncher" launcher:screen="0" launcher:spanX="2" launcher:spanY="2" launcher:x="0" launcher:y="0" />
+    <appwidget launcher:className="com.amz.ios.launcher.widget.widgetprovider.AnalogClockWidgetProvider" launcher:packageName="com.oslauncher.applauncher.themelauncher" launcher:screen="0" launcher:spanX="2" launcher:spanY="2" launcher:x="0" launcher:y="0" />
     <appwidget launcher:className="com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider" launcher:packageName="com.oslauncher.applauncher.themelauncher" launcher:screen="0" launcher:spanX="2" launcher:spanY="2" launcher:x="2" launcher:y="0" />
     <!-- Các app thật được tự động xếp kín từ y=2 trở xuống. -->
 </favorites>

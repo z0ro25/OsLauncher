@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Biến thể glass đậm hơn cho widget đồng hồ kim page 0. Nền xám trắng mờ
+     đậm hơn bg_glass_tile để mặt đồng hồ nổi bật hơn trên wallpaper sáng. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/widget_round_corner"/>
+    <gradient
+        android:angle="270"
+        android:startColor="#80EDEDED"
+        android:endColor="#66DCDCDC"
+        android:type="linear"/>
+    <stroke
+        android:width="0.5dp"
+        android:color="#33FFFFFF"/>
+</shape>

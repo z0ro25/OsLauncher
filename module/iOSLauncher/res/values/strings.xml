@@ -704,6 +704,9 @@
     <string name="search_maps">Search Maps</string>
     <string name="picture">Picture</string>
     <string name="clock">Clock</string>
+    <string name="analog_clock">Analog Clock</string>
+    <string name="world_clock">World Clock</string>
+    <string name="city_clock">City Clock</string>
     <string name="add_widget">Add widget</string>
     <string name="edit_page">Edit page</string>
     <string name="background">Background</string>

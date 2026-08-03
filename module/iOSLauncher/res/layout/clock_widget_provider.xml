@@ -3,7 +3,7 @@
     android:id="@+id/widget_clock_layout"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/round_rect_qsb_dark"
+    android:background="@drawable/bg_glass_tile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_padding">
