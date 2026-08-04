@@ -176,4 +176,7 @@
     <color name="ic_launcher_background">#f55eb5</color>
     <color name="bg_color_normal">#4deeeeee</color>
     <color name="bg_search">#35ffffff</color>
+
+    <!-- Viền khung blur glass của dock (DockBlurView, hiệu ứng iOS 26). Trắng mờ nhẹ. -->
+    <color name="dock_glass_stroke_color">#40FFFFFF</color>
 </resources>

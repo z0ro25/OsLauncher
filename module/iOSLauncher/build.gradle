@@ -83,6 +83,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
 
+    // Mở khoá hidden-API (LSPosed) để gọi ViewRootImpl.createBackgroundBlurDrawable (@hide) trên
+    // máy stock — dùng cho hiệu ứng background-blur bo góc của dock glass (DockBlurView).
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+
     //Glide
     implementation "com.github.bumptech.glide:glide:4.13.2"
     implementation project(':library:iOSLiteCommon')

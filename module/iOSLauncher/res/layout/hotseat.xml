@@ -33,11 +33,12 @@
                     launcher:realtimeOverlayColor="@color/white50percent"
                     android:layout_alignStart="@+id/layout" />
                     -->
-                <!-- Khung glass tĩnh bao hàng icon dock (kiểu dock iOS).
-                     Neo start+top vào @id/layout; kích thước + margin được tính
-                     trong Hotseat.positionDockGlass() để ôm SÁT khối icon
-                     (CellLayout luôn đo full-width nên không thể wrap bằng XML). -->
-                <View
+                <!-- Khung blur glass bao hàng icon dock (hiệu ứng iOS 26): blur nền thật
+                     phía sau + bo góc + viền (DockBlurView). Neo start+top vào @id/layout;
+                     kích thước + margin được tính trong Hotseat.positionDockGlass() để ôm
+                     SÁT khối icon (CellLayout luôn đo full-width nên không thể wrap bằng XML).
+                     overlayColor để trong suốt -> vẫn thấy hình nền mờ mờ xuyên qua dock. -->
+                <com.amz.ios.launcher.DockBlurView
                     android:id="@+id/dock_glass_bg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
                     android:layout_alignTop="@+id/layout"
                     android:layout_alignBottom="@+id/layout"
                     android:visibility="gone"
-                    android:background="@drawable/bg_glass_dock" />
+                    launcher:realtimeBlurRadius="25dp" />
                 <com.amz.ios.launcher.CellLayout
                     android:id="@+id/layout"
                     launcher:layout_constraintStart_toStartOf="parent"

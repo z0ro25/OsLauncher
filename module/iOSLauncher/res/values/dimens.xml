@@ -394,6 +394,10 @@
     <dimen name="dock_glass_padding_horizontal">14dp</dimen>
     <dimen name="dock_glass_padding_vertical">10dp</dimen>
 
+    <!-- Khung blur glass của dock (DockBlurView, hiệu ứng iOS 26). Tài nguyên RIÊNG cho dock. -->
+    <dimen name="dock_glass_corner_radius">28dp</dimen>
+    <dimen name="dock_glass_stroke_width">1dp</dimen>
+
     <dimen name="clock_hand_size">1dp</dimen>
     <dimen name="clock_padding">3dp</dimen>
     <dimen name="clock_text_size">3dp</dimen>
