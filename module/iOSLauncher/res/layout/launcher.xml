@@ -185,6 +185,18 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true" />
+
+        <!-- Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật kiểu iOS, dùng
+             HiddenApiBypass). Anchor vô hình full-screen; overlay window dựng trong
+             AppLibraryBlurView.setBlurFraction() do onAppsLibrarySlide gọi. Tách riêng khỏi
+             blur_apps_library_background (đang dùng chung với negative page).
+             ĐẶT CUỐI CÙNG: cha (LauncherDragLayer) cast child theo index 0..3 — chèn ở giữa
+             sẽ lệch index gây ClassCastException; child #5 (index 4) là an toàn. -->
+        <com.amz.ios.launcher.AppLibraryBlurView
+            android:id="@+id/apps_library_frost_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true" />
     </com.amz.ios.launcher.applibrary.DragAppsLibraryLayout>
 
     <com.amz.ios.launcher.searchview.SearchViewLayout

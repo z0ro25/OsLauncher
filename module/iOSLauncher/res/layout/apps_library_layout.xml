@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge android:background="@color/black" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical" android:id="@+id/apps_child" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutDescription="@xml/apps_library_layout_scene">
+<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical" android:id="@+id/apps_child" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent" app:layoutDescription="@xml/apps_library_layout_scene">
     <FrameLayout android:id="@+id/layout_list_apps_library" android:fitsSystemWindows="true" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent">
         <com.amz.ios.launcher.bounce.BouncyRecyclerView
             android:id="@+id/list_apps_library"

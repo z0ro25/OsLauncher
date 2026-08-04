@@ -389,6 +389,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     //    private SearchDropTargetBar mSearchDropTargetBar;
     public DragAppsLibraryLayout mDragAppsLibraryLayout;
     public BlurScreenLayout mSliderBlurBg;
+    // Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật, HiddenApiBypass).
+    public AppLibraryBlurView mAppsLibraryFrostBg;
 
     public AppsLibraryLayout mAppsLibraryLayout;
     public CustomContentView mCustomContentView;
@@ -834,6 +836,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mAppsLibraryLayout = findViewById(R.id.apps_library_layout);
         mCustomContentView = findViewById(R.id.left_page);
         mSliderBlurBg = findViewById(R.id.blur_apps_library_background);
+        mAppsLibraryFrostBg = findViewById(R.id.apps_library_frost_bg);
 
         mSearchViewLayout = findViewById(R.id.search_view);
         mSearchViewLayout.setSearchViewLayoutDelegate(this);
@@ -2448,6 +2451,15 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             AbstractFloatingView.closeAllOpenViews(this, alreadyOnHome);
             Log.d(TAG, "AbstractFloatingView.closeAllOpenViews onNewIntent: ");
             exitSpringLoadedDragMode();
+            // Nhấn HOME khi App Library đang mở: đóng pane BẰNG ĐÚNG đường animation (closeAppsLibrary)
+            // -> slide chạy về f=1, tự bắn onAppsLibraryOpened khôi phục frost=0 + DragLayer alpha=1.
+            // (Trước đây chỉ ép alpha/blur mà KHÔNG đóng pane -> pane treo, icon home chồng lên card.)
+            if (mDragAppsLibraryLayout != null
+                    && mDragAppsLibraryLayout.isAppsLibraryOpening(mDeviceProfile.getCurrentWidth())) {
+                mDragAppsLibraryLayout.closeAppsLibrary();
+            }
+            resetHomeTransform();
+            if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(0.0f);
 
             boolean success = closeFolder();
 
@@ -6549,6 +6561,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onAppsLibraryClosed() {
         // TODO: 2023.11.08 Hide Blur Effect
         //mAppsLibraryLayout.mSearchBlurView.setBitmapBackground(appsLibraryLayout.e.getAppsLibraryBlurBackgroundView().getBlurBitmap());
+        // NGHỊCH TÊN (đo bằng log): callback này bắn khi App Library MỞ HẲN (f=0, mLeftOfAppsLibrary=0).
+        // -> ghim trạng thái MỞ: frost đầy + ẩn hẳn WORKSPACE (KHÔNG đụng DragLayer để dock/hotseat
+        //    vẫn HIỆN như iOS) -> chỉ còn HÌNH NỀN mờ hiện qua kính.
+        if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(1.0f);
+        setWorkspaceHidden(true);
     }
 
     //todo app library
@@ -6577,17 +6594,58 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         }
         this.mAppsLibraryLayout.ensureReady(appsForLibrary);
+        // NGHỊCH TÊN (đo bằng log): callback này bắn khi VỀ HOME (f=1, App Library đóng hẳn).
+        // -> gỡ hẳn frost + khôi phục workspace + reset alpha/scale DragLayer về trạng thái nghỉ
+        //    (fix fling bị cắt ngang làm kẹt alpha/scale -> mất sạch app + dock).
+        if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(0.0f);
+        resetHomeTransform();
+    }
+
+    /**
+     * Ẩn/hiện MÀN HOME khi mở App Library / negative page. Fade RIÊNG WorkspaceRootView (bao workspace
+     * + hotseat/dock + page_indicator) thay vì cả DragLayer -> khi fling bị cắt ngang không kẹt
+     * alpha=0 làm mất luôn dock. Ẩn cả dock + chấm indicator để App Library không đè chồng (kiểu iOS).
+     */
+    private void setWorkspaceHidden(boolean hidden) {
+        setHomeAlpha(hidden ? 0.0f : 1.0f);
+    }
+
+    /**
+     * Đặt alpha cho toàn màn home (workspace + hotseat + page_indicator) theo tiến trình vuốt
+     * (0 ẩn hẳn -> 1 hiện đủ). Dùng WorkspaceRootView nên ẩn luôn chấm indicator ở đáy.
+     */
+    private void setHomeAlpha(float alpha) {
+        if (mWorkspaceRootView != null) mWorkspaceRootView.setAlpha(alpha);
+    }
+
+    /**
+     * Khôi phục CỨNG trạng thái nghỉ của màn home: workspace + hotseat hiện đủ, alpha/scale DragLayer
+     * về 1. Gọi ở mọi điểm kết thúc (Opened/Closed) để dù animation bị cắt ngang cũng không kẹt.
+     */
+    private void resetHomeTransform() {
+        setWorkspaceHidden(false);
+        View dl = getDragLayer();
+        dl.setAlpha(1.0f);
+        dl.setScaleX(1.0f);
+        dl.setScaleY(1.0f);
     }
 
     @Override
     public void onAppsLibrarySlide(float f) {
         float f2 = 1.0f - f;
         float interpolation = initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
-        float interpolation2 = initInterpolator(0.35f, 0.19f, 0.84f, 0.56f).getInterpolation(f2);
-        mSliderBlurBg.changeBlur(interpolation);
-        float f3 = 1.0f - (interpolation2 * 0.1f);
-        getDragLayer().setScaleX(f3);
-        getDragLayer().setScaleY(f3);
+        // CHIỀU THỰC TẾ (đo bằng log): App Library MỞ HẲN -> f=0 -> interpolation=1;
+        // về HOME -> f=1 -> interpolation=0. Vậy interpolation CHÍNH LÀ cường độ MỞ.
+        // Nền frosted THẬT (blur wallpaper qua HiddenApiBypass): blur mạnh dần khi MỞ.
+        if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(interpolation);
+        // KHÔNG co (zoom-out) màn page khi vuốt sang App Library: chỉ mờ dần rồi ẩn (phẳng, không
+        // thu nhỏ). Trước đây setScaleX/Y(1.0->0.9) làm page co lại; đã bỏ theo yêu cầu. (Negative
+        // page bên trái vẫn giữ zoom gốc ở onLeftPageSlide.)
+        //
+        // App Library là kính BÁN TRONG SUỐT (thấy wallpaper mờ) nên MÀN HOME lộ xuyên qua. Mờ dần
+        // RIÊNG workspace + hotseat khi MỞ (KHÔNG đụng DragLayer -> không tái phát bug fling mất dock;
+        // ẩn cả dock để App Library không đè chồng lên). Về HOME interpolation=0 -> alpha=1 hiện đủ.
+        setHomeAlpha(1.0f - interpolation);
     }
 
     private BlurScreenLayout getAppsLibraryBlurBackgroundView() {
@@ -6599,8 +6657,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageClosed() {
         hideKeyboard(this.mCustomContentView);
         mCustomContentView.onClosePage();
-        // Khôi phục workspace home sau khi đóng negative page (phòng khi slide không kết ở f=1).
-        getDragLayer().setAlpha(1.0f);
+        // Khôi phục CỨNG workspace + alpha/scale home sau khi đóng negative page (phòng slide bị cắt
+        // ngang không kết ở f=1 -> kẹt mờ). Reset chung như App Library.
+        resetHomeTransform();
         //((CustomContentView.a) getWorkspace().getCustomContentCallbacks()).b(false);
     }
 
@@ -6609,10 +6668,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mCustomContentView.clearFocus();
         mCustomContentView.onOpenPage();
         hideKeyboard(mCustomContentView);
-        // Ghim trạng thái nghỉ khi ĐÃ mở hẳn: ẩn hoàn toàn DragLayer (workspace/hotseat/icon home)
+        // Ghim trạng thái nghỉ khi ĐÃ mở hẳn: ẩn WORKSPACE (KHÔNG đụng DragLayer để dock vẫn hiện)
         // để không lộ page 1 xuyên qua kính. onLeftPageSlide chỉ chạy trong lúc kéo nên đôi khi
         // không kết ở f=1 => alpha không về 0 => lúc hiện lúc không. Ghim cứng ở đây.
-        getDragLayer().setAlpha(0.0f);
+        setWorkspaceHidden(true);
     }
 
     @Override
@@ -6624,10 +6683,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         float f3 = 1.0f - (interpolation2 * 0.1f);
         getDragLayer().setScaleX(f3);
         getDragLayer().setScaleY(f3);
-        // Frost màn trái là kính BÁN TRONG SUỐT nên icon/workspace home lộ xuyên qua ở
-        // nửa trên. Mờ dần DragLayer (workspace + hotseat + icon home) khi mở negative page
-        // để chỉ còn HÌNH NỀN hệ thống hiện qua kính (đúng kiểu iOS). interpolation: 0 đóng -> 1 mở.
-        getDragLayer().setAlpha(1.0f - interpolation);
+        // Frost màn trái là kính BÁN TRONG SUỐT nên màn home lộ xuyên qua ở nửa trên. Mờ dần RIÊNG
+        // workspace + hotseat khi mở negative page (KHÔNG đụng DragLayer -> không kẹt khi fling bị
+        // cắt ngang; ẩn cả dock để không đè chồng). interpolation: 0 đóng -> 1 mở.
+        setHomeAlpha(1.0f - interpolation);
     }
 
     public static Interpolator initInterpolator(float control1, float control2, float control3, float control4) {

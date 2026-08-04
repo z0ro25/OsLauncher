@@ -262,9 +262,39 @@ public class LauncherDragLayer extends FrameLayout {
         if (actionMasked != MotionEvent.ACTION_CANCEL && actionMasked != MotionEvent.ACTION_UP) {
             return (this.mDragHelperAppLibrary.shouldInterceptTouchEvent(motionEvent) || this.mDragHelperLeftPage.shouldInterceptTouchEvent(motionEvent)) && this.mGestureDetector.onTouchEvent(motionEvent);
         }
+        // UP/CANCEL: nếu 1 pane đang KẸT giữa chừng (fling bị cắt ngang / gesture bị hệ thống hủy),
+        // cho nó TRƯỢT về mép gần nhất để callback kết thúc (Opened/Closed) LUÔN bắn -> Launcher reset
+        // alpha/scale về đúng trạng thái nghỉ (fix bug fling qua lại mất sạch app + dock). Nếu đã khởi
+        // động settle thì KHÔNG cancel (cancel() sẽ hủy animation -> kẹt lại y như cũ).
+        if (settleDraggingPanesToNearestEdge()) {
+            return false;
+        }
         this.mDragHelperAppLibrary.cancel();
         this.mDragHelperLeftPage.cancel();
         return false;
+    }
+
+    /**
+     * Cho pane (App Library / negative page) đang ở trạng thái DRAG trượt về MÉP GẦN NHẤT bằng đúng
+     * đường animation (open/close), đảm bảo dispatch chạy tới trạng thái tận cùng để callback
+     * Opened/Closed bắn -> Launcher khôi phục alpha/scale về đúng trạng thái nghỉ. Trả true nếu có
+     * ít nhất 1 pane được khởi động settle (khi đó caller KHÔNG được gọi cancel()).
+     */
+    private boolean settleDraggingPanesToNearestEdge() {
+        boolean settled = false;
+        if (mAppsLibrary != null && getStatusAppLibrary() == PageState.DRAG) {
+            // mLeftOfAppsLibrary: 0 = MỞ hẳn, mRange = home. Về mép gần hơn.
+            if (Math.abs(mLeftOfAppsLibrary) * 2 >= mRange) closeAppsLibrary(); // gần home -> về home
+            else openAppsLibrary();                                            // gần mở  -> mở hẳn
+            settled = true;
+        }
+        if (mLeftPage != null && getStatusLeftPage() == PageState.DRAG) {
+            // mLeftOfLeftPage: 0 = MỞ hẳn, -mRange = home.
+            if (Math.abs(mLeftOfLeftPage) * 2 >= mRange) closeLeftPage(); // gần home -> về home
+            else openLeftPage();                                          // gần mở  -> mở hẳn
+            settled = true;
+        }
+        return settled;
     }
 
     private boolean isSearchViewShowing() {
@@ -294,6 +324,10 @@ public class LauncherDragLayer extends FrameLayout {
                 this.mHeight
         );
 
+        // GHI CHÚ: KHÔNG layout anchor apps_library_frost_bg (child index 4) full-screen ở đây. Nếu
+        // làm vậy nó thành view TRÊN CÙNG phủ toàn màn -> ViewDragHelper.findTopChildUnder trả về nó
+        // thay vì mAppsLibrary -> tryCaptureView từ chối -> KHÔNG vuốt-đóng App Library được. Anchor
+        // giữ 0x0 (vô hại cho drag); AppLibraryBlurView tự lấy kích thước màn từ root view để dựng blur.
     }
 
     @Override
