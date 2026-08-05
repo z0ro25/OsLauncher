@@ -1,5 +1,7 @@
 package com.oslauncher.applauncher.themelauncher.Features.wallpaper.CustomWallpaper
 
+import com.oslauncher.applauncher.themelauncher.theme.AppThemeManager
+
 import android.app.WallpaperManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -352,6 +354,8 @@ class CustomHomeWallpaperActivity : BaseActivity<ActivityCustomHomeWallpaperBind
 
 
     private fun setWallpaper() {
+        // User tự set wallpaper -> từ đây đổi mode không ghi đè ảnh của user.
+        AppThemeManager.markUserWallpaper(this)
         val bm = binding.ivBackground.getBitmapFromView()
         CoroutineScope(Dispatchers.IO).launch {
             val wallpaperManager = WallpaperManager.getInstance(applicationContext)

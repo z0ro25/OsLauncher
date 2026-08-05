@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu ngữ nghĩa (DARK) — tương ứng 1-1 với values/colors_theme.xml.
+  Áp dụng khi AppThemeManager đặt MODE_NIGHT_YES. Các màn chưa dùng token này
+  sẽ không bị ảnh hưởng.
+-->
+<resources>
+    <color name="theme_bg">#FF000000</color>
+    <color name="theme_surface">#FF1C1C1E</color>
+    <color name="theme_surface_elevated">#FF2C2C2E</color>
+    <color name="theme_divider">#1FFFFFFF</color>
+
+    <color name="theme_text_primary">#FFFFFFFF</color>
+    <color name="theme_text_secondary">#99FFFFFF</color>
+    <color name="theme_text_hint">#61FFFFFF</color>
+
+    <color name="theme_accent">#FFFF8C21</color>
+    <color name="theme_icon">#FFFFFFFF</color>
+</resources>

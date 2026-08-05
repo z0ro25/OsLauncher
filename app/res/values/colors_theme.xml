@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu ngữ nghĩa (LIGHT) — RIÊNG cho hạ tầng dark/light của module app.
+  Scope no side-effects: KHÔNG sửa colors.xml cũ. Màn nào muốn theo 2-theme thì
+  trỏ vào các token @color/theme_* dưới đây; bản dark nằm ở values-night/colors_theme.xml.
+-->
+<resources>
+    <!-- Nền chính của màn -->
+    <color name="theme_bg">#FFFFFFFF</color>
+    <!-- Nền bề mặt (card, ô, panel) -->
+    <color name="theme_surface">#FFF5F5F7</color>
+    <!-- Nền nổi cao hơn surface (dialog, sheet) -->
+    <color name="theme_surface_elevated">#FFFFFFFF</color>
+    <!-- Đường kẻ / viền phân cách -->
+    <color name="theme_divider">#1F000000</color>
+
+    <!-- Chữ chính -->
+    <color name="theme_text_primary">#FF000000</color>
+    <!-- Chữ phụ -->
+    <color name="theme_text_secondary">#99000000</color>
+    <!-- Chữ mờ / hint -->
+    <color name="theme_text_hint">#61000000</color>
+
+    <!-- Màu nhấn (giữ chung cho cả 2 mode) -->
+    <color name="theme_accent">#FFFF8C21</color>
+    <!-- Icon mặc định -->
+    <color name="theme_icon">#FF000000</color>
+</resources>

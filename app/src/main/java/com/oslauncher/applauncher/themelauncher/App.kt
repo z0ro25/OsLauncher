@@ -9,11 +9,14 @@ import com.adjust.sdk.AdjustConfig
 import com.adjust.sdk.LogLevel
 import com.amz.ios.launcher.Utilities
 import com.oslauncher.applauncher.themelauncher.Base.BaseLauncherApplication
+import com.oslauncher.applauncher.themelauncher.theme.AppThemeManager
 
 class App : BaseLauncherApplication(), ActivityLifecycleCallbacks {
     override fun onCreate() {
         super.onCreate()
         Utilities.setScreenWidth(this)
+        // Áp Dark/Light đã lưu cho toàn bộ màn app (chỉ module app).
+        AppThemeManager.applySavedMode(this)
     }
 
     override fun onTerminate() {

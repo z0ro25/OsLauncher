@@ -1,5 +1,7 @@
 package com.oslauncher.applauncher.themelauncher.Features.wallpaper.selectwallpaper
 
+import com.oslauncher.applauncher.themelauncher.theme.AppThemeManager
+
 import android.app.WallpaperManager
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -170,6 +172,8 @@ class SelectWallpaperActivity : BaseActivity<ActivitySelectWallpaperBinding>() {
     }
 
     fun setWallpaper(lockScreen: String, homeScreen: String) {
+        // User tự set wallpaper -> từ đây đổi mode không ghi đè ảnh của user.
+        AppThemeManager.markUserWallpaper(this)
         // Set the home screen wallpaper
         val wallpaperManager = WallpaperManager.getInstance(applicationContext)
         val lockBm =
