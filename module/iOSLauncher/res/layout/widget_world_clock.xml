@@ -2,15 +2,27 @@
 <!-- World clock 4 thành phố (span 4x2). Nền glass, mỗi cột 1 đồng hồ kim nhỏ
      (không số, không kim giây) + City + Today/Tomorrow + chênh lệch giờ.
      Múi giờ & nhãn động khai báo trực tiếp qua custom attrs, không cần code bind. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="@drawable/bg_glass_tile"
-    android:baselineAligned="false"
-    android:padding="12dp"
-    android:weightSum="4">
+    android:layout_height="match_parent">
+
+    <com.amz.ios.launcher.widget.view.GlassBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:gbvOverlayColor="#00000000"
+        app:gbvCornerRadius="@dimen/widget_round_corner"
+        app:gbvBorderColor="#40FFFFFF"
+        app:gbvBorderWidth="1dp"
+        app:gbvFallbackDrawable="@drawable/bg_glass_16_9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:padding="12dp"
+        android:weightSum="4">
 
     <!-- City 1: New York -->
     <LinearLayout
@@ -183,4 +195,5 @@
             app:wctvMode="diff"
             app:wctvTimeZone="Australia/Sydney" />
     </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

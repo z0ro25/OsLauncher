@@ -36,6 +36,10 @@ public class IOSAdConfig {
     public static final int ID_APP_RECOMMEND_MARKET = 16;
     // Discovery
     public static final int ID_APP_RECOMMEND_DISCOVERY = 17;
+    // Interstitial khi mở app
+    public static final int ID_INTERSTITIAL_OPEN_APP = 18;
+    // App-open khi quay lại desktop
+    public static final int ID_APP_OPEN = 19;
 
     public static String getAdDescription(Context cotext, int id) {
         int resId;

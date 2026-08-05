@@ -391,6 +391,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public BlurScreenLayout mSliderBlurBg;
     // Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật, HiddenApiBypass).
     public AppLibraryBlurView mAppsLibraryFrostBg;
+    // Nền kính mờ frosted RIÊNG cho màn trái (Today/Widget) — cùng cơ chế compositor như App
+    // Library nhưng TÁCH instance riêng (Scope no side-effects: KHÔNG dùng chung mSliderBlurBg
+    // bitmap-blur đang phục vụ chỗ khác, KHÔNG dùng chung mAppsLibraryFrostBg của App Library).
+    public AppLibraryBlurView mLeftPageFrostBg;
 
     public AppsLibraryLayout mAppsLibraryLayout;
     public CustomContentView mCustomContentView;
@@ -837,6 +841,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mCustomContentView = findViewById(R.id.left_page);
         mSliderBlurBg = findViewById(R.id.blur_apps_library_background);
         mAppsLibraryFrostBg = findViewById(R.id.apps_library_frost_bg);
+        mLeftPageFrostBg = findViewById(R.id.left_page_frost_bg);
 
         mSearchViewLayout = findViewById(R.id.search_view);
         mSearchViewLayout.setSearchViewLayoutDelegate(this);
@@ -884,6 +889,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     }
                 }
         );
+
+        // Nền kính mờ (blur wallpaper thật) cho 2 nút Edit/Done ở trạng thái edit — cùng họ
+        // GlassBlurView với indicator/dock. Set trực tiếp làm background của TỪNG nút (KHÔNG sửa
+        // drawable dùng chung bg_glass_button vì còn dùng cho nút màn trái). Background bám bounds
+        // + scale THEO nút -> khớp animation scale của CustomZoomButton. cornerR = widget_round_corner.
+        float glassBtnCorner = getResources().getDimension(R.dimen.widget_round_corner);
+        float glassBtnBorder = getResources().getDisplayMetrics().density; // 1dp
+        mAddWidgetBtn.setBackground(new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
+                mAddWidgetBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x00000000, null));
+        mAddWidgetDoneBtn.setBackground(new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
+                mAddWidgetDoneBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x00000000, null));
 
         mWidgetsAppStyle = findViewById(R.id.sliding_up_widgets_app_style);
         mWidgetsView = findViewById(R.id.widgets_view);
@@ -2458,8 +2474,15 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     && mDragAppsLibraryLayout.isAppsLibraryOpening(mDeviceProfile.getCurrentWidth())) {
                 mDragAppsLibraryLayout.closeAppsLibrary();
             }
+            // Đối xứng cho màn TRÁI (Today/Widget): nhấn HOME khi đang mở -> đóng bằng đúng đường
+            // animation để onLeftPageClosed bắn (gỡ frost + reset home).
+            if (mDragAppsLibraryLayout != null
+                    && mDragAppsLibraryLayout.isLeftPageOpening(mDeviceProfile.getCurrentWidth())) {
+                mDragAppsLibraryLayout.closeLeftPage();
+            }
             resetHomeTransform();
             if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(0.0f);
+            if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(0.0f);
 
             boolean success = closeFolder();
 
@@ -6657,6 +6680,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageClosed() {
         hideKeyboard(this.mCustomContentView);
         mCustomContentView.onClosePage();
+        // Gỡ hẳn frost khi đóng (phòng slide bị cắt ngang không kết ở f=1 -> kẹt mờ).
+        if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(0.0f);
         // Khôi phục CỨNG workspace + alpha/scale home sau khi đóng negative page (phòng slide bị cắt
         // ngang không kết ở f=1 -> kẹt mờ). Reset chung như App Library.
         resetHomeTransform();
@@ -6671,6 +6696,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Ghim trạng thái nghỉ khi ĐÃ mở hẳn: ẩn WORKSPACE (KHÔNG đụng DragLayer để dock vẫn hiện)
         // để không lộ page 1 xuyên qua kính. onLeftPageSlide chỉ chạy trong lúc kéo nên đôi khi
         // không kết ở f=1 => alpha không về 0 => lúc hiện lúc không. Ghim cứng ở đây.
+        // Ghim frost đầy khi đã mở hẳn (giống App Library onAppsLibraryClosed).
+        if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(1.0f);
         setWorkspaceHidden(true);
     }
 
@@ -6678,11 +6705,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageSlide(float f) {
         float f2 = 1.0f - f;
         float interpolation = Launcher.initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
-        float interpolation2 = Launcher.initInterpolator(0.35f, 0.19f, 0.84f, 0.56f).getInterpolation(f2);
-        getAppsLibraryBlurBackgroundView().changeBlur(interpolation);
-        float f3 = 1.0f - (interpolation2 * 0.1f);
-        getDragLayer().setScaleX(f3);
-        getDragLayer().setScaleY(f3);
+        // Nền frosted THẬT (blur wallpaper qua HiddenApiBypass) GIỐNG App Library — thay bitmap-blur
+        // cũ (mSliderBlurBg). interpolation: 0 đóng -> 1 mở hẳn.
+        if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(interpolation);
+        // KHÔNG co (zoom-out) màn page khi vuốt sang trái: chỉ mờ dần rồi ẩn (phẳng, giống App
+        // Library). Trước đây setScaleX/Y(1.0->0.9) làm page co lại; đã bỏ theo yêu cầu.
         // Frost màn trái là kính BÁN TRONG SUỐT nên màn home lộ xuyên qua ở nửa trên. Mờ dần RIÊNG
         // workspace + hotseat khi mở negative page (KHÔNG đụng DragLayer -> không kẹt khi fling bị
         // cắt ngang; ẩn cả dock để không đè chồng). interpolation: 0 đóng -> 1 mở.

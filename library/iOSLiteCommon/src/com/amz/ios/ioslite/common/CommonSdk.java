@@ -4,6 +4,7 @@ package com.amz.ios.ioslite.common;
 import android.app.Application;
 import android.content.Context;
 
+import com.amz.ios.ioslite.common.ad.IOSAdManager;
 import com.amz.ios.ioslite.common.http.VolleyUtil;
 
 /**
@@ -19,6 +20,9 @@ public class CommonSdk {
     public static void initalize(Application context) {
         setApplicationContext(context);
         VolleyUtil.initalize(context);
+        // Đảm bảo registry ad sẵn sàng ở CẢ 2 process (app + launcher desktop).
+        // Chưa set impl thật -> DefaultAdManager no-op, an toàn tới khi gắn SDK.
+        IOSAdManager.getInstance(context);
     }
 
     /**

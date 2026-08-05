@@ -197,6 +197,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true" />
+
+        <!-- Nền kính mờ frosted RIÊNG cho màn TRÁI (Today/Widget) — cùng cơ chế compositor blur
+             (HiddenApiBypass) như apps_library_frost_bg nhưng instance RIÊNG (Scope no side-effects:
+             KHÔNG dùng chung mSliderBlurBg bitmap-blur, KHÔNG dùng chung frost của App Library).
+             Anchor vô hình full-screen; overlay window dựng trong setBlurFraction() do
+             onLeftPageSlide/Opened/Closed gọi.
+             ĐẶT CUỐI CÙNG: LauncherDragLayer cast child theo index 0..3 (onFinishInflate) — child mới
+             ở cuối (index 5) không lệch cast, an toàn. -->
+        <com.amz.ios.launcher.AppLibraryBlurView
+            android:id="@+id/left_page_frost_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true" />
     </com.amz.ios.launcher.applibrary.DragAppsLibraryLayout>
 
     <com.amz.ios.launcher.searchview.SearchViewLayout

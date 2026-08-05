@@ -1,5 +1,6 @@
 package com.amz.ios.launcher.leftpage.widgets;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -164,6 +165,16 @@ public class PhotoWidget_2x2 extends BlurConstraintLayoutWidget {
                         new Runnable() {
                             @Override
                             public void run() {
+                                // Runnable trễ 268ms: lúc chạy, Launcher (context) có thể đã bị
+                                // destroy (vuốt page attach/detach liên tục, hoặc launcher reload).
+                                // Glide.with(activity đã destroy) sẽ ném IllegalArgumentException
+                                // "You cannot start a load for a destroyed activity" -> crash liên
+                                // tục. Chặn khi activity destroy/finishing hoặc view đã detach.
+                                if (context instanceof Activity) {
+                                    Activity act = (Activity) context;
+                                    if (act.isFinishing() || act.isDestroyed()) return;
+                                }
+                                if (!isAttachedToWindow()) return;
                                 Glide.with(context)
                                         .load(path)
                                         .centerCrop()

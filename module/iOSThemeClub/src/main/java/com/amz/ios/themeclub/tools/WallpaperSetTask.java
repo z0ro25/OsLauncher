@@ -3,6 +3,7 @@ package com.amz.ios.themeclub.tools;
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -97,7 +99,97 @@ public class WallpaperSetTask extends AsyncTask<Object, Void, Boolean> {
         } else {
             setWallpaperSuccessful = applyLauncher();
         }
+        // Lưu CACHE wallpaper + bản blur vào getDir("image") để GlassBlurView (nền kính dock/pod/
+        // widget) dùng lại. Android 13+ CHẶN app đọc bitmap wallpaper hệ thống (getDrawable ném
+        // SecurityException READ_EXTERNAL_STORAGE) nên BlurWallpaperProvider không tự dựng được blur
+        // -> kính rơi về fallback xám. Ở ĐÂY app đang CẦM sẵn bitmap wallpaper (từ mBitmap/mPath) nên
+        // blur + ghi cache KHÔNG cần quyền. getDir("image") là internal storage, chia sẻ giữa các
+        // process cùng app (:themeclub ghi, launcher đọc).
+        if (setWallpaperSuccessful) {
+            saveWallpaperBlurCache();
+        }
         return setWallpaperSuccessful;
+    }
+
+    /** Blur bitmap wallpaper đang cầm rồi ghi cache "wallpaper" + "blur" ở getDir("image"). */
+    private void saveWallpaperBlurCache() {
+        try {
+            Bitmap src = obtainSourceBitmap();
+            if (src == null || src.isRecycled()) return;
+            saveBitmap(src, "wallpaper");
+            Bitmap blur = blurBitmap(src);
+            if (blur != null && !blur.isRecycled()) {
+                saveBitmap(blur, "blur");
+            }
+        } catch (Throwable ignored) {
+        }
+    }
+
+    /** Lấy bitmap nguồn của wallpaper vừa đặt (từ mBitmap, hoặc decode mPath). */
+    private Bitmap obtainSourceBitmap() {
+        if (mBitmap != null && !mBitmap.isRecycled()) return mBitmap;
+        if (mPath != null) {
+            try {
+                if (mPath.startsWith("file:///android_asset/wallpapers/")) {
+                    String[] filename = mPath.split("/");
+                    InputStream is = mActivity.getAssets().open("wallpapers/" + filename[5]);
+                    Bitmap b = BitmapFactory.decodeStream(is);
+                    is.close();
+                    return b;
+                } else {
+                    return BitmapFactory.decodeFile(mPath);
+                }
+            } catch (Throwable ignored) {
+            }
+        }
+        return null;
+    }
+
+    /** Downsample mạnh + RenderScript blur (fallback BlurBuilder) — cùng công thức BlurWallpaperProvider. */
+    private Bitmap blurBitmap(Bitmap bitmap) {
+        int scale = 36;
+        int blurRadius = 25;
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        int dw = Math.max(1, Math.round(w * 1.0f / scale));
+        int dh = Math.max(1, Math.round(h * 1.0f / scale));
+        try {
+            Bitmap small = Bitmap.createScaledBitmap(bitmap, dw, dh, false);
+            Bitmap dst = Bitmap.createBitmap(dw, dh, Bitmap.Config.ARGB_8888);
+            android.renderscript.RenderScript rs = android.renderscript.RenderScript.create(mActivity);
+            android.renderscript.Allocation in = android.renderscript.Allocation.createFromBitmap(rs, small);
+            android.renderscript.Allocation out = android.renderscript.Allocation.createTyped(rs, in.getType());
+            android.renderscript.ScriptIntrinsicBlur blur = android.renderscript.ScriptIntrinsicBlur.create(
+                    rs, android.renderscript.Element.U8_4(rs));
+            blur.setRadius(blurRadius);
+            blur.setInput(in);
+            blur.forEach(out);
+            out.copyTo(dst);
+            return Bitmap.createScaledBitmap(dst, w, h, true);
+        } catch (Throwable t) {
+            try {
+                return com.amz.ios.launcher.util.BlurBuilder.fastBlur(
+                        Bitmap.createScaledBitmap(bitmap, dw, dh, true), blurRadius);
+            } catch (Throwable ignored) {
+                return null;
+            }
+        }
+    }
+
+    private void saveBitmap(Bitmap bitmap, String name) {
+        FileOutputStream fos = null;
+        try {
+            File dir = new ContextWrapper(mActivity).getDir("image", Context.MODE_PRIVATE);
+            File f = new File(dir, name);
+            fos = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+        } catch (Throwable ignored) {
+        } finally {
+            if (fos != null) {
+                try { fos.close(); } catch (Throwable ignored) {}
+            }
+        }
     }
 
     @Override

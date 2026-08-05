@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Mini analog: 1 tile 2x2 chứa lưới 2x2 gồm 4 đồng hồ kim nhỏ theo thành phố.
      Nền glass; mỗi ô: đồng hồ kim (không số, không kim giây) + nhãn city. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_glass_tile"
-    android:padding="10dp"
-    android:weightSum="2">
+    android:layout_height="match_parent">
+
+    <com.amz.ios.launcher.widget.view.GlassBlurView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:gbvOverlayColor="#00000000"
+        app:gbvCornerRadius="@dimen/widget_round_corner"
+        app:gbvBorderColor="#40FFFFFF"
+        app:gbvBorderWidth="1dp"
+        app:gbvFallbackDrawable="@drawable/bg_glass_1_1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:weightSum="2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,4 +127,5 @@
                 android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

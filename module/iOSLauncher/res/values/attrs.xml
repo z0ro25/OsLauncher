@@ -34,6 +34,31 @@
     <attr name="widgetsTheme" format="reference" />
 
 
+    <!-- GlassBlurView: nền kính kiểu iOS = wallpaper đã blur (crop theo vùng view) + bo góc
+         + viền glass + lớp tint. View độc lập (không kế thừa RealtimeBlurView nữa). -->
+    <declare-styleable name="GlassBlurView">
+        <attr name="gbvCornerRadius" format="dimension" />
+        <attr name="gbvBorderWidth" format="dimension" />
+        <attr name="gbvBorderColor" format="color" />
+        <attr name="gbvOverlayColor" format="color" />
+        <!-- Ảnh nền theme dùng khi KHÔNG dựng được blur (vd máy chặn đọc wallpaper).
+             Trỏ tới drawable bg_glass theo tỉ lệ; bản -night tự đổi cho dark mode. -->
+        <attr name="gbvFallbackDrawable" format="reference" />
+        <!-- Ép LẤY MẪU wallpaper theo tỉ lệ dọc CỐ ĐỊNH (0..1) thay vì vị trí thật của view.
+             Dùng cho ô search ở ĐỈNH màn: wallpaper vùng status bar tối + loang màu -> kính bị
+             lệch tông so với panel giữa màn. Đặt ~0.45 để crop từ vùng giữa (nơi pod đứng, xám
+             phẳng) -> ô search đồng bộ tông với panel dưới. Âm (mặc định -1) = tắt, crop theo vị
+             trí thật như cũ. -->
+        <attr name="gbvSampleAnchorFraction" format="float" />
+    </declare-styleable>
+
+    <!-- GlassCompositorBlurView: nền kính compositor (giống DockBlurView/hotseat) cho widget. -->
+    <declare-styleable name="GlassCompositorBlurView">
+        <!-- Ảnh nền theme dùng khi thiết bị KHÔNG dựng được compositor blur (SDK < 31, hoặc máy
+             chặn hidden-API createBackgroundBlurDrawable). Trỏ tới drawable bg_glass; -night tự đổi. -->
+        <attr name="gcbFallbackDrawable" format="reference" />
+    </declare-styleable>
+
     <!-- BubbleTextView specific attributes. -->
     <declare-styleable name="BubbleTextView">
         <attr name="layoutHorizontal" format="boolean" />

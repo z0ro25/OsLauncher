@@ -74,6 +74,11 @@ public class BaseLauncherApplication extends Application {
 
             // 注册广播监听
 //            registReveiver();
+
+            // Khởi tạo môi trường quảng cáo (broadcast ACTION_LAUNCHER_LOAD_COMPLETE
+            // đang tắt nên gọi thẳng ở đây thay vì chờ initalizeAfterLauncherLoadCompelte).
+            setupAdEnvironment();
+
             DebugUtil.debugLaunch(TAG, "main process init complete");
         }
     }
@@ -110,13 +115,17 @@ public class BaseLauncherApplication extends Application {
      * 广告环境建立
      */
     private void setupAdEnvironment() {
-        // 广告策略初始化
-//        IOSAdController.initalize(mApplication);
-        // 广告源初始化
-//        IOSAdManager.initalize(mApplication);
-        // 广告源注入策略控制
-//        IOSAdController adController = IOSAdController.getInstance();
-//        IOSAdManager.getInstance(mApplication).setDiaplayHelper(adController);
+        // Registry ad đã được khởi tạo ở CommonSdk.initalize() (cả 2 process).
+        // Đây là điểm gắn SDK ad thật sau này — chỉ cần tiêm 1 lớp con IOSAdManager
+        // (native + fullscreen) là mọi slot/điểm hiện có tự hoạt động:
+        //
+        //     IOSAdManager.setInstance(new AdMobAdManager(mApplication));
+        //     IOSAdManager.getInstance(mApplication).init();
+        //
+        // Có thể set thêm policy hiển thị:
+        //     IOSAdManager.getInstance(mApplication).setDiaplayHelper(adController);
+        //
+        // Hiện chưa có SDK -> giữ DefaultAdManager no-op, không hiển thị gì.
     }
 
 

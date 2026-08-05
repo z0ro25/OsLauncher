@@ -385,6 +385,8 @@
     <dimen name="search_height">60dp</dimen>
     <dimen name="widget_round_corner">18dp</dimen>
     <dimen name="icon_round_corner">13dp</dimen>
+    <!-- Bo góc riêng cho khung glass của dock: tròn mạnh kiểu thanh dock iOS. -->
+    <dimen name="dock_glass_radius">34dp</dimen>
     <!-- Chiều cao cố định cho widget 2x2 (nửa hàng) để chúng vuông & bằng nhau trong
          staggered grid (trước dùng wrap_content nên cao thấp lệch, cùng hàng có cái to
          cái nhỏ). ~1 nửa bề ngang màn ≈ ô vuông kiểu iOS. -->

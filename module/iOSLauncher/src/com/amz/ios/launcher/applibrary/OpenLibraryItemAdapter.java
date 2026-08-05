@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amz.ios.ioslite.common.ad.IOSAdConfig;
+import com.amz.ios.ioslite.common.ad.IOSAdManager;
+import com.amz.ios.ioslite.common.ad.NativeAdCardView;
 import com.amz.ios.launcher.AppInfo;
 import com.amz.ios.launcher.BubbleTextView;
 import com.amz.ios.launcher.Launcher;
@@ -17,21 +20,54 @@ import java.util.ArrayList;
 
 public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
 
+    // View types: 0 = header (label category), 1 = app icon, 2 = ô quảng cáo native.
+    private static final int VIEW_TYPE_HEADER = 0;
+    private static final int VIEW_TYPE_APP = 1;
+    private static final int VIEW_TYPE_AD = 2;
+
+    // Vị trí ô ad (ngay sau header). Chỉ tồn tại khi có ad -> mHasAd.
+    private static final int AD_POSITION = 1;
+
     public String mLabel;
     public ArrayList<AppInfo> mApps = new ArrayList<>();
     public Launcher mLauncher;
 
+    /**
+     * Có slot native ad hay không — tính 1 lần lúc dựng adapter. Chưa gắn SDK thì
+     * getNativeAd trả null -> false -> ô ad ẩn hoàn toàn, grid không đổi.
+     */
+    private final boolean mHasAd;
+
     public OpenLibraryItemAdapter(Launcher launcher){
         mLauncher = launcher;
+        mHasAd = IOSAdManager.getInstance(launcher).getNativeAd(IOSAdConfig.ID_ALL_APPS) != null;
+    }
+
+    /** Ô ad có hiển thị ở {@code position} không. */
+    public boolean isAdPosition(int position) {
+        return mHasAd && position == AD_POSITION;
+    }
+
+    /** Ánh xạ position của list sang index trong {@link #mApps} (bù header + ô ad). */
+    private int appIndex(int position) {
+        int offset = 1; // header
+        if (mHasAd && position > AD_POSITION) {
+            offset++; // ô ad nằm trước vị trí này
+        }
+        return position - offset;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        if (viewType == 0){
+        if (viewType == VIEW_TYPE_HEADER){
             View view = inflater.inflate(R.layout.apps_library_folder_header,parent,false);
             return new HeaderViewHolder(view);
+        }
+        else if (viewType == VIEW_TYPE_AD){
+            View view = inflater.inflate(R.layout.all_apps_ad_view,parent,false);
+            return new AdViewHolder(view);
         }
         else {
             View view = inflater.inflate(R.layout.apps_library_folder_item,parent,false);
@@ -61,8 +97,13 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
                     textViewCustomFont.getPaddingEnd(),
                     textViewCustomFont.getPaddingBottom());
         }
+        else if (holder instanceof AdViewHolder){
+            NativeAdCardView adCardView = (NativeAdCardView) holder.itemView;
+            adCardView.setAdvertiseId(IOSAdConfig.ID_ALL_APPS);
+            adCardView.loadAdvertise();
+        }
         else if (holder instanceof ItemViewHolder){
-            AppInfo appInfo = mApps.get(position - 1);
+            AppInfo appInfo = mApps.get(appIndex(position));
             ItemViewHolder item = (ItemViewHolder) holder;
             final BubbleTextView bubbleTextView = (BubbleTextView)item.itemView;
             bubbleTextView.setTag(appInfo);
@@ -75,13 +116,15 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (mApps != null) return mApps.size() + 1;
-        return 0;
+        if (mApps == null) return 0;
+        return mApps.size() + 1 + (mHasAd ? 1 : 0); // + header (+ ô ad)
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? 0 : 1;
+        if (position == 0) return VIEW_TYPE_HEADER;
+        if (isAdPosition(position)) return VIEW_TYPE_AD;
+        return VIEW_TYPE_APP;
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -98,6 +141,13 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
         public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class AdViewHolder extends RecyclerView.ViewHolder {
+
+        public AdViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }

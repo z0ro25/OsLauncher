@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền fallback RIÊNG cho dock (KHÔNG dùng chung với pod/widget).
+     Dùng khi GlassBlurView không dựng được wallpaper-blur (máy MIUI/live-wallpaper
+     chặn đọc bitmap wallpaper). Thay cho bg_glass_16_9 (xám ĐỤC alpha 255) bằng lớp
+     frost TRẮNG BÁN TRONG SUỐT: launcher bật windowShowWallpaper=true nên wallpaper
+     thật do OS vẽ sau cửa sổ trong suốt -> lớp mờ này để wallpaper lộ qua ("nền mờ mờ")
+     thay vì mảng xám đặc. Viền vẫn do GlassBlurView vẽ (gbvBorderColor). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#26FFFFFF" />
+    <corners android:radius="@dimen/dock_glass_radius" />
+</shape>

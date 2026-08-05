@@ -159,18 +159,22 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
             int height = getHeight();
             int width = getWidth();
             if(height <= 0 || width <= 0) return;
-            int cornerR = height / 2 - 5;
             Launcher launcher = Launcher.getLauncher(getContext());
-            if (launcher.mPageIndicatorContainer!= null){
-//                launcher.mPageIndicatorContainer.setBackground(
-//                            RoundedBlurBitmapMaker.getRoundedBlurDrawable(
-//                                    cornerR,
-//                                    0,
-//                                    width,height,
-//                                    getContext().getResources().getColor(R.color.white95),
-//                                    50
-//                            )
-//                );
+            if (launcher.mPageIndicatorContainer != null
+                    && !(launcher.mPageIndicatorContainer.getBackground()
+                            instanceof com.amz.ios.launcher.widget.view.GlassBlurDrawable)) {
+                // Nền kính mờ (blur wallpaper thật) kiểu pill cho thanh indicator — cùng họ
+                // GlassBlurView với widget/dock. Đặt 1 lần (guard instanceof) vì background bám
+                // bounds+scale theo chính container. cornerR = -1 -> pill (r = height/2).
+                float density = getContext().getResources().getDisplayMetrics().density;
+                launcher.mPageIndicatorContainer.setBackground(
+                        new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
+                                launcher.mPageIndicatorContainer,
+                                -1f,             // pill
+                                1f * density,    // viền 1dp
+                                0x40FFFFFF,      // màu viền glass
+                                0x00000000,      // không tint (chỉ blur wallpaper)
+                                null));
             }
         }
 

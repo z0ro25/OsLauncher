@@ -100,14 +100,16 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
             blurBmp = BitmapFactory.decodeResource(blurScreenLayout.getResources(), R.drawable.blur_default);
         }
 
-        // Màn trái (negative screen) kiểu iOS: dùng ĐÚNG bitmap frosted MÀU sẽ hiển thị
-        // lúc mở hẳn (mBlurBmp + base đen + scrim). Nhờ vậy mSliderBlurBg fade-in mượt
-        // khi kéo và KHÔNG "pop" đổi hình khi mở hẳn -> animation vuốt giống App Library.
-        if (launcher.isOpeningLeftPage() && !launcher.isOpeningAppsLibrary()) {
-            Bitmap leftPageBmp = blurScreenLayout.getLeftPageFrostedBitmap();
-            if (leftPageBmp != null) return leftPageBmp;
-            if (blurBmp != null) return blurBmp;
-        }
+        // Màn trái (negative screen) DÙNG CHUNG ĐÚNG code-path với App Library để nền GIỐNG HỆT.
+        //
+        // TRƯỚC ĐÂY màn trái rẽ nhánh riêng -> getAppsLibraryBlurBackground() (đặt tên gây nhầm:
+        // App Library THỰC RA KHÔNG gọi hàm này). Hàm đó trả wallpaper THẬT chỉ blur nhẹ (radius 14,
+        // downsample 18%) + scrim yếu 14% -> nền màn trái CÓ MÀU, sắc nét (đo được sat=32~60). Trong
+        // khi App Library rơi xuống path dưới đây: blur MẠNH bitmap DragLayer -> mảng xám TRUNG TÍNH
+        // (đo được sat=9). Hai nguồn khác nhau -> 2 màn lệch tông. Yêu cầu người dùng: nền chỉ blur
+        // che wallpaper, KHÔNG màu, và màn trái giống App Library. => BỎ nhánh riêng, để màn trái
+        // chảy xuống ĐÚNG path App Library dưới đây (blur DragLayer + mix). window blur-behind + dim
+        // (setAppsLibraryWindowBlur) vẫn che phần wallpaper hé ra, giống hệt App Library.
 
         curBlurBmp = BlurBuilder.getBlurBmp(
                 launcher,
@@ -331,7 +333,16 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
 
     // Lớp phủ tối (scrim) đặt lên trên wallpaper đã blur để ra "kính mờ đục kiểu iOS":
     // wallpaper mờ mạnh + tối vừa phải, các pod/widget bên trên nổi rõ. ~28% đen.
-    private static final int LEFT_PAGE_SCRIM = 0x48000000;
+    private static final int LEFT_PAGE_SCRIM = 0x24000000;
+
+    // Frost cho App Library / màn trái. Đây là NỀN CHUNG DUY NHẤT phủ full màn (mSliderBlurBg),
+    // sau cửa sổ launcher trong suốt.
+    //
+    // YÊU CẦU: nền CHỈ dùng BLUR để che wallpaper, KHÔNG phủ màu. Nên frost để TRONG SUỐT
+    // (0x00000000) -> mSliderBlurBg không vẽ tint nào; việc che wallpaper hoàn toàn do window
+    // blur-behind (setBlurBehindRadius) + dim ĐEN TRUNG TÍNH (dimAmount, không hue) lo — xem
+    // setAppsLibraryWindowBlur. Trước đây dùng tint xám-xanh 0xF0505860; giờ bỏ hết màu.
+    private static final int APP_LIBRARY_FROST = 0x00000000;
 
     // Scrim cho màn Search (kéo xuống): trước đây nền search chỉ là wallpaper-blur nhạt
     // (không scrim) nên nhìn còn "trong". Phủ thêm lớp tối để nền mờ ĐẬM hơn, ô search +
@@ -359,26 +370,68 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
     // ĐÚNG bitmap App Library đã dựng, đảm bảo đồng nhất.
     private static Bitmap sLastGoodLeftPageBmp;
 
+    // Ảnh có "gần như 1 màu" không? Lấy mẫu lưới nhỏ, đo biên độ (max-min) từng kênh R/G/B.
+    // Biên độ nhỏ = ảnh phẳng/đơn sắc (placeholder xám getDrawable trả trên API mới) -> loại.
+    // Wallpaper thật (đồi xanh có mây/đường) biên độ lớn -> giữ. Ngưỡng 24/255 (~9%).
+    private boolean isNearlyUniform(Bitmap bmp) {
+        try {
+            int w = bmp.getWidth(), h = bmp.getHeight();
+            if (w <= 0 || h <= 0) return true;
+            int rMin = 255, rMax = 0, gMin = 255, gMax = 0, bMin = 255, bMax = 0;
+            final int N = 8;
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    int x = (int) ((i + 0.5f) / N * w);
+                    int y = (int) ((j + 0.5f) / N * h);
+                    if (x >= w) x = w - 1;
+                    if (y >= h) y = h - 1;
+                    int c = bmp.getPixel(x, y);
+                    int r = (c >> 16) & 0xFF, g = (c >> 8) & 0xFF, b = c & 0xFF;
+                    if (r < rMin) rMin = r; if (r > rMax) rMax = r;
+                    if (g < gMin) gMin = g; if (g > gMax) gMax = g;
+                    if (b < bMin) bMin = b; if (b > bMax) bMax = b;
+                }
+            }
+            int span = Math.max(rMax - rMin, Math.max(gMax - gMin, bMax - bMin));
+            return span < 24;
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
     private Bitmap getLeftPageWallpaper(DeviceProfile deviceProfile) {
+        // CHỈ đọc wallpaper THẬT hiện tại qua hệ thống. KHÔNG dùng getOriginalWallpaperFromStorage():
+        // file cache "wallpaper" ở getDir("image") được lưu từ lần WallpaperManager.getDrawable()
+        // TRƯỚC — trên Android 14+/API 36 hàm đó trả ảnh XÁM placeholder -> cache xám -> blur ra
+        // mảng xám ("gần như 1 màu xám"). Khi getLive null (máy chặn), rơi xuống frost bán trong
+        // suốt để wallpaper HỆ THỐNG THẬT hiện qua, thay vì blur cache xám sai.
         Bitmap original = getLiveWallpaperBitmap();
-        if (original == null || original.isRecycled()) original = getOriginalWallpaperFromStorage();
-        // Không đọc được wallpaper (API 36 chặn): ưu tiên tái dùng bitmap ĐẸP gần nhất
-        // (để 2 màn giống hệt); nếu chưa có thì mới trả frost tối mờ ~40% đen.
+        // Loại bitmap "gần đơn sắc": trên API 36 getDrawable() thường trả 1 ẢNH XÁM placeholder
+        // (không null, không throw) -> blur ra mảng xám. Nếu phát hiện đơn sắc thì coi như KHÔNG
+        // đọc được wallpaper thật -> bỏ để rơi xuống frost trong suốt (wallpaper hệ thống hiện qua).
+        if (original != null && isNearlyUniform(original)) original = null;
+        // KHÔNG fallback về default_wallpaper (bong bóng xanh) rồi blur: ảnh mặc định KHÁC
+        // wallpaper thật người dùng đặt, blur mạnh nó ra mảng XÁM phẳng mất màu -> nền App
+        // Library "gần như 1 màu xám". Khi máy chặn đọc wallpaper (Android 14+/API 36), trả
+        // FROST BÁN TRONG SUỐT để hình nền HỆ THỐNG THẬT (windowShowWallpaper=true, vẽ sau
+        // cửa sổ launcher trong suốt; root apps_library_layout dùng thẻ <merge> nên nền
+        // @color/black bị Android bỏ qua) HIỆN LÊN có màu, phủ scrim tối vừa cho pod/text nổi
+        // rõ — đồng bộ với dock/pod (GlassBlurView cũng để wallpaper thật xuyên qua khi bị chặn).
         if (original == null || original.isRecycled()) {
             if (sLastGoodLeftPageBmp != null && !sLastGoodLeftPageBmp.isRecycled())
                 return sLastGoodLeftPageBmp;
-            return makeFrostBitmap(0x66000000);
+            return makeFrostBitmap(APP_LIBRARY_FROST);
         }
         try {
             int w = deviceProfile.getCurrentWidth();
             int h = deviceProfile.getCurrentHeight();
             Bitmap scaled = Bitmap.createScaledBitmap(original, w, h, true);
-            // Downsample mạnh hơn (12%) + blur radius lớn hơn (25) -> kính mờ "đục" iOS,
-            // không còn nhìn rõ chi tiết wallpaper gây rối mắt.
-            int dw = Math.max(1, Math.round(w * 0.12f));
-            int dh = Math.max(1, Math.round(h * 0.12f));
+            // Giảm độ blur cho GIỐNG iOS 26 (Liquid Glass trong hơn): downsample nhẹ (18%)
+            // giữ nhiều chi tiết wallpaper + blur radius nhỏ (14) -> kính mờ trong, sáng.
+            int dw = Math.max(1, Math.round(w * 0.18f));
+            int dh = Math.max(1, Math.round(h * 0.18f));
             Bitmap small = Bitmap.createScaledBitmap(scaled, dw, dh, true);
-            Bitmap blurred = BlurBuilder.fastBlur(small, 25);
+            Bitmap blurred = BlurBuilder.fastBlur(small, 14);
             if (blurred == null) blurred = small;
             Bitmap upscaled = Bitmap.createScaledBitmap(blurred, w, h, true);
             Bitmap result = applyScrim(upscaled, LEFT_PAGE_SCRIM);
@@ -658,9 +711,6 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
 
     public final void changeBlur(float amount) {
         try {
-
-            Log.e("Blur Amount is ", "" + amount);
-
             if (amount == 0.0f) {
                 clearBlur();
             } else if (getBackground() != null) {

@@ -1000,8 +1000,10 @@ public class Workspace extends PagedView
     public void stripEmptyScreens(boolean isForce) {
         if (mLauncher.isWorkspaceLoading()) {
             // Don't strip empty screens if the workspace is still loading. This is dangerous and can result in data loss.
+            // Lúc đang load lại (vd đổi hình nền xong quay về Home), các page chưa kịp bind lại nên
+            // childCount==0 -> bị coi là "trống" -> xoá + ghi đè screen order vào DB -> MẤT page vĩnh viễn.
             Launcher.addDumpLog(TAG, "    - workspace loading, skip", true);
-            //return;
+            return;
         }
 
         Launcher.addDumpLog(TAG, "    - workspace stripEmptyScreens, passed", true);

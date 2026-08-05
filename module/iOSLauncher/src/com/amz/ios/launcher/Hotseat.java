@@ -129,25 +129,27 @@ public class Hotseat extends FrameLayout implements Stats.LaunchSourceProvider {
             return;
         }
 
-        // Union bounds của các icon, quy về hệ toạ độ của Hotseat (RelativeLayout parent).
-        int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE;
+        // Chiều DỌC: union bounds các icon (ôm sát chiều cao khối icon).
+        // Chiều NGANG: dùng trọn bề rộng lưới dock (ShortcutAndWidgetContainer đo
+        // full-width theo numHotseatIcons) để khung glass trải đủ chiều ngang màn,
+        // kể cả khi chưa đủ app (ô trống nằm TRONG khung, chờ thêm app) -> màn dài
+        // dock không còn ngắn/xấu.
+        int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
         boolean any = false;
         for (int i = 0; i < childCount; i++) {
             View child = container.getChildAt(i);
             if (child == null || child.getVisibility() == GONE) continue;
             any = true;
-            int cl = container.getLeft() + mContent.getLeft() + child.getLeft();
             int ct = container.getTop() + mContent.getTop() + child.getTop();
-            minX = Math.min(minX, cl);
             minY = Math.min(minY, ct);
-            maxX = Math.max(maxX, cl + child.getWidth());
             maxY = Math.max(maxY, ct + child.getHeight());
         }
         if (!any) {
             mDockGlassBg.setVisibility(GONE);
             return;
         }
+        int minX = container.getLeft() + mContent.getLeft();
+        int maxX = minX + container.getWidth();
 
         int padH = getResources().getDimensionPixelSize(R.dimen.dock_glass_padding_horizontal);
         int padV = getResources().getDimensionPixelSize(R.dimen.dock_glass_padding_vertical);

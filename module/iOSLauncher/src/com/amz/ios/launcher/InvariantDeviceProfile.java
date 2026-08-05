@@ -220,7 +220,15 @@ public class InvariantDeviceProfile {
             saveCurrentGridConfig(context);
         }*/
 
-        numHotseatIcons = Math.max(numColumns, closestProfile.numHotseatIcons);
+        // Dock lấp đầy chiều ngang màn thay vì cố định 4 cell (màn dài trước đây
+        // dock ngắn nhìn xấu). Ước lượng số cell vừa bề rộng: bề rộng / bề ngang 1
+        // cell (icon + 2 lề). Sàn = numColumns/hồ sơ gần nhất để không nhỏ hơn cũ.
+        int hotseatEdgeMarginPx =
+                context.getResources().getDimensionPixelSize(R.dimen.dynamic_grid_edge_margin_normal);
+        int hotseatCellWidthPx = size + 2 * hotseatEdgeMarginPx;
+        int fitHotseat = hotseatCellWidthPx > 0 ? (smallSide / hotseatCellWidthPx) : numColumns;
+        numHotseatIcons = Math.max(
+                Math.max(numColumns, closestProfile.numHotseatIcons), fitHotseat);
         landscapeProfile = new DeviceProfile(context, this, smallestSize, largestSize,
                 largeSide, smallSide, true /* isLandscape */);
         portraitProfile = new DeviceProfile(context, this, smallestSize, largestSize,

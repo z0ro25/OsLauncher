@@ -1,5 +1,6 @@
 package com.amz.ios.ioslite.common.ad;
 
+import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import android.util.Log;
@@ -47,6 +48,17 @@ public abstract class IOSAdManager {
         }
     }
 
+    /**
+     * Tiêm implementation trực tiếp từ {@code :app} (đường gắn SDK thật, đơn giản
+     * hơn cơ chế reflection ở {@link #getInstance(Context)}). Gọi sớm trong
+     * Application.onCreate() trước mọi lần dùng ad.
+     */
+    public static void setInstance(IOSAdManager impl) {
+        synchronized (sInstanceLock) {
+            sInstance = impl;
+        }
+    }
+
     public static void initalize(Context context) {
         getInstance(context).init();
     }
@@ -75,6 +87,44 @@ public abstract class IOSAdManager {
      */
     @Nullable
     public abstract IOSListAd getListAd(int id);
+
+    /**
+     * Quảng cáo toàn màn (interstitial / app-open). Default trả null (no-op) —
+     * lớp con ở {@code :app} override để cấp ad thật.
+     */
+    @Nullable
+    public IOSFullScreenAd getFullScreenAd(int id) {
+        return null;
+    }
+
+    /**
+     * Hiển thị interstitial cho ad-id đã cho nếu sẵn sàng và policy cho phép.
+     * An toàn khi chưa có SDK (getFullScreenAd trả null -> bỏ qua).
+     */
+    public static void showInterstitial(Activity activity, int id) {
+        showFullScreen(activity, id);
+    }
+
+    /**
+     * Hiển thị app-open ad cho ad-id đã cho nếu sẵn sàng và policy cho phép.
+     */
+    public static void showAppOpen(Activity activity, int id) {
+        showFullScreen(activity, id);
+    }
+
+    private static void showFullScreen(Activity activity, int id) {
+        if (activity == null) {
+            return;
+        }
+        if (!shouldShowAd(id)) {
+            return;
+        }
+        IOSFullScreenAd ad = getInstance(activity).getFullScreenAd(id);
+        if (ad != null && ad.isReady()) {
+            ad.show(activity);
+            afterShowAd(id);
+        }
+    }
 
     public static void setDiaplayHelper(AdDisplayHelper helper) {
         sDisplayHelper = helper;

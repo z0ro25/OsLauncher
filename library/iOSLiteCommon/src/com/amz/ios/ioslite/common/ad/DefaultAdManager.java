@@ -26,4 +26,10 @@ public class DefaultAdManager extends IOSAdManager {
     public IOSListAd getListAd(int id) {
         return null;
     }
+
+    @Nullable
+    @Override
+    public IOSFullScreenAd getFullScreenAd(int id) {
+        return null;
+    }
 }

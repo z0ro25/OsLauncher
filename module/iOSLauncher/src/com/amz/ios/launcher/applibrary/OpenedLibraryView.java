@@ -73,19 +73,22 @@ public class OpenedLibraryView extends OpenedView {
     }
 
     void setAdapter(){
+        final OpenLibraryItemAdapter adapter = new OpenLibraryItemAdapter(mLauncher);
+
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),4);
         layoutManager.setSpanSizeLookup(
                 new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        if (position != 0) return 1;
-                        return 4;
+                        // Header và ô quảng cáo chiếm trọn 1 hàng (4 cột); app = 1 ô.
+                        if (position == 0 || adapter.isAdPosition(position)) return 4;
+                        return 1;
                     }
                 }
         );
 
         mOpenItemsRV.setLayoutManager(layoutManager);
-        mAdapter = new OpenLibraryItemAdapter(mLauncher);
+        mAdapter = adapter;
         mOpenItemsRV.setAdapter(mAdapter);
         mOpenItemsRV.setOverScrollMode(OVER_SCROLL_NEVER);
     }
