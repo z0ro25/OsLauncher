@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu (LIGHT) RIÊNG cho 2 màn onboarding: Splash + Language start.
+  Scope no side-effects: KHÔNG dùng theme_* (accent cam) / colors.xml chung.
+  Bản dark tương ứng 1-1 ở values-night/colors_onboarding.xml.
+  Giá trị lấy từ Figma light (node 115-3355 splash, 115-3365 language).
+-->
+<resources>
+    <!-- Nền màn -->
+    <color name="onb_bg">#F2F2F7</color>
+    <!-- Chữ chính (tiêu đề, tên ngôn ngữ, dòng ads) -->
+    <color name="onb_text_primary">#191919</color>
+    <!-- Màu nhấn (title splash, nút Continue, item đang chọn) — chung 2 mode -->
+    <color name="onb_accent">#007AFF</color>
+    <!-- Nền card danh sách ngôn ngữ -->
+    <color name="onb_card">#FFFFFF</color>
+    <!-- Đường kẻ phân cách item -->
+    <color name="onb_divider">#E6E6E6</color>
+    <!-- Track thanh progress splash (white 20%, chung 2 mode theo Figma) -->
+    <color name="onb_track">#33FFFFFF</color>
+    <!-- Chữ phụ: nhãn nhóm settings (App Function Settings/Other/Device ID) — xám iOS, chung 2 mode -->
+    <color name="onb_text_secondary">#8E8E93</color>
+    <!-- Mũi tên ">" cuối dòng settings — xám iOS, chung 2 mode -->
+    <color name="onb_arrow">#8E8E93</color>
+</resources>

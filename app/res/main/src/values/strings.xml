@@ -86,4 +86,23 @@
     <string name="no_internet">No internet</string>
     <string name="there_is_no_internet_connection">There is no internet connection! Please check your internet connection!</string>
     <string name="try_again">Try again</string>
+
+    <!-- Home (Settings IOS Launcher) - các mục theo Figma -->
+    <string name="app_name_launcher" translatable="false">IOS Launcher</string>
+    <string name="change_app_icon">Change App Icon</string>
+    <string name="homescreen_style">Homescreen Style</string>
+    <string name="screen_grid">Screen Grid</string>
+    <string name="hidden_apps">Hidden Apps</string>
+    <string name="app_library">App Library</string>
+    <string name="change_app_name">Change App Name</string>
+    <string name="badge_notifications">Badge Notifications</string>
+    <string name="appearance">Appearance</string>
+    <string name="select_default_launcher">Select Default Launcher</string>
+    <string name="app_function_settings">App Function Settings</string>
+    <string name="launcher_ai">Launcher AI</string>
+    <string name="other">Other</string>
+    <string name="rate_our_app">Rate Our App</string>
+    <string name="mail_to_us">Mail To Us</string>
+    <string name="device_id">Device ID</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>

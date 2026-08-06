@@ -44,30 +44,36 @@ public class LanguageStartAdapter extends RecyclerView.Adapter<LanguageStartAdap
             return;
         }
         holder.tvLang.setText(languageModel.getLanguageName());
+        // Item đang chọn: chữ accent #007AFF + hiện tick; item thường: chữ theo token 2-theme, ẩn tick (theo Figma).
         if (languageModel.getActive()) {
-            holder.layoutItem.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_circle_ff8c21_str_ff8c21));
-            holder.rdbCheck.setImageDrawable(context.getDrawable(R.drawable.ic_dot_lang_select));
+            holder.tvLang.setTextColor(ContextCompat.getColor(context, R.color.onb_accent));
+            holder.rdbCheck.setVisibility(View.VISIBLE);
         } else {
-            holder.layoutItem.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_circle_f5f5f5));
-            holder.rdbCheck.setImageDrawable(context.getDrawable(R.drawable.ic_dot_lang_unselect));
+            holder.tvLang.setTextColor(ContextCompat.getColor(context, R.color.onb_text_primary));
+            holder.rdbCheck.setVisibility(View.GONE);
+        }
+
+        // Ẩn divider ở dòng cuối để bo góc card gọn.
+        if (holder.divider != null) {
+            holder.divider.setVisibility(position == getItemCount() - 1 ? View.GONE : View.VISIBLE);
         }
 
         if (languageModel.getCode().equals("en")) {
-            Glide.with(context).load(R.drawable.ic_en).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_en).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("de")) {
-            Glide.with(context).load(R.drawable.ic_ger).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_ger).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("es")) {
-            Glide.with(context).load(R.drawable.ic_span).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_span).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("fr")) {
-            Glide.with(context).load(R.drawable.ic_fr).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_fr).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("pt")) {
-            Glide.with(context).load(R.drawable.ic_port).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_port).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("zh")) {
-            Glide.with(context).load(R.drawable.ic_china).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_china).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("hi")) {
-            Glide.with(context).load(R.drawable.ic_hi).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_hi).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("in")) {
-            Glide.with(context).load(R.drawable.ic_indo).into(holder.icLang);
+            Glide.with(context).load(R.drawable.ic_indo).circleCrop().into(holder.icLang);
         }
 
         holder.layoutItem.setOnClickListener(v -> {
@@ -99,6 +105,7 @@ public class LanguageStartAdapter extends RecyclerView.Adapter<LanguageStartAdap
             tvLang = itemView.findViewById(R.id.txtName);
             layoutItem = itemView.findViewById(R.id.layoutItem);
             rdbCheck = itemView.findViewById(R.id.iv_select_lang);
+            divider = itemView.findViewById(R.id.divider);
         }
     }
 

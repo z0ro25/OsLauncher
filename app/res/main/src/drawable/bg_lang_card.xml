@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card danh sách ngôn ngữ (màn Language start) theo Figma: bo góc 26dp, màu theo token 2-theme onb_card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="26dp" />
+    <solid android:color="@color/onb_card" />
+</shape>

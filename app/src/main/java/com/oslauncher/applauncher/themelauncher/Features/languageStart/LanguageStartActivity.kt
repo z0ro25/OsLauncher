@@ -2,7 +2,6 @@ package com.oslauncher.applauncher.themelauncher.Features.languageStart
 
 import android.view.LayoutInflater
 import androidx.activity.addCallback
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
 import com.oslauncher.applauncher.themelauncher.model.LanguageModel
@@ -42,7 +41,6 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
             LanguageUtil.saveLocale(baseContext, codeLang)
             launchActivity<IntroActivity> { }
         }
-        loadNative()
 
         onBackPressedDispatcher.addCallback {
             finishAffinity()
@@ -90,10 +88,6 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
     override fun onBackPressed() {
         finishAffinity()
         super.onBackPressed()
-    }
-
-    fun loadNative() {
-        binding.frNative.isVisible = false
     }
 
 }

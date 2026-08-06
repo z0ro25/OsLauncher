@@ -1,17 +1,21 @@
 package com.oslauncher.applauncher.themelauncher.Features.home
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
 import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.view.isVisible
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
+import com.oslauncher.applauncher.themelauncher.R
 import com.oslauncher.applauncher.themelauncher.Features.general.GeneralActivity
-import com.oslauncher.applauncher.themelauncher.Features.hello.HelloActivity
-import com.oslauncher.applauncher.themelauncher.Features.setting.SettingActivity
-import com.oslauncher.applauncher.themelauncher.Features.wallpaper.selectwallpaper.SelectWallpaperActivity
+import com.oslauncher.applauncher.themelauncher.Features.general.hiddenapp.HiddenAppActivity
+import com.oslauncher.applauncher.themelauncher.Features.general.transitionpage.PageTransitionActivity
+import com.oslauncher.applauncher.themelauncher.Features.lang.LanguageSettingActivity
 import com.oslauncher.applauncher.themelauncher.databinding.ActivityHomeBinding
 import com.oslauncher.applauncher.themelauncher.extensions.launchActivity
 import com.oslauncher.applauncher.themelauncher.extensions.tap
@@ -25,8 +29,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun initView() {
         SharePrefUtils.increaseCountOpenApp(this)
-        val openAppCount = SharePrefUtils.getCountOpenApp(this) == 1
-        binding.setDefaultLauncherWarnning.isVisible = openAppCount
 
         onBackPressedDispatcher.addCallback {
             finishAffinity()
@@ -34,48 +36,48 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
         PermissionManager.initLauncher(this)
 
-        binding.frNativeHome.isVisible = false
-        binding.frBannerHome.isVisible = false
+        binding.tvDeviceId.text = readAndroidId()
     }
 
     override fun viewListener() {
-        binding.btnExplore.tap {
-            launchActivity<HelloActivity>()
-        }
-        binding.btnSetDefault.tap {
-            if (getDefaultLauncherPackage().equals("android")) {
-                selectDefault()
-            } else {
-                val intent = Intent(Settings.ACTION_HOME_SETTINGS);
-                startActivity(intent)
-                SharePrefUtils.putBoolean(this, "is_login", false)
-            }
-        }
+        // ===== Card chính (12 mục) =====
+        binding.llGeneral.tap { launchActivity<GeneralActivity>() }
+        binding.llChangeAppIcon.tap { /* TODO: chưa có màn Change App Icon */ }
+        binding.llHomescreenStyle.tap { /* TODO: chưa có màn Homescreen Style */ }
+        binding.llScreenGrid.tap { /* TODO: chưa có màn Screen Grid */ }
+        binding.llHiddenApps.tap { launchActivity<HiddenAppActivity>() }
+        binding.llPageTransition.tap { launchActivity<PageTransitionActivity>() }
+        binding.llAppLibrary.tap { /* TODO: chưa có màn App Library */ }
+        binding.llChangeAppName.tap { /* TODO: chưa có màn Change App Name */ }
+        binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
+        binding.llLanguage.tap { launchActivity<LanguageSettingActivity>() }
+        binding.llAppearance.tap { /* TODO: chưa có màn Appearance */ }
+        binding.llSelectDefault.tap { selectDefaultLauncher() }
 
-        binding.llSelectDefault.tap {
-            if (getDefaultLauncherPackage().equals("android")) {
-                selectDefault()
-            } else {
-                val intent = Intent(Settings.ACTION_HOME_SETTINGS);
-                startActivity(intent)
-                SharePrefUtils.putBoolean(this, "is_login", false)
-            }
-        }
+        // ===== App Function Settings =====
+        binding.llLauncherAi.tap { /* TODO: chưa có màn Launcher AI */ }
+        binding.llWeather.tap { /* TODO: chưa có màn Weather */ }
 
-        binding.llGeneral.tap {
-            launchActivity<GeneralActivity>()
-        }
+        // ===== Other =====
+        binding.llRate.tap { /* TODO: chưa gắn Rate Our App */ }
+        binding.llMail.tap { /* TODO: chưa gắn Mail To Us */ }
+        binding.llPrivacy.tap { /* TODO: chưa gắn Privacy Policy */ }
 
-        binding.llWallpaper.tap {
-            launchActivity<SelectWallpaperActivity>()
-        }
-
-        binding.ivMenu.tap {
-            launchActivity<SettingActivity>()
-        }
+        // ===== Device ID =====
+        binding.ivCopyDeviceId.tap { copyDeviceId() }
     }
 
     override fun dataObservable() {}
+
+    private fun selectDefaultLauncher() {
+        if (getDefaultLauncherPackage().equals("android")) {
+            selectDefault()
+        } else {
+            val intent = Intent(Settings.ACTION_HOME_SETTINGS)
+            startActivity(intent)
+            SharePrefUtils.putBoolean(this, "is_login", false)
+        }
+    }
 
     fun selectDefault() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
@@ -100,5 +102,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
 
         return resolveInfo?.activityInfo?.packageName
+    }
+
+    @Suppress("HardwareIds")
+    private fun readAndroidId(): String {
+        return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID) ?: ""
+    }
+
+    private fun copyDeviceId() {
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.setPrimaryClip(ClipData.newPlainText("device_id", readAndroidId()))
+        Toast.makeText(this, getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu (DARK) cho 2 màn onboarding: Splash + Language start.
+  Tương ứng 1-1 với values/colors_onboarding.xml. Áp khi app ở MODE_NIGHT_YES.
+  Giá trị giữ đúng bản dark đã dựng trước đó (#000000 / #1C1C1E / #363638).
+-->
+<resources>
+    <color name="onb_bg">#000000</color>
+    <color name="onb_text_primary">#FFFFFF</color>
+    <color name="onb_accent">#007AFF</color>
+    <color name="onb_card">#1C1C1E</color>
+    <color name="onb_divider">#363638</color>
+    <color name="onb_track">#33FFFFFF</color>
+    <color name="onb_text_secondary">#8E8E93</color>
+    <color name="onb_arrow">#8E8E93</color>
+</resources>

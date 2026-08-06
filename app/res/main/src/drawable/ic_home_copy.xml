@@ -1,0 +1,17 @@
+<!-- Nút copy Device ID (màn Home). Line-icon 24dp, tint accent #007AFF. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M4.75,7.75C4.75,4.92 4.75,3.51 5.63,2.63C6.51,1.75 7.92,1.75 10.75,1.75H13.75C16.58,1.75 17.99,1.75 18.87,2.63C19.75,3.51 19.75,4.92 19.75,7.75V12.75C19.75,15.58 19.75,16.99 18.87,17.87C17.99,18.75 16.58,18.75 13.75,18.75H10.75C7.92,18.75 6.51,18.75 5.63,17.87C4.75,16.99 4.75,15.58 4.75,12.75V7.75Z"
+        android:fillColor="#00000000"
+        android:strokeColor="@color/onb_accent"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M4.75,20.75C3.09,20.75 1.75,19.41 1.75,17.75V11.75C1.75,7.98 1.75,6.09 2.92,4.92C4.09,3.75 5.98,3.75 9.75,3.75"
+        android:fillColor="#00000000"
+        android:strokeColor="@color/onb_accent"
+        android:strokeWidth="1.5" />
+</vector>

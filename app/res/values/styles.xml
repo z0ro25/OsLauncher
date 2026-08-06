@@ -12,4 +12,59 @@
     <style name="circle">
         <item name="cornerSize">50%</item>
     </style>
+
+    <!-- ===== Màn Home (Settings IOS Launcher) ===== -->
+    <!-- 1 dòng setting: cao 52dp, padding ngang 16, icon + label + arrow -->
+    <style name="HomeSettingRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Icon squircle 32dp đầu dòng -->
+    <style name="HomeSettingIcon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+    </style>
+
+    <!-- Nhãn dòng: chiếm hết khoảng giữa, cách icon 12dp -->
+    <style name="HomeSettingLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textColor">@color/onb_text_primary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Mũi tên ">" cuối dòng -->
+    <style name="HomeSettingArrow">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:src">@drawable/ic_home_arrow_right</item>
+    </style>
+
+    <!-- Divider giữa các dòng: thụt trái 60dp để căn với nhãn -->
+    <style name="HomeSettingDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_marginStart">60dp</item>
+        <item name="android:background">@color/onb_divider</item>
+    </style>
+
+    <!-- Nhãn nhóm card (App Function Settings / Other / Device ID) -->
+    <style name="HomeGroupLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textColor">@color/onb_text_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>
