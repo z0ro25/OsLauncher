@@ -223,6 +223,11 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
 
     // Relating to the scroll and overscroll effects
     protected ScrollEffect mScrollEffect;
+    // Effect DÙNG RIÊNG cho FLIP của màn Page Transition (PageAnimationType). Tái dùng
+    // ScrollEffect.Flip (đã có cameraDistance + pivot + alpha giấu mặt sau) thay cho code thô
+    // trước đây trong screenScrolled() vốn thiếu reset -> page kế bị lật. Tạo lười.
+    // (ROTATE không dùng effect: xoay tròn quanh tâm ngay trong screenScrolled cho khớp preview.)
+    private ScrollEffect mFlipEffect;
     // If true, modify alpha of neighboring pages as user scrolls left/right
     protected int mOverScrollX;
 
@@ -1159,14 +1164,36 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
             if (child != null) {
                 float scrollProgress = getScrollProgress(screenCenter, child, i);
 
+                boolean endScrollRF = Math.abs(scrollProgress) == 1.0f;
                 switch (LauncherInteractor.INSTANCE.getMPageAnimationType()){
                     case ROTATE:
-                        float rotation =  scrollProgress* 180; // Rotate by 30 degrees
-                        child.setRotation(rotation);
+                        // KHỚP preview màn Page Transition: xoay TRÒN quanh TÂM (pivot giữa),
+                        // biên độ = scrollProgress * 360 (preview dùng rotation 0->360f khi trượt).
+                        // Ở tâm (progress=0) -> 0°; ra biên (progress=±1) -> ±360° ≡ 0° nên page kế
+                        // KHÔNG bị ngược. Reset hẳn khi hết scroll cho chắc.
+                        if (!endScrollRF) {
+                            child.setPivotX(child.getMeasuredWidth() * 0.5f);
+                            child.setPivotY(child.getMeasuredHeight() * 0.5f);
+                            child.setRotation(scrollProgress * 360f);
+                        } else {
+                            child.setAlpha(1f);
+                            resetViewPropertyValues(child);
+                        }
                         break;
                     case FLIP:
-                        float flipRotation = scrollProgress * 180; // Flip by 180 degrees
-                        child.setRotationY(flipRotation);
+                        // Tái dùng ScrollEffect.Flip quanh trục Y (vertical=false -> setRotationY,
+                        // KHỚP trục gốc setRotationY, hợp vuốt ngang): có cameraDistance + pivot +
+                        // alpha (giấu mặt sau) + đẩy page ra ngoài khi lật quá nửa. Reset khi hết
+                        // scroll để page kế không bị LẬT NGƯỢC còn lại.
+                        if (!endScrollRF) {
+                            if (mFlipEffect == null) {
+                                mFlipEffect = new ScrollEffect.Flip(this, false);
+                            }
+                            mFlipEffect.screenScrolled(child, i, scrollProgress);
+                        } else {
+                            child.setAlpha(1f);
+                            resetViewPropertyValues(child);
+                        }
                         break;
                     case ZOOM_IN:
                         boolean endScroll = Math.abs(scrollProgress) == 1.0f;
