@@ -4,7 +4,11 @@
   Áp dụng khi AppThemeManager đặt MODE_NIGHT_YES. Các màn chưa dùng token này
   sẽ không bị ảnh hưởng.
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+    </style>
     <color name="theme_bg">#FF000000</color>
     <color name="theme_surface">#FF1C1C1E</color>
     <color name="theme_surface_elevated">#FF2C2C2E</color>

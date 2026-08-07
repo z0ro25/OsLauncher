@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nền nút back tròn glass cho màn 2-theme (nền onb_bg đổi theo mode, vd Appearance).
+  Solid onb_card (light #FFFFFF / dark #1C1C1E) tự nổi trên onb_bg ở cả 2 mode.
+  Scope no side-effects: drawable RIÊNG cho nút back nhóm 2-theme, không đụng pt_back_bg (màn Page Transition).
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/onb_card" />
+</shape>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Override DARK cho màn Page Transition (segmented control).
+  Scope no side-effects: chỉ ghi đè token pt_seg_* của RIÊNG màn này, không đụng onb_* dùng chung.
+
+  Lý do: track Figma là fill trong mờ (#1F767680 ~12%). Trên nền dark của app (onb_bg = #000000)
+  nó chỉ ra ~ (14,14,16) -> chìm gần hết vào nền đen. Trong thiết kế dark, nền màn là #070707 nên
+  track render ra ~ (20,20,21). Vì app để nền #000 (đục hơn), ở dark ta thay track bằng màu ĐỤC
+  #141415 (= đúng màu track render trong design) để nổi rõ và khớp thiết kế. Pill chọn + chữ chọn giữ nguyên.
+-->
+<resources>
+    <color name="pt_seg_track">#141415</color>
+</resources>

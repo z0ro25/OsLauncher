@@ -4,7 +4,12 @@
   Scope no side-effects: KHÔNG sửa colors.xml cũ. Màn nào muốn theo 2-theme thì
   trỏ vào các token @color/theme_* dưới đây; bản dark nằm ở values-night/colors_theme.xml.
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+    </style>
+
     <!-- Nền chính của màn -->
     <color name="theme_bg">#FFFFFFFF</color>
     <!-- Nền bề mặt (card, ô, panel) -->

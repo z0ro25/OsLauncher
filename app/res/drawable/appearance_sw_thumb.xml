@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thumb switch kiểu iOS (màn Appearance). Riêng, không đụng sw_thumb (cam) cũ.
+     Kích thước 31dp = đúng chiều cao track (31dp) -> SwitchCompat KHÔNG kéo giãn -> tròn đều.
+     Stroke 2dp trong suốt tạo khoảng cách đều 2dp giữa phần trắng và lề track. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <size
+        android:width="31dp"
+        android:height="31dp" />
+    <solid android:color="#FFFFFF" />
+    <stroke
+        android:width="4dp"
+        android:color="@android:color/transparent" />
+</shape>

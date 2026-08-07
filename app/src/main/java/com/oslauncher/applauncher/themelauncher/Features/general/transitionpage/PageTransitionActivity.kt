@@ -2,10 +2,7 @@ package com.oslauncher.applauncher.themelauncher.Features.general.transitionpage
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.os.Handler
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
-import android.widget.ImageView
+import android.view.View
 import android.widget.TextView
 import androidx.activity.addCallback
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
@@ -14,9 +11,6 @@ import com.oslauncher.applauncher.themelauncher.databinding.ActivityPageTransiti
 import com.oslauncher.applauncher.themelauncher.extensions.tap
 import com.amz.ios.launcher.PagedView.PageAnimationType
 import com.amz.ios.utils.LauncherInteractor
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class PageTransitionActivity : BaseActivity<ActivityPageTransitionBinding>() {
@@ -37,6 +31,10 @@ class PageTransitionActivity : BaseActivity<ActivityPageTransitionBinding>() {
 
     override fun viewListener() {
         binding.apply {
+            ivBack.tap {
+                onBackPressedDispatcher.onBackPressed()
+            }
+
             llAnimDefalt.tap {
                 setCurrentAnim(0)
                 startDefaultTransition()
@@ -72,110 +70,135 @@ class PageTransitionActivity : BaseActivity<ActivityPageTransitionBinding>() {
 
     fun setCurrentAnim(post: Int) {
         binding.apply {
-            unselectAnim(ivAnimDefault, tvAnimDefault)
-            unselectAnim(ivAnimRotate, tvAnimRotate)
-            unselectAnim(ivAnimFlip, tvAnimFlip)
-            unselectAnim(ivAnimZoom, tvAnimZoom)
+            unselectAnim(llAnimDefalt, tvAnimDefault)
+            unselectAnim(llAnimRotate, tvAnimRotate)
+            unselectAnim(llAnimFlip, tvAnimFlip)
+            unselectAnim(llAnimZoom, tvAnimZoom)
 
             when (post) {
                 0 -> {
-                    selectAnim(ivAnimDefault, tvAnimDefault)
+                    selectAnim(llAnimDefalt, tvAnimDefault)
                     animType = PageAnimationType.NONE
                 }
 
                 1 -> {
-                    selectAnim(ivAnimRotate, tvAnimRotate)
+                    selectAnim(llAnimRotate, tvAnimRotate)
                     animType = PageAnimationType.ROTATE
                 }
 
                 2 -> {
-                    selectAnim(ivAnimFlip, tvAnimFlip)
+                    selectAnim(llAnimFlip, tvAnimFlip)
                     animType = PageAnimationType.FLIP
                 }
 
                 3 -> {
-                    selectAnim(ivAnimZoom, tvAnimZoom)
+                    selectAnim(llAnimZoom, tvAnimZoom)
                     animType = PageAnimationType.ZOOM_IN
                 }
             }
         }
     }
 
-    fun selectAnim(iv: ImageView, tv: TextView) {
-        iv.imageTintList = getColorStateList(R.color.color_FF8C21)
-        tv.setTextColor(getColorStateList(R.color.color_FF8C21))
+    /** Nút đang chọn: pill trắng (pt_seg_selected) + chữ tối (pt_seg_text_selected). */
+    fun selectAnim(cell: View, tv: TextView) {
+        cell.setBackgroundResource(R.drawable.pt_seg_selected)
+        tv.setTextColor(getColorStateList(R.color.pt_seg_text_selected))
     }
 
-    fun unselectAnim(iv: ImageView, tv: TextView) {
-        iv.imageTintList = getColorStateList(R.color.color_4B4F58)
-        tv.setTextColor(getColorStateList(R.color.color_4B4F58))
-    }
-
-
-    private fun ActivityPageTransitionBinding.startDefaultTransition() {
-        val rotateAnimator1 = ObjectAnimator.ofFloat(ivPageAnim1, "translationX", -100f, -(ivPageAnim1.width).toFloat() - 100f)
-        rotateAnimator1.duration = 1000 // duration in milliseconds
-        rotateAnimator1.start()
-
-        val rotateAnimator2 = ObjectAnimator.ofFloat(ivPageAnim2, "translationX", (ivPageAnim2.width).toFloat(), 0f)
-        rotateAnimator2.duration = 1000 // duration in milliseconds
-        rotateAnimator2.start()
+    /** Nút thường: không nền, chữ theo token tiêu đề (đổi theo light/dark). */
+    fun unselectAnim(cell: View, tv: TextView) {
+        cell.background = null
+        tv.setTextColor(getColorStateList(R.color.onb_text_primary))
     }
 
 
-    private fun ActivityPageTransitionBinding.startRotateAnimation() {
-
-        startDefaultTransition()
-
-        val rotateAnimator1 = ObjectAnimator.ofFloat(ivPageAnim1, "rotation", 0f, 360f)
-        rotateAnimator1.duration = 1000 // duration in milliseconds
-        rotateAnimator1.start()
-
-        val rotateAnimator2 = ObjectAnimator.ofFloat(binding.ivPageAnim2, "rotation", 0f, 360f)
-        rotateAnimator2.duration = 1000 // duration in milliseconds
-        rotateAnimator2.start()
+    /**
+     * Reset toàn bộ transform về mặc định: anim1 = trang hiện tại (giữa), anim2 = trang mới (nằm bên
+     * phải, ngoài màn). Gọi TRƯỚC mỗi lần chạy để click lại nhiều lần đều thấy chuyển động, không bị
+     * kẹt trạng thái của lần trước. width lấy tại thời điểm chạy (đã đo xong nhờ post{}).
+     */
+    private fun ActivityPageTransitionBinding.resetPreview(width: Float) {
+        ivPageAnim1.translationX = 0f
+        ivPageAnim2.translationX = width + previewGapPx()
+        for (v in arrayOf(ivPageAnim1, ivPageAnim2)) {
+            v.visibility = View.VISIBLE // bật lại để replay được sau khi lần trước đã ẩn page1
+            v.translationY = 0f
+            v.rotation = 0f
+            v.rotationY = 0f
+            v.scaleX = 1f
+            v.scaleY = 1f
+        }
     }
 
-    private fun ActivityPageTransitionBinding.startFlipAnim() {
-        startDefaultTransition()
+    /** Khoảng cách giữa 2 page khi trượt (24dp). */
+    private fun previewGapPx(): Float = 24f * resources.displayMetrics.density
 
-        val set1 = ObjectAnimator.ofFloat(ivPageAnim1, "rotationY", 0f, 180f);
-        set1.duration = 1000
-        set1.start()
-
-        val set2 = ObjectAnimator.ofFloat(ivPageAnim2, "rotationY", 0f, 180f);
-        set2.duration = 1000
-        set2.start()
+    /** Bọc post{} để chắc chắn view đã đo xong (width thật) rồi mới chạy animation. */
+    private fun playPreview(block: ActivityPageTransitionBinding.(Float) -> Unit) {
+        binding.ivPageAnim1.post {
+            binding.apply {
+                val width = ivPageAnim1.width.toFloat()
+                resetPreview(width)
+                block(width)
+            }
+        }
     }
 
-    private fun ActivityPageTransitionBinding.startZoomInAnim() {
-        startDefaultTransition()
+    /**
+     * Trượt trang: anim1 (giữa) ra trái, anim2 (phải, cách anim1 một khoảng gap) vào giữa.
+     * Nền cho mọi hiệu ứng. Kết thúc: ẩn page1 để chỉ còn trang mới (giống chuyển trang thật).
+     */
+    private fun ActivityPageTransitionBinding.slidePages(width: Float) {
+        val gap = previewGapPx()
+        ObjectAnimator.ofFloat(ivPageAnim1, "translationX", 0f, -(width + gap)).apply {
+            duration = 1000
+            addListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: android.animation.Animator) {
+                    ivPageAnim1.visibility = View.INVISIBLE
+                }
+            })
+            start()
+        }
+        ObjectAnimator.ofFloat(ivPageAnim2, "translationX", width + gap, 0f).apply {
+            duration = 1000
+            start()
+        }
+    }
 
-        val scaleXAnimator1 = ObjectAnimator.ofFloat(ivPageAnim1, "scaleX", 1f, 1.5f)
-        val scaleYAnimator1 = ObjectAnimator.ofFloat(ivPageAnim1, "scaleY", 1f, 1.5f)
+    private fun startDefaultTransition() = playPreview { width ->
+        slidePages(width)
+    }
 
-        val animatorSet1 = AnimatorSet()
-        animatorSet1.playTogether(scaleXAnimator1, scaleYAnimator1)
-        animatorSet1.setDuration(1000) // duration in milliseconds
-        animatorSet1.start()
+    private fun startRotateAnimation() = playPreview { width ->
+        slidePages(width)
+        ObjectAnimator.ofFloat(ivPageAnim1, "rotation", 0f, 360f).apply { duration = 1000; start() }
+        ObjectAnimator.ofFloat(ivPageAnim2, "rotation", 0f, 360f).apply { duration = 1000; start() }
+    }
 
-        val scaleXAnimator2 = ObjectAnimator.ofFloat(ivPageAnim2, "scaleX", 1.5f, 1f)
-        val scaleYAnimator2 = ObjectAnimator.ofFloat(ivPageAnim2, "scaleY", 1.5f, 1f)
+    private fun startFlipAnim() = playPreview { width ->
+        slidePages(width)
+        ObjectAnimator.ofFloat(ivPageAnim1, "rotationY", 0f, 180f).apply { duration = 1000; start() }
+        ObjectAnimator.ofFloat(ivPageAnim2, "rotationY", -180f, 0f).apply { duration = 1000; start() }
+    }
 
-        val animatorSet2 = AnimatorSet()
-        animatorSet2.playTogether(scaleXAnimator2, scaleYAnimator2)
-        animatorSet2.setDuration(1000) // duration in milliseconds
-        animatorSet2.start()
+    private fun startZoomInAnim() = playPreview { width ->
+        slidePages(width)
 
-        MainScope().launch {
-            delay(1000)
-            val scaleXAnimator1 = ObjectAnimator.ofFloat(ivPageAnim1, "scaleX", 1f, 1f)
-            val scaleYAnimator1 = ObjectAnimator.ofFloat(ivPageAnim1, "scaleY", 1f, 1f)
-
-            val animatorSet1 = AnimatorSet()
-            animatorSet1.playTogether(scaleXAnimator1, scaleYAnimator1)
-            animatorSet1.setDuration(1) // duration in milliseconds
-            animatorSet1.start()
+        AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(ivPageAnim1, "scaleX", 1f, 1.5f),
+                ObjectAnimator.ofFloat(ivPageAnim1, "scaleY", 1f, 1.5f),
+            )
+            duration = 1000
+            start()
+        }
+        AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(ivPageAnim2, "scaleX", 1.5f, 1f),
+                ObjectAnimator.ofFloat(ivPageAnim2, "scaleY", 1.5f, 1f),
+            )
+            duration = 1000
+            start()
         }
     }
 }

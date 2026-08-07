@@ -14,6 +14,7 @@ import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
 import com.oslauncher.applauncher.themelauncher.R
 import com.oslauncher.applauncher.themelauncher.Features.general.GeneralActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.hiddenapp.HiddenAppActivity
+import com.oslauncher.applauncher.themelauncher.Features.appearance.AppearanceActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.transitionpage.PageTransitionActivity
 import com.oslauncher.applauncher.themelauncher.Features.lang.LanguageSettingActivity
 import com.oslauncher.applauncher.themelauncher.databinding.ActivityHomeBinding
@@ -51,7 +52,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.llChangeAppName.tap { /* TODO: chưa có màn Change App Name */ }
         binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
         binding.llLanguage.tap { launchActivity<LanguageSettingActivity>() }
-        binding.llAppearance.tap { /* TODO: chưa có màn Appearance */ }
+        binding.llAppearance.tap { launchActivity<AppearanceActivity>() }
         binding.llSelectDefault.tap { selectDefaultLauncher() }
 
         // ===== App Function Settings =====

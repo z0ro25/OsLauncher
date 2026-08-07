@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền tròn nút back màn Page Transition (glass button theo Figma). Nền theo onb_card:
+     light #FFFFFF, dark #1C1C1E -> tự đổi theo mode. Riêng cho màn này. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/onb_card" />
+</shape>

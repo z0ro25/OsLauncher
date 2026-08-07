@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nền nút back tròn glass cho màn nền TRẮNG cố định (setting/general/hidden/wallpaper/language).
+  Màu cố định back_circle_flat (không -night) vì nền các màn này luôn trắng.
+  Scope no side-effects: drawable RIÊNG, không đụng pt_back_bg của màn Page Transition.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/back_circle_flat" />
+</shape>

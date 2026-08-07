@@ -14,17 +14,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <!-- Nút back tròn glass (đồng bộ màn Page Transition). Màn nền trắng cố định -> màu flat. -->
+        <FrameLayout
             android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="7dp"
-            android:src="@drawable/ic_arow_back"
+            android:background="@drawable/back_circle_flat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/back_chevron_flat" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"

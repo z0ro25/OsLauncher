@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Màn Home = Settings "IOS Launcher" (Figma node 9:437 dark / 115:966 light).
-  4 nhóm card bo 26 (onb_card): card chính 12 mục + App Function Settings (2) + Other (3) + Device ID.
-  Row 52dp: icon 32 + label 16sp (onb_text_primary) + arrow (onb_arrow, opacity 50). Divider onb_divider giữa các row, ẩn ở row cuối mỗi card.
-  Màu theo token onb_* 2-theme (values / values-night). Bỏ banner Explore, warning set-default, khung ad theo yêu cầu "giống Figma 100%".
--->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -56,9 +50,13 @@
                     android:id="@+id/ll_general"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_general" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_general" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/general" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/general" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -70,9 +68,13 @@
                     android:id="@+id/ll_change_app_icon"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_app_icon" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_app_icon" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/change_app_icon" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/change_app_icon" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -84,9 +86,13 @@
                     android:id="@+id/ll_homescreen_style"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_homescreen" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_homescreen" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/homescreen_style" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/homescreen_style" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -98,9 +104,13 @@
                     android:id="@+id/ll_screen_grid"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_grid" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_grid" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/screen_grid" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/screen_grid" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -112,9 +122,13 @@
                     android:id="@+id/ll_hidden_apps"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_hidden" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_hidden" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/hidden_apps" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/hidden_apps" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -126,9 +140,13 @@
                     android:id="@+id/ll_page_transition"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_transition" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_transition" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/page_transition" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/page_transition" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -140,9 +158,13 @@
                     android:id="@+id/ll_app_library"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_library" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_library" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/app_library" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/app_library" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -154,9 +176,13 @@
                     android:id="@+id/ll_change_app_name"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_app_name" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_app_name" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/change_app_name" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/change_app_name" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -168,9 +194,13 @@
                     android:id="@+id/ll_badge_notifications"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_badge" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_badge" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/badge_notifications" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/badge_notifications" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -182,9 +212,13 @@
                     android:id="@+id/ll_language"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_language" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_language" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/language" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/language" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -196,9 +230,13 @@
                     android:id="@+id/ll_appearance"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_appearance" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_appearance" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/appearance" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/appearance" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -210,34 +248,46 @@
                     android:id="@+id/ll_select_default"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_select_default" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_select_default" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/select_default_launcher" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/select_default_launcher" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!-- ===================== App Function Settings ===================== -->
+            <!-- ===================== App Function Settings (tạm ẩn) ===================== -->
             <TextView
+                android:id="@+id/tv_app_function_label"
                 style="@style/HomeGroupLabel"
-                android:text="@string/app_function_settings" />
+                android:text="@string/app_function_settings"
+                android:visibility="gone" />
 
             <LinearLayout
+                android:id="@+id/ll_app_function_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_lang_card"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <!-- Launcher AI -->
                 <LinearLayout
                     android:id="@+id/ll_launcher_ai"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_ai" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_ai" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/launcher_ai" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/launcher_ai" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -249,9 +299,13 @@
                     android:id="@+id/ll_weather"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_weather" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_weather" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/weather" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/weather" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -274,9 +328,13 @@
                     android:id="@+id/ll_rate"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_rate" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_rate" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/rate_our_app" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/rate_our_app" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -288,9 +346,13 @@
                     android:id="@+id/ll_mail"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_mail" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_mail" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/mail_to_us" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/mail_to_us" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>
@@ -302,9 +364,13 @@
                     android:id="@+id/ll_privacy"
                     style="@style/HomeSettingRow">
 
-                    <ImageView style="@style/HomeSettingIcon" android:src="@drawable/ic_home_privacy" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/ic_home_privacy" />
 
-                    <TextView style="@style/HomeSettingLabel" android:text="@string/privacy_policy" />
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/privacy_policy" />
 
                     <ImageView style="@style/HomeSettingArrow" />
                 </LinearLayout>

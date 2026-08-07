@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Viền chọn card preview màn Appearance: bo 18dp, stroke xanh accent, nền trong suốt.
+     Vẽ bằng View overlay riêng (không dùng stroke của ShapeableImageView vì bị clip -> dày mỏng). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="18dp" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/onb_accent" />
+    <solid android:color="@android:color/transparent" />
+</shape>

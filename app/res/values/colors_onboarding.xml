@@ -22,4 +22,6 @@
     <color name="onb_text_secondary">#8E8E93</color>
     <!-- Mũi tên ">" cuối dòng settings — xám iOS, chung 2 mode -->
     <color name="onb_arrow">#8E8E93</color>
+    <!-- Track switch khi TẮT (màn Appearance) — xám iOS light -->
+    <color name="onb_switch_track_off">#E9E9EA</color>
 </resources>

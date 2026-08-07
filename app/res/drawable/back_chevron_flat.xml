@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Chevron "<" cho nút back màn nền TRẮNG cố định. Tint back_chevron_flat (tối, cố định).
+  Cùng hình dạng với pt_ic_chevron_back nhưng tách riêng để tint cố định (không đổi theo mode).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/back_chevron_flat">
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M15,5L8,12L15,19"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

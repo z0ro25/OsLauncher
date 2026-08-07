@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu cho nút back tròn glass DÙNG CHUNG nhiều màn (đồng bộ theo màn Page Transition).
+  Scope no side-effects: token RIÊNG back_*, không đụng màu dùng chung khác.
+
+  2 bộ vì nền các màn khác nhau, glass bán trong suốt không thể nổi trên cả nền trắng lẫn đen:
+  - Màn 2-theme (nền onb_bg đổi theo mode): nút dùng @color/onb_card + chevron @color/onb_text_primary
+    (đã tự nổi + đổi màu theo light/dark). Không cần token ở đây.
+  - Màn nền TRẮNG cố định (setting/general/hidden/wallpaper/language — chưa migrate 2-theme):
+    nút nền xám nhạt đục + chevron tối CỐ ĐỊNH (không -night) để luôn nổi trên nền trắng.
+-->
+<resources>
+    <!-- Nền nút tròn cho màn nền trắng (xám nhạt iOS system gray5, nổi trên #FFFFFF) -->
+    <color name="back_circle_flat">#E5E5EA</color>
+    <!-- Chevron cho màn nền trắng (tối, cố định) -->
+    <color name="back_chevron_flat">#191919</color>
+</resources>

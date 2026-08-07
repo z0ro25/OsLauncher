@@ -34,6 +34,7 @@
     <string name="hide_navigation">Hide navigation</string>
     <string name="hidden_app">Hidden app</string>
     <string name="page_transition">Page transition</string>
+    <string name="apply_transition">Apply Transition</string>
     <string name="done">Done</string>
     <string name="default_">Default</string>
     <string name="rotation">Rotation</string>
@@ -105,4 +106,12 @@
     <string name="mail_to_us">Mail To Us</string>
     <string name="device_id">Device ID</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
+
+    <!-- Appearance (Light/Dark + Auto/System) -->
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="auto">Auto</string>
+    <string name="system">System</string>
+    <string name="appearance_auto_desc">Your interface will automatically change according to the time of day.</string>
+    <string name="appearance_system_desc">Your interface will be adjusted according to system settings</string>
 </resources>

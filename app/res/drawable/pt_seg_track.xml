@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền track segmented control màn Page Transition. Bo tròn hẳn (Figma rounded-100). Cao 32dp -> radius 16dp. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="16dp" />
+    <solid android:color="@color/pt_seg_track" />
+</shape>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút "Apply Transition" màn Page Transition: pill xanh accent, bo tròn (cao 48dp -> bán kính 14dp theo Figma).
+     Riêng cho màn này, KHÔNG dùng bg_circle_ff8c21 (cam, dùng chung nhiều màn). Màu theo onb_accent (đổi token nếu cần). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="14dp" />
+    <solid android:color="@color/onb_accent" />
+</shape>

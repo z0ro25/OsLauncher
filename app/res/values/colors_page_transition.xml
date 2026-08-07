@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu RIÊNG cho màn Page Transition (segmented control).
+  Scope no side-effects: KHÔNG dùng lại bg_c24_fff / bg_circle_ff8c21 / color.FF8C21 (dùng chung nhiều màn).
+  3 màu này GIỐNG NHAU ở light & dark (theo Figma iOS): track là fill trong mờ, pill chọn nền trắng,
+  chữ khi chọn luôn tối vì nằm trên pill trắng. Nền màn / chữ tiêu đề / nút Apply dùng token onb_* (đổi theo mode).
+  Giá trị Figma: Fills/Tertiary #7676801F, Segmented Selected #FFFFFF, neutral/blak #191919.
+-->
+<resources>
+    <!-- Track segmented control (fill trong mờ, chung 2 mode).
+         Figma xuất RGBA #7676801F (R76 G76 B80, alpha 1F). Android là ARGB nên phải đảo thành
+         #1F767680 (alpha 0x1F ~12% + RGB #767680), nếu để #7676801F sẽ sai màu + sai độ mờ. -->
+    <color name="pt_seg_track">#1F767680</color>
+    <!-- Nền pill của nút đang chọn (chung 2 mode) -->
+    <color name="pt_seg_selected">#FFFFFF</color>
+    <!-- Chữ nút đang chọn (luôn tối vì trên pill trắng, chung 2 mode) -->
+    <color name="pt_seg_text_selected">#191919</color>
+</resources>

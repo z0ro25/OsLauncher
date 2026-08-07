@@ -1,191 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màn Page Transition dựng lại theo Figma (light 115-1704 / dark 80-608): header + segmented control 4 nút
+  (Default/Rotation/Flip/Zoom in) + preview phone chạy animation + nút "Apply Transition" xanh.
+
+  Scope no side-effects: token onb_* (2-theme) + resource RIÊNG pt_seg_* / pt_btn_apply. KHÔNG dùng
+  bg_c24_fff / bg_circle_ff8c21 / color.FF8C21 (dùng chung nhiều màn).
+
+  Giữ nguyên cơ chế preview động: iv_page_anim_1/2 do PageTransitionActivity điều khiển (ObjectAnimator).
+  Segmented control: nút chọn = pill trắng (pt_seg_selected) + chữ tối; nút thường = chữ onb_text_primary.
+  Các id ll_anim_* (tap) + tv_anim_* (label) + btn_set_page_transition giữ đúng để Activity bind.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/onb_bg"
+    android:fitsSystemWindows="true">
 
+    <!-- ===== Header: nút back tròn glass + title ===== -->
+    <FrameLayout
+        android:id="@+id/iv_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/pt_back_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/pt_ic_chevron_back" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:text="@string/page_transition"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ===== Segmented control 4 nút (Figma: track 358x32, nút 85.5x28, inset 2) ===== -->
+    <LinearLayout
+        android:id="@+id/ll_segmented"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/pt_seg_track"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <FrameLayout
+            android:id="@+id/ll_anim_defalt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_anim_default"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/default_"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ll_anim_rotate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_anim_rotate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/rotation"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ll_anim_flip"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_anim_flip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/flip"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ll_anim_zoom"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_anim_zoom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/zoom_in"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ===== Preview phone (giữ animation: 2 ImageView chồng nhau do Activity điều khiển) =====
+         Ảnh preview theo Figma (img_pt_preview 710:1396). Cao hết khoảng trống giữa segmented control
+         và nút Apply, rộng theo tỉ lệ + căn giữa -> khớp thiết kế. -->
     <ImageView
         android:id="@+id/iv_page_anim_1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/img_demo_home_page"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintDimensionRatio="262:408"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/img_pt_preview"
+        app:layout_constraintBottom_toTopOf="@+id/btn_set_page_transition"
+        app:layout_constraintDimensionRatio="W,710:1396"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_segmented" />
 
     <ImageView
         android:id="@+id/iv_page_anim_2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/img_demo_home_page"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintDimensionRatio="262:408"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/img_pt_preview"
+        app:layout_constraintBottom_toTopOf="@+id/btn_set_page_transition"
+        app:layout_constraintDimensionRatio="W,710:1396"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_segmented" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <!-- ===== Nút Apply Transition ===== -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_set_page_transition"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_c24_fff"
-        android:orientation="vertical"
-        android:translationZ="2dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/pt_btn_apply"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:text="@string/apply_transition"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/ll_anim_defalt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_anim_default"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_page_anim_default"
-                    app:tint="@color/color.FF8C21" />
-
-                <com.metaldetector.detectorapp.detectorapp.view.customview.base.MovableText
-                    android:id="@+id/tv_anim_default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/sf_pro_display_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/default_"
-                    android:textColor="@color/color.FF8C21"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/ll_anim_rotate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_anim_rotate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_page_anim_rotation"
-                    app:tint="@color/color.4B4F58" />
-
-                <com.metaldetector.detectorapp.detectorapp.view.customview.base.MovableText
-                    android:id="@+id/tv_anim_rotate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/sf_pro_display_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/rotation"
-                    android:textColor="@color/color.4B4F58"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/ll_anim_flip"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_anim_flip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_page_anim_flip"
-                    app:tint="@color/color.4B4F58" />
-
-                <com.metaldetector.detectorapp.detectorapp.view.customview.base.MovableText
-                    android:id="@+id/tv_anim_flip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/sf_pro_display_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/flip"
-                    android:textColor="@color/color.4B4F58"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_anim_zoom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_anim_zoom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_page_anim_zoom"
-                    app:tint="@color/color.4B4F58" />
-
-                <com.metaldetector.detectorapp.detectorapp.view.customview.base.MovableText
-                    android:id="@+id/tv_anim_zoom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/sf_pro_display_regular"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/zoom_in"
-                    android:textColor="@color/color.4B4F58"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_set_page_transition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/bg_circle_ff8c21"
-            android:fontFamily="@font/sf_pro_display_bold"
-            android:paddingVertical="6dp"
-            android:text="@string/done"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
