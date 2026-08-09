@@ -94,6 +94,9 @@
     <string name="homescreen_style">Homescreen Style</string>
     <string name="screen_grid">Screen Grid</string>
     <string name="hidden_apps">Hidden Apps</string>
+    <!-- Màn Hidden Apps (dựng lại theo Figma) -->
+    <string name="hidden_apps_desc">After restoring hidden applications from Hidden Apps, you can find it in your App Library.</string>
+    <string name="no_hidden_app">You Don\'t Have Any Hidden App</string>
     <string name="app_library">App Library</string>
     <string name="change_app_name">Change App Name</string>
     <string name="badge_notifications">Badge Notifications</string>

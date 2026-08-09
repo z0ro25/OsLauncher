@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 1 dòng app ẩn (theo Figma): icon 40dp + tên (onb_text_primary, 2-theme) + nút gỡ tròn đỏ.
+     Divider mảnh dưới mỗi dòng (onb_divider) trừ dòng cuối (do container tự cắt). -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="24dp">
+    android:paddingVertical="12dp">
 
     <ImageView
         android:id="@+id/iv_hidden_app"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@color/color.1E232E"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,8 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
         android:fontFamily="@font/sf_pro_display_medium"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text="Select default home screen"
-        android:textColor="@color/color.1E232E"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/iv_remove_hidden"
         app:layout_constraintStart_toEndOf="@+id/iv_hidden_app"

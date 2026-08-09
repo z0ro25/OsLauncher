@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card danh sách app ẩn (2-theme). Nền theo onb_card: light #FFFFFF, dark #1C1C1E -> tự đổi
+     theo mode. RIÊNG màn Hidden App (KHÔNG dùng bg_c16_fff vì đang dùng chung setting/general/permission). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="16dp" />
+</shape>
