@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Dialog New Folder (modal giữa màn): title + subtitle + ô nhập tên (max 30) + nút Save (xanh) / Cancel (xám).
+  2-theme qua onb_*/applib_*. Bind id: et_folder_name, btn_save, btn_cancel.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="32dp"
+    android:background="@drawable/applib_dialog_bg"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:text="@string/new_folder"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:gravity="center"
+        android:text="@string/new_folder_hint"
+        android:textColor="@color/onb_text_secondary"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/et_folder_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/applib_edittext_bg"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:hint="@string/folder_name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:paddingHorizontal="14dp"
+        android:textColor="@color/onb_text_primary"
+        android:textColorHint="@color/onb_text_secondary"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/applib_btn_cancel"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/onb_text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/applib_btn_save"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

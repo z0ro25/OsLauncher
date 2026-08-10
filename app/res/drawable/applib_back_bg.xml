@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền tròn nút back + nút "+" (glass 2-theme): oval nền onb_card. RIÊNG bộ màn App Library. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/onb_card" />
+</shape>

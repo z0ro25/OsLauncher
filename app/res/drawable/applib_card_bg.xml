@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card danh sách (App Library / Select Folder): bo 16dp, nền onb_card (2-theme).
+     RIÊNG bộ màn App Library — không mượn hidden_card_bg của màn Hidden Apps. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="16dp" />
+</shape>

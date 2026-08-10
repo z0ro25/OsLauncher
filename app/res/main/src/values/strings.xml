@@ -117,4 +117,38 @@
     <string name="system">System</string>
     <string name="appearance_auto_desc">Your interface will automatically change according to the time of day.</string>
     <string name="appearance_system_desc">Your interface will be adjusted according to system settings</string>
+
+    <!-- App Library (4 màn dựng theo Figma) — dùng lại string "save"/"other" đã có ở trên -->
+    <string name="app_library_title">App Library</string>
+    <string name="manage_library">Manage Library</string>
+    <string name="select_folder">Select Folder</string>
+    <string name="new_folder">New Folder</string>
+    <string name="new_folder_hint">Enter A Name For This Folder (Maximum 30 Characters)</string>
+    <string name="folder_name">Folder Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="applib_no_folder">You Don\'t Have Any Folder</string>
+    <string name="applib_folder_name_empty">Please enter a folder name</string>
+    <string name="applib_folder_name_exists">This folder name already exists</string>
+
+    <!-- Nhãn category cố định (hiển thị) + id song song bất biến (khóa lưu, không dịch) -->
+    <string-array name="applib_fixed_categories">
+        <item>Games</item>
+        <item>Music &amp; Audio</item>
+        <item>Movies &amp; Video</item>
+        <item>Photos &amp; Images</item>
+        <item>Social &amp; Communication</item>
+        <item>News &amp; Magazines</item>
+        <item>Maps &amp; Navigation</item>
+        <item>Productivity</item>
+    </string-array>
+    <string-array name="applib_fixed_category_ids" translatable="false">
+        <item>cat_games</item>
+        <item>cat_audio</item>
+        <item>cat_video</item>
+        <item>cat_photo</item>
+        <item>cat_social</item>
+        <item>cat_news</item>
+        <item>cat_maps</item>
+        <item>cat_productivity</item>
+    </string-array>
 </resources>

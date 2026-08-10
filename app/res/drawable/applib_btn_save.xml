@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút "Save" dialog New Folder: pill xanh accent bo 14dp. RIÊNG bộ App Library (không mượn pt_btn_apply). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="14dp" />
+    <solid android:color="@color/onb_accent" />
+</shape>

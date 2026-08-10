@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền modal New Folder: card bo 20dp nền onb_card (2-theme). RIÊNG bộ App Library. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="20dp" />
+</shape>

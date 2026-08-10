@@ -13,6 +13,7 @@ import androidx.activity.addCallback
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
 import com.oslauncher.applauncher.themelauncher.R
 import com.oslauncher.applauncher.themelauncher.Features.general.GeneralActivity
+import com.oslauncher.applauncher.themelauncher.Features.general.applibrary.AppLibraryActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.hiddenapp.HiddenAppActivity
 import com.oslauncher.applauncher.themelauncher.Features.appearance.AppearanceActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.transitionpage.PageTransitionActivity
@@ -48,7 +49,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.llScreenGrid.tap { /* TODO: chưa có màn Screen Grid */ }
         binding.llHiddenApps.tap { launchActivity<HiddenAppActivity>() }
         binding.llPageTransition.tap { launchActivity<PageTransitionActivity>() }
-        binding.llAppLibrary.tap { /* TODO: chưa có màn App Library */ }
+        binding.llAppLibrary.tap { launchActivity<AppLibraryActivity>() }
         binding.llChangeAppName.tap { /* TODO: chưa có màn Change App Name */ }
         binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
         binding.llLanguage.tap { launchActivity<LanguageSettingActivity>() }
