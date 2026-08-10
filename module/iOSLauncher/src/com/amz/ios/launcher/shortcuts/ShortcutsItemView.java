@@ -55,6 +55,7 @@ public class ShortcutsItemView extends PopupItemView implements View.OnLongClick
 
     private Launcher mLauncher;
     private LinearLayout mShortcutsLayout;
+    private android.widget.ScrollView mScrollView;
     private LinearLayout mSystemShortcutIcons;
     private final Point mIconShift = new Point();
     private final Point mIconLastTouchPos = new Point();
@@ -79,6 +80,28 @@ public class ShortcutsItemView extends PopupItemView implements View.OnLongClick
     protected void onFinishInflate() {
         super.onFinishInflate();
         mShortcutsLayout = findViewById(R.id.deep_shortcuts);
+        mScrollView = findViewById(R.id.shortcuts_scroll);
+    }
+
+    /** Danh sách shortcut có đang cuộn được không (nội dung cao hơn vùng nhìn). */
+    public boolean canScrollList() {
+        if (mScrollView == null) {
+            return false;
+        }
+        return mScrollView.canScrollVertically(1) || mScrollView.canScrollVertically(-1);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        // Cap chiều cao danh sách: nếu quá nhiều mục thì giới hạn ~6-7 dòng, phần dư ScrollView cuộn.
+        // Phải ĐO LẠI với EXACTLY maxHeight để ScrollView nhận đúng vùng nhìn -> mới cuộn được
+        // (nếu chỉ setMeasuredDimension thì ScrollView vẫn cao bằng full content, bị clip, không cuộn).
+        int maxHeight = getResources().getDimensionPixelSize(R.dimen.popup_shortcuts_max_height);
+        if (getMeasuredHeight() > maxHeight) {
+            int cappedSpec = MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, cappedSpec);
+        }
     }
 
     @Override

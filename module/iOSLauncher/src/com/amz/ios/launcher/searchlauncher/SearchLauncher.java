@@ -16,6 +16,11 @@
 
 package com.amz.ios.launcher.searchlauncher;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+
 import com.amz.ios.launcher.Launcher;
 
 public class SearchLauncher extends Launcher {
@@ -25,6 +30,26 @@ public class SearchLauncher extends Launcher {
     public SearchLauncher() {
         mCallbacks = new SearchLauncherCallbacks(this);
         setLauncherCallbacks(mCallbacks);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Gọi super đầy đủ trước (init desktop hoàn chỉnh) rồi mới điều hướng, để onDestroy không NPE
+        // do view chưa được tạo. Sau khi user chọn app làm default launcher, :app HomeActivity đặt cờ
+        // hello_pending -> lần đầu desktop khởi động sẽ hiện màn Hello 1 lần rồi mới vào desktop. Clear
+        // cờ ngay để chỉ hiện đúng 1 lần; Hello xong tự mở lại SearchLauncher -> lúc đó cờ đã tắt nên
+        // vào desktop bình thường (không lặp). Dùng ComponentName (string) để không phụ thuộc ngược :app.
+        super.onCreate(savedInstanceState);
+        SharedPreferences pref = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        if (pref.getBoolean("hello_pending", false)) {
+            pref.edit().putBoolean("hello_pending", false).commit();
+            Intent helloIntent = new Intent();
+            helloIntent.setComponent(new ComponentName(getPackageName(),
+                    "com.oslauncher.applauncher.themelauncher.Features.hello.HelloActivity"));
+            startActivity(helloIntent);
+            overridePendingTransition(0, 0); // không nháy desktop trước khi sang Hello
+            finish();
+        }
     }
 
     public SearchLauncherCallbacks getCallbacks() {

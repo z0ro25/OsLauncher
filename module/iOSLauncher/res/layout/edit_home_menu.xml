@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Dropdown hiển thị khi bấm nút "Edit" ở góc trái-trên trong chế độ chỉnh sửa home screen.
      Gồm 3 chức năng: thêm tiện ích, chỉnh sửa page, background.
-     Nền frosted-glass THẬT (blur wallpaper real-time) kiểu iOS: RelativeLayout wrap theo
-     LinearLayout menu (định kích thước), RealtimeBlurView neo (align) khít menu -> chỉ blur
-     ĐÚNG vùng popup (không phủ full màn). clipToOutline bo góc, foreground vẽ viền kính mảnh. -->
+     Popup NẰM TRÊN các icon app -> phải làm MỜ CHÍNH CÁC ICON phía sau (nhìn app dưới mờ mờ).
+     Vì vậy KHÔNG dùng compositor blur (DockBlurView/GlassCompositorBlurView) — loại đó là overlay
+     window MEDIA nằm DƯỚI window chính nên chỉ blur wallpaper, icon app vẽ ĐÈ LÊN vẫn nét (đúng
+     cho dock nhưng SAI cho popup). Dùng RealtimeBlurView: nó blur nội dung decorView của launcher
+     (= các icon app) ngay sau popup -> app dưới mờ. Tint TRẮNG nhẹ (không đen) + viền glass qua
+     bg_glass_popup (foreground) để vẫn ra chất kính sáng giống hotseat. -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
@@ -19,9 +22,9 @@
         android:layout_alignBottom="@+id/menu_container"
         android:layout_alignStart="@+id/menu_container"
         android:layout_alignEnd="@+id/menu_container"
-        app:realtimeBlurRadius="25dp"
-        app:realtimeDownsampleFactor="4"
-        app:realtimeOverlayColor="#73000000" />
+        app:realtimeBlurRadius="100dp"
+        app:realtimeDownsampleFactor="8"
+        app:realtimeOverlayColor="#80000000" />
 
     <LinearLayout
         android:id="@+id/menu_container"

@@ -108,6 +108,8 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
         public void onProgressChanged(int sessionId, float progress) {
             SessionInfo session = mInstaller.getSessionInfo(sessionId);
             if (session != null && session.getAppPackageName() != null) {
+                // Track session runtime để onFinished(success=false) tra ra được packageName khi hủy.
+                mActiveSessions.put(sessionId, session.getAppPackageName());
                 sendUpdate(new PackageInstallInfo(session.getAppPackageName(),
                         STATUS_INSTALLING,
                         (int) (session.getProgress() * 100)));
@@ -125,10 +127,16 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
         private void pushSessionDisplayToLauncher(int sessionId) {
             SessionInfo session = mInstaller.getSessionInfo(sessionId);
             if (session != null && session.getAppPackageName() != null) {
+                // Track session runtime để onFinished(success=false) tra ra được packageName khi hủy.
+                mActiveSessions.put(sessionId, session.getAppPackageName());
                 addSessionInfoToCahce(session, UserHandleCompat.myUserHandle());
                 LauncherAppState app = LauncherAppState.getInstanceNoCreate();
 
                 if (app != null) {
+                    // iOS promise icon: tạo icon app + vòng loading NGAY khi bắt đầu tải (nếu app
+                    // chưa cài). Gọi SAU addSessionInfoToCahce ở trên để icon lấy từ session Play.
+                    // updateSessionDisplayInfo chỉ cập nhật promise ĐÃ có; addPromiseAppIcon lo tạo mới.
+                    app.getModel().addPromiseAppIcon(session.getAppPackageName());
                     app.getModel().updateSessionDisplayInfo(session.getAppPackageName());
                 }
             }

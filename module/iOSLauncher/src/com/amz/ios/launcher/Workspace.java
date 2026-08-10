@@ -3327,7 +3327,10 @@ public class Workspace extends PagedView
             parent.onDropChild(cell);
         }
 
-        if (mState == State.NORMAL) {
+        // Edit mode (jiggle) chạy với Workspace.mState == NORMAL (showOverviewMode không đổi state).
+        // Nếu đang edit thì KHÔNG endTidyUp sau khi thả -> giữ nguyên trạng thái rung + dấu trừ,
+        // để kéo thả app đổi vị trí trong lúc edit KHÔNG làm tắt chế độ edit.
+        if (mState == State.NORMAL && !mLauncher.isShaking()) {
             endTidyUp();
         }
     }

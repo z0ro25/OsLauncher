@@ -178,6 +178,13 @@ public class LauncherModel extends BroadcastReceiver
     @Thunk
     static final Handler sWorker = new Handler(sWorkerThread.getLooper());
 
+    // iOS promise icon: chống tạo TRÙNG promise khi store phát nhiều callback install liên tiếp.
+    // addAndBindAddedWorkspaceItems insert vào sBgItemsIdMap ở runnable sau, để lại khe hở race giữa
+    // shortcutExists()==false và lúc item thật vào map. Set này đánh dấu package "đang tạo promise"
+    // NGAY khi shortcutExists trả false, để callback kế tiếp thấy tức thì và bỏ qua. Chỉ chạm từ
+    // worker thread (single-threaded) nên không cần khóa riêng.
+    static final HashSet<String> sPendingPromiseCreation = new HashSet<String>();
+
     // We start off with everything not loaded.  After that, we assume that
     // our monitoring of the package manager provides all updfates and we never
     // need to do a requery.  These are only ever touched from the loader thread.
@@ -401,6 +408,8 @@ public class LauncherModel extends BroadcastReceiver
             public void run() {
                 synchronized (sBgLock) {
                     final HashSet<ItemInfo> updates = new HashSet<>();
+                    // Promise auto-install (do luồng iOS của ta tạo) bị hủy/tải lỗi -> XÓA khỏi Home.
+                    final ArrayList<ItemInfo> removedPromises = new ArrayList<>();
 
                     if (installInfo.state == PackageInstallerCompat.STATUS_INSTALLED) {
                         // Ignore install success events as they are handled by Package add events.
@@ -413,13 +422,19 @@ public class LauncherModel extends BroadcastReceiver
                             ComponentName cn = si.getTargetComponent();
                             if (si.isPromise() && (cn != null)
                                     && installInfo.packageName.equals(cn.getPackageName())) {
-                                si.setInstallProgress(installInfo.progress);
-
-                                if (installInfo.state == PackageInstallerCompat.STATUS_FAILED) {
-                                    // Mark this info as broken.
-                                    si.status &= ~ShortcutInfo.FLAG_INSTALL_SESSION_ACTIVE;
+                                if (installInfo.state == PackageInstallerCompat.STATUS_FAILED
+                                        && si.hasStatusFlag(ShortcutInfo.FLAG_AUTOINTALL_ICON)) {
+                                    // User hủy install: xóa hẳn promise icon auto-install khỏi Home.
+                                    removedPromises.add(si);
+                                } else {
+                                    si.setInstallProgress(installInfo.progress);
+                                    if (installInfo.state == PackageInstallerCompat.STATUS_FAILED) {
+                                        // Restored/backup icon (không phải auto-install): giữ hành vi
+                                        // gốc - đánh dấu broken, click sẽ hỏi abandoned dialog.
+                                        si.status &= ~ShortcutInfo.FLAG_INSTALL_SESSION_ACTIVE;
+                                    }
+                                    updates.add(si);
                                 }
-                                updates.add(si);
                             }
                         }
                     }
@@ -429,6 +444,30 @@ public class LauncherModel extends BroadcastReceiver
                             widget.installProgress = installInfo.progress;
                             updates.add(widget);
                         }
+                    }
+
+                    if (!removedPromises.isEmpty()) {
+                        // Xóa DB + gỡ view. Dùng matcher theo id để chỉ gỡ đúng promise đã hủy,
+                        // không đụng item khác cùng package.
+                        deleteItemsFromDatabase(mApp.getContext(), removedPromises);
+                        final HashSet<Long> removedIds = new HashSet<>();
+                        for (ItemInfo it : removedPromises) {
+                            removedIds.add(it.id);
+                        }
+                        final ItemInfoMatcher matcher = new ItemInfoMatcher() {
+                            @Override
+                            public boolean matches(ItemInfo info, ComponentName cn) {
+                                return removedIds.contains(info.id);
+                            }
+                        };
+                        mHandler.post(new Runnable() {
+                            public void run() {
+                                Callbacks callbacks = getCallback();
+                                if (callbacks != null) {
+                                    callbacks.bindWorkspaceComponentsRemoved(matcher);
+                                }
+                            }
+                        });
                     }
 
                     if (!updates.isEmpty()) {
@@ -498,6 +537,100 @@ public class LauncherModel extends BroadcastReceiver
             }
         };
         runOnWorkerThread(updateRunnable);
+    }
+
+    /**
+     * iOS promise icon: khi 1 app MỚI bắt đầu tải từ store (PackageInstaller session onCreated),
+     * hiện NGAY icon app kèm vòng loading trên desktop (giống iOS). Khi cài xong, luồng OP_ADD
+     * (PackageUpdatedTask) tự re-resolve promise này thành icon thật — xem đoạn resolve promise
+     * trong bindApplicationsAdded.
+     *
+     * Scope no side-effects: chỉ THÊM luồng tạo promise, không đụng luồng update progress/icon hiện
+     * có. Guard chặt: chỉ chạy khi app chưa cài, workspace đã load, và KHÔNG bật gom app mới vào
+     * folder (để giữ nguyên luồng smart-category). Dùng component placeholder (pkg,pkg): nhánh
+     * FLAG_AUTOINTALL_ICON khi cài xong luôn getLaunchIntentForPackage nên intent cuối vẫn đúng.
+     */
+    public void addPromiseAppIcon(final String packageName) {
+        if (TextUtils.isEmpty(packageName)) {
+            return;
+        }
+        Runnable r = new Runnable() {
+            public void run() {
+                final Context context = mApp.getContext();
+                final UserHandleCompat user = UserHandleCompat.myUserHandle();
+
+                // App đã cài rồi -> không cần promise.
+                if (isValidPackage(context, packageName, user)) {
+                    return;
+                }
+                // Bật gom app mới vào folder -> để nguyên luồng category, không thêm promise desktop.
+                if (LauncherAppState.isNewAppsCategotyEnable()) {
+                    return;
+                }
+                // Workspace chưa load -> chưa có dữ liệu chống trùng, bỏ qua (tránh assert dogfood).
+                synchronized (mLock) {
+                    if (!mWorkspaceLoaded) {
+                        return;
+                    }
+                }
+
+                Intent promise = new Intent(Intent.ACTION_MAIN)
+                        .addCategory(Intent.CATEGORY_LAUNCHER)
+                        .setComponent(new ComponentName(packageName, packageName));
+
+                // Đã có icon/promise cùng app trên workspace -> thôi.
+                if (shortcutExists(context, promise, user)) {
+                    return;
+                }
+                // Đang có 1 lượt tạo promise cho package này (callback install trước chưa insert xong)
+                // -> bỏ qua để không tạo icon TRÙNG. Đánh dấu ngay để callback kế tiếp thấy.
+                if (sPendingPromiseCreation.contains(packageName)) {
+                    return;
+                }
+                sPendingPromiseCreation.add(packageName);
+
+                try {
+                    ShortcutInfo info = new ShortcutInfo();
+                    info.user = user;
+                    info.itemType = LauncherSettings.Favorites.ITEM_TYPE_APPLICATION;
+                    info.intent = promise;         // getIntent() phải non-null cho addAndBind/shortcutExists
+                    info.promisedIntent = promise; // getTargetComponent() -> có packageName để match progress
+                    info.status = ShortcutInfo.FLAG_AUTOINTALL_ICON;
+                    info.setInstallProgress(0);    // set FLAG_INSTALL_SESSION_ACTIVE (đang tải, click ko hỏi abandoned)
+
+                    // Icon/label: ưu tiên icon session Play (đã cache ở onCreated); nếu chưa có -> fallback.
+                    mIconCache.getTitleAndIcon(info, promise, user, false /* useLowResIcon */);
+
+                    ArrayList<ItemInfo> items = new ArrayList<ItemInfo>(1);
+                    items.add(info);
+                    // Chạy trên worker (single-thread): addAndBind insert vào sBgItemsIdMap ngay trong
+                    // lượt này, nên khi gỡ cờ ở finally thì shortcutExists đã đủ chống trùng.
+                    addAndBindAddedWorkspaceItems(context, items);
+                } finally {
+                    sPendingPromiseCreation.remove(packageName);
+                }
+            }
+        };
+        runOnWorkerThread(r);
+    }
+
+    /** Tập packageName của các promise icon đang chờ trên workspace (để chống 2 icon khi cài xong). */
+    private HashSet<String> getPendingPromisePackages(UserHandleCompat user) {
+        HashSet<String> pkgs = new HashSet<String>();
+        synchronized (sBgLock) {
+            for (ItemInfo info : sBgItemsIdMap) {
+                if (info instanceof ShortcutInfo) {
+                    ShortcutInfo si = (ShortcutInfo) info;
+                    if (si.isPromise() && user.equals(si.user)) {
+                        ComponentName cn = si.getTargetComponent();
+                        if (cn != null) {
+                            pkgs.add(cn.getPackageName());
+                        }
+                    }
+                }
+            }
+        }
+        return pkgs;
     }
 
     public void addAppsToAllApps(final Context ctx, final ArrayList<AppInfo> allAppsApps) {
@@ -4212,8 +4345,23 @@ public class LauncherModel extends BroadcastReceiver
                     new HashMap<ComponentName, AppInfo>();
 
             if (added != null) {
+                // iOS promise icon: nếu app này đã có promise icon đang chờ trên desktop, KHÔNG thêm
+                // icon workspace lần nữa (đoạn resolve promise bên dưới sẽ tự biến promise -> icon
+                // thật). Nếu thêm ở đây sẽ thành 2 icon. Chỉ lọc bản dùng cho workspace; vẫn giữ
+                // `added` đầy đủ cho All Apps và cho addedOrUpdatedApps (cần để resolve promise).
+                ArrayList<AppInfo> addedForWorkspace = added;
+                HashSet<String> pendingPromises = getPendingPromisePackages(mUser);
+                if (!pendingPromises.isEmpty()) {
+                    addedForWorkspace = new ArrayList<AppInfo>(added.size());
+                    for (AppInfo ai : added) {
+                        if (ai.componentName == null
+                                || !pendingPromises.contains(ai.componentName.getPackageName())) {
+                            addedForWorkspace.add(ai);
+                        }
+                    }
+                }
                 // ensure that we add all the workspace applications to the db
-                addAndBindAddedWorkspaceItems(context, added, true, true);
+                addAndBindAddedWorkspaceItems(context, addedForWorkspace, true, true);
                 addAppsToAllApps(context, added);
                 for (AppInfo ai : added) {
                     addedOrUpdatedApps.put(ai.componentName, ai);

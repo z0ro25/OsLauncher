@@ -81,12 +81,14 @@ public class GlassCompositorBlurView extends View {
     public GlassCompositorBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // Bo góc/viền theo họ glass của widget (18dp, viền #40FFFFFF 1dp).
-        mCornerRadius = getResources().getDimension(R.dimen.widget_round_corner);
         mStrokeWidth = getResources().getDisplayMetrics().density; // 1dp
         mStrokeColor = 0x40FFFFFF;
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GlassCompositorBlurView);
         mFallbackDrawable = a.getDrawable(R.styleable.GlassCompositorBlurView_gcbFallbackDrawable);
+        // Bo góc override được (popup Edit khác widget); mặc định = widget_round_corner (18dp).
+        mCornerRadius = a.getDimension(R.styleable.GlassCompositorBlurView_gcbCornerRadius,
+                getResources().getDimension(R.dimen.widget_round_corner));
         a.recycle();
 
         mBorderPaint.setStyle(Paint.Style.STROKE);

@@ -4337,7 +4337,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     public void cancelShakingAnimation() {
-        if (isShaking()) {
+        // BUG FIX: cờ mIsShaking có thể bị set false TRỰC TIẾP ở Workspace.stopShakeAnimations()
+        // (qua openFolder / stopTidyUpAnimation) mà KHÔNG ẩn 2 nút góc trên. Khi đó isShaking()
+        // == false nhưng 2 nút vẫn VISIBLE -> trạng thái edit "đã tắt" mà nút không ẩn. Vì vậy
+        // vẫn phải dọn dẹp khi 2 nút còn đang hiển thị, không chỉ dựa vào cờ.
+        if (isShaking() || (mAddWidgetBtn != null && mAddWidgetBtn.getVisibility() == View.VISIBLE)) {
             mIsShaking = false;
             dismissEditMenu();
             if (mWorkspace != null) {

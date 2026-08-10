@@ -600,6 +600,11 @@ public class PopupContainerWithArrow extends AbstractFloatingView implements Dra
             mInterceptTouchDown.set(ev.getX(), ev.getY());
             return false;
         }
+        // Danh sách shortcut đang cuộn được -> KHÔNG cướp cử chỉ, nhường ScrollView để user vuốt
+        // lên/xuống. Nếu không có gì để cuộn thì giữ hành vi gốc (chặn tap sau khi kéo quá slop).
+        if (mShortcutsItemView != null && mShortcutsItemView.canScrollList()) {
+            return false;
+        }
         // Stop sending touch events to deep shortcut views if user moved beyond touch slop.
         return Math.hypot(mInterceptTouchDown.x - ev.getX(), mInterceptTouchDown.y - ev.getY())
                 > ViewConfiguration.get(getContext()).getScaledTouchSlop();

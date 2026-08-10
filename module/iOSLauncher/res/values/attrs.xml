@@ -57,6 +57,9 @@
         <!-- Ảnh nền theme dùng khi thiết bị KHÔNG dựng được compositor blur (SDK < 31, hoặc máy
              chặn hidden-API createBackgroundBlurDrawable). Trỏ tới drawable bg_glass; -night tự đổi. -->
         <attr name="gcbFallbackDrawable" format="reference" />
+        <!-- Bo góc (px) cho blur + viền + fallback. Mặc định = widget_round_corner (18dp) để các
+             widget đang dùng KHÔNG đổi; nơi khác (popup Edit) override để khớp bo góc riêng. -->
+        <attr name="gcbCornerRadius" format="dimension" />
     </declare-styleable>
 
     <!-- BubbleTextView specific attributes. -->

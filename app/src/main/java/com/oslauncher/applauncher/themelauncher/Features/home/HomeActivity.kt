@@ -71,6 +71,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     override fun dataObservable() {}
 
     private fun selectDefaultLauncher() {
+        // Đánh dấu: user vừa đi chọn default launcher -> lần đầu SearchLauncher khởi động
+        // (sau khi đã set default) sẽ hiện màn Hello 1 lần rồi mới vào desktop. Xem Launcher.onCreate.
+        SharePrefUtils.putBoolean(this, "hello_pending", true)
         if (getDefaultLauncherPackage().equals("android")) {
             selectDefault()
         } else {
