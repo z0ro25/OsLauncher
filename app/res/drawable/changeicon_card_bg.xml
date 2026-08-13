@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card (list app + card icon detail) màn Change App Icon (2-theme). Nền onb_card, bo 26dp theo
+     Figma (node 76-2313 / 115-1376). RIÊNG màn này (KHÔNG dùng bg dùng chung nhiều màn). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="26dp" />
+</shape>

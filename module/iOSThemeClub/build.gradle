@@ -38,4 +38,8 @@ dependencies {
     implementation project(':library:cropper')
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+
+    // Room (Java) — migrate SQLite thủ công sang Room
+    implementation "androidx.room:room-runtime:2.6.1"
+    annotationProcessor "androidx.room:room-compiler:2.6.1"
 }

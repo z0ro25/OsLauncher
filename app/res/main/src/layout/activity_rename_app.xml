@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màn đổi tên chi tiết dựng theo Figma (light 115-2084): header (back glass + title = tên app hiện
+  tại) + card ô nhập tên (icon 32dp + EditText) + nút xanh "Reset name to default".
+
+  Lưu khi bấm Done bàn phím + khi thoát màn (không có nút Save riêng, khớp Figma).
+
+  Scope no side-effects: token onb_* + resource RIÊNG rename_card_bg / rename_back_bg /
+  rename_ic_chevron_back / rename_btn_reset. Giữ id: iv_back, tv_title, iv_app_icon, et_app_name, btn_reset.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/onb_bg"
+    android:fitsSystemWindows="true">
+
+    <!-- ===== Header: nút back tròn glass + title (tên app) ===== -->
+    <FrameLayout
+        android:id="@+id/iv_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rename_back_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/rename_ic_chevron_back" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="72dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/change_app_name"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ===== Card ô nhập tên (icon + EditText) ===== -->
+    <LinearLayout
+        android:id="@+id/card_input"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rename_card_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <ImageView
+            android:id="@+id/iv_app_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+
+        <EditText
+            android:id="@+id/et_app_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:hint="@string/rename_app_hint"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/onb_text_primary"
+            android:textColorHint="@color/onb_text_secondary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- ===== Nút xanh Reset name to default ===== -->
+    <TextView
+        android:id="@+id/btn_reset"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rename_btn_reset"
+        android:fontFamily="@font/sf_pro_display_medium"
+        android:gravity="center"
+        android:text="@string/reset_name_to_default"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_input" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

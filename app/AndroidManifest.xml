@@ -123,6 +123,30 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".Features.general.changeicon.ChangeAppIconActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".Features.general.changeicon.ChangeIconDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".Features.general.renameapp.ChangeAppNameActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".Features.general.renameapp.RenameAppActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".Features.wallpaper.selectwallpaper.SelectWallpaperActivity"
             android:exported="true"
             android:screenOrientation="portrait"

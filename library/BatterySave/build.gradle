@@ -34,4 +34,8 @@ repositories {
 
 dependencies {
     implementation project(':library:iOSLiteCommon')
+
+    // Room (Java) — migrate SQLite thủ công sang Room
+    implementation "androidx.room:room-runtime:2.6.1"
+    annotationProcessor "androidx.room:room-compiler:2.6.1"
 }

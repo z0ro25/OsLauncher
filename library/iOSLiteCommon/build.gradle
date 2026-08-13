@@ -39,7 +39,9 @@ android {
 dependencies {
     api files('libs/launcher_client.jar')
 
-
+    // Room (Java) — migrate SQLite thủ công sang Room
+    implementation "androidx.room:room-runtime:2.6.1"
+    annotationProcessor "androidx.room:room-compiler:2.6.1"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation files('libs/utdid4all-1.0.4.jar')

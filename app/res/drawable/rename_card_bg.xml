@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card (list app + ô nhập tên) màn Change App Name (2-theme). Nền theo onb_card, bo 26dp theo
+     Figma (node 115-2088/115-2110). RIÊNG màn này (KHÔNG dùng bg_c16_fff dùng chung nhiều màn). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="26dp" />
+</shape>

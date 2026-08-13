@@ -4920,7 +4920,9 @@ public class LauncherModel extends BroadcastReceiver
             info.setIcon(icon == null ? mIconCache.getDefaultIcon(user) : icon);
         }
         // from the db
-        if (lai != null) {
+        // Chỉ đè tên hệ thống khi app CHƯA có tên custom. Nếu đã đặt tên custom (prefs custom_label_*),
+        // getTitleAndIcon ở trên đã set info.title = tên custom -> giữ nguyên để tên custom hiện trên desktop.
+        if (lai != null && TextUtils.isEmpty(mIconCache.getCustomLabel(componentName))) {
             info.title = lai.getLabel();
         }
 
