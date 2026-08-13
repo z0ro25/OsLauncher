@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền nút "Reset name to default" màn Change App Name: xanh iOS onb_accent (#007AFF chung 2 mode),
+     bo tròn 100dp theo Figma (node 115-2106). RIÊNG màn này. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_accent" />
+    <corners android:radius="100dp" />
+</shape>

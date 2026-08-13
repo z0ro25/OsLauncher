@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền tròn nút back màn Change App Icon (glass button 2-theme). Nền theo onb_card -> tự đổi theo
+     light/dark. RIÊNG màn này (không mượn drawable màn khác). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/onb_card" />
+</shape>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chevron ">" cuối mỗi dòng app màn Change App Name (list). Màu theo onb_arrow (xám iOS) -> đổi
+     theo light/dark. RIÊNG màn này. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/onb_arrow">
+    <path
+        android:pathData="M9,5L16,12L9,19"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.8"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+</vector>

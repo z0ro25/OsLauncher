@@ -99,6 +99,13 @@
     <string name="no_hidden_app">You Don\'t Have Any Hidden App</string>
     <string name="app_library">App Library</string>
     <string name="change_app_name">Change App Name</string>
+    <!-- Màn đổi tên app -->
+    <string name="reset_name_to_default">Reset name to default</string>
+    <string name="rename_app_hint">App name</string>
+    <!-- Màn đổi icon app -->
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="reset">Reset</string>
+    <string name="change_icon_failed">Cannot use this image. Please try another.</string>
     <string name="badge_notifications">Badge Notifications</string>
     <string name="appearance">Appearance</string>
     <string name="select_default_launcher">Select Default Launcher</string>

@@ -52,6 +52,7 @@ import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 
 import com.amz.ios.ioslite.common.Partner;
+import com.amz.ios.launcher.appoverride.AppOverrideStore;
 import com.amz.ios.launcher.compat.LauncherActivityInfoCompat;
 import com.amz.ios.launcher.compat.LauncherAppsCompat;
 import com.amz.ios.launcher.compat.UserHandleCompat;
@@ -926,10 +927,31 @@ public class IconCache {
             entry.title = label;
         }
         // TODO: 2023.12.03 Check Label From DB
+
+        // Logo custom (nguồn sự thật: app_override.db qua AppOverrideStore). Đặt CUỐI để luôn
+        // re-assert đè lên mọi icon dựng phía trên; bitmap memoize theo path nên rẻ.
+        try {
+            AppOverrideStore.INSTANCE.init(mContext);
+            Bitmap overrideLogo = AppOverrideStore.INSTANCE.getCurrentLogoBitmap(componentName.flattenToString());
+            if (overrideLogo != null) {
+                entry.icon = Utilities.createBadgedIconBitmap(
+                        new BitmapDrawable(mContext.getResources(), overrideLogo), user, mContext);
+            }
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
         return entry;
     }
 
     public String getCustomLabel(ComponentName componentName){
+        // Ưu tiên tên current từ app_override.db (nguồn sự thật duy nhất). Fallback prefs cũ.
+        try {
+            AppOverrideStore.INSTANCE.init(mContext);
+            String current = AppOverrideStore.INSTANCE.getCurrentName(componentName.flattenToString());
+            if (current != null) return current;
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
         try {
             SharedPreferences sharedPreferences = this.mSharedPreferences;
             return sharedPreferences.getString(CUSTOM_LABEL_PREFIX + componentName.flattenToString(), null);

@@ -115,7 +115,7 @@ class PageTransitionActivity : BaseActivity<ActivityPageTransitionBinding>() {
     /**
      * Reset toàn bộ transform về mặc định: anim1 = trang hiện tại (giữa), anim2 = trang mới (nằm bên
      * phải, ngoài màn). Gọi TRƯỚC mỗi lần chạy để click lại nhiều lần đều thấy chuyển động, không bị
-     * kẹt trạng thái của lần trước. width lấy tại thời điểm chạy (đã đo xong nhờ post{}). 
+     * kẹt trạng thái của lần trước. width lấy tại thời điểm chạy (đã đo xong nhờ post{}).
      */
     private fun ActivityPageTransitionBinding.resetPreview(width: Float) {
         ivPageAnim1.translationX = 0f

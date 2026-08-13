@@ -14,7 +14,9 @@ import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
 import com.oslauncher.applauncher.themelauncher.R
 import com.oslauncher.applauncher.themelauncher.Features.general.GeneralActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.applibrary.AppLibraryActivity
+import com.oslauncher.applauncher.themelauncher.Features.general.changeicon.ChangeAppIconActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.hiddenapp.HiddenAppActivity
+import com.oslauncher.applauncher.themelauncher.Features.general.renameapp.ChangeAppNameActivity
 import com.oslauncher.applauncher.themelauncher.Features.appearance.AppearanceActivity
 import com.oslauncher.applauncher.themelauncher.Features.general.transitionpage.PageTransitionActivity
 import com.oslauncher.applauncher.themelauncher.Features.lang.LanguageSettingActivity
@@ -44,13 +46,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     override fun viewListener() {
         // ===== Card chính (12 mục) =====
         binding.llGeneral.tap { launchActivity<GeneralActivity>() }
-        binding.llChangeAppIcon.tap { /* TODO: chưa có màn Change App Icon */ }
+        binding.llChangeAppIcon.tap { launchActivity<ChangeAppIconActivity>() }
         binding.llHomescreenStyle.tap { /* TODO: chưa có màn Homescreen Style */ }
         binding.llScreenGrid.tap { /* TODO: chưa có màn Screen Grid */ }
         binding.llHiddenApps.tap { launchActivity<HiddenAppActivity>() }
         binding.llPageTransition.tap { launchActivity<PageTransitionActivity>() }
         binding.llAppLibrary.tap { launchActivity<AppLibraryActivity>() }
-        binding.llChangeAppName.tap { /* TODO: chưa có màn Change App Name */ }
+        binding.llChangeAppName.tap { launchActivity<ChangeAppNameActivity>() }
         binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
         binding.llLanguage.tap { launchActivity<LanguageSettingActivity>() }
         binding.llAppearance.tap { launchActivity<AppearanceActivity>() }
