@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 
+import com.amz.ios.launcher.config.Settings;
 import com.github.mmin18.widget.RealtimeBlurView;
 
 import java.lang.reflect.Method;
@@ -184,6 +185,7 @@ public class DockBlurView extends RealtimeBlurView {
      * wallpaper vì panel là MEDIA sub-window) trong bounds + bo góc. Trả null nếu không hỗ trợ.
      */
     private Drawable createBackgroundBlurDrawable(View panel) {
+        if (!Settings.isDesktopBlurEnable(getContext())) return null; // tắt blur -> panel fallback (không blur)
         if (Build.VERSION.SDK_INT < 31) return null;
         unlockHiddenApi();
         try {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chevron "<" nút back màn General (chỉ mũi tên). Màu theo onb_text_primary -> tint đổi
+     theo light/dark. RIÊNG màn này. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/onb_text_primary">
+    <path
+        android:pathData="M15,5L8,12L15,19"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.8"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+</vector>

@@ -192,6 +192,18 @@ public class InvariantDeviceProfile {
         numFolderRows = numRows;
         numFolderColumns = numColumns;
 
+        // Grid do user chọn ở màn Screen Grid (Settings.PREFER_DESKTOP_GRID). Chỉ áp khi user đã
+        // chủ động chọn; chưa chọn thì giữ grid mặc định theo tỉ lệ màn hình ở trên. Đặt TRƯỚC công
+        // thức icon size bên dưới để numRows/numColumns là giá trị cuối. numFolder* bám theo luôn.
+        if (Settings.hasDesktopGrid(context)) {
+            GridConfig.GridInfo customGrid = GridConfig.PRE_DESKTOP_GRID.get(Settings.getDesktopGrid(context));
+            if (customGrid != null) {
+                applyCustomGridConfig(customGrid);
+                numFolderRows = numRows;
+                numFolderColumns = numColumns;
+            }
+        }
+
 //        minAllAppsPredictionColumns = closestProfile.minAllAppsPredictionColumns;
 
 //        iconTextSize = interpolatedDeviceProfileOut.iconTextSize;

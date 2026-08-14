@@ -1,101 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màn xin quyền (Permission) dựng lại theo Figma: light 182-5979 / dark 126-4194.
+  Bố cục: illustration team-building + tiêu đề "Permission Required" + mô tả + card 2 dòng quyền
+  (External Storage / Notification, mỗi dòng 1 switch iOS) + nút "Complete" bo tròn xanh dưới cùng.
+
+  Scope no side-effects: token 2-theme onb_* (bg/text/card/divider/accent) + resource RIÊNG perm_*
+  (card_bg / btn_complete / sw_track / sw_thumb) + illustration RIÊNG perm_illustration
+  (light drawable-xxxhdpi, dark drawable-night-xxxhdpi). KHÔNG mượn general_sw_* hay bg dùng chung.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/onb_bg"
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_display_bold"
-        android:gravity="center"
-        android:paddingVertical="14dp"
-        android:text="@string/permission"
-        android:textColor="@color/color.1E232E"
-        android:textSize="18sp"
+    <!-- ===== Illustration team-building (đổi theo theme qua -night) ===== -->
+    <ImageView
+        android:id="@+id/iv_illustration"
+        android:layout_width="247dp"
+        android:layout_height="228dp"
+        android:layout_marginTop="72dp"
+        android:contentDescription="@null"
+        android:src="@drawable/perm_illustration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="174dp"
-        android:layout_height="0dp"
+    <!-- ===== Tiêu đề ===== -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:src="@drawable/img_permission"
-        app:layout_constraintDimensionRatio="174:132"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:gravity="center"
+        android:text="@string/permission_required"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_illustration" />
 
+    <!-- ===== Mô tả ===== -->
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tv_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/sf_pro_display_regular"
         android:gravity="center"
-        android:text="@string/this_app_needs_permissions_below_to_work_properly"
-        android:textColor="#39424C"
-        android:textSize="16sp"
+        android:text="@string/permission_desc"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
+    <!-- ===== Card 2 dòng quyền ===== -->
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/card_permissions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_c16_fff_str_f1f1f1"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/perm_card_bg"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp"
+        android:paddingHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9">
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc">
 
+        <!-- Dòng External Storage -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/sf_pro_display_semibold"
+                android:fontFamily="@font/sf_pro_display_regular"
                 android:text="@string/external_storage"
-                android:textColor="@color/color.1E232E"
-                android:textSize="14sp" />
-
+                android:textColor="@color/onb_text_primary"
+                android:textSize="16sp" />
 
             <Switch
-                android:id="@+id/sw_per"
+                android:id="@+id/sw_external"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:thumb="@drawable/sw_thumb"
-                android:track="@drawable/custom_track" />
+                android:thumb="@drawable/perm_sw_thumb"
+                android:track="@drawable/perm_sw_track" />
         </LinearLayout>
 
+        <!-- Divider 0.5px (Figma) giữa 2 dòng -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/onb_divider" />
+
+        <!-- Dòng Notification -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:text="@string/notification"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="16sp" />
+
+            <Switch
+                android:id="@+id/sw_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:thumb="@drawable/perm_sw_thumb"
+                android:track="@drawable/perm_sw_track" />
+        </LinearLayout>
     </LinearLayout>
 
+    <!-- ===== Nút Complete (bo tròn xanh, full-width) ===== -->
     <TextView
-        android:id="@+id/tv_continue"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_complete"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:fontFamily="@font/sf_pro_display_bold"
-        android:text="@string/continue_"
-        android:textColor="@color/color.FF8C21"
-        android:textSize="18sp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/perm_btn_complete"
+        android:fontFamily="@font/sf_pro_display_medium"
+        android:gravity="center"
+        android:paddingVertical="13dp"
+        android:text="@string/complete"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

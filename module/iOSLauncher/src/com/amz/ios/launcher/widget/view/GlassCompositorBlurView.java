@@ -19,6 +19,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.amz.ios.launcher.R;
+import com.amz.ios.launcher.config.Settings;
 
 import java.lang.reflect.Method;
 
@@ -235,6 +236,7 @@ public class GlassCompositorBlurView extends View {
 
     /** BackgroundBlurDrawable của compositor cho window {@code panel} + bán kính/bo góc/tint. */
     private Drawable createBackgroundBlurDrawable(View panel) {
+        if (!Settings.isDesktopBlurEnable(getContext())) return null; // tắt blur -> switchToFallback (ảnh nền theme)
         if (Build.VERSION.SDK_INT < 31) return null;
         unlockHiddenApi();
         try {

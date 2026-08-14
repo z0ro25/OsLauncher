@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màu RIÊNG màn Language setting (scope no side-effects). Bản Light.
+  Token khớp Figma light node 115:1179. Không dùng chung với màn khác.
+-->
+<resources>
+    <color name="lang_bg">#F2F2F7</color>
+    <color name="lang_card">#FFFFFF</color>
+    <color name="lang_divider">#E6E6E6</color>
+    <color name="lang_text">#191919</color>
+    <color name="lang_text_selected">#007AFF</color>
+    <color name="lang_on_surface">#191919</color>
+</resources>

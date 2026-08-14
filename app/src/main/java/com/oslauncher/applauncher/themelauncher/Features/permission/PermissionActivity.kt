@@ -1,9 +1,14 @@
 package com.oslauncher.applauncher.themelauncher.Features.permission
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
 import com.oslauncher.applauncher.themelauncher.Features.home.HomeActivity
 import com.oslauncher.applauncher.themelauncher.databinding.ActivityPermissionBinding
@@ -15,9 +20,14 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
     override val setViewBinding: ActivityPermissionBinding
         get() = ActivityPermissionBinding.inflate(layoutInflater)
 
-    override fun initView() {
-//        loadNative()
+    // Kết quả xin quyền thông báo (Android 13+). Đăng ký ở field (trước RESUMED) theo yêu cầu API.
+    private val notificationPermRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            binding.swNotification.isChecked = granted
+            binding.swNotification.isEnabled = !granted
+        }
 
+    override fun initView() {
         PermissionManager.initLauncher(this)
 
         onBackPressedDispatcher.addCallback {
@@ -29,81 +39,68 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
         super.onResume()
 
         binding.apply {
-           swPer.isChecked = PermissionManager.isExternalPermission(this@PermissionActivity)
-            swPer.isEnabled = !PermissionManager.isExternalPermission(this@PermissionActivity)
+            // External Storage: đã cấp -> ON + khóa; chưa -> OFF + cho bấm.
+            val hasExternal = PermissionManager.isExternalPermission(this@PermissionActivity)
+            swExternal.isChecked = hasExternal
+            swExternal.isEnabled = !hasExternal
+
+            // Notification: máy <13 không có quyền runtime -> coi như đã bật (ON + khóa).
+            // Máy 13+ đọc trạng thái thật; đã cấp -> khóa, chưa -> cho bấm để xin.
+            val hasNotification = isNotificationGranted()
+            swNotification.isChecked = hasNotification
+            swNotification.isEnabled =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !hasNotification
         }
     }
 
-
     override fun viewListener() {
         binding.apply {
-            swPer.setOnClickListener {
-                if (!PermissionManager.isExternalPermission(this@PermissionActivity)){
-                    PermissionManager.requestExternalPermission(this@PermissionActivity,object : PermissionManager.PermissionResultListener{
-                        override fun onDenied() {
-                            super.onDenied()
-                            swPer.isChecked = false
-                        }
+            swExternal.setOnClickListener {
+                if (!PermissionManager.isExternalPermission(this@PermissionActivity)) {
+                    PermissionManager.requestExternalPermission(
+                        this@PermissionActivity,
+                        object : PermissionManager.PermissionResultListener {
+                            override fun onDenied() {
+                                super.onDenied()
+                                swExternal.isChecked = false
+                            }
 
-                        override fun onAllow() {
-                            super.onAllow()
-                            swPer.isChecked = true
-                        }
+                            override fun onAllow() {
+                                super.onAllow()
+                                swExternal.isChecked = true
+                            }
 
-                        override fun goSetting() {
-                            super.goSetting()
-                            val packageName = packageName
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            intent.data = Uri.parse("package:$packageName")
-                            startActivity(intent)
-                        }
-                    })
+                            override fun goSetting() {
+                                super.goSetting()
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                intent.data = Uri.parse("package:$packageName")
+                                startActivity(intent)
+                            }
+                        })
                 }
             }
 
+            swNotification.setOnClickListener {
+                // Chỉ máy 13+ mới tới đây (máy cũ toggle đã khóa). Bấm -> bung dialog xin quyền hệ thống.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !isNotificationGranted()) {
+                    notificationPermRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
 
-            tvContinue.setOnClickListener {
+            btnComplete.setOnClickListener {
                 SharePrefUtils.putBoolean(this@PermissionActivity, "PERMISSION_SHOWED", true)
                 launchActivity<HomeActivity> { }
             }
         }
     }
 
-    override fun dataObservable() {
+    override fun dataObservable() {}
 
+    /** Quyền hiển thị thông báo đã được cấp chưa. Máy <13 không có quyền runtime -> coi như đã có. */
+    private fun isNotificationGranted(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
+        return ContextCompat.checkSelfPermission(
+            this, Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
     }
-
-
-//    fun loadNative() {
-//        if (haveNetworkConnection() && SharePrefUtils.getBoolean(this, Constant.AdsKey.NATIVE_PER)){
-//            binding.frNative.isVisible = true
-//            val nativeBuilder = NativeBuilder(
-//                this,
-//                binding.frNative,
-//                R.layout.shimmer_native_permisison,
-//                R.layout.layout_native_per
-//            )
-//
-//            nativeBuilder.setListIdAd(AdmobApi.getInstance().getListIDByName(Constant.AdsKey.NATIVE_PER))
-//
-//            val nativeManager = NativeManager(
-//                this,
-//                this,
-//                nativeBuilder,
-//                binding.frNative,
-//                R.layout.shimmer_native_permisison,
-//                R.layout.layout_native_meta_lang
-//            )
-//
-//            nativeManager.setAlwaysReloadOnResume(true)
-//
-//            val timeInterval = SharePrefUtils.getLong(
-//                this,
-//                Constant.AdsKey.INTERVAL_RELOAD_NATIVE
-//            )
-//            nativeManager.setIntervalReloadNative(
-//                ( timeInterval* 1000).toInt()
-//            )
-//        }else  binding.frNative.isVisible = false
-//    }
 }

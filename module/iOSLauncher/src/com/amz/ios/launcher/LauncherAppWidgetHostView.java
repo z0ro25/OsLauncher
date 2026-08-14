@@ -419,7 +419,13 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        final View childAt = getChildAt(1);
+        // View nhãn widget đã bị gỡ (đợt re-skin iOS) nên nội dung widget nằm ở child[0], không phải
+        // child[1]. Trước đây getChildAt(1) trả null -> khối chuẩn hoá padding ném NPE bị catch rỗng
+        // nuốt -> widget giữ padding mặc định của framework -> hiển thị thụt/không đẹp.
+        final View childAt = getChildAt(0);
+        if (childAt == null) {
+            return;
+        }
         try {
             AppWidgetProviderInfo appWidgetInfo = getAppWidgetInfo();
             if (appWidgetInfo.provider != null || appWidgetInfo.provider.getPackageName() == null || !appWidgetInfo.provider.getPackageName().equals(mContext.getPackageName())){

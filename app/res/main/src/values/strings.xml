@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">OSLauncher 17: Theme Launcher</string>
-    //rate
+    <string name="app_name" translatable="false">OS Launcher 26</string>
     <string name="we_are_working_hard_for_a_better_user_experience">We are working hard for a better user experience.</string>
     <string name="we_d_greatly_appreciate_if_you_can_rate_us">We’d greatly appreciate if you can rate us.</string>
     <string name="may_be_later">Maybe later</string>
@@ -24,8 +23,13 @@
 
     <string name="go_to_launcher">Go to launcher</string>
     <string name="explore_your_os_interface">Explore your OS interface</string>
+    <string name="explore_your_os_interface_on_device">Explore your OS interface on your device</string>
     <string name="explore">Explore</string>
     <string name="set_as_default_launcher">Set as default launcher</string>
+    <string name="set_default_launcher_desc">Beautiful icons and widgets on your device and more! Let\'s start by setting us as your default launcher.</string>
+    <!-- Subtitle riêng cho card Set-as-default ở màn Home (Figma 246-6116, ngắn hơn desc của dialog) -->
+    <string name="set_default_launcher_card_desc">Let\'s start by setting us as your device default launcher.</string>
+    <string name="set_default">Set default</string>
     <string name="to_access_all_features_of_launcher_os_17_youneed_to_set_it_as_your_default_app">To access all features of OSLauncher 17: Theme Launcher, you need to set it as your default app.</string>
     <string name="select_default_home_screen">Select default home screen</string>
     <string name="weather">Weather</string>
@@ -63,6 +67,11 @@
     <string name="this_app_needs_permissions_below_to_work_properly">This app needs permissions below to \nwork properly</string>
     <string name="external_storage">External storage</string>
     <string name="continue_">Continue</string>
+    <!-- Màn xin quyền (Permission) dựng lại theo Figma light 182-5979 / dark 126-4194 -->
+    <string name="permission_required">Permission Required</string>
+    <string name="permission_desc">Allow us to access your device so the app can function properly and smoothly.</string>
+    <string name="notification">Notification</string>
+    <string name="complete">Complete</string>
     <string name="your_file_is_empty">Your file is empty</string>
     <string name="looks_like_you_haven_t_added_anything_nyet">Looks like you haven’t added anything \nyet.</string>
     <string name="setting">Setting</string>
@@ -84,6 +93,13 @@
     <string name="next">Next</string>
     <string name="language">Language</string>
     <string name="general">General</string>
+    <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->
+    <string name="general_options">Options</string>
+    <string name="auto_arrange_home_screen">Auto Arrange Home Screen</string>
+    <string name="blur_effect">Blur Effect</string>
+    <string name="change_app_size">Change App Size</string>
+    <string name="general_message_preview">Message</string>
+    <string name="general_hide_apps_name">Hide Apps name</string>
     <string name="no_internet">No internet</string>
     <string name="there_is_no_internet_connection">There is no internet connection! Please check your internet connection!</string>
     <string name="try_again">Try again</string>
@@ -93,6 +109,10 @@
     <string name="change_app_icon">Change App Icon</string>
     <string name="homescreen_style">Homescreen Style</string>
     <string name="screen_grid">Screen Grid</string>
+    <!-- Màn Screen Grid: nhãn segmented control (số cột x số hàng) -->
+    <string name="screen_grid_4x4" translatable="false">4x4</string>
+    <string name="screen_grid_4x5" translatable="false">4x5</string>
+    <string name="screen_grid_4x6" translatable="false">4x6</string>
     <string name="hidden_apps">Hidden Apps</string>
     <!-- Màn Hidden Apps (dựng lại theo Figma) -->
     <string name="hidden_apps_desc">After restoring hidden applications from Hidden Apps, you can find it in your App Library.</string>
@@ -136,6 +156,10 @@
     <string name="applib_no_folder">You Don\'t Have Any Folder</string>
     <string name="applib_folder_name_empty">Please enter a folder name</string>
     <string name="applib_folder_name_exists">This folder name already exists</string>
+    
+    <string name="title1">Experience IOS 26 with a futuristic look</string>
+    <string name="title2">Light &amp; Dark theme Supported</string>
+    <string name="title3">All your apps arranged neatly in App Library</string>
 
     <!-- Nhãn category cố định (hiển thị) + id song song bất biến (khóa lưu, không dịch) -->
     <string-array name="applib_fixed_categories">

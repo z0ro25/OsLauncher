@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card 2 dòng quyền màn Permission: token 2-theme onb_card (trắng / #1C1C1E), bo góc 26dp (Figma). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="26dp" />
+</shape>

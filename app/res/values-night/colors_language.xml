@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màu RIÊNG màn Language setting (scope no side-effects). Bản Dark.
+  Token khớp Figma dark node 95:1778. Tự áp khi AppThemeManager ở chế độ dark.
+-->
+<resources>
+    <color name="lang_bg">#070707</color>
+    <color name="lang_card">#1C1C1E</color>
+    <color name="lang_divider">#363638</color>
+    <color name="lang_text">#FFFFFF</color>
+    <color name="lang_text_selected">#007AFF</color>
+    <color name="lang_on_surface">#FFFFFF</color>
+</resources>

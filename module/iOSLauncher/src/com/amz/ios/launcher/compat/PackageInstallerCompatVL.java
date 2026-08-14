@@ -23,6 +23,7 @@ import android.content.pm.PackageInstaller.SessionCallback;
 import android.content.pm.PackageInstaller.SessionInfo;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.amz.ios.launcher.IconCache;
@@ -67,6 +68,9 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
     @Thunk void addSessionInfoToCahce(SessionInfo info, UserHandleCompat user) {
         String packageName = info.getAppPackageName();
         if (packageName != null) {
+            Log.d("PromiseIcon", "cachePackageInstallInfo pkg=" + packageName
+                    + " appIconNull=" + (info.getAppIcon() == null)
+                    + " label=" + info.getAppLabel());
             mCache.cachePackageInstallInfo(packageName, user, info.getAppIcon(),
                     info.getAppLabel());
         }
@@ -88,6 +92,7 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
 
         @Override
         public void onCreated(int sessionId) {
+            Log.d("PromiseIcon", "SessionCallback.onCreated id=" + sessionId);
             pushSessionDisplayToLauncher(sessionId);
         }
 
@@ -107,6 +112,8 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
         @Override
         public void onProgressChanged(int sessionId, float progress) {
             SessionInfo session = mInstaller.getSessionInfo(sessionId);
+            Log.d("PromiseIcon", "onProgressChanged id=" + sessionId + " progress=" + progress
+                    + " pkg=" + (session == null ? "SESSION_NULL" : session.getAppPackageName()));
             if (session != null && session.getAppPackageName() != null) {
                 // Track session runtime để onFinished(success=false) tra ra được packageName khi hủy.
                 mActiveSessions.put(sessionId, session.getAppPackageName());
@@ -121,11 +128,14 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
 
         @Override
         public void onBadgingChanged(int sessionId) {
+            Log.d("PromiseIcon", "SessionCallback.onBadgingChanged id=" + sessionId);
             pushSessionDisplayToLauncher(sessionId);
         }
 
         private void pushSessionDisplayToLauncher(int sessionId) {
             SessionInfo session = mInstaller.getSessionInfo(sessionId);
+            Log.d("PromiseIcon", "pushSessionDisplayToLauncher id=" + sessionId
+                    + " pkg=" + (session == null ? "SESSION_NULL" : session.getAppPackageName()));
             if (session != null && session.getAppPackageName() != null) {
                 // Track session runtime để onFinished(success=false) tra ra được packageName khi hủy.
                 mActiveSessions.put(sessionId, session.getAppPackageName());

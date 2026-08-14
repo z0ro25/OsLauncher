@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -45,12 +46,14 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langug
         }
         holder.txtName.setText(languageModel.getLanguageName());
         if (languageModel.getActive()) {
-            holder.layoutItem.setBackground(context.getDrawable(R.drawable.bg_circle_ff8c21_str_ff8c21));
-            holder.imgCheck.setImageResource(R.drawable.ic_dot_lang_select);
+            holder.txtName.setTextColor(ContextCompat.getColor(context, R.color.lang_text_selected));
+            holder.imgCheck.setVisibility(View.VISIBLE);
         } else {
-            holder.layoutItem.setBackground(context.getDrawable(R.drawable.bg_circle_f5f5f5));
-            holder.imgCheck.setImageResource(R.drawable.ic_dot_lang_unselect);
+            holder.txtName.setTextColor(ContextCompat.getColor(context, R.color.lang_text));
+            holder.imgCheck.setVisibility(View.GONE);
         }
+        // Divider: ẩn ở dòng cuối để card bo góc gọn.
+        holder.divider.setVisibility(position == languageModelList.size() - 1 ? View.GONE : View.VISIBLE);
         if (languageModel.getCode().equals("en")) {
             Glide.with(context)
                     .load(R.drawable.ic_en)
@@ -78,6 +81,10 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.Langug
         } else if (languageModel.getCode().equals("hi")) {
             Glide.with(context)
                     .load(R.drawable.ic_hi)
+                    .into(holder.icLang);
+        } else if (languageModel.getCode().equals("ko")) {
+            Glide.with(context)
+                    .load(R.drawable.ic_kor)
                     .into(holder.icLang);
         } else if (languageModel.getCode().equals("in")) {
             Glide.with(context)

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền card nhóm setting màn General (2-theme). Bo góc 26dp theo Figma; nền theo onb_card:
+     light #FFFFFF, dark #1C1C1E. RIÊNG màn này (KHÔNG dùng bg_c16_fff chung). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="26dp" />
+</shape>

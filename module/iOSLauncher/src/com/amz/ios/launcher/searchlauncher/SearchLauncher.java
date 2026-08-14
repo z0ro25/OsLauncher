@@ -19,6 +19,8 @@ package com.amz.ios.launcher.searchlauncher;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
 import com.amz.ios.launcher.Launcher;
@@ -26,6 +28,10 @@ import com.amz.ios.launcher.Launcher;
 public class SearchLauncher extends Launcher {
 
     private final SearchLauncherCallbacks mCallbacks;
+
+    // Cờ 1-lần: user bấm "Go to launcher" ở màn Home khi CHƯA default -> sau khi desktop hiển thị XONG
+    // (finishBindingItems) mới nhắc lại dialog "Set as default launcher". Đọc & xoá cờ persist ở onCreate.
+    private boolean mPromptSetDefaultOnDesktop;
 
     public SearchLauncher() {
         mCallbacks = new SearchLauncherCallbacks(this);
@@ -49,7 +55,48 @@ public class SearchLauncher extends Launcher {
             startActivity(helloIntent);
             overridePendingTransition(0, 0); // không nháy desktop trước khi sang Hello
             finish();
+            return;
         }
+        // Đọc & xoá cờ ngay (dùng-1-lần) để lần vào desktop sau (bấm Home) không hiện lại. Việc mở dialog
+        // hoãn tới finishBindingItems() để desktop hiển thị XONG rồi mới bung dialog.
+        if (pref.getBoolean("prompt_set_default_on_desktop", false)) {
+            pref.edit().putBoolean("prompt_set_default_on_desktop", false).commit();
+            mPromptSetDefaultOnDesktop = true;
+        }
+    }
+
+    @Override
+    public void finishBindingItems() {
+        super.finishBindingItems();
+        // Desktop đã bind xong toàn bộ item -> giao diện đã hiển thị. Giờ mới nhắc lại dialog Set default
+        // (activity trong suốt của :app, mở qua ComponentName để không phụ thuộc ngược :app). post() để
+        // chạy sau frame vẽ đầu tiên, đảm bảo user thấy desktop trước khi dialog nổi lên.
+        if (mPromptSetDefaultOnDesktop) {
+            mPromptSetDefaultOnDesktop = false;
+            if (!isDefaultLauncher()) {
+                getWindow().getDecorView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent promptIntent = new Intent();
+                        promptIntent.setComponent(new ComponentName(getPackageName(),
+                                "com.oslauncher.applauncher.themelauncher.dialog.SetDefaultLauncherPromptActivity"));
+                        startActivity(promptIntent);
+                        overridePendingTransition(0, 0);
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * App hiện có đang là launcher mặc định không. Resolve HOME intent rồi so package -> đúng ở MỌI API
+     * (kể cả < Q, nơi RoleManager không tồn tại nên cách cũ luôn trả false dù app ĐÃ là default).
+     */
+    private boolean isDefaultLauncher() {
+        Intent home = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME);
+        ResolveInfo res = getPackageManager().resolveActivity(home, PackageManager.MATCH_DEFAULT_ONLY);
+        return res != null && res.activityInfo != null
+                && getPackageName().equals(res.activityInfo.packageName);
     }
 
     public SearchLauncherCallbacks getCallbacks() {

@@ -38,12 +38,125 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- ===================== Go to launcher (đi tới desktop + finish app) ===================== -->
+            <LinearLayout
+                android:id="@+id/ll_go_to_launcher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_lang_card"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home_go_launcher" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display_medium"
+                        android:text="@string/go_to_launcher"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/onb_text_primary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/sf_pro_display_regular"
+                        android:text="@string/explore_your_os_interface_on_device"
+                        android:textColor="@color/onb_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home_arrow_right" />
+            </LinearLayout>
+
+            <!-- ===================== Set as default launcher (Figma 246-6116) — nút "Set default" xanh mở dialog chọn launcher mặc định ===================== -->
+            <LinearLayout
+                android:id="@+id/ll_set_default_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_lang_card"
+                android:clipChildren="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:includeFontPadding="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display_semibold"
+                        android:text="@string/set_as_default_launcher"
+                        android:textColor="@color/onb_text_primary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/sf_pro_display_regular"
+                        android:text="@string/set_default_launcher_card_desc"
+                        android:textColor="@color/onb_text_secondary"
+                        android:textSize="12sp" />
+
+                    <!-- Nút pill "Set default" (194x30 theo Figma) — bấm để mở chọn launcher mặc định -->
+                    <TextView
+                        android:id="@+id/btn_set_default"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/home_btn_set_default"
+                        android:fontFamily="@font/sf_pro_display_semibold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/set_default"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_card_select_launcher" />
+            </LinearLayout>
+
             <!-- ===================== Card chính (12 mục) ===================== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_lang_card"
                 android:orientation="vertical">
+
 
                 <!-- General -->
                 <LinearLayout
@@ -83,6 +196,7 @@
 
                 <!-- Homescreen Style -->
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ll_homescreen_style"
                     style="@style/HomeSettingRow">
 

@@ -539,7 +539,8 @@ public class DeviceProfile {
                     edgeMarginPx,
                     0,
                     edgeMarginPx,
-                    mContext.getResources().getDimensionPixelSize(R.dimen.dynamic_grid_hotseatbar_add_height)
+                    // Gấp đôi khoảng cách bottom của hotseat (chỉ padding view, không đụng dimen dùng chung).
+                    2 * mContext.getResources().getDimensionPixelSize(R.dimen.dynamic_grid_hotseatbar_add_height)
             );
         }
         hotseat.setLayoutParams(lp);

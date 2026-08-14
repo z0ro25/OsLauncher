@@ -3184,11 +3184,15 @@ public class Workspace extends PagedView
                 // cell also contains a shortcut, then create a folder with the two shortcuts.
                 if (!mInScrollArea && createUserFolderIfNecessary(cell, container,
                         dropTargetLayout, mTargetCell, distance, false, d.dragView, null)) {
+                    // Tạo folder (gộp 2 app) return sớm -> phải hiện lại 2 nút góc trên nếu còn edit.
+                    mLauncher.showEditTopButtons();
                     return;
                 }
 
                 if (addToExistingFolderIfNecessary(cell, dropTargetLayout, mTargetCell,
                         distance, d, false)) {
+                    // Thêm app vào folder có sẵn return sớm -> hiện lại 2 nút góc trên nếu còn edit.
+                    mLauncher.showEditTopButtons();
                     return;
                 }
 
@@ -3332,6 +3336,10 @@ public class Workspace extends PagedView
         // để kéo thả app đổi vị trí trong lúc edit KHÔNG làm tắt chế độ edit.
         if (mState == State.NORMAL && !mLauncher.isShaking()) {
             endTidyUp();
+        } else {
+            // Vẫn giữ edit sau khi thả -> floating menu đã đóng nhưng 2 nút góc trên có thể
+            // đang ẩn (edit vào từ long-press app). Hiện lại cho khớp trạng thái edit.
+            mLauncher.showEditTopButtons();
         }
     }
 

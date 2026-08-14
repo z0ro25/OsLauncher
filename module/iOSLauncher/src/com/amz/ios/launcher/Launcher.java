@@ -4356,6 +4356,19 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     /**
+     * BUG FIX: chế độ edit có thể được bật qua long-press app -> {@code Workspace.startTidyUp()}
+     * (không đi qua {@link #onShakingAllApps()}), lúc đó 2 nút góc trên đang ẩn vì floating menu.
+     * Khi kéo app rồi thả (kể cả thả đúng chỗ cũ) mà VẪN giữ edit (isShaking), floating menu đã bị
+     * đóng nhưng 2 nút vẫn ẩn -> đang edit mà không có nút Done. Gọi hàm này để hiện lại cho khớp.
+     */
+    public void showEditTopButtons() {
+        if (mIsShaking && mAddWidgetBtn != null && mAddWidgetDoneBtn != null) {
+            mAddWidgetBtn.setVisibility(View.VISIBLE);
+            mAddWidgetDoneBtn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
      * Shows the apps view.
      */
     /*
@@ -4856,6 +4869,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     case LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT:
                     case LauncherSettings.Favorites.ITEM_TYPE_VIRTUAL_APP:
                         ShortcutInfo info = (ShortcutInfo) item;
+
+                        // Guard chống NHÂN ĐÔI app: đường bind tăng dần (bindAppsAdded->bindItems)
+                        // không dedup theo id, chỉ theo ô bị chiếm. Nếu race khiến item được bind lần 2
+                        // nhưng rơi vào ô trống khác thì icon trùng tồn tại vĩnh viễn. Hàng rào cuối:
+                        // nếu đã có view cùng item.id trên workspace/hotseat thì bỏ qua bản thêm mới.
+                        if ((item.container == LauncherSettings.Favorites.CONTAINER_DESKTOP
+                                || item.container == LauncherSettings.Favorites.CONTAINER_HOTSEAT)
+                                && mWorkspace.getHomescreenIconByItemId(item.id) != null) {
+                            continue;
+                        }
+
                         view = createShortcut(info);
 
                         if (item.container == LauncherSettings.Favorites.CONTAINER_DESKTOP) {
@@ -5841,6 +5865,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // 更改桌面行列数
         if (key.equals(Settings.PREFER_DESKTOP_GRID)) {
             reloadLauncher(true/*resetDesktop*/);
+        }
+
+        // Màn General: ẩn/hiện tên app. reloadLauncher(false) rebind workspace (CellLayout đọc lại
+        // pref ở addViewToCellLayout) mà KHÔNG reset vị trí icon. App Library đọc pref khi mở lại.
+        if (key.equals(Settings.PREFER_HIDE_APP_LABEL)) {
+            reloadLauncher(false/*resetDesktop*/);
         }
 
         // 是否允许壁纸滚动

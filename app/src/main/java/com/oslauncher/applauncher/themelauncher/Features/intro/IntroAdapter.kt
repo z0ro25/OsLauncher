@@ -14,8 +14,6 @@ import com.oslauncher.applauncher.themelauncher.model.IntroModel
 
 class IntroAdapter(val context: Context, val introItems: List<IntroModel>) : Adapter<ViewHolder>() {
 
-    var onNextPageListener: (() -> Unit)? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return IntroViewHolder(
             ItemSlideLayoutBinding.inflate(
@@ -32,23 +30,7 @@ class IntroAdapter(val context: Context, val introItems: List<IntroModel>) : Ada
         val data = introItems[position]
         val viewholder = holder as IntroViewHolder
         viewholder.binding.apply {
-            tvTitle.text = data.title
-            tvMessssage.text = data.message
             data.bmID?.let { imLogoSlide.setImageResource(it) }
-
-            val dots: Array<ImageView> =
-                if (introItems.size == 3) arrayOf(circle1, circle2, circle3)
-                else arrayOf(circle1, circle2, circle3, circle3)
-
-            dots.forEachIndexed { index, imageView ->
-                imageView.setImageResource(if (index == position) R.drawable.ic_dot_selected else R.drawable.ic_dot_not_select)
-            }
-
-            btnNext.tap {
-                onNextPageListener?.invoke()
-            }
-
-            frNative.isVisible = false
         }
     }
 

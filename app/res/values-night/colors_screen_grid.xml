@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Override DARK cho màn Screen Grid. Chỉ ghi đè token sg_* của RIÊNG màn này, không đụng onb_* dùng chung.
+  Track segmented control ở dark dùng màu đục #141415 (giống thiết kế dark) để nổi trên nền đen của app.
+  Pill chọn + chữ chọn giữ nguyên.
+-->
+<resources>
+    <color name="sg_seg_track">#141415</color>
+</resources>

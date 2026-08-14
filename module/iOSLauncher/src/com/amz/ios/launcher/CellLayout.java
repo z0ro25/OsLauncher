@@ -546,7 +546,7 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
 //                bubbleChild.setTextVisibility(showText);
                 bubbleChild.setTextVisibility(false);
             } else {
-                bubbleChild.setTextVisibility(true);
+                bubbleChild.setTextVisibility(!Settings.isHideAppLabel(mLauncher));
             }
         }
 

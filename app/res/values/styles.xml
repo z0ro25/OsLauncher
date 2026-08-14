@@ -5,6 +5,15 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <!-- Activity trong suốt để host dialog "Set as default launcher" ngay trên nền desktop launcher. -->
+    <style name="TransparentActivity" parent="@style/AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
     <style name="image">
         <item name="cornerSize">12dp</item>
     </style>

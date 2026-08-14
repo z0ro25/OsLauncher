@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nền nút back tròn màn Language (themed theo lang_card).
+  KHÔNG dùng chung back_circle_flat (cố định trắng) để đổi màu theo dark/light.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/lang_card" />
+</shape>

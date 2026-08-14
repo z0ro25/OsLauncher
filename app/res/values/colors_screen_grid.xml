@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu RIÊNG cho màn Screen Grid (segmented control 4x4/4x5/4x6).
+  Scope no side-effects: KHÔNG dùng lại pt_seg_* (Page Transition) hay bg_c24_fff/color.FF8C21 (dùng chung).
+  Nền màn / chữ tiêu đề / nút back dùng token onb_* (tự đổi light/dark).
+
+  Segmented control giống iOS: track fill trong mờ, pill chọn nền trắng, chữ khi chọn luôn tối.
+-->
+<resources>
+    <!-- Track segmented control: Figma RGBA #7676801F -> ARGB #1F767680 (~12% mờ). -->
+    <color name="sg_seg_track">#1F767680</color>
+    <!-- Nền pill nút đang chọn (chung 2 mode). -->
+    <color name="sg_seg_selected">#FFFFFF</color>
+    <!-- Chữ nút đang chọn (luôn tối vì trên pill trắng). -->
+    <color name="sg_seg_text_selected">#191919</color>
+</resources>

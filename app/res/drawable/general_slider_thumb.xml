@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Núm (knob) SeekBar "Change App Size" màn General: viên thuốc trắng 37x24dp bo tròn hết (capsule)
+     + BÓNG ĐỔ mềm nhẹ lệch xuống dưới — đo theo Figma (307-4289, thumb 37x24). RIÊNG màn này. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bóng mềm: lệch nhẹ xuống dưới, mờ -->
+    <item android:left="1dp" android:right="1dp" android:top="2dp" android:bottom="0dp">
+        <shape android:shape="oval">
+            <corners android:radius="100dp" />
+            <solid android:color="#1F000000" />
+        </shape>
+    </item>
+
+    <!-- Núm trắng 37x24 -->
+    <item android:bottom="2dp">
+        <shape android:shape="oval">
+            <size android:width="24dp" android:height="24dp" />
+            <corners android:radius="100dp" />
+            <solid android:color="#FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

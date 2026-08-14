@@ -16,6 +16,9 @@ public class GridConfig {
         PRE_DESKTOP_GRID.put(1, new GridInfo(5, 4));
         PRE_DESKTOP_GRID.put(2, new GridInfo(4, 5));
         PRE_DESKTOP_GRID.put(3, new GridInfo(5, 5));
+        // Mức RIÊNG cho màn Screen Grid: UI "4x6" = 4 cột x 6 hàng -> GridInfo(rows=6, columns=4).
+        // Dùng index 4 để không đụng 0-3 mà màn chọn grid cũ của engine đã dùng.
+        PRE_DESKTOP_GRID.put(4, new GridInfo(6, 4));
     }
 
 
@@ -56,6 +59,8 @@ public class GridConfig {
                 layoutId = R.xml.default_workspace_4x5;
             } else if (rows == 5 && columns == 5) {
                 layoutId = R.xml.default_workspace_5x5;
+            } else if (rows == 6 && columns == 4) {
+                layoutId = R.xml.default_workspace_6x4;
             }
             return layoutId;
         }

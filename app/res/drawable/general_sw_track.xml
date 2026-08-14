@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Track switch kiểu iOS màn General: bật = xanh #34C759 (theo Figma Blur Effect), tắt = xám
+     token 2-theme onb_switch_track_off. RIÊNG màn này. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <size android:width="51dp" android:height="31dp" />
+            <corners android:radius="100dp" />
+            <solid android:color="#34C759" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <size android:width="51dp" android:height="31dp" />
+            <corners android:radius="100dp" />
+            <solid android:color="@color/onb_switch_track_off" />
+        </shape>
+    </item>
+</selector>

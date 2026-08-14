@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.amz.ios.launcher.config.Settings;
+
 import java.lang.reflect.Method;
 
 /**
@@ -164,6 +166,7 @@ public class AppLibraryBlurView extends View {
      * full-screen. Trả null nếu không hỗ trợ.
      */
     private Drawable createBackgroundBlurDrawable(View panel) {
+        if (!Settings.isDesktopBlurEnable(getContext())) return null; // tắt blur -> fallback scrim (không blur)
         if (Build.VERSION.SDK_INT < 31) return null;
         unlockHiddenApi();
         try {

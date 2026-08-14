@@ -511,6 +511,8 @@ public class LauncherModel extends BroadcastReceiver
                                     mIconCache.getTitleAndIcon(si,
                                             si.promisedIntent, user,
                                             si.shouldUseLowResIcon());
+                                    Log.d("PromiseIcon", "updateSessionDisplayInfo REFRESH pkg="
+                                            + packageName + " usingFallbackIcon=" + si.usingFallbackIcon);
                                 } else {
                                     // Only update the icon for restored apps.
                                     si.updateIcon(mIconCache);
@@ -559,17 +561,21 @@ public class LauncherModel extends BroadcastReceiver
                 final Context context = mApp.getContext();
                 final UserHandleCompat user = UserHandleCompat.myUserHandle();
 
+                Log.d("PromiseIcon", "addPromiseAppIcon ENTER pkg=" + packageName);
                 // App đã cài rồi -> không cần promise.
                 if (isValidPackage(context, packageName, user)) {
+                    Log.d("PromiseIcon", "SKIP isValidPackage (đã cài) pkg=" + packageName);
                     return;
                 }
                 // Bật gom app mới vào folder -> để nguyên luồng category, không thêm promise desktop.
                 if (LauncherAppState.isNewAppsCategotyEnable()) {
+                    Log.d("PromiseIcon", "SKIP category enable pkg=" + packageName);
                     return;
                 }
                 // Workspace chưa load -> chưa có dữ liệu chống trùng, bỏ qua (tránh assert dogfood).
                 synchronized (mLock) {
                     if (!mWorkspaceLoaded) {
+                        Log.d("PromiseIcon", "SKIP !mWorkspaceLoaded pkg=" + packageName);
                         return;
                     }
                 }
@@ -580,11 +586,13 @@ public class LauncherModel extends BroadcastReceiver
 
                 // Đã có icon/promise cùng app trên workspace -> thôi.
                 if (shortcutExists(context, promise, user)) {
+                    Log.d("PromiseIcon", "SKIP shortcutExists pkg=" + packageName);
                     return;
                 }
                 // Đang có 1 lượt tạo promise cho package này (callback install trước chưa insert xong)
                 // -> bỏ qua để không tạo icon TRÙNG. Đánh dấu ngay để callback kế tiếp thấy.
                 if (sPendingPromiseCreation.contains(packageName)) {
+                    Log.d("PromiseIcon", "SKIP sPendingPromiseCreation pkg=" + packageName);
                     return;
                 }
                 sPendingPromiseCreation.add(packageName);
@@ -605,6 +613,7 @@ public class LauncherModel extends BroadcastReceiver
                     items.add(info);
                     // Chạy trên worker (single-thread): addAndBind insert vào sBgItemsIdMap ngay trong
                     // lượt này, nên khi gỡ cờ ở finally thì shortcutExists đã đủ chống trùng.
+                    Log.d("PromiseIcon", "CREATE + addAndBind promise pkg=" + packageName);
                     addAndBindAddedWorkspaceItems(context, items);
                 } finally {
                     sPendingPromiseCreation.remove(packageName);
@@ -2268,81 +2277,8 @@ public class LauncherModel extends BroadcastReceiver
                 }
             }
 
-            // Ép app OsLauncher (chính app này) về ô đầu tiên ngay dưới 2 widget
-            // (page 0, ô 0,2) đúng như bố cục mặc định mong muốn. Chạy sau loadWorkspace()
-            // (đã dựng xong sBgWorkspaceItems) và trước bindWorkspace() để view bind đúng vị
-            // trí mới.
-            enforceHomeAppDefaultPosition();
-
             // Bind the workspace
             bindWorkspace(-1);
-        }
-
-        /**
-         * Di chuyển app OsLauncher về ô (0,2) trên page 0 — ngay dưới 2 widget. Vì app tự
-         * thân bị AppFilter loại khỏi danh sách component nên không thể ghim qua
-         * default_workspace; và trên máy đã cài sẵn thì DB đã có entry ở vị trí cũ. Cách
-         * chắc chắn cho cả máy mới lẫn máy cũ là dời tại runtime: hoán đổi (swap) với item
-         * đang chiếm ô (0,2) để lưới không bị lỗ trống.
-         *
-         * Chạy MỖI LẦN load workspace để tự sửa (self-healing): nếu về sau việc cài/gỡ app
-         * khác làm desktop xáo trộn và đẩy OsLauncher đi, lần mở kế tiếp sẽ tự kéo về đúng
-         * ô. Khi app đã đúng vị trí thì hàm là no-op (không ghi DB, không gây nhảy layout).
-         */
-        private void enforceHomeAppDefaultPosition() {
-            final Context context = mContext;
-            if (context == null) return;
-
-            final String homePkg = context.getPackageName();
-            final int targetScreen = 0;
-            final int targetX = 0;
-            final int targetY = 2;
-
-            synchronized (sBgLock) {
-                ItemInfo homeItem = null;
-                ItemInfo occupant = null;
-
-                for (ItemInfo item : sBgWorkspaceItems) {
-                    if (item.container != LauncherSettings.Favorites.CONTAINER_DESKTOP) {
-                        continue;
-                    }
-                    ComponentName cn = item.getTargetComponent();
-                    if (cn != null && homePkg.equals(cn.getPackageName())) {
-                        homeItem = item;
-                    }
-                    if (item.screenId == targetScreen && item.cellX == targetX
-                            && item.cellY == targetY) {
-                        occupant = item;
-                    }
-                }
-
-                // Không tìm thấy app OsLauncher trên desktop -> bỏ qua.
-                if (homeItem == null) {
-                    return;
-                }
-
-                // Đã đúng vị trí rồi -> no-op.
-                if (occupant == homeItem) {
-                    return;
-                }
-
-                // Ghi lại vị trí cũ của app OsLauncher để hoán cho item đang chiếm ô đích.
-                final long homeOldScreen = homeItem.screenId;
-                final int homeOldX = homeItem.cellX;
-                final int homeOldY = homeItem.cellY;
-
-                if (occupant != null) {
-                    // Swap: item đang ở (0,2) nhảy về chỗ cũ của app OsLauncher.
-                    moveItemInDatabase(context, occupant,
-                            LauncherSettings.Favorites.CONTAINER_DESKTOP,
-                            homeOldScreen, homeOldX, homeOldY);
-                }
-
-                // App OsLauncher về ô đích (0,2) page 0.
-                moveItemInDatabase(context, homeItem,
-                        LauncherSettings.Favorites.CONTAINER_DESKTOP,
-                        targetScreen, targetX, targetY);
-            }
         }
 
         private void waitForIdle() {
@@ -3881,7 +3817,11 @@ public class LauncherModel extends BroadcastReceiver
 
         private void verifyApplication() {
             final Context context = mApp.getContext();
+            final String homePkg = context.getPackageName();
             ArrayList<ItemInfo> tmpInfos;
+            // Tách app của chính launcher ra để đặt TRƯỚC tiên (luôn ở ô đầu page 0),
+            // các app khác nối tiếp sau.
+            ItemInfo homeApp = null;
             ArrayList<ItemInfo> added = new ArrayList<ItemInfo>();
 
             synchronized (sBgLock) {
@@ -3889,10 +3829,24 @@ public class LauncherModel extends BroadcastReceiver
                     tmpInfos = getItemInfoForComponentName(app.componentName, app.user);
                     if (tmpInfos.isEmpty()) {
                         app.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
-                        added.add(app);
-                        Log.d(TAG, "Missing Application on load : " + app);
+                        if (app.componentName != null
+                                && homePkg.equals(app.componentName.getPackageName())) {
+                            homeApp = app;
+                        } else {
+                            added.add(app);
+                            Log.d(TAG, "Missing Application on load : " + app);
+                        }
                     }
                 }
+            }
+
+            // Đặt app launcher đầu tiên qua luồng phẳng (KHÔNG gom folder) để nó chiếm ô
+            // trống đầu tiên của page 0 ((0,2) dưới 2 widget). Worker thread chạy tuần tự nên
+            // nó được ghi DB trước khi các app khác tìm ô -> luôn đứng đầu, app khác nối sau.
+            if (homeApp != null) {
+                ArrayList<ItemInfo> homeList = new ArrayList<ItemInfo>(1);
+                homeList.add(homeApp);
+                addAndBindAddedWorkspaceItems(context, homeList);
             }
 
             if (!added.isEmpty()) {

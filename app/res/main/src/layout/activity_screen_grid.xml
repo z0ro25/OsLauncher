@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màn Screen Grid dựng lại theo Figma (light 115-1557 / dark 80-604): header (back glass + title căn giữa)
+  + segmented control 3 nút (4x4 / 4x5 / 4x6) + preview phone (đổi ảnh theo lựa chọn) + thanh slider dọc bên phải.
+
+  Scope no side-effects: token 2-theme onb_* (bg/text/card) + resource RIÊNG screengrid_* (back_bg / chevron /
+  seg_track / seg_selected / slider_track / slider_fill) + ảnh RIÊNG screengrid_preview_4x4/4x5/4x6.
+  KHÔNG mượn pt_seg_* (Page Transition) hay bg dùng chung.
+
+  UI-ONLY: segmented control chỉ đổi ảnh preview + trạng thái pill, CHƯA đổi grid thật của launcher.
+  Ảnh preview (wallpaper + lưới icon glass + dock) bake sẵn cho từng biến thể, giống nhau ở light/dark.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/onb_bg"
+    android:fitsSystemWindows="true">
+
+    <!-- ===== Header: nút back tròn glass + title căn giữa ===== -->
+    <FrameLayout
+        android:id="@+id/iv_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/screengrid_back_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/screengrid_ic_chevron_back" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:text="@string/screen_grid"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ===== Segmented control 3 nút (Figma: track 358x32, inset 2) =====
+         Nút chọn = pill trắng (screengrid_seg_selected) + chữ tối; nút thường = chữ onb_text_primary.
+         Trạng thái do ScreenGridActivity set (mặc định 4x4). -->
+    <LinearLayout
+        android:id="@+id/ll_segmented"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/screengrid_seg_track"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <FrameLayout
+            android:id="@+id/ll_seg_4x4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_seg_4x4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/screen_grid_4x4"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ll_seg_4x5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_seg_4x5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/screen_grid_4x5"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ll_seg_4x6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_seg_4x6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/sf_pro_display_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/screen_grid_4x6"
+                android:textColor="@color/onb_text_primary"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ===== Preview phone (đổi ảnh theo lựa chọn segmented) =====
+         Ảnh bake sẵn tỉ lệ 580:1141, cao hết khoảng trống dưới segmented, căn giữa ngang. -->
+    <ImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/screengrid_preview_4x4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="W,580:1141"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_segmented" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

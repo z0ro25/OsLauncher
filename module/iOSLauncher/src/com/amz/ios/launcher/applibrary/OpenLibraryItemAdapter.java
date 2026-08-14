@@ -108,6 +108,9 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
             final BubbleTextView bubbleTextView = (BubbleTextView)item.itemView;
             bubbleTextView.setTag(appInfo);
             bubbleTextView.reapplyItemInfo(appInfo);
+            // Màn General "Hide Apps name": ON = ẩn tên app trong App Library (list).
+            bubbleTextView.setTextVisibility(
+                    !com.amz.ios.launcher.config.Settings.isHideAppLabel(mLauncher));
             bubbleTextView.setOnClickListener(
                 mLauncher
             );

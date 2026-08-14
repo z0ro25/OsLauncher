@@ -4,21 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
-    android:orientation="vertical"
-    android:paddingHorizontal="16dp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/bg_circle_f5f5f5">
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/iv_lang"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginVertical="12dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_en"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,22 +26,24 @@
             android:id="@+id/txtName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_toStartOf="@+id/imgCheck"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
             android:fontFamily="@font/sf_pro_display_medium"
             android:text="English"
-            android:textColor="#CC000000"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_lang"
+            android:textColor="@color/lang_text"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgCheck"
             app:layout_constraintStart_toEndOf="@+id/iv_lang"
-            app:layout_constraintTop_toTopOf="@+id/iv_lang" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imgCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_dot_lang_unselect"
+            android:src="@drawable/ic_check_lang_blue"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +53,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#FFEDDD"
-        android:visibility="gone" />
+        android:layout_marginStart="60dp"
+        android:background="@color/lang_divider" />
 
 </LinearLayout>

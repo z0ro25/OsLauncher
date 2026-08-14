@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút "Cancel" (dialog Set default launcher): pill xám trung tính bo 24dp, đọc được trên cả 2 theme. RIÊNG dialog này. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="24dp" />
+    <solid android:color="#33808080" />
+</shape>

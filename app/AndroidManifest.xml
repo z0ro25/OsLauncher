@@ -11,16 +11,18 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- Quyền hiển thị thông báo (runtime từ Android 13). Dùng cho toggle Notification màn xin quyền. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@drawable/app_logo"
+        android:icon="@drawable/logo_app"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:largeHeap="true"
-        android:roundIcon="@drawable/app_logo"
+        android:roundIcon="@drawable/logo_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -80,6 +82,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
+        <!-- Dialog "Set as default launcher" nổi trên desktop (mở từ SearchLauncher qua ComponentName). -->
+        <activity
+            android:name=".dialog.SetDefaultLauncherPromptActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/TransparentActivity" />
+
         <activity
             android:name=".Features.general.GeneralActivity"
             android:exported="true"
@@ -100,6 +110,12 @@
 
         <activity
             android:name=".Features.general.transitionpage.PageTransitionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".Features.general.screengrid.ScreenGridActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

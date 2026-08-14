@@ -4,135 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
-    <ScrollView
+    <ImageView
+        android:id="@+id/im_LogoSlide"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:id="@+id/im_LogoSlide"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:scaleType="fitXY"
-                app:layout_constraintDimensionRatio="0.8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/im_LogoSlide">
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="16dp"
-                    android:fontFamily="@font/sf_pro_display_semibold"
-                    android:gravity="center"
-                    android:text="@string/app_name"
-                    android:textAllCaps="false"
-                    android:textColor="@color/color.1E232E"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_messssage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/sf_pro_display_regular"
-                    android:gravity="center"
-                    android:text="hakdhfjasjfhkajsdhf"
-                    android:textColor="@color/color.4B4F58"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_display_semibold"
-        android:gravity="center"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="8dp"
-        android:text="@string/next"
-        android:textColor="@color/color.FF8C21"
-        android:textSize="16sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/fr_native"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_next"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_next">
-
-        <ImageView
-            android:id="@+id/circle_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_dot_selected" />
-
-        <ImageView
-            android:id="@+id/circle_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5sp"
-            android:src="@drawable/ic_dot_not_select" />
-
-        <ImageView
-            android:id="@+id/circle_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_dot_not_select" />
-
-    </LinearLayout>
-
-
-    <FrameLayout
-        android:id="@+id/fr_native"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:background="@drawable/bg_c8_f3f3f3"
-        android:minHeight="130dp"
-        android:visibility="visible"
+        android:scaleType="fitXY"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </FrameLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

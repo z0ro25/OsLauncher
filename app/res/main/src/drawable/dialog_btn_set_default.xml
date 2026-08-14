@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút "Set default" (dialog Set default launcher): pill xanh accent bo 24dp. RIÊNG dialog này. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="24dp" />
+    <solid android:color="@color/onb_accent" />
+</shape>

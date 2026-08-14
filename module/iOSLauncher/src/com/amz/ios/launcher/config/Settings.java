@@ -105,6 +105,12 @@ public class Settings {
     // 应用自动对齐
     public static final String PREFER_DESKTOP_AUTO_ALIGN_ENABLE = "launcher_desktop_auto_align_enable";
 
+    // Màn General: bật/tắt hiệu ứng blur nền desktop (dock, widget đồng hồ, app library). Default true.
+    public static final String PREFER_DESKTOP_BLUR_ENABLE = "launcher_desktop_blur_enable";
+
+    // Màn General: ẩn tên app (ON = ẩn) ở workspace + App Library. Default false = hiện tên.
+    public static final String PREFER_HIDE_APP_LABEL = "launcher_hide_app_label";
+
     // 循环滑动
     public static final String PREFER_DESKTOP_LOOP_ENABLE = "launcher_desktop_loop_enable";
 
@@ -344,6 +350,15 @@ public class Settings {
         putInt(context, PREFER_DESKTOP_GRID, value);
     }
 
+    /**
+     * User đã chủ động chọn grid (màn Screen Grid) hay chưa. Dùng để chỉ áp custom grid khi có
+     * lựa chọn thật, giữ nguyên hành vi mặc định (tính theo tỉ lệ màn hình) cho user chưa chọn.
+     */
+    public static boolean hasDesktopGrid(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+        return sp.contains(PREFER_DESKTOP_GRID);
+    }
+
     public static boolean isDeveloperEnabled(Context context) {
         return getBoolean(context, PREFER_DEVELOPER_ENABLE, false);
     }
@@ -432,6 +447,24 @@ public class Settings {
 
     public static void setDesktopAlignEnable(Context context, boolean value) {
         putBoolean(context, PREFER_DESKTOP_AUTO_ALIGN_ENABLE, value);
+    }
+
+    /** Blur nền desktop có đang bật không (default true). Các view blur tự fallback khi tắt. */
+    public static boolean isDesktopBlurEnable(Context context) {
+        return getBoolean(context, PREFER_DESKTOP_BLUR_ENABLE, true);
+    }
+
+    public static void setDesktopBlurEnable(Context context, boolean value) {
+        putBoolean(context, PREFER_DESKTOP_BLUR_ENABLE, value);
+    }
+
+    /** Có ẩn tên app không (ON = ẩn). Default false = hiện tên. */
+    public static boolean isHideAppLabel(Context context) {
+        return getBoolean(context, PREFER_HIDE_APP_LABEL, false);
+    }
+
+    public static void setHideAppLabel(Context context, boolean value) {
+        putBoolean(context, PREFER_HIDE_APP_LABEL, value);
     }
 
     public static boolean sLoopEnable;

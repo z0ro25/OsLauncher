@@ -155,6 +155,9 @@ dependencies {
     implementation 'com.android.installreferrer:installreferrer:2.2'
     // Add the following if you're using the Adjust SDK inside web views on your app
     implementation 'com.adjust.sdk:adjust-android-webbridge:4.38.5'
+
+    // 4.3 build bằng Kotlin 1.6/1.7 → tương thích compiler dự án (1.7.10); 5.x cần Kotlin 1.9.
+    implementation("com.tbuonomo:dotsindicator:4.3")
 }
 
 preBuild {

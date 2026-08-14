@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút "Set default" trong card Set-as-default-launcher (màn Home, Figma 246-6116): pill xanh accent
+     bo tròn hết (height 30dp). RIÊNG card này (không mượn dialog_btn_set_default của dialog). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="100dp" />
+    <solid android:color="@color/onb_accent" />
+</shape>

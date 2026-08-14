@@ -9,7 +9,6 @@ import com.oslauncher.applauncher.themelauncher.databinding.ActivityLanguageBind
 import com.oslauncher.applauncher.themelauncher.extensions.launchActivity
 import com.oslauncher.applauncher.themelauncher.model.LanguageModel
 import com.oslauncher.applauncher.themelauncher.tool.languageTool.LanguageUtil
-import java.util.Locale
 
 class LanguageSettingActivity : BaseActivity<ActivityLanguageBinding>() {
 
@@ -40,27 +39,22 @@ class LanguageSettingActivity : BaseActivity<ActivityLanguageBinding>() {
 //            bannerManager = BannerManager(bannerBuilder)
 //        } else binding.frBanner.isVisible = false
 
+        // Áp locale khi back (Đánh dấu, áp dụng khi back): chỉ đổi khi khác ngôn ngữ hiện tại.
         onBackPressedDispatcher.addCallback {
-            setResult(RESULT_OK)
+            val selected = listLanguage?.firstOrNull { it.active == true }
+            val current = LanguageUtil.getPreLanguage(baseContext)
+            if (selected != null && selected.code != current) {
+                LanguageUtil.saveLocale(baseContext, selected.code)
+                launchActivity<HomeActivity> { }
+            } else {
+                setResult(RESULT_OK)
+            }
             finish()
         }
     }
 
     override fun viewListener() {
-
         binding.ivBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
-
-        binding.ivDone.setOnClickListener { obj ->
-            for (i in listLanguage!!) {
-                if (i.active == true && i.code !== LanguageUtil.getPreLanguage(baseContext)) {
-                    LanguageUtil.saveLocale(baseContext, i.code)
-                    launchActivity<HomeActivity> { }
-                    finish()
-                } else {
-                    finish()
-                }
-            }
-        }
     }
 
     override fun dataObservable() {
@@ -68,22 +62,15 @@ class LanguageSettingActivity : BaseActivity<ActivityLanguageBinding>() {
     }
 
     private fun initData() {
+        // Thứ tự cố định theo Figma (không dồn ngôn ngữ hiện tại lên đầu).
         listLanguage = ArrayList()
-        val lang = Locale.getDefault().language
         listLanguage?.add(LanguageModel("English", "en"))
-        listLanguage?.add(LanguageModel("Portuguese", "pt"))
-        listLanguage?.add(LanguageModel("Spanish", "es"))
-        listLanguage?.add(LanguageModel("German", "de"))
-        listLanguage?.add(LanguageModel("French", "fr"))
         listLanguage?.add(LanguageModel("Hindi", "hi"))
-        listLanguage?.add(LanguageModel("Indonesian", "in"))
-
-        for (i in listLanguage!!.indices) {
-            if (listLanguage!![i].code == lang) {
-                listLanguage!!.add(0, listLanguage!![i])
-                listLanguage!!.removeAt(i + 1)
-            }
-        }
+        listLanguage?.add(LanguageModel("Spanish", "es"))
+        listLanguage?.add(LanguageModel("French", "fr"))
+        listLanguage?.add(LanguageModel("German", "de"))
+        listLanguage?.add(LanguageModel("Korean", "ko"))
+        listLanguage?.add(LanguageModel("Portuguese", "pt"))
     }
 
 

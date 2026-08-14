@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Track SeekBar "Change App Size" màn General (iOS style, UI-only). Nền xám mờ rgba(120,120,120,0.2),
+     phần đã chọn xanh #007AFF, bo tròn 3dp. RIÊNG màn này. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <size android:height="6dp" />
+            <corners android:radius="3dp" />
+            <solid android:color="#33787878" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <size android:height="6dp" />
+                <corners android:radius="3dp" />
+                <solid android:color="@color/onb_accent" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
