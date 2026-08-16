@@ -710,6 +710,10 @@
     <string name="add_widget">Add widget</string>
     <string name="edit_page">Edit page</string>
     <string name="background">Background</string>
+    <!-- Popup riêng của widget khi long-press -->
+    <string name="widget_menu_resize">Resize</string>
+    <string name="widget_menu_edit_screen">Edit Home Screen</string>
+    <string name="widget_menu_delete">Remove Widget</string>
     <string name="favorites">Favorites</string>
     <string name="pick_image">My photos</string>
     <string name="change_icon">Change icon</string>

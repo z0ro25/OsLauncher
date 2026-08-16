@@ -277,7 +277,13 @@ public class DragLayer extends InsettableFrameLayout {
             }
             mTouchCompleteListener = null;
         }
-        clearAllResizeFrames();
+        // Khi đang mở popup widget (long-press) thì GIỮ khung resize góc, không xóa bởi các sự kiện
+        // touch của chính cử chỉ long-press (ACTION_MOVE/UP). Chạm vào tay kéo góc đã được
+        // handleTouchDown bắt trước (return true) nên không rơi tới đây; chạm ra ngoài sẽ đóng popup
+        // qua overlay và tự clear. Ngoài trạng thái này, giữ nguyên hành vi cũ.
+        if (!mLauncher.isWidgetResizeMode()) {
+            clearAllResizeFrames();
+        }
 
         // Detect gesture actions like QuickAccess, HiddenFolder, Notifications, SearchShow
         if (this.mLauncher.isInWorkspace() && this.mLauncher.isWorkspaceNormal() && !this.mLauncher.isInPreviewView()) {
@@ -704,9 +710,21 @@ public class DragLayer extends InsettableFrameLayout {
     }
 
     public void addResizeFrame(ItemInfo itemInfo, LauncherAppWidgetHostView widget, CellLayout cellLayout, float scaleOfWidget) {
+        addResizeFrame(itemInfo, widget, cellLayout, scaleOfWidget, false);
+    }
+
+    /**
+     * @param compactCorner true -> khung resize gọn chỉ có 1 tay kéo ở GÓC DƯỚI-PHẢI (kéo chéo đổi
+     *                      cả rộng+cao), dùng cho luồng long-press widget. false -> 4 tay kéo cạnh
+     *                      như luồng resize-sau-kéo-thả cũ.
+     */
+    public void addResizeFrame(ItemInfo itemInfo, LauncherAppWidgetHostView widget, CellLayout cellLayout, float scaleOfWidget, boolean compactCorner) {
         AppWidgetResizeFrame resizeFrame = new AppWidgetResizeFrame(getContext(),
                 widget, cellLayout, this);
         resizeFrame.mfWidgetScale = scaleOfWidget;
+        if (compactCorner) {
+            resizeFrame.setCompactCornerMode(true);
+        }
         LayoutParams lp = new LayoutParams(-1, -1);
         lp.customPosition = true;
 

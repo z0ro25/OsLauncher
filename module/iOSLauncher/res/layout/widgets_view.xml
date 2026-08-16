@@ -28,13 +28,26 @@
         android:orientation="vertical"
         android:weightSum="8">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="bottom"
-            android:layout_weight="7"
-            android:background="@drawable/widget_background"
-            android:orientation="vertical">
+            android:layout_weight="7">
+
+            <!-- Lớp kính iOS: blur wallpaper thật, bo 2 góc trên, tint tối nhẹ (thay nền đen xì). -->
+            <com.amz.ios.launcher.widget.view.GlassBlurView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:gbvCornerRadius="18dp"
+                app:gbvOverlayColor="#40000000"
+                app:gbvBorderColor="#33FFFFFF"
+                app:gbvBorderWidth="1dp"
+                app:gbvFallbackDrawable="@drawable/widget_sheet_glass_fallback" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/search_box"
@@ -49,11 +62,12 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ic_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:contentDescription="@string/app_name"
                     android:duplicateParentState="true"
-                    android:padding="3dp"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_search"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +123,15 @@
                 android:animationCache="true"
                 android:overScrollMode="never"
                 android:scrollbars="none" />
-        </LinearLayout>
+            </LinearLayout>
+
+            <!-- Thanh grabber NÉT vẽ ĐÈ trên lớp kính (không thể nằm trong nền vì bị blur che). -->
+            <View
+                android:layout_width="36dp"
+                android:layout_height="5dp"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/widget_sheet_grabber" />
+        </FrameLayout>
     </LinearLayout>
 </com.amz.ios.launcher.widget.WidgetsContainerView>

@@ -474,11 +474,24 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         }
         if (v == mActionClearBtn){
             mSearchWidgetEDT.setText("");
+            return;
         }
-        else {
-            if (mLauncher.isWidgetsViewVisible()){
-                    showToast();
-            }
+
+        // Bấm thẳng vào ô preview widget/shortcut trong khay chọn -> đặt ngay vào ô trống
+        // + đóng khay (đóng khay sẽ post onShakingAllApps -> vào chế độ edit/jiggle). Cả khay
+        // grid chính lẫn panel app-style đều dùng listener này với tag Pending*Info nên chỉ cần
+        // xử lý ở đây là phủ cả hai. Nút "Add" của panel app-style vẫn hoạt động độc lập.
+        Object tag = v.getTag();
+        if (tag instanceof PendingAddWidgetInfo) {
+            mLauncher.closeWidgetViewWithAnimation();
+            mLauncher.addAppWidgetFromScreenEditView((PendingAddWidgetInfo) tag);
+        }
+        else if (tag instanceof PendingAddShortcutInfo) {
+            mLauncher.closeWidgetViewWithAnimation();
+            mLauncher.addAppShortcutFromScreenEditView((PendingAddShortcutInfo) tag);
+        }
+        else if (mLauncher.isWidgetsViewVisible()){
+            showToast();
         }
     }
 

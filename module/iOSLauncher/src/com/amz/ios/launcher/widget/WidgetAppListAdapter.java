@@ -101,6 +101,12 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
                     view = iosWidgetViewHolder.mWidget2;
                     mLabelTV = iosWidgetViewHolder.mWidgetName2;
                 }
+                // endsWith(".ClockWidgetProvider") để KHÔNG dính Analog/World/Mini/City-ClockWidgetProvider
+                // (đều chứa chuỗi "ClockWidgetProvider"); chỉ khớp đúng đồng hồ số Clock cơ bản.
+                if (provider.getClassName().endsWith(".ClockWidgetProvider")){
+                    view = iosWidgetViewHolder.mWidget3;
+                    mLabelTV = iosWidgetViewHolder.mWidgetName3;
+                }
 
                 if (view != null){
                     view.setVisibility(View.VISIBLE);
@@ -207,8 +213,12 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
 
         TextViewCustomFont mWidgetName1;
         TextViewCustomFont mWidgetName2;
+        TextViewCustomFont mWidgetName3;
         WidgetBaseLayout mWidget1;
         WidgetBaseLayout mWidget2;
+        // Clock preview là AppCompatImageView (ClockWidget_2x2), KHÔNG phải WidgetBaseLayout
+        // -> giữ kiểu View để tránh ClassCastException khi findViewById.
+        View mWidget3;
 
         public IOSWidgetViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -216,10 +226,13 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
             int margin = launcher.getDeviceProfile().edgeMarginPx;
             mWidget1 = itemView.findViewById(R.id.widget_square_preview_item_1);
             mWidget2 = itemView.findViewById(R.id.widget_square_preview_item_2);
+            mWidget3 = itemView.findViewById(R.id.widget_square_preview_item_3);
             mWidget1.setPadding(margin,margin,margin,margin);
             mWidget2.setPadding(margin,margin,margin,margin);
+            mWidget3.setPadding(margin,margin,margin,margin);
             mWidgetName1 = itemView.findViewById(R.id.widget_square_preview_text_1);
             mWidgetName2 = itemView.findViewById(R.id.widget_square_preview_text_2);
+            mWidgetName3 = itemView.findViewById(R.id.widget_square_preview_text_3);
         }
 
         public void setListeners(View.OnClickListener onClickListener, View.OnLongClickListener onLongClickListener){
@@ -227,6 +240,8 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
             mWidget1.setOnLongClickListener(onLongClickListener);
             mWidget2.setOnClickListener(onClickListener);
             mWidget2.setOnLongClickListener(onLongClickListener);
+            mWidget3.setOnClickListener(onClickListener);
+            mWidget3.setOnLongClickListener(onLongClickListener);
         }
     }
 

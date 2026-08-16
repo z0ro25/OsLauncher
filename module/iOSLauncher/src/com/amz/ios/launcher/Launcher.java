@@ -1997,6 +1997,14 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         launcherInfo.minSpanY = info.minSpanY;
         launcherInfo.user = mAppWidgetManager.getUser(appWidgetInfo);
 
+        // [WIDGET_DBG] Log chẩn đoán TẠM THỜI — span thực tế khi đặt widget xuống màn hình.
+        Log.d("WIDGET_DBG", "completeAddAppWidget provider=" + appWidgetInfo.provider
+                + " placedSpan=" + launcherInfo.spanX + "x" + launcherInfo.spanY
+                + " minSpan=" + launcherInfo.minSpanX + "x" + launcherInfo.minSpanY
+                + " providerInfoSpan=" + appWidgetInfo.spanX + "x" + appWidgetInfo.spanY
+                + " cellWpx=" + mDeviceProfile.cellWidthPx + " cellHpx=" + mDeviceProfile.cellHeightPx
+                + " isIOS=" + appWidgetInfo.isIOSWidget);
+
         LauncherModel.addItemToDatabase(this, launcherInfo,
                 container, screenId, info.cellX, info.cellY);
 
@@ -4061,9 +4069,20 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
             if (info instanceof LauncherAppWidgetInfo) {
                 mOpenAppWidgetHostView = (LauncherAppWidgetHostView) v;
-                openFloatingMenu(v);
-                mWorkspace.showInfo(longClickCellInfo);
-                mWorkspace.startTidyUp();
+                if (isShaking()) {
+                    // ĐANG ở chế độ edit (jiggle): long-press = nhấc widget lên kéo (hành vi cũ).
+                    mWorkspace.showInfo(longClickCellInfo);
+                } else {
+                    // CHƯA edit: hiện popup RIÊNG của widget (3 mục) + khung resize góc dưới-phải,
+                    // KHÔNG nhấc kéo, KHÔNG mở popup của app.
+                    showWidgetMenu(v);
+                    CellLayout cl = mWorkspace.getParentCellLayoutForView(v);
+                    if (cl != null) {
+                        getDragLayer().addResizeFrame((LauncherAppWidgetInfo) info,
+                                (LauncherAppWidgetHostView) v, cl, 1f, /*compactCorner=*/true);
+                        mWidgetResizeMode = true;
+                    }
+                }
                 return true;
             }
         }
@@ -4344,6 +4363,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         if (isShaking() || (mAddWidgetBtn != null && mAddWidgetBtn.getVisibility() == View.VISIBLE)) {
             mIsShaking = false;
             dismissEditMenu();
+            dismissWidgetMenu();
+            getDragLayer().clearAllResizeFrames();
+            mWidgetResizeMode = false;
             if (mWorkspace != null) {
                 mAddWidgetDoneBtn.setVisibility(View.GONE);
                 mAddWidgetBtn.setVisibility(View.GONE);
@@ -6859,6 +6881,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         AbstractFloatingView.closeAllOpenViews(this, true);
 
         this.mFloatingMenuBlurBg.clear(true);
+
+        // Dọn popup riêng của widget + cờ resize nếu còn sót.
+        dismissWidgetMenu();
+        mWidgetResizeMode = false;
     }
 
     public LauncherRootView getLauncherView() {
@@ -6969,6 +6995,109 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         if (mEditMenuView != null) {
             getDragLayer().removeView(mEditMenuView);
             mEditMenuView = null;
+            return true;
+        }
+        return false;
+    }
+
+    private View mWidgetMenuView;
+
+    /**
+     * Cờ RIÊNG cho luồng long-press widget: đang mở popup widget + khung resize góc dưới-phải.
+     * Dùng để {@link DragLayer#onInterceptTouchEvent} KHÔNG tự xóa khung resize (khác với luồng
+     * resize-sau-kéo-thả cũ). Tách khỏi {@code showingFloatingMenu} để mục "Chỉnh kích cỡ" đóng
+     * được popup mà vẫn giữ khung resize.
+     */
+    private boolean mWidgetResizeMode = false;
+
+    public boolean isWidgetResizeMode() {
+        return mWidgetResizeMode;
+    }
+
+    /**
+     * Popup RIÊNG của widget, hiện khi long-press widget lúc CHƯA ở chế độ edit. Gồm 3 mục:
+     * chỉnh kích cỡ, sửa màn hình, xóa. Dựng theo đúng nguyên mẫu {@link #showEditMenu} (inflate
+     * vào DragLayer + overlay phủ kín để chạm-ngoài đóng), nhưng neo popup ở PHÍA TRÊN widget để
+     * không che tay kéo góc dưới-phải; nếu không đủ chỗ phía trên thì đặt phía dưới.
+     */
+    public void showWidgetMenu(final View anchor) {
+        dismissWidgetMenu();
+
+        final DragLayer dragLayer = getDragLayer();
+        final View content = LayoutInflater.from(this)
+                .inflate(R.layout.widget_popup_menu, dragLayer, false);
+
+        final FrameLayout overlay = new FrameLayout(this);
+        overlay.setLayoutParams(new DragLayer.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        overlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chạm ra ngoài: đóng popup + xóa khung resize (thoát hẳn luồng chỉnh widget).
+                dismissWidgetMenu();
+                getDragLayer().clearAllResizeFrames();
+                mWidgetResizeMode = false;
+            }
+        });
+
+        // Đo trước để biết đặt popup phía trên hay dưới widget.
+        content.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int popupH = content.getMeasuredHeight();
+        int gap = (int) (getResources().getDisplayMetrics().density * 6);
+
+        Rect r = new Rect();
+        dragLayer.getViewRectRelativeToSelf(anchor, r);
+
+        FrameLayout.LayoutParams contentLp = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        contentLp.leftMargin = r.left;
+        int topAbove = r.top - popupH - gap;
+        if (topAbove >= 0) {
+            contentLp.topMargin = topAbove;
+        } else {
+            contentLp.topMargin = r.bottom + gap;
+        }
+        overlay.addView(content, contentLp);
+
+        content.findViewById(R.id.menu_widget_resize).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chỉ đóng popup để lộ khung resize; GIỮ khung (mWidgetResizeMode vẫn true).
+                dismissWidgetMenu();
+            }
+        });
+        content.findViewById(R.id.menu_widget_edit_screen).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissWidgetMenu();
+                getDragLayer().clearAllResizeFrames();
+                mWidgetResizeMode = false;
+                onShakingAllApps();
+            }
+        });
+        content.findViewById(R.id.menu_widget_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismissWidgetMenu();
+                View hostView = mOpenAppWidgetHostView;
+                if (hostView != null && hostView.getTag() instanceof LauncherAppWidgetInfo) {
+                    DeleteDropTarget.removeWorkspaceOrFolderItem(Launcher.this,
+                            (LauncherAppWidgetInfo) hostView.getTag(), hostView);
+                }
+                getDragLayer().clearAllResizeFrames();
+                mWidgetResizeMode = false;
+                mOpenAppWidgetHostView = null;
+            }
+        });
+
+        dragLayer.addView(overlay);
+        mWidgetMenuView = overlay;
+    }
+
+    public boolean dismissWidgetMenu() {
+        if (mWidgetMenuView != null) {
+            getDragLayer().removeView(mWidgetMenuView);
+            mWidgetMenuView = null;
             return true;
         }
         return false;

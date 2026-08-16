@@ -33,6 +33,11 @@ public class AppWidgetResizeFrame extends FrameLayout {
     private final ImageView mRightHandle;
     private final ImageView mTopHandle;
     private final ImageView mBottomHandle;
+    // Tay kéo GÓC DƯỚI-PHẢI cho chế độ resize gọn (long-press widget). Chỉ hiện khi mCompactCorner.
+    private final ImageView mCornerHandle;
+
+    // true -> khung resize gọn: ẩn 4 tay cạnh, chỉ dùng 1 tay góc dưới-phải (kéo chéo đổi rộng+cao).
+    private boolean mCompactCorner = false;
 
     private final Rect mWidgetPadding;
 
@@ -117,6 +122,15 @@ public class AppWidgetResizeFrame extends FrameLayout {
         lp.bottomMargin = handleMargin;
         addView(mBottomHandle, lp);
 
+        mCornerHandle = new ImageView(context);
+        mCornerHandle.setImageResource(R.drawable.widget_resize_corner_handle);
+        lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+                Gravity.RIGHT | Gravity.BOTTOM);
+        lp.rightMargin = handleMargin;
+        lp.bottomMargin = handleMargin;
+        addView(mCornerHandle, lp);
+        mCornerHandle.setVisibility(GONE);
+
         if (!info.isIOSWidget) {
             mWidgetPadding = AppWidgetHostView.getDefaultPaddingForWidget(context,
                     widgetView.getAppWidgetInfo().provider, null);
@@ -144,15 +158,46 @@ public class AppWidgetResizeFrame extends FrameLayout {
         mCellLayout.markCellsAsUnoccupiedForView(mWidgetView);
     }
 
+    /**
+     * Bật/tắt chế độ resize gọn 1 tay kéo ở góc dưới-phải. Gọi sau constructor (từ
+     * {@link DragLayer#addResizeFrame}). Khi bật: ẩn 4 tay cạnh, chỉ hiện tay góc.
+     */
+    public void setCompactCornerMode(boolean compact) {
+        mCompactCorner = compact;
+        if (compact) {
+            // Bỏ khung viền + bóng nền, chỉ chừa MỖI icon tay kéo ở góc dưới-phải.
+            setForeground(null);
+            setBackground(null);
+            mLeftHandle.setVisibility(GONE);
+            mRightHandle.setVisibility(GONE);
+            mTopHandle.setVisibility(GONE);
+            mBottomHandle.setVisibility(GONE);
+            mCornerHandle.setVisibility(VISIBLE);
+        } else {
+            mCornerHandle.setVisibility(GONE);
+        }
+    }
+
     public boolean beginResizeIfPointInRegion(int x, int y) {
         boolean horizontalActive = (mResizeMode & AppWidgetProviderInfo.RESIZE_HORIZONTAL) != 0;
         boolean verticalActive = (mResizeMode & AppWidgetProviderInfo.RESIZE_VERTICAL) != 0;
 
-        mLeftBorderActive = (x < mTouchTargetWidth) && horizontalActive;
-        mRightBorderActive = (x > getWidth() - mTouchTargetWidth) && horizontalActive;
-        mTopBorderActive = (y < mTouchTargetWidth + mTopTouchRegionAdjustment) && verticalActive;
-        mBottomBorderActive = (y > getHeight() - mTouchTargetWidth + mBottomTouchRegionAdjustment)
-                && verticalActive;
+        if (mCompactCorner) {
+            // Chỉ nhận vùng GÓC DƯỚI-PHẢI; kéo chéo -> bật đồng thời right + bottom (tôn trọng
+            // resizeMode: widget chỉ ngang thì đổi rộng, chỉ dọc thì đổi cao).
+            boolean inCorner = (x > getWidth() - mTouchTargetWidth)
+                    && (y > getHeight() - mTouchTargetWidth + mBottomTouchRegionAdjustment);
+            mLeftBorderActive = false;
+            mTopBorderActive = false;
+            mRightBorderActive = inCorner && horizontalActive;
+            mBottomBorderActive = inCorner && verticalActive;
+        } else {
+            mLeftBorderActive = (x < mTouchTargetWidth) && horizontalActive;
+            mRightBorderActive = (x > getWidth() - mTouchTargetWidth) && horizontalActive;
+            mTopBorderActive = (y < mTouchTargetWidth + mTopTouchRegionAdjustment) && verticalActive;
+            mBottomBorderActive = (y > getHeight() - mTouchTargetWidth + mBottomTouchRegionAdjustment)
+                    && verticalActive;
+        }
 
         boolean anyBordersActive = mLeftBorderActive || mRightBorderActive
                 || mTopBorderActive || mBottomBorderActive;
@@ -163,10 +208,14 @@ public class AppWidgetResizeFrame extends FrameLayout {
         mBaselineY = getTop();
 
         if (anyBordersActive) {
-            mLeftHandle.setAlpha(mLeftBorderActive ? 1.0f : DIMMED_HANDLE_ALPHA);
-            mRightHandle.setAlpha(mRightBorderActive ? 1.0f :DIMMED_HANDLE_ALPHA);
-            mTopHandle.setAlpha(mTopBorderActive ? 1.0f : DIMMED_HANDLE_ALPHA);
-            mBottomHandle.setAlpha(mBottomBorderActive ? 1.0f : DIMMED_HANDLE_ALPHA);
+            if (mCompactCorner) {
+                mCornerHandle.setAlpha(1.0f);
+            } else {
+                mLeftHandle.setAlpha(mLeftBorderActive ? 1.0f : DIMMED_HANDLE_ALPHA);
+                mRightHandle.setAlpha(mRightBorderActive ? 1.0f :DIMMED_HANDLE_ALPHA);
+                mTopHandle.setAlpha(mTopBorderActive ? 1.0f : DIMMED_HANDLE_ALPHA);
+                mBottomHandle.setAlpha(mBottomBorderActive ? 1.0f : DIMMED_HANDLE_ALPHA);
+            }
         }
         return anyBordersActive;
     }
@@ -445,10 +494,14 @@ public class AppWidgetResizeFrame extends FrameLayout {
             lp.height = newHeight;
             lp.x = newX;
             lp.y = newY;
-            mLeftHandle.setAlpha(1.0f);
-            mRightHandle.setAlpha(1.0f);
-            mTopHandle.setAlpha(1.0f);
-            mBottomHandle.setAlpha(1.0f);
+            if (mCompactCorner) {
+                mCornerHandle.setAlpha(1.0f);
+            } else {
+                mLeftHandle.setAlpha(1.0f);
+                mRightHandle.setAlpha(1.0f);
+                mTopHandle.setAlpha(1.0f);
+                mBottomHandle.setAlpha(1.0f);
+            }
             requestLayout();
         } else {
             PropertyValuesHolder width = PropertyValuesHolder.ofInt("width", lp.width, newWidth);
@@ -458,22 +511,27 @@ public class AppWidgetResizeFrame extends FrameLayout {
             PropertyValuesHolder y = PropertyValuesHolder.ofInt("y", lp.y, newY);
             ObjectAnimator oa =
                     LauncherAnimUtils.ofPropertyValuesHolder(lp, this, width, height, x, y);
-            ObjectAnimator leftOa = LauncherAnimUtils.ofFloat(mLeftHandle, "alpha", 1.0f);
-            ObjectAnimator rightOa = LauncherAnimUtils.ofFloat(mRightHandle, "alpha", 1.0f);
-            ObjectAnimator topOa = LauncherAnimUtils.ofFloat(mTopHandle, "alpha", 1.0f);
-            ObjectAnimator bottomOa = LauncherAnimUtils.ofFloat(mBottomHandle, "alpha", 1.0f);
             oa.addUpdateListener(new AnimatorUpdateListener() {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     requestLayout();
                 }
             });
             AnimatorSet set = LauncherAnimUtils.createAnimatorSet();
-            if (mResizeMode == AppWidgetProviderInfo.RESIZE_VERTICAL) {
-                set.playTogether(oa, topOa, bottomOa);
-            } else if (mResizeMode == AppWidgetProviderInfo.RESIZE_HORIZONTAL) {
-                set.playTogether(oa, leftOa, rightOa);
+            if (mCompactCorner) {
+                ObjectAnimator cornerOa = LauncherAnimUtils.ofFloat(mCornerHandle, "alpha", 1.0f);
+                set.playTogether(oa, cornerOa);
             } else {
-                set.playTogether(oa, leftOa, rightOa, topOa, bottomOa);
+                ObjectAnimator leftOa = LauncherAnimUtils.ofFloat(mLeftHandle, "alpha", 1.0f);
+                ObjectAnimator rightOa = LauncherAnimUtils.ofFloat(mRightHandle, "alpha", 1.0f);
+                ObjectAnimator topOa = LauncherAnimUtils.ofFloat(mTopHandle, "alpha", 1.0f);
+                ObjectAnimator bottomOa = LauncherAnimUtils.ofFloat(mBottomHandle, "alpha", 1.0f);
+                if (mResizeMode == AppWidgetProviderInfo.RESIZE_VERTICAL) {
+                    set.playTogether(oa, topOa, bottomOa);
+                } else if (mResizeMode == AppWidgetProviderInfo.RESIZE_HORIZONTAL) {
+                    set.playTogether(oa, leftOa, rightOa);
+                } else {
+                    set.playTogether(oa, leftOa, rightOa, topOa, bottomOa);
+                }
             }
 
             set.setDuration(SNAP_DURATION);

@@ -2838,7 +2838,9 @@ public class Workspace extends PagedView
             mDragSourceInternal = (ShortcutAndWidgetContainer) child.getParent();
         }
 
-        if (dragOptions.isAccessibleDrag && (child instanceof BubbleTextView || child instanceof LauncherAppWidgetHostView) && !accessible
+        // Chỉ mở popup app (PopupContainerWithArrow) cho icon app; widget có popup RIÊNG
+        // (showWidgetMenu) nên KHÔNG đi qua đây.
+        if (dragOptions.isAccessibleDrag && (child instanceof BubbleTextView) && !accessible
 //                && ((ItemInfo)child.getTag()).container < 0
         ) {
             PopupContainerWithArrow popupContainer = PopupContainerWithArrow

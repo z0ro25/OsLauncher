@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Popup RIÊNG cho widget, hiển thị khi long-press widget (lúc CHƯA ở chế độ edit).
+     Gồm 3 chức năng: chỉnh kích cỡ, sửa màn hình, xóa widget.
+     Cấu trúc sao chép từ edit_home_menu.xml (RealtimeBlurView + bg_glass_popup cho chất kính),
+     nhưng là FILE RIÊNG với id/tài nguyên riêng — KHÔNG dùng chung edit_home_menu để tránh
+     ảnh hưởng menu Edit của home. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_glass_popup"
+    android:clipToOutline="true"
+    android:foreground="@drawable/bg_glass_popup">
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/widget_menu_container"
+        android:layout_alignBottom="@+id/widget_menu_container"
+        android:layout_alignStart="@+id/widget_menu_container"
+        android:layout_alignEnd="@+id/widget_menu_container"
+        app:realtimeBlurRadius="100dp"
+        app:realtimeDownsampleFactor="8"
+        app:realtimeOverlayColor="#80000000" />
+
+    <LinearLayout
+        android:id="@+id/widget_menu_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="180dp"
+        android:orientation="vertical"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+        <LinearLayout
+            android:id="@+id/menu_widget_resize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_resize"
+                android:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="@string/widget_menu_resize"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_widget_edit_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_edit_home"
+                android:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="@string/widget_menu_edit_screen"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_widget_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:text="@string/widget_menu_delete"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
