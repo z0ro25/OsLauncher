@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -33,6 +35,10 @@ import java.util.TimeZone;
 public class AnalogClockView extends View {
 
     private static final int SECOND_HAND_COLOR = -37632; // cam iOS (0xFFFF6D00)
+    // Vòng vạch "sáng dồn theo giây" (acvSecondProgress) chạy theo VIỀN VUÔNG:
+    // vạch đã qua = ĐEN, vạch chưa tới = xám nhạt (nhìn như thanh progress).
+    private static final int SECOND_PROGRESS_LIT = 0xFF000000;
+    private static final int SECOND_PROGRESS_DIM = 0xFFD9D9D9;
     private static final int[] HOUR_VALUES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
     // Mặt NGÀY (trắng): số/kim đen, vạch xám.
@@ -58,6 +64,10 @@ public class AnalogClockView extends View {
     private final Paint mTickPaint;
     private final Paint mLabelPaint;
     private final Rect mTextBound = new Rect();
+    // Vòng vạch "sáng dồn theo giây" chạy theo viền thẻ bo góc (đồng hồ số #1).
+    private final Path mTickRingPath = new Path();
+    private final float[] mTickPos = new float[2];
+    private final float[] mTickTan = new float[2];
 
     private TimeZone mTimeZone = TimeZone.getDefault();
     private boolean mShowSecond = false;
@@ -66,6 +76,7 @@ public class AnalogClockView extends View {
     private int mDialMode = DIAL_AUTO;
     private boolean mTicksOnly = false;
     private String mLabel = null;
+    private boolean mSecondProgress = false;
 
     private int mHandPadding;
     private int mHandDiffLength;
@@ -77,7 +88,7 @@ public class AnalogClockView extends View {
         @Override
         public void run() {
             invalidate();
-            long period = mShowSecond ? 1000L : 20000L;
+            long period = (mShowSecond || mSecondProgress) ? 1000L : 20000L;
             // Canh vào đầu chu kỳ tiếp theo để kim nhảy đúng nhịp.
             long now = System.currentTimeMillis();
             long delay = period - (now % period);
@@ -141,6 +152,7 @@ public class AnalogClockView extends View {
             mDialMode = a.getInt(R.styleable.AnalogClockView_acvDial, DIAL_AUTO);
             mTicksOnly = a.getBoolean(R.styleable.AnalogClockView_acvTicksOnly, false);
             mLabel = a.getString(R.styleable.AnalogClockView_acvLabel);
+            mSecondProgress = a.getBoolean(R.styleable.AnalogClockView_acvSecondProgress, false);
             a.recycle();
         }
     }
@@ -214,7 +226,12 @@ public class AnalogClockView extends View {
 
         // Chỉ vẽ vòng vạch chia (đặt sau đồng hồ digital) — không mặt/kim/số.
         if (mTicksOnly) {
-            drawTicks(canvas, cx, cy, tickHourColor, tickMinuteColor);
+            if (mSecondProgress) {
+                // Vạch phút chạy theo VIỀN VUÔNG, sáng dồn theo giây (đồng hồ số #1).
+                drawSquareProgressTicks(canvas, cx, cy);
+            } else {
+                drawTicks(canvas, cx, cy, tickHourColor, tickMinuteColor);
+            }
             return;
         }
 
@@ -299,6 +316,58 @@ public class AnalogClockView extends View {
                     : Math.max(1f, mHandWidth * 0.5f));
             canvas.drawLine(cx + cos * inner, cy + sin * inner,
                     cx + cos * outer, cy + sin * outer, mTickPaint);
+        }
+    }
+
+    /**
+     * Vẽ vòng vạch phút "sáng dồn theo giây" nhưng CHẠY THEO VIỀN VUÔNG (không phải
+     * vòng tròn) — chỉ dùng cho đồng hồ SỐ #1 (acvSecondProgress). 60 vạch rải đều
+     * quanh chu vi hình vuông, bắt đầu từ GIỮA CẠNH TRÊN (12h) đi theo chiều kim đồng
+     * hồ; vạch từ đầu tới giây hiện tại tô ĐEN, còn lại xám nhạt. Vạch vuông góc với
+     * cạnh, chĩa vào trong. Không đụng {@link #drawTicks} (tròn) dùng chung widget khác.
+     */
+    private void drawSquareProgressTicks(Canvas canvas, float cx, float cy) {
+        int size = Math.min(getWidth(), getHeight());
+        if (size <= 0) return;
+        float margin = size / 12f;              // cách đều tới mép thẻ ở MỌI điểm
+        float r = size / 2f - margin;           // nửa cạnh vòng vạch (đầu ngoài trên cạnh thẳng)
+        if (r <= 0f) return;
+        // Bo góc vòng vạch theo ĐÚNG TỈ LỆ góc bo của thẻ trắng (góc thẻ / nửa cạnh thẻ):
+        // nhờ vậy độ cong ở góc GIỐNG thẻ -> vòng vạch bo "theo" viền ngoài, không vuông
+        // hơn thẻ. (Đồng-tâm cardCorner−lề trước đây làm góc bị vuông hơn.)
+        float cardCorner = getResources().getDimension(R.dimen.widget_round_corner);
+        float cornerFraction = cardCorner / (size / 2f);
+        float cr = Math.min(cornerFraction * r, r);
+        float tickLen = size / 26f;
+
+        // Path hình vuông bo góc, BẮT ĐẦU giữa cạnh trên (12h), đi CHIỀU KIM ĐỒNG HỒ.
+        float top = cy - r, bottom = cy + r, left = cx - r, right = cx + r;
+        mTickRingPath.reset();
+        mTickRingPath.moveTo(cx, top);
+        mTickRingPath.lineTo(right - cr, top);
+        mTickRingPath.arcTo(right - 2f * cr, top, right, top + 2f * cr, -90f, 90f, false);
+        mTickRingPath.lineTo(right, bottom - cr);
+        mTickRingPath.arcTo(right - 2f * cr, bottom - 2f * cr, right, bottom, 0f, 90f, false);
+        mTickRingPath.lineTo(left + cr, bottom);
+        mTickRingPath.arcTo(left, bottom - 2f * cr, left + 2f * cr, bottom, 90f, 90f, false);
+        mTickRingPath.lineTo(left, top + cr);
+        mTickRingPath.arcTo(left, top, left + 2f * cr, top + 2f * cr, 180f, 90f, false);
+        mTickRingPath.lineTo(cx, top);
+
+        PathMeasure pm = new PathMeasure(mTickRingPath, false);
+        float total = pm.getLength();
+        if (total <= 0f) return;
+        int litSecond = Calendar.getInstance(mTimeZone).get(Calendar.SECOND);
+        mTickPaint.setStrokeWidth(Math.max(1.5f, mHandWidth * 0.7f));
+        for (int i = 0; i < 60; i++) {
+            float dist = (i / 60f) * total;
+            if (!pm.getPosTan(dist, mTickPos, mTickTan)) continue;
+            float ox = mTickPos[0], oy = mTickPos[1];
+            // Pháp tuyến vuông góc tiếp tuyến, chọn chiều hướng VÀO TÂM (đúng cả cạnh lẫn góc).
+            float nx = mTickTan[1], ny = -mTickTan[0];
+            if ((cx - ox) * nx + (cy - oy) * ny < 0f) { nx = -nx; ny = -ny; }
+            mTickPaint.setColor(i <= litSecond ? SECOND_PROGRESS_LIT : SECOND_PROGRESS_DIM);
+            canvas.drawLine(ox, oy, ox + nx * tickLen, oy + ny * tickLen, mTickPaint);
         }
     }
 

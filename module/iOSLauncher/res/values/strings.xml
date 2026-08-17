@@ -713,6 +713,25 @@
     <string name="weather_sample_temp">53°</string>
     <string name="weather_sample_condition">Sunny</string>
     <string name="weather_sample_highlow">H:56°  L:50°</string>
+
+    <!-- Tiêu đề + mô tả hiển thị ở header màn chọn size widget (level-2). Xem WidgetSheetMeta. -->
+    <string name="widget_meta_title_clock_digital">Clock Digital</string>
+    <string name="widget_meta_desc_clock_digital">Display the current time.</string>
+    <string name="widget_meta_title_clock_analog">Clock Analog</string>
+    <string name="widget_meta_desc_clock_analog">Show time on an analog dial.</string>
+    <string name="widget_meta_title_world_clock">World Clock</string>
+    <string name="widget_meta_desc_world_clock">Track the time across cities.</string>
+    <string name="widget_meta_title_clock_grid">Clock Grid</string>
+    <string name="widget_meta_desc_clock_grid">Several clocks at a glance.</string>
+    <string name="widget_meta_title_calendar">Calendar</string>
+    <string name="widget_meta_desc_calendar">See your date and events.</string>
+    <string name="widget_meta_title_photos">Photos</string>
+    <string name="widget_meta_desc_photos">Show a favorite photo.</string>
+    <string name="widget_meta_title_batteries">Batteries</string>
+    <string name="widget_meta_desc_batteries">Keep an eye on battery level.</string>
+    <string name="widget_meta_title_weather">Weather</string>
+    <string name="widget_meta_desc_weather">Current conditions and forecast.</string>
+
     <string name="add_widget">Add widget</string>
     <string name="edit_page">Edit page</string>
     <string name="background">Background</string>

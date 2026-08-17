@@ -84,4 +84,22 @@
     <string name="add_widget">"Thêm tiện ích"</string>
     <string name="edit_page">"Chỉnh sửa page"</string>
     <string name="background">"Hình nền"</string>
+
+    <!-- Tiêu đề + mô tả header màn chọn size widget (level-2). Xem WidgetSheetMeta. -->
+    <string name="widget_meta_title_clock_digital">"Đồng hồ số"</string>
+    <string name="widget_meta_desc_clock_digital">"Hiển thị giờ hiện tại."</string>
+    <string name="widget_meta_title_clock_analog">"Đồng hồ kim"</string>
+    <string name="widget_meta_desc_clock_analog">"Xem giờ trên mặt đồng hồ kim."</string>
+    <string name="widget_meta_title_world_clock">"Đồng hồ thế giới"</string>
+    <string name="widget_meta_desc_world_clock">"Theo dõi giờ ở nhiều thành phố."</string>
+    <string name="widget_meta_title_clock_grid">"Lưới đồng hồ"</string>
+    <string name="widget_meta_desc_clock_grid">"Nhiều đồng hồ trong một khung."</string>
+    <string name="widget_meta_title_calendar">"Lịch"</string>
+    <string name="widget_meta_desc_calendar">"Xem ngày và sự kiện của bạn."</string>
+    <string name="widget_meta_title_photos">"Ảnh"</string>
+    <string name="widget_meta_desc_photos">"Hiển thị một ảnh yêu thích."</string>
+    <string name="widget_meta_title_batteries">"Pin"</string>
+    <string name="widget_meta_desc_batteries">"Theo dõi mức pin."</string>
+    <string name="widget_meta_title_weather">"Thời tiết"</string>
+    <string name="widget_meta_desc_weather">"Thời tiết hiện tại và dự báo."</string>
 </resources>

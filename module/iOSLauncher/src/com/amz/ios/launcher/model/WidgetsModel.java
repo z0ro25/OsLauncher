@@ -158,7 +158,8 @@ public class WidgetsModel {
     public ArrayList<Object> getClockVariants() {
         final String[] ORDER = {
                 "ClockWidgetProvider",
-                "AnalogClockWidgetProvider",
+                // #2 = bản NỀN ĐEN bo góc cho khay (page 0 vẫn dùng AnalogClockWidgetProvider blur).
+                "AnalogClockDarkWidgetProvider",
                 "WorldClockWidgetProvider",
                 "MiniAnalogClockWidgetProvider",
         };

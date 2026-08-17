@@ -505,6 +505,22 @@
         </receiver>
 
         <receiver
+            android:name=".widget.widgetprovider.AnalogClockDarkWidgetProvider"
+            android:exported="true"
+            android:label="@string/analog_clock">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/analog_clock_dark_widget_provider_info" />
+        </receiver>
+
+        <receiver
             android:name=".widget.widgetprovider.WorldClockWidgetProvider"
             android:exported="true"
             android:label="@string/world_clock">

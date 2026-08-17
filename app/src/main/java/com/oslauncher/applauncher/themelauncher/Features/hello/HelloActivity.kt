@@ -21,7 +21,7 @@ class HelloActivity : BaseActivity<ActivityHelloBinding>() {
         binding.root.setBackgroundResource(if (dark) R.drawable.bg_hello_dark else R.drawable.bg_hello)
         binding.lottieAnimationView.repeatCount = com.airbnb.lottie.LottieDrawable.INFINITE
         binding.lottieAnimationView.setAnimation(
-            if (!dark) R.raw.hello_dark else R.raw.hello_light
+            if (dark) R.raw.hello_dark else R.raw.hello_light
         )
         binding.lottieAnimationView.playAnimation()
         Handler().postDelayed({

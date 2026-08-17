@@ -316,6 +316,10 @@
         <attr name="acvTicksOnly" format="boolean"/>
         <!-- Nhãn nhỏ (vd tên tp viết tắt) vẽ bên trong mặt, gần số 12. -->
         <attr name="acvLabel" format="string"/>
+        <!-- Vòng vạch phút "sáng dồn" theo giây hiện tại: các vạch từ 12h tới giây
+             hiện tại sáng màu nhấn (cam), phần còn lại mờ — kiểu progress. Dùng cho
+             đồng hồ SỐ (acvTicksOnly). Mặc định false để không ảnh hưởng widget khác. -->
+        <attr name="acvSecondProgress" format="boolean"/>
     </declare-styleable>
 
     <!-- TextView tự tính nội dung theo múi giờ (world clock). -->

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Đồng hồ KIM #2 trong khay widget (KHÁC page 0): nền ĐEN bo góc đặc
+     (@drawable/widget_clock_card_dark = #FF1C1C1E, bo @dimen/widget_round_corner),
+     KHÔNG dùng kính blur. Tách riêng khỏi widget_analog_clock.xml (page 0 giữ blur)
+     theo yêu cầu — sửa cái này KHÔNG ảnh hưởng đồng hồ kim page 0.
+     Ô lưới 2x2 rộng hơn cao -> ép khối VUÔNG 1:1 căn giữa (giống các widget khác).
+     Mặt số dùng acvDial=night để số/kim TRẮNG nổi trên nền đen. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/widget_clock_card_dark"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.amz.ios.launcher.widget.view.AnalogClockView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            app:acvDial="night"
+            app:acvShowNumbers="true"
+            app:acvShowSecond="true"
+            app:acvShowTicks="true" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
