@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<!-- Widget ảnh đặt sẵn ở PAGE 0 (default_workspace screen 0, PictureAppWidgetProvider →
+     initialLayout của picture_app_widget_provider_info.xml).
+     Ô lưới 2x2 RỘNG HƠN CAO nên trước đây FrameLayout phủ kín ô -> ảnh bị DÀI NGANG, không vuông.
+     Nay bọc trong ConstraintLayout và ép khối ảnh VUÔNG 1:1 = min(rộng,cao) CĂN GIỮA (giống hệt
+     widget đồng hồ analog_clock) -> 2 widget page 0 có cùng cỡ vuông, thẳng hàng. -->
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_picture_layout"
-    android:focusable="true"
-    android:clickable="true"
-    android:background="@drawable/widget_picture_clip_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Ảnh đã được bo góc trong code (RoundedBitmapDrawable). -->
-    <ImageView
-        android:id="@+id/widget_picture_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+    <!-- Khối vuông 1:1 căn giữa: giữ id/nền bo góc/click như cũ để code (bindInflatedView,
+         updateWidget, onClick) vẫn hoạt động nguyên vẹn. -->
+    <FrameLayout
+        android:id="@+id/widget_picture_layout"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/widget_picture_clip_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Lớp phủ tối dần ở đáy để text ngày chụp luôn đọc rõ. -->
-    <View
-        android:id="@+id/widget_picture_scrim"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/widget_picture_date_scrim" />
+        <!-- Ảnh đã được bo góc trong code (RoundedBitmapDrawable). -->
+        <ImageView
+            android:id="@+id/widget_picture_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
-    <!-- Ngày chụp của ảnh. -->
-    <TextView
-        android:id="@+id/widget_picture_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/sf_pro_display_semibold"
-        android:shadowColor="#99000000"
-        android:shadowDx="0"
-        android:shadowDy="1"
-        android:shadowRadius="3"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
-</FrameLayout>
+        <!-- Lớp phủ tối dần ở đáy để text ngày chụp luôn đọc rõ. -->
+        <View
+            android:id="@+id/widget_picture_scrim"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/widget_picture_date_scrim" />
+
+        <!-- Ngày chụp của ảnh. -->
+        <TextView
+            android:id="@+id/widget_picture_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:shadowColor="#99000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="3"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

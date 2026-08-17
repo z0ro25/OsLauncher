@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Đồng hồ kim đơn (Clock I): thẻ TỐI + mặt số TRẮNG ở giữa (có số 1-12, vạch phút,
-     kim giây cam). Mặt KHÔNG phủ kín thẻ -> chừa lề tối quanh mặt (padding lớn).
-     Widget nội bộ inflate thành View thật -> dùng custom AnalogClockView. -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Đồng hồ kim đơn (Clock I) — widget clock đặt sẵn ở PAGE 0 (default_workspace screen 0).
+     Nền + mặt đồng hồ ĐƯỢC ÉP VUÔNG 1:1 CĂN GIỮA ô 2x2 (dùng layout_constraintDimensionRatio
+     giống widget picture đã làm) -> nền vuông, khoảng cách từ hình tròn tới mép nền ĐỀU cả dọc
+     lẫn ngang, không còn lệch do ô lưới không vuông.
+     Nền KÍNH BLUR THẬT GIỐNG HỆT HOTSEAT bằng WidgetBlurView (kế thừa DockBlurView của dock:
+     compositor background-blur, bán kính 60, tint #1AFFFFFF, viền dock_glass_*), thêm listener
+     cuộn để overlay bám theo widget khi đổi trang. Mặt số/kim vẽ bởi AnalogClockView ở window
+     chính -> luôn nét. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Nền KÍNH MỜ (blur wallpaper) kiểu iOS; khi máy không dựng được blur -> fallback
-         thẻ TỐI theo theme (widget_clock_card_dark). Tint tối nhẹ cho kim/số trắng dễ đọc. -->
-    <com.amz.ios.launcher.widget.view.GlassBlurView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:gbvCornerRadius="@dimen/widget_round_corner"
-        app:gbvBorderColor="#40FFFFFF"
-        app:gbvBorderWidth="1dp"
-        app:gbvOverlayColor="#73000000"
-        app:gbvFallbackDrawable="@drawable/widget_clock_card_dark" />
+    <com.amz.ios.launcher.widget.view.WidgetBlurView
+        android:id="@+id/widget_analog_glass"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.amz.ios.launcher.widget.view.AnalogClockView
         android:id="@+id/analog_clock"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="12dp"
         app:acvDial="day"
         app:acvShowNumbers="true"
         app:acvShowSecond="true"
-        app:acvShowTicks="true" />
-</FrameLayout>
+        app:acvShowTicks="true"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
