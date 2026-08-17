@@ -6,9 +6,11 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.media.midi.MidiManager;
 import android.os.Parcelable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
     DeviceProfile mGrid;
     WidgetPreviewLoader mPreviewLoader;
     WidgetPreviewLoader.PreviewLoadRequest mActiveRequest;
+    View mLivePreview;
     Parcelable mParcelable;
     int mSize;
     int mWidth;
@@ -62,6 +65,17 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
 
         if (z){
             mWidgetText.setVisibility(View.GONE);
+        }
+
+        // Màu nhãn theo Dark/Light (nền carousel đổi theo theme), bỏ shadow (set tại
+        // code để KHÔNG đụng widget_app_style_cell.xml dùng chung với GalleryWidgetCell).
+        if (mWidgetName != null) {
+            mWidgetName.setTextColor(WidgetSheetTheme.textPrimary(context));
+            mWidgetName.setShadowLayer(0f, 0f, 0f, 0);
+        }
+        if (mWidgetDims != null) {
+            mWidgetDims.setTextColor(WidgetSheetTheme.TEXT_SECONDARY);
+            mWidgetDims.setShadowLayer(0f, 0f, 0f, 0);
         }
 
         mStylusEventHelper = new StylusEventHelper(this);
@@ -101,6 +115,11 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
     }
 
     public void ensurePreview(){
+        // Widget iOS: dựng preview SỐNG (inflate layout thật, đồng hồ tự chạy) thay ảnh tĩnh.
+        if (LiveWidgetPreviewHelper.isLivePreviewSupported(mParcelable)) {
+            addLivePreview((LauncherAppWidgetProviderInfo) mParcelable);
+            return;
+        }
         if (mActiveRequest != null) {
             return;
         }
@@ -115,6 +134,25 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
                 height,
                 this
         );
+    }
+
+    /** Thay WidgetImageView tĩnh bằng host chứa widget đã inflate (preview sống). */
+    private void addLivePreview(LauncherAppWidgetProviderInfo info) {
+        if (mLivePreview != null) {
+            removeView(mLivePreview);
+            mLivePreview = null;
+        }
+        View host = LiveWidgetPreviewHelper.build(getContext(), info, mGrid);
+        if (host == null) {
+            return;
+        }
+        int idx = indexOfChild(mWidgetPreview);
+        mWidgetPreview.setVisibility(View.GONE);
+        ViewGroup.LayoutParams src = mWidgetPreview.getLayoutParams();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(src.width, src.height);
+        lp.gravity = Gravity.CENTER;
+        addView(host, idx, lp);
+        mLivePreview = host;
     }
 
     @Override

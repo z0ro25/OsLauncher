@@ -181,6 +181,19 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         mWidgetListRV = findViewById(R.id.widgets_list_view);
         mSearchWidgetEDT = findViewById(R.id.search_widget);
         mActionClearBtn = findViewById(R.id.action_clear);
+        applySheetTheme();
+    }
+
+    /** Áp nền + màu chữ ô search theo Dark/Light (đọc runtime từ prefs theme). */
+    private void applySheetTheme() {
+        View bg = findViewById(R.id.widget_sheet_bg);
+        if (bg != null) {
+            bg.setBackgroundResource(WidgetSheetTheme.sheetBackgroundRes(getContext()));
+        }
+        if (mSearchWidgetEDT != null) {
+            mSearchWidgetEDT.setTextColor(WidgetSheetTheme.textPrimary(getContext()));
+            mSearchWidgetEDT.setHintTextColor(WidgetSheetTheme.TEXT_SECONDARY);
+        }
     }
 
     public void setAdapter(){

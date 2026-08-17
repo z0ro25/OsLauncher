@@ -553,6 +553,38 @@
         </receiver>
 
         <receiver
+            android:name=".widget.widgetprovider.CalendarWidgetProvider"
+            android:exported="true"
+            android:label="@string/calendar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/calendar_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.WeatherWidgetProvider"
+            android:exported="true"
+            android:label="@string/weather">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_widget_provider_info" />
+        </receiver>
+
+        <receiver
             android:name="com.amz.ios.launcher.WorkspaceReceiver"
             android:exported="true">
             <intent-filter>

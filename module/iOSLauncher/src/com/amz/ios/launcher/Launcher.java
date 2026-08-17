@@ -1997,14 +1997,6 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         launcherInfo.minSpanY = info.minSpanY;
         launcherInfo.user = mAppWidgetManager.getUser(appWidgetInfo);
 
-        // [WIDGET_DBG] Log chẩn đoán TẠM THỜI — span thực tế khi đặt widget xuống màn hình.
-        Log.d("WIDGET_DBG", "completeAddAppWidget provider=" + appWidgetInfo.provider
-                + " placedSpan=" + launcherInfo.spanX + "x" + launcherInfo.spanY
-                + " minSpan=" + launcherInfo.minSpanX + "x" + launcherInfo.minSpanY
-                + " providerInfoSpan=" + appWidgetInfo.spanX + "x" + appWidgetInfo.spanY
-                + " cellWpx=" + mDeviceProfile.cellWidthPx + " cellHpx=" + mDeviceProfile.cellHeightPx
-                + " isIOS=" + appWidgetInfo.isIOSWidget);
-
         LauncherModel.addItemToDatabase(this, launcherInfo,
                 container, screenId, info.cellX, info.cellY);
 

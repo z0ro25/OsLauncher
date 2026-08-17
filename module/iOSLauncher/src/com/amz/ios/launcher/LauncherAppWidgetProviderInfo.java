@@ -209,19 +209,6 @@ public class LauncherAppWidgetProviderInfo extends AppWidgetProviderInfo {
 
         minSpanX = Math.min(minSpanX, numColumns);
         minSpanY = Math.min(minSpanY, numRows);
-
-        // [WIDGET_DBG] Log chẩn đoán TẠM THỜI — gỡ sau khi tìm ra nguyên nhân widget bị bé.
-        Log.d("WIDGET_DBG", "initSpans provider=" + provider
-                + " minW=" + minWidth + " minH=" + minHeight
-                + " minRW=" + minResizeWidth + " minRH=" + minResizeHeight
-                + " pad=[" + widgetPadding.left + "," + widgetPadding.top + ","
-                + widgetPadding.right + "," + widgetPadding.bottom + "]"
-                + " cellW=" + smallestCellWidth + " cellH=" + smallestCellHeight
-                + " cols=" + numColumns + " rows=" + numRows
-                + " portW=" + idp.portraitProfile.widthPx + " portH=" + idp.portraitProfile.heightPx
-                + " => span=" + spanX + "x" + spanY
-                + " minSpan=" + minSpanX + "x" + minSpanY
-                + " isIOSIcon=" + isIOSIconWidget);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

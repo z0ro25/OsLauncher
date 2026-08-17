@@ -305,6 +305,17 @@
         <attr name="acvShowNumbers" format="boolean"/>
         <!-- Vẽ vạch chia giờ/phút quanh mặt số (kiểu iOS). Page 0 bật. -->
         <attr name="acvShowTicks" format="boolean"/>
+        <!-- Màu mặt số theo ngày/đêm: auto = tự đổi theo giờ địa phương của múi giờ
+             (6h-18h mặt trắng, còn lại mặt tối kiểu iOS world clock). -->
+        <attr name="acvDial" format="enum">
+            <enum name="auto" value="0"/>
+            <enum name="day" value="1"/>
+            <enum name="night" value="2"/>
+        </attr>
+        <!-- Chỉ vẽ vòng vạch chia (không mặt/kim/số) để đặt sau đồng hồ digital. -->
+        <attr name="acvTicksOnly" format="boolean"/>
+        <!-- Nhãn nhỏ (vd tên tp viết tắt) vẽ bên trong mặt, gần số 12. -->
+        <attr name="acvLabel" format="string"/>
     </declare-styleable>
 
     <!-- TextView tự tính nội dung theo múi giờ (world clock). -->

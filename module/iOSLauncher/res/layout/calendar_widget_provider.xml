@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_calendar_layout"
+    android:orientation="vertical"
+    android:gravity="start|center_vertical"
+    android:background="@drawable/bg_glass_1_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_padding">
+
+    <TextClock
+        android:id="@+id/widget_calendar_weekday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:format12Hour="EEE"
+        android:format24Hour="EEE" />
+
+    <TextClock
+        android:id="@+id/widget_calendar_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:format12Hour="d"
+        android:format24Hour="d" />
+
+    <TextClock
+        android:id="@+id/widget_calendar_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:format12Hour="MMMM"
+        android:format24Hour="MMMM" />
+</LinearLayout>

@@ -707,6 +707,12 @@
     <string name="analog_clock">Analog Clock</string>
     <string name="world_clock">World Clock</string>
     <string name="city_clock">City Clock</string>
+    <!-- Weather widget (built-in). Dữ liệu là mẫu tĩnh: dự án chưa có API thời tiết. -->
+    <string name="weather">Weather</string>
+    <string name="weather_sample_city">San Francisco</string>
+    <string name="weather_sample_temp">53°</string>
+    <string name="weather_sample_condition">Sunny</string>
+    <string name="weather_sample_highlow">H:56°  L:50°</string>
     <string name="add_widget">Add widget</string>
     <string name="edit_page">Edit page</string>
     <string name="background">Background</string>

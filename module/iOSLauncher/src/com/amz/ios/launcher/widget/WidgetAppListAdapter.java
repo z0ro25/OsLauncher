@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +19,6 @@ import com.amz.ios.launcher.R;
 import com.amz.ios.launcher.TextViewCustomFont;
 import com.amz.ios.launcher.WidgetPreviewLoader;
 import com.amz.ios.launcher.compat.AppWidgetManagerCompat;
-import com.amz.ios.launcher.leftpage.widgets.WidgetBaseLayout;
 import com.amz.ios.launcher.model.PackageItemInfo;
 import com.amz.ios.launcher.model.WidgetsModel;
 import com.google.gson.internal.$Gson$Preconditions;
@@ -74,65 +74,28 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        PackageItemInfo info = mWidgetsModel.mFilteredPackageInfo.get(position);
-        if (info == null) return;
-
-        final ArrayList<Object> widgets = mWidgetsModel.mFilteredWidgetList.get(info);
-
-        shouldUpdate = true;
-        if (widgets == null) return;
         if (holder instanceof IOSWidgetViewHolder) {
-            IOSWidgetViewHolder iosWidgetViewHolder = (IOSWidgetViewHolder) holder;
-            ArrayList<Object> iosWidgets = mWidgetsModel.getIOSWidgets();
-            for (Object obj : iosWidgets){
-                LauncherAppWidgetProviderInfo launcherAppWidgetProviderInfo = (LauncherAppWidgetProviderInfo) obj ;
-                PendingAddWidgetInfo pendingAddWidgetInfo = new PendingAddWidgetInfo(mLauncher,launcherAppWidgetProviderInfo,null);
-                ComponentName provider = launcherAppWidgetProviderInfo.provider;
-                if (provider == null) return;
-
-                View view = null;
-                TextViewCustomFont mLabelTV = null;
-
-                if (provider.getClassName().contains("BatteryWidgetProvider")){
-                    view = iosWidgetViewHolder.mWidget1;
-                    mLabelTV = iosWidgetViewHolder.mWidgetName1;
-                }
-                if (provider.getClassName().contains("PictureAppWidgetProvider")){
-                    view = iosWidgetViewHolder.mWidget2;
-                    mLabelTV = iosWidgetViewHolder.mWidgetName2;
-                }
-                // endsWith(".ClockWidgetProvider") để KHÔNG dính Analog/World/Mini/City-ClockWidgetProvider
-                // (đều chứa chuỗi "ClockWidgetProvider"); chỉ khớp đúng đồng hồ số Clock cơ bản.
-                if (provider.getClassName().endsWith(".ClockWidgetProvider")){
-                    view = iosWidgetViewHolder.mWidget3;
-                    mLabelTV = iosWidgetViewHolder.mWidgetName3;
-                }
-
-                if (view != null){
-                    view.setVisibility(View.VISIBLE);
-                    view.setTag(pendingAddWidgetInfo);
-                    view.setOnClickListener(onClickListener);
-                    view.setOnLongClickListener(onLongClickListener);
-                }
-
-                if (mLabelTV != null){
-                    mLabelTV.setText(mAppWidgetManagerCompat.loadLabel(launcherAppWidgetProviderInfo));
-                }
-
-                iosWidgetViewHolder.itemView.setPadding(
-                        mMargin,
-                        mMargin,
-                        mMargin,
-                        mMargin
-                );
-            }
+            bindFeaturedGrid((IOSWidgetViewHolder) holder);
+            return;
         }
-        else if (holder instanceof ItemViewHolder) {
+
+        if (holder instanceof ItemViewHolder) {
+            // Header lưới nổi bật là item riêng ở vị trí 0 -> app list bắt đầu lệch 1.
+            final int appIndex = position - (hasFeatured() ? 1 : 0);
+            PackageItemInfo info = mWidgetsModel.mFilteredPackageInfo.get(appIndex);
+            if (info == null) return;
+
+            final ArrayList<Object> widgets = mWidgetsModel.mFilteredWidgetList.get(info);
+            shouldUpdate = true;
+            if (widgets == null) return;
+
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.mWidgetSection.applyFromPackageItemInfo(info);
             itemViewHolder.mWidgetSection.setTextVisibility(false);
             itemViewHolder.mWidgetSection.setText("");
             itemViewHolder.mWidgetAppName.setText(info.title);
+            // Màu tên app theo Dark/Light (nền sheet đổi theo theme).
+            itemViewHolder.mWidgetAppName.setTextColor(WidgetSheetTheme.textPrimary(mLauncher));
             itemViewHolder.mWidgetSection.setOnLongClickListener(onLongClickListener);
             itemViewHolder.mWidgetSection.setOnClickListener(
                     new View.OnClickListener() {
@@ -181,18 +144,153 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-
-        int prevCount = mWidgetsModel.mFilteredPackageInfo.size();
-        int currentCount = mWidgetsModel.getPackageSize();
-        if (prevCount == currentCount && position == 0) return 1;
-        return 2;
+        return (hasFeatured() && position == 0) ? 1 : 2;
     }
 
     @Override
     public int getItemCount() {
         if (this.mWidgetsModel == null) return 0;
         if (this.mWidgetsModel.mFilteredPackageInfo == null) return 0;
-        return this.mWidgetsModel.mFilteredPackageInfo.size();
+        return this.mWidgetsModel.mFilteredPackageInfo.size() + (hasFeatured() ? 1 : 0);
+    }
+
+    /**
+     * Có hiện lưới widget nổi bật ở đầu khay không.
+     * Chỉ hiện khi CHƯA search (danh sách filter == full) và có widget nổi bật.
+     */
+    private boolean hasFeatured() {
+        if (mWidgetsModel == null || mWidgetsModel.mFilteredPackageInfo == null) return false;
+        boolean notSearching =
+                mWidgetsModel.mFilteredPackageInfo.size() == mWidgetsModel.getPackageSize();
+        ArrayList<Object> featured = mWidgetsModel.getFeaturedWidgets();
+        return notSearching && featured != null && !featured.isEmpty();
+    }
+
+    /**
+     * Đổ lưới widget nổi bật vào header. Thẻ vuông (Calendar/Photos/Batteries/Weather)
+     * xếp 2 ô/hàng; thẻ rộng (World Clock, spanX>=3) chiếm cả hàng, chiều cao = ô vuông.
+     */
+    private void bindFeaturedGrid(IOSWidgetViewHolder holder) {
+        LinearLayout grid = holder.mFeaturedGrid;
+        if (grid == null) return;
+        grid.removeAllViews();
+
+        ArrayList<Object> featured = mWidgetsModel.getFeaturedWidgets();
+        if (featured == null || featured.isEmpty()) return;
+
+        LinearLayout squareRow = null;
+        int squareInRow = 0;
+
+        for (int i = 0; i < featured.size(); i++) {
+            Object obj = featured.get(i);
+            if (!(obj instanceof LauncherAppWidgetProviderInfo)) continue;
+            final LauncherAppWidgetProviderInfo info = (LauncherAppWidgetProviderInfo) obj;
+
+            // Thẻ đồng hồ ngang: rộng 2 cột, tự chiếm 1 hàng riêng.
+            if (info.spanX >= 3) {
+                if (squareRow != null && squareInRow == 1) {
+                    addSquareSpacer(squareRow);
+                }
+                squareRow = null;
+                squareInRow = 0;
+
+                LinearLayout wideRow = new LinearLayout(mLauncher);
+                wideRow.setOrientation(LinearLayout.HORIZONTAL);
+                grid.addView(wideRow, new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                final GalleryWidgetCell wideCell = new GalleryWidgetCell(mLauncher);
+                wideCell.setWide();
+                wideCell.bind(info);
+                wideCell.ensurePreview();
+                wideCell.setOnLongClickListener(onLongClickListener);
+                wideCell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openClockCarousel();
+                    }
+                });
+
+                LinearLayout.LayoutParams wideLp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, wideCell.getCellSize());
+                wideLp.setMargins(mMargin, mMargin, mMargin, mMargin);
+                wideRow.addView(wideCell, wideLp);
+                continue;
+            }
+
+            // Thẻ vuông 1 cột (2 ô / hàng).
+            if (squareInRow == 0) {
+                squareRow = new LinearLayout(mLauncher);
+                squareRow.setOrientation(LinearLayout.HORIZONTAL);
+                grid.addView(squareRow, new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+
+            final GalleryWidgetCell cell = new GalleryWidgetCell(mLauncher);
+            cell.bind(info);
+            cell.ensurePreview();
+            cell.setOnLongClickListener(onLongClickListener);
+            cell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openCarouselForSingle(info);
+                }
+            });
+
+            LinearLayout.LayoutParams cellLp =
+                    new LinearLayout.LayoutParams(0, cell.getCellSize(), 1f);
+            cellLp.setMargins(mMargin, mMargin, mMargin, mMargin);
+            squareRow.addView(cell, cellLp);
+            squareInRow++;
+            if (squareInRow == 2) {
+                squareRow = null;
+                squareInRow = 0;
+            }
+        }
+
+        // Hàng vuông còn dư 1 ô -> chèn 1 ô trống giữ cân đối lưới 2 cột.
+        if (squareRow != null && squareInRow == 1) {
+            addSquareSpacer(squareRow);
+        }
+    }
+
+    /** Chèn 1 ô trống (weight 1) để giữ cân đối hàng vuông khi lẻ ô. */
+    private void addSquareSpacer(LinearLayout row) {
+        View spacer = new View(mLauncher);
+        row.addView(spacer, new LinearLayout.LayoutParams(
+                0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+    }
+
+    /** Bấm thẻ Clock -> mở carousel level-2 gồm 4 size đồng hồ làm sẵn. */
+    private void openClockCarousel() {
+        if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
+        final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
+        ArrayList<Object> variants = mWidgetsModel.getClockVariants();
+        if (variants == null || variants.isEmpty()) return;
+        mLauncher.mWidgetsAppStyle.setData(variants, onClickListener, onLongClickListener);
+        mLauncher.mWidgetsAppStyle.post(new Runnable() {
+            @Override
+            public void run() {
+                containerView.expandAppStyleView();
+            }
+        });
+    }
+
+    /** Bấm 1 thẻ lưới -> mở carousel level-2 với đúng widget đó (list 1 phần tử). */
+    private void openCarouselForSingle(LauncherAppWidgetProviderInfo info) {
+        if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
+        final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
+        ArrayList<Object> one = new ArrayList<>();
+        one.add(info);
+        mLauncher.mWidgetsAppStyle.setData(one, onClickListener, onLongClickListener);
+        mLauncher.mWidgetsAppStyle.post(new Runnable() {
+            @Override
+            public void run() {
+                containerView.expandAppStyleView();
+            }
+        });
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -211,37 +309,12 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
 
     public static class IOSWidgetViewHolder extends RecyclerView.ViewHolder {
 
-        TextViewCustomFont mWidgetName1;
-        TextViewCustomFont mWidgetName2;
-        TextViewCustomFont mWidgetName3;
-        WidgetBaseLayout mWidget1;
-        WidgetBaseLayout mWidget2;
-        // Clock preview là AppCompatImageView (ClockWidget_2x2), KHÔNG phải WidgetBaseLayout
-        // -> giữ kiểu View để tránh ClassCastException khi findViewById.
-        View mWidget3;
+        // Container rỗng của header; adapter đổ các hàng ngang (2 GalleryWidgetCell/hàng) vào.
+        LinearLayout mFeaturedGrid;
 
         public IOSWidgetViewHolder(@NonNull View itemView) {
             super(itemView);
-            Launcher launcher = (Launcher) itemView.getContext();
-            int margin = launcher.getDeviceProfile().edgeMarginPx;
-            mWidget1 = itemView.findViewById(R.id.widget_square_preview_item_1);
-            mWidget2 = itemView.findViewById(R.id.widget_square_preview_item_2);
-            mWidget3 = itemView.findViewById(R.id.widget_square_preview_item_3);
-            mWidget1.setPadding(margin,margin,margin,margin);
-            mWidget2.setPadding(margin,margin,margin,margin);
-            mWidget3.setPadding(margin,margin,margin,margin);
-            mWidgetName1 = itemView.findViewById(R.id.widget_square_preview_text_1);
-            mWidgetName2 = itemView.findViewById(R.id.widget_square_preview_text_2);
-            mWidgetName3 = itemView.findViewById(R.id.widget_square_preview_text_3);
-        }
-
-        public void setListeners(View.OnClickListener onClickListener, View.OnLongClickListener onLongClickListener){
-            mWidget1.setOnClickListener(onClickListener);
-            mWidget1.setOnLongClickListener(onLongClickListener);
-            mWidget2.setOnClickListener(onClickListener);
-            mWidget2.setOnLongClickListener(onLongClickListener);
-            mWidget3.setOnClickListener(onClickListener);
-            mWidget3.setOnLongClickListener(onLongClickListener);
+            mFeaturedGrid = itemView.findViewById(R.id.featured_widget_grid);
         }
     }
 

@@ -117,6 +117,67 @@ public class WidgetsModel {
         return mIOSWidgetsList;
     }
 
+    /**
+     * Danh sách widget nổi bật hiển thị ở lưới 2 cột trên cùng khay Add Widget.
+     * Curated đúng 5 widget cơ bản theo thiết kế, đúng thứ tự:
+     * Calendar, Photos (Picture), Batteries, Weather, Clock. Match theo tên class
+     * provider nên không phụ thuộc nhãn/locale. Widget nào chưa phát hiện được thì
+     * bỏ qua (không chèn ô rỗng). Đây là 1 điểm sửa duy nhất.
+     */
+    public ArrayList<Object> getFeaturedWidgets() {
+        final String[] ORDER = {
+                "CalendarWidgetProvider",
+                "PictureAppWidgetProvider",
+                "BatteryWidgetProvider",
+                "WeatherWidgetProvider",
+                // Thẻ Clock nổi bật = World Clock ngang (kiểu #3), hiển thị rộng 2 cột.
+                "WorldClockWidgetProvider",
+        };
+        ArrayList<Object> all = getIOSWidgets();
+        ArrayList<Object> featured = new ArrayList<>();
+        if (all == null) return featured;
+        for (String simpleName : ORDER) {
+            for (Object o : all) {
+                if (!(o instanceof LauncherAppWidgetProviderInfo)) continue;
+                ComponentName provider = ((LauncherAppWidgetProviderInfo) o).provider;
+                if (provider != null && provider.getClassName().endsWith("." + simpleName)) {
+                    featured.add(o);
+                    break;
+                }
+            }
+        }
+        return featured;
+    }
+
+    /**
+     * 4 size đồng hồ làm sẵn (tĩnh) để user thêm ngay, đúng thứ tự carousel iOS:
+     * Digital, Analog đơn, World Clock ngang, World Clock lưới 2x2. Match theo tên
+     * class provider nên không phụ thuộc nhãn/locale. Dùng cho carousel level-2 khi
+     * bấm thẻ Clock ở lưới featured.
+     */
+    public ArrayList<Object> getClockVariants() {
+        final String[] ORDER = {
+                "ClockWidgetProvider",
+                "AnalogClockWidgetProvider",
+                "WorldClockWidgetProvider",
+                "MiniAnalogClockWidgetProvider",
+        };
+        ArrayList<Object> all = getIOSWidgets();
+        ArrayList<Object> variants = new ArrayList<>();
+        if (all == null) return variants;
+        for (String simpleName : ORDER) {
+            for (Object o : all) {
+                if (!(o instanceof LauncherAppWidgetProviderInfo)) continue;
+                ComponentName provider = ((LauncherAppWidgetProviderInfo) o).provider;
+                if (provider != null && provider.getClassName().endsWith("." + simpleName)) {
+                    variants.add(o);
+                    break;
+                }
+            }
+        }
+        return variants;
+    }
+
 
     public ArrayList<Object> getRawList() {
         return mRawList;

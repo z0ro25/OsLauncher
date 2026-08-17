@@ -34,15 +34,12 @@
             android:layout_gravity="bottom"
             android:layout_weight="7">
 
-            <!-- Lớp kính iOS: blur wallpaper thật, bo 2 góc trên, tint tối nhẹ (thay nền đen xì). -->
-            <com.amz.ios.launcher.widget.view.GlassBlurView
+            <!-- Nền đục (không blur) theo theme, bo 2 góc trên. Drawable set runtime. -->
+            <View
+                android:id="@+id/widget_sheet_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:gbvCornerRadius="18dp"
-                app:gbvOverlayColor="#40000000"
-                app:gbvBorderColor="#33FFFFFF"
-                app:gbvBorderWidth="1dp"
-                app:gbvFallbackDrawable="@drawable/widget_sheet_glass_fallback" />
+                android:background="@drawable/widget_sheet_bg_white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,12 +49,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/search_box"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="40dp"
                 android:layout_gravity="start"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="14dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:background="@drawable/round_rect_qsb">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -69,6 +68,7 @@
                     android:padding="4dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_search"
+                    app:tint="#8E8E93"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -87,8 +87,8 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white_50"
+                    android:textColor="#1C1C1E"
+                    android:textColorHint="#8E8E93"
                     android:textCursorDrawable="@null"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/action_clear"
@@ -103,6 +103,7 @@
                     android:layout_alignParentEnd="true"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_delete"
+                    app:tint="#8E8E93"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Mini analog: 1 tile 2x2 chứa lưới 2x2 gồm 4 đồng hồ kim nhỏ theo thành phố.
-     Nền glass; mỗi ô: đồng hồ kim (không số, không kim giây) + nhãn city. -->
+<!-- World Clock lưới 2x2 (tile 2x2): thẻ TỐI, 4 mặt số mini theo thành phố. Mỗi mặt:
+     có số + kim giây cam, tự đổi ngày/đêm theo giờ địa phương, và nhãn tp viết tắt vẽ
+     BÊN TRONG mặt (acvLabel) — không còn nhãn dưới mặt. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Nền KÍNH MỜ (blur wallpaper); fallback thẻ TỐI theo theme khi máy không hỗ trợ blur. -->
     <com.amz.ios.launcher.widget.view.GlassBlurView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:gbvOverlayColor="#00000000"
         app:gbvCornerRadius="@dimen/widget_round_corner"
         app:gbvBorderColor="#40FFFFFF"
         app:gbvBorderWidth="1dp"
-        app:gbvFallbackDrawable="@drawable/bg_glass_1_1" />
+        app:gbvOverlayColor="#73000000"
+        app:gbvFallbackDrawable="@drawable/widget_clock_card_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,49 +32,23 @@
         android:baselineAligned="false"
         android:weightSum="2">
 
-        <LinearLayout
+        <com.amz.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_margin="4dp"
+            app:acvShowSecond="true"
+            app:acvLabel="NYC"
+            app:acvTimeZone="America/New_York" />
 
-            <com.amz.ios.launcher.widget.view.AnalogClockView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:acvShowNumbers="false"
-                app:acvShowSecond="false"
-                app:acvTimeZone="America/New_York" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NYC"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <com.amz.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <com.amz.ios.launcher.widget.view.AnalogClockView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:acvShowNumbers="false"
-                app:acvShowSecond="false"
-                app:acvTimeZone="Europe/London" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LON"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
-        </LinearLayout>
+            android:layout_margin="4dp"
+            app:acvShowSecond="true"
+            app:acvLabel="LON"
+            app:acvTimeZone="Europe/London" />
     </LinearLayout>
 
     <LinearLayout
@@ -83,49 +59,23 @@
         android:baselineAligned="false"
         android:weightSum="2">
 
-        <LinearLayout
+        <com.amz.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_margin="4dp"
+            app:acvShowSecond="true"
+            app:acvLabel="DUB"
+            app:acvTimeZone="Asia/Dubai" />
 
-            <com.amz.ios.launcher.widget.view.AnalogClockView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:acvShowNumbers="false"
-                app:acvShowSecond="false"
-                app:acvTimeZone="Asia/Dubai" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DXB"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <com.amz.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <com.amz.ios.launcher.widget.view.AnalogClockView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                app:acvShowNumbers="false"
-                app:acvShowSecond="false"
-                app:acvTimeZone="Australia/Sydney" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SYD"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
-        </LinearLayout>
+            android:layout_margin="4dp"
+            app:acvShowSecond="true"
+            app:acvLabel="SYD"
+            app:acvTimeZone="Australia/Sydney" />
     </LinearLayout>
     </LinearLayout>
 </FrameLayout>

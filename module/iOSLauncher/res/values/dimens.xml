@@ -430,6 +430,14 @@
 
     <dimen name="clock_widget_size">90dp</dimen>
 
+    <!-- Bề rộng tối thiểu của World Clock ngang -> span 4 cột (widget 4x2). Giá trị chọn theo
+         initSpans(): span = ceil((minW + padL + padR)/cellW); với cell hiện tại 320dp cho ra 4,
+         kẹp min(.,numColumns) nên full 4 cột. PHẢI là @dimen (không được literal "320dp"):
+         fromIOSWidgetComponent() đọc minWidth qua getAttributeResourceValue nên literal ->
+         getDimension(-1) ném NotFoundException -> widget rớt về đường RemoteViews
+         (isIOSWidget=false) và không inflate được custom view. Dimen riêng, không dùng chung. -->
+    <dimen name="world_clock_min_width">320dp</dimen>
+
     <dimen name="card_round_corner">12dp</dimen>
 
     <dimen name="custom_action_bar_height">68dp</dimen>

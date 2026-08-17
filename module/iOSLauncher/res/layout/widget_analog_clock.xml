@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Widget đồng hồ kim lớn (page 0). Nền kính blur COMPOSITOR (GlassCompositorBlurView) —
-     cùng cơ chế hotseat (DockBlurView): blur ở tầng hệ thống, KHÔNG cần quyền đọc wallpaper
-     nên luôn mờ được (kể cả máy Android 13+ chặn wallpaper). Có kim giây + vạch chia giờ/phút
-     kiểu iOS. Widget nội bộ inflate thành View thật -> dùng custom view. -->
+<!-- Đồng hồ kim đơn (Clock I): thẻ TỐI + mặt số TRẮNG ở giữa (có số 1-12, vạch phút,
+     kim giây cam). Mặt KHÔNG phủ kín thẻ -> chừa lề tối quanh mặt (padding lớn).
+     Widget nội bộ inflate thành View thật -> dùng custom AnalogClockView. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.amz.ios.launcher.widget.view.GlassCompositorBlurView
+    <!-- Nền KÍNH MỜ (blur wallpaper) kiểu iOS; khi máy không dựng được blur -> fallback
+         thẻ TỐI theo theme (widget_clock_card_dark). Tint tối nhẹ cho kim/số trắng dễ đọc. -->
+    <com.amz.ios.launcher.widget.view.GlassBlurView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:gcbFallbackDrawable="@drawable/bg_glass_1_1" />
+        app:gbvCornerRadius="@dimen/widget_round_corner"
+        app:gbvBorderColor="#40FFFFFF"
+        app:gbvBorderWidth="1dp"
+        app:gbvOverlayColor="#73000000"
+        app:gbvFallbackDrawable="@drawable/widget_clock_card_dark" />
 
     <com.amz.ios.launcher.widget.view.AnalogClockView
         android:id="@+id/analog_clock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/widget_padding"
+        android:padding="16dp"
+        app:acvDial="day"
+        app:acvShowNumbers="true"
         app:acvShowSecond="true"
         app:acvShowTicks="true" />
 </FrameLayout>
