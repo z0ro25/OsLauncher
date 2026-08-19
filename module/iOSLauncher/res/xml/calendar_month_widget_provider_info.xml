@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 2x2: minWidth/minHeight = base_widget_size (110dp -> span 2 qua initSpans). -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="@dimen/base_widget_size"
+    android:minHeight="@dimen/base_widget_size"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/calendar_month_widget"
+    android:previewImage="@drawable/sample_calendar_widget"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen"
+    />

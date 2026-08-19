@@ -438,6 +438,15 @@
          (isIOSWidget=false) và không inflate được custom view. Dimen riêng, không dùng chung. -->
     <dimen name="world_clock_min_width">320dp</dimen>
 
+    <!-- Cỡ span-4 cho Calendar Up Next: medium (4x2) dùng cho WIDTH; large (4x4) dùng cho cả
+         WIDTH lẫn HEIGHT. PHẢI là @dimen (KHÔNG được literal "320dp"): fromIOSWidgetComponent()
+         đọc minWidth/minHeight qua getAttributeResourceValue -> literal trả -1 -> getDimension(-1)
+         ném NotFoundException -> widget rớt về đường RemoteViews (isIOSWidget=false) và không
+         inflate được custom CalendarUpNextView ("Sự cố khi tải tiện ích con"). 320dp -> span 4
+         (như world_clock). Dimen riêng cho Calendar, không dùng chung. -->
+    <dimen name="calendar_upnext_min_width">320dp</dimen>
+    <dimen name="calendar_upnext_large_min_height">320dp</dimen>
+
     <dimen name="card_round_corner">12dp</dimen>
 
     <dimen name="custom_action_bar_height">68dp</dimen>

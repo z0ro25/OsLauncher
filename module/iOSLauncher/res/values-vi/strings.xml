@@ -96,6 +96,16 @@
     <string name="widget_meta_desc_clock_grid">"Nhiều đồng hồ trong một khung."</string>
     <string name="widget_meta_title_calendar">"Lịch"</string>
     <string name="widget_meta_desc_calendar">"Xem ngày và sự kiện của bạn."</string>
+    <string name="widget_meta_title_calendar_month">"Tháng"</string>
+    <string name="widget_meta_desc_calendar_month">"Xem nhanh cả tháng hiện tại."</string>
+    <string name="widget_meta_title_calendar_upnext">"Sắp tới"</string>
+    <string name="widget_meta_desc_calendar_upnext">"Xem các sự kiện sắp tới của bạn."</string>
+    <string name="calendar_up_next_footer">"Sắp tới"</string>
+    <string name="calendar_up_next_grant">"Chạm để cấp quyền Lịch"</string>
+    <string name="calendar_up_next_empty">"Không có sự kiện sắp tới"</string>
+    <string name="calendar_up_next_all_day">"cả ngày"</string>
+    <string name="calendar_tomorrow">"Ngày mai"</string>
+    <string name="calendar_more_events">"Thêm %d sự kiện"</string>
     <string name="widget_meta_title_photos">"Ảnh"</string>
     <string name="widget_meta_desc_photos">"Hiển thị một ảnh yêu thích."</string>
     <string name="widget_meta_title_batteries">"Pin"</string>

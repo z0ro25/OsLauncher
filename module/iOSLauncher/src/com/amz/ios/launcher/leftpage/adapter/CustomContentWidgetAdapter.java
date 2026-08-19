@@ -65,6 +65,10 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         else if (i == 40) {
             resId = R.layout.widget_calendar_2x2;
         }
+        else if (i == 42) {
+            // Lịch lưới tháng (đủ ngày) 2x2 — mặc định mới, đồng bộ thẻ nổi bật ở khay.
+            resId = R.layout.widget_calendar_month_2x2;
+        }
         else if (i == 41) {
             resId = R.layout.widget_calendar_2x4;
         }

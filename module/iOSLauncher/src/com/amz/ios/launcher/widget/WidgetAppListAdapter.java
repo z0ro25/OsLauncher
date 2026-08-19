@@ -235,7 +235,13 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
             cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openCarouselForSingle(info);
+                    // Thẻ Lịch -> mở carousel gia đình Calendar (Lịch + Tháng + 3 bản Sắp tới);
+                    // các thẻ vuông khác giữ nguyên carousel 1 phần tử.
+                    if (isCalendarTile(info)) {
+                        openCalendarCarousel();
+                    } else {
+                        openCarouselForSingle(info);
+                    }
                 }
             });
 
@@ -268,6 +274,27 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
         if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
         final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
         ArrayList<Object> variants = mWidgetsModel.getClockVariants();
+        if (variants == null || variants.isEmpty()) return;
+        mLauncher.mWidgetsAppStyle.setData(variants, onClickListener, onLongClickListener);
+        mLauncher.mWidgetsAppStyle.post(new Runnable() {
+            @Override
+            public void run() {
+                containerView.expandAppStyleView();
+            }
+        });
+    }
+
+    /** Nhận diện thẻ Lịch (đại diện = lưới tháng "đủ ngày") trong lưới featured qua tên class provider. */
+    private boolean isCalendarTile(LauncherAppWidgetProviderInfo info) {
+        return info != null && info.provider != null
+                && info.provider.getClassName().endsWith(".CalendarMonthWidgetProvider");
+    }
+
+    /** Bấm thẻ Lịch -> mở carousel level-2 gồm cả gia đình Calendar làm sẵn. */
+    private void openCalendarCarousel() {
+        if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
+        final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
+        ArrayList<Object> variants = mWidgetsModel.getCalendarVariants();
         if (variants == null || variants.isEmpty()) return;
         mLauncher.mWidgetsAppStyle.setData(variants, onClickListener, onLongClickListener);
         mLauncher.mWidgetsAppStyle.post(new Runnable() {

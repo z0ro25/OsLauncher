@@ -725,6 +725,16 @@
     <string name="widget_meta_desc_clock_grid">Several clocks at a glance.</string>
     <string name="widget_meta_title_calendar">Calendar</string>
     <string name="widget_meta_desc_calendar">See your date and events.</string>
+    <string name="widget_meta_title_calendar_month">Month</string>
+    <string name="widget_meta_desc_calendar_month">See the current month at a glance.</string>
+    <string name="widget_meta_title_calendar_upnext">Up Next</string>
+    <string name="widget_meta_desc_calendar_upnext">See your upcoming events.</string>
+    <string name="calendar_up_next_footer">Up next</string>
+    <string name="calendar_up_next_grant">Tap to allow Calendar access</string>
+    <string name="calendar_up_next_empty">No upcoming events</string>
+    <string name="calendar_up_next_all_day">all-day</string>
+    <string name="calendar_tomorrow">Tomorrow</string>
+    <string name="calendar_more_events">%d more events</string>
     <string name="widget_meta_title_photos">Photos</string>
     <string name="widget_meta_desc_photos">Show a favorite photo.</string>
     <string name="widget_meta_title_batteries">Batteries</string>

@@ -7,11 +7,13 @@ import android.os.Looper
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
+import com.oslauncher.applauncher.themelauncher.Features.home.HomeActivity
 import com.oslauncher.applauncher.themelauncher.Features.languageStart.LanguageStartActivity
 import com.oslauncher.applauncher.themelauncher.R
 import com.oslauncher.applauncher.themelauncher.databinding.ActivitySplashBinding
 import com.oslauncher.applauncher.themelauncher.extensions.hideNavigation
 import com.oslauncher.applauncher.themelauncher.tool.languageTool.LanguageUtil
+import com.oslauncher.applauncher.themelauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.oslauncher.applauncher.themelauncher.utils.EventTrackingHelper
 import com.oslauncher.applauncher.themelauncher.utils.YourWallpaperDataManager
 
@@ -37,8 +39,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         YourWallpaperDataManager.addYourWallpaper(this, YourWallpaperDataManager.DefaultData)
 
-        // Không còn quảng cáo: hiển thị splash ngắn rồi chuyển sang màn chọn ngôn ngữ.
-        Handler(Looper.getMainLooper()).postDelayed({ startLang() }, 1000)
+        // Không còn quảng cáo: hiển thị splash ngắn rồi điều hướng.
+        // Lần đầu cài -> onboarding (chọn ngôn ngữ...); đã hoàn tất onboarding -> vào thẳng Home.
+        Handler(Looper.getMainLooper()).postDelayed({ goNext() }, 1000)
     }
 
     override fun viewListener() {
@@ -49,11 +52,18 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     }
 
-    private fun startLang() {
+    private fun goNext() {
         if (isFinishing) return
-        val bundle = Bundle()
-        bundle.putString("screen", "SplashActivity")
-        showActivity(LanguageStartActivity::class.java, bundle)
+        // "PERMISSION_SHOWED" = true nghĩa là người dùng đã đi hết luồng onboarding lần đầu
+        // (ngôn ngữ -> intro -> quyền, đặt ở bước cuối PermissionActivity). Từ lần sau:
+        // splash -> Home luôn, KHÔNG hiện lại màn chọn ngôn ngữ.
+        if (SharePrefUtils.getBoolean(this, "PERMISSION_SHOWED", false)) {
+            showActivity(HomeActivity::class.java, null)
+        } else {
+            val bundle = Bundle()
+            bundle.putString("screen", "SplashActivity")
+            showActivity(LanguageStartActivity::class.java, bundle)
+        }
         finish()
     }
 }

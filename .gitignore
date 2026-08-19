@@ -36,3 +36,11 @@ local.properties
 # OS files
 .DS_Store
 Thumbs.db
+
+# Ảnh chụp màn hình khi debug/test trên máy thật (chỉ ở thư mục gốc repo).
+# Resource thật nằm trong app/res, module/*/res nên KHÔNG bị dính rule này.
+/*.png
+
+# Dump cây view của uiautomator khi debug (adb shell uiautomator dump)
+/ui.xml
+/window_dump.xml

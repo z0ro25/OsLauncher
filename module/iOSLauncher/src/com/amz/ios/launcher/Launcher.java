@@ -79,6 +79,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
@@ -681,6 +682,18 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
 
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        // [FIX Android 9] Ép cutout mode NGAY từ onCreate để khung cửa sổ là [0,H] ngay frame đầu
+        // (trước đây chỉ đặt trong setStatusBarHiddenForEdit -> phải đợi onWindowFocusChanged, và ở
+        // API 28/29 lại đặt sai hằng ALWAYS(=3) vốn chỉ có từ API 30 -> khung tụt xuống dưới cutout).
+        // API 28/29: SHORT_EDGES (tràn vào cutout cạnh ngắn). API 30+: ALWAYS.
+        if (Build.VERSION.SDK_INT >= 28) {
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            wlp.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+                    ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+                    : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            window.setAttributes(wlp);
+        }
 
         windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars());
@@ -1613,7 +1626,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        Log.e("alshdflkasdf", "onWindowFocusChanged: ");
+        // YÊU CẦU: status bar CHỈ ẩn khi trạng thái edit THỰC SỰ hiển thị (2 nút Sửa/Xong VISIBLE),
+        // và HIỆN lại khi 2 nút ẩn. Khi popup/dialog đóng hoặc cửa sổ lấy lại focus, đồng bộ status bar
+        // ĐÚNG theo visibility của 2 nút — KHÔNG dựa cờ mIsShaking (long-press mở popup không set cờ này
+        // nhưng cũng KHÔNG hiện 2 nút, nên tuyệt đối không được ẩn status bar).
+        if (hasFocus) {
+            syncStatusBarToEditButtons();
+        }
 //        mHasFocus = hasFocus;
 //        if (hasFocus) {
 //            checkHideNavigation();
@@ -2156,9 +2175,18 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     private void setupTransparentSystemBarsForLollipop() {
         if (Utilities.ATLEAST_LOLLIPOP) {
             Window window = getWindow();
-            window.getAttributes().systemUiVisibility |=
-                    (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            // FIX (Android 9 / API < 30): content KHÔNG tràn lên sau status bar -> dải đỉnh bị ĐEN.
+            // Nguyên nhân: cờ LAYOUT_FULLSCREEN trước đây gán qua window.getAttributes().systemUiVisibility
+            // (KHÔNG re-apply nên vô tác dụng) và gán ở nơi khác trên mLauncherView chứ không phải decorView.
+            // Trên Samsung Android 9, FLAG_LAYOUT_NO_LIMITS 1 mình KHÔNG kéo nội dung lên sau status bar ->
+            // status bar trong suốt lộ nền đen. Phải ép cờ legacy LAYOUT_FULLSCREEN|LAYOUT_STABLE TRỰC TIẾP
+            // lên decorView bằng setSystemUiVisibility (cách đáng tin) để wallpaper hiện sau status bar.
+            // Trên API 30+ (vd Pixel) cờ legacy này bị framework bỏ qua (đã dùng WindowInsetsController) —
+            // edge-to-edge ở đó do FLAG_LAYOUT_NO_LIMITS lo -> thay đổi này KHÔNG ảnh hưởng máy mới.
+            View decorView = window.getDecorView();
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -4097,6 +4125,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 openFloatingMenu(v);
                 mWorkspace.showInfo(longClickCellInfo);
                 mWorkspace.startTidyUp();
+                // KHÔNG ẩn status bar ở đây: long-press app CHỈ mở popup ngữ cảnh, 2 nút Sửa/Xong
+                // KHÔNG hiển thị -> theo yêu cầu, status bar phải GIỮ HIỆN. (Trước đây ẩn tại đây khiến
+                // status bar ẩn LÌ vì popup là overlay TRONG cửa sổ -> không mất focus -> không có luồng
+                // nào hiện lại.) Status bar chỉ ẩn khi vào edit THẬT (onShakingAllApps hiện 2 nút, ví dụ
+                // chọn "Edit Home Screen" từ popup) — bất biến này do syncStatusBarToEditButtons() giữ.
             }
         }
 
@@ -4337,6 +4370,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         this.mIsShaking = true;
         if (this.mWorkspace != null) {
+            // [BUG FIX] Edit mode có thể vào từ popup ngữ cảnh của long-press app, lúc đó lớp phủ
+            // full-screen mFloatingMenuBlurBg đang nằm TRÊN 2 nút Chỉnh sửa/Done và nuốt hết touch
+            // -> bấm nút không ăn. Gỡ dứt điểm trước khi hiện 2 nút. Xem removeFloatingMenuOverlay().
+            removeFloatingMenuOverlay();
+            // Vào edit mode: ẩn status bar ở đỉnh để 2 nút Sửa/Xong ở góc trên không bị đè.
+            setStatusBarHiddenForEdit(true);
             this.mAddWidgetBtn.setVisibility(View.VISIBLE);
             this.mAddWidgetDoneBtn.setVisibility(View.VISIBLE);
             int[] iArr = new int[2];
@@ -4345,6 +4384,76 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             this.mWorkspace.getPageIndicator().disableSearch();
             this.mWorkspace.startTidyUp();
         }
+    }
+
+    /**
+     * Ẩn/hiện status bar khi vào/ra edit mode (yêu cầu: edit mode ẩn status bar, chỉ còn 2 nút
+     * Sửa/Xong ở đỉnh).
+     *
+     * Ẩn/hiện status bar qua {@link WindowInsetsControllerCompat} — CÙNG cơ chế
+     * {@link #hideNavigationBar(Window)} đang ẩn nav bar (cửa sổ ở "chế độ controller" từ onCreate nên
+     * cờ legacy {@code setSystemUiVisibility}/{@code FLAG_FULLSCREEN} bị bỏ qua, chỉ controller mới ăn).
+     * QUAN TRỌNG: KHÔNG gọi {@code setDecorFitsSystemWindows(false)} — nó làm {@code controller.hide()}
+     * không dính. Chỉ đụng {@code statusBars()}, KHÔNG đụng nav (nav do onCreate quản).
+     *
+     * NGUYÊN NHÂN GỐC của "đẩy content xuống" (đã đo bằng decorTop trên Pixel 7 Pro): cửa sổ ở
+     * {@code LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT} chỉ tràn vào vùng camera đục lỗ (cutout, cao 144px)
+     * KHI cutout nằm gọn trong 1 system bar. Bar hiện -> cutout trong status bar -> khung [0,H]. Bar ẩn
+     * -> cutout không còn bar bọc -> HĐH ĐẨY khung xuống DƯỚI cutout (decorTop=144) -> content tụt 144px.
+     * KHÔNG phải OEM, KHÔNG phải cờ NO_LIMITS/FLAG_FULLSCREEN/decorFitsSystemWindows. FIX: ép
+     * {@code LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS} -> khung LUÔN [0,H] bất kể bar ẩn/hiện -> content
+     * full màn, marginTop giữ CỐ ĐỊNH = status_bar_heightex ở cả 2 trạng thái -> dịch 0px, nút không cắt.
+     * Menu ngữ cảnh A1 là cửa sổ Dialog riêng -> khi đóng, status bar bị hiện lại; {@link
+     * #onWindowFocusChanged(boolean)} sẽ ẩn lại nếu vẫn đang edit ({@code mIsShaking}).
+     */
+    private void setStatusBarHiddenForEdit(boolean hidden) {
+        Window window = getWindow();
+        View decorView = window.getDecorView();
+        WindowInsetsControllerCompat controller = Build.VERSION.SDK_INT >= 30
+                ? ViewCompat.getWindowInsetsController(decorView)
+                : new WindowInsetsControllerCompat(window, decorView);
+        if (controller == null) {
+            return;
+        }
+        controller.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        // [FIX THẬT] NGUYÊN NHÂN đẩy-xuống: cửa sổ ở LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT chỉ được
+        //   tràn vào vùng camera đục lỗ (cutout, cao 144px trên Pixel 7 Pro) KHI cutout nằm gọn
+        //   trong 1 system bar. Bar hiện -> cutout trong status bar -> khung tràn lên [0]. Bar ẩn ->
+        //   cutout không còn bar bọc -> HĐH đẩy khung xuống DƯỚI cutout (decorTop=144). KHÔNG liên
+        //   quan OEM. Ép ALWAYS -> khung LUÔN [0,H] bất kể bar ẩn/hiện -> content full màn, dịch 0px.
+        // [FIX Android 9/10] LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS (=3) CHỈ tồn tại từ API 30. Trên
+        //   API 28/29 framework KHÔNG hiểu giá trị 3 (dumpsys in "layoutInDisplayCutoutMode=unknown(3)")
+        //   nên rơi về xử lý mặc định -> khung bị đẩy xuống DƯỚI cutout (đo trên Samsung A50 Android 9:
+        //   mFrame=[0,83][1080,2340], cutout cao 83px) -> desktop KHÔNG full màn. Ở API 28/29 phải dùng
+        //   SHORT_EDGES (=1): cho cửa sổ tràn vào cutout ở cạnh ngắn (đỉnh khi dọc) -> khung [0,H].
+        if (Build.VERSION.SDK_INT >= 28) {
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            wlp.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+                    ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+                    : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            window.setAttributes(wlp);
+        }
+        if (hidden) {
+            controller.hide(WindowInsetsCompat.Type.statusBars());
+        } else {
+            controller.show(WindowInsetsCompat.Type.statusBars());
+        }
+        // KHÔNG còn đụng marginTop: khung không tụt nữa (nhờ CUTOUT_MODE_ALWAYS ở trên) nên marginTop
+        // giữ CỐ ĐỊNH = status_bar_heightex do XML (launcher.xml) đặt sẵn cho workspace_root_view +
+        // focus_indicator ở cả 2 trạng thái -> content ở 112px, dịch 0px, 2 nút không cắt, nền không lệch.
+    }
+
+    /**
+     * Đồng bộ status bar theo trạng thái edit THỰC SỰ (yêu cầu người dùng): status bar ẩn KHI VÀ CHỈ KHI
+     * 2 nút Sửa/Xong ({@code mAddWidgetBtn}) đang VISIBLE. Dùng ở {@link #onWindowFocusChanged(boolean)}
+     * để mọi lần lấy lại focus (đóng popup/dialog, resume) status bar khớp đúng UI: đang edit -> ẩn,
+     * không edit -> hiện. Tránh bug long-press mở popup (không hiện 2 nút) làm status bar ẩn lì.
+     */
+    private void syncStatusBarToEditButtons() {
+        boolean buttonsVisible = mAddWidgetBtn != null
+                && mAddWidgetBtn.getVisibility() == View.VISIBLE;
+        setStatusBarHiddenForEdit(buttonsVisible);
     }
 
     public void cancelShakingAnimation() {
@@ -4363,6 +4472,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 mAddWidgetBtn.setVisibility(View.GONE);
                 mWorkspace.endTidyUp();
             }
+            // Ra edit mode: hiện lại status bar như bình thường.
+            setStatusBarHiddenForEdit(false);
             PageIndicator pageIndicator = this.mWorkspace.getPageIndicator();
             pageIndicator.removeCallbacks(pageIndicator.mSearchAnimRunnable);
             pageIndicator.postOnAnimationDelayed(pageIndicator.mSearchAnimRunnable, 1999L);
@@ -4377,8 +4488,14 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      */
     public void showEditTopButtons() {
         if (mIsShaking && mAddWidgetBtn != null && mAddWidgetDoneBtn != null) {
+            // [BUG FIX] Cùng lý do với onShakingAllApps(): 2 nút sắp VISIBLE nên lớp phủ
+            // mFloatingMenuBlurBg (nếu còn sót từ long-press app) phải được gỡ, nếu không nó nằm đè
+            // lên và nuốt mọi cú chạm vào nút. Xem removeFloatingMenuOverlay().
+            removeFloatingMenuOverlay();
             mAddWidgetBtn.setVisibility(View.VISIBLE);
             mAddWidgetDoneBtn.setVisibility(View.VISIBLE);
+            // 2 nút vừa HIỆN lại (sau khi kéo/thả trong edit) -> giữ invariant: ẩn status bar cho khớp.
+            setStatusBarHiddenForEdit(true);
         }
     }
 
@@ -6877,6 +6994,32 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Dọn popup riêng của widget + cờ resize nếu còn sót.
         dismissWidgetMenu();
         mWidgetResizeMode = false;
+    }
+
+    /**
+     * [BUG FIX] Gỡ DỨT KHOÁT lớp phủ {@code mFloatingMenuBlurBg} khỏi DragLayer.
+     *
+     * NGUYÊN NHÂN BUG (đo bằng dumpsys trên Samsung A50 Android 9): vào edit mode bằng long-press
+     * lên app icon chạy nhánh {@code openFloatingMenu(v)} rồi {@code mWorkspace.startTidyUp()}.
+     * {@code openFloatingMenu} add {@code mFloatingMenuBlurBg} — một BlurScreenLayout CLICKABLE phủ
+     * kín 1080x2340 — vào DragLayer, nằm TRÊN WorkspaceRootView (nơi chứa 2 nút Chỉnh sửa/Done),
+     * nhưng {@code startTidyUp()} KHÔNG gỡ lớp phủ này. Kết quả: edit mode bật, 2 nút hiện ra, mà
+     * mọi cú chạm — kể cả chạm ĐÚNG nút Chỉnh sửa — đều bị lớp phủ nuốt và chạy
+     * {@code closeFloatingMenu()} thay vì listener của nút -> "bấm Chỉnh sửa không có gì xảy ra".
+     * Cú bấm đầu chỉ để gỡ lớp phủ, nên phải bấm 2 lần popup mới hiện.
+     *
+     * KHÔNG dùng {@link #closeFloatingMenu()} cho việc này vì nó return sớm khi
+     * {@code showingFloatingMenu == false} — mà cờ đó có thể đã bị set false ở luồng khác trong khi
+     * view VẪN còn attach (chính là trạng thái rò rỉ gây bug). Hàm này bám vào việc view có parent
+     * hay không nên dọn được cả trường hợp đó.
+     */
+    private void removeFloatingMenuOverlay() {
+        if (mFloatingMenuBlurBg == null || mFloatingMenuBlurBg.getParent() == null) {
+            return;
+        }
+        showingFloatingMenu = false;
+        mFloatingMenuBlurBg.clearBlur();
+        ((ViewGroup) mFloatingMenuBlurBg.getParent()).removeView(mFloatingMenuBlurBg);
     }
 
     public LauncherRootView getLauncherView() {

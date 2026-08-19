@@ -584,6 +584,71 @@
                 android:resource="@xml/calendar_widget_provider_info" />
         </receiver>
 
+        <!-- Họ widget Calendar kiểu iOS (Month 2x2, Up Next nhỏ/vừa/lớn) — tự vẽ Canvas. -->
+        <receiver
+            android:name=".widget.widgetprovider.CalendarMonthWidgetProvider"
+            android:exported="true"
+            android:label="@string/calendar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/calendar_month_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.CalendarUpNextSmallWidgetProvider"
+            android:exported="true"
+            android:label="@string/calendar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/calendar_upnext_small_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.CalendarUpNextMediumWidgetProvider"
+            android:exported="true"
+            android:label="@string/calendar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/calendar_upnext_medium_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.CalendarUpNextLargeWidgetProvider"
+            android:exported="true"
+            android:label="@string/calendar">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/calendar_upnext_large_widget_provider_info" />
+        </receiver>
+
         <receiver
             android:name=".widget.widgetprovider.WeatherWidgetProvider"
             android:exported="true"

@@ -299,7 +299,9 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
                     i = 61;
                     break;
                 case 1:
-                    i = 40;
+                    // Mặc định "widget_calendar" = Lịch LƯỚI THÁNG (đủ ngày) 2x2, không phải bản
+                    // chỉ hiện ngày (40). Đồng bộ với thẻ Lịch nổi bật ở khay widget.
+                    i = 42;
                     break;
                 case 2:
                     i = 71;

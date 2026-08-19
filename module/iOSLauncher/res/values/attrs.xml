@@ -322,6 +322,23 @@
         <attr name="acvSecondProgress" format="boolean"/>
     </declare-styleable>
 
+    <!-- Widget lịch "Up Next" tự vẽ Canvas: chọn biến thể cỡ để đổi bố cục. -->
+    <declare-styleable name="CalendarUpNextView">
+        <!-- small = 2x2 (1 cột hôm nay + tối đa 2 sự kiện); medium = 4x2 (2 cột
+             hôm nay/ngày mai); large = 4x4 (dòng thời gian 2 cột theo giờ). -->
+        <attr name="cunVariant" format="enum">
+            <enum name="small" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="large" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <!-- Widget lịch DÒNG THỜI GIAN theo giờ (schedule) tự vẽ Canvas: dùng cho Up Next vừa (1 cột)
+         và lớn (2 cột). csvTwoColumns=true -> vẽ 2 cột hôm nay/ngày mai. -->
+    <declare-styleable name="CalendarScheduleView">
+        <attr name="csvTwoColumns" format="boolean"/>
+    </declare-styleable>
+
     <!-- TextView tự tính nội dung theo múi giờ (world clock). -->
     <declare-styleable name="WorldClockTextView">
         <attr name="wctvTimeZone" format="string"/>
