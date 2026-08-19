@@ -365,8 +365,8 @@
     <style name="PageIndicatorMarker">
         <item name="android:layout_width">12dp</item>
         <item name="android:layout_height">12dp</item>
-        <item name="android:layout_marginBottom">9dp</item>
-        <item name="android:layout_marginTop">11dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 

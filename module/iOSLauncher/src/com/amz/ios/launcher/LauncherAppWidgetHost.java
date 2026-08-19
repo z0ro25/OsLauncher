@@ -122,11 +122,26 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
                     lahv.setPadding(0, 0, 0, 0);
                 }
                 // Widget nội bộ không đi qua onUpdate() nên phải gắn nội dung động
-                // (ảnh gần đây) trực tiếp sau khi inflate.
+                // (ảnh gần đây) trực tiếp sau khi inflate. Dùng chung cho cả 3 size Photos
+                // (2x2 / medium 4x2 / large 4x4) vì bindInflatedView tìm view theo id, độc lập layout.
+                if (appWidget.provider != null) {
+                    String cls = appWidget.provider.getClassName();
+                    if (com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.class.getName().equals(cls)
+                            || com.amz.ios.launcher.widget.widgetprovider.PictureMediumWidgetProvider.class.getName().equals(cls)
+                            || com.amz.ios.launcher.widget.widgetprovider.PictureLargeWidgetProvider.class.getName().equals(cls)) {
+                        com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
+                                .bindInflatedView(context, lahv);
+                        // Bấm widget (đặt màn) mở trình chọn ảnh của widget. Gắn ở đường đặt màn
+                        // này (KHÔNG ở preview) để không phá tap mở carousel trong khay chọn.
+                        com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
+                                .attachOpenPickerClick(context, lahv, appWidgetId);
+                    }
+                }
+                // Widget Battery cũng vẽ vòng pin động trực tiếp (không đi qua onUpdate).
                 if (appWidget.provider != null
-                        && com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.class
+                        && com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider.class
                         .getName().equals(appWidget.provider.getClassName())) {
-                    com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
+                    com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider
                             .bindInflatedView(context, lahv);
                 }
 

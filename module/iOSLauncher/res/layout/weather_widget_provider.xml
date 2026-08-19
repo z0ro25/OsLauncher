@@ -1,61 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Widget Weather NHỎ (2x2). Nền gradient xanh riêng (widget_weather_bg_blue), chữ trắng.
+     LƯU Ý: LauncherAppWidgetHostView.onSizeChanged() ÉP setPadding(0,0,0,0) lên view ROOT của
+     widget đặt màn -> KHÔNG đặt padding ở root (sẽ bị mất). Nền để ở root (full-bleed), nội dung
+     bọc trong lớp con "content" giữ padding. Cùng quy ước với battery/clock. Dữ liệu MẪU TĨNH. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_weather_layout"
     android:orientation="vertical"
-    android:gravity="start"
-    android:background="@drawable/bg_glass_1_1"
+    android:background="@drawable/widget_weather_bg_blue"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/widget_padding">
-
-    <TextView
-        android:id="@+id/widget_weather_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:text="@string/weather_sample_city" />
-
-    <TextView
-        android:id="@+id/widget_weather_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        android:textStyle="normal"
-        android:text="@string/weather_sample_temp" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:gravity="start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/weather_widget_padding">
 
-        <ImageView
-            android:id="@+id/widget_weather_icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/ic_weather_widget" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/ic_weather_location" />
+
+            <TextView
+                android:id="@+id/widget_weather_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="@string/weather_sample_city" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/widget_weather_condition"
+            android:id="@+id/widget_weather_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="13sp"
-            android:text="@string/weather_sample_condition" />
-    </LinearLayout>
+            android:textSize="40sp"
+            android:textStyle="normal"
+            android:text="@string/weather_sample_temp" />
 
-    <TextView
-        android:id="@+id/widget_weather_highlow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        android:text="@string/weather_sample_highlow" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/widget_weather_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_weather_sun" />
+
+            <TextView
+                android:id="@+id/widget_weather_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:text="@string/weather_sample_condition" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/widget_weather_highlow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="@string/weather_sample_highlow" />
+    </LinearLayout>
 </LinearLayout>

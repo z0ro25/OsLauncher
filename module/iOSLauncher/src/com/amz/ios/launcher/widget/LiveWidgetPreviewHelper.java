@@ -47,6 +47,12 @@ public final class LiveWidgetPreviewHelper {
             final View widgetView = LayoutInflater.from(context).inflate(
                     info.initialLayout, host, false);
 
+            // Preview chỉ để NHÌN. Một số layout (vd Photos) đặt clickable/focusable ở root để
+            // widget ĐÃ ĐẶT mở configure khi chạm — nhưng trong khay, view đó sẽ "nuốt" cú chạm
+            // khiến ô thẻ (cell) không nhận được click mở carousel. Vô hiệu hoá touch toàn cây
+            // preview để cú chạm truyền lên cell. Không ảnh hưởng widget đặt màn (đi qua createView).
+            disableTouch(widgetView);
+
             final int spanX = Math.max(1, info.spanX);
             final int spanY = Math.max(1, info.spanY);
 
@@ -54,6 +60,27 @@ public final class LiveWidgetPreviewHelper {
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.gravity = Gravity.CENTER;
             host.addView(widgetView, lp);
+
+            // Preview widget Battery: bind vòng pin + % (widget nội bộ không đi qua onUpdate)
+            // để preview sống hiện đúng như khi đặt màn.
+            if (info.provider != null
+                    && com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider.class
+                    .getName().equals(info.provider.getClassName())) {
+                com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider
+                        .bindInflatedView(context, widgetView);
+            }
+
+            // Preview widget Photos (cả 3 size): bind ảnh gần đây + overlay để preview khớp khi đặt màn
+            // (nếu chưa cấp quyền -> ảnh default, ẩn overlay, giống hành vi thật).
+            if (info.provider != null) {
+                String cls = info.provider.getClassName();
+                if (com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.class.getName().equals(cls)
+                        || com.amz.ios.launcher.widget.widgetprovider.PictureMediumWidgetProvider.class.getName().equals(cls)
+                        || com.amz.ios.launcher.widget.widgetprovider.PictureLargeWidgetProvider.class.getName().equals(cls)) {
+                    com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
+                            .bindInflatedView(context, widgetView);
+                }
+            }
 
             host.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @Override
@@ -90,6 +117,20 @@ public final class LiveWidgetPreviewHelper {
             return host;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    /** Vô hiệu hoá clickable/focusable trên toàn bộ cây view (dùng cho preview không tương tác). */
+    private static void disableTouch(View v) {
+        if (v == null) return;
+        v.setClickable(false);
+        v.setLongClickable(false);
+        v.setFocusable(false);
+        if (v instanceof ViewGroup) {
+            ViewGroup vg = (ViewGroup) v;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                disableTouch(vg.getChildAt(i));
+            }
         }
     }
 }

@@ -454,6 +454,38 @@
         </receiver>
 
         <receiver
+            android:name=".widget.widgetprovider.PictureMediumWidgetProvider"
+            android:exported="true"
+            android:label="@string/picture">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/picture_medium_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.PictureLargeWidgetProvider"
+            android:exported="true"
+            android:label="@string/picture">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/picture_large_widget_provider_info" />
+        </receiver>
+
+        <receiver
             android:name=".widget.widgetprovider.BatteryWidgetProvider"
             android:exported="true"
             android:label="@string/battery">
@@ -663,6 +695,38 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/weather_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.WeatherMediumWidgetProvider"
+            android:exported="true"
+            android:label="@string/weather">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_medium_widget_provider_info" />
+        </receiver>
+
+        <receiver
+            android:name=".widget.widgetprovider.WeatherLargeWidgetProvider"
+            android:exported="true"
+            android:label="@string/weather">
+            <intent-filter>
+                <action android:name="android.appwidget.action.IOS_WIDGET" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_large_widget_provider_info" />
         </receiver>
 
         <receiver
