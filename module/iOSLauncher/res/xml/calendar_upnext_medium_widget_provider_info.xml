@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 4x2: minWidth 320dp (-> span 4), minHeight = base_widget_size (110dp -> span 2).
+     minWidth PHẢI là @dimen (không literal) để fromIOSWidgetComponent không ném NotFoundException. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="@dimen/calendar_upnext_min_width"
+    android:minHeight="@dimen/base_widget_size"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/calendar_upnext_medium_widget"
+    android:previewImage="@drawable/sample_calendar_widget"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen"
+    />

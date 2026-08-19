@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vỏ item cho RecyclerView trang trái: widget Lịch lưới tháng 2x2 (đủ ngày). -->
+<com.amz.ios.launcher.leftpage.widgets.CalendarMonthWidget_2x2
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/left_page_widget_2x2_height"/>

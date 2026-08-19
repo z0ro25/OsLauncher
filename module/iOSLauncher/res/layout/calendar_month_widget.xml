@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget Calendar - Month (2x2): lịch tháng mini kiểu iOS. Toàn bộ (nền thẻ trắng
+     + tên tháng + lưới ngày + hôm nay khoanh đỏ) do CalendarMiniMonthView tự vẽ Canvas,
+     nên hiển thị đúng ở cả home lẫn preview trong sheet chọn size. Không cần quyền lịch. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.amz.ios.launcher.widget.view.CalendarMiniMonthView
+        android:id="@+id/calendar_month_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

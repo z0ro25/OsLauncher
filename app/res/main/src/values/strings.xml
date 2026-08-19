@@ -109,10 +109,11 @@
     <string name="change_app_icon">Change App Icon</string>
     <string name="homescreen_style">Homescreen Style</string>
     <string name="screen_grid">Screen Grid</string>
-    <!-- Màn Screen Grid: nhãn segmented control (số cột x số hàng) -->
-    <string name="screen_grid_4x4" translatable="false">4x4</string>
-    <string name="screen_grid_4x5" translatable="false">4x5</string>
-    <string name="screen_grid_4x6" translatable="false">4x6</string>
+    <!-- Màn Screen Grid: nhãn segmented control (số cột x số hàng). 3 mức HÀNG 5/6/7 (cột cố định 4).
+         Tên key giữ nguyên _4x4/_4x5/_4x6 để không phá binding; GIÁ TRỊ hiển thị là 4x5/4x6/4x7. -->
+    <string name="screen_grid_4x4" translatable="false">4x5</string>
+    <string name="screen_grid_4x5" translatable="false">4x6</string>
+    <string name="screen_grid_4x6" translatable="false">4x7</string>
     <string name="hidden_apps">Hidden Apps</string>
     <!-- Màn Hidden Apps (dựng lại theo Figma) -->
     <string name="hidden_apps_desc">After restoring hidden applications from Hidden Apps, you can find it in your App Library.</string>

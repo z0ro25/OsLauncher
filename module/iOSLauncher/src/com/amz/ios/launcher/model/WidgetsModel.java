@@ -126,7 +126,8 @@ public class WidgetsModel {
      */
     public ArrayList<Object> getFeaturedWidgets() {
         final String[] ORDER = {
-                "CalendarWidgetProvider",
+                // Thẻ Lịch nổi bật = widget LƯỚI THÁNG (đủ ngày), đồng bộ với widget trang trái.
+                "CalendarMonthWidgetProvider",
                 "PictureAppWidgetProvider",
                 "BatteryWidgetProvider",
                 "WeatherWidgetProvider",
@@ -162,6 +163,37 @@ public class WidgetsModel {
                 "AnalogClockDarkWidgetProvider",
                 "WorldClockWidgetProvider",
                 "MiniAnalogClockWidgetProvider",
+        };
+        ArrayList<Object> all = getIOSWidgets();
+        ArrayList<Object> variants = new ArrayList<>();
+        if (all == null) return variants;
+        for (String simpleName : ORDER) {
+            for (Object o : all) {
+                if (!(o instanceof LauncherAppWidgetProviderInfo)) continue;
+                ComponentName provider = ((LauncherAppWidgetProviderInfo) o).provider;
+                if (provider != null && provider.getClassName().endsWith("." + simpleName)) {
+                    variants.add(o);
+                    break;
+                }
+            }
+        }
+        return variants;
+    }
+
+    /**
+     * Các cỡ widget Lịch làm sẵn cho carousel level-2 khi bấm thẻ Calendar ở lưới featured.
+     * Thứ tự: Tháng 2x2 -> Sắp tới nhỏ/vừa/lớn. Match theo tên class provider (không phụ
+     * thuộc nhãn/locale); cái nào chưa phát hiện được thì bỏ qua.
+     * <p>
+     * Đã BỎ "CalendarWidgetProvider" (bản Lịch cũ hiện ngày) khỏi carousel theo yêu cầu;
+     * nó chỉ còn là đại diện thẻ Lịch ở lưới nổi bật (xem {@link #getFeaturedWidgets()}).
+     */
+    public ArrayList<Object> getCalendarVariants() {
+        final String[] ORDER = {
+                "CalendarMonthWidgetProvider",
+                "CalendarUpNextSmallWidgetProvider",
+                "CalendarUpNextMediumWidgetProvider",
+                "CalendarUpNextLargeWidgetProvider",
         };
         ArrayList<Object> all = getIOSWidgets();
         ArrayList<Object> variants = new ArrayList<>();

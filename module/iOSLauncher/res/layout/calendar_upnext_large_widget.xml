@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget Calendar - Up Next lớn (4x4): dòng thời gian 2 CỘT (hôm nay / ngày mai). CalendarScheduleView tự vẽ. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.amz.ios.launcher.widget.view.CalendarScheduleView
+        android:id="@+id/calendar_upnext_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:csvTwoColumns="true" />
+</FrameLayout>

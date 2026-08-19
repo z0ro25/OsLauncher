@@ -39,25 +39,42 @@ public final class WidgetSheetMeta {
         CharSequence group = null;
         CharSequence title = null;
         CharSequence desc = null;
+        // Nhóm Clock: icon header LUÔN dùng 1 ảnh clock cố định (đẹp, kiểu iOS) thay cho
+        // ảnh preview cũ (xấu/lỗi thời). Chỉ ảnh hưởng sheet này.
+        boolean isClock = false;
         String cls = (info.provider != null) ? info.provider.getClassName() : "";
 
         if (endsWith(cls, "ClockWidgetProvider")) {
+            isClock = true;
             group = ctx.getString(R.string.clock);
             title = ctx.getString(R.string.widget_meta_title_clock_digital);
             desc = ctx.getString(R.string.widget_meta_desc_clock_digital);
         } else if (endsWith(cls, "AnalogClockDarkWidgetProvider")
                 || endsWith(cls, "AnalogClockWidgetProvider")) {
+            isClock = true;
             group = ctx.getString(R.string.clock);
             title = ctx.getString(R.string.widget_meta_title_clock_analog);
             desc = ctx.getString(R.string.widget_meta_desc_clock_analog);
         } else if (endsWith(cls, "WorldClockWidgetProvider")) {
+            isClock = true;
             group = ctx.getString(R.string.clock);
             title = ctx.getString(R.string.widget_meta_title_world_clock);
             desc = ctx.getString(R.string.widget_meta_desc_world_clock);
         } else if (endsWith(cls, "MiniAnalogClockWidgetProvider")) {
+            isClock = true;
             group = ctx.getString(R.string.clock);
             title = ctx.getString(R.string.widget_meta_title_clock_grid);
             desc = ctx.getString(R.string.widget_meta_desc_clock_grid);
+        } else if (endsWith(cls, "CalendarMonthWidgetProvider")) {
+            group = ctx.getString(R.string.calendar);
+            title = ctx.getString(R.string.widget_meta_title_calendar_month);
+            desc = ctx.getString(R.string.widget_meta_desc_calendar_month);
+        } else if (endsWith(cls, "CalendarUpNextSmallWidgetProvider")
+                || endsWith(cls, "CalendarUpNextMediumWidgetProvider")
+                || endsWith(cls, "CalendarUpNextLargeWidgetProvider")) {
+            group = ctx.getString(R.string.calendar);
+            title = ctx.getString(R.string.widget_meta_title_calendar_upnext);
+            desc = ctx.getString(R.string.widget_meta_desc_calendar_upnext);
         } else if (endsWith(cls, "CalendarWidgetProvider")) {
             group = ctx.getString(R.string.calendar);
             title = ctx.getString(R.string.widget_meta_title_calendar);
@@ -90,7 +107,24 @@ public final class WidgetSheetMeta {
             desc = loadDescription(ctx, info);
         }
 
-        return new WidgetSheetMeta(group, title, desc, loadHeaderIcon(ctx, info));
+        // Icon header: nhóm Clock ép ảnh clock cố định; còn lại giữ ảnh preview/icon hệ thống.
+        Drawable icon = null;
+        if (isClock) {
+            icon = fixedIcon(ctx, R.drawable.widget_sheet_ic_clock);
+        }
+        if (icon == null) {
+            icon = loadHeaderIcon(ctx, info);
+        }
+        return new WidgetSheetMeta(group, title, desc, icon);
+    }
+
+    /** Nạp 1 drawable cố định trong app (không phụ thuộc preview của provider). */
+    private static Drawable fixedIcon(Context ctx, int res) {
+        try {
+            return ctx.getDrawable(res);
+        } catch (Throwable t) {
+            return null;
+        }
     }
 
     private static boolean endsWith(String cls, String simpleName) {

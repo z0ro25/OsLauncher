@@ -33,11 +33,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- BỎ android:fitsSystemWindows="true": desktop chạy full màn với offset đỉnh CỐ ĐỊNH
+             (các con dưới đây đã có layout_marginTop="@dimen/status_bar_heightex"). fitsSystemWindows
+             để framework tự chèn padding = chiều cao status bar theo inset SỐNG -> đúng lúc ẩn thanh
+             (vào edit mode) lại chèn padding đẩy cả workspace + nền hotseat xuống. Bỏ đi để status bar
+             ẩn/hiện KHÔNG còn ảnh hưởng layout. Inset thật (nav/multi-window) vẫn đi qua LauncherRootView
+             -> setInsets (cơ chế Insettable), không liên quan thuộc tính này. -->
         <com.amz.ios.launcher.DragLayer
             android:id="@+id/drag_layer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent">
 
             <com.amz.ios.launcher.FocusIndicatorView
                 android:id="@+id/focus_indicator"
