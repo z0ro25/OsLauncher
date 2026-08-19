@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Đoạn màu (segment) của thanh dải nhiệt: xanh (lạnh) -> vàng -> cam (nóng).
+     Vị trí trong track do các spacer chia layout_weight quyết định (mockup tĩnh). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="0"
+        android:startColor="#FF4AC6E2"
+        android:centerColor="#FFFFD54A"
+        android:endColor="#FFFF9F43" />
+    <corners android:radius="3dp" />
+</shape>

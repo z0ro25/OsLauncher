@@ -387,6 +387,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     //Launcher Settings Pannel
     public View mPageIndicatorContainer;
+    // Compositor blur (window MEDIA) cho page-indicator + 2 nút Edit/Done. Giữ ref để guard attach
+    // 1 lần và tránh bị GC; controller tự add/remove window theo trạng thái view chủ mỗi frame.
+    private com.amz.ios.launcher.widget.view.GlassBlurWindowController mPageIndicatorBlurController;
+    private com.amz.ios.launcher.widget.view.GlassBlurWindowController mAddWidgetBtnBlur;
+    private com.amz.ios.launcher.widget.view.GlassBlurWindowController mAddWidgetDoneBtnBlur;
     //    private SearchDropTargetBar mSearchDropTargetBar;
     public DragAppsLibraryLayout mDragAppsLibraryLayout;
     public BlurScreenLayout mSliderBlurBg;
@@ -903,16 +908,26 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 }
         );
 
-        // Nền kính mờ (blur wallpaper thật) cho 2 nút Edit/Done ở trạng thái edit — cùng họ
-        // GlassBlurView với indicator/dock. Set trực tiếp làm background của TỪNG nút (KHÔNG sửa
-        // drawable dùng chung bg_glass_button vì còn dùng cho nút màn trái). Background bám bounds
-        // + scale THEO nút -> khớp animation scale của CustomZoomButton. cornerR = widget_round_corner.
+        // Nền kính mờ COMPOSITOR (blur thật, chạy được Android 13+) cho 2 nút Edit/Done ở trạng thái
+        // edit — cùng cơ chế DockBlurView (hotseat). Dùng GlassBlurWindowController: bám vị trí + scale
+        // THẬT của nút mỗi frame (khớp animation zoom của CustomZoomButton) qua một window MEDIA riêng.
+        // Máy cũ / tắt blur / hidden-api bị chặn -> tự rơi về GlassBlurDrawable (fallback) như cũ.
+        // KHÔNG sửa drawable dùng chung bg_glass_button (còn dùng cho nút màn trái). tint 0x1AFFFFFF
+        // đồng bộ dock/widget; cornerR = widget_round_corner.
         float glassBtnCorner = getResources().getDimension(R.dimen.widget_round_corner);
         float glassBtnBorder = getResources().getDisplayMetrics().density; // 1dp
-        mAddWidgetBtn.setBackground(new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
-                mAddWidgetBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x00000000, null));
-        mAddWidgetDoneBtn.setBackground(new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
-                mAddWidgetDoneBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x00000000, null));
+        android.graphics.drawable.Drawable editBtnFallback =
+                new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
+                        mAddWidgetBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x1AFFFFFF, null);
+        mAddWidgetBtnBlur = new com.amz.ios.launcher.widget.view.GlassBlurWindowController(
+                mAddWidgetBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x1AFFFFFF, 60, editBtnFallback);
+        mAddWidgetBtnBlur.attach();
+        android.graphics.drawable.Drawable doneBtnFallback =
+                new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
+                        mAddWidgetDoneBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x1AFFFFFF, null);
+        mAddWidgetDoneBtnBlur = new com.amz.ios.launcher.widget.view.GlassBlurWindowController(
+                mAddWidgetDoneBtn, glassBtnCorner, glassBtnBorder, 0x40FFFFFF, 0x1AFFFFFF, 60, doneBtnFallback);
+        mAddWidgetDoneBtnBlur.attach();
 
         mWidgetsAppStyle = findViewById(R.id.sliding_up_widgets_app_style);
         mWidgetsView = findViewById(R.id.widgets_view);
@@ -1838,6 +1853,22 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         mPageIndicators = mDragLayer.findViewById(R.id.page_indicator);
         mPageIndicatorContainer = findViewById(R.id.page_indicator);
+
+        // Nền kính mờ COMPOSITOR (blur thật) kiểu pill cho thanh page-indicator — cùng cơ chế
+        // DockBlurView. GlassBlurWindowController bám bounds THẬT của container mỗi frame (wrap_content
+        // đổi width khi số trang đổi) qua window MEDIA riêng; corner -1 = pill (r=height/2). Máy cũ /
+        // tắt blur / hidden-api bị chặn -> rơi về GlassBlurDrawable (fallback) như cũ. Attach 1 lần
+        // (guard field) tại đây thay cho việc set background trong PageIndicator.onLayout.
+        if (mPageIndicatorContainer != null && mPageIndicatorBlurController == null) {
+            float indicatorBorder = getResources().getDisplayMetrics().density; // 1dp
+            android.graphics.drawable.Drawable indicatorFallback =
+                    new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
+                            mPageIndicatorContainer, -1f, indicatorBorder, 0x40FFFFFF, 0x1AFFFFFF, null);
+            mPageIndicatorBlurController = new com.amz.ios.launcher.widget.view.GlassBlurWindowController(
+                    mPageIndicatorContainer, -1f /*pill*/, indicatorBorder, 0x40FFFFFF, 0x1AFFFFFF, 60,
+                    indicatorFallback);
+            mPageIndicatorBlurController.attach();
+        }
 
 
         mLoadingView = (LoadingView) findViewById(R.id.loading_view);

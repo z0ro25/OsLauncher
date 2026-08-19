@@ -447,6 +447,25 @@
     <dimen name="calendar_upnext_min_width">320dp</dimen>
     <dimen name="calendar_upnext_large_min_height">320dp</dimen>
 
+    <!-- Cỡ cho Weather medium (4x2) và large (4x4). Giống world_clock/calendar_upnext:
+         320dp -> span 4 cột; 110dp -> span 2 hàng. PHẢI là @dimen (không literal): initSpans()
+         đọc minWidth/minHeight qua getAttributeResourceValue, literal trả -1 -> NotFoundException
+         -> rớt về RemoteViews (isIOSWidget=false). Dimen RIÊNG cho weather, không dùng chung. -->
+    <dimen name="weather_medium_min_width">320dp</dimen>
+    <dimen name="weather_medium_min_height">110dp</dimen>
+    <dimen name="weather_large_min_width">320dp</dimen>
+    <dimen name="weather_large_min_height">320dp</dimen>
+    <!-- Padding NỘI DUNG riêng cho widget weather (rộng hơn widget_padding=10dp chung) để nội
+         dung cách lề thẻ đẹp kiểu iOS. Dimen riêng cho weather, không dùng chung. -->
+    <dimen name="weather_widget_padding">16dp</dimen>
+
+    <!-- Span size cho widget Photos medium (4x2) / large (4x4). PHẢI là @dimen (xem lý do ở khối
+         weather phía trên). Dimen RIÊNG cho picture, không dùng chung. -->
+    <dimen name="picture_medium_min_width">320dp</dimen>
+    <dimen name="picture_medium_min_height">110dp</dimen>
+    <dimen name="picture_large_min_width">320dp</dimen>
+    <dimen name="picture_large_min_height">320dp</dimen>
+
     <dimen name="card_round_corner">12dp</dimen>
 
     <dimen name="custom_action_bar_height">68dp</dimen>

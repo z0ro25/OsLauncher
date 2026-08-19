@@ -211,6 +211,60 @@ public class WidgetsModel {
         return variants;
     }
 
+    /**
+     * Danh sách biến thể Weather cho carousel level-2 (bấm thẻ Weather ở lưới nổi bật).
+     * Thứ tự: nhỏ 2x2 -> medium 4x2 -> large 4x4. Match theo tên class provider; cái nào
+     * chưa phát hiện được thì bỏ qua. Khuôn giống {@link #getCalendarVariants()}.
+     */
+    public ArrayList<Object> getWeatherVariants() {
+        final String[] ORDER = {
+                "WeatherWidgetProvider",
+                "WeatherMediumWidgetProvider",
+                "WeatherLargeWidgetProvider",
+        };
+        ArrayList<Object> all = getIOSWidgets();
+        ArrayList<Object> variants = new ArrayList<>();
+        if (all == null) return variants;
+        for (String simpleName : ORDER) {
+            for (Object o : all) {
+                if (!(o instanceof LauncherAppWidgetProviderInfo)) continue;
+                ComponentName provider = ((LauncherAppWidgetProviderInfo) o).provider;
+                if (provider != null && provider.getClassName().endsWith("." + simpleName)) {
+                    variants.add(o);
+                    break;
+                }
+            }
+        }
+        return variants;
+    }
+
+    /**
+     * Danh sách biến thể Photos cho carousel level-2 (bấm thẻ Photos ở lưới nổi bật).
+     * Thứ tự: nhỏ 2x2 -> medium 4x2 -> large 4x4. Match theo tên class provider; cái nào
+     * chưa phát hiện được thì bỏ qua. Khuôn giống {@link #getWeatherVariants()}.
+     */
+    public ArrayList<Object> getPictureVariants() {
+        final String[] ORDER = {
+                "PictureAppWidgetProvider",
+                "PictureMediumWidgetProvider",
+                "PictureLargeWidgetProvider",
+        };
+        ArrayList<Object> all = getIOSWidgets();
+        ArrayList<Object> variants = new ArrayList<>();
+        if (all == null) return variants;
+        for (String simpleName : ORDER) {
+            for (Object o : all) {
+                if (!(o instanceof LauncherAppWidgetProviderInfo)) continue;
+                ComponentName provider = ((LauncherAppWidgetProviderInfo) o).provider;
+                if (provider != null && provider.getClassName().endsWith("." + simpleName)) {
+                    variants.add(o);
+                    break;
+                }
+            }
+        }
+        return variants;
+    }
+
 
     public ArrayList<Object> getRawList() {
         return mRawList;

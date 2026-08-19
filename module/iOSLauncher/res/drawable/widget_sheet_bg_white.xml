@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Nền TRẮNG đục (không blur) cho bottom sheet Add Widget, bo 2 góc trên 18dp.
+<!-- Nền XÁM NHẠT đục (không blur) cho bottom sheet Add Widget, bo 2 góc trên 18dp.
+     Xám hơn trắng để thấy rõ viền thẻ widget nền sáng (trước đây trắng trên trắng bị chìm).
      Riêng cho sheet Add Widget; KHÔNG dùng chung. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#FFFFFFFF" />
+    <solid android:color="#FFE9E9EE" />
     <corners
         android:topLeftRadius="18dp"
         android:topRightRadius="18dp" />

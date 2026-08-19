@@ -737,6 +737,8 @@
     <string name="calendar_more_events">%d more events</string>
     <string name="widget_meta_title_photos">Photos</string>
     <string name="widget_meta_desc_photos">Show a favorite photo.</string>
+    <!-- Overlay tiêu đề trên widget Photos (kiểu iOS "On This Day"). -->
+    <string name="widget_picture_on_this_day">ON THIS DAY</string>
     <string name="widget_meta_title_batteries">Batteries</string>
     <string name="widget_meta_desc_batteries">Keep an eye on battery level.</string>
     <string name="widget_meta_title_weather">Weather</string>

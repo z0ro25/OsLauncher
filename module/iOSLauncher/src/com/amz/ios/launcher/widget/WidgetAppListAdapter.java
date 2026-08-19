@@ -235,10 +235,15 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
             cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Thẻ Lịch -> mở carousel gia đình Calendar (Lịch + Tháng + 3 bản Sắp tới);
-                    // các thẻ vuông khác giữ nguyên carousel 1 phần tử.
+                    // Thẻ Lịch -> carousel gia đình Calendar; thẻ Weather -> carousel 3 size
+                    // Weather; thẻ Photos -> carousel 3 size Photos (nhỏ/medium/large); các thẻ
+                    // vuông khác giữ carousel 1 phần tử.
                     if (isCalendarTile(info)) {
                         openCalendarCarousel();
+                    } else if (isWeatherTile(info)) {
+                        openWeatherCarousel();
+                    } else if (isPictureTile(info)) {
+                        openPictureCarousel();
                     } else {
                         openCarouselForSingle(info);
                     }
@@ -295,6 +300,48 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
         if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
         final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
         ArrayList<Object> variants = mWidgetsModel.getCalendarVariants();
+        if (variants == null || variants.isEmpty()) return;
+        mLauncher.mWidgetsAppStyle.setData(variants, onClickListener, onLongClickListener);
+        mLauncher.mWidgetsAppStyle.post(new Runnable() {
+            @Override
+            public void run() {
+                containerView.expandAppStyleView();
+            }
+        });
+    }
+
+    /** Nhận diện thẻ Weather (đại diện = bản nhỏ 2x2) trong lưới featured qua tên class provider. */
+    private boolean isWeatherTile(LauncherAppWidgetProviderInfo info) {
+        return info != null && info.provider != null
+                && info.provider.getClassName().endsWith(".WeatherWidgetProvider");
+    }
+
+    /** Bấm thẻ Weather -> mở carousel level-2 gồm 3 size Weather (nhỏ 2x2 / medium 4x2 / large 4x4). */
+    private void openWeatherCarousel() {
+        if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
+        final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
+        ArrayList<Object> variants = mWidgetsModel.getWeatherVariants();
+        if (variants == null || variants.isEmpty()) return;
+        mLauncher.mWidgetsAppStyle.setData(variants, onClickListener, onLongClickListener);
+        mLauncher.mWidgetsAppStyle.post(new Runnable() {
+            @Override
+            public void run() {
+                containerView.expandAppStyleView();
+            }
+        });
+    }
+
+    /** Nhận diện thẻ Photos (đại diện = bản nhỏ 2x2) trong lưới featured qua tên class provider. */
+    private boolean isPictureTile(LauncherAppWidgetProviderInfo info) {
+        return info != null && info.provider != null
+                && info.provider.getClassName().endsWith(".PictureAppWidgetProvider");
+    }
+
+    /** Bấm thẻ Photos -> mở carousel level-2 gồm 3 size Photos (nhỏ 2x2 / medium 4x2 / large 4x4). */
+    private void openPictureCarousel() {
+        if (!(mWidgetListDelegate instanceof WidgetsContainerView)) return;
+        final WidgetsContainerView containerView = (WidgetsContainerView) mWidgetListDelegate;
+        ArrayList<Object> variants = mWidgetsModel.getPictureVariants();
         if (variants == null || variants.isEmpty()) return;
         mLauncher.mWidgetsAppStyle.setData(variants, onClickListener, onLongClickListener);
         mLauncher.mWidgetsAppStyle.post(new Runnable() {

@@ -25,35 +25,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Ảnh đã được bo góc trong code (RoundedBitmapDrawable). -->
+        <!-- Ảnh đã được bo góc trong code (RoundedBitmapDrawable). src mẫu để preview không trống. -->
         <ImageView
             android:id="@+id/widget_picture_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/sample_photo_widget" />
 
-        <!-- Lớp phủ tối dần ở đáy để text ngày chụp luôn đọc rõ. -->
+        <!-- Lớp phủ tối dần ở đáy để overlay chữ luôn đọc rõ. -->
         <View
             android:id="@+id/widget_picture_scrim"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="64dp"
             android:layout_gravity="bottom"
             android:background="@drawable/widget_picture_date_scrim" />
 
-        <!-- Ngày chụp của ảnh. -->
-        <TextView
-            android:id="@+id/widget_picture_date"
+        <!-- Overlay góc dưới-trái: "ON THIS DAY" + ngày chụp. Ẩn cả khối khi dùng ảnh default. -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
+            android:orientation="vertical"
             android:layout_marginStart="12dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/sf_pro_display_semibold"
-            android:shadowColor="#99000000"
-            android:shadowDx="0"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/widget_picture_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textStyle="bold"
+                android:letterSpacing="0.02"
+                android:shadowColor="#99000000"
+                android:shadowDx="0"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="@string/widget_picture_on_this_day" />
+
+            <TextView
+                android:id="@+id/widget_picture_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:shadowColor="#99000000"
+                android:shadowDx="0"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

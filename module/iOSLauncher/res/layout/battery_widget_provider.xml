@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:id="@+id/widget_battery_layout" android:background="@drawable/round_rect_qsb_dark" android:layout_width="match_parent" android:layout_height="match_parent">
-    <ImageView android:id="@+id/widget_battery_progress" android:paddingTop="@dimen/widget_padding" android:layout_width="match_parent" android:layout_height="0dp" android:scaleType="fitStart" android:layout_weight="1" android:paddingStart="@dimen/widget_padding" android:paddingEnd="@dimen/widget_padding"/>
-    <TextView android:textSize="36sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@+id/widget_battery_text" android:paddingBottom="@dimen/widget_padding" android:layout_width="match_parent" android:layout_height="0dp" android:text="100%" android:layout_weight="1" android:paddingStart="@dimen/widget_padding" android:paddingEnd="@dimen/widget_padding"/>
-</LinearLayout>
+<!-- Widget Battery (khay widget): KHUNG VUÔNG theo design iOS. Ô lưới 2x2 rộng hơn cao
+     -> bọc ConstraintLayout, ép thẻ tối vuông 1:1 CĂN GIỮA (giống clock #1/#2).
+     Bố cục: vòng pin (widget_battery_progress) góc TRÊN-TRÁI, chữ % (widget_battery_text)
+     trắng TO ở DƯỚI-TRÁI. Vòng pin + % được bind trực tiếp bởi BatteryWidgetProvider
+     .bindInflatedView() sau khi inflate (widget nội bộ không đi qua onUpdate). GIỮ NGUYÊN
+     id widget_battery_layout/progress/text để binding bám không đổi. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Thẻ VUÔNG 1:1 căn giữa: nền gradient tối + padding chung cho ring/chữ. -->
+    <LinearLayout
+        android:id="@+id/widget_battery_layout"
+        android:orientation="vertical"
+        android:background="@drawable/widget_battery_card_light"
+        android:padding="@dimen/widget_padding"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Vòng pin (phone + arc) góc trên-trái. Bitmap ~60dp do bindInflatedView vẽ. -->
+        <ImageView
+            android:id="@+id/widget_battery_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart" />
+
+        <!-- % pin: trắng, TO, dưới-trái, chiếm phần còn lại. -->
+        <TextView
+            android:id="@+id/widget_battery_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom|start"
+            android:maxLines="1"
+            android:includeFontPadding="false"
+            android:text="100%"
+            android:textColor="#FF1C1C1E"
+            android:textSize="48sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

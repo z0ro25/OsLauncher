@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider info Photos MEDIUM (4x2). minWidth/minHeight PHẢI là @dimen (xem dimens.xml).
+     Không có android:configure -> tự hiện ảnh gần đây từ thư viện (không bắt crop). -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="@dimen/picture_medium_min_width"
+    android:minHeight="@dimen/picture_medium_min_height"
+    android:updatePeriodMillis="86400000"
+    android:initialLayout="@layout/picture_medium_widget_provider"
+    android:previewImage="@drawable/sample_photo_widget"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen" />

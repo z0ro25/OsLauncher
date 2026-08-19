@@ -15,12 +15,16 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
 import com.amz.ios.launcher.IOSAppWidget;
 import com.amz.ios.launcher.R;
+import com.amz.ios.launcher.widget.WidgetSheetTheme;
 
 import java.util.Calendar;
 
@@ -136,6 +140,93 @@ public class BatteryWidgetProvider extends AppWidgetProvider implements IOSAppWi
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         updateAlarm();
         updateWidgets(context,true);
+    }
+
+    /**
+     * Gắn nội dung động (vòng pin + %) TRỰC TIẾP vào view đã inflate của widget nội bộ.
+     * Widget iOS được inflate thành View thật (xem LauncherAppWidgetHost.createView) và
+     * KHÔNG đi qua onUpdate()/RemoteViews, nên phải vẽ vòng pin ở đây — giống cách
+     * PictureAppWidgetProvider.bindInflatedView() làm. Dùng cho cả widget đặt màn lẫn
+     * preview sống trong khay. Vòng pin: track mờ + arc XANH iOS (đỏ khi &lt;10%) + icon phone.
+     */
+    public static void bindInflatedView(Context context, View root) {
+        if (context == null || root == null) return;
+        ImageView ring = root.findViewById(R.id.widget_battery_progress);
+        TextView text = root.findViewById(R.id.widget_battery_text);
+        View card = root.findViewById(R.id.widget_battery_layout);
+
+        int percent = readBatteryPercent(context);
+
+        // Theme dark/light theo nguồn sự thật của khay (engine bỏ qua -night).
+        boolean dark = WidgetSheetTheme.isDark(context);
+        int fg = WidgetSheetTheme.textPrimary(context); // trắng khi dark, #1C1C1E khi light
+        if (card != null) {
+            int pad = (int) context.getResources().getDimension(R.dimen.widget_padding);
+            card.setBackgroundResource(dark
+                    ? R.drawable.widget_battery_card_dark
+                    : R.drawable.widget_battery_card_light);
+            // setBackgroundResource có thể reset padding -> đặt lại cho chắc.
+            card.setPadding(pad, pad, pad, pad);
+        }
+
+        if (ring != null) {
+            int progressSize = (int) context.getResources()
+                    .getDimension(R.dimen.battery_widget_progress_size);
+            float stroke = context.getResources()
+                    .getDimension(R.dimen.battery_widget_progress_stroke);
+            if (progressSize <= 0) progressSize = 1;
+
+            Bitmap bmp = Bitmap.createBitmap(progressSize, progressSize, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+
+            Paint track = new Paint(Paint.ANTI_ALIAS_FLAG);
+            track.setStyle(Paint.Style.STROKE);
+            track.setStrokeCap(Paint.Cap.ROUND);
+            track.setStrokeWidth(stroke);
+            track.setColor(0x33FFFFFF);              // track mờ (100% thì bị arc phủ hết)
+
+            Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+            fill.setStyle(Paint.Style.STROKE);
+            fill.setStrokeCap(Paint.Cap.ROUND);
+            fill.setStrokeWidth(stroke);
+            fill.setColor(percent < 10 ? 0xFFFF3B30 : 0xFF34C759); // đỏ / xanh iOS
+
+            RectF rectF = new RectF(stroke, stroke, progressSize - stroke, progressSize - stroke);
+            canvas.drawArc(rectF, 0f, 360f, false, track);
+            canvas.drawArc(rectF, 270f, percent * 3.6f, false, fill);
+
+            Drawable phone = ContextCompat.getDrawable(context, R.drawable.ic_phone);
+            if (phone != null) {
+                phone = phone.mutate();
+                phone.setTint(fg);                   // phone tối trên nền sáng, trắng trên nền tối
+                int inset = (int) (stroke * 3.2f);
+                phone.setBounds(inset, inset, progressSize - inset, progressSize - inset);
+                phone.draw(canvas);
+            }
+
+            ring.setScaleType(ImageView.ScaleType.FIT_START);
+            ring.setImageBitmap(bmp);
+        }
+
+        if (text != null) {
+            text.setTextColor(fg);
+            text.setText(String.format("%d%%", percent));
+        }
+    }
+
+    /** Đọc % pin hiện tại từ sticky BATTERY_CHANGED (không cần chờ broadcast). */
+    private static int readBatteryPercent(Context context) {
+        try {
+            Intent b = context.registerReceiver(null,
+                    new IntentFilter("android.intent.action.BATTERY_CHANGED"));
+            if (b == null) return 100;
+            int level = b.getIntExtra("level", 0);
+            int scale = b.getIntExtra("scale", 1);
+            if (scale <= 0) scale = 100;
+            return (level * 100) / scale;
+        } catch (Throwable t) {
+            return 100;
+        }
     }
 
     @Override

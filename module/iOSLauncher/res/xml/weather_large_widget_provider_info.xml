@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Provider info Weather LARGE (4x4). minWidth/minHeight PHẢI là @dimen (xem dimens.xml). -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="@dimen/weather_large_min_width"
+    android:minHeight="@dimen/weather_large_min_height"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/weather_large_widget_provider"
+    android:previewImage="@drawable/ic_weather_widget"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen" />

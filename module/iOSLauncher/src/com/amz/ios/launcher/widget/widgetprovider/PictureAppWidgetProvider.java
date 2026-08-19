@@ -89,13 +89,15 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             rv.setImageViewResource(R.id.widget_picture_image, R.drawable.sample_photo_widget);
         }
 
-        // Ngày chụp: hiện khi có ảnh thật + ngày hợp lệ.
+        // Overlay ("ON THIS DAY" + ngày + scrim): hiện khi có ảnh thật + ngày hợp lệ.
         boolean hasDate = bitmap != null && dateMillis > 0L;
         if (hasDate) {
             rv.setTextViewText(R.id.widget_picture_date, formatPhotoDate(dateMillis));
+            rv.setViewVisibility(R.id.widget_picture_title, View.VISIBLE);
             rv.setViewVisibility(R.id.widget_picture_date, View.VISIBLE);
             rv.setViewVisibility(R.id.widget_picture_scrim, View.VISIBLE);
         } else {
+            rv.setViewVisibility(R.id.widget_picture_title, View.GONE);
             rv.setViewVisibility(R.id.widget_picture_date, View.GONE);
             rv.setViewVisibility(R.id.widget_picture_scrim, View.GONE);
         }
@@ -124,6 +126,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
     public static void bindInflatedView(Context context, View root) {
         if (root == null) return;
         ImageView imageView = root.findViewById(R.id.widget_picture_image);
+        TextView titleView = root.findViewById(R.id.widget_picture_title);
         TextView dateView = root.findViewById(R.id.widget_picture_date);
         View scrim = root.findViewById(R.id.widget_picture_scrim);
         // Tương thích ngược nếu root chính là ImageView cũ.
@@ -160,8 +163,12 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             imageView.setImageDrawable(new RoundedCropDrawable(bitmap, radiusPx));
         }
 
-        // Text ngày chụp: chỉ hiện khi có ảnh thật + có ngày hợp lệ.
+        // Overlay ("ON THIS DAY" + ngày + scrim): chỉ hiện khi có ảnh THẬT từ thư viện + ngày
+        // hợp lệ. Ảnh default (chưa cấp quyền / thư viện trống) -> ẩn toàn bộ overlay, chỉ còn ảnh.
         boolean hasDate = photo != null && photo.dateMillis > 0L && bitmap != null;
+        if (titleView != null) {
+            titleView.setVisibility(hasDate ? View.VISIBLE : View.GONE);
+        }
         if (dateView != null) {
             if (hasDate) {
                 dateView.setText(formatPhotoDate(photo.dateMillis));
@@ -173,6 +180,36 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         if (scrim != null) {
             scrim.setVisibility(hasDate ? View.VISIBLE : View.GONE);
         }
+    }
+
+    /**
+     * Gắn action BẤM widget ảnh (đã đặt màn) mở trình chọn ảnh của widget
+     * ({@link PictureAppWidgetProviderConfigureActivity}) — giống đường RemoteViews trong
+     * {@link #updateWidget}, nhưng widget iOS (id -100) không đi qua AppWidgetHost nên phải
+     * gắn OnClickListener trực tiếp sau khi inflate.
+     *
+     * <p>Gắn vào VIEW CON {@code widget_picture_layout} chứ KHÔNG phải host view, vì
+     * {@code LauncherAppWidgetHostView.onTouchEvent} luôn trả false (không tự xử click) — chỉ view
+     * con thường mới nhận được tap. CHỈ gọi ở đường đặt màn (LauncherAppWidgetHost.createView),
+     * KHÔNG gọi ở preview (LiveWidgetPreviewHelper đã disableTouch để tap lọt xuống cell).
+     */
+    public static void attachOpenPickerClick(final Context context, View root,
+                                             final int appWidgetId) {
+        if (root == null) return;
+        View clickTarget = root.findViewById(R.id.widget_picture_layout);
+        if (clickTarget == null) clickTarget = root;
+        clickTarget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent();
+                    intent.setClass(context, PictureAppWidgetProviderConfigureActivity.class);
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+                    context.startActivity(intent);
+                } catch (Throwable ignored) {
+                }
+            }
+        });
     }
 
     /**
@@ -244,10 +281,10 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         }
     }
 
-    /** Định dạng ngày chụp theo locale hiện tại, ví dụ "29 thg 7, 2026". */
+    /** Định dạng ngày chụp kiểu design "June 7, 2025" (Locale.ENGLISH cho khớp overlay "ON THIS DAY"). */
     private static String formatPhotoDate(long millis) {
         try {
-            return new SimpleDateFormat("d MMM, yyyy", Locale.getDefault())
+            return new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH)
                     .format(new Date(millis));
         } catch (Throwable th) {
             return "";

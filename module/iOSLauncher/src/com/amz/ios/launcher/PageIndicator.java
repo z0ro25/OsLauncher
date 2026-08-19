@@ -155,29 +155,9 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if (changed){
-            int height = getHeight();
-            int width = getWidth();
-            if(height <= 0 || width <= 0) return;
-            Launcher launcher = Launcher.getLauncher(getContext());
-            if (launcher.mPageIndicatorContainer != null
-                    && !(launcher.mPageIndicatorContainer.getBackground()
-                            instanceof com.amz.ios.launcher.widget.view.GlassBlurDrawable)) {
-                // Nền kính mờ (blur wallpaper thật) kiểu pill cho thanh indicator — cùng họ
-                // GlassBlurView với widget/dock. Đặt 1 lần (guard instanceof) vì background bám
-                // bounds+scale theo chính container. cornerR = -1 -> pill (r = height/2).
-                float density = getContext().getResources().getDisplayMetrics().density;
-                launcher.mPageIndicatorContainer.setBackground(
-                        new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
-                                launcher.mPageIndicatorContainer,
-                                -1f,             // pill
-                                1f * density,    // viền 1dp
-                                0x40FFFFFF,      // màu viền glass
-                                0x00000000,      // không tint (chỉ blur wallpaper)
-                                null));
-            }
-        }
-
+        // Nền kính mờ của thanh indicator được quản bởi GlassBlurWindowController (compositor blur,
+        // window MEDIA riêng) — attach 1 lần trong Launcher sau findViewById(page_indicator). Không set
+        // background ở đây nữa (controller bám bounds container mỗi frame, kể cả khi số trang đổi width).
     }
 
     private void enableLayoutTransitions() {

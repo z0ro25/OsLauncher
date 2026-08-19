@@ -79,7 +79,12 @@ public final class WidgetSheetMeta {
             group = ctx.getString(R.string.calendar);
             title = ctx.getString(R.string.widget_meta_title_calendar);
             desc = ctx.getString(R.string.widget_meta_desc_calendar);
-        } else if (endsWith(cls, "PictureAppWidgetProvider")) {
+        } else if (endsWith(cls, "PictureMediumWidgetProvider")
+                || endsWith(cls, "PictureLargeWidgetProvider")
+                || endsWith(cls, "PictureAppWidgetProvider")) {
+            // Cả 3 size Photos dùng chung header "Photos" (khác nhau ở preview theo size).
+            // PictureMedium/Large KHÔNG endsWith ".PictureAppWidgetProvider" nên phải liệt kê
+            // riêng để không rơi về fallback nhãn hệ thống.
             group = ctx.getString(R.string.picture);
             title = ctx.getString(R.string.widget_meta_title_photos);
             desc = ctx.getString(R.string.widget_meta_desc_photos);
@@ -87,7 +92,12 @@ public final class WidgetSheetMeta {
             group = ctx.getString(R.string.battery);
             title = ctx.getString(R.string.widget_meta_title_batteries);
             desc = ctx.getString(R.string.widget_meta_desc_batteries);
-        } else if (endsWith(cls, "WeatherWidgetProvider")) {
+        } else if (endsWith(cls, "WeatherMediumWidgetProvider")
+                || endsWith(cls, "WeatherLargeWidgetProvider")
+                || endsWith(cls, "WeatherWidgetProvider")) {
+            // Cả 3 size Weather dùng chung header "Weather" (khác nhau ở preview theo size),
+            // giống cách iOS hiển thị. WeatherMedium/Large KHÔNG endsWith ".WeatherWidgetProvider"
+            // nên phải liệt kê riêng để không rơi về fallback nhãn hệ thống.
             group = ctx.getString(R.string.weather);
             title = ctx.getString(R.string.widget_meta_title_weather);
             desc = ctx.getString(R.string.widget_meta_desc_weather);
