@@ -1,130 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Popup RIÊNG cho widget, hiển thị khi long-press widget (lúc CHƯA ở chế độ edit).
-     Gồm 3 chức năng: chỉnh kích cỡ, sửa màn hình, xóa widget.
-     Cấu trúc sao chép từ edit_home_menu.xml (RealtimeBlurView + bg_glass_popup cho chất kính),
-     nhưng là FILE RIÊNG với id/tài nguyên riêng — KHÔNG dùng chung edit_home_menu để tránh
-     ảnh hưởng menu Edit của home. -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+     Giao diện dựng theo mẫu iOS: nền SÁNG chữ ĐEN (khác popup menu Edit của home vốn là kính mờ tối).
+
+     Cấu trúc 2 phần:
+       1. Hàng 4 nút chọn KÍCH CỠ widget ở đầu (ô đang chọn được tô nền đậm).
+       2. Danh sách 2 mục: "Sửa màn hình chính" và "Xóa widget" (chữ đỏ).
+
+     CHÚ Ý: chức năng của 4 nút size CHƯA nối — mới dựng giao diện theo yêu cầu, sẽ làm sau khi
+     người dùng mô tả chi tiết hành vi từng nút. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_glass_popup"
+    android:background="@drawable/bg_widget_popup_light"
     android:clipToOutline="true"
-    android:foreground="@drawable/bg_glass_popup">
+    android:elevation="8dp"
+    android:minWidth="260dp"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="6dp">
 
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/widget_menu_container"
-        android:layout_alignBottom="@+id/widget_menu_container"
-        android:layout_alignStart="@+id/widget_menu_container"
-        android:layout_alignEnd="@+id/widget_menu_container"
-        app:realtimeBlurRadius="100dp"
-        app:realtimeDownsampleFactor="8"
-        app:realtimeOverlayColor="#80000000" />
-
+    <!-- ===== Hàng 4 nút chọn kích cỡ widget ===== -->
     <LinearLayout
-        android:id="@+id/widget_menu_container"
-        android:layout_width="wrap_content"
+        android:id="@+id/widget_size_options"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minWidth="180dp"
-        android:orientation="vertical"
-        android:paddingTop="6dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="6dp">
 
-        <LinearLayout
-            android:id="@+id/menu_widget_resize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+        <FrameLayout
+            android:id="@+id/widget_size_small"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/bg_widget_size_option"
             android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="12dp">
+            android:focusable="true">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_resize"
-                android:tint="@color/white" />
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/widget_size_small"
+                android:src="@drawable/ic_widget_size_small" />
+        </FrameLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/sf_pro_display_semibold"
-                android:text="@string/widget_menu_resize"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu_widget_edit_screen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+        <FrameLayout
+            android:id="@+id/widget_size_medium"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/bg_widget_size_option"
             android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="12dp">
+            android:focusable="true">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_edit_home"
-                android:tint="@color/white" />
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/widget_size_medium"
+                android:src="@drawable/ic_widget_size_medium" />
+        </FrameLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/sf_pro_display_semibold"
-                android:text="@string/widget_menu_edit_screen"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu_widget_delete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+        <FrameLayout
+            android:id="@+id/widget_size_large"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/bg_widget_size_option"
             android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="12dp">
+            android:focusable="true">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_delete"
-                android:tint="@color/white" />
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/widget_size_large"
+                android:src="@drawable/ic_widget_size_large" />
+        </FrameLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/sf_pro_display_semibold"
-                android:text="@string/widget_menu_delete"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/widget_size_extra"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/bg_widget_size_option"
+            android:clickable="true"
+            android:focusable="true">
 
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/widget_size_extra"
+                android:src="@drawable/ic_widget_size_extra" />
+        </FrameLayout>
     </LinearLayout>
 
-</RelativeLayout>
+    <!-- Đường kẻ ngăn hàng size với danh sách menu -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#33000000" />
+
+    <!-- ===== Mục: Sửa màn hình chính ===== -->
+    <LinearLayout
+        android:id="@+id/menu_widget_edit_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="13dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="13dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_edit_home"
+            android:tint="#000000" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:text="@string/widget_menu_edit_screen"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- ===== Mục: Xóa widget (chữ + icon ĐỎ như ảnh mẫu) ===== -->
+    <LinearLayout
+        android:id="@+id/menu_widget_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="13dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="13dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_remove_widget"
+            android:tint="#FA3826" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:text="@string/widget_menu_delete"
+            android:textColor="#FA3826"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

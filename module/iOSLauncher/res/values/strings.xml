@@ -751,6 +751,11 @@
     <string name="widget_menu_resize">Resize</string>
     <string name="widget_menu_edit_screen">Edit Home Screen</string>
     <string name="widget_menu_delete">Remove Widget</string>
+    <!-- Mô tả 4 nút chọn kích cỡ ở đầu popup widget (dùng cho contentDescription) -->
+    <string name="widget_size_small">Small widget</string>
+    <string name="widget_size_medium">Medium widget</string>
+    <string name="widget_size_large">Large widget</string>
+    <string name="widget_size_extra">Extra large widget</string>
     <string name="favorites">Favorites</string>
     <string name="pick_image">My photos</string>
     <string name="change_icon">Change icon</string>
@@ -763,4 +768,12 @@
     <string name="rate_us" translatable="false">Rate us</string>
     <string name="rate_success">Rate Success</string>
     <string name="please_reate_use">Please rate us</string>
+
+    <!-- Dialog khi bấm dấu trừ trên icon app ở chế độ chỉnh sửa màn hình chính (kiểu iOS).
+         "delete_app" chỉ hiện với app gỡ cài đặt được; app hệ thống chỉ có Gỡ khỏi màn hình + Hủy.
+         Nút Hủy dùng lại string "cancel_action" đã có sẵn ở trên. -->
+    <string name="remove_app_title">Remove \"%1$s\"?</string>
+    <string name="remove_app_message">Removing from Home Screen will keep the app in your App Library.</string>
+    <string name="remove_from_home_screen">Remove from Home Screen</string>
+    <string name="delete_app">Delete App</string>
 </resources>

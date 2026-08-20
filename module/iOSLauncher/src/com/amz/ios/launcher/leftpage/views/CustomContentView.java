@@ -142,7 +142,18 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         ((ViewGroup.MarginLayoutParams) ((ConstraintLayout.LayoutParams) this.mSlidingUpWidgetsAppStyle.getLayoutParams())).height = height;
 
         int padding = i / 2;
-        this.mListWidgetRV.setPadding(padding, paddingTop + padding, padding, padding);
+        // [BUG FIX] Màn TRÁI (negative page) bị dán SÁT MÉP TRÊN, widget đầu đè lên status bar.
+        // Nguyên nhân: layout dựa vào android:fitsSystemWindows="true" để framework chừa status bar,
+        // NHƯNG cửa sổ launcher bật FLAG_LAYOUT_NO_LIMITS (Launcher.hideNavigationBar) -> cửa sổ tràn
+        // ra ngoài mọi system bar -> framework báo inset top = 0 (đo trên Samsung A50 Android 9) ->
+        // fitsSystemWindows không chừa gì cả. Desktop KHÔNG dính vì nó tự chừa bằng
+        // layout_marginTop="@dimen/status_bar_heightex" thay vì dựa vào inset sống.
+        //
+        // Sửa cùng cách với desktop: cộng chiều cao status bar CỐ ĐỊNH vào padding đỉnh.
+        // Đặt TẠI ĐÂY (không phải nơi khác) vì setUpView() là chỗ CUỐI ghi padding cho recycler —
+        // set ở chỗ khác sẽ bị dòng này ghi đè. Chỉ đụng recycler màn trái -> không ảnh hưởng màn khác.
+        int statusBarPadding = getResources().getDimensionPixelSize(R.dimen.status_bar_heightex);
+        this.mListWidgetRV.setPadding(padding, paddingTop + padding + statusBarPadding, padding, padding);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) this.mSearchBoxLeftPage.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) params).rightMargin = i;
         ((ViewGroup.MarginLayoutParams) params).leftMargin = i;

@@ -228,7 +228,18 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     public void setSubViewsLayoutParams(){
         int margin = mDeviceProfile.edgeMarginPx * 2;
 
-        int paddingTop = this.mTotalLibraryRV.getPaddingTop();
+        // [BUG FIX] App Library bị dán SÁT MÉP TRÊN, icon/tiêu đề đè lên status bar.
+        // Nguyên nhân: layout dựa vào android:fitsSystemWindows="true" để framework chèn phần chừa
+        // status bar, NHƯNG cửa sổ launcher bật FLAG_LAYOUT_NO_LIMITS (Launcher.hideNavigationBar)
+        // -> cửa sổ tràn ra ngoài mọi system bar -> framework báo inset top = 0 (đo trên Samsung A50
+        // Android 9: LauncherRootView nhận top=83 một lần rồi bị ghi đè về 0) -> fitsSystemWindows
+        // không chừa gì cả. Desktop KHÔNG dính vì nó tự chừa bằng
+        // layout_marginTop="@dimen/status_bar_heightex" thay vì dựa vào inset sống.
+        //
+        // Sửa cùng cách với desktop: cộng chiều cao status bar CỐ ĐỊNH vào padding đỉnh sẵn có.
+        // Chỉ đụng 2 RecyclerView của App Library -> không ảnh hưởng màn khác.
+        int statusBarPadding = getResources().getDimensionPixelSize(R.dimen.status_bar_heightex);
+        int paddingTop = this.mTotalLibraryRV.getPaddingTop() + statusBarPadding;
         int paddingBottom = this.mTotalLibraryRV.getPaddingBottom();
         this.mLayoutAppsLibrary.setX(0.0f);
         this.mLayoutAppsLibrary.setY(0.0f);

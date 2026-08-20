@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền popup widget kiểu iOS: nền SÁNG (trắng hơi trong) bo góc lớn.
+     Dùng RIÊNG cho widget_popup_menu — KHÔNG dùng chung bg_glass_popup (popup tối của menu Edit)
+     để đổi màu popup widget không ảnh hưởng popup khác. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/widget_round_corner" />
+    <solid android:color="#F2F7F7F7" />
+</shape>

@@ -6,7 +6,6 @@
         android:paddingBottom="@dimen/search_margin_top"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:fitsSystemWindows="true"
         android:clickable="true"
         android:clipChildren="false"
         android:clipToPadding="false"

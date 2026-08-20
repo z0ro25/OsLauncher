@@ -309,6 +309,14 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public boolean mIsShaking = false;
 
     /**
+     * Trạng thái status bar hiện đang được đặt cho edit mode: null = chưa đặt lần nào,
+     * true = đang ẩn, false = đang hiện. Dùng để {@link #syncStatusBarToEditButtons()} KHÔNG đụng vào
+     * window khi trạng thái không đổi — mỗi lần đụng, framework re-layout toàn cửa sổ và huỷ lượt
+     * layout đang chờ của popup vừa được add (khiến popup kẹt 0x0, không bao giờ hiện ra).
+     */
+    private Boolean mStatusBarHiddenForEdit = null;
+
+    /**
      * The different states that Launcher can be in.
      */
     enum State {
@@ -692,12 +700,21 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // (trước đây chỉ đặt trong setStatusBarHiddenForEdit -> phải đợi onWindowFocusChanged, và ở
         // API 28/29 lại đặt sai hằng ALWAYS(=3) vốn chỉ có từ API 30 -> khung tụt xuống dưới cutout).
         // API 28/29: SHORT_EDGES (tràn vào cutout cạnh ngắn). API 30+: ALWAYS.
+        // [BUG FIX] CHỈ gọi setAttributes() khi giá trị THẬT SỰ đổi.
+        //   setStatusBarHiddenForEdit() chạy ở MỌI onWindowFocusChanged (qua syncStatusBarToEditButtons).
+        //   setAttributes() ép framework re-layout TOÀN cửa sổ -> huỷ lượt layout đang chờ của popup
+        //   vừa được add trong showEditMenu() -> popup kẹt ở w=0 h=0, layoutRequested=true mãi không
+        //   được xử lý -> bấm nút "Chỉnh sửa" bao nhiêu lần cũng KHÔNG thấy popup (Android 9).
+        //   So sánh trước khi gán để không đụng tới window khi giá trị đã đúng.
         if (Build.VERSION.SDK_INT >= 28) {
-            WindowManager.LayoutParams wlp = window.getAttributes();
-            wlp.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+            int desiredCutoutMode = Build.VERSION.SDK_INT >= 30
                     ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
                     : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(wlp);
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            if (wlp.layoutInDisplayCutoutMode != desiredCutoutMode) {
+                wlp.layoutInDisplayCutoutMode = desiredCutoutMode;
+                window.setAttributes(wlp);
+            }
         }
 
         windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
@@ -4438,14 +4455,28 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * #onWindowFocusChanged(boolean)} sẽ ẩn lại nếu vẫn đang edit ({@code mIsShaking}).
      */
     private void setStatusBarHiddenForEdit(boolean hidden) {
+        // [BUG FIX] Bỏ qua khi trạng thái KHÔNG đổi.
+        //   Hàm này chạy ở MỌI onWindowFocusChanged (qua syncStatusBarToEditButtons). Nếu lần nào cũng
+        //   đụng vào window (controller.hide/show + setAttributes) thì framework re-layout TOÀN cửa sổ
+        //   và huỷ lượt layout đang chờ của popup vừa được add trong showEditMenu() -> popup kẹt ở
+        //   w=0 h=0 (layoutRequested=true mãi không xử lý) -> bấm nút "Chỉnh sửa" bao nhiêu lần cũng
+        //   KHÔNG thấy popup trên Android 9.
+        //   Đặt chốt Ở ĐÂY (không phải ở syncStatusBarToEditButtons) để MỌI đường gọi đều đi qua,
+        //   giữ cờ cache luôn khớp trạng thái thật.
+        if (mStatusBarHiddenForEdit != null && mStatusBarHiddenForEdit == hidden) {
+            return;
+        }
+
         Window window = getWindow();
         View decorView = window.getDecorView();
         WindowInsetsControllerCompat controller = Build.VERSION.SDK_INT >= 30
                 ? ViewCompat.getWindowInsetsController(decorView)
                 : new WindowInsetsControllerCompat(window, decorView);
         if (controller == null) {
+            // Chưa áp được -> KHÔNG ghi cờ, để lần gọi sau còn thử lại.
             return;
         }
+        mStatusBarHiddenForEdit = hidden;
         controller.setSystemBarsBehavior(
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         // [FIX THẬT] NGUYÊN NHÂN đẩy-xuống: cửa sổ ở LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT chỉ được
@@ -4458,12 +4489,21 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         //   nên rơi về xử lý mặc định -> khung bị đẩy xuống DƯỚI cutout (đo trên Samsung A50 Android 9:
         //   mFrame=[0,83][1080,2340], cutout cao 83px) -> desktop KHÔNG full màn. Ở API 28/29 phải dùng
         //   SHORT_EDGES (=1): cho cửa sổ tràn vào cutout ở cạnh ngắn (đỉnh khi dọc) -> khung [0,H].
+        // [BUG FIX] CHỈ gọi setAttributes() khi giá trị THẬT SỰ đổi.
+        //   setStatusBarHiddenForEdit() chạy ở MỌI onWindowFocusChanged (qua syncStatusBarToEditButtons).
+        //   setAttributes() ép framework re-layout TOÀN cửa sổ -> huỷ lượt layout đang chờ của popup
+        //   vừa được add trong showEditMenu() -> popup kẹt ở w=0 h=0, layoutRequested=true mãi không
+        //   được xử lý -> bấm nút "Chỉnh sửa" bao nhiêu lần cũng KHÔNG thấy popup (Android 9).
+        //   So sánh trước khi gán để không đụng tới window khi giá trị đã đúng.
         if (Build.VERSION.SDK_INT >= 28) {
-            WindowManager.LayoutParams wlp = window.getAttributes();
-            wlp.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+            int desiredCutoutMode = Build.VERSION.SDK_INT >= 30
                     ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
                     : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(wlp);
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            if (wlp.layoutInDisplayCutoutMode != desiredCutoutMode) {
+                wlp.layoutInDisplayCutoutMode = desiredCutoutMode;
+                window.setAttributes(wlp);
+            }
         }
         if (hidden) {
             controller.hide(WindowInsetsCompat.Type.statusBars());
@@ -6663,6 +6703,82 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         Log.e(TAG, "onPrepareDialog --->DIALOG_UNINSTALL_APP ---> appInfo null. ");
     }
 
+    /**
+     * Dialog kiểu iOS khi bấm dấu trừ ở edit mode (thay cho việc gỡ cài đặt NGAY như trước).
+     *
+     * 3 lựa chọn: "Gỡ khỏi Màn hình chính" / "Xóa ứng dụng" (đỏ) / "Hủy". Mục "Xóa ứng dụng" CHỈ hiện
+     * khi app thật sự gỡ cài đặt được — app hệ thống (Điện thoại, Danh bạ, Tin nhắn, Camera trong
+     * hotseat) có uninstallable = false nên chỉ còn 2 lựa chọn, giống iOS (bấm cũng không xóa được thì
+     * không hiện nút cho người dùng bấm hụt).
+     *
+     * Dùng lại IOSDialog của library:iosdialogs4android theo đúng mẫu {@link #removeFolder(FolderInfo)}.
+     */
+    public void showRemoveAppDialog(final ShortcutInfo shortcutInfo) {
+        if (shortcutInfo == null) {
+            return;
+        }
+
+        // Gỡ cài đặt được? Chỉ app thật (ITEM_TYPE_APPLICATION) + cờ uninstallable mới cho "Xóa ứng dụng".
+        final boolean canDelete = shortcutInfo.uninstallable
+                && shortcutInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION
+                && shortcutInfo.getTargetComponent() != null;
+
+        final int ID_REMOVE_FROM_HOME = 1;
+        final int ID_DELETE_APP = 2;
+        final int ID_CANCEL = 3;
+
+        List<IOSDialogButton> iosDialogButtons = new ArrayList<>();
+        iosDialogButtons.add(new IOSDialogButton(ID_REMOVE_FROM_HOME,
+                getString(R.string.remove_from_home_screen), false, IOSDialogButton.TYPE_POSITIVE));
+        if (canDelete) {
+            iosDialogButtons.add(new IOSDialogButton(ID_DELETE_APP,
+                    getString(R.string.delete_app), false, IOSDialogButton.TYPE_NEGATIVE));
+        }
+        iosDialogButtons.add(new IOSDialogButton(ID_CANCEL,
+                getString(R.string.cancel_action), false, IOSDialogButton.TYPE_POSITIVE));
+
+        CharSequence title = shortcutInfo.title;
+        new IOSDialog.Builder(this)
+                .title(getString(R.string.remove_app_title, title == null ? "" : title.toString()))
+                .message(getString(R.string.remove_app_message))
+                .multiOptions(true)
+                .multiOptionsListeners(new IOSDialogMultiOptionsListeners() {
+                    @Override
+                    public void onClick(IOSDialog iosDialog, IOSDialogButton iosDialogButton) {
+                        iosDialog.dismiss();
+                        switch (iosDialogButton.getId()) {
+                            case ID_REMOVE_FROM_HOME:
+                                removeShortcutFromHome(shortcutInfo);
+                                break;
+                            case ID_DELETE_APP:
+                                startUninstallApp(shortcutInfo.getTargetComponent().getPackageName());
+                                break;
+                            default:
+                                // Hủy: không làm gì, giữ nguyên edit mode.
+                                break;
+                        }
+                    }
+                })
+                .iosDialogButtonList(iosDialogButtons)
+                .build()
+                .show();
+    }
+
+    /**
+     * Gỡ 1 app khỏi màn hình chính (KHÔNG gỡ cài đặt) — app vẫn còn trong App Library.
+     * Hotseat và workspace là 2 container khác nhau nên phải gọi đúng hàm của từng bên.
+     */
+    private void removeShortcutFromHome(ShortcutInfo shortcutInfo) {
+        if (shortcutInfo.container == LauncherSettings.Favorites.CONTAINER_HOTSEAT
+                || shortcutInfo.screenId == LauncherSettings.Favorites.CONTAINER_HOTSEAT) {
+            if (getHotseat() != null) {
+                getHotseat().removeShortcut(shortcutInfo);
+            }
+        } else if (mWorkspace != null) {
+            mWorkspace.removeShortcutInfoInPage(shortcutInfo);
+        }
+    }
+
     private String cutString(int maxLength, String str) {
         if (this.mTextMeasurePaint == null) {
             this.mTextMeasurePaint = new Paint();
@@ -6682,12 +6798,23 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     private void startUninstallApp(AppInfo applicationInfo) {
         Log.d(TAG, "UninstallApp -- uninstallApp -- itemInfo = " + applicationInfo);
         if (applicationInfo != null) {
-            String packageName = applicationInfo.componentName.getPackageName();
-            if (!this.mModel.checkApplicationEnabled(this, packageName)) {
-                return;
-            }
-            startActivity(new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName)));
+            startUninstallApp(applicationInfo.componentName.getPackageName());
         }
+    }
+
+    /**
+     * Bắn Intent gỡ cài đặt theo package name. Tách ra từ {@link #startUninstallApp(AppInfo)} để
+     * {@link #showRemoveAppDialog(ShortcutInfo)} dùng được — item trên workspace/hotseat là
+     * ShortcutInfo (không phải AppInfo) nên chỉ có ComponentName, không có sẵn AppInfo.
+     */
+    private void startUninstallApp(String packageName) {
+        if (packageName == null) {
+            return;
+        }
+        if (!this.mModel.checkApplicationEnabled(this, packageName)) {
+            return;
+        }
+        startActivity(new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName)));
     }
 
     public int getIndexByScreenId(long screenId) {
@@ -7225,13 +7352,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         overlay.addView(content, contentLp);
 
-        content.findViewById(R.id.menu_widget_resize).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chỉ đóng popup để lộ khung resize; GIỮ khung (mWidgetResizeMode vẫn true).
-                dismissWidgetMenu();
-            }
-        });
+        // Hàng 4 nút chọn kích cỡ ở đầu popup — MỚI DỰNG GIAO DIỆN, chưa nối chức năng.
+        // Ô tương ứng size hiện tại của widget được tô nền (setSelected) để người dùng biết đang ở size nào.
+        // TODO: nối hành vi đổi size sau khi có mô tả chi tiết từng nút.
+        markCurrentWidgetSizeOption(content);
+
         content.findViewById(R.id.menu_widget_edit_screen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -7258,6 +7383,45 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         dragLayer.addView(overlay);
         mWidgetMenuView = overlay;
+    }
+
+    /**
+     * Tô nền ô kích cỡ ứng với size HIỆN TẠI của widget đang mở popup (hàng 4 nút ở đầu popup).
+     *
+     * Ánh xạ theo spanX x spanY của widget:
+     *   2x2 -> nhỏ | 4x2 -> vừa | 4x4 -> lớn | còn lại (cao hơn) -> rất lớn.
+     *
+     * GHI CHÚ: đây MỚI là phần GIAO DIỆN — chỉ hiển thị ô đang chọn, CHƯA nối hành vi đổi size khi
+     * bấm (chờ mô tả chi tiết từng nút). Vì vậy 4 ô hiện chưa có OnClickListener.
+     */
+    private void markCurrentWidgetSizeOption(View content) {
+        View small = content.findViewById(R.id.widget_size_small);
+        View medium = content.findViewById(R.id.widget_size_medium);
+        View large = content.findViewById(R.id.widget_size_large);
+        View extra = content.findViewById(R.id.widget_size_extra);
+        if (small == null || medium == null || large == null || extra == null) {
+            return;
+        }
+
+        small.setSelected(false);
+        medium.setSelected(false);
+        large.setSelected(false);
+        extra.setSelected(false);
+
+        View hostView = mOpenAppWidgetHostView;
+        if (hostView == null || !(hostView.getTag() instanceof ItemInfo)) {
+            return;
+        }
+        ItemInfo info = (ItemInfo) hostView.getTag();
+        if (info.spanX <= 2 && info.spanY <= 2) {
+            small.setSelected(true);
+        } else if (info.spanY <= 2) {
+            medium.setSelected(true);
+        } else if (info.spanY <= 4) {
+            large.setSelected(true);
+        } else {
+            extra.setSelected(true);
+        }
     }
 
     public boolean dismissWidgetMenu() {
