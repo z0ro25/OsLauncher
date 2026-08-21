@@ -6,6 +6,14 @@
        1. Hàng 4 nút chọn KÍCH CỠ widget ở đầu (ô đang chọn được tô nền đậm).
        2. Danh sách 2 mục: "Sửa màn hình chính" và "Xóa widget" (chữ đỏ).
 
+     [FIX KÍCH THƯỚC] Popup trước đây bị TO và lề phải dán sát mép màn hình vì layout KHÔNG thật sự
+     wrap_content, dù root khai báo wrap_content:
+       - root có minWidth="208dp" -> luôn rộng tối thiểu 208dp dù nội dung ngắn hơn;
+       - 4 ô size dùng width="0dp" + layout_weight="1" -> weight cần bề rộng để chia nên hàng phải
+         match_parent, kéo cả popup giãn hết cỡ;
+       - TextView trong 2 hàng menu dùng width="0dp" + weight="1" -> cũng giãn hết phần còn lại.
+     Nay: bỏ minWidth, ô size có bề rộng CỐ ĐỊNH, TextView wrap_content -> popup co đúng bằng nội dung.
+
      CHÚ Ý: chức năng của 4 nút size CHƯA nối — mới dựng giao diện theo yêu cầu, sẽ làm sau khi
      người dùng mô tả chi tiết hành vi từng nút. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,26 +22,26 @@
     android:background="@drawable/bg_widget_popup_light"
     android:clipToOutline="true"
     android:elevation="8dp"
-    android:minWidth="260dp"
     android:orientation="vertical"
-    android:paddingTop="8dp"
-    android:paddingBottom="6dp">
+    android:paddingTop="6dp"
+    android:paddingBottom="4dp">
 
-    <!-- ===== Hàng 4 nút chọn kích cỡ widget ===== -->
+    <!-- ===== Hàng 4 nút chọn kích cỡ widget =====
+         wrap_content + ô bề rộng cố định: hàng chỉ rộng đúng bằng 4 ô, KHÔNG kéo giãn popup. -->
     <LinearLayout
         android:id="@+id/widget_size_options"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="6dp">
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp">
 
         <FrameLayout
             android:id="@+id/widget_size_small"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
+            android:layout_width="38dp"
+            android:layout_height="34dp"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/bg_widget_size_option"
@@ -41,8 +49,8 @@
             android:focusable="true">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/widget_size_small"
                 android:src="@drawable/ic_widget_size_small" />
@@ -50,9 +58,8 @@
 
         <FrameLayout
             android:id="@+id/widget_size_medium"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
+            android:layout_width="38dp"
+            android:layout_height="34dp"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/bg_widget_size_option"
@@ -60,8 +67,8 @@
             android:focusable="true">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/widget_size_medium"
                 android:src="@drawable/ic_widget_size_medium" />
@@ -69,9 +76,8 @@
 
         <FrameLayout
             android:id="@+id/widget_size_large"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
+            android:layout_width="38dp"
+            android:layout_height="34dp"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/bg_widget_size_option"
@@ -79,8 +85,8 @@
             android:focusable="true">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/widget_size_large"
                 android:src="@drawable/ic_widget_size_large" />
@@ -88,9 +94,8 @@
 
         <FrameLayout
             android:id="@+id/widget_size_extra"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
+            android:layout_width="38dp"
+            android:layout_height="34dp"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/bg_widget_size_option"
@@ -98,8 +103,8 @@
             android:focusable="true">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/widget_size_extra"
                 android:src="@drawable/ic_widget_size_extra" />
@@ -122,27 +127,28 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="13dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="13dp">
+        android:paddingStart="12dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="9dp">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_edit_home"
             android:tint="#000000" />
 
+        <!-- wrap_content (KHÔNG weight): chữ chỉ chiếm đúng bề ngang của nó -->
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_weight="1"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/sf_pro_display_semibold"
+            android:maxLines="1"
             android:text="@string/widget_menu_edit_screen"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <!-- ===== Mục: Xóa widget (chữ + icon ĐỎ như ảnh mẫu) ===== -->
@@ -155,27 +161,27 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="13dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="13dp">
+        android:paddingStart="12dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="9dp">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_remove_widget"
             android:tint="#FA3826" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_weight="1"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/sf_pro_display_semibold"
+            android:maxLines="1"
             android:text="@string/widget_menu_delete"
             android:textColor="#FA3826"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

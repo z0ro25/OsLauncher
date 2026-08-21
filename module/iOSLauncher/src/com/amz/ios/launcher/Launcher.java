@@ -726,19 +726,63 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars());
         windowInsetsController.hide(WindowInsetsCompat.Type.systemGestures());
 
-        decorView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            new Handler().postDelayed(()->{
-                WindowInsetsControllerCompat windowInsetsController1;
-                windowInsetsController1 = Build.VERSION.SDK_INT >= 30
-                        ? ViewCompat.getWindowInsetsController(decorView) : new WindowInsetsControllerCompat(window, decorView);
+        // [FIX Android 9/10] Ở API < 30, hide() ghi đè TOÀN BỘ systemUiVisibility (rơi về cờ legacy),
+        // xoá mất LAYOUT_STABLE|LAYOUT_FULLSCREEN cần cho edge-to-edge. OR lại ngay để giữ khung [0,H].
+        // Xem giải thích đầy đủ ở setStatusBarHiddenForEdit().
+        if (Build.VERSION.SDK_INT < 30) {
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
 
-                if (windowInsetsController1 == null) {
-                    return;
-                }
-                windowInsetsController1.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-                windowInsetsController1.hide(WindowInsetsCompat.Type.navigationBars());
-                windowInsetsController1.hide(WindowInsetsCompat.Type.systemGestures());
-            },3000);
+        // [BUG FIX] "Bật edit bằng giữ liền ngoài màn hình -> bấm Chỉnh sửa không hiện gì, kéo app mất
+        //   logo, giữ app không ra popup."
+        //
+        // NGUYÊN NHÂN: listener này chạy ở MỖI lượt global layout, và mỗi lần lại đặt THÊM một
+        // postDelayed(3000) mới trên một Handler MỚI — không hề huỷ lượt cũ. Vào edit mode, jiggle
+        // animation làm layout chạy liên tục -> hàng trăm callback dồn hàng đợi -> cứ 3 giây lại nổ một
+        // loạt hide(navigationBars/systemGestures). Mỗi hide() ép framework re-layout TOÀN cửa sổ, huỷ
+        // lượt layout đang chờ của những view VỪA được add vào DragLayer:
+        //   - menu của showEditMenu()  -> kẹt w=0 h=0 -> "bấm Chỉnh sửa không hiện gì"
+        //   - DragView                 -> kẹt w=0 h=0 -> "kéo app mất logo"
+        //   - PopupContainerWithArrow  -> kẹt w=0 h=0 -> "giữ app không ra popup"
+        // Đúng 3 triệu chứng, và chỉ hỏng KHI ĐANG Ở EDIT (lúc đó layout mới chạy dồn dập).
+        //
+        // FIX: dùng MỘT Handler + MỘT Runnable dùng lại, và removeCallbacks trước khi post -> tại mọi
+        // thời điểm chỉ có TỐI ĐA 1 lượt ẩn nav đang chờ, thay vì hàng trăm lượt chồng nhau. Giữ nguyên
+        // hành vi ẩn nav bar (vẫn ẩn lại sau khi layout ổn định), chỉ bỏ phần dồn hàng đợi.
+        final Handler navHideHandler = new Handler();
+        final Runnable navHideRunnable = () -> {
+            // Đang ở edit mode / đang kéo / đang mở menu-popup: TUYỆT ĐỐI không đụng vào window.
+            // Một lần hide() rơi trúng lúc menu hoặc DragView vừa được add cũng đủ huỷ lượt layout đang
+            // chờ của chúng -> lại đúng 3 triệu chứng ở trên. Nav bar đã ẩn từ onCreate và không tự hiện
+            // lại trong các trạng thái này, nên hoãn tới khi thoát edit là an toàn.
+            if (isShaking() || showingFloatingMenu || mEditMenuView != null
+                    || (mDragController != null && mDragController.isDragging())) {
+                return;
+            }
+            WindowInsetsControllerCompat windowInsetsController1;
+            windowInsetsController1 = Build.VERSION.SDK_INT >= 30
+                    ? ViewCompat.getWindowInsetsController(decorView) : new WindowInsetsControllerCompat(window, decorView);
+
+            if (windowInsetsController1 == null) {
+                return;
+            }
+            windowInsetsController1.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            windowInsetsController1.hide(WindowInsetsCompat.Type.navigationBars());
+            windowInsetsController1.hide(WindowInsetsCompat.Type.systemGestures());
+            // [FIX Android 9/10] Khôi phục cờ layout bị hide() ghi đè ở API < 30 — xem
+            // setStatusBarHiddenForEdit(). Đây là lượt chạy ĐỊNH KỲ nên nếu thiếu, cờ sẽ bị xoá lặp lại
+            // suốt phiên, khung cửa sổ đổi liên tục -> content/nút lệch so với toạ độ chạm.
+            if (Build.VERSION.SDK_INT < 30) {
+                decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
+        };
+        decorView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            navHideHandler.removeCallbacks(navHideRunnable);
+            navHideHandler.postDelayed(navHideRunnable, 3000);
         });
     }
 
@@ -4148,9 +4192,24 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 } else {
                     // CHƯA edit: hiện popup RIÊNG của widget (3 mục) + khung resize góc dưới-phải,
                     // KHÔNG nhấc kéo, KHÔNG mở popup của app.
+                    //
+                    // [BUG FIX] "Giữ liền widget không hiển thị gì."
+                    //   AppWidgetResizeFrame.snapToWidget() THOÁT SỚM khi
+                    //   {@code mLauncher.isOpeningFloatingMenu()} (tức cờ showingFloatingMenu đang bật).
+                    //   Nếu cờ đó còn sót lại từ luồng long-press APP trước đó, khung resize được add
+                    //   vào DragLayer nhưng KHÔNG BAO GIỜ được snap -> giữ nguyên LayoutParams(-1,-1)
+                    //   kèm customPosition=true. DragLayer.onLayout khi đó layout nó bằng
+                    //   (lp.x, lp.y, lp.x + lp.width...) với width = -1 -> khung thành view rác nằm
+                    //   TRÊN popup widget (add sau = trên cùng) và che mất popup.
+                    //   Vì thế phải dọn cờ + overlay TRƯỚC khi mở popup widget.
+                    removeFloatingMenuOverlay();   // gỡ lớp phủ còn sót + hạ showingFloatingMenu
+                    removeStalePopupContainer();   // gỡ popup app xác chết nếu còn (xem hàm này)
                     showWidgetMenu(v);
                     CellLayout cl = mWorkspace.getParentCellLayoutForView(v);
-                    if (cl != null) {
+                    // Chỉ add khung resize khi CHẮC CHẮN snapToWidget() sẽ chạy (cờ đã hạ ở trên).
+                    // Nếu vì lý do nào đó cờ vẫn bật, THÀ KHÔNG có khung resize còn hơn để lại view
+                    // rác full-screen che mất popup.
+                    if (cl != null && !isOpeningFloatingMenu()) {
                         getDragLayer().addResizeFrame((LauncherAppWidgetInfo) info,
                                 (LauncherAppWidgetHostView) v, cl, 1f, /*compactCorner=*/true);
                         mWidgetResizeMode = true;
@@ -4205,6 +4264,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     return true;
                 }
                 removeFloatingMenuOverlay();
+                // Dọn XÁC CHẾT popup của vòng kéo trước (nếu có) — nếu không, nó nằm lì trên cùng
+                // DragLayer và che popup mới -> "giữ app không hiện popup gì". Xem
+                // removeStalePopupContainer() để biết vì sao xác chết phát sinh.
+                removeStalePopupContainer();
                 showingFloatingMenu = true;
                 getDragLayer().addView(mFloatingMenuBlurBg, new DragLayer.LayoutParams(-1, -1));
                 com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
@@ -4558,6 +4621,29 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             controller.hide(WindowInsetsCompat.Type.statusBars());
         } else {
             controller.show(WindowInsetsCompat.Type.statusBars());
+        }
+
+        // [FIX Android 9/10 — XUNG ĐỘT CỜ LEGACY] Khôi phục cờ layout edge-to-edge SAU khi controller
+        //   đổi status bar.
+        //
+        // VÌ SAO CHỈ ANDROID 9/10 DÍNH: WindowInsetsController chỉ có từ API 30. Ở API 28/29,
+        // WindowInsetsControllerCompat.hide()/show() KHÔNG có API framework để gọi nên rơi về ghi cờ
+        // legacy qua decorView.setSystemUiVisibility() — GHI ĐÈ TOÀN BỘ trường systemUiVisibility, xoá
+        // luôn LAYOUT_STABLE|LAYOUT_FULLSCREEN mà 2 chỗ khác đã đặt cho edge-to-edge:
+        //     - setupTransparentSystemBarsForLollipop() (onAttachedToWindow) đặt trên decorView
+        //     - mLauncherView.setSystemUiVisibility(...) lúc dựng view
+        // Ba nơi cùng ghi vào MỘT trường, không nơi nào biết nơi kia -> mỗi lần vào/ra edit là một lần
+        // cờ layout bị xoá -> khung cửa sổ đổi -> re-layout bất thường, content/nút lệch vị trí so với
+        // toạ độ chạm.
+        // Trên API 30+ (Pixel...) controller dùng API framework RIÊNG, không đụng cờ legacy -> KHÔNG
+        // xung đột. Đúng như quan sát: máy Android mới không tái hiện được, chỉ Android 9 bị.
+        //
+        // FIX: OR lại 2 cờ layout ngay sau khi controller ghi đè. Chỉ chạy ở API < 30 (từ API 30 các cờ
+        // legacy này bị framework bỏ qua nên gán thừa). Dùng OR nên không xoá cờ nào khác đang có.
+        if (Build.VERSION.SDK_INT < 30) {
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
         // KHÔNG còn đụng marginTop: khung không tụt nữa (nhờ CUTOUT_MODE_ALWAYS ở trên) nên marginTop
         // giữ CỐ ĐỊNH = status_bar_heightex do XML (launcher.xml) đặt sẵn cho workspace_root_view +
@@ -7203,6 +7289,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Dọn popup riêng của widget + cờ resize nếu còn sót.
         dismissWidgetMenu();
         mWidgetResizeMode = false;
+
+        // Bảo hiểm: closeAllOpenViews() chỉ đụng tới view có isOpen() == true. Popup đã bị đóng logic
+        // ở luồng trước mà chưa gỡ khỏi cây view sẽ KHÔNG được nó thấy -> quét dọn riêng.
+        // Xem removeStalePopupContainer().
+        removeStalePopupContainer();
     }
 
     /**
@@ -7229,6 +7320,57 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         showingFloatingMenu = false;
         mFloatingMenuBlurBg.clearBlur();
         ((ViewGroup) mFloatingMenuBlurBg.getParent()).removeView(mFloatingMenuBlurBg);
+    }
+
+    /**
+     * [BUG FIX] Gỡ XÁC CHẾT của {@link com.amz.ios.launcher.popup.PopupContainerWithArrow} còn kẹt
+     * trong DragLayer sau khi KÉO app ra khỏi popup ngữ cảnh.
+     *
+     * NGUYÊN NHÂN (đúng chuỗi tái hiện: cài mới -> giữ app ra popup -> KÉO app thả chỗ khác -> vào
+     * edit -> chạm nền để thoát edit -> từ đó giữ app KHÔNG ra popup nữa, kéo thì mất logo, bấm
+     * "Chỉnh sửa" không hiện gì):
+     *   1. Kéo app từ popup -> {@code PopupContainerWithArrow.onDragStart} đặt
+     *      {@code mDeferContainerRemoval = true} rồi {@code animateClose()}. Khi animation kết thúc,
+     *      vì cờ defer đang bật nên nó CHỈ {@code setVisibility(INVISIBLE)} — view VẪN nằm trong
+     *      DragLayer, hẹn {@code onDragEnd()} gỡ sau.
+     *   2. Nhưng đường kéo-từ-popup của ta gọi {@code closeFloatingMenu()} giữa chừng ->
+     *      {@code closeAllOpenViews()} -> {@code mIsOpen = false}. Tới lúc {@code onDragEnd()} chạy,
+     *      {@code mOpenCloseAnimator} đã null và nhánh còn lại chỉ gỡ khi {@code mDeferContainerRemoval}
+     *      còn đúng — luồng bị lệch nên KHÔNG chỗ nào gọi {@code closeComplete()} nữa.
+     *   => Một popup INVISIBLE, cỡ MATCH_PARENT, nằm lì trên cùng DragLayer suốt phiên.
+     *
+     * HẬU QUẢ khớp cả 3 triệu chứng, vì view rác này nằm TRÊN mọi thứ trong DragLayer:
+     *   - nuốt touch -> bấm "Chỉnh sửa" không ra menu (menu add DƯỚI nó);
+     *   - {@code showForIcon} inflate popup mới nhưng bị che -> "giữ app không hiện popup gì";
+     *   - {@code DragView} cũng add vào DragLayer -> bị che -> "kéo app mất logo".
+     * Cả ba chỉ xuất hiện SAU vòng kéo đầu tiên — đúng như báo cáo.
+     *
+     * Vì {@code mIsOpen == false} nên {@code getOpen()}/{@code closeAllOpenViews()} KHÔNG thấy nó nữa
+     * (chúng lọc theo {@code isOpen()}), phải quét thẳng con của DragLayer theo kiểu view. Dùng
+     * {@code closeComplete()} qua {@code close(false)} để popup tự dọn listener + trả label icon về
+     * đúng trạng thái, thay vì {@code removeView} thô.
+     */
+    private void removeStalePopupContainer() {
+        DragLayer dragLayer = getDragLayer();
+        if (dragLayer == null) {
+            return;
+        }
+        for (int i = dragLayer.getChildCount() - 1; i >= 0; i--) {
+            View child = dragLayer.getChildAt(i);
+            if (child instanceof com.amz.ios.launcher.popup.PopupContainerWithArrow) {
+                com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
+                        (com.amz.ios.launcher.popup.PopupContainerWithArrow) child;
+                if (!popup.isOpen()) {
+                    // Đã đóng logic mà chưa gỡ khỏi cây view -> chính là xác chết cần dọn.
+                    popup.close(false);
+                    // close(false) -> handleClose -> closeComplete -> removeView. Nếu vì lý do nào đó
+                    // vẫn còn parent (đường close bị chặn), gỡ thẳng để không bao giờ sót.
+                    if (popup.getParent() == dragLayer) {
+                        dragLayer.removeView(popup);
+                    }
+                }
+            }
+        }
     }
 
     public LauncherRootView getLauncherView() {
@@ -7293,6 +7435,16 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                                       // mFloatingMenuBlurBg VẪN attach vào DragLayer.
         removeFloatingMenuOverlay();  // GỠ DỨT overlay còn sót, nếu không openFloatingMenu.addView lại
                                       // sẽ ném IllegalStateException "child already has a parent".
+        // [BUG FIX] GỠ DỨT popup khỏi cây view TRƯỚC khi bắt đầu kéo.
+        //   closeFloatingMenu() ở trên mới chỉ đóng LOGIC (mIsOpen = false), view popup có thể VẪN
+        //   attach. Ngay sau đây showInfo() -> startDrag() -> popup nhận onDragStart -> nó bật
+        //   mDeferContainerRemoval và chỉ setVisibility(INVISIBLE), hẹn onDragEnd() gỡ sau. Nhưng
+        //   mIsOpen đã false từ trước nên onDragEnd() rơi vào nhánh KHÔNG gọi closeComplete()
+        //   -> popup nằm lì trong DragLayer suốt phiên, phủ MATCH_PARENT lên trên mọi thứ:
+        //   che popup mới (giữ app không ra popup), che DragView (kéo mất logo), nuốt touch của
+        //   nút "Chỉnh sửa" (bấm không hiện menu). Cả 3 chỉ hỏng SAU vòng kéo đầu tiên.
+        //   Dọn tại đây để vòng kéo KHÔNG BAO GIỜ để lại xác chết.
+        removeStalePopupContainer();
         openFloatingMenu(icon);       // trạng thái floating chuẩn: ẩn icon + add overlay mới
         mWorkspace.showInfo(info);    // nhấc icon -> beginDragShared -> mDragController.startDrag
         mWorkspace.startTidyUp();     // bật jiggle/edit
@@ -7418,17 +7570,61 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         });
 
-        // Đo trước để biết đặt popup phía trên hay dưới widget.
-        content.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        float density = getResources().getDisplayMetrics().density;
+        int gap = (int) (density * 6);
+        // Lề tối thiểu tới mép màn hình — không để popup dán sát cạnh như trước.
+        int screenMargin = (int) (density * 12);
+
+        // Đo trước để biết đặt popup phía trên hay dưới widget, và để kẹp popup trong mép màn hình.
+        // [FIX] Đo bằng AT_MOST theo bề rộng khả dụng (trừ 2 lề) thay vì UNSPECIFIED: với UNSPECIFIED
+        //   con dùng match_parent/weight sẽ đo ra bề rộng vô hạn-định, cho popupW SAI so với lúc vẽ
+        //   thật -> tính lề phải lệch, popup trông như dán sát cạnh. AT_MOST cho ra đúng bề rộng
+        //   wrap_content thực tế mà vẫn chặn trên ở phần màn hình còn lại.
+        int availableW = (getResources().getDisplayMetrics().widthPixels) - screenMargin * 2;
+        content.measure(
+                View.MeasureSpec.makeMeasureSpec(Math.max(availableW, 0), View.MeasureSpec.AT_MOST),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         int popupH = content.getMeasuredHeight();
-        int gap = (int) (getResources().getDisplayMetrics().density * 6);
+        int popupW = content.getMeasuredWidth();
 
         Rect r = new Rect();
         dragLayer.getViewRectRelativeToSelf(anchor, r);
 
         FrameLayout.LayoutParams contentLp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        contentLp.leftMargin = r.left;
+
+        // [FIX] Định vị theo ĐÚNG KIỂU popup ngữ cảnh của app ({@code PopupContainerWithArrow
+        //   .orientAboutIcon}) — chỉ mượn cách ĐẶT VỊ TRÍ, giữ nguyên giao diện riêng của popup widget.
+        //
+        //   Trước đây gán thẳng {@code leftMargin = r.left} (dóng cứng theo mép TRÁI widget) mà không
+        //   kiểm tra tràn -> widget nằm bên phải màn hình thì popup bị đẩy dán sát cạnh, trông lệch.
+        //
+        //   Quy tắc của orientAboutIcon: ƯU TIÊN dóng mép TRÁI popup với mép TRÁI widget; nếu như vậy
+        //   popup vượt quá mép phải thì lật sang dóng mép PHẢI popup với mép PHẢI widget. Nhờ vậy popup
+        //   luôn "bám" vào widget (không trôi ra giữa) mà vẫn không tràn viền.
+        //   Sau cùng vẫn kẹp trong [screenMargin, W - popupW - screenMargin] để chắc chắn có lề.
+        int containerW = dragLayer.getWidth() > 0
+                ? dragLayer.getWidth()
+                : getResources().getDisplayMetrics().widthPixels;
+
+        int leftAlignedX = r.left;                 // dóng mép trái popup = mép trái widget
+        int rightAlignedX = r.right - popupW;      // dóng mép phải popup = mép phải widget
+        int x = leftAlignedX;
+        boolean canBeLeftAligned = leftAlignedX + popupW <= containerW - screenMargin;
+        if (!canBeLeftAligned) {
+            x = rightAlignedX;
+        }
+
+        int maxLeft = containerW - popupW - screenMargin;
+        if (maxLeft < screenMargin) {
+            // Popup rộng hơn cả màn hình trừ 2 lề (hiếm) -> đặt sát lề trái cho gọn.
+            x = screenMargin;
+        } else {
+            x = Math.max(screenMargin, Math.min(x, maxLeft));
+        }
+        contentLp.leftMargin = x;
+
+        // Trên/dưới cũng theo orientAboutIcon: ưu tiên mở PHÍA TRÊN widget, không đủ chỗ thì xuống dưới.
         int topAbove = r.top - popupH - gap;
         if (topAbove >= 0) {
             contentLp.topMargin = topAbove;
