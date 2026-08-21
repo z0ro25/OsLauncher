@@ -308,6 +308,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public boolean showingFloatingMenu = false;
     public boolean mIsShaking = false;
 
+    // Popup ngữ cảnh app đang mở (giữ liền): icon + cellInfo để chuyển sang KÉO THẢ khi ngón tay di
+    // chuyển vượt touch-slop trong lúc popup còn hiện (xem isContextPopupOpen/startDragFromContextPopup).
+    private View mContextPopupIcon;
+    private CellLayout.CellInfo mContextPopupCellInfo;
+
     /**
      * Trạng thái status bar hiện đang được đặt cho edit mode: null = chưa đặt lần nào,
      * true = đang ẩn, false = đang hiện. Dùng để {@link #syncStatusBarToEditButtons()} KHÔNG đụng vào
@@ -4167,17 +4172,61 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 } else {
                     popWorkspace(true);
                 }
-            } else {
-                //todo show menu
-                Log.e(TAG, "open menu");
+            } else if (isShaking()) {
+                // ĐANG ở edit (jiggle): long-press app = nhấc icon lên KÉO THẢ để sắp xếp lại
+                // (baseline an toàn, drag hoạt động). Không mở popup ở trạng thái này.
                 openFloatingMenu(v);
                 mWorkspace.showInfo(longClickCellInfo);
                 mWorkspace.startTidyUp();
-                // KHÔNG ẩn status bar ở đây: long-press app CHỈ mở popup ngữ cảnh, 2 nút Sửa/Xong
-                // KHÔNG hiển thị -> theo yêu cầu, status bar phải GIỮ HIỆN. (Trước đây ẩn tại đây khiến
-                // status bar ẩn LÌ vì popup là overlay TRONG cửa sổ -> không mất focus -> không có luồng
-                // nào hiện lại.) Status bar chỉ ẩn khi vào edit THẬT (onShakingAllApps hiện 2 nút, ví dụ
-                // chọn "Edit Home Screen" từ popup) — bất biến này do syncStatusBarToEditButtons() giữ.
+            } else {
+                // CHƯA edit: long-press app = POPUP ngữ cảnh iOS gốc (PopupContainerWithArrow):
+                //   4 mục mặc định (Remove App / Edit Home Screen / Hide App / App Info)
+                //   + các deep shortcut RIÊNG theo từng app. orientAboutIcon tự định vị tránh viền
+                //   nên popup "nhỏ, đẹp, không tràn". KHÔNG nhấc kéo, KHÔNG vào jiggle (giống đường
+                //   widget showWidgetMenu). Đường vào edit là chọn "Edit Home Screen" trong popup.
+                //
+                // Tích hợp vòng đời qua cặp showingFloatingMenu + mFloatingMenuBlurBg (đúng như baseline):
+                //   - bật showingFloatingMenu -> khi bấm 1 mục, SystemShortcut gọi closeFloatingMenu()
+                //     -> closeAllOpenViews() đóng popup; khi chạm ra NGOÀI, overlay.onClick cũng gọi
+                //     closeFloatingMenu() -> đóng popup.
+                //   - overlay được add GIỮA cử chỉ long-press nên không nhận ACTION_DOWN -> không tự
+                //     click-đóng lúc nhấc tay (bất biến đã kiểm chứng ở baseline openFloatingMenu).
+                //   - KHÔNG ẩn icon (khác openFloatingMenu) để mũi tên popup trỏ đúng vào icon.
+                // showForIcon là AbstractFloatingView nhưng onTouchEvent=true và không chỗ nào close()
+                // ở ACTION_UP -> sống sót qua long-press.
+                // GỠ overlay cũ nếu còn sót parent (mFloatingMenuBlurBg là view dùng-chung một-instance;
+                // nếu chưa closeFloatingMenu ở luồng trước, add lại sẽ ném IllegalStateException
+                // "child already has a parent" -> crash). removeFloatingMenuOverlay() bám getParent()
+                // nên dọn được cả trường hợp cờ showingFloatingMenu bị lệch.
+                // Long-press có thể phát onLongClick 2 LẦN cho 1 cử chỉ (listener kép). Lần 2 tới khi
+                // popup đã mở -> showForIcon trả null -> nếu chạy fallback jiggle sẽ XÉ popup thành edit
+                // mode. Vì vậy: đã có popup mở thì BỎ QUA lần gọi trùng (giữ nguyên popup).
+                if (com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this) != null) {
+                    return true;
+                }
+                removeFloatingMenuOverlay();
+                showingFloatingMenu = true;
+                getDragLayer().addView(mFloatingMenuBlurBg, new DragLayer.LayoutParams(-1, -1));
+                com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
+                        com.amz.ios.launcher.popup.PopupContainerWithArrow.showForIcon(v);
+                if (popup == null) {
+                    // App không hỗ trợ popup (itemType lạ / bị disable): gỡ overlay + rơi về baseline
+                    // (nhấc icon + jiggle) để KHÔNG làm chết long-press.
+                    mContextPopupIcon = null;
+                    mContextPopupCellInfo = null;
+                    removeFloatingMenuOverlay();
+                    openFloatingMenu(v);
+                    mWorkspace.showInfo(longClickCellInfo);
+                    mWorkspace.startTidyUp();
+                } else {
+                    // Popup ngữ cảnh đã mở: nhớ icon + cellInfo để nếu người dùng GIỮ RỒI KÉO
+                    // (di chuyển vượt touch-slop) thì DragLayer gọi startDragFromContextPopup() ->
+                    // tắt popup + nhấc icon lên kéo thả (xem DragLayer.onInterceptTouchEvent).
+                    mContextPopupIcon = v;
+                    mContextPopupCellInfo = longClickCellInfo;
+                }
+                // KHÔNG ẩn status bar ở đây: popup ngữ cảnh KHÔNG hiển thị 2 nút Sửa/Xong -> status
+                // bar phải GIỮ HIỆN. Status bar chỉ ẩn khi vào edit THẬT (onShakingAllApps).
             }
         }
 
@@ -7145,6 +7194,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         this.showingFloatingMenu = false;
         this.mOpenAppWidgetHostView = null;
+        this.mContextPopupIcon = null;
+        this.mContextPopupCellInfo = null;
         AbstractFloatingView.closeAllOpenViews(this, true);
 
         this.mFloatingMenuBlurBg.clear(true);
@@ -7212,6 +7263,40 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     public boolean isShaking() {
         return mIsShaking;
+    }
+
+    /**
+     * True khi popup ngữ cảnh app (giữ liền) ĐANG mở và còn ứng viên icon để chuyển sang kéo thả.
+     * Điều kiện {@code getOpen != null} bảo đảm chỉ đúng khi popup THẬT hiện (phân biệt với edit-mode
+     * dù cả hai cùng bật {@code showingFloatingMenu}). DragLayer dùng cờ này để bắt cử chỉ giữ-rồi-kéo.
+     */
+    public boolean isContextPopupOpen() {
+        return mContextPopupIcon != null
+                && com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this) != null;
+    }
+
+    /**
+     * Chuyển từ popup ngữ cảnh sang KÉO THẢ: người dùng đang giữ app (popup hiện) rồi di chuyển ngón tay.
+     * Đóng popup + nhấc icon lên kéo + bật jiggle/edit — đúng chuỗi baseline của nhánh edit-mode
+     * ({@code openFloatingMenu + showInfo + startTidyUp}). Trả false nếu không còn ứng viên hợp lệ.
+     */
+    public boolean startDragFromContextPopup() {
+        if (mContextPopupIcon == null || mContextPopupCellInfo == null) {
+            return false;
+        }
+        View icon = mContextPopupIcon;
+        CellLayout.CellInfo info = mContextPopupCellInfo;
+        mContextPopupIcon = null;
+        mContextPopupCellInfo = null;
+        closeFloatingMenu();          // đóng PopupContainerWithArrow (closeAllOpenViews) + reset cờ.
+                                      // LƯU Ý: closeFloatingMenu CHỈ clear() blur, KHÔNG removeView ->
+                                      // mFloatingMenuBlurBg VẪN attach vào DragLayer.
+        removeFloatingMenuOverlay();  // GỠ DỨT overlay còn sót, nếu không openFloatingMenu.addView lại
+                                      // sẽ ném IllegalStateException "child already has a parent".
+        openFloatingMenu(icon);       // trạng thái floating chuẩn: ẩn icon + add overlay mới
+        mWorkspace.showInfo(info);    // nhấc icon -> beginDragShared -> mDragController.startDrag
+        mWorkspace.startTidyUp();     // bật jiggle/edit
+        return true;
     }
 
     public boolean isWidgetsViewVisible() {

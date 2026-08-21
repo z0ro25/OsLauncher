@@ -114,6 +114,9 @@ public class DragLayer extends InsettableFrameLayout {
     private int mMaximumFlingVelocity;
     private float mInterceptXDown;
     private float mInterceptYDown;
+    // Gốc cử chỉ (lưu vô điều kiện ở ACTION_DOWN) để phát hiện giữ-rồi-kéo khi popup ngữ cảnh app đang mở.
+    private float mPopupDownX;
+    private float mPopupDownY;
     private int mDockGesDistance;
     private int mStatusBarHeight;
     private VelocityTracker mVelocityTracker;
@@ -277,6 +280,28 @@ public class DragLayer extends InsettableFrameLayout {
             }
             mTouchCompleteListener = null;
         }
+
+        // Giữ-liền → popup ngữ cảnh app hiện. Nếu người dùng ĐANG GIỮ mà DI CHUYỂN ngón tay vượt
+        // touch-slop thì tắt popup + nhấc icon lên KÉO THẢ (bật edit). onInterceptTouchEvent được gọi
+        // cho MỌI event kể cả khi BubbleTextView đang là target, nên đây là nơi bắt ACTION_MOVE.
+        if (action == MotionEvent.ACTION_DOWN) {
+            mPopupDownX = motionEvent.getX();
+            mPopupDownY = motionEvent.getY();
+        } else if (action == MotionEvent.ACTION_MOVE && mLauncher.isContextPopupOpen()) {
+            int slop = ViewConfiguration.get(mLauncher).getScaledTouchSlop();
+            float dx = motionEvent.getX() - mPopupDownX;
+            float dy = motionEvent.getY() - mPopupDownY;
+            if (dx * dx + dy * dy > slop * slop) {
+                // Giữ-rồi-kéo: khởi động drag (showInfo -> beginDragShared -> mDragController.startDrag)
+                // rồi TRẢ NGAY kết quả intercept của DragController — vì mDragging=true nên nó intercept,
+                // các MOVE/UP kế được route sang mDragController.onTouchEvent -> kéo + drop icon (như
+                // baseline edit-mode). Gọi onInterceptTouchEvent ĐÚNG MỘT LẦN tại đây (return luôn) để
+                // không double-process event khi rơi xuống nhánh return cuối hàm.
+                mLauncher.startDragFromContextPopup();
+                return this.mDragController.onInterceptTouchEvent(motionEvent);
+            }
+        }
+
         // Khi đang mở popup widget (long-press) thì GIỮ khung resize góc, không xóa bởi các sự kiện
         // touch của chính cử chỉ long-press (ACTION_MOVE/UP). Chạm vào tay kéo góc đã được
         // handleTouchDown bắt trước (return true) nên không rơi tới đây; chạm ra ngoài sẽ đóng popup
