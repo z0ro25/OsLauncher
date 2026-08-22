@@ -3,15 +3,18 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        agp_version = '7.0.2'
-        agp_version1 = '8.2.1'
-        agp_version2 = '4.2.1'
-        agp_version3 = '7.3.1'
+        // [NÂNG CẤP AGP] 7.3.1 -> 8.6.1 để build được compileSdk/targetSdk 36.
+        //   LÝ DO BẮT BUỘC NÂNG: aapt2 đi kèm AGP 7.3.1 (bản 2022) KHÔNG đọc nổi bảng tài nguyên của
+        //   android.jar API 36 — lỗi thật đo được:
+        //     LoadedArsc.cpp:94] RES_TABLE_TYPE_TYPE entry offsets overlap actual entry data.
+        //     error: failed to load include path .../platforms/android-36/android.jar
+        //   Không phải file hỏng (unzip đọc được đủ 14.996 entry); là định dạng resources.arsc mới mà
+        //   parser cũ không hiểu. Chỉ nâng AGP mới có aapt2 đọc được.
+        agp_version = '8.6.1'
     }
     repositories {
         google()
         mavenCentral()
-        jcenter()
         gradlePluginPortal()
 
         maven {
@@ -30,17 +33,20 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$agp_version3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
-        classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.8'
+        classpath "com.android.tools.build:gradle:$agp_version"
+        // Kotlin 1.7.10 -> 1.9.24: AGP 8.6 yêu cầu Kotlin plugin >= 1.8; 1.9.24 là bản ổn định
+        // tương thích Gradle 8.7.
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24"
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
     }
 }
 
 allprojects {
     repositories {
+        // jcenter() đã gỡ: dịch vụ ngừng hoạt động (read-only từ 2021, tắt hẳn 2022) nên chỉ làm
+        // build chậm vì phải chờ timeout. Các thư viện cần thiết đều có ở mavenCentral/jitpack.
         mavenCentral()
-        jcenter()
         google()
 
         maven {
@@ -75,16 +81,14 @@ allprojects {
             dirs '../../libs'
         }
 
-        gradle.projectsEvaluated {
-            tasks.withType(JavaCompile) {
-                options.compilerArgs.add('-Xbootclasspath/p:module/iOSLauncher/plugins/PowerKey/libs/framework.jar')
-            }
-        }
+        // [GỠ] -Xbootclasspath/p: JDK 17 KHÔNG còn hỗ trợ cờ này (bỏ từ JDK 9, thay bằng
+        //   --patch-module). Giữ lại sẽ làm javac lỗi ngay. Plugin PowerKey vốn đã bị comment ở
+        //   app/build.gradle (compileOnly framework.jar) nên không có gì phụ thuộc cờ này.
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
 }
 
 def buildTime() {

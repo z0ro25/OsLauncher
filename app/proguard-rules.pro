@@ -107,3 +107,22 @@
 -keep class org.sqlite.** { *; }
 -keep class org.sqlite.database.** { *; }
 -keep class org.litepal.** {*;}
+
+# ===== Nâng AGP 8 / R8 mới: giữ các lớp nạp bằng REFLECTION =====
+# TRIỆU CHỨNG khi thiếu (đo thật lúc nâng lên target 36):
+#   java.lang.InstantiationException: Class<...ColorExtractionAlgorithm> cannot be instantiated
+#     at Utilities.getOverrideObject(Utilities.java:930)
+#     at WallpaperColorInfo.<init> -> LauncherBaseActivity.onCreate -> CRASH ngay khi mở launcher.
+# NGUYÊN NHÂN: Utilities.getOverrideObject() nạp lớp bằng Class.forName(tên đọc từ string resource)
+#   rồi gọi newInstance()/getDeclaredConstructor(Context). R8 không thấy ai gọi constructor trong mã
+#   nên XOÁ constructor (hoặc cả lớp). R8 của AGP 8 tối ưu mạnh hơn AGP 7 nên lỗi mới lộ ra.
+# Giữ nguyên lớp + constructor cho toàn bộ nhánh dùng cơ chế override này.
+-keep class com.amz.ios.launcher.dynamicui.** { *; }
+-keepclassmembers class com.amz.ios.launcher.dynamicui.** {
+    <init>(...);
+}
+# Các lớp override khác cũng nạp qua getOverrideObject bằng tên trong res/values/*.xml.
+-keep class com.amz.ios.launcher.**Callbacks { *; }
+-keepclassmembers class com.amz.ios.launcher.** {
+    public <init>(android.content.Context);
+}

@@ -1,22 +1,28 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+// [GỠ] kotlin-android-extensions: plugin đã bị XOÁ khỏi Kotlin 1.9 (deprecated từ 1.4.20).
+//   Đã kiểm tra: không file nào dùng `import kotlinx.android.synthetic.*` hay `@Parcelize`,
+//   dự án dùng ViewBinding (buildFeatures.viewBinding = true) nên gỡ không ảnh hưởng gì.
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 34
-    packagingOptions { //Fix: http://stackoverflow.com/a/20675331/860488
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
+    // [AGP 8] namespace là BẮT BUỘC khai báo trong build.gradle; AGP 8 không còn đọc package từ
+    // AndroidManifest.xml nữa (thuộc tính package trong manifest bị bỏ).
+    namespace "com.oslauncher.applauncher.themelauncher"
+    compileSdkVersion 36
+    packaging { //Fix: http://stackoverflow.com/a/20675331/860488
+        // [AGP 8] packagingOptions{exclude ...} -> packaging{ resources.excludes }
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/NOTICE']
+        }
     }
 
     defaultConfig {
         applicationId "com.oslauncher.applauncher.themelauncher"
         minSdkVersion 26
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode 100
         versionName "1.0.0"
 
