@@ -222,6 +222,11 @@
 
     <!-- Deep shortcuts -->
     <dimen name="deep_shortcuts_elevation">9dp</dimen>
+    <!-- Độ nổi RIÊNG của popup thông tin app (long-press icon). Đặt 0 để BỎ bóng đổ ở đáy popup
+         theo yêu cầu giao diện (iOS không đổ bóng ở đây).
+         KHÔNG sửa deep_shortcuts_elevation vì dimen đó còn dùng chung cho notification.xml và
+         widgets_bottom_sheet.xml — đổi nó sẽ mất bóng của cả 2 màn kia. -->
+    <dimen name="app_popup_elevation">0dp</dimen>
     <dimen name="bg_popup_item_width">220dp</dimen>
     <dimen name="bg_popup_item_height">56dp</dimen>
     <!-- Chiều cao tối đa của danh sách shortcut trong popup long-press: 6 dòng trọn + hé dòng 7

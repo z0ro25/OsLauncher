@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -151,6 +152,8 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         ViewGroup.LayoutParams src = mWidgetPreview.getLayoutParams();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(src.width, src.height);
         lp.gravity = Gravity.CENTER;
+        // Preview SỐNG là widget THẬT được inflate -> view con của nó sẽ nuốt touch. Việc chặn do
+        // onInterceptTouchEvent() của cell lo (xem chú thích ở đó), không đụng vào bản thân host.
         addView(host, idx, lp);
         mLivePreview = host;
     }
@@ -171,10 +174,63 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         return new int[]{mWidth, mHeight};
     }
 
+    /**
+     * [FIX] Giữ vào ô preview ở bottom sheet chọn cỡ widget KHÔNG có tác dụng gì.
+     *
+     * NGUYÊN NHÂN: khi widget hỗ trợ preview SỐNG, {@link #addLivePreview} inflate widget THẬT vào
+     * trong cell. Các view con của widget đó nhận touch trước và nuốt chuỗi sự kiện, nên cell cha
+     * (nơi gắn OnLongClickListener) không bao giờ đếm đủ thời gian long-press.
+     *
+     * Chặn NGAY tại cell: giữ toàn bộ chuỗi touch ở đây, không phân phát xuống preview. Preview chỉ
+     * để nhìn — mọi cử chỉ đều thuộc về cell (click = thêm widget, long-press = nhấc lên kéo).
+     * Trả true ở ACTION_DOWN nên onTouchEvent của cell nhận trọn chuỗi và long-press hoạt động.
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (mLivePreview != null) {
+            return true;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    /**
+     * [FIX] "Giữ vào preview rồi cố kéo ra nhưng không được."
+     *
+     * Cell nằm trong ViewPager (lật trang cỡ widget) LỒNG trong SlidingUpPanelLayout (kéo đóng sheet).
+     * Khi long-press vừa nổ và người dùng bắt đầu DI TAY, hai view cha đó thấy ngón tay dịch chuyển
+     * nên intercept để cuộn/lật/đóng sheet -> cell nhận ACTION_CANCEL -> cử chỉ kéo chết ngay khi vừa
+     * bắt đầu, widget không nhấc ra được.
+     *
+     * Chặn cha intercept NGAY TẠI THỜI ĐIỂM long-press nổ (không phải từ ACTION_DOWN): trước đó vẫn
+     * để cha xử lý bình thường nên VUỐT LẬT TRANG và KÉO ĐÓNG SHEET vẫn hoạt động như cũ — chỉ khi
+     * người dùng đã giữ đủ lâu (tức có ý định kéo widget) mới giành quyền.
+     */
+    @Override
+    public boolean performLongClick() {
+        ViewParent parent = getParent();
+        if (parent != null) {
+            parent.requestDisallowInterceptTouchEvent(true);
+        }
+        return super.performLongClick();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // Drag ĐÃ bắt đầu (long-press nổ -> startDrag): NHẢ chuỗi touch ra để DragLayer/DragController
+        // tiếp quản việc kéo. Nếu cell cứ giữ (return true) thì DragView không nhận được ACTION_MOVE
+        // -> widget "dính" tại chỗ, kéo không đi đâu cả.
+        if (mLauncher != null && mLauncher.getDragController() != null
+                && mLauncher.getDragController().isDragging()) {
+            return false;
+        }
         boolean touchEvent = super.onTouchEvent(event);
         if (mStylusEventHelper.checkAndPerformStylusEvent(event)) return true;
+        // Cell phải TỰ nhận chuỗi touch để tính long-press. LinearLayout mặc định trả false ở
+        // ACTION_DOWN khi không clickable -> mất luôn các sự kiện sau, long-press không bao giờ nổ.
+        // Có listener (click/long-click) thì coi như đã xử lý.
+        if (isClickable() || isLongClickable()) {
+            return true;
+        }
         return touchEvent;
     }
 

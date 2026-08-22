@@ -140,4 +140,54 @@ public class GalleryWidgetCell extends LinearLayout implements IWidgetPreview {
     public int getCellSize() {
         return mSize;
     }
+
+    /**
+     * [FIX] Giữ vào thẻ widget (đồng hồ/thời tiết/lịch...) ở màn đầu khay KHÔNG có tác dụng gì.
+     *
+     * Cùng nguyên nhân với {@link WidgetAppStyleCell}: khi widget hỗ trợ preview SỐNG,
+     * {@link #addLivePreview} inflate widget THẬT vào trong thẻ; view con của widget nhận touch
+     * trước và nuốt chuỗi sự kiện nên thẻ cha (nơi gắn OnLongClickListener) không đếm đủ thời gian
+     * long-press. Chặn ngay tại thẻ: preview chỉ để nhìn, mọi cử chỉ thuộc về thẻ.
+     */
+    @Override
+    public boolean onInterceptTouchEvent(android.view.MotionEvent ev) {
+        if (mLivePreview != null) {
+            return true;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    /**
+     * [FIX] Giữ vào thẻ rồi kéo nhưng widget không nhấc ra được.
+     *
+     * Thẻ nằm trong khay cuộn dọc LỒNG trong SlidingUpPanelLayout (kéo đóng khay). Khi long-press vừa
+     * nổ và người dùng bắt đầu DI TAY, các view cha thấy ngón tay dịch chuyển nên intercept để
+     * cuộn/đóng khay -> thẻ nhận ACTION_CANCEL -> cử chỉ kéo chết ngay khi vừa bắt đầu.
+     * Chặn cha intercept ĐÚNG LÚC long-press nổ; trước đó cuộn khay vẫn hoạt động bình thường.
+     */
+    @Override
+    public boolean performLongClick() {
+        android.view.ViewParent parent = getParent();
+        if (parent != null) {
+            parent.requestDisallowInterceptTouchEvent(true);
+        }
+        return super.performLongClick();
+    }
+
+    @Override
+    public boolean onTouchEvent(android.view.MotionEvent event) {
+        // Drag ĐÃ bắt đầu: nhả chuỗi touch cho DragLayer/DragController tiếp quản, nếu không
+        // DragView không nhận ACTION_MOVE -> widget dính tại chỗ. Xem WidgetAppStyleCell.
+        if (mLauncher != null && mLauncher.getDragController() != null
+                && mLauncher.getDragController().isDragging()) {
+            return false;
+        }
+        boolean handled = super.onTouchEvent(event);
+        // LinearLayout mặc định trả false ở ACTION_DOWN khi không clickable -> mất các sự kiện sau,
+        // long-press không bao giờ nổ. Có listener thì coi như đã xử lý để giữ trọn chuỗi touch.
+        if (isClickable() || isLongClickable()) {
+            return true;
+        }
+        return handled;
+    }
 }

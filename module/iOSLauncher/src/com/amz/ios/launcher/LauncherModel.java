@@ -4591,7 +4591,24 @@ public class LauncherModel extends BroadcastReceiver
                     for (AppWidgetProviderInfo pInfo : widgets) {
                         info = LauncherAppWidgetProviderInfo.fromProviderInfo(context, pInfo);
                         UserHandleCompat user = wm.getUser(info);
-                        tmpWidgetProviders.put(new ComponentKey(info.provider, user), info);
+                        ComponentKey key = new ComponentKey(info.provider, user);
+                        // [BUG FIX] "Widget đặt vào page chỉ hiện KHUNG XÁM rỗng."
+                        //   Vòng lặp IOSAppWidget ở TRÊN đã đăng ký widget nội bộ với isIOSWidget=true.
+                        //   getAllProviders() của hệ thống trả về CHÍNH các widget đó (chúng cũng là
+                        //   AppWidgetProvider khai báo trong manifest), fromProviderInfo tạo bản mới với
+                        //   isIOSWidget=FALSE và GHI ĐÈ bản iOS do trùng ComponentKey.
+                        //   Hệ quả: widget nội bộ bị coi là widget hệ thống -> đi qua AppWidgetHost thật
+                        //   -> AppWidgetHostView chỉ cho inflate lớp trong danh sách trắng của RemoteViews,
+                        //   custom view bị chặn:
+                        //     InflateException: Class not allowed to be inflated
+                        //         com.amz.ios.launcher.widget.view.CalendarMiniMonthView
+                        //   -> host view rỗng = khung xám. (Đo bằng logcat khi đặt widget Lịch.)
+                        //   Giữ nguyên bản iOS đã đăng ký, không cho bản hệ thống ghi đè.
+                        LauncherAppWidgetProviderInfo existing = tmpWidgetProviders.get(key);
+                        if (existing != null && existing.isIOSWidget) {
+                            continue;
+                        }
+                        tmpWidgetProviders.put(key, info);
                     }
 
 

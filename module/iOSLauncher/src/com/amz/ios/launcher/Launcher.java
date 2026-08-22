@@ -3062,6 +3062,69 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         processAddItemFromScreenEditView(info);
     }
 
+    /**
+     * [TÍNH NĂNG] Thêm widget vào TRANG HIỆN TẠI, đặt ở ô GẦN ĐIỂM NGÓN TAY nhất — dùng cho thao tác
+     * "giữ liền vào preview trong khay widget".
+     *
+     * Khác {@link #processAddItemFromScreenEditView(PendingAddItemInfo)} (hàm dùng chung, GIỮ NGUYÊN):
+     * hàm đó luôn đặt vào ô trống ĐẦU TIÊN của trang ({@code getFirstVacant}), nên người dùng không
+     * chọn được chỗ. Ở đây nhận toạ độ màn hình nơi người dùng đang giữ, quy về ô lưới gần nhất còn
+     * trống rồi đặt widget vào đó.
+     *
+     * @param info    widget cần thêm
+     * @param screenX toạ độ X trên MÀN HÌNH của điểm giữ
+     * @param screenY toạ độ Y trên MÀN HÌNH của điểm giữ
+     * @return true nếu đặt được; false nếu trang đã hết chỗ (đã hiện thông báo).
+     */
+    public boolean addWidgetAtScreenPoint(PendingAddWidgetInfo info, int screenX, int screenY) {
+        if (info == null) {
+            return false;
+        }
+        int[] span = new int[]{info.spanX, info.spanY};
+
+        CellLayout cellLayout = mWorkspace.getCurrentDropLayout();
+        if (cellLayout == null) {
+            return false;
+        }
+        long currentScreenId = mWorkspace.getIdForScreen(cellLayout);
+        if (cellLayout.isEmpty() && currentScreenId == Workspace.EXTRA_EMPTY_SCREEN_ID1) {
+            currentScreenId = mWorkspace.commitExtraEmptyScreen(Workspace.EXTRA_EMPTY_SCREEN_ID1);
+        }
+
+        // Quy điểm chạm (toạ độ màn hình) về toạ độ TRONG cellLayout để tìm đúng ô dưới ngón tay.
+        int[] loc = new int[2];
+        cellLayout.getLocationOnScreen(loc);
+        int pixelX = screenX - loc[0];
+        int pixelY = screenY - loc[1];
+
+        int[] cellXY = cellLayout.findNearestVacantArea(
+                pixelX, pixelY, info.spanX, info.spanY, new int[2]);
+
+        if (cellXY == null || cellXY[0] < 0 || cellXY[1] < 0) {
+            // Không còn ô trống vừa cỡ quanh điểm giữ -> rơi về ô trống đầu tiên như hành vi cũ,
+            // để thao tác vẫn có kết quả thay vì im lặng không làm gì.
+            int[] pixelXY = cellLayout.getFirstVacant(info.spanX, info.spanY);
+            if (pixelXY == null) {
+                showOutOfSpaceMessage(false);
+                return false;
+            }
+            cellXY = cellLayout.findNearestVacantArea(
+                    pixelXY[0], pixelXY[1], info.spanX, info.spanY, new int[2]);
+        }
+
+        if (cellXY == null || cellXY[0] < 0 || cellXY[1] < 0) {
+            showOutOfSpaceMessage(false);
+            return false;
+        }
+
+        addAppWidgetFromDrop(info, LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                currentScreenId, cellXY, span);
+        if (cellLayout.isNullScreen()) {
+            cellLayout.setNullScreen(false);
+        }
+        return true;
+    }
+
     private void processAddItemFromScreenEditView(PendingAddItemInfo info) {
         int span[] = new int[2];
         span[0] = info.spanX;

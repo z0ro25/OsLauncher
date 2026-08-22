@@ -19,7 +19,7 @@
     android:id="@+id/shortcuts_view"
     android:layout_width="@dimen/bg_popup_item_width"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/deep_shortcuts_elevation"
+    android:elevation="@dimen/app_popup_elevation"
     android:background="@drawable/bg_white_round_rect">
 
     <!-- Bọc ScrollView để khi app có quá nhiều mục thì cuộn lên/xuống thay vì bị cắt.

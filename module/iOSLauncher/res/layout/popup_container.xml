@@ -23,7 +23,7 @@
     android:paddingBottom="8dp"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:elevation="@dimen/deep_shortcuts_elevation"
+    android:elevation="@dimen/app_popup_elevation"
     android:orientation="vertical">
 
 </com.amz.ios.launcher.popup.PopupContainerWithArrow>
