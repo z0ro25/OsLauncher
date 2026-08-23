@@ -109,7 +109,19 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
     public AppWidgetHostView createView(Context context, int appWidgetId,
                                         LauncherAppWidgetProviderInfo appWidget) {
 
-        if (appWidget.isIOSWidget) {
+        // [FIX WIDGET TRỐNG] Quyết định nhánh render theo PACKAGE sở hữu, KHÔNG chỉ dựa cờ
+        //   isIOSWidget trong map provider. Lý do (đo bằng logcat + truy vết getWidgetProviders):
+        //   loop getAllProviders() đăng ký provider nội bộ với isIOSWidget=FALSE; guard "khung xám"
+        //   là dead-code (loop IOSAppWidget rỗng vì ENABLE_CUSTOM_WIDGET_TEST=false), còn overwrite
+        //   của loop queryBroadcastReceivers có thể TRƯỢT (getUser khác key, hoặc nuốt exception).
+        //   Khi cờ = false, widget iOS kéo-thả rơi xuống super.createView (AppWidgetHost THẬT) ->
+        //   RemoteViews chặn custom view (InflateException) -> host RỖNG = khung trống. Mọi provider
+        //   CÙNG PACKAGE với launcher đều là widget nội bộ (custom view, initialLayout trỏ tới layout
+        //   thật) nên luôn phải đi nhánh inflate nội bộ, bất kể cờ. Nhánh isOwnPackageWidget không
+        //   ảnh hưởng widget hệ thống thật (khác package -> vẫn qua super.createView như cũ).
+        boolean isOwnPackageWidget = appWidget.provider != null
+                && context.getPackageName().equals(appWidget.provider.getPackageName());
+        if (appWidget.isIOSWidget || isOwnPackageWidget) {
             String pkgName = appWidget.provider.getPackageName();
             LauncherAppWidgetHostView lahv = new LauncherAppWidgetHostView(context);
             if (pkgName.equals(context.getPackageName())) {

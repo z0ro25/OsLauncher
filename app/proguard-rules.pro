@@ -126,3 +126,24 @@
 -keepclassmembers class com.amz.ios.launcher.** {
     public <init>(android.content.Context);
 }
+
+# ===== Gson + R8 (AGP 8): "TypeToken must be created with a type argument" =====
+# TRIỆU CHỨNG (đo thật bằng logcat): app CRASH-LOOP ngay màn splash (ExceptionHandler bắt lỗi rồi
+#   khởi động lại -> kẹt splash mãi):
+#     java.lang.IllegalStateException: TypeToken must be created with a type argument ...
+#       at com.google.gson.reflect.TypeToken.getTypeTokenTypeArgument
+#       at ...YourWallpaperDataManager.getAllYourWallPaper(YourWallpaperDataManager.kt:63)
+#       at ...SplashActivity.initView(SplashActivity.kt:40)
+# NGUYÊN NHÂN: mã dùng `object : TypeToken<List<...>>(){}` (lớp con TypeToken ẩn danh). R8 của AGP 8
+#   (>=3.0) XOÁ generic signature của lớp con này -> Gson 2.9.1 không lấy được type argument -> ném.
+#   `-keepattributes Signature` (khối OkHttp phía trên) là ĐK CẦN nhưng CHƯA ĐỦ với R8 mới: phải giữ
+#   riêng generic signature cho chính TypeToken và mọi lớp con của nó. Gson chỉ ship consumer-rule
+#   này từ 2.10+, dự án đang ở 2.9.1 nên phải khai báo tay.
+-keepattributes Signature
+-keep class com.google.gson.reflect.TypeToken { *; }
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+# Giữ field có @SerializedName để R8 không bỏ trống dữ liệu parse được.
+-keepclassmembers,allowobfuscation class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}

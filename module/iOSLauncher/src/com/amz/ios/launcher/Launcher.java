@@ -4268,6 +4268,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     removeFloatingMenuOverlay();   // gỡ lớp phủ còn sót + hạ showingFloatingMenu
                     removeStalePopupContainer();   // gỡ popup app xác chết nếu còn (xem hàm này)
                     showWidgetMenu(v);
+                    // Nhớ widget + cellInfo để nếu người dùng GIỮ RỒI KÉO (vượt touch-slop) thì
+                    // DragLayer gọi startDragFromContextPopup() -> đóng widget menu + nhấc widget lên
+                    // kéo + bật edit (giống app). Gate bằng isWidgetContextDragCandidate().
+                    mContextPopupIcon = v;
+                    mContextPopupCellInfo = longClickCellInfo;
                     CellLayout cl = mWorkspace.getParentCellLayoutForView(v);
                     // Chỉ add khung resize khi CHẮC CHẮN snapToWidget() sẽ chạy (cờ đã hạ ở trên).
                     // Nếu vì lý do nào đó cờ vẫn bật, THÀ KHÔNG có khung resize còn hơn để lại view
@@ -4287,6 +4292,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         final boolean inHotseat = isHotseatLayout(v);
         if (!mDragController.isDragging()) {
             if (itemUnderLongClick == null) {
+                // [BUG FIX] "Giữ widget lại bật edit, không thấy popup."
+                //   Host widget (LauncherAppWidgetHostView) KHÔNG nuốt touch (onTouchEvent trả false)
+                //   nên CellLayout cha CŨNG tự lên lịch long-press của chính nó và bắn onLongClick(v=CellLayout,
+                //   tag=null) ~100ms SAU cú long-press của widget. v=CellLayout -> rơi vào nhánh "empty space"
+                //   này -> popWorkspace() -> startTidyUp() = BẬT EDIT, xé mất popup widget vừa mở ở cú
+                //   long-press trước. (App KHÔNG dính vì BubbleTextView nuốt touch -> cha không lên lịch.)
+                //   Nếu popup widget ĐANG mở thì cú long-press vùng-trống này CHẮC CHẮN là double-fire của
+                //   cử chỉ giữ widget -> BỎ QUA, giữ nguyên popup.
+                if (mWidgetMenuView != null) {
+                    return true;
+                }
                 // User long pressed on empty space
                 mWorkspace.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
                 if (mWorkspace.isInOverviewMode()) {
@@ -4336,14 +4352,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
                         com.amz.ios.launcher.popup.PopupContainerWithArrow.showForIcon(v);
                 if (popup == null) {
-                    // App không hỗ trợ popup (itemType lạ / bị disable): gỡ overlay + rơi về baseline
-                    // (nhấc icon + jiggle) để KHÔNG làm chết long-press.
+                    // App không hỗ trợ popup (itemType lạ / bị disable): GIỮ YÊN KHÔNG bật edit.
+                    // Yêu cầu người dùng: giữ liền chỉ hiện popup; edit CHỈ bật khi KÉO item đi.
+                    // Trước đây nhánh này nhấc icon + startTidyUp (bật edit khi giữ) -> đã bỏ.
+                    // Chỉ dọn overlay vừa add để không để lại lớp phủ rác.
                     mContextPopupIcon = null;
                     mContextPopupCellInfo = null;
                     removeFloatingMenuOverlay();
-                    openFloatingMenu(v);
-                    mWorkspace.showInfo(longClickCellInfo);
-                    mWorkspace.startTidyUp();
                 } else {
                     // Popup ngữ cảnh đã mở: nhớ icon + cellInfo để nếu người dùng GIỮ RỒI KÉO
                     // (di chuyển vượt touch-slop) thì DragLayer gọi startDragFromContextPopup() ->
@@ -6963,6 +6978,44 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     /**
+     * Hỏi xác nhận rồi gỡ 1 WIDGET khỏi màn hình chính khi bấm dấu trừ lúc đang edit. Bản RIÊNG cho
+     * widget (không đụng showRemoveAppDialog). Tái dùng đúng đường xóa của nút popup menu_widget_delete:
+     * DeleteDropTarget.removeWorkspaceOrFolderItem(...).
+     */
+    public void showRemoveWidgetDialog(final View hostView) {
+        if (hostView == null || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            return;
+        }
+
+        final int ID_REMOVE = 1;
+        final int ID_CANCEL = 2;
+
+        List<IOSDialogButton> iosDialogButtons = new ArrayList<>();
+        iosDialogButtons.add(new IOSDialogButton(ID_REMOVE,
+                getString(R.string.remove_from_home_screen), false, IOSDialogButton.TYPE_NEGATIVE));
+        iosDialogButtons.add(new IOSDialogButton(ID_CANCEL,
+                getString(R.string.cancel_action), false, IOSDialogButton.TYPE_POSITIVE));
+
+        new IOSDialog.Builder(this)
+                .title(getString(R.string.remove_widget_title))
+                .message(getString(R.string.remove_widget_message))
+                .multiOptions(true)
+                .multiOptionsListeners(new IOSDialogMultiOptionsListeners() {
+                    @Override
+                    public void onClick(IOSDialog iosDialog, IOSDialogButton iosDialogButton) {
+                        iosDialog.dismiss();
+                        if (iosDialogButton.getId() == ID_REMOVE) {
+                            DeleteDropTarget.removeWorkspaceOrFolderItem(Launcher.this,
+                                    (LauncherAppWidgetInfo) hostView.getTag(), hostView);
+                        }
+                    }
+                })
+                .iosDialogButtonList(iosDialogButtons)
+                .build()
+                .show();
+    }
+
+    /**
      * Gỡ 1 app khỏi màn hình chính (KHÔNG gỡ cài đặt) — app vẫn còn trong App Library.
      * Hotseat và workspace là 2 container khác nhau nên phải gọi đúng hàm của từng bên.
      */
@@ -7481,6 +7534,15 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     /**
+     * True khi popup WIDGET (giữ liền) đang mở và ứng viên là widget host — DragLayer dùng cờ này
+     * (song song với {@link #isContextPopupOpen()}) để bắt cử chỉ giữ-rồi-kéo cho widget: kéo vượt
+     * touch-slop -> {@link #startDragFromContextPopup()} nhấc widget + bật edit.
+     */
+    public boolean isWidgetContextDragCandidate() {
+        return mContextPopupIcon instanceof LauncherAppWidgetHostView && mWidgetMenuView != null;
+    }
+
+    /**
      * Chuyển từ popup ngữ cảnh sang KÉO THẢ: người dùng đang giữ app (popup hiện) rồi di chuyển ngón tay.
      * Đóng popup + nhấc icon lên kéo + bật jiggle/edit — đúng chuỗi baseline của nhánh edit-mode
      * ({@code openFloatingMenu + showInfo + startTidyUp}). Trả false nếu không còn ứng viên hợp lệ.
@@ -7493,6 +7555,16 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         CellLayout.CellInfo info = mContextPopupCellInfo;
         mContextPopupIcon = null;
         mContextPopupCellInfo = null;
+        if (icon instanceof LauncherAppWidgetHostView) {
+            // WIDGET: teardown riêng (không dùng floating-menu overlay của app). Đóng widget menu +
+            // gỡ khung resize, rồi nhấc widget lên kéo và bật edit — đúng yêu cầu "kéo widget mới edit".
+            dismissWidgetMenu();
+            getDragLayer().clearAllResizeFrames();
+            mWidgetResizeMode = false;
+            mWorkspace.showInfo(info);    // nhấc widget -> beginDragShared -> startDrag
+            mWorkspace.startTidyUp();     // bật jiggle/edit
+            return true;
+        }
         closeFloatingMenu();          // đóng PopupContainerWithArrow (closeAllOpenViews) + reset cờ.
                                       // LƯU Ý: closeFloatingMenu CHỈ clear() blur, KHÔNG removeView ->
                                       // mFloatingMenuBlurBg VẪN attach vào DragLayer.

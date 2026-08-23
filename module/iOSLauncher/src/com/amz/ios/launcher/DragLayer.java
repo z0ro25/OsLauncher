@@ -299,7 +299,8 @@ public class DragLayer extends InsettableFrameLayout {
         if (action == MotionEvent.ACTION_DOWN) {
             mPopupDownX = motionEvent.getX();
             mPopupDownY = motionEvent.getY();
-        } else if (action == MotionEvent.ACTION_MOVE && mLauncher.isContextPopupOpen()) {
+        } else if (action == MotionEvent.ACTION_MOVE
+                && (mLauncher.isContextPopupOpen() || mLauncher.isWidgetContextDragCandidate())) {
             // Slop RIÊNG, lớn hơn slop hệ thống — xem CONTEXT_POPUP_DRAG_SLOP_FACTOR.
             int slop = ViewConfiguration.get(mLauncher).getScaledTouchSlop()
                     * CONTEXT_POPUP_DRAG_SLOP_FACTOR;

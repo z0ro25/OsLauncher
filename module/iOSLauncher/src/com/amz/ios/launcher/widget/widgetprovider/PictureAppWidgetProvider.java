@@ -61,7 +61,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         // 1) Ưu tiên ảnh người dùng tự chọn qua config activity (nếu có).
         if (configuredPath != null) {
             try {
-                bitmap = BitmapFactory.decodeStream(new FileInputStream(new File(URI.create(configuredPath))));
+                bitmap = decodeScaledFile(new File(URI.create(configuredPath)).getAbsolutePath());
             } catch (Throwable th) {
                 th.printStackTrace();
             }
@@ -74,7 +74,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             PhotoInfo photo = loadRecentPhoto(context);
             if (photo != null && photo.path != null) {
                 try {
-                    bitmap = BitmapFactory.decodeFile(photo.path);
+                    bitmap = decodeScaledFile(photo.path);
                     dateMillis = photo.dateMillis;
                 } catch (Throwable th) {
                     th.printStackTrace();
@@ -114,7 +114,46 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         } catch (Throwable ignored) {
         }
 
-        appWidgetManager.updateAppWidget(appWidgetId, rv);
+        // RemoteViews có GIỚI HẠN bộ nhớ bitmap (~1.5x màn hình, vd 15MB). Ảnh full-res (50MB) sẽ
+        // ném IllegalArgumentException -> crash-loop tiến trình. Ảnh đã downscale ở decodeScaledFile,
+        // nhưng vẫn bọc try-catch để mọi lỗi RemoteViews không giết launcher.
+        try {
+            appWidgetManager.updateAppWidget(appWidgetId, rv);
+        } catch (Throwable th) {
+            th.printStackTrace();
+            try {
+                // Fallback tối thiểu: bỏ ảnh, chỉ để layout trống còn hơn crash.
+                RemoteViews safe = new RemoteViews(context.getPackageName(), R.layout.picture_app_widget_provider);
+                safe.setImageViewResource(R.id.widget_picture_image, R.drawable.sample_photo_widget);
+                appWidgetManager.updateAppWidget(appWidgetId, safe);
+            } catch (Throwable ignored) {
+            }
+        }
+    }
+
+    /**
+     * Giới hạn cạnh dài nhất của ảnh khi đưa vào RemoteViews (widget hệ thống). RemoteViews chỉ cho
+     * tổng bitmap ~15MB; ảnh camera thường 12MP (~50MB ARGB) sẽ làm crash. Cap 1024px -> tối đa
+     * ~4MB, dư an toàn. Dùng inSampleSize (đọc bounds trước) để không nạp cả ảnh gốc vào RAM.
+     */
+    private static Bitmap decodeScaledFile(String path) {
+        if (path == null) return null;
+        final int MAX_DIM = 1024;
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, bounds);
+        int w = bounds.outWidth, h = bounds.outHeight;
+        if (w <= 0 || h <= 0) {
+            // Không đọc được kích thước -> thử decode thường (có thể null).
+            return BitmapFactory.decodeFile(path);
+        }
+        int sample = 1;
+        while ((w / sample) > MAX_DIM || (h / sample) > MAX_DIM) {
+            sample *= 2;
+        }
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inSampleSize = sample;
+        return BitmapFactory.decodeFile(path, opts);
     }
 
     /**
@@ -139,7 +178,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         Bitmap bitmap = null;
         if (photo != null && photo.path != null) {
             try {
-                bitmap = BitmapFactory.decodeFile(photo.path);
+                bitmap = decodeScaledFile(photo.path);
             } catch (Throwable th) {
                 th.printStackTrace();
             }

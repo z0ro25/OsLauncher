@@ -776,4 +776,8 @@
     <string name="remove_app_message">Removing from Home Screen will keep the app in your App Library.</string>
     <string name="remove_from_home_screen">Remove from Home Screen</string>
     <string name="delete_app">Delete App</string>
+    <!-- Dialog xác nhận gỡ WIDGET khi bấm dấu trừ lúc đang edit. Nút "Remove from Home Screen" và
+         "Cancel" dùng lại remove_from_home_screen / cancel_action đã có. -->
+    <string name="remove_widget_title">Remove Widget?</string>
+    <string name="remove_widget_message">This widget will be removed from your Home Screen.</string>
 </resources>

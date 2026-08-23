@@ -1,6 +1,7 @@
 package com.amz.ios.launcher.widget;
 
 import android.appwidget.AppWidgetHost;
+import com.amz.ios.launcher.LauncherAppWidgetHost;
 import android.appwidget.AppWidgetHostView;
 import android.content.ComponentName;
 import android.content.Context;
@@ -368,8 +369,9 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
                 ratio = previewBmp.getWidth() > 0
                         ? targetWidth * 1.0f / previewBmp.getWidth()
                         : 1.0f;
-                // dragRegion rỗng: kéo tự do theo ngón tay (giống nhánh WidgetBaseLayout).
-                bound = new Rect(0, 0, 0, 0);
+                // [CĂN GIỮA] Ảnh kéo phải nằm CHÍNH GIỮA ngón tay (ngón trỏ vào tâm widget) sau khi
+                //   giữ. previewBmp và ratio đã sẵn sàng ở trên nên tính viewImageBounds canh giữa tại đây.
+                bound = centerBoundOnFinger(v, previewBmp, ratio);
                 // Chảy tiếp xuống đoạn startDrag dùng chung ở cuối hàm — KHÔNG nhân bản logic.
             } else {
 
@@ -494,10 +496,6 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
                 }
             }
             if (srcBmp == null) return false;
-            // bound chỉ dùng làm dragRegion; nhánh này thả tự do theo ngón tay nên để rỗng như
-            // nhánh WidgetBaseLayout. Gán ở ĐÂY (một chỗ duy nhất) để không rơi vào trường hợp
-            // biến chưa khởi tạo khi captureView() trả null.
-            bound = new Rect(0, 0, 0, 0);
 
             previewBmp = srcBmp;
             // Tỉ lệ ảnh kéo so với kích thước THẬT của widget khi nằm trên lưới — cùng cách tính với
@@ -513,6 +511,9 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
             ratio = targetWidth > 0 && previewBmp.getWidth() > 0
                     ? targetWidth * 1.0f / previewBmp.getWidth()
                     : 1.0f;
+            // [CĂN GIỮA] previewBmp & ratio đã có -> canh ảnh kéo vào chính giữa ngón tay (ngón trỏ
+            //   vào tâm widget). Tính SAU ratio vì helper cần cả hai giá trị này.
+            bound = centerBoundOnFinger(v, previewBmp, ratio);
         }
         else
             return false;
@@ -612,6 +613,31 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         }
 
         return true;
+    }
+
+    /**
+     * [CĂN GIỮA] Tính viewImageBounds để ẢNH KÉO nằm CHÍNH GIỮA điểm chạm — ngón tay trỏ vào TÂM
+     * widget ngay khi vừa giữ. Dùng cho thẻ preview SỐNG/gallery của widget iOS.
+     *
+     * DragView scale bitmap quanh TÂM theo `ratio` và đặt registrationX = motionDownX - dragLayerX,
+     * với dragLayerX = locDL[0] + viewImageBounds.left + (ratio*bmpW - bmpW)/2
+     * (xem {@link com.amz.ios.launcher.DragController#startDrag}). Muốn TÂM ảnh nằm ngay ngón tay thì
+     * cần registrationX = bmpW/2 => dragLayerX = motionDownX - bmpW/2, giải ngược ra
+     * viewImageBounds.left như dưới (tương tự trục Y). Trả Rect(left, top, 0, 0): right/bottom KHÔNG
+     * được startDrag dùng tới.
+     */
+    private Rect centerBoundOnFinger(View v, Bitmap previewBmp, float ratio) {
+        int[] locDL = new int[2];
+        mLauncher.getDragLayer().getLocationInDragLayer(v, locDL);
+        int bmpW = previewBmp.getWidth();
+        int bmpH = previewBmp.getHeight();
+        int motionDownX = mDragController.getMotionDownX();
+        int motionDownY = mDragController.getMotionDownY();
+        int extraX = (int) ((ratio * bmpW - bmpW) / 2f);
+        int extraY = (int) ((ratio * bmpH - bmpH) / 2f);
+        int left = motionDownX - bmpW / 2 - locDL[0] - extraX;
+        int top = motionDownY - bmpH / 2 - locDL[1] - extraY;
+        return new Rect(left, top, 0, 0);
     }
 
     @Override
@@ -771,7 +797,13 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         public void run() {
             if (mLoader.mWidgetLoadingId == -1) return;
             Launcher launcher = mLoader.mLauncher;
-            AppWidgetHost appWidgetHost = launcher.getAppWidgetHost();
+            // [FIX WIDGET TRỐNG] PHẢI khai kiểu LauncherAppWidgetHost (không phải base AppWidgetHost).
+            //   createView(Context,int,LauncherAppWidgetProviderInfo) là OVERLOAD khai trên
+            //   LauncherAppWidgetHost; nếu biến receiver mang kiểu base AppWidgetHost thì overload này
+            //   bị ẩn -> trình biên dịch chọn base createView(...,AppWidgetProviderInfo) -> host mặc định
+            //   RemoteViews (không inflate/bind view nội bộ) -> widget iOS kéo-thả HIỆN TRỐNG. Ép kiểu
+            //   con để boundWidget đi đúng đường inflate như widget đặt sẵn ở page 0 (vốn hiển thị đúng).
+            LauncherAppWidgetHost appWidgetHost = launcher.getAppWidgetHost();
             AppWidgetHostView appWidgetHostView = appWidgetHost.createView(
                 launcher,mLoader.mWidgetLoadingId,mProviderInfo
             );
