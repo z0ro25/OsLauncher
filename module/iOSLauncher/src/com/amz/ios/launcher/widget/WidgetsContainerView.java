@@ -212,6 +212,16 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
     public void setListeners(){
         addPanelSlideListener(new WidgetContainerViewListener());
         mActionClearBtn.setOnClickListener(this);
+        // [FIX] Bỏ nền ĐEN MỜ phía trên khay widget.
+        //   Trước đây SlidingUpPanelLayout tự phủ DEFAULT_FADE_COLOR (0x99000000) lên phần màn hình
+        //   phía trên sheet. Lớp phủ đó vẽ theo clip bounds của MAIN VIEW, mà main view không chạm
+        //   đỉnh màn (cửa sổ launcher bật FLAG_LAYOUT_NO_LIMITS) -> hụt đúng một dải status bar,
+        //   nhìn thành mảng đen gãy khúc rất xấu.
+        //   Đặt 0 để tắt hẳn lớp phủ: phía trên sheet nhìn xuyên suốt xuống màn hình chính.
+        //   CHẠM-ĐỂ-ĐÓNG VẪN HOẠT ĐỘNG: nhánh xử lý ở SlidingUpPanelLayout chỉ phụ thuộc
+        //   mSlideOffset + mFadeOnClickListener (đặt ngay dưới đây), KHÔNG phụ thuộc màu nền mờ.
+        //   Chỉ đặt cho RIÊNG khay widget -> màn trái và các panel khác giữ nguyên nền mờ như cũ.
+        setCoveredFadeColor(0);
         setFadeOnClickListener(
             new View.OnClickListener(){
             @Override
@@ -414,6 +424,15 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
             else return false;
             float bmpWidth = previewBmp.getWidth();
             ratio = bmpWidth / width;
+            // [BUG FIX] Widget của APP NGOÀI bị LỆCH HẲN XUỐNG GÓC PHẢI-DƯỚI sau khi khay đóng.
+            //   Nhánh preview SỐNG (widget nội bộ) ở trên đã gọi centerBoundOnFinger() nên ảnh kéo
+            //   nằm đúng dưới ngón tay. Nhánh này (preview TĨNH — widget app ngoài) lại để nguyên
+            //   bound = widgetImageView.getBitmapBounds(), tức toạ độ của ảnh BÊN TRONG ô preview
+            //   của khay — một hệ quy chiếu hoàn toàn khác, không liên quan tới ngón tay. Khay đóng
+            //   xong thì DragView neo theo toạ độ vô nghĩa đó -> lệch xuống phải-dưới.
+            //   Dùng CHUNG centerBoundOnFinger() để hai loại widget hành xử giống hệt nhau.
+            //   Đặt ở ĐÂY vì cần previewBmp + ratio đã tính xong ở 2 dòng trên.
+            bound = centerBoundOnFinger(v, previewBmp, ratio);
             } // hết nhánh preview TĨNH (else của liveBmp != null)
         }
         else if (v instanceof WidgetBaseLayout) {
@@ -578,15 +597,41 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
             //   Khi đó KHÔNG để thao tác rơi vào hư vô: đóng khay + bật edit + ĐẶT NGAY widget vào ô
             //   gần vị trí đang giữ. Người dùng vẫn thêm được widget, sau đó kéo lại trên desktop
             //   (luồng kéo widget trên desktop vốn hoạt động bình thường).
-            int[] loc = new int[2];
-            v.getLocationOnScreen(loc);
-            int touchX = loc[0] + v.getWidth() / 2;
-            int touchY = loc[1] + v.getHeight() / 2;
+            // [BUG FIX] Widget rơi LỆCH XUỐNG GÓC PHẢI-DƯỚI thay vì nằm ở chỗ đang giữ.
+            //   Hai nguyên nhân cộng hưởng:
+            //   1) Điểm quy chiếu SAI: trước đây lấy tâm của Ô PREVIEW trong khay
+            //      (v.getLocationOnScreen + width/2), không phải điểm ngón tay. Ô preview nằm
+            //      giữa-dưới sheet nên quy xuống page cũng ra vùng giữa-dưới.
+            //      -> Nay dùng toạ độ ngón tay THẬT, lưu từ ACTION_DOWN ở chính cell
+            //      (xem WidgetAppStyleCell/GalleryWidgetCell.getTouchDownRawX/Y).
+            //   2) Tính toạ độ SAI THỜI ĐIỂM: collapseWidgetList() + onShakingAllApps() làm
+            //      workspace đổi layout/scale, mà cellLayout.getLocationOnScreen() lại được đọc
+            //      SAU đó -> lệch pha với điểm đã lấy trước khi đóng khay.
+            //      -> Nay tính ô đích NGAY BÂY GIỜ (findCellForScreenPoint), đóng khay xong mới
+            //      đặt widget vào ô đã chốt (addWidgetAtCell).
+            float rawX = -1f, rawY = -1f;
+            if (v instanceof WidgetAppStyleCell) {
+                rawX = ((WidgetAppStyleCell) v).getTouchDownRawX();
+                rawY = ((WidgetAppStyleCell) v).getTouchDownRawY();
+            } else if (v instanceof GalleryWidgetCell) {
+                rawX = ((GalleryWidgetCell) v).getTouchDownRawX();
+                rawY = ((GalleryWidgetCell) v).getTouchDownRawY();
+            }
+            if (rawX < 0f || rawY < 0f) {
+                // Không bắt được điểm chạm (hiếm) -> lấy tâm ô preview như hành vi cũ.
+                int[] loc = new int[2];
+                v.getLocationOnScreen(loc);
+                rawX = loc[0] + v.getWidth() / 2f;
+                rawY = loc[1] + v.getHeight() / 2f;
+            }
+
+            PendingAddWidgetInfo widgetInfo = (PendingAddWidgetInfo) pendingAddItemInfo;
+            int[] targetCell = mLauncher.findCellForScreenPoint(
+                    widgetInfo, (int) rawX, (int) rawY);
 
             collapseWidgetList();
             mLauncher.onShakingAllApps();
-            mLauncher.addWidgetAtScreenPoint((PendingAddWidgetInfo) pendingAddItemInfo,
-                    touchX, touchY);
+            mLauncher.addWidgetAtCell(widgetInfo, targetCell);
             return true;
         }
 

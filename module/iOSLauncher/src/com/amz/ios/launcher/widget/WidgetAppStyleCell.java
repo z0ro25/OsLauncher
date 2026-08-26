@@ -46,6 +46,25 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
     int mWidth;
     int mHeight;
 
+    /**
+     * Toạ độ MÀN HÌNH của điểm ngón tay tại ACTION_DOWN; -1 = chưa có.
+     * Dùng cho luồng "giữ preview để thêm widget": cần biết người dùng đang giữ ở ĐÂU để đặt widget
+     * đúng chỗ đó. {@code OnLongClickListener.onLongClick(View)} KHÔNG mang theo toạ độ chạm, nên
+     * phải tự lưu tại {@link #onTouchEvent(MotionEvent)} — nơi duy nhất còn thấy MotionEvent.
+     */
+    private float mTouchDownRawX = -1f;
+    private float mTouchDownRawY = -1f;
+
+    /** @return toạ độ X màn hình nơi ngón tay chạm xuống, hoặc -1 nếu chưa có. */
+    public float getTouchDownRawX() {
+        return mTouchDownRawX;
+    }
+
+    /** @return toạ độ Y màn hình nơi ngón tay chạm xuống, hoặc -1 nếu chưa có. */
+    public float getTouchDownRawY() {
+        return mTouchDownRawY;
+    }
+
     public WidgetAppStyleCell(Context context) {
         super(context);
 
@@ -93,6 +112,8 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
 
         setWillNotDraw(false);
         setClipToPadding(false);
+        // Bóng toả RA NGOÀI mép ảnh; clipChildren mặc định true sẽ cắt cụt phần toả đó.
+        setClipChildren(false);
         setAccessibilityDelegate(LauncherAppState.getInstance().getAccessibilityDelegate());
 
         LinearLayout.LayoutParams layoutParams;
@@ -123,6 +144,17 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         }
         if (mActiveRequest != null) {
             return;
+        }
+        // Widget của APP NGOÀI -> vẽ ảnh NẰM TRỌN trong khung thay vì cắt bớt phần dưới.
+        // Widget nội bộ (isIOSWidget) giữ NGUYÊN cách vẽ cũ. Xem WidgetImageView#setFitInsideBox.
+        if (mWidgetPreview != null) {
+            boolean isIOS = (mParcelable instanceof LauncherAppWidgetProviderInfo)
+                    && ((LauncherAppWidgetProviderInfo) mParcelable).isIOSWidget;
+            mWidgetPreview.setFitInsideBox(!isIOS);
+            // Bóng mềm kiểu iOS ôm viền ảnh preview; bo góc dùng chung widget_round_corner để khớp
+            // bo góc widget khi đặt ra màn hình.
+            mWidgetPreview.setPreviewShadow(
+                    getResources().getDimension(R.dimen.widget_round_corner));
         }
         int[] previewSize = getPreviewSize();
 
@@ -216,6 +248,13 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // Ghi lại ĐIỂM NGÓN TAY trên màn hình để luồng "giữ để thêm widget" biết đặt widget ở đâu.
+        // OnLongClickListener.onLongClick(View) KHÔNG mang theo toạ độ chạm, mà đây là nơi duy nhất
+        // còn thấy MotionEvent -> phải lưu tại ACTION_DOWN. Xem getTouchDownRawX/Y().
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            mTouchDownRawX = event.getRawX();
+            mTouchDownRawY = event.getRawY();
+        }
         // Drag ĐÃ bắt đầu (long-press nổ -> startDrag): NHẢ chuỗi touch ra để DragLayer/DragController
         // tiếp quản việc kéo. Nếu cell cứ giữ (return true) thì DragView không nhận được ACTION_MOVE
         // -> widget "dính" tại chỗ, kéo không đi đâu cả.

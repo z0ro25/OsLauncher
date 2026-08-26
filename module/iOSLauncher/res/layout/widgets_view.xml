@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:descendantFocusability="afterDescendants"
-    android:fitsSystemWindows="true"
     android:focusable="true"
     android:gravity="bottom"
     app:umanoDragView="@+id/widgets_content"

@@ -41,6 +41,24 @@ public class GalleryWidgetCell extends LinearLayout implements IWidgetPreview {
     int mPreviewWidth;
     int mPreviewHeight;
 
+    /**
+     * Toạ độ MÀN HÌNH của điểm ngón tay tại ACTION_DOWN; -1 = chưa có.
+     * Cần cho luồng "giữ preview để thêm widget" vì onLongClick(View) không mang theo toạ độ chạm.
+     * Xem WidgetAppStyleCell để biết chi tiết.
+     */
+    private float mTouchDownRawX = -1f;
+    private float mTouchDownRawY = -1f;
+
+    /** @return toạ độ X màn hình nơi ngón tay chạm xuống, hoặc -1 nếu chưa có. */
+    public float getTouchDownRawX() {
+        return mTouchDownRawX;
+    }
+
+    /** @return toạ độ Y màn hình nơi ngón tay chạm xuống, hoặc -1 nếu chưa có. */
+    public float getTouchDownRawY() {
+        return mTouchDownRawY;
+    }
+
     public GalleryWidgetCell(Context context) {
         super(context);
 
@@ -66,12 +84,16 @@ public class GalleryWidgetCell extends LinearLayout implements IWidgetPreview {
         }
 
         // Kích thước preview vuông theo grid; WidgetImageView tự scale bitmap về khung.
-        mSize = (int) (mGrid.cellWidthPx * 2f);
+        // [CĂN CHỈNH] 2f -> 2.3f: thẻ TO hơn nên phần trống quanh ảnh ít đi, các thẻ trông sát nhau
+        // hơn mà không phải bóp lề (bóp lề nhiều sẽ làm lưới chật và bóng đổ bị cắt).
+        mSize = (int) (mGrid.cellWidthPx * 2.3f);
         mPreviewWidth = mSize;
         mPreviewHeight = mSize;
 
         setOrientation(LinearLayout.VERTICAL);
         setClipToPadding(false);
+        // Bóng toả RA NGOÀI mép ảnh; clipChildren mặc định true sẽ cắt cụt phần toả đó.
+        setClipChildren(false);
         setFocusable(true);
     }
 
@@ -105,6 +127,16 @@ public class GalleryWidgetCell extends LinearLayout implements IWidgetPreview {
         }
         if (mActiveRequest != null) {
             return;
+        }
+        // Widget của APP NGOÀI -> vẽ ảnh nằm TRỌN trong khung thay vì cắt phần dưới.
+        // Widget nội bộ giữ nguyên cách vẽ cũ. Xem WidgetImageView#setFitInsideBox.
+        if (mWidgetPreview != null) {
+            boolean isIOS = (mParcelable instanceof LauncherAppWidgetProviderInfo)
+                    && ((LauncherAppWidgetProviderInfo) mParcelable).isIOSWidget;
+            mWidgetPreview.setFitInsideBox(!isIOS);
+            // Bóng mềm kiểu iOS ôm viền ảnh preview, bo góc khớp widget khi đặt ra màn hình.
+            mWidgetPreview.setPreviewShadow(
+                    getResources().getDimension(R.dimen.widget_round_corner));
         }
         mActiveRequest = mPreviewLoader.getPreview(mParcelable, mPreviewWidth, mPreviewHeight, this);
     }
@@ -176,6 +208,11 @@ public class GalleryWidgetCell extends LinearLayout implements IWidgetPreview {
 
     @Override
     public boolean onTouchEvent(android.view.MotionEvent event) {
+        // Ghi lại ĐIỂM NGÓN TAY để luồng "giữ để thêm widget" đặt widget đúng chỗ đang giữ.
+        if (event.getActionMasked() == android.view.MotionEvent.ACTION_DOWN) {
+            mTouchDownRawX = event.getRawX();
+            mTouchDownRawY = event.getRawY();
+        }
         // Drag ĐÃ bắt đầu: nhả chuỗi touch cho DragLayer/DragController tiếp quản, nếu không
         // DragView không nhận ACTION_MOVE -> widget dính tại chỗ. Xem WidgetAppStyleCell.
         if (mLauncher != null && mLauncher.getDragController() != null

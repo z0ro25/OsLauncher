@@ -52,7 +52,10 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
         this.mWidgetListDelegate = delegate;
         this.mAppWidgetManagerCompat = AppWidgetManagerCompat.getInstance(mLauncher);
         this.mWidgetPreviewLoader = LauncherAppState.getInstance().getWidgetCache();
-        this.mMargin = mGrid.edgeMarginPx / 2;
+        // [CĂN CHỈNH] Lề quanh mỗi thẻ ở lưới widget nổi bật. Giảm một nửa (edgeMargin/2 -> /4) để
+        // khoảng hở giữa các thẻ hẹp lại theo yêu cầu. Lề này áp CHUNG cho cả thẻ vuông 1 cột lẫn
+        // thẻ ngang 2 cột, nên mép trái/phải của hàng ngang vẫn THẲNG với mép lưới 2 cột phía trên.
+        this.mMargin = mGrid.edgeMarginPx / 4;
     }
 
     public void setWidgetModel(WidgetsModel widgetModel){

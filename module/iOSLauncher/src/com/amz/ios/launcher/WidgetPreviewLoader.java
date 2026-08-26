@@ -119,7 +119,16 @@ public class WidgetPreviewLoader {
      * sizes (landscape vs portrait).
      */
     private static class CacheDb extends SQLiteOpenHelper {
-        private static final int DB_VERSION = 5;
+        // [FIX] 5 -> 6: buộc XOÁ sạch cache preview cũ.
+        //   Ảnh preview đã sinh được LƯU vào DB này. doInBackground() đọc DB TRƯỚC:
+        //       Bitmap preview = readFromDb(mKey, unusedBitmap, this);
+        //       if (!isCancelled() && preview == null) { preview = generatePreview(...); }
+        //   -> nếu DB đã có ảnh cũ (sinh từ code cũ, bị CẮT) thì generatePreview() KHÔNG chạy, nên
+        //   sửa thuật toán vẽ trong generateWidgetPreview() không có tác dụng gì với widget đã xem.
+        //   Cache chỉ tự hết hạn khi app đổi version, không biết code launcher đã đổi.
+        //   Tăng DB_VERSION -> onUpgrade() gọi clearDB() (DROP TABLE + tạo lại) -> lần mở khay kế
+        //   tiếp sinh lại ảnh bằng thuật toán mới.
+        private static final int DB_VERSION = 6;
 
         private static final String TABLE_NAME = "shortcut_and_widget_previews";
         private static final String COLUMN_COMPONENT = "componentName";
@@ -423,6 +432,36 @@ public class WidgetPreviewLoader {
             // Reusing bitmap. Clear it.
             c.setBitmap(preview);
             c.drawColor(0, PorterDuff.Mode.CLEAR);
+        }
+
+        // [FIX] Preview widget của APP NGOÀI bị CẮT hoặc không thấy gì.
+        //
+        //   NGUYÊN NHÂN: bitmap đích luôn VUÔNG (WidgetAppStyleCell đặt mWidth = mHeight, rồi
+        //   PreviewLoadTask createBitmap đúng cỡ đó), trong khi ảnh preview do app cung cấp có tỉ lệ
+        //   bất kỳ (previewWidth/Height = drawable.getIntrinsicWidth/Height). Đoạn scale ở trên CHỈ
+        //   thu khi ảnh vượt maxPreviewWidth/Height — ảnh vẫn có thể CAO HƠN bitmap đích mà không
+        //   vượt ngưỡng đó. Khi ấy y = (preview.getHeight() - previewHeight)/2 thành SỐ ÂM ->
+        //   setBounds vẽ tràn lên trên/xuống dưới, phần ngoài bitmap mất hẳn -> "bị cắt"; ảnh lệch
+        //   tỉ lệ nhiều thì phần lọt trong khung gần như trống -> "không thấy gì".
+        //   Chú thích gốc AOSP ở trên xác nhận đây là hành vi CỐ Ý: "Scale to fit width only - let
+        //   the widget preview be clipped in the vertical dimension".
+        //
+        //   TÁCH 2 LUỒNG (giữ nguyên hành vi cũ cho widget nội bộ):
+        //     - Widget NỘI BỘ (isIOSWidget): GIỮ NGUYÊN logic cũ. Chúng được thiết kế quanh khung
+        //       vuông và phần lớn còn dùng preview SỐNG (LiveWidgetPreviewHelper) chứ không đi qua
+        //       đây; đụng vào là vỡ bố cục Calendar/Battery/Picture/Weather.
+        //     - Widget APP NGOÀI: thu thêm cho ảnh nằm TRỌN trong bitmap (letterbox thay vì crop),
+        //       giữ đúng tỉ lệ gốc. Ảnh có thể nhỏ hơn trước và có viền trống, nhưng thấy ĐỦ nội dung.
+        if (!info.isIOSWidget && widgetPreviewExists
+                && previewWidth > 0 && previewHeight > 0) {
+            float fitScale = Math.min(
+                    preview.getWidth() / (float) previewWidth,
+                    preview.getHeight() / (float) previewHeight);
+            // Chỉ thu NHỎ khi ảnh không vừa khung; không phóng to ảnh nhỏ (giữ nét như cũ).
+            if (fitScale < 1f) {
+                previewWidth = Math.max(1, (int) (previewWidth * fitScale));
+                previewHeight = Math.max(1, (int) (previewHeight * fitScale));
+            }
         }
 
         // Draw the scaled preview into the final bitmap

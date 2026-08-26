@@ -3063,25 +3063,46 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     /**
-     * [TÍNH NĂNG] Thêm widget vào TRANG HIỆN TẠI, đặt ở ô GẦN ĐIỂM NGÓN TAY nhất — dùng cho thao tác
-     * "giữ liền vào preview trong khay widget".
+     * Quy điểm chạm trên MÀN HÌNH về ô lưới còn trống gần nhất của trang hiện tại.
      *
-     * Khác {@link #processAddItemFromScreenEditView(PendingAddItemInfo)} (hàm dùng chung, GIỮ NGUYÊN):
-     * hàm đó luôn đặt vào ô trống ĐẦU TIÊN của trang ({@code getFirstVacant}), nên người dùng không
-     * chọn được chỗ. Ở đây nhận toạ độ màn hình nơi người dùng đang giữ, quy về ô lưới gần nhất còn
-     * trống rồi đặt widget vào đó.
+     * TÁCH RIÊNG khỏi {@link #addWidgetAtCell} để gọi được TRƯỚC khi đóng khay widget: đóng khay +
+     * vào edit mode làm workspace đổi layout/scale, nếu đọc {@code getLocationOnScreen} sau đó thì
+     * toạ độ không còn khớp với lúc người dùng đang giữ -> widget rơi lệch chỗ.
      *
-     * @param info    widget cần thêm
-     * @param screenX toạ độ X trên MÀN HÌNH của điểm giữ
-     * @param screenY toạ độ Y trên MÀN HÌNH của điểm giữ
-     * @return true nếu đặt được; false nếu trang đã hết chỗ (đã hiện thông báo).
+     * @return {cellX, cellY} hoặc null nếu không tìm được ô trống.
      */
-    public boolean addWidgetAtScreenPoint(PendingAddWidgetInfo info, int screenX, int screenY) {
+    public int[] findCellForScreenPoint(PendingAddWidgetInfo info, int screenX, int screenY) {
+        if (info == null) {
+            return null;
+        }
+        CellLayout cellLayout = mWorkspace.getCurrentDropLayout();
+        if (cellLayout == null) {
+            return null;
+        }
+        int[] loc = new int[2];
+        cellLayout.getLocationOnScreen(loc);
+        int pixelX = screenX - loc[0];
+        int pixelY = screenY - loc[1];
+
+        int[] cellXY = cellLayout.findNearestVacantArea(
+                pixelX, pixelY, info.spanX, info.spanY, new int[2]);
+        if (cellXY != null && cellXY[0] >= 0 && cellXY[1] >= 0) {
+            return cellXY;
+        }
+        return null;
+    }
+
+    /**
+     * Đặt widget vào ĐÚNG ô đã tính sẵn (xem {@link #findCellForScreenPoint}).
+     * Dùng cho luồng "giữ preview trong khay để thêm widget": ô được tính TRƯỚC khi đóng khay,
+     * rồi mới gọi hàm này sau khi khay đã đóng và workspace đã vào edit mode.
+     *
+     * @return true nếu đặt được; false nếu hết chỗ (đã hiện thông báo).
+     */
+    public boolean addWidgetAtCell(PendingAddWidgetInfo info, int[] cellXY) {
         if (info == null) {
             return false;
         }
-        int[] span = new int[]{info.spanX, info.spanY};
-
         CellLayout cellLayout = mWorkspace.getCurrentDropLayout();
         if (cellLayout == null) {
             return false;
@@ -3091,34 +3112,25 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             currentScreenId = mWorkspace.commitExtraEmptyScreen(Workspace.EXTRA_EMPTY_SCREEN_ID1);
         }
 
-        // Quy điểm chạm (toạ độ màn hình) về toạ độ TRONG cellLayout để tìm đúng ô dưới ngón tay.
-        int[] loc = new int[2];
-        cellLayout.getLocationOnScreen(loc);
-        int pixelX = screenX - loc[0];
-        int pixelY = screenY - loc[1];
-
-        int[] cellXY = cellLayout.findNearestVacantArea(
-                pixelX, pixelY, info.spanX, info.spanY, new int[2]);
-
-        if (cellXY == null || cellXY[0] < 0 || cellXY[1] < 0) {
-            // Không còn ô trống vừa cỡ quanh điểm giữ -> rơi về ô trống đầu tiên như hành vi cũ,
-            // để thao tác vẫn có kết quả thay vì im lặng không làm gì.
+        int[] target = cellXY;
+        if (target == null || target[0] < 0 || target[1] < 0) {
+            // Không có ô tính sẵn (hoặc không hợp lệ) -> rơi về ô trống đầu tiên để thao tác vẫn
+            // có kết quả thay vì im lặng không làm gì.
             int[] pixelXY = cellLayout.getFirstVacant(info.spanX, info.spanY);
             if (pixelXY == null) {
                 showOutOfSpaceMessage(false);
                 return false;
             }
-            cellXY = cellLayout.findNearestVacantArea(
+            target = cellLayout.findNearestVacantArea(
                     pixelXY[0], pixelXY[1], info.spanX, info.spanY, new int[2]);
         }
-
-        if (cellXY == null || cellXY[0] < 0 || cellXY[1] < 0) {
+        if (target == null || target[0] < 0 || target[1] < 0) {
             showOutOfSpaceMessage(false);
             return false;
         }
 
         addAppWidgetFromDrop(info, LauncherSettings.Favorites.CONTAINER_DESKTOP,
-                currentScreenId, cellXY, span);
+                currentScreenId, target, new int[]{info.spanX, info.spanY});
         if (cellLayout.isNullScreen()) {
             cellLayout.setNullScreen(false);
         }
