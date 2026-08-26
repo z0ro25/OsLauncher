@@ -86,38 +86,61 @@ public final class LiveWidgetPreviewHelper {
                 @Override
                 public void onLayoutChange(View v, int l, int t, int r, int b,
                                            int ol, int ot, int or, int ob) {
-                    int boxW = r - l;
-                    int boxH = b - t;
-                    if (boxW <= 0 || boxH <= 0) {
-                        return;
-                    }
-                    // Kích thước tự nhiên của widget theo tỉ lệ span (đơn vị ô lưới).
-                    int natW = spanX * grid.cellWidthPx;
-                    int natH = spanY * grid.cellHeightPx;
-                    if (natW <= 0 || natH <= 0) {
-                        return;
-                    }
-                    // Cho widget đo/vẽ ở kích thước tự nhiên rồi scale đồng đều cho vừa khung.
-                    ViewGroup.LayoutParams wlp = widgetView.getLayoutParams();
-                    if (wlp.width != natW || wlp.height != natH) {
-                        wlp.width = natW;
-                        wlp.height = natH;
-                        widgetView.setLayoutParams(wlp);
-                    }
-                    float scale = Math.min(boxW / (float) natW, boxH / (float) natH);
-                    if (scale <= 0f) {
-                        scale = 1f;
-                    }
-                    widgetView.setPivotX(natW / 2f);
-                    widgetView.setPivotY(natH / 2f);
-                    widgetView.setScaleX(scale);
-                    widgetView.setScaleY(scale);
+                    applyScale(widgetView, grid, spanX, spanY, r - l, b - t);
                 }
             });
+            // Host có thể được thêm vào một khung ĐÃ layout sẵn đúng kích thước (thẻ được tái dùng
+            // khi cuộn khay). Khi đó kích thước host không đổi nên onLayoutChange KHÔNG nổ, widget
+            // giữ scale mặc định và ô trông như trống. Áp scale ngay ở lần layout đầu tiên để không
+            // phụ thuộc vào việc listener có nổ hay không.
+            host.getViewTreeObserver().addOnPreDrawListener(
+                    new android.view.ViewTreeObserver.OnPreDrawListener() {
+                        @Override
+                        public boolean onPreDraw() {
+                            int boxW = host.getWidth();
+                            int boxH = host.getHeight();
+                            if (boxW <= 0 || boxH <= 0) {
+                                return true;   // chưa có kích thước, chờ lần vẽ sau
+                            }
+                            host.getViewTreeObserver().removeOnPreDrawListener(this);
+                            applyScale(widgetView, grid, spanX, spanY, boxW, boxH);
+                            return true;
+                        }
+                    });
             return host;
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * Cho widget đo/vẽ ở kích thước TỰ NHIÊN (theo tỉ lệ span) rồi scale đồng đều cho vừa khung.
+     * Tách riêng để dùng chung cho cả onLayoutChange lẫn lần áp scale đầu tiên.
+     */
+    private static void applyScale(View widgetView, DeviceProfile grid, int spanX, int spanY,
+                                   int boxW, int boxH) {
+        if (boxW <= 0 || boxH <= 0) {
+            return;
+        }
+        int natW = spanX * grid.cellWidthPx;
+        int natH = spanY * grid.cellHeightPx;
+        if (natW <= 0 || natH <= 0) {
+            return;
+        }
+        ViewGroup.LayoutParams wlp = widgetView.getLayoutParams();
+        if (wlp.width != natW || wlp.height != natH) {
+            wlp.width = natW;
+            wlp.height = natH;
+            widgetView.setLayoutParams(wlp);
+        }
+        float scale = Math.min(boxW / (float) natW, boxH / (float) natH);
+        if (scale <= 0f) {
+            scale = 1f;
+        }
+        widgetView.setPivotX(natW / 2f);
+        widgetView.setPivotY(natH / 2f);
+        widgetView.setScaleX(scale);
+        widgetView.setScaleY(scale);
     }
 
     /** Vô hiệu hoá clickable/focusable trên toàn bộ cây view (dùng cho preview không tương tác). */

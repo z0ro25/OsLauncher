@@ -103,7 +103,9 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         Resources resources = context.getResources();
 
         mWidgetDimenStrFormat = resources.getString(R.string.widget_dims_format);
-        mSize = (int) (mGrid.cellWidthPx * 3.6f);
+        // [CĂN CHỈNH] 3.6f -> 4.2f: khung ô preview to hơn để ảnh widget hiển thị lớn, dễ nhìn.
+        // Đây là TRẦN kích thước preview (WidgetImageView thu ảnh cho vừa khung này).
+        mSize = (int) (mGrid.cellWidthPx * 4.2f);
 
         mHeight = (int) (mSize * 0.8f);
 //        else {
@@ -112,7 +114,6 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
 
         setWillNotDraw(false);
         setClipToPadding(false);
-        // Bóng toả RA NGOÀI mép ảnh; clipChildren mặc định true sẽ cắt cụt phần toả đó.
         setClipChildren(false);
         setAccessibilityDelegate(LauncherAppState.getInstance().getAccessibilityDelegate());
 
@@ -151,10 +152,6 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
             boolean isIOS = (mParcelable instanceof LauncherAppWidgetProviderInfo)
                     && ((LauncherAppWidgetProviderInfo) mParcelable).isIOSWidget;
             mWidgetPreview.setFitInsideBox(!isIOS);
-            // Bóng mềm kiểu iOS ôm viền ảnh preview; bo góc dùng chung widget_round_corner để khớp
-            // bo góc widget khi đặt ra màn hình.
-            mWidgetPreview.setPreviewShadow(
-                    getResources().getDimension(R.dimen.widget_round_corner));
         }
         int[] previewSize = getPreviewSize();
 

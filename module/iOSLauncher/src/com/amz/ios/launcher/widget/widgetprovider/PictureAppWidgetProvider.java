@@ -136,6 +136,32 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
      * tổng bitmap ~15MB; ảnh camera thường 12MP (~50MB ARGB) sẽ làm crash. Cap 1024px -> tối đa
      * ~4MB, dư an toàn. Dùng inSampleSize (đọc bounds trước) để không nạp cả ảnh gốc vào RAM.
      */
+    /**
+     * Cache ảnh đã decode cho luồng PREVIEW trong khay widget.
+     *
+     * [TỐI ƯU] bindInflatedView() chạy trên MAIN THREAD và mỗi lần lại query MediaStore +
+     * decodeFile 2 lượt (đo bounds, rồi decode thật). Trong khay widget, thẻ bị RecyclerView dựng
+     * lại liên tục khi cuộn -> treo vài giây mỗi lần. Giữ lại bitmap đã decode theo ĐƯỜNG DẪN ảnh:
+     * cùng ảnh thì dùng lại ngay, ảnh mới (người dùng chụp thêm) thì path đổi -> tự decode lại.
+     * Chỉ giữ MỘT bitmap (ảnh gần nhất) nên không phình RAM.
+     */
+    private static String sCachedPhotoPath;
+    private static Bitmap sCachedPhotoBitmap;
+
+    private static Bitmap decodeScaledFileCached(String path) {
+        if (path == null) return null;
+        if (path.equals(sCachedPhotoPath)
+                && sCachedPhotoBitmap != null && !sCachedPhotoBitmap.isRecycled()) {
+            return sCachedPhotoBitmap;
+        }
+        Bitmap bmp = decodeScaledFile(path);
+        if (bmp != null) {
+            sCachedPhotoPath = path;
+            sCachedPhotoBitmap = bmp;
+        }
+        return bmp;
+    }
+
     private static Bitmap decodeScaledFile(String path) {
         if (path == null) return null;
         final int MAX_DIM = 1024;
@@ -178,7 +204,9 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         Bitmap bitmap = null;
         if (photo != null && photo.path != null) {
             try {
-                bitmap = decodeScaledFile(photo.path);
+                // Dùng bản CACHE: hàm này chạy trên main thread và bị gọi lại mỗi lần thẻ preview
+                // được dựng lại khi cuộn khay. Xem decodeScaledFileCached().
+                bitmap = decodeScaledFileCached(photo.path);
             } catch (Throwable th) {
                 th.printStackTrace();
             }
@@ -346,6 +374,15 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
      * thì lấy ảnh mới nhất bất kỳ trong thư viện. Trả về null nếu chưa cấp quyền
      * hoặc thư viện trống.
      */
+    // [TỐI ƯU] Cache ngắn hạn cho kết quả query MediaStore.
+    //   loadRecentPhoto() chạy trên MAIN THREAD và query tới 2 lượt (camera, rồi toàn thư viện).
+    //   Trong khay widget, thẻ preview bị dựng lại liên tục khi cuộn -> query dồn dập gây giật/treo.
+    //   Giữ kết quả trong 30 giây: đủ để cuộn qua-lại mượt, mà vẫn cập nhật khi người dùng chụp ảnh
+    //   mới rồi quay lại khay. TTL ngắn nên không cần lắng nghe ContentObserver.
+    private static PhotoInfo sCachedPhotoInfo;
+    private static long sCachedPhotoAtMs;
+    private static final long PHOTO_CACHE_TTL_MS = 30_000L;
+
     private static PhotoInfo loadRecentPhoto(Context context) {
         String permission = Build.VERSION.SDK_INT >= 33
                 ? "android.permission.READ_MEDIA_IMAGES"
@@ -355,11 +392,22 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             return null;
         }
 
+        long now = android.os.SystemClock.uptimeMillis();
+        if (sCachedPhotoInfo != null && (now - sCachedPhotoAtMs) < PHOTO_CACHE_TTL_MS) {
+            return sCachedPhotoInfo;
+        }
+
         // 1) Ưu tiên ảnh từ camera.
-        PhotoInfo cameraPhoto = queryRecentPhoto(context, true);
-        if (cameraPhoto != null) return cameraPhoto;
-        // 2) Fallback: ảnh mới nhất bất kỳ.
-        return queryRecentPhoto(context, false);
+        PhotoInfo photo = queryRecentPhoto(context, true);
+        if (photo == null) {
+            // 2) Fallback: ảnh mới nhất bất kỳ.
+            photo = queryRecentPhoto(context, false);
+        }
+        if (photo != null) {
+            sCachedPhotoInfo = photo;
+            sCachedPhotoAtMs = now;
+        }
+        return photo;
     }
 
     /**

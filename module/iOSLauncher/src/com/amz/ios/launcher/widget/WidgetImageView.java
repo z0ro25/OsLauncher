@@ -60,52 +60,6 @@ public class WidgetImageView extends View {
         }
     }
 
-    // ===== Bóng đổ mềm kiểu iOS quanh viền ảnh preview =====
-    // Đọc từ ảnh mẫu iOS: bóng RẤT NHẠT (gần như tan vào nền trắng, không có rìa cứng), TOẢ RỘNG,
-    // LỆCH XUỐNG DƯỚI (đậm nhất ở đáy, hầu như không thấy ở cạnh trên), và bám theo bo góc của ảnh.
-    //
-    // KHÔNG dùng View.setElevation: bóng Material của Android xám/đục/đều 4 phía, rìa rõ — nhìn
-    // "nặng" và không giống iOS. Vẽ tay bằng Paint.setShadowLayer mới chỉnh được alpha rất thấp +
-    // bán kính blur lớn + offset dọc, đúng đặc trưng bóng iOS.
-    private Paint mShadowPaint;
-    private float mShadowCorner = 0f;
-
-    /** Bán kính blur của bóng (px). Lớn -> bóng toả rộng, mềm. */
-    private float mShadowBlur;
-    /** Độ lệch bóng xuống dưới (px). */
-    private float mShadowDy;
-
-    /**
-     * Bật/tắt bóng đổ mềm kiểu iOS.
-     *
-     * @param cornerRadius bo góc của ảnh (px) để bóng ôm đúng viền; truyền 0 để TẮT bóng.
-     */
-    public void setPreviewShadow(float cornerRadius) {
-        if (mShadowCorner == cornerRadius) {
-            return;
-        }
-        mShadowCorner = cornerRadius;
-        if (cornerRadius > 0f) {
-            float density = getResources().getDisplayMetrics().density;
-            mShadowBlur = 12f * density;   // toả rộng cho mềm
-            mShadowDy = 4f * density;      // lệch xuống dưới như iOS
-            if (mShadowPaint == null) {
-                mShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                mShadowPaint.setStyle(Paint.Style.FILL);
-            }
-            // Màu nền của hình vẽ bóng phải ĐỤC để shadowLayer có nguồn đổ bóng, nhưng chính nó bị
-            // ảnh che kín nên không nhìn thấy. Alpha bóng ~13% cho vệt rất nhạt như ảnh mẫu.
-            mShadowPaint.setColor(0xFF000000);
-            mShadowPaint.setShadowLayer(mShadowBlur, 0f, mShadowDy, 0x22000000);
-            // shadowLayer không chạy với hardware layer -> phải tắt tăng tốc phần cứng cho view này.
-            setLayerType(LAYER_TYPE_SOFTWARE, mShadowPaint);
-        } else {
-            mShadowPaint = null;
-            setLayerType(LAYER_TYPE_NONE, null);
-        }
-        invalidate();
-    }
-
     public WidgetImageView(Context context) {
         this(context, null);
     }
@@ -139,17 +93,6 @@ public class WidgetImageView extends View {
     protected void onDraw(Canvas canvas) {
         if (mBitmap != null) {
             updateDstRectF();
-
-            // Bóng đổ mềm: vẽ một hình bo góc TRÙNG KHỚP vùng ảnh, có shadowLayer. Hình này bị ảnh
-            // vẽ đè lên ngay sau đó nên chỉ còn thấy phần bóng toả ra ngoài mép ảnh.
-            // Thu nhẹ 1px mỗi cạnh để mép hình không thò ra khỏi ảnh (tránh viền đen mảnh).
-            if (mShadowPaint != null && mShadowCorner > 0f) {
-                canvas.drawRoundRect(
-                        mDstRectF.left + 1f, mDstRectF.top + 1f,
-                        mDstRectF.right - 1f, mDstRectF.bottom - 1f,
-                        mShadowCorner, mShadowCorner, mShadowPaint);
-            }
-
             canvas.drawBitmap(mBitmap, null, mDstRectF, mPaint);
 
             // Only draw the badge if a preview was drawn.

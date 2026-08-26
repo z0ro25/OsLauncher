@@ -283,7 +283,9 @@ public class SlidingUpWidgetsCellAppStyle extends SlidingUpPanelLayout implement
     }
 
     // Hệ số thu preview so với cỡ thật trên lưới (spanY*ô). Càng nhỏ đồng hồ càng nhỏ.
-    private static final float PREVIEW_SCALE = 0.75f;
+    // [CĂN CHỈNH] 0.75f -> 0.92f: preview to hơn cho dễ nhìn. Vẫn nhỏ hơn 1.0 để chừa lề thoáng
+    // hai bên, và khung luôn bị kẹp trong khoảng trống giữa mô tả và hàng chấm (xem hàm dưới).
+    private static final float PREVIEW_SCALE = 0.92f;
 
     /**
      * Đặt chiều cao khung ViewPager = (chiều cao THẬT của widget trên lưới) * PREVIEW_SCALE.

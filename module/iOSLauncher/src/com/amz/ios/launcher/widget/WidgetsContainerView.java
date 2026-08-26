@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amz.ios.ioslite.common.launcher.Insettable;
@@ -44,7 +45,7 @@ import com.amz.ios.launcher.leftpage.widgets.WidgetBaseLayout;
 import com.amz.ios.launcher.model.PackageItemInfo;
 import com.amz.ios.launcher.model.WidgetsModel;
 import com.amz.ios.launcher.slideup.SlidingUpPanelLayout;
-import com.amz.ios.launcher.util.SpeedLinearLayoutManager;
+import com.amz.ios.launcher.util.SpeedGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -64,7 +65,7 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
     public WidgetAppListAdapter mWidgetListAdapter;
     AppCompatImageView mActionClearBtn;
     ExtendedEditText mSearchWidgetEDT;
-    SpeedLinearLayoutManager mLayoutManager;
+    RecyclerView.LayoutManager mLayoutManager;
     Rect mRect;
     IconCache mIconCache;
     DragController mDragController;
@@ -204,8 +205,27 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
                 this,
                 this
         );
-        mLayoutManager = new SpeedLinearLayoutManager(this.mLauncher);
+        // [TÁI CẤU TRÚC] Lưới 2 cột: mỗi widget nổi bật là MỘT item riêng của RecyclerView.
+        //   Trước đây cả 5 widget nhồi vào 1 item, mỗi lần bind phải removeAllViews + dựng lại toàn
+        //   bộ -> Picture query MediaStore + decode ảnh trên main thread nên ô trống một lúc.
+        //   SpeedGridLayoutManager giữ nguyên hiệu ứng cuộn mượt của SpeedLinearLayoutManager cũ.
+        final int spanCount = 2;
+        SpeedGridLayoutManager gridManager =
+                new SpeedGridLayoutManager(this.mLauncher, spanCount);
+        gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                // Thẻ vuông chiếm 1 cột; thẻ rộng (World Clock) và mọi hàng app chiếm trọn 2 cột.
+                return mWidgetListAdapter.getSpanSize(position, spanCount);
+            }
+        });
+        mLayoutManager = gridManager;
         mWidgetListRV.setLayoutManager(mLayoutManager);
+        // Lề ngoài + khe giữa các thẻ nổi bật. Đặt bằng ItemDecoration chứ KHÔNG bằng margin trong
+        // LayoutParams của holder: RecyclerView hỏi lại decoration ở mỗi lần layout nên khoảng cách
+        // không bị mất khi thẻ được tái dùng lúc cuộn đi cuộn lại.
+        mWidgetListRV.addItemDecoration(new FeaturedGridSpacing(
+                mLauncher, mWidgetListAdapter, spanCount, mWidgetListAdapter.getCellGap()));
         mWidgetListRV.setAdapter(mWidgetListAdapter);
     }
 
@@ -544,13 +564,23 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         mLauncher.lockScreenOrientation();
         Workspace workspace2 = mLauncher.getWorkspace();
         workspace2.estimateItemSize(pendingAddItemInfo, false);
+        // [BUG FIX] Kéo widget ra desktop xong thì thẻ đó BIẾN MẤT khỏi khay.
+        //   DragController.startDrag() gọi v.setVisibility(View.GONE) khi dragAction ==
+        //   DRAG_ACTION_MOVE (xem DragController.startDrag, nhánh cuối hàm) — đúng cho việc DI CHUYỂN
+        //   một icon đang có trên desktop, vì icon phải biến khỏi chỗ cũ. Nhưng kéo từ KHAY là
+        //   SAO CHÉP: thẻ trong khay là mẫu, phải ở nguyên đó để còn thêm widget tiếp.
+        //   Không nơi nào khác đọc dragAction (các onDragStart đều bỏ qua tham số này), nên đổi sang
+        //   DRAG_ACTION_COPY chỉ có tác dụng duy nhất là KHÔNG ẩn thẻ đi.
+        //   Trước đây lỗi không lộ vì cả 5 widget nằm chung MỘT item; ẩn xong thì lần bind kế tiếp
+        //   dựng lại toàn bộ thẻ mới nên tự "hiện lại". Nay mỗi thẻ là một holder được tái dùng,
+        //   không ai bật lại visibility (onDropCompleted cũng không) -> thẻ mất hẳn.
         mDragController.startDrag(
                 v,
                 previewBmp,
                 this,
                 pendingAddItemInfo,
                 bound,
-                0,
+                DragController.DRAG_ACTION_COPY,
                 ratio
         );
         previewBmp.recycle();
