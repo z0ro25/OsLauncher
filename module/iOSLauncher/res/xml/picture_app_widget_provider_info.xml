@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- [BỎ android:configure] Widget ảnh không còn màn cấu hình: nó LUÔN tự hiện ảnh mới nhất trong
+     máy (xem PictureAppWidgetProvider.updateWidget), và bấm vào thì mở thư viện ảnh để xem.
+     Giữ khai báo configure thì mỗi lần thêm widget hệ thống lại mở màn chọn+crop — luồng đó vốn
+     không chọn được ảnh, và giờ cũng không còn cần nữa. -->
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="@dimen/base_widget_size"
     android:minHeight="@dimen/base_widget_size"
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/picture_app_widget_provider"
-    android:configure="com.amz.ios.launcher.widget.configure.PictureAppWidgetProviderConfigureActivity"
     android:previewImage="@drawable/sample_photo_widget"
     android:resizeMode="vertical|horizontal"
     android:widgetCategory="home_screen"/>

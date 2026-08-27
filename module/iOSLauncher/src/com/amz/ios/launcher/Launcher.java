@@ -809,6 +809,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 == PackageManager.PERMISSION_DENIED) {
             permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
+        // KHÔNG xin READ_MEDIA_IMAGES ở đây. Quyền đọc ảnh chỉ phục vụ widget ảnh, mà không phải ai
+        // cũng dùng widget đó — hỏi ngay lúc vào desktop là làm phiền vô cớ.
+        // Widget ảnh tự hiện lớp phủ "Nhấn để cấp quyền" và chỉ xin khi người dùng BẤM vào nó
+        // (xem PictureAppWidgetProvider.attachOpenGalleryClick).
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
 //                == PackageManager.PERMISSION_DENIED) {
 //            permissionList.add(Manifest.permission.READ_CALENDAR);
@@ -1381,6 +1385,14 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
 //            initApp();
         }
+
+        // Người dùng vừa trả lời hộp xin quyền ảnh (mở từ chính widget ảnh) -> vẽ lại widget ngay
+        // để bỏ lớp phủ "cần cấp quyền" và hiện ảnh thật, không phải chờ lần onResume sau.
+        if (requestCode == com.amz.ios.launcher.widget.widgetprovider
+                .PictureAppWidgetProvider.REQUEST_PHOTO_PERMISSION) {
+            com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
+        }
+
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -1498,6 +1510,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Đã tắt dialog "Rate us" hiện lên khi mở launcher theo yêu cầu.
 
         isPaused = false;
+
+        // Widget ảnh luôn hiện ảnh MỚI NHẤT trong máy. Android chặn updatePeriodMillis dưới 30 phút
+        // nên không thể trông vào chu kỳ tự cập nhật — chụp ảnh xong quay về launcher sẽ vẫn thấy
+        // ảnh cũ. Người dùng bao giờ cũng quay lại launcher sau khi chụp, nên làm mới ở đây.
+        com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
 
         if (DEBUG_RESUME_TIME) {
             startTime = System.currentTimeMillis();

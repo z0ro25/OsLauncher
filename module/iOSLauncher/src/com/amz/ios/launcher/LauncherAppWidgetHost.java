@@ -143,10 +143,10 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
                             || com.amz.ios.launcher.widget.widgetprovider.PictureLargeWidgetProvider.class.getName().equals(cls)) {
                         com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
                                 .bindInflatedView(context, lahv);
-                        // Bấm widget (đặt màn) mở trình chọn ảnh của widget. Gắn ở đường đặt màn
+                        // Bấm widget (đặt màn) mở THƯ VIỆN ẢNH. Gắn ở đường đặt màn
                         // này (KHÔNG ở preview) để không phá tap mở carousel trong khay chọn.
                         com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
-                                .attachOpenPickerClick(context, lahv, appWidgetId);
+                                .attachOpenGalleryClick(context, lahv, appWidgetId);
                     }
                 }
                 // Widget Battery cũng vẽ vòng pin động trực tiếp (không đi qua onUpdate).

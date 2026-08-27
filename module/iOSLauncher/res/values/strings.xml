@@ -739,6 +739,9 @@
     <string name="widget_meta_desc_photos">Show a favorite photo.</string>
     <!-- Overlay tiêu đề trên widget Photos (kiểu iOS "On This Day"). -->
     <string name="widget_picture_on_this_day">ON THIS DAY</string>
+    <!-- Hiện đè lên widget ảnh khi app chưa có quyền đọc ảnh; bấm vào widget để cấp. -->
+    <string name="widget_picture_need_permission">Cần quyền truy cập ảnh</string>
+    <string name="widget_picture_tap_to_grant">Nhấn để cấp quyền</string>
     <string name="widget_meta_title_batteries">Batteries</string>
     <string name="widget_meta_desc_batteries">Keep an eye on battery level.</string>
     <string name="widget_meta_title_weather">Weather</string>
