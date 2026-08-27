@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền lớp phủ "cần cấp quyền" của widget ảnh.
+
+     Phải BO GÓC bằng chính bán kính widget (widget_round_corner), nếu để màu phẳng thì lớp phủ
+     vuông góc trong khi widget bo tròn -> lòi 4 góc đen.
+     Không dựa vào clipToOutline của view cha được: RemoteViews không cho set thuộc tính đó, mà
+     widget ảnh vẽ qua cả đường RemoteViews lẫn đường inflate trực tiếp. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#99000000" />
+    <corners android:radius="@dimen/widget_round_corner" />
+</shape>

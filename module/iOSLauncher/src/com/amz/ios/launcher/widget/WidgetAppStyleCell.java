@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,25 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
     int mSize;
     int mWidth;
     int mHeight;
+
+    /**
+     * Toạ độ MÀN HÌNH của điểm ngón tay tại ACTION_DOWN; -1 = chưa có.
+     * Dùng cho luồng "giữ preview để thêm widget": cần biết người dùng đang giữ ở ĐÂU để đặt widget
+     * đúng chỗ đó. {@code OnLongClickListener.onLongClick(View)} KHÔNG mang theo toạ độ chạm, nên
+     * phải tự lưu tại {@link #onTouchEvent(MotionEvent)} — nơi duy nhất còn thấy MotionEvent.
+     */
+    private float mTouchDownRawX = -1f;
+    private float mTouchDownRawY = -1f;
+
+    /** @return toạ độ X màn hình nơi ngón tay chạm xuống, hoặc -1 nếu chưa có. */
+    public float getTouchDownRawX() {
+        return mTouchDownRawX;
+    }
+
+    /** @return toạ độ Y màn hình nơi ngón tay chạm xuống, hoặc -1 nếu chưa có. */
+    public float getTouchDownRawY() {
+        return mTouchDownRawY;
+    }
 
     public WidgetAppStyleCell(Context context) {
         super(context);
@@ -83,7 +103,9 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         Resources resources = context.getResources();
 
         mWidgetDimenStrFormat = resources.getString(R.string.widget_dims_format);
-        mSize = (int) (mGrid.cellWidthPx * 3.6f);
+        // [CĂN CHỈNH] 3.6f -> 4.2f: khung ô preview to hơn để ảnh widget hiển thị lớn, dễ nhìn.
+        // Đây là TRẦN kích thước preview (WidgetImageView thu ảnh cho vừa khung này).
+        mSize = (int) (mGrid.cellWidthPx * 4.2f);
 
         mHeight = (int) (mSize * 0.8f);
 //        else {
@@ -92,6 +114,7 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
 
         setWillNotDraw(false);
         setClipToPadding(false);
+        setClipChildren(false);
         setAccessibilityDelegate(LauncherAppState.getInstance().getAccessibilityDelegate());
 
         LinearLayout.LayoutParams layoutParams;
@@ -123,6 +146,13 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         if (mActiveRequest != null) {
             return;
         }
+        // Widget của APP NGOÀI -> vẽ ảnh NẰM TRỌN trong khung thay vì cắt bớt phần dưới.
+        // Widget nội bộ (isIOSWidget) giữ NGUYÊN cách vẽ cũ. Xem WidgetImageView#setFitInsideBox.
+        if (mWidgetPreview != null) {
+            boolean isIOS = (mParcelable instanceof LauncherAppWidgetProviderInfo)
+                    && ((LauncherAppWidgetProviderInfo) mParcelable).isIOSWidget;
+            mWidgetPreview.setFitInsideBox(!isIOS);
+        }
         int[] previewSize = getPreviewSize();
 
         int width = previewSize[0];
@@ -151,6 +181,8 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         ViewGroup.LayoutParams src = mWidgetPreview.getLayoutParams();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(src.width, src.height);
         lp.gravity = Gravity.CENTER;
+        // Preview SỐNG là widget THẬT được inflate -> view con của nó sẽ nuốt touch. Việc chặn do
+        // onInterceptTouchEvent() của cell lo (xem chú thích ở đó), không đụng vào bản thân host.
         addView(host, idx, lp);
         mLivePreview = host;
     }
@@ -171,10 +203,70 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         return new int[]{mWidth, mHeight};
     }
 
+    /**
+     * [FIX] Giữ vào ô preview ở bottom sheet chọn cỡ widget KHÔNG có tác dụng gì.
+     *
+     * NGUYÊN NHÂN: khi widget hỗ trợ preview SỐNG, {@link #addLivePreview} inflate widget THẬT vào
+     * trong cell. Các view con của widget đó nhận touch trước và nuốt chuỗi sự kiện, nên cell cha
+     * (nơi gắn OnLongClickListener) không bao giờ đếm đủ thời gian long-press.
+     *
+     * Chặn NGAY tại cell: giữ toàn bộ chuỗi touch ở đây, không phân phát xuống preview. Preview chỉ
+     * để nhìn — mọi cử chỉ đều thuộc về cell (click = thêm widget, long-press = nhấc lên kéo).
+     * Trả true ở ACTION_DOWN nên onTouchEvent của cell nhận trọn chuỗi và long-press hoạt động.
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (mLivePreview != null) {
+            return true;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    /**
+     * [FIX] "Giữ vào preview rồi cố kéo ra nhưng không được."
+     *
+     * Cell nằm trong ViewPager (lật trang cỡ widget) LỒNG trong SlidingUpPanelLayout (kéo đóng sheet).
+     * Khi long-press vừa nổ và người dùng bắt đầu DI TAY, hai view cha đó thấy ngón tay dịch chuyển
+     * nên intercept để cuộn/lật/đóng sheet -> cell nhận ACTION_CANCEL -> cử chỉ kéo chết ngay khi vừa
+     * bắt đầu, widget không nhấc ra được.
+     *
+     * Chặn cha intercept NGAY TẠI THỜI ĐIỂM long-press nổ (không phải từ ACTION_DOWN): trước đó vẫn
+     * để cha xử lý bình thường nên VUỐT LẬT TRANG và KÉO ĐÓNG SHEET vẫn hoạt động như cũ — chỉ khi
+     * người dùng đã giữ đủ lâu (tức có ý định kéo widget) mới giành quyền.
+     */
+    @Override
+    public boolean performLongClick() {
+        ViewParent parent = getParent();
+        if (parent != null) {
+            parent.requestDisallowInterceptTouchEvent(true);
+        }
+        return super.performLongClick();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // Ghi lại ĐIỂM NGÓN TAY trên màn hình để luồng "giữ để thêm widget" biết đặt widget ở đâu.
+        // OnLongClickListener.onLongClick(View) KHÔNG mang theo toạ độ chạm, mà đây là nơi duy nhất
+        // còn thấy MotionEvent -> phải lưu tại ACTION_DOWN. Xem getTouchDownRawX/Y().
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            mTouchDownRawX = event.getRawX();
+            mTouchDownRawY = event.getRawY();
+        }
+        // Drag ĐÃ bắt đầu (long-press nổ -> startDrag): NHẢ chuỗi touch ra để DragLayer/DragController
+        // tiếp quản việc kéo. Nếu cell cứ giữ (return true) thì DragView không nhận được ACTION_MOVE
+        // -> widget "dính" tại chỗ, kéo không đi đâu cả.
+        if (mLauncher != null && mLauncher.getDragController() != null
+                && mLauncher.getDragController().isDragging()) {
+            return false;
+        }
         boolean touchEvent = super.onTouchEvent(event);
         if (mStylusEventHelper.checkAndPerformStylusEvent(event)) return true;
+        // Cell phải TỰ nhận chuỗi touch để tính long-press. LinearLayout mặc định trả false ở
+        // ACTION_DOWN khi không clickable -> mất luôn các sự kiện sau, long-press không bao giờ nổ.
+        // Có listener (click/long-click) thì coi như đã xử lý.
+        if (isClickable() || isLongClickable()) {
+            return true;
+        }
         return touchEvent;
     }
 

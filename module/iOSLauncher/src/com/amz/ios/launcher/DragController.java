@@ -421,6 +421,20 @@ public class DragController {
     }
 
     /**
+     * Toạ độ điểm chạm ban đầu (ACTION_DOWN) theo hệ DragLayer — chính là giá trị dùng để tính
+     * registrationX/Y của DragView (xem startDrag() dòng ~265). Getter CHỈ-ĐỌC, thêm mới để nơi
+     * khởi động drag bằng code (khay widget) có thể canh ảnh kéo vào đúng điểm chạm; KHÔNG đổi
+     * hành vi bất kỳ hàm dùng chung nào.
+     */
+    public int getMotionDownX() {
+        return mMotionDownX;
+    }
+
+    public int getMotionDownY() {
+        return mMotionDownY;
+    }
+
+    /**
      * Stop dragging without dropping.
      */
     public void cancelDrag() {

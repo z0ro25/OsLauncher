@@ -95,11 +95,77 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
      */
     private float mScaleToFit = 1f;
 
+    // Dấu trừ (gỡ widget) khi ở chế độ edit.
+    // Đã thử vẽ badge trong draw()/overlay của host nhưng THẤT BẠI: (1) lúc jiggle, draw() của host
+    // KHÔNG được gọi lại (host tái dùng RenderNode, invalidate() không kích hoạt redraw) và (2) nội
+    // dung widget composite ĐÈ lên do elevation. Vì vậy dùng VIEW CON thật (ImageView): bật/tắt qua 2
+    // hook lifecycle đáng tin cậy (beginOrAdjustHintAnimations / completeAndClearReorderHintAnimations),
+    // elevation cao để nổi trên nội dung, có OnClickListener riêng -> không phụ thuộc draw() hay Z của
+    // canvas. Bản RIÊNG cho widget, không đụng dấu trừ của app (memory isolate-resources).
+    private int mDelIconSize;   // kích thước dấu trừ (45% icon, giống app)
+    private int mDelInset;       // chừa 4dp từ mép trên-trái host
+    private ImageView mDelBadgeView;
+
+    private void ensureDelBadge() {
+        if (mDelBadgeView != null) return;
+        mDelBadgeView = new ImageView(mContext);
+        mDelBadgeView.setImageResource(R.drawable.delete_button);
+        mDelBadgeView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mDelBadgeView.setVisibility(View.GONE);
+        // Nổi trên nội dung widget (nội dung có thể có elevation) + luôn vẽ sau cùng.
+        mDelBadgeView.setElevation(Float.MAX_VALUE / 4);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(mDelIconSize, mDelIconSize);
+        lp.gravity = android.view.Gravity.TOP | android.view.Gravity.LEFT;
+        // Margin ÂM nhỏ: badge nhô nhẹ ra ngoài mép trên-trái widget (không đè nội dung),
+        // nhưng vẫn nằm gọn trong khe giữa các ô nên KHÔNG bị mép lưới/Workspace cắt.
+        lp.leftMargin = -mDelIconSize / 4;
+        lp.topMargin = -mDelIconSize / 4;
+        mDelBadgeView.setLayoutParams(lp);
+        mDelBadgeView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Launcher) mContext).showRemoveWidgetDialog(LauncherAppWidgetHostView.this);
+            }
+        });
+        addView(mDelBadgeView);
+        // Cho badge tràn ra ngoài bounds host: tắt clip trên host + chuỗi container cha
+        // (ShortcutAndWidgetContainer -> CellLayout). Tắt lazy tại đây để không đụng
+        // hành vi mặc định của container ở nơi khác (isolate-resources); icon app vẫn vẽ
+        // trong bounds nên không bị ảnh hưởng.
+        disableClipForBadge();
+    }
+
+    private void disableClipForBadge() {
+        setClipChildren(false);
+        setClipToPadding(false);
+        android.view.ViewParent p = getParent();
+        for (int i = 0; i < 2 && p instanceof ViewGroup; i++) {
+            ViewGroup vg = (ViewGroup) p;
+            vg.setClipChildren(false);
+            vg.setClipToPadding(false);
+            p = vg.getParent();
+        }
+    }
+
+    private void showDelBadge(boolean show) {
+        ensureDelBadge();
+        mDelBadgeView.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (show) {
+            mDelBadgeView.bringToFront();
+        }
+    }
+
     public LauncherAppWidgetHostView(Context context) {
         super(context);
 
         mContext = context;
-        mLongPressHelper = new CheckLongPressHelper(this);
+        // Route long-press THẲNG tới Launcher.onLongClick(this) thay vì dựa vào
+        // performLongClick() (cần OnLongClickListener được Workspace gắn khi add child).
+        // Nếu widget được add qua đường KHÔNG gắn listener, performLongClick() trả false ->
+        // long-press "không handled" -> gesture lọt lên long-press vùng trống của Workspace ->
+        // popWorkspace() -> startTidyUp() = BẬT EDIT nhầm. Gắn listener tường minh ở đây bảo đảm
+        // luôn mở popup widget (chưa edit) / nhấc kéo (đang edit) và host tự "nuốt" gesture.
+        mLongPressHelper = new CheckLongPressHelper(this, (Launcher) context);
         mStylusEventHelper = new StylusEventHelper(this);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mDragLayer = ((Launcher) context).getDragLayer();
@@ -115,6 +181,8 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
         mPath = new Path();
         mRectF = new RectF();
         mDeviceProfile = ((Launcher)mContext).getDeviceProfile();
+        mDelIconSize = (int) (mDeviceProfile.iconSizePx * 0.45f);
+        mDelInset = (int) (getResources().getDisplayMetrics().density * 4);
     }
 
     void config(){
@@ -347,7 +415,7 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
 
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
-        if ((child instanceof TextViewCustomFont) || child != getChildAt(1)) {
+        if ((child instanceof TextViewCustomFont) || child == mDelBadgeView || child != getChildAt(1)) {
             return super.drawChild(canvas, child, drawingTime);
         }
         int save = canvas.save();
@@ -494,6 +562,8 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
             this.mShakeAnimators = new BubbleTextView.ReorderHintAnimation(this);
             this.mShakeAnimators.animate();
         }
+        // Vào edit (shake bắt đầu) -> hiện dấu trừ.
+        showDelBadge(true);
     }
 
     @Override
@@ -502,6 +572,7 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
             this.mShakeAnimators = new BubbleTextView.ReorderHintAnimation(this);
             this.mShakeAnimators.animate(i);
         }
+        showDelBadge(true);
     }
 
     @Override
@@ -510,6 +581,8 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
             this.mShakeAnimators.completeAnimationImmediately();
             this.mShakeAnimators = null;
         }
+        // Thoát edit -> ẩn dấu trừ.
+        showDelBadge(false);
     }
 
     @Override

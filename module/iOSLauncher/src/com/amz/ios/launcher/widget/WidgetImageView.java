@@ -42,6 +42,24 @@ public class WidgetImageView extends View {
     private Bitmap mBitmap;
     private Drawable mBadge;
 
+    /**
+     * True = vẽ ảnh NẰM TRỌN trong khung (letterbox), giữ đúng tỉ lệ; False = hành vi GỐC
+     * (chỉ thu theo bề rộng, cao hơn khung thì vẽ tràn rồi bị cắt).
+     *
+     * MẶC ĐỊNH false để KHÔNG đụng gì tới widget nội bộ (Calendar/Battery/Picture/Weather/Clock) —
+     * chúng được thiết kế quanh khung vuông, đổi cách vẽ là vỡ bố cục. Chỉ luồng widget của APP
+     * NGOÀI bật cờ này lên (xem WidgetAppStyleCell/GalleryWidgetCell.ensurePreview).
+     */
+    private boolean mFitInsideBox = false;
+
+    /** Bật chế độ vẽ vừa-khung cho widget app ngoài. Xem {@link #mFitInsideBox}. */
+    public void setFitInsideBox(boolean fit) {
+        if (mFitInsideBox != fit) {
+            mFitInsideBox = fit;
+            invalidate();
+        }
+    }
+
     public WidgetImageView(Context context) {
         this(context, null);
     }
@@ -97,19 +115,42 @@ public class WidgetImageView extends View {
         float myHeight = getHeight();
         float bitmapWidth = mBitmap.getWidth();
 
-        final float scale = bitmapWidth > myWidth ? myWidth / bitmapWidth : 1;
-        float scaledWidth = bitmapWidth * scale;
-        float scaledHeight = mBitmap.getHeight() * scale;
+        float bitmapHeight = mBitmap.getHeight();
 
-        mDstRectF.left = (myWidth - scaledWidth) / 2;
-        mDstRectF.right = (myWidth + scaledWidth) / 2;
+        // [FIX] Widget của APP NGOÀI hiện thiếu/bị cắt trong khay preview.
+        //   Hành vi GỐC (nhánh else) chỉ thu theo BỀ RỘNG, rồi khi ảnh vẫn cao hơn khung thì đặt
+        //   top=0/bottom=scaledHeight — tức CỐ Ý vẽ tràn xuống dưới cho khung cắt bớt (chú thích
+        //   AOSP: "let the widget preview be clipped in the vertical dimension"). Với widget nhiều
+        //   dòng như "Dấu trang Chrome" thì phần dưới mất hẳn.
+        //   Chỉ đổi cho luồng app ngoài (mFitInsideBox = true): thu theo min(rộng, cao) để ảnh nằm
+        //   TRỌN trong khung và căn giữa 2 chiều. Widget nội bộ giữ NGUYÊN nhánh gốc.
+        if (mFitInsideBox) {
+            float scale = 1f;
+            if (bitmapWidth > myWidth || bitmapHeight > myHeight) {
+                scale = Math.min(myWidth / bitmapWidth, myHeight / bitmapHeight);
+            }
+            float scaledWidth = bitmapWidth * scale;
+            float scaledHeight = bitmapHeight * scale;
 
-        if (scaledHeight > myHeight) {
-            mDstRectF.top = 0;
-            mDstRectF.bottom = scaledHeight;
-        } else {
+            mDstRectF.left = (myWidth - scaledWidth) / 2;
+            mDstRectF.right = (myWidth + scaledWidth) / 2;
             mDstRectF.top = (myHeight - scaledHeight) / 2;
             mDstRectF.bottom = (myHeight + scaledHeight) / 2;
+        } else {
+            final float scale = bitmapWidth > myWidth ? myWidth / bitmapWidth : 1;
+            float scaledWidth = bitmapWidth * scale;
+            float scaledHeight = bitmapHeight * scale;
+
+            mDstRectF.left = (myWidth - scaledWidth) / 2;
+            mDstRectF.right = (myWidth + scaledWidth) / 2;
+
+            if (scaledHeight > myHeight) {
+                mDstRectF.top = 0;
+                mDstRectF.bottom = scaledHeight;
+            } else {
+                mDstRectF.top = (myHeight - scaledHeight) / 2;
+                mDstRectF.bottom = (myHeight + scaledHeight) / 2;
+            }
         }
 
         if (mBadge != null) {

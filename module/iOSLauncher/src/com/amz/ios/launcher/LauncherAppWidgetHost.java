@@ -109,7 +109,19 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
     public AppWidgetHostView createView(Context context, int appWidgetId,
                                         LauncherAppWidgetProviderInfo appWidget) {
 
-        if (appWidget.isIOSWidget) {
+        // [FIX WIDGET TRỐNG] Quyết định nhánh render theo PACKAGE sở hữu, KHÔNG chỉ dựa cờ
+        //   isIOSWidget trong map provider. Lý do (đo bằng logcat + truy vết getWidgetProviders):
+        //   loop getAllProviders() đăng ký provider nội bộ với isIOSWidget=FALSE; guard "khung xám"
+        //   là dead-code (loop IOSAppWidget rỗng vì ENABLE_CUSTOM_WIDGET_TEST=false), còn overwrite
+        //   của loop queryBroadcastReceivers có thể TRƯỢT (getUser khác key, hoặc nuốt exception).
+        //   Khi cờ = false, widget iOS kéo-thả rơi xuống super.createView (AppWidgetHost THẬT) ->
+        //   RemoteViews chặn custom view (InflateException) -> host RỖNG = khung trống. Mọi provider
+        //   CÙNG PACKAGE với launcher đều là widget nội bộ (custom view, initialLayout trỏ tới layout
+        //   thật) nên luôn phải đi nhánh inflate nội bộ, bất kể cờ. Nhánh isOwnPackageWidget không
+        //   ảnh hưởng widget hệ thống thật (khác package -> vẫn qua super.createView như cũ).
+        boolean isOwnPackageWidget = appWidget.provider != null
+                && context.getPackageName().equals(appWidget.provider.getPackageName());
+        if (appWidget.isIOSWidget || isOwnPackageWidget) {
             String pkgName = appWidget.provider.getPackageName();
             LauncherAppWidgetHostView lahv = new LauncherAppWidgetHostView(context);
             if (pkgName.equals(context.getPackageName())) {
@@ -131,10 +143,10 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
                             || com.amz.ios.launcher.widget.widgetprovider.PictureLargeWidgetProvider.class.getName().equals(cls)) {
                         com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
                                 .bindInflatedView(context, lahv);
-                        // Bấm widget (đặt màn) mở trình chọn ảnh của widget. Gắn ở đường đặt màn
+                        // Bấm widget (đặt màn) mở THƯ VIỆN ẢNH. Gắn ở đường đặt màn
                         // này (KHÔNG ở preview) để không phá tap mở carousel trong khay chọn.
                         com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider
-                                .attachOpenPickerClick(context, lahv, appWidgetId);
+                                .attachOpenGalleryClick(context, lahv, appWidgetId);
                     }
                 }
                 // Widget Battery cũng vẽ vòng pin động trực tiếp (không đi qua onUpdate).

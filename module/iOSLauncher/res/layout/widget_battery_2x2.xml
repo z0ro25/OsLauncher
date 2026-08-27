@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.amz.ios.launcher.leftpage.widgets.BatteryWidget xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="@dimen/left_page_widget_2x2_height"/>
+<!-- Vỏ item cho RecyclerView trang trái: widget Pin ô VUÔNG 2x2 (vòng pin + % ở giữa).
+
+     [BUG FIX] Trước đây file này trỏ tới BatteryWidget — lớp inflate battery_widget.xml, tức bản
+     DANH SÁCH THIẾT BỊ (header + RecyclerView list_devices có minHeight 100dp). Nội dung đó cao
+     hơn một ô vuông nên thẻ Pin luôn lệch cỡ so với thẻ Lịch bên cạnh, ép vuông cũng không ăn.
+     Bản vuông thật là BatteryWidget2x2 (inflate battery_widget_2x2.xml, trong đó
+     battery_widget_content đã khai layout_constraintDimensionRatio="w,1:1") — cùng kiểu hiển thị
+     với widget Pin mặc định. Tên hai lớp đặt ngược nhau nên dễ nhầm.
+
+     Chiều cao để wrap_content: tỉ lệ 1:1 bên trong tự quyết định, không cần ép từ ngoài. -->
+<com.amz.ios.launcher.leftpage.widgets.BatteryWidget2x2
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>

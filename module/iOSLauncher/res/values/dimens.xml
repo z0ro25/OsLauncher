@@ -222,23 +222,25 @@
 
     <!-- Deep shortcuts -->
     <dimen name="deep_shortcuts_elevation">9dp</dimen>
-    <dimen name="bg_popup_item_width">220dp</dimen>
-    <dimen name="bg_popup_item_height">56dp</dimen>
-    <!-- Chiều cao tối đa của danh sách shortcut trong popup long-press: 6 dòng trọn + hé dòng 7
-         (56dp * 6.5 = 364dp) để gợi ý còn cuộn. Vượt ngưỡng thì ScrollView cho vuốt lên/xuống. -->
-    <dimen name="popup_shortcuts_max_height">364dp</dimen>
-    <dimen name="popup_items_spacing">4dp</dimen>
+    <!-- Độ nổi RIÊNG của popup thông tin app (long-press icon). Đặt 0 để BỎ bóng đổ ở đáy popup
+         theo yêu cầu giao diện (iOS không đổ bóng ở đây).
+         KHÔNG sửa deep_shortcuts_elevation vì dimen đó còn dùng chung cho notification.xml và
+         widgets_bottom_sheet.xml — đổi nó sẽ mất bóng của cả 2 màn kia. -->
+    <dimen name="app_popup_elevation">0dp</dimen>
+    <dimen name="bg_popup_item_width">190dp</dimen>
+    <dimen name="bg_popup_item_height">36dp</dimen>
+    <dimen name="popup_items_spacing">3dp</dimen>
     <dimen name="pre_drag_view_scale">6dp</dimen>
     <!-- an icon with shortcuts must be dragged this far before the container is removed. -->
     <dimen name="deep_shortcuts_start_drag_threshold">16dp</dimen>
-    <dimen name="deep_shortcut_icon_size">36dp</dimen>
-    <dimen name="deep_shortcut_drawable_padding">8dp</dimen>
+    <dimen name="deep_shortcut_icon_size">24dp</dimen>
+    <dimen name="deep_shortcut_drawable_padding">6dp</dimen>
     <dimen name="deep_shortcut_drag_handle_size">16dp</dimen>
     <dimen name="popup_padding_start">10dp</dimen>
-    <dimen name="popup_padding_end">16dp</dimen>
-    <dimen name="popup_arrow_width">10dp</dimen>
-    <dimen name="popup_arrow_height">8dp</dimen>
-    <dimen name="popup_arrow_vertical_offset">-2dp</dimen>
+    <dimen name="popup_padding_end">12dp</dimen>
+    <dimen name="popup_arrow_width">0dp</dimen>
+    <dimen name="popup_arrow_height">0dp</dimen>
+    <dimen name="popup_arrow_vertical_offset">0dp</dimen>
     <!-- popup_padding_start + deep_shortcut_icon_size / 2 -->
     <dimen name="popup_arrow_horizontal_center_start">28dp</dimen>
     <!-- popup_padding_end + deep_shortcut_drag_handle_size / 2 -->
@@ -248,13 +250,13 @@
     <!-- popup_arrow_center_end - popup_arrow_width / 2-->
     <dimen name="popup_arrow_horizontal_offset_end">19dp</dimen>
     <dimen name="popup_arrow_corner_radius">2dp</dimen>
-    <!-- popup_padding_start + icon_size + 10dp -->
-    <dimen name="deep_shortcuts_text_padding_start">56dp</dimen>
+    <!-- popup_padding_start + deep_shortcut_icon_size + 8dp = 10 + 24 + 8 -->
+    <dimen name="deep_shortcuts_text_padding_start">42dp</dimen>
     <!-- popup_item_width - deep_shortcuts_text_padding_start -->
-    <dimen name="deep_shortcuts_divider_width">164dp</dimen>
-    <dimen name="system_shortcut_icon_size">24dp</dimen>
-    <!-- popup_arrow_center_start - system_shortcut_icon_size / 2 -->
-    <dimen name="system_shortcut_margin_start">16dp</dimen>
+    <dimen name="deep_shortcuts_divider_width">148dp</dimen>
+    <dimen name="system_shortcut_icon_size">18dp</dimen>
+    <!-- Căn giữa icon system với icon shortcut: popup_padding_start + (deep - system)/2 = 10 + 3 -->
+    <dimen name="system_shortcut_margin_start">13dp</dimen>
     <dimen name="system_shortcut_header_height">40dp</dimen>
     <dimen name="system_shortcut_header_icon_touch_size">48dp</dimen>
     <!-- (touch_size - icon_size) / 2 -->

@@ -1,6 +1,7 @@
 package com.amz.ios.launcher.widget;
 
 import android.appwidget.AppWidgetHost;
+import com.amz.ios.launcher.LauncherAppWidgetHost;
 import android.appwidget.AppWidgetHostView;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amz.ios.ioslite.common.launcher.Insettable;
@@ -43,7 +45,7 @@ import com.amz.ios.launcher.leftpage.widgets.WidgetBaseLayout;
 import com.amz.ios.launcher.model.PackageItemInfo;
 import com.amz.ios.launcher.model.WidgetsModel;
 import com.amz.ios.launcher.slideup.SlidingUpPanelLayout;
-import com.amz.ios.launcher.util.SpeedLinearLayoutManager;
+import com.amz.ios.launcher.util.SpeedGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -63,7 +65,7 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
     public WidgetAppListAdapter mWidgetListAdapter;
     AppCompatImageView mActionClearBtn;
     ExtendedEditText mSearchWidgetEDT;
-    SpeedLinearLayoutManager mLayoutManager;
+    RecyclerView.LayoutManager mLayoutManager;
     Rect mRect;
     IconCache mIconCache;
     DragController mDragController;
@@ -203,14 +205,43 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
                 this,
                 this
         );
-        mLayoutManager = new SpeedLinearLayoutManager(this.mLauncher);
+        // [TÁI CẤU TRÚC] Lưới 2 cột: mỗi widget nổi bật là MỘT item riêng của RecyclerView.
+        //   Trước đây cả 5 widget nhồi vào 1 item, mỗi lần bind phải removeAllViews + dựng lại toàn
+        //   bộ -> Picture query MediaStore + decode ảnh trên main thread nên ô trống một lúc.
+        //   SpeedGridLayoutManager giữ nguyên hiệu ứng cuộn mượt của SpeedLinearLayoutManager cũ.
+        final int spanCount = 2;
+        SpeedGridLayoutManager gridManager =
+                new SpeedGridLayoutManager(this.mLauncher, spanCount);
+        gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                // Thẻ vuông chiếm 1 cột; thẻ rộng (World Clock) và mọi hàng app chiếm trọn 2 cột.
+                return mWidgetListAdapter.getSpanSize(position, spanCount);
+            }
+        });
+        mLayoutManager = gridManager;
         mWidgetListRV.setLayoutManager(mLayoutManager);
+        // Lề ngoài + khe giữa các thẻ nổi bật. Đặt bằng ItemDecoration chứ KHÔNG bằng margin trong
+        // LayoutParams của holder: RecyclerView hỏi lại decoration ở mỗi lần layout nên khoảng cách
+        // không bị mất khi thẻ được tái dùng lúc cuộn đi cuộn lại.
+        mWidgetListRV.addItemDecoration(new FeaturedGridSpacing(
+                mLauncher, mWidgetListAdapter, spanCount, mWidgetListAdapter.getCellGap()));
         mWidgetListRV.setAdapter(mWidgetListAdapter);
     }
 
     public void setListeners(){
         addPanelSlideListener(new WidgetContainerViewListener());
         mActionClearBtn.setOnClickListener(this);
+        // [FIX] Bỏ nền ĐEN MỜ phía trên khay widget.
+        //   Trước đây SlidingUpPanelLayout tự phủ DEFAULT_FADE_COLOR (0x99000000) lên phần màn hình
+        //   phía trên sheet. Lớp phủ đó vẽ theo clip bounds của MAIN VIEW, mà main view không chạm
+        //   đỉnh màn (cửa sổ launcher bật FLAG_LAYOUT_NO_LIMITS) -> hụt đúng một dải status bar,
+        //   nhìn thành mảng đen gãy khúc rất xấu.
+        //   Đặt 0 để tắt hẳn lớp phủ: phía trên sheet nhìn xuyên suốt xuống màn hình chính.
+        //   CHẠM-ĐỂ-ĐÓNG VẪN HOẠT ĐỘNG: nhánh xử lý ở SlidingUpPanelLayout chỉ phụ thuộc
+        //   mSlideOffset + mFadeOnClickListener (đặt ngay dưới đây), KHÔNG phụ thuộc màu nền mờ.
+        //   Chỉ đặt cho RIÊNG khay widget -> màn trái và các panel khác giữ nguyên nền mờ như cũ.
+        setCoveredFadeColor(0);
         setFadeOnClickListener(
             new View.OnClickListener(){
             @Override
@@ -336,12 +367,44 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         boolean isPendingShortcutItem = tag instanceof PendingAddShortcutInfo;
         if (!isPendingItem) return false;
         PendingAddItemInfo pendingAddItemInfo = (PendingAddItemInfo) tag;
+
         Bitmap previewBmp;
         float ratio;
         Rect bound;
 
         if (v instanceof WidgetAppStyleCell) {
             WidgetAppStyleCell widget = (WidgetAppStyleCell) v;
+
+            // [FIX] Widget iOS (thời tiết/đồng hồ/lịch...) dùng PREVIEW SỐNG: addLivePreview() inflate
+            //   widget THẬT rồi đặt mWidgetPreview thành GONE và KHÔNG bao giờ nạp bitmap tĩnh.
+            //   Nhánh dưới đọc mWidgetPreview.getBitmap() -> null -> "return false" -> onLongClick
+            //   thoát NGAY, không bao giờ tới startDrag. Đây chính là lý do giữ-và-kéo ở bottom sheet
+            //   preview không có tác dụng (đã xác nhận bằng log trên máy: onLongClick nổ, mọi guard
+            //   pass, nhưng chết tại getBitmap() == null).
+            //   Có preview sống thì CHỤP chính nó làm ảnh kéo — vừa đúng thứ người dùng đang nhìn.
+            View live = widget.mLivePreview;
+            Bitmap liveBmp = (live != null && live.getWidth() > 0 && live.getHeight() > 0)
+                    ? Utilities.captureView(live)
+                    : null;
+            if (liveBmp != null) {
+                previewBmp = liveBmp;
+                int targetWidth = live.getWidth();
+                if (pendingAddItemInfo instanceof PendingAddWidgetInfo) {
+                    int[] itemSize = mLauncher.getWorkspace()
+                            .estimateItemSize(pendingAddItemInfo, true);
+                    if (itemSize[0] > 0) {
+                        targetWidth = itemSize[0];
+                    }
+                }
+                ratio = previewBmp.getWidth() > 0
+                        ? targetWidth * 1.0f / previewBmp.getWidth()
+                        : 1.0f;
+                // [CĂN GIỮA] Ảnh kéo phải nằm CHÍNH GIỮA ngón tay (ngón trỏ vào tâm widget) sau khi
+                //   giữ. previewBmp và ratio đã sẵn sàng ở trên nên tính viewImageBounds canh giữa tại đây.
+                bound = centerBoundOnFinger(v, previewBmp, ratio);
+                // Chảy tiếp xuống đoạn startDrag dùng chung ở cuối hàm — KHÔNG nhân bản logic.
+            } else {
+
             WidgetImageView widgetImageView = widget.mWidgetPreview;
             Bitmap widgetBmp = widgetImageView.getBitmap();
             if (widgetBmp == null) return false;
@@ -381,6 +444,16 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
             else return false;
             float bmpWidth = previewBmp.getWidth();
             ratio = bmpWidth / width;
+            // [BUG FIX] Widget của APP NGOÀI bị LỆCH HẲN XUỐNG GÓC PHẢI-DƯỚI sau khi khay đóng.
+            //   Nhánh preview SỐNG (widget nội bộ) ở trên đã gọi centerBoundOnFinger() nên ảnh kéo
+            //   nằm đúng dưới ngón tay. Nhánh này (preview TĨNH — widget app ngoài) lại để nguyên
+            //   bound = widgetImageView.getBitmapBounds(), tức toạ độ của ảnh BÊN TRONG ô preview
+            //   của khay — một hệ quy chiếu hoàn toàn khác, không liên quan tới ngón tay. Khay đóng
+            //   xong thì DragView neo theo toạ độ vô nghĩa đó -> lệch xuống phải-dưới.
+            //   Dùng CHUNG centerBoundOnFinger() để hai loại widget hành xử giống hệt nhau.
+            //   Đặt ở ĐÂY vì cần previewBmp + ratio đã tính xong ở 2 dòng trên.
+            bound = centerBoundOnFinger(v, previewBmp, ratio);
+            } // hết nhánh preview TĨNH (else của liveBmp != null)
         }
         else if (v instanceof WidgetBaseLayout) {
             WidgetBaseLayout widget = (WidgetBaseLayout) v;
@@ -430,6 +503,57 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
             else return false;
             bound.set(0,0,0,0);
         }
+        else if (v instanceof GalleryWidgetCell) {
+            // [TÍNH NĂNG] Giữ để kéo các widget CÓ SẴN của app (đồng hồ, thời tiết, lịch, ảnh, pin).
+            //   Những thẻ này ở màn ĐẦU của khay dùng GalleryWidgetCell — KHÔNG phải WidgetAppStyleCell
+            //   (dùng ở panel app-style khi đã chọn 1 app) cũng không phải WidgetBaseLayout. Trước đây
+            //   onLongClick không có nhánh nào khớp nên rơi thẳng xuống "else return false" -> giữ các
+            //   widget này KHÔNG có tác dụng gì, dù listener đã được gắn ở WidgetAppListAdapter.
+            //   Nay xử lý riêng: ưu tiên chụp PREVIEW SỐNG (mLivePreview — widget đã inflate thật) để
+            //   ảnh kéo giống hệt thứ đang nhìn thấy; không có thì lấy bitmap tĩnh của WidgetImageView.
+            GalleryWidgetCell cell = (GalleryWidgetCell) v;
+            Bitmap srcBmp = null;
+            int srcWidth = 0;
+
+            View live = cell.mLivePreview;
+            if (live != null && live.getWidth() > 0 && live.getHeight() > 0) {
+                srcBmp = Utilities.captureView(live);
+                srcWidth = live.getWidth();
+            }
+            if (srcBmp == null && cell.mWidgetPreview != null) {
+                Bitmap shared = cell.mWidgetPreview.getBitmap();
+                if (shared != null && !shared.isRecycled()) {
+                    // QUAN TRỌNG: getBitmap() trả về bitmap DÙNG CHUNG của WidgetImageView (không phải
+                    // bản sao). Cuối hàm có previewBmp.recycle() -> nếu đưa thẳng bitmap này vào thì
+                    // thẻ widget trong khay bị recycle mất hình vĩnh viễn (và crash nếu vẽ lại).
+                    // Nhánh WidgetAppStyleCell không dính vì nó tạo bitmap MỚI qua generateWidgetPreview.
+                    // Vì vậy phải COPY trước khi dùng.
+                    srcBmp = shared.copy(
+                            shared.getConfig() != null ? shared.getConfig() : Bitmap.Config.ARGB_8888,
+                            false);
+                    srcWidth = cell.mWidgetPreview.getBitmapBounds().width();
+                }
+            }
+            if (srcBmp == null) return false;
+
+            previewBmp = srcBmp;
+            // Tỉ lệ ảnh kéo so với kích thước THẬT của widget khi nằm trên lưới — cùng cách tính với
+            // nhánh WidgetAppStyleCell để cảm giác kéo nhất quán giữa 2 màn của khay.
+            int targetWidth = srcWidth;
+            if (pendingAddItemInfo instanceof PendingAddWidgetInfo) {
+                int[] itemSize = mLauncher.getWorkspace()
+                        .estimateItemSize(pendingAddItemInfo, true);
+                if (itemSize[0] > 0) {
+                    targetWidth = itemSize[0];
+                }
+            }
+            ratio = targetWidth > 0 && previewBmp.getWidth() > 0
+                    ? targetWidth * 1.0f / previewBmp.getWidth()
+                    : 1.0f;
+            // [CĂN GIỮA] previewBmp & ratio đã có -> canh ảnh kéo vào chính giữa ngón tay (ngón trỏ
+            //   vào tâm widget). Tính SAU ratio vì helper cần cả hai giá trị này.
+            bound = centerBoundOnFinger(v, previewBmp, ratio);
+        }
         else
             return false;
 
@@ -440,19 +564,105 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         mLauncher.lockScreenOrientation();
         Workspace workspace2 = mLauncher.getWorkspace();
         workspace2.estimateItemSize(pendingAddItemInfo, false);
+        // [BUG FIX] Kéo widget ra desktop xong thì thẻ đó BIẾN MẤT khỏi khay.
+        //   DragController.startDrag() gọi v.setVisibility(View.GONE) khi dragAction ==
+        //   DRAG_ACTION_MOVE (xem DragController.startDrag, nhánh cuối hàm) — đúng cho việc DI CHUYỂN
+        //   một icon đang có trên desktop, vì icon phải biến khỏi chỗ cũ. Nhưng kéo từ KHAY là
+        //   SAO CHÉP: thẻ trong khay là mẫu, phải ở nguyên đó để còn thêm widget tiếp.
+        //   Không nơi nào khác đọc dragAction (các onDragStart đều bỏ qua tham số này), nên đổi sang
+        //   DRAG_ACTION_COPY chỉ có tác dụng duy nhất là KHÔNG ẩn thẻ đi.
+        //   Trước đây lỗi không lộ vì cả 5 widget nằm chung MỘT item; ẩn xong thì lần bind kế tiếp
+        //   dựng lại toàn bộ thẻ mới nên tự "hiện lại". Nay mỗi thẻ là một holder được tái dùng,
+        //   không ai bật lại visibility (onDropCompleted cũng không) -> thẻ mất hẳn.
         mDragController.startDrag(
                 v,
                 previewBmp,
                 this,
                 pendingAddItemInfo,
                 bound,
-                0,
+                DragController.DRAG_ACTION_COPY,
                 ratio
         );
         previewBmp.recycle();
 
+        // [FIX] NHẢ cờ chặn-intercept mà cell đã bật ở performLongClick().
+        //   Cell gọi requestDisallowInterceptTouchEvent(true) để ViewPager/SlidingUpPanelLayout không
+        //   cướp cử chỉ giữ. Nhưng cờ đó chặn TOÀN BỘ tổ tiên — kể cả DragLayer (khay widget nằm
+        //   trong workspace_root_view, tức nhánh con của DragLayer). Hệ quả: drag đã start nhưng
+        //   DragLayer không được intercept -> DragController KHÔNG nhận ACTION_MOVE -> widget đứng im,
+        //   "giữ được mà kéo không đi".
+        //   Đặt lại false NGAY SAU startDrag: lúc này DragController.mDragging = true nên
+        //   DragLayer.onInterceptTouchEvent trả true và tiếp quản chuỗi touch để kéo/thả.
+        if (v.getParent() != null) {
+            v.getParent().requestDisallowInterceptTouchEvent(false);
+        }
+
         if (mLauncher.getDragController().mDragging){
+            // [TÍNH NĂNG] Giữ widget trong khay chọn -> nhấc lên KÉO ra desktop.
+            //   Luồng kéo (startDrag ở trên) vốn đã đủ, nhưng THIẾU bước thu khay: khay widget là
+            //   panel phủ KÍN màn hình nằm TRÊN workspace, nên nhấc widget lên rồi vẫn không thấy
+            //   desktop đâu mà thả -> người dùng tưởng "giữ widget không có tác dụng gì".
+            //   enterSpringLoadedDragMode() KHÔNG tự thu khay: nó return sớm khi mState ==
+            //   State.WORKSPACE, mà mở khay widget chỉ là hiện view phủ lên, KHÔNG đổi mState.
+            //   Vì vậy phải thu khay TƯỜNG MINH. Dùng collapseWidgetList() (đã có sẵn) thay vì
+            //   closeWidgetViewWithAnimation() vì khay có HAI lớp: khay danh sách ngoài và panel
+            //   app-style (mWidgetsAppStyle) phủ chồng lên khi chọn 1 app — long-press thường xảy ra
+            //   ở panel app-style, nếu chỉ đóng lớp ngoài thì lớp này vẫn che desktop.
+            //   collapseWidgetList() đóng cả hai và reset scale drag view.
+            //   DragView vẫn bám theo ngón tay (nó nằm ở DragLayer, không thuộc khay) -> thả được
+            //   xuống ô bất kỳ trên desktop.
+            collapseWidgetList();
             mLauncher.enterSpringLoadedDragMode();
+            // Màn page phải VÀO CHẾ ĐỘ EDIT (jiggle + 2 nút Chỉnh sửa/Xong) ngay khi bắt đầu kéo,
+            // giống hệt lúc kéo-thả app trên desktop: người dùng đang sắp xếp màn hình nên phải thấy
+            // trạng thái edit để biết mình đang đặt widget vào đâu.
+            // enterSpringLoadedDragMode() ở trên CHỈ đổi state cho phép drop, KHÔNG bật jiggle.
+            mLauncher.onShakingAllApps();
+        }
+        else if (isPendingWidgetItem) {
+            // [DỰ PHÒNG] startDrag KHÔNG khởi động được (mDragging == false).
+            //   Cell nằm trong RecyclerView/ViewPager LỒNG trong SlidingUpPanelLayout; cả ba đều
+            //   intercept khi ngón tay nhích, nên có trường hợp chuỗi touch bị cướp trước khi
+            //   DragController kịp tiếp quản -> kéo không khởi động.
+            //   Khi đó KHÔNG để thao tác rơi vào hư vô: đóng khay + bật edit + ĐẶT NGAY widget vào ô
+            //   gần vị trí đang giữ. Người dùng vẫn thêm được widget, sau đó kéo lại trên desktop
+            //   (luồng kéo widget trên desktop vốn hoạt động bình thường).
+            // [BUG FIX] Widget rơi LỆCH XUỐNG GÓC PHẢI-DƯỚI thay vì nằm ở chỗ đang giữ.
+            //   Hai nguyên nhân cộng hưởng:
+            //   1) Điểm quy chiếu SAI: trước đây lấy tâm của Ô PREVIEW trong khay
+            //      (v.getLocationOnScreen + width/2), không phải điểm ngón tay. Ô preview nằm
+            //      giữa-dưới sheet nên quy xuống page cũng ra vùng giữa-dưới.
+            //      -> Nay dùng toạ độ ngón tay THẬT, lưu từ ACTION_DOWN ở chính cell
+            //      (xem WidgetAppStyleCell/GalleryWidgetCell.getTouchDownRawX/Y).
+            //   2) Tính toạ độ SAI THỜI ĐIỂM: collapseWidgetList() + onShakingAllApps() làm
+            //      workspace đổi layout/scale, mà cellLayout.getLocationOnScreen() lại được đọc
+            //      SAU đó -> lệch pha với điểm đã lấy trước khi đóng khay.
+            //      -> Nay tính ô đích NGAY BÂY GIỜ (findCellForScreenPoint), đóng khay xong mới
+            //      đặt widget vào ô đã chốt (addWidgetAtCell).
+            float rawX = -1f, rawY = -1f;
+            if (v instanceof WidgetAppStyleCell) {
+                rawX = ((WidgetAppStyleCell) v).getTouchDownRawX();
+                rawY = ((WidgetAppStyleCell) v).getTouchDownRawY();
+            } else if (v instanceof GalleryWidgetCell) {
+                rawX = ((GalleryWidgetCell) v).getTouchDownRawX();
+                rawY = ((GalleryWidgetCell) v).getTouchDownRawY();
+            }
+            if (rawX < 0f || rawY < 0f) {
+                // Không bắt được điểm chạm (hiếm) -> lấy tâm ô preview như hành vi cũ.
+                int[] loc = new int[2];
+                v.getLocationOnScreen(loc);
+                rawX = loc[0] + v.getWidth() / 2f;
+                rawY = loc[1] + v.getHeight() / 2f;
+            }
+
+            PendingAddWidgetInfo widgetInfo = (PendingAddWidgetInfo) pendingAddItemInfo;
+            int[] targetCell = mLauncher.findCellForScreenPoint(
+                    widgetInfo, (int) rawX, (int) rawY);
+
+            collapseWidgetList();
+            mLauncher.onShakingAllApps();
+            mLauncher.addWidgetAtCell(widgetInfo, targetCell);
+            return true;
         }
 
         if (isPendingWidgetItem){
@@ -480,6 +690,31 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         return true;
     }
 
+    /**
+     * [CĂN GIỮA] Tính viewImageBounds để ẢNH KÉO nằm CHÍNH GIỮA điểm chạm — ngón tay trỏ vào TÂM
+     * widget ngay khi vừa giữ. Dùng cho thẻ preview SỐNG/gallery của widget iOS.
+     *
+     * DragView scale bitmap quanh TÂM theo `ratio` và đặt registrationX = motionDownX - dragLayerX,
+     * với dragLayerX = locDL[0] + viewImageBounds.left + (ratio*bmpW - bmpW)/2
+     * (xem {@link com.amz.ios.launcher.DragController#startDrag}). Muốn TÂM ảnh nằm ngay ngón tay thì
+     * cần registrationX = bmpW/2 => dragLayerX = motionDownX - bmpW/2, giải ngược ra
+     * viewImageBounds.left như dưới (tương tự trục Y). Trả Rect(left, top, 0, 0): right/bottom KHÔNG
+     * được startDrag dùng tới.
+     */
+    private Rect centerBoundOnFinger(View v, Bitmap previewBmp, float ratio) {
+        int[] locDL = new int[2];
+        mLauncher.getDragLayer().getLocationInDragLayer(v, locDL);
+        int bmpW = previewBmp.getWidth();
+        int bmpH = previewBmp.getHeight();
+        int motionDownX = mDragController.getMotionDownX();
+        int motionDownY = mDragController.getMotionDownY();
+        int extraX = (int) ((ratio * bmpW - bmpW) / 2f);
+        int extraY = (int) ((ratio * bmpH - bmpH) / 2f);
+        int left = motionDownX - bmpW / 2 - locDL[0] - extraX;
+        int top = motionDownY - bmpH / 2 - locDL[1] - extraY;
+        return new Rect(left, top, 0, 0);
+    }
+
     @Override
     public void onClick(View v) {
         if (v == null) {
@@ -490,18 +725,16 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
             return;
         }
 
-        // Bấm thẳng vào ô preview widget/shortcut trong khay chọn -> đặt ngay vào ô trống
-        // + đóng khay (đóng khay sẽ post onShakingAllApps -> vào chế độ edit/jiggle). Cả khay
-        // grid chính lẫn panel app-style đều dùng listener này với tag Pending*Info nên chỉ cần
-        // xử lý ở đây là phủ cả hai. Nút "Add" của panel app-style vẫn hoạt động độc lập.
+        // [THAY ĐỔI HÀNH VI] Chạm vào ô preview KHÔNG còn tự thêm widget vào màn hình nữa.
+        //   Yêu cầu: thêm widget bằng cách GIỮ LIỀN rồi KÉO vào vị trí mong muốn (xem onLongClick),
+        //   để người dùng tự chọn chỗ đặt. Trước đây chạm là add ngay vào ô trống đầu tiên — vừa đặt
+        //   sai chỗ, vừa khiến cử chỉ giữ bị "cướp": nếu long-press chưa kịp nổ mà người dùng nhả tay
+        //   thì hệ thống tính là CLICK -> widget bị thêm luôn thay vì được kéo.
+        //   Nút "Add Widget" ở đáy sheet vẫn thêm nhanh như cũ (listener riêng, không đi qua đây).
         Object tag = v.getTag();
-        if (tag instanceof PendingAddWidgetInfo) {
-            mLauncher.closeWidgetViewWithAnimation();
-            mLauncher.addAppWidgetFromScreenEditView((PendingAddWidgetInfo) tag);
-        }
-        else if (tag instanceof PendingAddShortcutInfo) {
-            mLauncher.closeWidgetViewWithAnimation();
-            mLauncher.addAppShortcutFromScreenEditView((PendingAddShortcutInfo) tag);
+        if (tag instanceof PendingAddItemInfo) {
+            // Nhắc người dùng đúng thao tác cần làm.
+            showToast();
         }
         else if (mLauncher.isWidgetsViewVisible()){
             showToast();
@@ -639,7 +872,13 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         public void run() {
             if (mLoader.mWidgetLoadingId == -1) return;
             Launcher launcher = mLoader.mLauncher;
-            AppWidgetHost appWidgetHost = launcher.getAppWidgetHost();
+            // [FIX WIDGET TRỐNG] PHẢI khai kiểu LauncherAppWidgetHost (không phải base AppWidgetHost).
+            //   createView(Context,int,LauncherAppWidgetProviderInfo) là OVERLOAD khai trên
+            //   LauncherAppWidgetHost; nếu biến receiver mang kiểu base AppWidgetHost thì overload này
+            //   bị ẩn -> trình biên dịch chọn base createView(...,AppWidgetProviderInfo) -> host mặc định
+            //   RemoteViews (không inflate/bind view nội bộ) -> widget iOS kéo-thả HIỆN TRỐNG. Ép kiểu
+            //   con để boundWidget đi đúng đường inflate như widget đặt sẵn ở page 0 (vốn hiển thị đúng).
+            LauncherAppWidgetHost appWidgetHost = launcher.getAppWidgetHost();
             AppWidgetHostView appWidgetHostView = appWidgetHost.createView(
                 launcher,mLoader.mWidgetLoadingId,mProviderInfo
             );

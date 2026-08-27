@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icon size widget RẤT LỚN trong hàng chọn size ở đầu popup widget: khung chữ nhật có dải tiêu đề
+     phía trên (giống widget dạng danh sách/nhiều dòng). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#000000"
+        android:pathData="M4,5h16a2,2 0,0 1,2 2v10a2,2 0,0 1,-2 2h-16a2,2 0,0 1,-2 -2v-10a2,2 0,0 1,2 -2zM4,7v10h16v-10z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M6,9h8v1.6h-8z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M6,12.4h12v1.4h-12z" />
+</vector>

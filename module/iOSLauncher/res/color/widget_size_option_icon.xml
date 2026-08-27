@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu icon của 4 ô cỡ ở đầu popup widget (widget_popup_menu.xml).
+
+     Dùng được vì cả 4 icon (ic_app_wg, ic_widget_2x2, ic_widget_4x2, ic_widget_4x4) đều là vector
+     ĐƠN SẮC #000000 — tint sẽ phủ đúng toàn hình mà không bôi mất chi tiết.
+
+     Chỉ phân biệt DISABLE với các trạng thái còn lại. Ô đang chọn dùng chung màu icon với ô
+     thường — việc "đang chọn" đã được thể hiện bằng nền ô đậm hơn ở bg_widget_size_option.
+
+     Thay cho cách cũ (chỉnh alpha ImageView bằng code): ở đây trạng thái do hệ thống tự áp theo
+     state của ô, không cần đụng tới từng ImageView khi bind popup. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Không có biến thể ở cỡ này -> xám nhạt, nhìn là biết không bấm được. -->
+    <item android:state_enabled="false" android:color="#C7C7CC" />
+    <!-- Ô đang chọn KHÔNG đổi màu icon: trạng thái chọn đã thể hiện bằng nền ô đậm hơn
+         (bg_widget_size_option). Icon giữ nguyên màu đen như lúc thường. -->
+    <item android:color="#1C1C1E" />
+</selector>

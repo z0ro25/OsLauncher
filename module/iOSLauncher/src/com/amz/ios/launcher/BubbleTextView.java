@@ -958,11 +958,44 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
         return this.mShortcutInfo != null &&
                 (this.mShortcutInfo.uninstallable || this.mShortcutInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT);
     }
+
+    /**
+     * Có được VẼ dấu trừ ở edit mode hay không — TÁCH BIỆT với {@link #uninstallEnable()}
+     * (= app có GỠ CÀI ĐẶT được hay không).
+     *
+     * LÝ DO TÁCH: trước đây dấu trừ bám theo uninstallEnable(), mà app hệ thống (Điện thoại, Danh bạ,
+     * Tin nhắn, Camera — 4 app mặc định trong hotseat) bị LauncherModel gán uninstallable = false khi
+     * flags == 0, nên hotseat KHÔNG hề hiện dấu trừ dù vẫn rung lắc. Theo hành vi iOS, MỌI app đều
+     * hiện dấu trừ khi edit; app hệ thống chỉ khác ở chỗ dialog không có mục "Xóa ứng dụng" (xử lý ở
+     * {@link Launcher#showRemoveAppDialog}), chứ không phải giấu luôn dấu trừ.
+     */
+    public boolean canShowDelIcon() {
+        return this.mShortcutInfo != null;
+    }
+
+    /**
+     * Lề trái của dấu trừ, tính theo bề rộng THẬT của chính view này.
+     *
+     * BUG FIX: trước đây dùng thẳng {@link #mDelIconLeftPadding} — hằng số tính 1 lần lúc dựng view
+     * theo {@code Launcher.getCellWidth()} (bề rộng ô WORKSPACE). Ô hotseat rộng khác ô workspace
+     * (đo trên Samsung A50: view hotseat 254px), nên ở hotseat dấu trừ bị lệch: vùng chạm rơi ra
+     * ngoài ảnh dấu trừ -> bấm dấu trừ ở dock lại MỞ APP thay vì hiện dialog.
+     * Tính lại theo getWidth() để 2 chỗ (vẽ + chạm) luôn khớp nhau ở mọi container.
+     */
+    private int getDelIconLeftPadding() {
+        int width = getWidth();
+        if (width <= 0) {
+            // Chưa layout xong -> tạm dùng giá trị cũ để không vẽ lệch ra ngoài.
+            return mDelIconLeftPadding;
+        }
+        return (width - mIconSize - mDelIconSize) / 2;
+    }
+
     public void drawDelIcon(Canvas canvas) {
         int scrollX = getScrollX();
         int scrollY = getScrollY();
         float scale = !this.mNormalSize ? DelIconAnim.getScale() : 1.0f;
-        boolean canUninstall = uninstallEnable();
+        boolean canUninstall = canShowDelIcon();
         boolean isRefresh = DelIconAnim.shouldRefresh();
         if (canUninstall && isRefresh) {
             canvas.save();
@@ -971,7 +1004,7 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
             Rect bound = new Rect();
             getIconBounds(bound);
 
-            int left = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f) + mDelIconLeftPadding;
+            int left = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f) + getDelIconLeftPadding();
             int top = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f);
 
             Rect rect = new Rect(
@@ -1036,7 +1069,9 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
 
     private boolean checkUninstallPressed(int x, int y) {
 
-        if (!uninstallEnable()) {
+        // Dùng canShowDelIcon() (KHÔNG phải uninstallEnable()) để vùng chạm khớp ĐÚNG với điều kiện
+        // vẽ ở drawDelIcon() — nếu lệch nhau thì app hệ thống sẽ thấy dấu trừ mà bấm không ăn.
+        if (!canShowDelIcon()) {
             return false;
         }
 
@@ -1044,14 +1079,20 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
         getIconBounds(bound);
 
         int scale = 1;
-        int left = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f);
+        // BUG FIX: thiếu lề trái nên vùng chạm LỆCH khỏi dấu trừ đang vẽ (drawDelIcon() có cộng lề).
+        // Dùng CHUNG getDelIconLeftPadding() với lúc vẽ để 2 chỗ luôn khớp, kể cả trong hotseat
+        // (ô hotseat rộng khác ô workspace).
+        int left = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f) + getDelIconLeftPadding();
         int top = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f);
 
+        // Nới vùng chạm ra mỗi phía 1/4 kích thước dấu trừ: dấu trừ khá nhỏ (45% icon), chạm sát mép
+        // rất dễ trượt ra ngoài -> rơi xuống nhánh mở app. Nới nhẹ để bấm "ăn" như iOS.
+        int touchPadding = mDelIconSize / 4;
         Rect rect = new Rect(
-                left,
-                top,
-                (int) (((float) left) + (((float) mDelIconSize) * scale)),
-                (int) (((float) top) + (((float) mDelIconSize) * scale)));
+                left - touchPadding,
+                top - touchPadding,
+                (int) (((float) left) + (((float) mDelIconSize) * scale)) + touchPadding,
+                (int) (((float) top) + (((float) mDelIconSize) * scale)) + touchPadding);
 
         return rect.contains(x,y);
     }
@@ -1182,7 +1223,10 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
                 if (this.mPressedDelIcon) {
                     post(new Runnable() {
                         public void run() {
-                            BubbleTextView.this.mLauncher.uninstallApplication(BubbleTextView.this.mShortcutInfo);
+                            // Bấm dấu trừ KHÔNG gỡ cài đặt ngay nữa (trước đây gọi thẳng
+                            // uninstallApplication() -> bắn Intent.ACTION_DELETE). Theo hành vi iOS:
+                            // mở dialog cho người dùng chọn Gỡ khỏi màn hình / Xóa ứng dụng / Hủy.
+                            BubbleTextView.this.mLauncher.showRemoveAppDialog(BubbleTextView.this.mShortcutInfo);
                         }
                     });
                 }

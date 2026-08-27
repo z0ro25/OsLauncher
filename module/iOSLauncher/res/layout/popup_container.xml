@@ -14,16 +14,19 @@
      limitations under the License.
 -->
 
+<!-- [ÔM SÁT NỘI DUNG] paddingTop/Bottom để 0: 8dp cũ vốn chừa chỗ cho mũi tên và bóng đổ, mà mũi
+     tên đã bỏ (xem PopupContainerWithArrow.addArrowView) còn app_popup_elevation = 0dp nên không
+     còn bóng cần chỗ. Giữ lại chỉ làm popup thừa một khoảng trống trên/dưới danh sách. -->
 <com.amz.ios.launcher.popup.PopupContainerWithArrow
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/deep_shortcuts_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:elevation="@dimen/deep_shortcuts_elevation"
+    android:elevation="@dimen/app_popup_elevation"
     android:orientation="vertical">
 
 </com.amz.ios.launcher.popup.PopupContainerWithArrow>

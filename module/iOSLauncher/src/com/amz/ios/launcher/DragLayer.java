@@ -114,6 +114,21 @@ public class DragLayer extends InsettableFrameLayout {
     private int mMaximumFlingVelocity;
     private float mInterceptXDown;
     private float mInterceptYDown;
+    // Gốc cử chỉ (lưu vô điều kiện ở ACTION_DOWN) để phát hiện giữ-rồi-kéo khi popup ngữ cảnh app đang mở.
+    private float mPopupDownX;
+    private float mPopupDownY;
+    /**
+     * Hệ số nhân touch-slop RIÊNG cho cử chỉ giữ-rồi-kéo từ popup ngữ cảnh app.
+     *
+     * [BUG FIX] Trước đây dùng thẳng {@code getScaledTouchSlop()} (~24px trên mật độ 420dpi). Ngưỡng đó
+     * hợp cho cử chỉ KÉO chủ động, nhưng quá nhạy cho cử chỉ GIỮ: ngón tay thật luôn rê nhẹ vài chục px
+     * trong lúc giữ, nên popup vừa hiện đã bị chuyển sang drag + {@code startTidyUp()} -> người dùng
+     * thấy "giữ app không ra popup, nhảy thẳng vào rung lắc".
+     * Nhân 3 (~72px ≈ 6.5mm) để rung tay bình thường KHÔNG kích hoạt, còn ý định kéo thật (rê hẳn một
+     * đoạn) vẫn vào drag như thiết kế. CHỈ áp cho nhánh popup ngữ cảnh — các nhánh khác giữ nguyên slop
+     * hệ thống, không đụng tới.
+     */
+    private static final int CONTEXT_POPUP_DRAG_SLOP_FACTOR = 3;
     private int mDockGesDistance;
     private int mStatusBarHeight;
     private VelocityTracker mVelocityTracker;
@@ -277,6 +292,31 @@ public class DragLayer extends InsettableFrameLayout {
             }
             mTouchCompleteListener = null;
         }
+
+        // Giữ-liền → popup ngữ cảnh app hiện. Nếu người dùng ĐANG GIỮ mà DI CHUYỂN ngón tay vượt
+        // touch-slop thì tắt popup + nhấc icon lên KÉO THẢ (bật edit). onInterceptTouchEvent được gọi
+        // cho MỌI event kể cả khi BubbleTextView đang là target, nên đây là nơi bắt ACTION_MOVE.
+        if (action == MotionEvent.ACTION_DOWN) {
+            mPopupDownX = motionEvent.getX();
+            mPopupDownY = motionEvent.getY();
+        } else if (action == MotionEvent.ACTION_MOVE
+                && (mLauncher.isContextPopupOpen() || mLauncher.isWidgetContextDragCandidate())) {
+            // Slop RIÊNG, lớn hơn slop hệ thống — xem CONTEXT_POPUP_DRAG_SLOP_FACTOR.
+            int slop = ViewConfiguration.get(mLauncher).getScaledTouchSlop()
+                    * CONTEXT_POPUP_DRAG_SLOP_FACTOR;
+            float dx = motionEvent.getX() - mPopupDownX;
+            float dy = motionEvent.getY() - mPopupDownY;
+            if (dx * dx + dy * dy > slop * slop) {
+                // Giữ-rồi-kéo: khởi động drag (showInfo -> beginDragShared -> mDragController.startDrag)
+                // rồi TRẢ NGAY kết quả intercept của DragController — vì mDragging=true nên nó intercept,
+                // các MOVE/UP kế được route sang mDragController.onTouchEvent -> kéo + drop icon (như
+                // baseline edit-mode). Gọi onInterceptTouchEvent ĐÚNG MỘT LẦN tại đây (return luôn) để
+                // không double-process event khi rơi xuống nhánh return cuối hàm.
+                mLauncher.startDragFromContextPopup();
+                return this.mDragController.onInterceptTouchEvent(motionEvent);
+            }
+        }
+
         // Khi đang mở popup widget (long-press) thì GIỮ khung resize góc, không xóa bởi các sự kiện
         // touch của chính cử chỉ long-press (ACTION_MOVE/UP). Chạm vào tay kéo góc đã được
         // handleTouchDown bắt trước (return true) nên không rơi tới đây; chạm ra ngoài sẽ đóng popup
@@ -732,6 +772,17 @@ public class DragLayer extends InsettableFrameLayout {
         mResizeFrames.add(resizeFrame);
 
         resizeFrame.snapToWidget(false);
+
+        // [BUG FIX] snapToWidget() có thể THOÁT SỚM (khi Launcher.isOpeningFloatingMenu() còn bật) mà
+        // KHÔNG đặt kích thước thật cho khung. Khi đó lp giữ nguyên (-1,-1) kèm customPosition = true,
+        // và onLayout() sẽ layout khung bằng (lp.x, lp.y, lp.x + lp.width, ...) với width/height = -1
+        // -> khung thành view RÁC nằm trên cùng DragLayer, che mất popup widget vừa mở
+        // ("giữ liền widget không hiển thị gì"). Không snap được thì GỠ LUÔN, thà mất khung resize còn
+        // hơn che popup.
+        if (lp.width < 0 || lp.height < 0) {
+            mResizeFrames.remove(resizeFrame);
+            removeView(resizeFrame);
+        }
     }
 
     public void animateViewIntoPosition(DragView dragView, final View child) {

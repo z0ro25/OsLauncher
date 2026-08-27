@@ -1,11 +1,14 @@
 ext {
     cfgs = [
-            compileSdkVersion: 34,
+            // [NÂNG CẤP] 34 -> 36, đồng bộ với app/build.gradle. AGP 8.6.1 + Gradle 8.7 mới có aapt2
+            // đọc được android.jar API 36 (xem ghi chú ở build.gradle gốc).
+            compileSdkVersion: 36,
             applicationId    : "com.ios.ioslite.odm",
             minSdkVersion    : 26,
-            targetSdkVersion : 34,
-            sourceCompatibility : 1.8,
-            targetCompatibility : 1.8
+            targetSdkVersion : 36,
+            // Java 8 -> 17: AGP 8.x yêu cầu JDK 17 để chạy, và desugaring mặc định nhắm Java 17.
+            sourceCompatibility : JavaVersion.VERSION_17,
+            targetCompatibility : JavaVersion.VERSION_17
     ]
 
     /*

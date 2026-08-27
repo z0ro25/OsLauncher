@@ -130,7 +130,8 @@ public class BatteryWidgetProvider extends AppWidgetProvider implements IOSAppWi
             Intent intent = new Intent("android.intent.action.POWER_USAGE_SUMMARY");
             intent.setPackage(mContext.getPackageName());
 
-            rv.setOnClickPendingIntent(R.id.widget_battery_layout, PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT));
+            // S+ cũng bắt buộc flag cho PI này (mở màn hình sử dụng pin). Chỉ mở activity -> FLAG_IMMUTABLE.
+            rv.setOnClickPendingIntent(R.id.widget_battery_layout, PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
             AppWidgetManager.getInstance(context).updateAppWidget(new ComponentName(context, BatteryWidgetProvider.class), rv);
         }
     }
@@ -253,7 +254,10 @@ public class BatteryWidgetProvider extends AppWidgetProvider implements IOSAppWi
             Intent batteryUpdateIntent = new Intent(mContext, BatteryWidgetProvider.class);
             batteryUpdateIntent.setPackage(mContext.getPackageName());
             batteryUpdateIntent.setAction(BATTERY_UPDATE_ACTION);
-            mBatteryUpdatePI = PendingIntent.getBroadcast(mContext, 868686868, batteryUpdateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // S+ (target 31+) BẮT BUỘC FLAG_IMMUTABLE hoặc FLAG_MUTABLE, thiếu -> IllegalArgumentException
+            // (crash tiến trình receiver widget pin). PI này chỉ để AlarmManager tự bắn lại, không cần
+            // mutable -> dùng FLAG_IMMUTABLE. minSdk 26 nên hằng số luôn có sẵn.
+            mBatteryUpdatePI = PendingIntent.getBroadcast(mContext, 868686868, batteryUpdateIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
         if (mAlarmManager == null){
             mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);

@@ -23,6 +23,7 @@ import com.amz.ios.launcher.R;
 import com.amz.ios.launcher.bounce.BouncyRecyclerView;
 import com.amz.ios.launcher.bounce.OnOverPullListener;
 import com.amz.ios.launcher.leftpage.custom.CustomZoomButton;
+import com.amz.ios.launcher.leftpage.widgets.AppSuggestionWidget;
 import com.amz.ios.launcher.leftpage.widgets.WidgetBaseLayout;
 import com.amz.ios.launcher.leftpage.adapter.CustomContentWidgetAdapter;
 import com.amz.ios.launcher.leftpage.adapter.WrapStaggeredGridLayoutManager;
@@ -142,7 +143,18 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         ((ViewGroup.MarginLayoutParams) ((ConstraintLayout.LayoutParams) this.mSlidingUpWidgetsAppStyle.getLayoutParams())).height = height;
 
         int padding = i / 2;
-        this.mListWidgetRV.setPadding(padding, paddingTop + padding, padding, padding);
+        // [BUG FIX] Màn TRÁI (negative page) bị dán SÁT MÉP TRÊN, widget đầu đè lên status bar.
+        // Nguyên nhân: layout dựa vào android:fitsSystemWindows="true" để framework chừa status bar,
+        // NHƯNG cửa sổ launcher bật FLAG_LAYOUT_NO_LIMITS (Launcher.hideNavigationBar) -> cửa sổ tràn
+        // ra ngoài mọi system bar -> framework báo inset top = 0 (đo trên Samsung A50 Android 9) ->
+        // fitsSystemWindows không chừa gì cả. Desktop KHÔNG dính vì nó tự chừa bằng
+        // layout_marginTop="@dimen/status_bar_heightex" thay vì dựa vào inset sống.
+        //
+        // Sửa cùng cách với desktop: cộng chiều cao status bar CỐ ĐỊNH vào padding đỉnh.
+        // Đặt TẠI ĐÂY (không phải nơi khác) vì setUpView() là chỗ CUỐI ghi padding cho recycler —
+        // set ở chỗ khác sẽ bị dòng này ghi đè. Chỉ đụng recycler màn trái -> không ảnh hưởng màn khác.
+        int statusBarPadding = getResources().getDimensionPixelSize(R.dimen.status_bar_heightex);
+        this.mListWidgetRV.setPadding(padding, paddingTop + padding + statusBarPadding, padding, padding);
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) this.mSearchBoxLeftPage.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) params).rightMargin = i;
         ((ViewGroup.MarginLayoutParams) params).leftMargin = i;
@@ -407,6 +419,24 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
             View childAt = mListWidgetRV.getChildAt(i);
             if (childAt instanceof WidgetBaseLayout) {
                 ((WidgetBaseLayout) childAt).setAppSuggestionViewMargin();
+            }
+        }
+    }
+
+    /**
+     * Nạp lại khung app gợi ý (app mở gần nhất).
+     *
+     * Gọi từ Launcher.onRecentChange() — AppUsagesModel phát callback đó sau mỗi lần người dùng mở
+     * app, nên danh sách luôn khớp thứ tự dùng thật mà không cần cơ chế theo dõi riêng.
+     * Cùng khuôn duyệt con với onOpenPage().
+     */
+    public void reloadAppSuggestions() {
+        if (mListWidgetRV == null) return;
+        int childCount = mListWidgetRV.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View childAt = mListWidgetRV.getChildAt(i);
+            if (childAt instanceof AppSuggestionWidget) {
+                AppSuggestionWidget.reloadSuggestionApps((AppSuggestionWidget) childAt);
             }
         }
     }

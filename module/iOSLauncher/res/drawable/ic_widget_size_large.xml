@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icon size widget LỚN (4x4) trong hàng chọn size ở đầu popup widget: khung chữ nhật nằm ngang,
+     viền rỗng — thể hiện widget rộng hết bề ngang nhưng thấp. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#000000"
+        android:pathData="M4,7h16a2,2 0,0 1,2 2v6a2,2 0,0 1,-2 2h-16a2,2 0,0 1,-2 -2v-6a2,2 0,0 1,2 -2zM4,9v6h16v-6z" />
+</vector>

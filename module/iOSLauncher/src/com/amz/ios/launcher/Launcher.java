@@ -308,6 +308,19 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public boolean showingFloatingMenu = false;
     public boolean mIsShaking = false;
 
+    // Popup ngữ cảnh app đang mở (giữ liền): icon + cellInfo để chuyển sang KÉO THẢ khi ngón tay di
+    // chuyển vượt touch-slop trong lúc popup còn hiện (xem isContextPopupOpen/startDragFromContextPopup).
+    private View mContextPopupIcon;
+    private CellLayout.CellInfo mContextPopupCellInfo;
+
+    /**
+     * Trạng thái status bar hiện đang được đặt cho edit mode: null = chưa đặt lần nào,
+     * true = đang ẩn, false = đang hiện. Dùng để {@link #syncStatusBarToEditButtons()} KHÔNG đụng vào
+     * window khi trạng thái không đổi — mỗi lần đụng, framework re-layout toàn cửa sổ và huỷ lượt
+     * layout đang chờ của popup vừa được add (khiến popup kẹt 0x0, không bao giờ hiện ra).
+     */
+    private Boolean mStatusBarHiddenForEdit = null;
+
     /**
      * The different states that Launcher can be in.
      */
@@ -692,31 +705,84 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // (trước đây chỉ đặt trong setStatusBarHiddenForEdit -> phải đợi onWindowFocusChanged, và ở
         // API 28/29 lại đặt sai hằng ALWAYS(=3) vốn chỉ có từ API 30 -> khung tụt xuống dưới cutout).
         // API 28/29: SHORT_EDGES (tràn vào cutout cạnh ngắn). API 30+: ALWAYS.
+        // [BUG FIX] CHỈ gọi setAttributes() khi giá trị THẬT SỰ đổi.
+        //   setStatusBarHiddenForEdit() chạy ở MỌI onWindowFocusChanged (qua syncStatusBarToEditButtons).
+        //   setAttributes() ép framework re-layout TOÀN cửa sổ -> huỷ lượt layout đang chờ của popup
+        //   vừa được add trong showEditMenu() -> popup kẹt ở w=0 h=0, layoutRequested=true mãi không
+        //   được xử lý -> bấm nút "Chỉnh sửa" bao nhiêu lần cũng KHÔNG thấy popup (Android 9).
+        //   So sánh trước khi gán để không đụng tới window khi giá trị đã đúng.
         if (Build.VERSION.SDK_INT >= 28) {
-            WindowManager.LayoutParams wlp = window.getAttributes();
-            wlp.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+            int desiredCutoutMode = Build.VERSION.SDK_INT >= 30
                     ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
                     : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(wlp);
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            if (wlp.layoutInDisplayCutoutMode != desiredCutoutMode) {
+                wlp.layoutInDisplayCutoutMode = desiredCutoutMode;
+                window.setAttributes(wlp);
+            }
         }
 
         windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars());
         windowInsetsController.hide(WindowInsetsCompat.Type.systemGestures());
 
-        decorView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            new Handler().postDelayed(()->{
-                WindowInsetsControllerCompat windowInsetsController1;
-                windowInsetsController1 = Build.VERSION.SDK_INT >= 30
-                        ? ViewCompat.getWindowInsetsController(decorView) : new WindowInsetsControllerCompat(window, decorView);
+        // [FIX Android 9/10] Ở API < 30, hide() ghi đè TOÀN BỘ systemUiVisibility (rơi về cờ legacy),
+        // xoá mất LAYOUT_STABLE|LAYOUT_FULLSCREEN cần cho edge-to-edge. OR lại ngay để giữ khung [0,H].
+        // Xem giải thích đầy đủ ở setStatusBarHiddenForEdit().
+        if (Build.VERSION.SDK_INT < 30) {
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
 
-                if (windowInsetsController1 == null) {
-                    return;
-                }
-                windowInsetsController1.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-                windowInsetsController1.hide(WindowInsetsCompat.Type.navigationBars());
-                windowInsetsController1.hide(WindowInsetsCompat.Type.systemGestures());
-            },3000);
+        // [BUG FIX] "Bật edit bằng giữ liền ngoài màn hình -> bấm Chỉnh sửa không hiện gì, kéo app mất
+        //   logo, giữ app không ra popup."
+        //
+        // NGUYÊN NHÂN: listener này chạy ở MỖI lượt global layout, và mỗi lần lại đặt THÊM một
+        // postDelayed(3000) mới trên một Handler MỚI — không hề huỷ lượt cũ. Vào edit mode, jiggle
+        // animation làm layout chạy liên tục -> hàng trăm callback dồn hàng đợi -> cứ 3 giây lại nổ một
+        // loạt hide(navigationBars/systemGestures). Mỗi hide() ép framework re-layout TOÀN cửa sổ, huỷ
+        // lượt layout đang chờ của những view VỪA được add vào DragLayer:
+        //   - menu của showEditMenu()  -> kẹt w=0 h=0 -> "bấm Chỉnh sửa không hiện gì"
+        //   - DragView                 -> kẹt w=0 h=0 -> "kéo app mất logo"
+        //   - PopupContainerWithArrow  -> kẹt w=0 h=0 -> "giữ app không ra popup"
+        // Đúng 3 triệu chứng, và chỉ hỏng KHI ĐANG Ở EDIT (lúc đó layout mới chạy dồn dập).
+        //
+        // FIX: dùng MỘT Handler + MỘT Runnable dùng lại, và removeCallbacks trước khi post -> tại mọi
+        // thời điểm chỉ có TỐI ĐA 1 lượt ẩn nav đang chờ, thay vì hàng trăm lượt chồng nhau. Giữ nguyên
+        // hành vi ẩn nav bar (vẫn ẩn lại sau khi layout ổn định), chỉ bỏ phần dồn hàng đợi.
+        final Handler navHideHandler = new Handler();
+        final Runnable navHideRunnable = () -> {
+            // Đang ở edit mode / đang kéo / đang mở menu-popup: TUYỆT ĐỐI không đụng vào window.
+            // Một lần hide() rơi trúng lúc menu hoặc DragView vừa được add cũng đủ huỷ lượt layout đang
+            // chờ của chúng -> lại đúng 3 triệu chứng ở trên. Nav bar đã ẩn từ onCreate và không tự hiện
+            // lại trong các trạng thái này, nên hoãn tới khi thoát edit là an toàn.
+            if (isShaking() || showingFloatingMenu || mEditMenuView != null
+                    || (mDragController != null && mDragController.isDragging())) {
+                return;
+            }
+            WindowInsetsControllerCompat windowInsetsController1;
+            windowInsetsController1 = Build.VERSION.SDK_INT >= 30
+                    ? ViewCompat.getWindowInsetsController(decorView) : new WindowInsetsControllerCompat(window, decorView);
+
+            if (windowInsetsController1 == null) {
+                return;
+            }
+            windowInsetsController1.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            windowInsetsController1.hide(WindowInsetsCompat.Type.navigationBars());
+            windowInsetsController1.hide(WindowInsetsCompat.Type.systemGestures());
+            // [FIX Android 9/10] Khôi phục cờ layout bị hide() ghi đè ở API < 30 — xem
+            // setStatusBarHiddenForEdit(). Đây là lượt chạy ĐỊNH KỲ nên nếu thiếu, cờ sẽ bị xoá lặp lại
+            // suốt phiên, khung cửa sổ đổi liên tục -> content/nút lệch so với toạ độ chạm.
+            if (Build.VERSION.SDK_INT < 30) {
+                decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
+        };
+        decorView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            navHideHandler.removeCallbacks(navHideRunnable);
+            navHideHandler.postDelayed(navHideRunnable, 3000);
         });
     }
 
@@ -743,6 +809,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 == PackageManager.PERMISSION_DENIED) {
             permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
+        // KHÔNG xin READ_MEDIA_IMAGES ở đây. Quyền đọc ảnh chỉ phục vụ widget ảnh, mà không phải ai
+        // cũng dùng widget đó — hỏi ngay lúc vào desktop là làm phiền vô cớ.
+        // Widget ảnh tự hiện lớp phủ "Nhấn để cấp quyền" và chỉ xin khi người dùng BẤM vào nó
+        // (xem PictureAppWidgetProvider.attachOpenGalleryClick).
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
 //                == PackageManager.PERMISSION_DENIED) {
 //            permissionList.add(Manifest.permission.READ_CALENDAR);
@@ -1315,6 +1385,14 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
 //            initApp();
         }
+
+        // Người dùng vừa trả lời hộp xin quyền ảnh (mở từ chính widget ảnh) -> vẽ lại widget ngay
+        // để bỏ lớp phủ "cần cấp quyền" và hiện ảnh thật, không phải chờ lần onResume sau.
+        if (requestCode == com.amz.ios.launcher.widget.widgetprovider
+                .PictureAppWidgetProvider.REQUEST_PHOTO_PERMISSION) {
+            com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
+        }
+
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -1432,6 +1510,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Đã tắt dialog "Rate us" hiện lên khi mở launcher theo yêu cầu.
 
         isPaused = false;
+
+        // Widget ảnh luôn hiện ảnh MỚI NHẤT trong máy. Android chặn updatePeriodMillis dưới 30 phút
+        // nên không thể trông vào chu kỳ tự cập nhật — chụp ảnh xong quay về launcher sẽ vẫn thấy
+        // ảnh cũ. Người dùng bao giờ cũng quay lại launcher sau khi chụp, nên làm mới ở đây.
+        com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
 
         if (DEBUG_RESUME_TIME) {
             startTime = System.currentTimeMillis();
@@ -2065,6 +2148,18 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
             mWorkspace.addInScreen(launcherInfo.hostView, container, screenId, info.cellX,
                     info.cellY, launcherInfo.spanX, launcherInfo.spanY, isWorkspaceLocked());
+
+            // [BUG FIX] Widget vừa thêm KHÔNG hiện cho tới khi vuốt sang page khác rồi quay lại.
+            //   Vị trí/kích thước thật của item (lp.x/y/width/height) chỉ được tính trong
+            //   ShortcutAndWidgetContainer.measureChild() -> lp.setup(), tức chỉ trong lượt
+            //   onMeasure. requestLayout() do addView() phát ra BỊ BỎ QUA nếu cây view đang ở giữa
+            //   một lượt layout — xảy ra khi ta gỡ view cũ rồi thêm view mới trong cùng chuỗi xử lý
+            //   (đổi loại/cỡ widget từ popup). Khi đó view nằm trong cây nhưng width/height = 0.
+            //   bindAppWidget() (luồng bind từ model, Launcher:5497) vốn đã gọi
+            //   workspace.requestLayout() ngay sau addInScreen vì lý do này; completeAddAppWidget
+            //   thì thiếu. Bổ sung cho khớp — thêm một lời gọi requestLayout là vô hại với các
+            //   luồng cũ (kéo widget từ khay) vì lúc đó cây view không đang layout.
+            mWorkspace.requestLayout();
 
             addWidgetToAutoAdvanceIfNeeded(launcherInfo.hostView, appWidgetInfo);
         }
@@ -2994,6 +3089,81 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     public void addAppShortcutFromScreenEditView(PendingAddShortcutInfo info) {
         processAddItemFromScreenEditView(info);
+    }
+
+    /**
+     * Quy điểm chạm trên MÀN HÌNH về ô lưới còn trống gần nhất của trang hiện tại.
+     *
+     * TÁCH RIÊNG khỏi {@link #addWidgetAtCell} để gọi được TRƯỚC khi đóng khay widget: đóng khay +
+     * vào edit mode làm workspace đổi layout/scale, nếu đọc {@code getLocationOnScreen} sau đó thì
+     * toạ độ không còn khớp với lúc người dùng đang giữ -> widget rơi lệch chỗ.
+     *
+     * @return {cellX, cellY} hoặc null nếu không tìm được ô trống.
+     */
+    public int[] findCellForScreenPoint(PendingAddWidgetInfo info, int screenX, int screenY) {
+        if (info == null) {
+            return null;
+        }
+        CellLayout cellLayout = mWorkspace.getCurrentDropLayout();
+        if (cellLayout == null) {
+            return null;
+        }
+        int[] loc = new int[2];
+        cellLayout.getLocationOnScreen(loc);
+        int pixelX = screenX - loc[0];
+        int pixelY = screenY - loc[1];
+
+        int[] cellXY = cellLayout.findNearestVacantArea(
+                pixelX, pixelY, info.spanX, info.spanY, new int[2]);
+        if (cellXY != null && cellXY[0] >= 0 && cellXY[1] >= 0) {
+            return cellXY;
+        }
+        return null;
+    }
+
+    /**
+     * Đặt widget vào ĐÚNG ô đã tính sẵn (xem {@link #findCellForScreenPoint}).
+     * Dùng cho luồng "giữ preview trong khay để thêm widget": ô được tính TRƯỚC khi đóng khay,
+     * rồi mới gọi hàm này sau khi khay đã đóng và workspace đã vào edit mode.
+     *
+     * @return true nếu đặt được; false nếu hết chỗ (đã hiện thông báo).
+     */
+    public boolean addWidgetAtCell(PendingAddWidgetInfo info, int[] cellXY) {
+        if (info == null) {
+            return false;
+        }
+        CellLayout cellLayout = mWorkspace.getCurrentDropLayout();
+        if (cellLayout == null) {
+            return false;
+        }
+        long currentScreenId = mWorkspace.getIdForScreen(cellLayout);
+        if (cellLayout.isEmpty() && currentScreenId == Workspace.EXTRA_EMPTY_SCREEN_ID1) {
+            currentScreenId = mWorkspace.commitExtraEmptyScreen(Workspace.EXTRA_EMPTY_SCREEN_ID1);
+        }
+
+        int[] target = cellXY;
+        if (target == null || target[0] < 0 || target[1] < 0) {
+            // Không có ô tính sẵn (hoặc không hợp lệ) -> rơi về ô trống đầu tiên để thao tác vẫn
+            // có kết quả thay vì im lặng không làm gì.
+            int[] pixelXY = cellLayout.getFirstVacant(info.spanX, info.spanY);
+            if (pixelXY == null) {
+                showOutOfSpaceMessage(false);
+                return false;
+            }
+            target = cellLayout.findNearestVacantArea(
+                    pixelXY[0], pixelXY[1], info.spanX, info.spanY, new int[2]);
+        }
+        if (target == null || target[0] < 0 || target[1] < 0) {
+            showOutOfSpaceMessage(false);
+            return false;
+        }
+
+        addAppWidgetFromDrop(info, LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                currentScreenId, target, new int[]{info.spanX, info.spanY});
+        if (cellLayout.isNullScreen()) {
+            cellLayout.setNullScreen(false);
+        }
+        return true;
     }
 
     private void processAddItemFromScreenEditView(PendingAddItemInfo info) {
@@ -4126,9 +4296,29 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 } else {
                     // CHƯA edit: hiện popup RIÊNG của widget (3 mục) + khung resize góc dưới-phải,
                     // KHÔNG nhấc kéo, KHÔNG mở popup của app.
+                    //
+                    // [BUG FIX] "Giữ liền widget không hiển thị gì."
+                    //   AppWidgetResizeFrame.snapToWidget() THOÁT SỚM khi
+                    //   {@code mLauncher.isOpeningFloatingMenu()} (tức cờ showingFloatingMenu đang bật).
+                    //   Nếu cờ đó còn sót lại từ luồng long-press APP trước đó, khung resize được add
+                    //   vào DragLayer nhưng KHÔNG BAO GIỜ được snap -> giữ nguyên LayoutParams(-1,-1)
+                    //   kèm customPosition=true. DragLayer.onLayout khi đó layout nó bằng
+                    //   (lp.x, lp.y, lp.x + lp.width...) với width = -1 -> khung thành view rác nằm
+                    //   TRÊN popup widget (add sau = trên cùng) và che mất popup.
+                    //   Vì thế phải dọn cờ + overlay TRƯỚC khi mở popup widget.
+                    removeFloatingMenuOverlay();   // gỡ lớp phủ còn sót + hạ showingFloatingMenu
+                    removeStalePopupContainer();   // gỡ popup app xác chết nếu còn (xem hàm này)
                     showWidgetMenu(v);
+                    // Nhớ widget + cellInfo để nếu người dùng GIỮ RỒI KÉO (vượt touch-slop) thì
+                    // DragLayer gọi startDragFromContextPopup() -> đóng widget menu + nhấc widget lên
+                    // kéo + bật edit (giống app). Gate bằng isWidgetContextDragCandidate().
+                    mContextPopupIcon = v;
+                    mContextPopupCellInfo = longClickCellInfo;
                     CellLayout cl = mWorkspace.getParentCellLayoutForView(v);
-                    if (cl != null) {
+                    // Chỉ add khung resize khi CHẮC CHẮN snapToWidget() sẽ chạy (cờ đã hạ ở trên).
+                    // Nếu vì lý do nào đó cờ vẫn bật, THÀ KHÔNG có khung resize còn hơn để lại view
+                    // rác full-screen che mất popup.
+                    if (cl != null && !isOpeningFloatingMenu()) {
                         getDragLayer().addResizeFrame((LauncherAppWidgetInfo) info,
                                 (LauncherAppWidgetHostView) v, cl, 1f, /*compactCorner=*/true);
                         mWidgetResizeMode = true;
@@ -4143,6 +4333,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         final boolean inHotseat = isHotseatLayout(v);
         if (!mDragController.isDragging()) {
             if (itemUnderLongClick == null) {
+                // [BUG FIX] "Giữ widget lại bật edit, không thấy popup."
+                //   Host widget (LauncherAppWidgetHostView) KHÔNG nuốt touch (onTouchEvent trả false)
+                //   nên CellLayout cha CŨNG tự lên lịch long-press của chính nó và bắn onLongClick(v=CellLayout,
+                //   tag=null) ~100ms SAU cú long-press của widget. v=CellLayout -> rơi vào nhánh "empty space"
+                //   này -> popWorkspace() -> startTidyUp() = BẬT EDIT, xé mất popup widget vừa mở ở cú
+                //   long-press trước. (App KHÔNG dính vì BubbleTextView nuốt touch -> cha không lên lịch.)
+                //   Nếu popup widget ĐANG mở thì cú long-press vùng-trống này CHẮC CHẮN là double-fire của
+                //   cử chỉ giữ widget -> BỎ QUA, giữ nguyên popup.
+                if (mWidgetMenuView != null) {
+                    return true;
+                }
                 // User long pressed on empty space
                 mWorkspace.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
                 if (mWorkspace.isInOverviewMode()) {
@@ -4150,17 +4351,64 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 } else {
                     popWorkspace(true);
                 }
-            } else {
-                //todo show menu
-                Log.e(TAG, "open menu");
+            } else if (isShaking()) {
+                // ĐANG ở edit (jiggle): long-press app = nhấc icon lên KÉO THẢ để sắp xếp lại
+                // (baseline an toàn, drag hoạt động). Không mở popup ở trạng thái này.
                 openFloatingMenu(v);
                 mWorkspace.showInfo(longClickCellInfo);
                 mWorkspace.startTidyUp();
-                // KHÔNG ẩn status bar ở đây: long-press app CHỈ mở popup ngữ cảnh, 2 nút Sửa/Xong
-                // KHÔNG hiển thị -> theo yêu cầu, status bar phải GIỮ HIỆN. (Trước đây ẩn tại đây khiến
-                // status bar ẩn LÌ vì popup là overlay TRONG cửa sổ -> không mất focus -> không có luồng
-                // nào hiện lại.) Status bar chỉ ẩn khi vào edit THẬT (onShakingAllApps hiện 2 nút, ví dụ
-                // chọn "Edit Home Screen" từ popup) — bất biến này do syncStatusBarToEditButtons() giữ.
+            } else {
+                // CHƯA edit: long-press app = POPUP ngữ cảnh iOS gốc (PopupContainerWithArrow):
+                //   4 mục mặc định (Remove App / Edit Home Screen / Hide App / App Info)
+                //   + các deep shortcut RIÊNG theo từng app. orientAboutIcon tự định vị tránh viền
+                //   nên popup "nhỏ, đẹp, không tràn". KHÔNG nhấc kéo, KHÔNG vào jiggle (giống đường
+                //   widget showWidgetMenu). Đường vào edit là chọn "Edit Home Screen" trong popup.
+                //
+                // Tích hợp vòng đời qua cặp showingFloatingMenu + mFloatingMenuBlurBg (đúng như baseline):
+                //   - bật showingFloatingMenu -> khi bấm 1 mục, SystemShortcut gọi closeFloatingMenu()
+                //     -> closeAllOpenViews() đóng popup; khi chạm ra NGOÀI, overlay.onClick cũng gọi
+                //     closeFloatingMenu() -> đóng popup.
+                //   - overlay được add GIỮA cử chỉ long-press nên không nhận ACTION_DOWN -> không tự
+                //     click-đóng lúc nhấc tay (bất biến đã kiểm chứng ở baseline openFloatingMenu).
+                //   - KHÔNG ẩn icon (khác openFloatingMenu) để mũi tên popup trỏ đúng vào icon.
+                // showForIcon là AbstractFloatingView nhưng onTouchEvent=true và không chỗ nào close()
+                // ở ACTION_UP -> sống sót qua long-press.
+                // GỠ overlay cũ nếu còn sót parent (mFloatingMenuBlurBg là view dùng-chung một-instance;
+                // nếu chưa closeFloatingMenu ở luồng trước, add lại sẽ ném IllegalStateException
+                // "child already has a parent" -> crash). removeFloatingMenuOverlay() bám getParent()
+                // nên dọn được cả trường hợp cờ showingFloatingMenu bị lệch.
+                // Long-press có thể phát onLongClick 2 LẦN cho 1 cử chỉ (listener kép). Lần 2 tới khi
+                // popup đã mở -> showForIcon trả null -> nếu chạy fallback jiggle sẽ XÉ popup thành edit
+                // mode. Vì vậy: đã có popup mở thì BỎ QUA lần gọi trùng (giữ nguyên popup).
+                if (com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this) != null) {
+                    return true;
+                }
+                removeFloatingMenuOverlay();
+                // Dọn XÁC CHẾT popup của vòng kéo trước (nếu có) — nếu không, nó nằm lì trên cùng
+                // DragLayer và che popup mới -> "giữ app không hiện popup gì". Xem
+                // removeStalePopupContainer() để biết vì sao xác chết phát sinh.
+                removeStalePopupContainer();
+                showingFloatingMenu = true;
+                getDragLayer().addView(mFloatingMenuBlurBg, new DragLayer.LayoutParams(-1, -1));
+                com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
+                        com.amz.ios.launcher.popup.PopupContainerWithArrow.showForIcon(v);
+                if (popup == null) {
+                    // App không hỗ trợ popup (itemType lạ / bị disable): GIỮ YÊN KHÔNG bật edit.
+                    // Yêu cầu người dùng: giữ liền chỉ hiện popup; edit CHỈ bật khi KÉO item đi.
+                    // Trước đây nhánh này nhấc icon + startTidyUp (bật edit khi giữ) -> đã bỏ.
+                    // Chỉ dọn overlay vừa add để không để lại lớp phủ rác.
+                    mContextPopupIcon = null;
+                    mContextPopupCellInfo = null;
+                    removeFloatingMenuOverlay();
+                } else {
+                    // Popup ngữ cảnh đã mở: nhớ icon + cellInfo để nếu người dùng GIỮ RỒI KÉO
+                    // (di chuyển vượt touch-slop) thì DragLayer gọi startDragFromContextPopup() ->
+                    // tắt popup + nhấc icon lên kéo thả (xem DragLayer.onInterceptTouchEvent).
+                    mContextPopupIcon = v;
+                    mContextPopupCellInfo = longClickCellInfo;
+                }
+                // KHÔNG ẩn status bar ở đây: popup ngữ cảnh KHÔNG hiển thị 2 nút Sửa/Xong -> status
+                // bar phải GIỮ HIỆN. Status bar chỉ ẩn khi vào edit THẬT (onShakingAllApps).
             }
         }
 
@@ -4438,14 +4686,28 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * #onWindowFocusChanged(boolean)} sẽ ẩn lại nếu vẫn đang edit ({@code mIsShaking}).
      */
     private void setStatusBarHiddenForEdit(boolean hidden) {
+        // [BUG FIX] Bỏ qua khi trạng thái KHÔNG đổi.
+        //   Hàm này chạy ở MỌI onWindowFocusChanged (qua syncStatusBarToEditButtons). Nếu lần nào cũng
+        //   đụng vào window (controller.hide/show + setAttributes) thì framework re-layout TOÀN cửa sổ
+        //   và huỷ lượt layout đang chờ của popup vừa được add trong showEditMenu() -> popup kẹt ở
+        //   w=0 h=0 (layoutRequested=true mãi không xử lý) -> bấm nút "Chỉnh sửa" bao nhiêu lần cũng
+        //   KHÔNG thấy popup trên Android 9.
+        //   Đặt chốt Ở ĐÂY (không phải ở syncStatusBarToEditButtons) để MỌI đường gọi đều đi qua,
+        //   giữ cờ cache luôn khớp trạng thái thật.
+        if (mStatusBarHiddenForEdit != null && mStatusBarHiddenForEdit == hidden) {
+            return;
+        }
+
         Window window = getWindow();
         View decorView = window.getDecorView();
         WindowInsetsControllerCompat controller = Build.VERSION.SDK_INT >= 30
                 ? ViewCompat.getWindowInsetsController(decorView)
                 : new WindowInsetsControllerCompat(window, decorView);
         if (controller == null) {
+            // Chưa áp được -> KHÔNG ghi cờ, để lần gọi sau còn thử lại.
             return;
         }
+        mStatusBarHiddenForEdit = hidden;
         controller.setSystemBarsBehavior(
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         // [FIX THẬT] NGUYÊN NHÂN đẩy-xuống: cửa sổ ở LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT chỉ được
@@ -4458,17 +4720,49 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         //   nên rơi về xử lý mặc định -> khung bị đẩy xuống DƯỚI cutout (đo trên Samsung A50 Android 9:
         //   mFrame=[0,83][1080,2340], cutout cao 83px) -> desktop KHÔNG full màn. Ở API 28/29 phải dùng
         //   SHORT_EDGES (=1): cho cửa sổ tràn vào cutout ở cạnh ngắn (đỉnh khi dọc) -> khung [0,H].
+        // [BUG FIX] CHỈ gọi setAttributes() khi giá trị THẬT SỰ đổi.
+        //   setStatusBarHiddenForEdit() chạy ở MỌI onWindowFocusChanged (qua syncStatusBarToEditButtons).
+        //   setAttributes() ép framework re-layout TOÀN cửa sổ -> huỷ lượt layout đang chờ của popup
+        //   vừa được add trong showEditMenu() -> popup kẹt ở w=0 h=0, layoutRequested=true mãi không
+        //   được xử lý -> bấm nút "Chỉnh sửa" bao nhiêu lần cũng KHÔNG thấy popup (Android 9).
+        //   So sánh trước khi gán để không đụng tới window khi giá trị đã đúng.
         if (Build.VERSION.SDK_INT >= 28) {
-            WindowManager.LayoutParams wlp = window.getAttributes();
-            wlp.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+            int desiredCutoutMode = Build.VERSION.SDK_INT >= 30
                     ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
                     : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(wlp);
+            WindowManager.LayoutParams wlp = window.getAttributes();
+            if (wlp.layoutInDisplayCutoutMode != desiredCutoutMode) {
+                wlp.layoutInDisplayCutoutMode = desiredCutoutMode;
+                window.setAttributes(wlp);
+            }
         }
         if (hidden) {
             controller.hide(WindowInsetsCompat.Type.statusBars());
         } else {
             controller.show(WindowInsetsCompat.Type.statusBars());
+        }
+
+        // [FIX Android 9/10 — XUNG ĐỘT CỜ LEGACY] Khôi phục cờ layout edge-to-edge SAU khi controller
+        //   đổi status bar.
+        //
+        // VÌ SAO CHỈ ANDROID 9/10 DÍNH: WindowInsetsController chỉ có từ API 30. Ở API 28/29,
+        // WindowInsetsControllerCompat.hide()/show() KHÔNG có API framework để gọi nên rơi về ghi cờ
+        // legacy qua decorView.setSystemUiVisibility() — GHI ĐÈ TOÀN BỘ trường systemUiVisibility, xoá
+        // luôn LAYOUT_STABLE|LAYOUT_FULLSCREEN mà 2 chỗ khác đã đặt cho edge-to-edge:
+        //     - setupTransparentSystemBarsForLollipop() (onAttachedToWindow) đặt trên decorView
+        //     - mLauncherView.setSystemUiVisibility(...) lúc dựng view
+        // Ba nơi cùng ghi vào MỘT trường, không nơi nào biết nơi kia -> mỗi lần vào/ra edit là một lần
+        // cờ layout bị xoá -> khung cửa sổ đổi -> re-layout bất thường, content/nút lệch vị trí so với
+        // toạ độ chạm.
+        // Trên API 30+ (Pixel...) controller dùng API framework RIÊNG, không đụng cờ legacy -> KHÔNG
+        // xung đột. Đúng như quan sát: máy Android mới không tái hiện được, chỉ Android 9 bị.
+        //
+        // FIX: OR lại 2 cờ layout ngay sau khi controller ghi đè. Chỉ chạy ở API < 30 (từ API 30 các cờ
+        // legacy này bị framework bỏ qua nên gán thừa). Dùng OR nên không xoá cờ nào khác đang có.
+        if (Build.VERSION.SDK_INT < 30) {
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
         // KHÔNG còn đụng marginTop: khung không tụt nữa (nhờ CUTOUT_MODE_ALWAYS ở trên) nên marginTop
         // giữ CỐ ĐỊNH = status_bar_heightex do XML (launcher.xml) đặt sẵn cho workspace_root_view +
@@ -6358,6 +6652,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     public void onRecentChange(ArrayList<ComponentName> sortComps) {
+        if (mCustomContentView != null) {
+            mCustomContentView.reloadAppSuggestions();
+        }
     }
 
     public void restartSelf() {
@@ -6663,6 +6960,120 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         Log.e(TAG, "onPrepareDialog --->DIALOG_UNINSTALL_APP ---> appInfo null. ");
     }
 
+    /**
+     * Dialog kiểu iOS khi bấm dấu trừ ở edit mode (thay cho việc gỡ cài đặt NGAY như trước).
+     *
+     * 3 lựa chọn: "Gỡ khỏi Màn hình chính" / "Xóa ứng dụng" (đỏ) / "Hủy". Mục "Xóa ứng dụng" CHỈ hiện
+     * khi app thật sự gỡ cài đặt được — app hệ thống (Điện thoại, Danh bạ, Tin nhắn, Camera trong
+     * hotseat) có uninstallable = false nên chỉ còn 2 lựa chọn, giống iOS (bấm cũng không xóa được thì
+     * không hiện nút cho người dùng bấm hụt).
+     *
+     * Dùng lại IOSDialog của library:iosdialogs4android theo đúng mẫu {@link #removeFolder(FolderInfo)}.
+     */
+    public void showRemoveAppDialog(final ShortcutInfo shortcutInfo) {
+        if (shortcutInfo == null) {
+            return;
+        }
+
+        // Gỡ cài đặt được? Chỉ app thật (ITEM_TYPE_APPLICATION) + cờ uninstallable mới cho "Xóa ứng dụng".
+        final boolean canDelete = shortcutInfo.uninstallable
+                && shortcutInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION
+                && shortcutInfo.getTargetComponent() != null;
+
+        final int ID_REMOVE_FROM_HOME = 1;
+        final int ID_DELETE_APP = 2;
+        final int ID_CANCEL = 3;
+
+        List<IOSDialogButton> iosDialogButtons = new ArrayList<>();
+        iosDialogButtons.add(new IOSDialogButton(ID_REMOVE_FROM_HOME,
+                getString(R.string.remove_from_home_screen), false, IOSDialogButton.TYPE_POSITIVE));
+        if (canDelete) {
+            iosDialogButtons.add(new IOSDialogButton(ID_DELETE_APP,
+                    getString(R.string.delete_app), false, IOSDialogButton.TYPE_NEGATIVE));
+        }
+        iosDialogButtons.add(new IOSDialogButton(ID_CANCEL,
+                getString(R.string.cancel_action), false, IOSDialogButton.TYPE_POSITIVE));
+
+        CharSequence title = shortcutInfo.title;
+        new IOSDialog.Builder(this)
+                .title(getString(R.string.remove_app_title, title == null ? "" : title.toString()))
+                .message(getString(R.string.remove_app_message))
+                .multiOptions(true)
+                .multiOptionsListeners(new IOSDialogMultiOptionsListeners() {
+                    @Override
+                    public void onClick(IOSDialog iosDialog, IOSDialogButton iosDialogButton) {
+                        iosDialog.dismiss();
+                        switch (iosDialogButton.getId()) {
+                            case ID_REMOVE_FROM_HOME:
+                                removeShortcutFromHome(shortcutInfo);
+                                break;
+                            case ID_DELETE_APP:
+                                startUninstallApp(shortcutInfo.getTargetComponent().getPackageName());
+                                break;
+                            default:
+                                // Hủy: không làm gì, giữ nguyên edit mode.
+                                break;
+                        }
+                    }
+                })
+                .iosDialogButtonList(iosDialogButtons)
+                .build()
+                .show();
+    }
+
+    /**
+     * Hỏi xác nhận rồi gỡ 1 WIDGET khỏi màn hình chính khi bấm dấu trừ lúc đang edit. Bản RIÊNG cho
+     * widget (không đụng showRemoveAppDialog). Tái dùng đúng đường xóa của nút popup menu_widget_delete:
+     * DeleteDropTarget.removeWorkspaceOrFolderItem(...).
+     */
+    public void showRemoveWidgetDialog(final View hostView) {
+        if (hostView == null || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            return;
+        }
+
+        final int ID_REMOVE = 1;
+        final int ID_CANCEL = 2;
+
+        List<IOSDialogButton> iosDialogButtons = new ArrayList<>();
+        iosDialogButtons.add(new IOSDialogButton(ID_REMOVE,
+                getString(R.string.remove_from_home_screen), false, IOSDialogButton.TYPE_NEGATIVE));
+        iosDialogButtons.add(new IOSDialogButton(ID_CANCEL,
+                getString(R.string.cancel_action), false, IOSDialogButton.TYPE_POSITIVE));
+
+        new IOSDialog.Builder(this)
+                .title(getString(R.string.remove_widget_title))
+                .message(getString(R.string.remove_widget_message))
+                .multiOptions(true)
+                .multiOptionsListeners(new IOSDialogMultiOptionsListeners() {
+                    @Override
+                    public void onClick(IOSDialog iosDialog, IOSDialogButton iosDialogButton) {
+                        iosDialog.dismiss();
+                        if (iosDialogButton.getId() == ID_REMOVE) {
+                            DeleteDropTarget.removeWorkspaceOrFolderItem(Launcher.this,
+                                    (LauncherAppWidgetInfo) hostView.getTag(), hostView);
+                        }
+                    }
+                })
+                .iosDialogButtonList(iosDialogButtons)
+                .build()
+                .show();
+    }
+
+    /**
+     * Gỡ 1 app khỏi màn hình chính (KHÔNG gỡ cài đặt) — app vẫn còn trong App Library.
+     * Hotseat và workspace là 2 container khác nhau nên phải gọi đúng hàm của từng bên.
+     */
+    private void removeShortcutFromHome(ShortcutInfo shortcutInfo) {
+        if (shortcutInfo.container == LauncherSettings.Favorites.CONTAINER_HOTSEAT
+                || shortcutInfo.screenId == LauncherSettings.Favorites.CONTAINER_HOTSEAT) {
+            if (getHotseat() != null) {
+                getHotseat().removeShortcut(shortcutInfo);
+            }
+        } else if (mWorkspace != null) {
+            mWorkspace.removeShortcutInfoInPage(shortcutInfo);
+        }
+    }
+
     private String cutString(int maxLength, String str) {
         if (this.mTextMeasurePaint == null) {
             this.mTextMeasurePaint = new Paint();
@@ -6682,12 +7093,23 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     private void startUninstallApp(AppInfo applicationInfo) {
         Log.d(TAG, "UninstallApp -- uninstallApp -- itemInfo = " + applicationInfo);
         if (applicationInfo != null) {
-            String packageName = applicationInfo.componentName.getPackageName();
-            if (!this.mModel.checkApplicationEnabled(this, packageName)) {
-                return;
-            }
-            startActivity(new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName)));
+            startUninstallApp(applicationInfo.componentName.getPackageName());
         }
+    }
+
+    /**
+     * Bắn Intent gỡ cài đặt theo package name. Tách ra từ {@link #startUninstallApp(AppInfo)} để
+     * {@link #showRemoveAppDialog(ShortcutInfo)} dùng được — item trên workspace/hotseat là
+     * ShortcutInfo (không phải AppInfo) nên chỉ có ComponentName, không có sẵn AppInfo.
+     */
+    private void startUninstallApp(String packageName) {
+        if (packageName == null) {
+            return;
+        }
+        if (!this.mModel.checkApplicationEnabled(this, packageName)) {
+            return;
+        }
+        startActivity(new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName)));
     }
 
     public int getIndexByScreenId(long screenId) {
@@ -7018,6 +7440,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         this.showingFloatingMenu = false;
         this.mOpenAppWidgetHostView = null;
+        this.mContextPopupIcon = null;
+        this.mContextPopupCellInfo = null;
         AbstractFloatingView.closeAllOpenViews(this, true);
 
         this.mFloatingMenuBlurBg.clear(true);
@@ -7025,6 +7449,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Dọn popup riêng của widget + cờ resize nếu còn sót.
         dismissWidgetMenu();
         mWidgetResizeMode = false;
+
+        // Bảo hiểm: closeAllOpenViews() chỉ đụng tới view có isOpen() == true. Popup đã bị đóng logic
+        // ở luồng trước mà chưa gỡ khỏi cây view sẽ KHÔNG được nó thấy -> quét dọn riêng.
+        // Xem removeStalePopupContainer().
+        removeStalePopupContainer();
     }
 
     /**
@@ -7051,6 +7480,57 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         showingFloatingMenu = false;
         mFloatingMenuBlurBg.clearBlur();
         ((ViewGroup) mFloatingMenuBlurBg.getParent()).removeView(mFloatingMenuBlurBg);
+    }
+
+    /**
+     * [BUG FIX] Gỡ XÁC CHẾT của {@link com.amz.ios.launcher.popup.PopupContainerWithArrow} còn kẹt
+     * trong DragLayer sau khi KÉO app ra khỏi popup ngữ cảnh.
+     *
+     * NGUYÊN NHÂN (đúng chuỗi tái hiện: cài mới -> giữ app ra popup -> KÉO app thả chỗ khác -> vào
+     * edit -> chạm nền để thoát edit -> từ đó giữ app KHÔNG ra popup nữa, kéo thì mất logo, bấm
+     * "Chỉnh sửa" không hiện gì):
+     *   1. Kéo app từ popup -> {@code PopupContainerWithArrow.onDragStart} đặt
+     *      {@code mDeferContainerRemoval = true} rồi {@code animateClose()}. Khi animation kết thúc,
+     *      vì cờ defer đang bật nên nó CHỈ {@code setVisibility(INVISIBLE)} — view VẪN nằm trong
+     *      DragLayer, hẹn {@code onDragEnd()} gỡ sau.
+     *   2. Nhưng đường kéo-từ-popup của ta gọi {@code closeFloatingMenu()} giữa chừng ->
+     *      {@code closeAllOpenViews()} -> {@code mIsOpen = false}. Tới lúc {@code onDragEnd()} chạy,
+     *      {@code mOpenCloseAnimator} đã null và nhánh còn lại chỉ gỡ khi {@code mDeferContainerRemoval}
+     *      còn đúng — luồng bị lệch nên KHÔNG chỗ nào gọi {@code closeComplete()} nữa.
+     *   => Một popup INVISIBLE, cỡ MATCH_PARENT, nằm lì trên cùng DragLayer suốt phiên.
+     *
+     * HẬU QUẢ khớp cả 3 triệu chứng, vì view rác này nằm TRÊN mọi thứ trong DragLayer:
+     *   - nuốt touch -> bấm "Chỉnh sửa" không ra menu (menu add DƯỚI nó);
+     *   - {@code showForIcon} inflate popup mới nhưng bị che -> "giữ app không hiện popup gì";
+     *   - {@code DragView} cũng add vào DragLayer -> bị che -> "kéo app mất logo".
+     * Cả ba chỉ xuất hiện SAU vòng kéo đầu tiên — đúng như báo cáo.
+     *
+     * Vì {@code mIsOpen == false} nên {@code getOpen()}/{@code closeAllOpenViews()} KHÔNG thấy nó nữa
+     * (chúng lọc theo {@code isOpen()}), phải quét thẳng con của DragLayer theo kiểu view. Dùng
+     * {@code closeComplete()} qua {@code close(false)} để popup tự dọn listener + trả label icon về
+     * đúng trạng thái, thay vì {@code removeView} thô.
+     */
+    private void removeStalePopupContainer() {
+        DragLayer dragLayer = getDragLayer();
+        if (dragLayer == null) {
+            return;
+        }
+        for (int i = dragLayer.getChildCount() - 1; i >= 0; i--) {
+            View child = dragLayer.getChildAt(i);
+            if (child instanceof com.amz.ios.launcher.popup.PopupContainerWithArrow) {
+                com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
+                        (com.amz.ios.launcher.popup.PopupContainerWithArrow) child;
+                if (!popup.isOpen()) {
+                    // Đã đóng logic mà chưa gỡ khỏi cây view -> chính là xác chết cần dọn.
+                    popup.close(false);
+                    // close(false) -> handleClose -> closeComplete -> removeView. Nếu vì lý do nào đó
+                    // vẫn còn parent (đường close bị chặn), gỡ thẳng để không bao giờ sót.
+                    if (popup.getParent() == dragLayer) {
+                        dragLayer.removeView(popup);
+                    }
+                }
+            }
+        }
     }
 
     public LauncherRootView getLauncherView() {
@@ -7087,6 +7567,69 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return mIsShaking;
     }
 
+    /**
+     * True khi popup ngữ cảnh app (giữ liền) ĐANG mở và còn ứng viên icon để chuyển sang kéo thả.
+     * Điều kiện {@code getOpen != null} bảo đảm chỉ đúng khi popup THẬT hiện (phân biệt với edit-mode
+     * dù cả hai cùng bật {@code showingFloatingMenu}). DragLayer dùng cờ này để bắt cử chỉ giữ-rồi-kéo.
+     */
+    public boolean isContextPopupOpen() {
+        return mContextPopupIcon != null
+                && com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this) != null;
+    }
+
+    /**
+     * True khi popup WIDGET (giữ liền) đang mở và ứng viên là widget host — DragLayer dùng cờ này
+     * (song song với {@link #isContextPopupOpen()}) để bắt cử chỉ giữ-rồi-kéo cho widget: kéo vượt
+     * touch-slop -> {@link #startDragFromContextPopup()} nhấc widget + bật edit.
+     */
+    public boolean isWidgetContextDragCandidate() {
+        return mContextPopupIcon instanceof LauncherAppWidgetHostView && mWidgetMenuView != null;
+    }
+
+    /**
+     * Chuyển từ popup ngữ cảnh sang KÉO THẢ: người dùng đang giữ app (popup hiện) rồi di chuyển ngón tay.
+     * Đóng popup + nhấc icon lên kéo + bật jiggle/edit — đúng chuỗi baseline của nhánh edit-mode
+     * ({@code openFloatingMenu + showInfo + startTidyUp}). Trả false nếu không còn ứng viên hợp lệ.
+     */
+    public boolean startDragFromContextPopup() {
+        if (mContextPopupIcon == null || mContextPopupCellInfo == null) {
+            return false;
+        }
+        View icon = mContextPopupIcon;
+        CellLayout.CellInfo info = mContextPopupCellInfo;
+        mContextPopupIcon = null;
+        mContextPopupCellInfo = null;
+        if (icon instanceof LauncherAppWidgetHostView) {
+            // WIDGET: teardown riêng (không dùng floating-menu overlay của app). Đóng widget menu +
+            // gỡ khung resize, rồi nhấc widget lên kéo và bật edit — đúng yêu cầu "kéo widget mới edit".
+            dismissWidgetMenu();
+            getDragLayer().clearAllResizeFrames();
+            mWidgetResizeMode = false;
+            mWorkspace.showInfo(info);    // nhấc widget -> beginDragShared -> startDrag
+            mWorkspace.startTidyUp();     // bật jiggle/edit
+            return true;
+        }
+        closeFloatingMenu();          // đóng PopupContainerWithArrow (closeAllOpenViews) + reset cờ.
+                                      // LƯU Ý: closeFloatingMenu CHỈ clear() blur, KHÔNG removeView ->
+                                      // mFloatingMenuBlurBg VẪN attach vào DragLayer.
+        removeFloatingMenuOverlay();  // GỠ DỨT overlay còn sót, nếu không openFloatingMenu.addView lại
+                                      // sẽ ném IllegalStateException "child already has a parent".
+        // [BUG FIX] GỠ DỨT popup khỏi cây view TRƯỚC khi bắt đầu kéo.
+        //   closeFloatingMenu() ở trên mới chỉ đóng LOGIC (mIsOpen = false), view popup có thể VẪN
+        //   attach. Ngay sau đây showInfo() -> startDrag() -> popup nhận onDragStart -> nó bật
+        //   mDeferContainerRemoval và chỉ setVisibility(INVISIBLE), hẹn onDragEnd() gỡ sau. Nhưng
+        //   mIsOpen đã false từ trước nên onDragEnd() rơi vào nhánh KHÔNG gọi closeComplete()
+        //   -> popup nằm lì trong DragLayer suốt phiên, phủ MATCH_PARENT lên trên mọi thứ:
+        //   che popup mới (giữ app không ra popup), che DragView (kéo mất logo), nuốt touch của
+        //   nút "Chỉnh sửa" (bấm không hiện menu). Cả 3 chỉ hỏng SAU vòng kéo đầu tiên.
+        //   Dọn tại đây để vòng kéo KHÔNG BAO GIỜ để lại xác chết.
+        removeStalePopupContainer();
+        openFloatingMenu(icon);       // trạng thái floating chuẩn: ẩn icon + add overlay mới
+        mWorkspace.showInfo(info);    // nhấc icon -> beginDragShared -> mDragController.startDrag
+        mWorkspace.startTidyUp();     // bật jiggle/edit
+        return true;
+    }
+
     public boolean isWidgetsViewVisible() {
         return mState == mOnResumeState || this.mOnResumeState == State.WIDGETS || this.mWidgetsView.getVisibility() == View.VISIBLE;
     }
@@ -7111,6 +7654,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         final DragLayer dragLayer = getDragLayer();
         final View content = LayoutInflater.from(this).inflate(R.layout.edit_home_menu, dragLayer, false);
+        // Nền kính + làm nhoè lớp workspace phía sau, tự bật/tắt theo vòng đời view (PopupGlassHelper).
+        com.amz.ios.launcher.popup.PopupGlassHelper.bind(
+                content, com.amz.ios.launcher.popup.PopupGlassHelper.widgetPopupCorner(content));
 
         // Lớp phủ trong suốt phủ kín màn hình: chạm ra ngoài menu thì đóng menu.
         final FrameLayout overlay = new FrameLayout(this);
@@ -7192,6 +7738,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         final DragLayer dragLayer = getDragLayer();
         final View content = LayoutInflater.from(this)
                 .inflate(R.layout.widget_popup_menu, dragLayer, false);
+        // Nền kính + làm nhoè lớp workspace phía sau, tự bật/tắt theo vòng đời view (PopupGlassHelper).
+        com.amz.ios.launcher.popup.PopupGlassHelper.bind(
+                content, com.amz.ios.launcher.popup.PopupGlassHelper.widgetPopupCorner(content));
 
         final FrameLayout overlay = new FrameLayout(this);
         overlay.setLayoutParams(new DragLayer.LayoutParams(
@@ -7206,17 +7755,61 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         });
 
-        // Đo trước để biết đặt popup phía trên hay dưới widget.
-        content.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        float density = getResources().getDisplayMetrics().density;
+        int gap = (int) (density * 6);
+        // Lề tối thiểu tới mép màn hình — không để popup dán sát cạnh như trước.
+        int screenMargin = (int) (density * 12);
+
+        // Đo trước để biết đặt popup phía trên hay dưới widget, và để kẹp popup trong mép màn hình.
+        // [FIX] Đo bằng AT_MOST theo bề rộng khả dụng (trừ 2 lề) thay vì UNSPECIFIED: với UNSPECIFIED
+        //   con dùng match_parent/weight sẽ đo ra bề rộng vô hạn-định, cho popupW SAI so với lúc vẽ
+        //   thật -> tính lề phải lệch, popup trông như dán sát cạnh. AT_MOST cho ra đúng bề rộng
+        //   wrap_content thực tế mà vẫn chặn trên ở phần màn hình còn lại.
+        int availableW = (getResources().getDisplayMetrics().widthPixels) - screenMargin * 2;
+        content.measure(
+                View.MeasureSpec.makeMeasureSpec(Math.max(availableW, 0), View.MeasureSpec.AT_MOST),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         int popupH = content.getMeasuredHeight();
-        int gap = (int) (getResources().getDisplayMetrics().density * 6);
+        int popupW = content.getMeasuredWidth();
 
         Rect r = new Rect();
         dragLayer.getViewRectRelativeToSelf(anchor, r);
 
         FrameLayout.LayoutParams contentLp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        contentLp.leftMargin = r.left;
+
+        // [FIX] Định vị theo ĐÚNG KIỂU popup ngữ cảnh của app ({@code PopupContainerWithArrow
+        //   .orientAboutIcon}) — chỉ mượn cách ĐẶT VỊ TRÍ, giữ nguyên giao diện riêng của popup widget.
+        //
+        //   Trước đây gán thẳng {@code leftMargin = r.left} (dóng cứng theo mép TRÁI widget) mà không
+        //   kiểm tra tràn -> widget nằm bên phải màn hình thì popup bị đẩy dán sát cạnh, trông lệch.
+        //
+        //   Quy tắc của orientAboutIcon: ƯU TIÊN dóng mép TRÁI popup với mép TRÁI widget; nếu như vậy
+        //   popup vượt quá mép phải thì lật sang dóng mép PHẢI popup với mép PHẢI widget. Nhờ vậy popup
+        //   luôn "bám" vào widget (không trôi ra giữa) mà vẫn không tràn viền.
+        //   Sau cùng vẫn kẹp trong [screenMargin, W - popupW - screenMargin] để chắc chắn có lề.
+        int containerW = dragLayer.getWidth() > 0
+                ? dragLayer.getWidth()
+                : getResources().getDisplayMetrics().widthPixels;
+
+        int leftAlignedX = r.left;                 // dóng mép trái popup = mép trái widget
+        int rightAlignedX = r.right - popupW;      // dóng mép phải popup = mép phải widget
+        int x = leftAlignedX;
+        boolean canBeLeftAligned = leftAlignedX + popupW <= containerW - screenMargin;
+        if (!canBeLeftAligned) {
+            x = rightAlignedX;
+        }
+
+        int maxLeft = containerW - popupW - screenMargin;
+        if (maxLeft < screenMargin) {
+            // Popup rộng hơn cả màn hình trừ 2 lề (hiếm) -> đặt sát lề trái cho gọn.
+            x = screenMargin;
+        } else {
+            x = Math.max(screenMargin, Math.min(x, maxLeft));
+        }
+        contentLp.leftMargin = x;
+
+        // Trên/dưới cũng theo orientAboutIcon: ưu tiên mở PHÍA TRÊN widget, không đủ chỗ thì xuống dưới.
         int topAbove = r.top - popupH - gap;
         if (topAbove >= 0) {
             contentLp.topMargin = topAbove;
@@ -7225,13 +7818,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         overlay.addView(content, contentLp);
 
-        content.findViewById(R.id.menu_widget_resize).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chỉ đóng popup để lộ khung resize; GIỮ khung (mWidgetResizeMode vẫn true).
-                dismissWidgetMenu();
-            }
-        });
+        // Hàng 4 ô ở đầu popup: ô đầu là logo app (bấm -> mở app, ẩn nếu là widget nội bộ),
+        // 3 ô sau đổi widget sang biến thể cùng dòng có cỡ tương ứng (không có -> disable).
+        setupWidgetAppIcon(content);
+        setupWidgetSizeVariants(content);
+
         content.findViewById(R.id.menu_widget_edit_screen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -7258,6 +7849,837 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         dragLayer.addView(overlay);
         mWidgetMenuView = overlay;
+    }
+
+    /**
+     * Span mục tiêu của 3 ô đổi cỡ trong popup widget: vừa / lớn / rất lớn.
+     * Đây KHÔNG phải kích thước ép cho widget hiện tại — mỗi ô đại diện một "cỡ", ta đi TÌM widget
+     * khác cùng dòng có cỡ đó rồi thay vào (giống popup widget của iOS), chứ không co giãn widget
+     * đang đặt.
+     */
+    private static final int[][] WIDGET_VARIANT_SPANS = {
+            {2, 2},   // nhỏ
+            {4, 2},   // vừa
+            {4, 4},   // lớn
+    };
+    // [BUG FIX] "Widget mặc định không enable nút nào dù Lịch/Thời tiết/Đồng hồ có đủ loại."
+    //   Trước đây 3 ô đặt 4x2 / 4x4 / 4x6. Nhưng lưới màn hình chỉ 4..6 HÀNG
+    //   (InvariantDeviceProfile.getDeviceGrid: 4x4, 5x4, 5x5 hoặc 6x4) và
+    //   LauncherAppWidgetProviderInfo.initSpans() kẹp spanY = min(spanY, numRows), nên KHÔNG widget
+    //   nào có spanY = 6 -> ô "rất lớn" vĩnh viễn disable. Đồng thời cỡ 2x2 bị bỏ mất khi ô đầu
+    //   chuyển thành nút logo app, mà đó lại là cỡ nhỏ mà Weather/Picture đều có.
+    //   Nay 3 ô đúng bằng 3 cỡ widget nội bộ thực sự khai báo (xem getSpanX/getSpanY của
+    //   WeatherWidgetProvider 2x2, WeatherMediumWidgetProvider 4x2, WeatherLargeWidgetProvider 4x4).
+
+    /** Id 3 ô đổi cỡ, cùng thứ tự với {@link #WIDGET_VARIANT_SPANS}. */
+    private static final int[] WIDGET_VARIANT_IDS = {
+            R.id.widget_size_medium,   // nhỏ 2x2
+            R.id.widget_size_large,    // vừa 4x2
+            R.id.widget_size_extra,    // lớn 4x4
+    };
+
+    /**
+     * Ô ĐẦU của popup — cỡ NHỎ NHẤT của widget: thu widget về đúng một ô như icon app thường.
+     *
+     * Icon của ô này là ảnh TĨNH đặt sẵn trong widget_popup_menu.xml (@drawable/ic_app_wg), không
+     * nạp logo từng app nữa — ô chỉ mang nghĩa "cỡ 1 ô", giống 3 ô cỡ còn lại.
+     * Bấm vào thì widget bị gỡ và thay bằng ICON APP THẬT (ShortcutInfo 1x1) — từ đó nó hành xử y
+     * hệt mọi icon khác: bấm mở app, giữ để kéo/xoá, có nhãn tên app.
+     *
+     * Ẩn hẳn khi widget là widget nội bộ (không thuộc app nào) hoặc app không có màn để mở — hai
+     * trường hợp đó không thu về icon app được.
+     */
+    private void setupWidgetAppIcon(View content) {
+        View iconSlot = content.findViewById(R.id.widget_app_icon);
+        if (iconSlot == null) {
+            return;
+        }
+        iconSlot.setVisibility(View.GONE);
+
+        View hostView = mOpenAppWidgetHostView;
+        if (hostView == null || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            return;
+        }
+        LauncherAppWidgetInfo info = (LauncherAppWidgetInfo) hostView.getTag();
+        // Widget nội bộ (đồng hồ, thời tiết, lịch, pin, ảnh) không thuộc app nào -> không thu về
+        // icon app được.
+        if (info.isIOSWidget() || info.providerName == null) {
+            return;
+        }
+        final String packageName = info.providerName.getPackageName();
+        if (TextUtils.isEmpty(packageName)) {
+            return;
+        }
+        if (getPackageManager().getLaunchIntentForPackage(packageName) == null) {
+            return;   // app không có activity khởi chạy -> icon app sẽ vô dụng, ẩn ô đi
+        }
+
+        iconSlot.setVisibility(View.VISIBLE);
+        // Đặt tường minh cả hai state để icon lấy đúng màu từ @color/widget_size_option_icon:
+        // ô này luôn bấm được khi hiện, và không bao giờ ở trạng thái "đang chọn" — widget đang mở
+        // popup thì theo định nghĩa chưa phải là icon app.
+        iconSlot.setEnabled(true);
+        iconSlot.setSelected(false);
+        iconSlot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shrinkWidgetToAppIcon();
+            }
+        });
+    }
+
+    /**
+     * Thu widget đang mở popup về một ICON APP thường (1x1) đặt đúng chỗ widget cũ.
+     *
+     * Gỡ widget rồi thêm ShortcutInfo của app sở hữu widget. Icon tạo ra là icon app THẬT (cùng
+     * đường dựng với icon trên desktop qua {@link #createShortcut}), nên mọi thao tác quen thuộc —
+     * bấm mở app, giữ để kéo, kéo vào thùng xoá — chạy y như các icon khác.
+     */
+    private void shrinkWidgetToAppIcon() {
+        View hostView = mOpenAppWidgetHostView;
+        if (hostView == null || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            dismissWidgetMenu();
+            return;
+        }
+        LauncherAppWidgetInfo oldInfo = (LauncherAppWidgetInfo) hostView.getTag();
+        if (oldInfo.providerName == null) {
+            dismissWidgetMenu();
+            return;
+        }
+        String packageName = oldInfo.providerName.getPackageName();
+        UserHandleCompat user = oldInfo.user != null
+                ? oldInfo.user : UserHandleCompat.myUserHandle();
+
+        // Icon app = activity khởi chạy của package. Không có -> không thu được.
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+        if (launchIntent == null) {
+            dismissWidgetMenu();
+            return;
+        }
+        LauncherActivityInfoCompat activityInfo = LauncherAppsCompat.getInstance(this)
+                .resolveActivity(launchIntent, user);
+        if (activityInfo == null) {
+            dismissWidgetMenu();
+            return;
+        }
+
+        final long container = oldInfo.container;
+        // screenId lấy từ CellLayout đang chứa view, KHÔNG từ ItemInfo (xem resolveScreenIdForView).
+        final long screenId = resolveScreenIdForView(hostView, oldInfo.screenId);
+        final int cellX = oldInfo.cellX;
+        final int cellY = oldInfo.cellY;
+
+        dismissWidgetMenu();
+        getDragLayer().clearAllResizeFrames();
+        mWidgetResizeMode = false;
+        mOpenAppWidgetHostView = null;
+
+        // Giữ page khỏi bị dọn khi nó tạm rỗng giữa lúc gỡ và thêm (xem markScreenPendingDrop).
+        CellLayout pendingScreen = markScreenPendingDrop(screenId);
+
+        // Chụp ảnh widget cũ cho hiệu ứng mờ dần TRƯỚC khi gỡ (gỡ xong là không vẽ lại được nữa).
+        animateWidgetMorphOut(hostView);
+        removeWidgetForReplacement(oldInfo, hostView);
+
+        // Icon chiếm đúng 1 ô; ô cũ của widget luôn đủ chỗ nên không cần dò lại vị trí.
+        ShortcutInfo shortcut = new AppInfo(this, activityInfo, user, mIconCache).makeShortcut();
+        shortcut.container = container;
+        shortcut.screenId = screenId;
+        shortcut.cellX = cellX;
+        shortcut.cellY = cellY;
+        shortcut.spanX = 1;
+        shortcut.spanY = 1;
+
+        LauncherModel.addItemToDatabase(this, shortcut, container, screenId, cellX, cellY);
+        View icon = createShortcut(shortcut);
+        mWorkspace.addInScreen(icon, container, screenId, cellX, cellY, 1, 1, isWorkspaceLocked());
+        // BẮT BUỘC: ép page đo lại để lp của icon mới được setup (xem forceRelayoutAfterWidgetSwap).
+        forceRelayoutAfterWidgetSwap(screenId);
+        // Icon thêm ĐỒNG BỘ nên cầm được view ngay, khỏi phải dò theo ô như luồng widget.
+        // Huỷ mọi lượt dò view còn treo từ lần thay trước, tránh nó bắt nhầm icon vừa thêm.
+        mWidgetMorphToken++;
+        startMorphInAnimation(icon, pendingScreen != null ? pendingScreen.getChildrenScale() : 1f);
+        clearScreenPendingDrop(pendingScreen);
+    }
+
+    /**
+     * Rút "dòng widget" từ tên class provider để nhóm các biến thể cùng loại.
+     *
+     * CẦN THIẾT vì mọi widget NỘI BỘ đều nằm trong package của chính launcher (xem
+     * LauncherAppWidgetProviderInfo: {@code new ComponentName(context, widget.getClass().getName())}).
+     * Nếu chỉ lọc theo package thì Thời tiết / Ảnh / Đồng hồ / Lịch / Pin bị trộn chung — bấm ô
+     * "lớn" trên widget Thời tiết có thể ra widget Ảnh.
+     *
+     * Quy tắc: bỏ đuôi "WidgetProvider" rồi bỏ tiếp hậu tố chỉ cỡ ở cuối.
+     *   WeatherMediumWidgetProvider -> Weather | PictureAppWidgetProvider -> Picture
+     */
+    /**
+     * Bảng nhóm biến thể của widget NỘI BỘ, khai báo TƯỜNG MINH theo tên class provider.
+     *
+     * [BUG FIX] "Chỉ widget Thời tiết đổi được kiểu, các widget mặc định khác thì không."
+     *   Bản trước suy nhóm bằng cách cắt hậu tố cỡ khỏi tên class. Cách đó chỉ đúng với Weather và
+     *   Picture (ba biến thể cùng tiền tố). Các dòng còn lại đặt tên rời rạc nên bị tách nhầm:
+     *     - Lịch: CalendarMonth (2x2) vs CalendarUpNext{Small,Medium,Large} -> thành 2 nhóm khác
+     *       nhau, nên thẻ Lịch trên desktop không thấy biến thể 4x2/4x4 nào.
+     *     - Đồng hồ: Clock / AnalogClock / AnalogClockDark / CityClock / MiniAnalogClock (đều 2x2)
+     *       và WorldClock (4x2) -> mỗi cái một nhóm, không cái nào đổi cỡ được.
+     *   Khai báo thẳng ra thì không phải đoán theo quy tắc đặt tên. Thêm widget nội bộ mới sau này
+     *   chỉ cần bổ sung tên class vào đúng hàng ở đây.
+     */
+    private static final String[][] INTERNAL_WIDGET_FAMILIES = {
+            {"Weather",  "WeatherWidgetProvider", "WeatherMediumWidgetProvider",
+                         "WeatherLargeWidgetProvider"},
+            {"Picture",  "PictureAppWidgetProvider", "PictureMediumWidgetProvider",
+                         "PictureLargeWidgetProvider"},
+            {"Calendar", "CalendarMonthWidgetProvider", "CalendarWidgetProvider",
+                         "CalendarUpNextSmallWidgetProvider", "CalendarUpNextMediumWidgetProvider",
+                         "CalendarUpNextLargeWidgetProvider"},
+            {"Clock",    "ClockWidgetProvider", "AnalogClockWidgetProvider",
+                         "AnalogClockDarkWidgetProvider", "CityClockWidgetProvider",
+                         "MiniAnalogClockWidgetProvider", "WorldClockWidgetProvider"},
+            {"Battery",  "BatteryWidgetProvider"},
+    };
+
+    /**
+     * Rút "dòng widget" từ tên class provider để nhóm các biến thể cùng loại.
+     *
+     * CẦN THIẾT vì mọi widget NỘI BỘ đều nằm trong package của chính launcher (xem
+     * LauncherAppWidgetProviderInfo: {@code new ComponentName(context, widget.getClass().getName())}).
+     * Nếu chỉ lọc theo package thì Thời tiết / Ảnh / Đồng hồ / Lịch / Pin bị trộn chung — bấm ô
+     * "lớn" trên widget Thời tiết có thể ra widget Ảnh.
+     *
+     * Tra {@link #INTERNAL_WIDGET_FAMILIES} trước; không có tên trong bảng (widget nội bộ mới chưa
+     * khai, hoặc widget app ngoài) thì quay về suy theo tên class như cũ.
+     */
+    private static String widgetFamilyOf(ComponentName provider) {
+        if (provider == null) return "";
+        String name = provider.getShortClassName();
+        int dot = name.lastIndexOf('.');
+        if (dot >= 0) {
+            name = name.substring(dot + 1);
+        }
+        for (String[] family : INTERNAL_WIDGET_FAMILIES) {
+            for (int i = 1; i < family.length; i++) {
+                if (family[i].equals(name)) {
+                    return family[0];
+                }
+            }
+        }
+        if (name.endsWith("WidgetProvider")) {
+            name = name.substring(0, name.length() - "WidgetProvider".length());
+        } else if (name.endsWith("Provider")) {
+            name = name.substring(0, name.length() - "Provider".length());
+        }
+        for (String suffix : new String[]{"Medium", "Large", "Small", "Extra", "App"}) {
+            if (name.length() > suffix.length() && name.endsWith(suffix)) {
+                name = name.substring(0, name.length() - suffix.length());
+                break;
+            }
+        }
+        return name;
+    }
+
+    /**
+     * Tìm widget CÙNG DÒNG với widget đang đặt, có kích cỡ khớp spanX x spanY.
+     *
+     * Phạm vi tìm khác nhau theo loại widget:
+     *   - Widget app ngoài: cùng packageName (mỗi app một package nên đủ chính xác).
+     *   - Widget nội bộ: cùng "dòng" suy từ tên class (xem {@link #widgetFamilyOf}), vì tất cả
+     *     widget nội bộ dùng chung package của launcher.
+     *
+     * @return biến thể khớp nhất, hoặc null nếu dòng widget này không có cỡ đó.
+     */
+    /**
+     * Nhớ provider mà người dùng ĐANG dùng ở mỗi cỡ, theo từng dòng widget.
+     * Khoá: "<tên dòng>|<spanX>x<spanY>" — giá trị: provider đã chọn ở cỡ đó.
+     *
+     * [BUG FIX] "Đồng hồ đổi 2x2 -> 4x2 rồi đổi về 2x2 thì hiển thị SAI."
+     *   Dòng Clock có tới 5 provider CÙNG cỡ 2x2 nhưng giao diện khác hẳn nhau (Clock số,
+     *   AnalogClock kim, AnalogClockDark, CityClock, MiniAnalogClock). findWidgetVariant() duyệt
+     *   danh sách và trả về cái KHỚP SPAN ĐẦU TIÊN, nên quay về 2x2 sẽ ra một kiểu đồng hồ khác
+     *   chứ không phải cái người dùng đang dùng trước đó.
+     *   Ghi lại lựa chọn theo (dòng, cỡ) để lần sau quay về đúng provider cũ.
+     */
+    private final java.util.HashMap<String, ComponentName> mLastWidgetVariantPerSize =
+            new java.util.HashMap<>();
+
+    private static String widgetVariantKey(String family, int spanX, int spanY) {
+        return family + "|" + spanX + "x" + spanY;
+    }
+
+    private LauncherAppWidgetProviderInfo findWidgetVariant(
+            LauncherAppWidgetInfo current, int spanX, int spanY) {
+        if (current == null || current.providerName == null) {
+            return null;
+        }
+        String packageName = current.providerName.getPackageName();
+        String family = widgetFamilyOf(current.providerName);
+        boolean internal = current.isIOSWidget();
+
+        // Người dùng từng chọn provider nào ở cỡ này thì quay về đúng cái đó.
+        ComponentName remembered = mLastWidgetVariantPerSize.get(
+                widgetVariantKey(family, spanX, spanY));
+
+        LauncherAppWidgetProviderInfo best = null;
+        LauncherAppWidgetProviderInfo exact = null;
+        int bestDiff = Integer.MAX_VALUE;
+        for (LauncherAppWidgetProviderInfo info : LauncherModel.getWidgetProviders(this, false)) {
+            if (info == null || info.provider == null) continue;
+            if (!packageName.equals(info.provider.getPackageName())) continue;
+            // Widget nội bộ dùng chung package -> phải lọc thêm theo dòng, không thì lẫn loại.
+            if (internal && !family.equals(widgetFamilyOf(info.provider))) continue;
+
+            if (info.spanX == spanX && info.spanY == spanY) {
+                if (remembered != null && remembered.equals(info.provider)) {
+                    return info;   // đúng cái đang dùng trước đó ở cỡ này
+                }
+                // Giữ lại cái khớp span đầu tiên làm phương án dự phòng, nhưng ĐỪNG trả về ngay:
+                // còn phải duyệt hết để xem có provider đã được nhớ hay không.
+                if (exact == null) {
+                    exact = info;
+                }
+                continue;
+            }
+            // Không khớp tuyệt đối thì chấp nhận lệch tối đa 1 ô mỗi chiều, lấy cái gần nhất.
+            if (Math.abs(info.spanX - spanX) > 1 || Math.abs(info.spanY - spanY) > 1) continue;
+            int diff = Math.abs(info.spanX * info.spanY - spanX * spanY);
+            if (diff < bestDiff) {
+                bestDiff = diff;
+                best = info;
+            }
+        }
+        // Khớp span tuyệt đối luôn hơn phương án xấp xỉ.
+        return exact != null ? exact : best;
+    }
+
+    /**
+     * 3 ô đổi cỡ: ô nào dòng widget này có biến thể thì bấm được (bấm -> thay widget), không có thì
+     * disable + làm mờ. Ô ứng với widget ĐANG đặt được tô nền.
+     */
+    private void setupWidgetSizeVariants(View content) {
+        View hostView = mOpenAppWidgetHostView;
+        LauncherAppWidgetInfo current =
+                (hostView != null && hostView.getTag() instanceof LauncherAppWidgetInfo)
+                        ? (LauncherAppWidgetInfo) hostView.getTag() : null;
+
+        // Widget ĐANG đặt chính là lựa chọn của người dùng ở cỡ của nó -> ghi nhớ ngay, để sau này
+        // đổi sang cỡ khác rồi quay lại thì ra đúng kiểu này (xem mLastWidgetVariantPerSize).
+        if (current != null && current.providerName != null) {
+            mLastWidgetVariantPerSize.put(
+                    widgetVariantKey(widgetFamilyOf(current.providerName),
+                            current.spanX, current.spanY),
+                    current.providerName);
+        }
+
+        // Tra biến thể cho từng ô TRƯỚC, rồi mới quyết định ô nào được tô nền.
+        LauncherAppWidgetProviderInfo[] variants =
+                new LauncherAppWidgetProviderInfo[WIDGET_VARIANT_IDS.length];
+        for (int i = 0; i < variants.length; i++) {
+            variants[i] = findWidgetVariant(
+                    current, WIDGET_VARIANT_SPANS[i][0], WIDGET_VARIANT_SPANS[i][1]);
+        }
+
+        // [BUG FIX] "Chọn cỡ to nhất thì 2 nút cuối sáng cùng lúc."
+        //   findWidgetVariant() chấp nhận lệch ±1 ô, và span THỰC TẾ của widget nội bộ do
+        //   initSpans() tính từ minWidth/minHeight trong XML chia cho cell size của máy — KHÔNG
+        //   nhất thiết bằng con số provider khai báo (vd weather_large 320dp có thể ra 4x3 chứ
+        //   không phải 4x4). Khi đó một provider lọt vào vùng ±1 của HAI ô cùng lúc, và cả hai ô
+        //   đều trỏ về nó.
+        //   Nay khử trùng lặp: mỗi provider chỉ giữ ở ô GẦN NHẤT (chênh lệch diện tích nhỏ nhất),
+        //   các ô còn lại trỏ về nó bị bỏ trống -> không bao giờ có hai ô cùng một widget.
+        for (int i = 0; i < variants.length; i++) {
+            if (variants[i] == null || variants[i].provider == null) continue;
+            for (int j = i + 1; j < variants.length; j++) {
+                if (variants[j] == null || variants[j].provider == null) continue;
+                if (!variants[i].provider.equals(variants[j].provider)) continue;
+
+                int diffI = Math.abs(variants[i].spanX * variants[i].spanY
+                        - WIDGET_VARIANT_SPANS[i][0] * WIDGET_VARIANT_SPANS[i][1]);
+                int diffJ = Math.abs(variants[j].spanX * variants[j].spanY
+                        - WIDGET_VARIANT_SPANS[j][0] * WIDGET_VARIANT_SPANS[j][1]);
+                if (diffJ < diffI) {
+                    variants[i] = null;
+                    break;          // ô i đã bị loại, khỏi so với các ô sau
+                }
+                variants[j] = null;
+            }
+        }
+
+        // Ô đang chọn = ô trỏ đúng provider của widget hiện tại. Sau bước khử trùng ở trên, nhiều
+        // nhất chỉ còn một ô như vậy.
+        int selectedIndex = -1;
+        if (current != null) {
+            for (int i = 0; i < variants.length; i++) {
+                if (variants[i] != null && variants[i].provider != null
+                        && variants[i].provider.equals(current.providerName)) {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < WIDGET_VARIANT_IDS.length; i++) {
+            View slot = content.findViewById(WIDGET_VARIANT_IDS[i]);
+            if (slot == null) continue;
+
+            final LauncherAppWidgetProviderInfo variant = variants[i];
+            boolean available = variant != null;
+            // Chỉ cần đặt state; màu icon tự đổi theo @color/widget_size_option_icon nhờ ImageView
+            // bên trong khai duplicateParentState (xem widget_popup_menu.xml). Không còn phải chỉnh
+            // alpha từng ImageView bằng code như trước.
+            slot.setEnabled(available);
+            slot.setSelected(i == selectedIndex);
+
+            if (!available) {
+                slot.setOnClickListener(null);
+                continue;
+            }
+            slot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    replaceWidgetWith(variant);
+                }
+            });
+        }
+    }
+
+    /**
+     * Thay widget đang mở popup bằng một biến thể khác cùng dòng: gỡ widget cũ rồi thêm widget mới
+     * vào ĐÚNG ô cũ.
+     *
+     * Dùng lại nguyên đường đi sẵn có (DeleteDropTarget.removeWorkspaceOrFolderItem +
+     * addAppWidgetFromDrop) thay vì tự thao tác CellLayout/DB, để mọi bước phụ (xoá appWidgetId,
+     * bind quyền, mở màn cấu hình nếu widget yêu cầu) vẫn chạy đúng như khi thêm widget từ khay.
+     */
+    private void replaceWidgetWith(LauncherAppWidgetProviderInfo target) {
+        View hostView = mOpenAppWidgetHostView;
+        if (target == null || hostView == null
+                || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            dismissWidgetMenu();
+            return;
+        }
+        LauncherAppWidgetInfo oldInfo = (LauncherAppWidgetInfo) hostView.getTag();
+        if (target.provider != null && target.provider.equals(oldInfo.providerName)) {
+            dismissWidgetMenu();   // bấm đúng cỡ đang dùng
+            return;
+        }
+
+        // Ghi nhớ lựa chọn ở CẢ HAI cỡ: cỡ cũ (để sau này quay về đúng kiểu đang dùng) và cỡ mới
+        // (kiểu vừa chọn). Cần cho các dòng có nhiều provider cùng cỡ — vd Clock có 5 kiểu 2x2
+        // khác nhau. Xem mLastWidgetVariantPerSize.
+        String family = widgetFamilyOf(oldInfo.providerName);
+        mLastWidgetVariantPerSize.put(
+                widgetVariantKey(family, oldInfo.spanX, oldInfo.spanY), oldInfo.providerName);
+        mLastWidgetVariantPerSize.put(
+                widgetVariantKey(family, target.spanX, target.spanY), target.provider);
+
+        // Chốt vị trí TRƯỚC khi gỡ: sau khi xoá, oldInfo không còn đáng tin.
+        final long container = oldInfo.container;
+        // screenId lấy từ CellLayout đang chứa view, KHÔNG từ ItemInfo (xem resolveScreenIdForView).
+        final long screenId = resolveScreenIdForView(hostView, oldInfo.screenId);
+        final int cellX = oldInfo.cellX;
+        final int cellY = oldInfo.cellY;
+
+        dismissWidgetMenu();
+        getDragLayer().clearAllResizeFrames();
+        mWidgetResizeMode = false;
+        mOpenAppWidgetHostView = null;
+
+        // Giữ page khỏi bị dọn khi nó tạm rỗng giữa lúc gỡ và thêm (xem markScreenPendingDrop).
+        CellLayout pendingScreen = markScreenPendingDrop(screenId);
+
+        // Chụp ảnh widget cũ cho hiệu ứng mờ dần TRƯỚC khi gỡ (gỡ xong là không vẽ lại được nữa).
+        animateWidgetMorphOut(hostView);
+        removeWidgetForReplacement(oldInfo, hostView);
+
+        // Widget mới thường KHÁC cỡ widget cũ, nên ô cũ chưa chắc chứa nổi. Ưu tiên đặt lại đúng
+        // chỗ cũ (kéo vào trong lưới nếu tràn mép); không đủ chỗ thì tìm ô trống khác trên cùng
+        // page. Không có chỗ nào thì báo và dừng — lúc này page đã trống ô của widget cũ, người
+        // dùng tự dọn rồi thêm lại.
+        int[] cell = findCellForReplacement(screenId, cellX, cellY, target.spanX, target.spanY);
+        if (cell == null) {
+            clearScreenPendingDrop(pendingScreen);
+            showOutOfSpaceMessage(false);
+            return;
+        }
+
+        PendingAddWidgetInfo pending = new PendingAddWidgetInfo(this, target, null);
+        pending.spanX = target.spanX;
+        pending.spanY = target.spanY;
+        pending.minSpanX = target.minSpanX;
+        pending.minSpanY = target.minSpanY;
+        addAppWidgetFromDrop(pending, container, screenId,
+                cell, new int[]{target.spanX, target.spanY});
+        // BẮT BUỘC trước animation: ép page đo lại để lp của widget mới được setup (xem
+        // forceRelayoutAfterWidgetSwap). Thiếu bước này widget nằm trong cây nhưng width/height = 0.
+        forceRelayoutAfterWidgetSwap(screenId);
+        animateWidgetMorphIn(screenId, cell[0], cell[1]);
+        clearScreenPendingDrop(pendingScreen);
+    }
+
+    /** Thời lượng hiệu ứng biến hình khi đổi cỡ widget / thu về icon app. */
+    private static final int WIDGET_MORPH_DURATION = 220;
+    /** Cỡ khởi điểm của view MỚI trong hiệu ứng biến hình (phóng dần lên 1.0). */
+    private static final float WIDGET_MORPH_START_SCALE = 0.92f;
+    /** Cỡ kết thúc của view CŨ trong hiệu ứng biến hình (thu nhỏ dần trong lúc mờ đi). */
+    private static final float WIDGET_MORPH_END_SCALE = 0.94f;
+
+    /**
+     * Cho view cũ mờ + thu nhỏ dần, KHÔNG gỡ ngay.
+     *
+     * [FIX NHÁY] Trước đây gỡ view cũ rồi mới thêm view mới, giữa hai bước có một khoảnh khắc ô
+     * trống nên nhìn như màn hình bị nháy. Nay hai pha CHỒNG nhau: view cũ vẫn nằm đó (đã tách khỏi
+     * dữ liệu/DB) và mờ dần, trong khi view mới hiện lên bên trên.
+     *
+     * View cũ được vẽ ở lớp riêng của DragLayer để việc gỡ nó khỏi CellLayout (giải phóng ô cho
+     * view mới) không làm nó biến mất giữa chừng.
+     *
+     * @param oldView view sắp bị thay; hàm tự lo gỡ khỏi cha khi hiệu ứng xong.
+     */
+    private void animateWidgetMorphOut(final View oldView) {
+        if (oldView == null) {
+            return;
+        }
+        final DragLayer dragLayer = getDragLayer();
+        // Chụp view cũ thành ảnh đặt ở DragLayer, đúng vị trí đang thấy trên màn.
+        final Rect bounds = new Rect();
+        dragLayer.getViewRectRelativeToSelf(oldView, bounds);
+        if (bounds.width() <= 0 || bounds.height() <= 0) {
+            return;
+        }
+        Bitmap snapshot;
+        try {
+            snapshot = Bitmap.createBitmap(
+                    bounds.width(), bounds.height(), Bitmap.Config.ARGB_8888);
+            oldView.draw(new Canvas(snapshot));
+        } catch (Throwable th) {
+            return;   // hết bộ nhớ hoặc view chưa vẽ được -> bỏ hiệu ứng, không làm hỏng luồng chính
+        }
+
+        final ImageView ghost = new ImageView(this);
+        ghost.setImageBitmap(snapshot);
+        DragLayer.LayoutParams lp = new DragLayer.LayoutParams(bounds.width(), bounds.height());
+        lp.customPosition = true;
+        lp.x = bounds.left;
+        lp.y = bounds.top;
+        ghost.setLayoutParams(lp);
+        ghost.setPivotX(bounds.width() / 2f);
+        ghost.setPivotY(bounds.height() / 2f);
+        dragLayer.addView(ghost);
+
+        AnimatorSet out = LauncherAnimUtils.createAnimatorSet();
+        out.playTogether(
+                LauncherAnimUtils.ofFloat(ghost, "alpha", 1f, 0f),
+                LauncherAnimUtils.ofFloat(ghost, "scaleX", 1f, WIDGET_MORPH_END_SCALE),
+                LauncherAnimUtils.ofFloat(ghost, "scaleY", 1f, WIDGET_MORPH_END_SCALE));
+        out.setDuration(WIDGET_MORPH_DURATION);
+        out.setInterpolator(new DecelerateInterpolator(1.5f));
+        out.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                dragLayer.removeView(ghost);
+            }
+        });
+        out.start();
+    }
+
+    /** Số lần thử tìm view mới trước khi bỏ hiệu ứng (mỗi lần cách nhau 1 frame). */
+    private static final int WIDGET_MORPH_MAX_RETRY = 12;
+
+    /**
+     * Cho view MỚI hiện dần + phóng từ {@link #WIDGET_MORPH_START_SCALE} lên 1.0.
+     *
+     * View mới do completeAddAppWidget/addInScreen tạo ra nên không cầm được tham chiếu trực tiếp;
+     * phải tra lại theo Ô mà nó vừa chiếm.
+     *
+     * [FIX] "Không thấy animation, cũng không thấy widget — vuốt sang page khác rồi quay lại mới
+     * thấy." Hai nguyên nhân, sửa cả hai:
+     *   1) Widget hệ thống đi qua bind/configure BẤT ĐỒNG BỘ nên tại thời điểm post() đầu tiên
+     *      view có thể CHƯA tồn tại. Bản cũ return luôn -> mất hiệu ứng. Nay thử lại tối đa
+     *      WIDGET_MORPH_MAX_RETRY frame.
+     *   2) Bản cũ setAlpha(0) rồi mới start() animation. Nếu view chưa được layout, animation
+     *      không chạy tới nơi và view MẮC KẸT vô hình — đúng triệu chứng phải vuốt qua page khác
+     *      (ép vẽ lại) mới thấy. Nay chỉ hạ alpha khi view ĐÃ có kích thước thật, và luôn có
+     *      listener trả alpha/scale về 1 dù animation kết thúc hay bị huỷ.
+     */
+    /**
+     * Số thứ tự lượt thay widget gần nhất.
+     *
+     * [BUG FIX] Đổi cỡ LIÊN TIẾP: lượt trước vẫn đang dò tìm view (retry tối đa 12 frame) và có thể
+     *   bắt trúng widget của lượt SAU rồi setAlpha(0); animation của nó lại bị lượt sau huỷ giữa
+     *   chừng -> view kẹt vô hình, phải vuốt qua lại mới thấy. Mỗi lượt mang một số thứ tự; lượt cũ
+     *   thấy số đã đổi thì tự dừng, không đụng vào view nữa.
+     */
+    private int mWidgetMorphToken = 0;
+
+    private void animateWidgetMorphIn(final long screenId, final int cellX, final int cellY) {
+        final int token = ++mWidgetMorphToken;
+        mWorkspace.post(new Runnable() {
+            int attempt = 0;
+
+            @Override
+            public void run() {
+                if (token != mWidgetMorphToken) {
+                    return;   // đã có lượt thay mới hơn -> bỏ lượt này
+                }
+                CellLayout layout = mWorkspace.getScreenWithId(screenId);
+                View newView = layout == null ? null
+                        : layout.getShortcutsAndWidgets().getChildAt(cellX, cellY);
+                // getChildAt(x,y) trả về BẤT KỲ view nào phủ ô đó. Chỉ nhận view thật sự BẮT ĐẦU
+                // tại ô này, tránh bắt nhầm item bên cạnh trong lúc widget mới chưa kịp vào.
+                if (newView != null) {
+                    ViewGroup.LayoutParams raw = newView.getLayoutParams();
+                    if (!(raw instanceof CellLayout.LayoutParams)
+                            || ((CellLayout.LayoutParams) raw).cellX != cellX
+                            || ((CellLayout.LayoutParams) raw).cellY != cellY) {
+                        newView = null;
+                    }
+                }
+
+                // Chưa có view, hoặc có rồi nhưng chưa đo xong -> chờ frame sau.
+                if (newView == null || newView.getWidth() <= 0 || newView.getHeight() <= 0) {
+                    if (++attempt < WIDGET_MORPH_MAX_RETRY) {
+                        mWorkspace.postDelayed(this, 16);
+                    }
+                    return;
+                }
+                startMorphInAnimation(newView, layout.getChildrenScale());
+            }
+        });
+    }
+
+    /**
+     * Ép đo/vẽ lại page sau khi thêm widget hoặc icon thay thế.
+     *
+     * [BUG FIX GỐC] "Đổi loại widget xong không thấy widget mới, phải vuốt qua page khác rồi quay
+     *   lại mới hiện."
+     *
+     *   Vị trí và kích thước THẬT của một item trên lưới nằm ở lp.x/y/width/height, và chúng chỉ
+     *   được tính trong ShortcutAndWidgetContainer.measureChild() -> lp.setup(...), tức CHỈ trong
+     *   lượt onMeasure. addView() có gọi requestLayout(), nhưng lời gọi đó bị BỎ QUA nếu cây view
+     *   đang ở giữa một lượt layout (View.requestLayout không xếp lịch mới khi đang layout) — đúng
+     *   tình huống ở đây: ta gỡ view cũ rồi thêm view mới ngay trong cùng một chuỗi xử lý.
+     *   Kết quả: view mới nằm trong cây nhưng lp chưa được setup -> width/height = 0 -> không thấy
+     *   gì. Vuốt sang page khác rồi quay lại buộc PagedView đo lại nên nó mới hiện.
+     *
+     *   Luồng bind widget chuẩn của AOSP tránh lỗi này bằng workspace.requestLayout() ngay sau
+     *   addInScreen (xem bindAppWidget, Launcher:5497) — nhưng completeAddAppWidget() KHÔNG gọi,
+     *   nên widget thêm qua addAppWidgetFromDrop không được đo lại. Ta bù đúng bước đó ở đây.
+     *
+     *   Đây mới là nguyên nhân gốc; các bản vá trước (drop-pending, screenId thật, token animation)
+     *   chỉ chữa những đường dẫn tới cùng triệu chứng này.
+     */
+    private void forceRelayoutAfterWidgetSwap(final long screenId) {
+        // requestLayout() ngay trong lượt hiện tại có thể bị nuốt -> đẩy sang frame sau cho chắc.
+        mWorkspace.post(new Runnable() {
+            @Override
+            public void run() {
+                CellLayout layout = mWorkspace.getScreenWithId(screenId);
+                if (layout != null) {
+                    layout.getShortcutsAndWidgets().requestLayout();
+                    layout.requestLayout();
+                    layout.invalidate();
+                }
+                mWorkspace.requestLayout();
+                mWorkspace.invalidate();
+            }
+        });
+    }
+
+    /** Chạy hiệu ứng hiện dần + phóng to trên view đã sẵn sàng (đã có kích thước thật). */
+    private void startMorphInAnimation(final View view, final float finalScale) {
+        // Bảo hiểm cuối: dù animation kết thúc, bị huỷ, hay KHÔNG BAO GIỜ chạy (view bị gỡ khỏi cửa
+        // sổ giữa chừng vì người dùng đổi cỡ tiếp), view vẫn phải trở lại nhìn thấy được. Không có
+        // chốt này thì một lượt đổi bị cắt ngang là widget kẹt vô hình cho tới khi vuốt qua lại.
+        final Runnable restore = new Runnable() {
+            @Override
+            public void run() {
+                view.setAlpha(1f);
+                view.setScaleX(finalScale);
+                view.setScaleY(finalScale);
+            }
+        };
+        // Hẹn trên mWorkspace chứ KHÔNG trên chính view: view có thể bị gỡ khỏi cửa sổ giữa chừng,
+        // lúc đó callback hẹn trên nó sẽ không bao giờ chạy — đúng trường hợp cần bảo hiểm nhất.
+        mWorkspace.postDelayed(restore, WIDGET_MORPH_DURATION + 120);
+
+        view.setAlpha(0f);
+        view.setScaleX(finalScale * WIDGET_MORPH_START_SCALE);
+        view.setScaleY(finalScale * WIDGET_MORPH_START_SCALE);
+
+        // Dùng LauncherAnimUtils.ofFloat chứ KHÔNG ObjectAnimator.ofFloat trần: bản của project gắn
+        // thêm FirstFrameAnimatorHelper, thứ ép invalidate + đặt lại play-time ở frame đầu. Thiếu
+        // nó, animation ngắn (220ms) trên view vừa được thêm thường bị nuốt trọn mấy frame đầu rồi
+        // nhảy thẳng tới trạng thái cuối — nhìn như KHÔNG có animation.
+        AnimatorSet in = LauncherAnimUtils.createAnimatorSet();
+        in.playTogether(
+                LauncherAnimUtils.ofFloat(view, "alpha", 0f, 1f),
+                LauncherAnimUtils.ofFloat(view, "scaleX",
+                        finalScale * WIDGET_MORPH_START_SCALE, finalScale),
+                LauncherAnimUtils.ofFloat(view, "scaleY",
+                        finalScale * WIDGET_MORPH_START_SCALE, finalScale));
+        in.setDuration(WIDGET_MORPH_DURATION);
+        in.setInterpolator(new DecelerateInterpolator(1.5f));
+        in.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                // BẮT BUỘC: dù chạy xong hay bị huỷ (đổi cỡ liên tiếp, activity dừng...), view phải
+                // trở lại trạng thái nhìn thấy được. Thiếu bước này là widget vô hình vĩnh viễn.
+                // Scale trả về finalScale chứ KHÔNG phải 1.0 — CellLayout tự đặt scale cho con qua
+                // getChildrenScale() (hotseat dùng giá trị khác 1), ép 1.0 sẽ làm icon sai cỡ.
+                view.setAlpha(1f);
+                view.setScaleX(finalScale);
+                view.setScaleY(finalScale);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                view.setAlpha(1f);
+                view.setScaleX(finalScale);
+                view.setScaleY(finalScale);
+            }
+        });
+        in.start();
+    }
+
+    /**
+     * Lấy screenId THẬT của page đang chứa {@code hostView}, thay vì tin vào ItemInfo.
+     *
+     * [BUG FIX] "Widget vừa add vào màn rồi bấm chỉnh cỡ thì bị mất, phải vuốt qua lại mới thấy;
+     *            widget có sẵn thì không sao."
+     *   Khi thêm widget vào page trống cuối cùng, page đó là "extra empty screen" và được
+     *   commitExtraEmptyScreen() cấp một screenId MỚI (Workspace:936-963 — nó remove id cũ khỏi
+     *   mWorkspaceScreens rồi put lại dưới id mới). ItemInfo của widget vừa thêm có thể còn giữ
+     *   screenId CŨ. Ta chốt vị trí từ ItemInfo đó nên thêm widget thay thế vào một id không còn
+     *   trỏ tới page nào -> widget "biến mất" cho tới khi vuốt qua lại (ép bind lại từ DB).
+     *   Widget có sẵn không dính vì page của nó đã được commit từ lần chạy trước.
+     *
+     *   Hỏi thẳng Workspace xem view đang nằm ở CellLayout nào rồi lấy id của chính nó — luôn đúng
+     *   với trạng thái hiện tại.
+     *
+     * @return screenId thật, hoặc {@code fallback} nếu không tra được (vd widget trong hotseat).
+     */
+    private long resolveScreenIdForView(View hostView, long fallback) {
+        CellLayout parent = mWorkspace.getParentCellLayoutForView(hostView);
+        if (parent == null) {
+            return fallback;
+        }
+        long realId = mWorkspace.getIdForScreen(parent);
+        return realId != -1 ? realId : fallback;
+    }
+
+    /**
+     * Giữ page khỏi bị "dọn" trong lúc thay widget.
+     *
+     * [BUG FIX] "Đổi type xong không thấy widget, phải vuốt qua page khác rồi quay lại mới hiện."
+     *   Sau khi gỡ widget cũ, nếu nó là thứ DUY NHẤT trên page CUỐI thì page đó rỗng. Ít lâu sau
+     *   addAppWidgetImpl() gọi removeExtraEmptyScreenDelayed(..., 300ms) ->
+     *   convertFinalScreenToEmptyScreenIfNecessary() thấy page rỗng liền ĐỔI screenId của nó thành
+     *   EXTRA_EMPTY_SCREEN_ID1 (Workspace:805-810). Widget mới đã được thêm vào screenId CŨ nên
+     *   không còn khớp page nào đang hiển thị -> phải vuốt qua lại (ép bind lại) mới thấy.
+     *
+     *   CellLayout.isDropPending() chính là cờ AOSP dùng để chặn việc này: page đang chờ nhận item
+     *   thì không bị coi là rỗng (điều kiện ở Workspace:804). Launcher đã dùng đúng cách này cho
+     *   luồng widget hai bước (xem onActivityResult, dropLayout.setDropPending). Ta dùng lại y vậy.
+     *
+     * @return page đã được đánh dấu, để nhả cờ sau khi thêm xong; null nếu không tra được.
+     */
+    /**
+     * Số lượt thay widget đang treo trên mỗi page.
+     *
+     * [BUG FIX] "Đổi cỡ LIÊN TIẾP thì widget không hiện ngay, phải vuốt qua lại."
+     *   clearScreenPendingDrop() nhả cờ sau 500ms. Nếu người dùng đổi cỡ lần 2 trong khoảng đó,
+     *   lượt nhả của lần 1 sẽ tắt cờ NGAY GIỮA lượt 2 — page lại bị coi là rỗng và
+     *   convertFinalScreenToEmptyScreenIfNecessary() đổi screenId của nó, đúng lỗi cũ tái diễn.
+     *   Đếm số lượt đang treo: chỉ lượt CUỐI CÙNG kết thúc mới thực sự nhả cờ.
+     */
+    private final java.util.HashMap<CellLayout, Integer> mPendingWidgetSwaps = new java.util.HashMap<>();
+
+    private CellLayout markScreenPendingDrop(long screenId) {
+        CellLayout layout = mWorkspace.getScreenWithId(screenId);
+        if (layout != null) {
+            Integer count = mPendingWidgetSwaps.get(layout);
+            mPendingWidgetSwaps.put(layout, count == null ? 1 : count + 1);
+            layout.setDropPending(true);
+        }
+        return layout;
+    }
+
+    /** Nhả cờ drop-pending sau khi widget/icon mới đã vào chỗ. */
+    private void clearScreenPendingDrop(final CellLayout layout) {
+        if (layout == null) {
+            return;
+        }
+        // Nhả TRỄ hơn removeExtraEmptyScreenDelayed (300ms) để cờ còn hiệu lực đúng lúc hàm đó
+        // kiểm tra page rỗng.
+        mWorkspace.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Integer count = mPendingWidgetSwaps.get(layout);
+                int remaining = (count == null ? 1 : count) - 1;
+                if (remaining > 0) {
+                    // Còn lượt thay khác đang treo -> GIỮ cờ, để lượt cuối cùng lo việc nhả.
+                    mPendingWidgetSwaps.put(layout, remaining);
+                    return;
+                }
+                mPendingWidgetSwaps.remove(layout);
+                layout.setDropPending(false);
+            }
+        }, EXIT_SPRINGLOADED_MODE_SHORT_TIMEOUT + 200);
+    }
+
+    /**
+     * Gỡ widget khỏi màn + DB để THAY bằng thứ khác (widget cỡ khác, hoặc icon app).
+     *
+     * [BUG FIX] "Bấm chỉnh kích cỡ thì MẤT LUÔN widget."
+     *   Trước đây gỡ bằng DeleteDropTarget.removeWorkspaceOrFolderItem(). Hàm đó kết thúc bằng
+     *   stripEmptyScreens(false) — khi widget là thứ DUY NHẤT trên page, page bị xoá ngay tại đó.
+     *   screenId đã chốt trước khi gỡ liền trỏ tới page KHÔNG CÒN TỒN TẠI, nên bước thêm sau đó
+     *   không có chỗ đặt -> thứ mới không xuất hiện, còn widget cũ thì đã mất.
+     *   Vì vậy hàm này KHÔNG gọi stripEmptyScreens: page trống trong khoảnh khắc giữa gỡ và thêm là
+     *   bình thường, và nó sẽ có nội dung mới ngay sau đó.
+     */
+    private void removeWidgetForReplacement(LauncherAppWidgetInfo oldInfo, View hostView) {
+        removeAppWidget(oldInfo);
+        LauncherModel.deleteItemFromDatabase(this, oldInfo);
+        if (!oldInfo.isIOSWidget() && oldInfo.isWidgetIdValid()) {
+            final LauncherAppWidgetHost host = getAppWidgetHost();
+            final int oldWidgetId = oldInfo.appWidgetId;
+            if (host != null) {
+                // deleteAppWidgetId() ghi xuống đĩa trước khi trả về -> đẩy sang luồng nền, giống
+                // cách DeleteDropTarget vẫn làm.
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    public Void doInBackground(Void... args) {
+                        host.deleteAppWidgetId(oldWidgetId);
+                        return null;
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        }
+        mWorkspace.removeWorkspaceItem(hostView);
+    }
+
+    /**
+     * Chọn ô đặt widget thay thế trên page {@code screenId}: giữ nguyên chỗ cũ nếu chứa được,
+     * không thì lấy ô trống đầu tiên vừa cỡ.
+     *
+     * @return {cellX, cellY}, hoặc null nếu page không còn chỗ cho cỡ này.
+     */
+    private int[] findCellForReplacement(long screenId, int cellX, int cellY,
+                                         int spanX, int spanY) {
+        CellLayout layout = mWorkspace.getScreenWithId(screenId);
+        if (layout == null) {
+            return new int[]{cellX, cellY};   // không tra được thì cứ thử chỗ cũ
+        }
+        // Kéo vào trong lưới nếu widget mới rộng/cao hơn làm tràn mép phải/dưới.
+        int x = Math.max(0, Math.min(cellX, layout.getCountX() - spanX));
+        int y = Math.max(0, Math.min(cellY, layout.getCountY() - spanY));
+        if (layout.isRegionVacant(x, y, spanX, spanY)) {
+            return new int[]{x, y};
+        }
+        int[] found = new int[2];
+        return layout.findCellForSpan(found, spanX, spanY) ? found : null;
     }
 
     public boolean dismissWidgetMenu() {

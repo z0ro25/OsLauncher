@@ -150,6 +150,14 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
         for (PageIndicatorMarker marker : mMarkers){
             marker.setVisibility(View.VISIBLE);
         }
+        // [BUG FIX] Chấm trang bị LỆCH HẲN SANG TRÁI (đo trên Samsung A50 Android 9: khung
+        // 402..678 = 276px nhưng 3 chấm chỉ nằm 47..143, dư 86px bên phải).
+        // Nguyên nhân: khung từng được đo ở trạng thái search — lúc đó mSearchTV VISIBLE và rộng
+        // 160px, trong khi 3 chấm chỉ rộng 96px. Khi quay lại chế độ chấm, mSearchTV đã GONE nhưng
+        // container KHÔNG đo lại (LinearLayout giữ width cũ, lại có animateLayoutChanges) -> khung
+        // vẫn rộng theo spotlight, gravity=center căn giữa CỦA KHUNG RỘNG nên cụm chấm lệch trái.
+        // Ép đo lại để width bám đúng nội dung đang hiển thị -> cụm chấm về giữa màn.
+        requestLayout();
     }
 
     @Override

@@ -83,6 +83,16 @@ public class ShortcutsItemView extends PopupItemView implements View.OnLongClick
         mScrollView = findViewById(R.id.shortcuts_scroll);
     }
 
+    // Nền kính: chụp vùng sau popup rồi blur, đặt làm background. Chỉ vùng trong popup bị nhoè,
+    // phần còn lại của màn hình giữ nguyên. Xem PopupGlassHelper.
+    // Gắn ở onAttachedToWindow vì lúc onFinishInflate popup chưa có vị trí trên màn để mà chụp.
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        com.amz.ios.launcher.popup.PopupGlassHelper.bind(
+                this, com.amz.ios.launcher.popup.PopupGlassHelper.appPopupCorner(this));
+    }
+
     /** Danh sách shortcut có đang cuộn được không (nội dung cao hơn vùng nhìn). */
     public boolean canScrollList() {
         if (mScrollView == null) {
@@ -91,18 +101,13 @@ public class ShortcutsItemView extends PopupItemView implements View.OnLongClick
         return mScrollView.canScrollVertically(1) || mScrollView.canScrollVertically(-1);
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        // Cap chiều cao danh sách: nếu quá nhiều mục thì giới hạn ~6-7 dòng, phần dư ScrollView cuộn.
-        // Phải ĐO LẠI với EXACTLY maxHeight để ScrollView nhận đúng vùng nhìn -> mới cuộn được
-        // (nếu chỉ setMeasuredDimension thì ScrollView vẫn cao bằng full content, bị clip, không cuộn).
-        int maxHeight = getResources().getDimensionPixelSize(R.dimen.popup_shortcuts_max_height);
-        if (getMeasuredHeight() > maxHeight) {
-            int cappedSpec = MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY);
-            super.onMeasure(widthMeasureSpec, cappedSpec);
-        }
-    }
+    // [YÊU CẦU] KHÔNG cap chiều cao nữa — popup cao đúng theo SỐ DÒNG hiện có.
+    //   Trước đây onMeasure() đo lại với EXACTLY popup_shortcuts_max_height khi vượt ~6.5 dòng,
+    //   phần dư để ScrollView cuộn. Nay bỏ hẳn override: FrameLayout tự đo wrap_content nên chiều
+    //   cao bằng đúng nội dung. ScrollView trong shortcuts_item.xml giữ nguyên (vô hại — viewport
+    //   luôn bằng nội dung nên không còn gì để cuộn) và canScrollList() sẽ trả false, tức
+    //   PopupContainerWithArrow.onInterceptTouchEvent quay về hành vi gốc là chặn tap sau khi kéo
+    //   quá slop. Đó đúng là hành vi mong muốn khi danh sách không cuộn.
 
     @Override
     public boolean onTouch(View v, MotionEvent ev) {
