@@ -179,4 +179,18 @@
 
     <!-- Viền khung blur glass của dock (DockBlurView, hiệu ứng iOS 26). Trắng mờ nhẹ. -->
     <color name="dock_glass_stroke_color">#40FFFFFF</color>
+
+    <!-- Tint trắng phủ lên mặt kính glass, để vẫn nhìn xuyên thấy nền mờ phía sau.
+         Bằng đúng DockBlurView.PANEL_TINT (0x1AFFFFFF) để popup Edit và dock cùng một chất kính.
+         Sửa giá trị ở đây thì phải sửa hằng số bên DockBlurView cho khớp. -->
+    <color name="dock_glass_panel_tint">#1AFFFFFF</color>
+
+    <!-- Mặt kính của 3 popup (giữ app, giữ widget, menu Edit).
+         Nội dung phía sau đã được PopupGlassHelper làm NHOÈ bằng RenderEffect, nên tint ở đây không
+         phải gánh việc che — chỉ cần đủ sáng để chữ tối đọc được và ra chất kính.
+         Nâng alpha nếu muốn mặt kính đục hơn; hạ nếu muốn thấy rõ hình nhoè phía sau. -->
+    <color name="popup_glass_surface">#B3FFFFFF</color>
+
+    <!-- Màu chữ + icon của 3 popup. Mặt kính SÁNG -> chữ phải TỐI. -->
+    <color name="popup_glass_text">#1C1C1E</color>
 </resources>

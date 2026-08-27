@@ -16,21 +16,34 @@
 
 <com.amz.ios.launcher.shortcuts.ShortcutsItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/shortcuts_view"
     android:layout_width="@dimen/bg_popup_item_width"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/app_popup_elevation"
-    android:background="@drawable/bg_white_round_rect">
+    android:elevation="@dimen/app_popup_elevation">
 
-    <!-- Bọc ScrollView để khi app có quá nhiều mục thì cuộn lên/xuống thay vì bị cắt.
-         Chiều cao được cap ở ShortcutsItemView.onMeasure (~6-7 dòng). -->
+    <!-- [NỀN KÍNH] Nền do PopupGlassHelper gắn RUNTIME (GlassBlurWindowController), KHÔNG khai ở đây.
+         Cùng cơ chế compositor blur với hotseat (DockBlurView) và 2 nút Edit/Done — blur THẬT qua
+         window MEDIA riêng, chạy được trên Android 12+ nơi RenderScript đã bị gỡ.
+         Máy cũ / tắt blur / hidden-api bị chặn -> controller tự rơi về GlassBlurDrawable.
+         Không đặt background ở XML để khỏi đè lên nền mà controller dựng. -->
+
+    <!-- [CAO THEO SỐ DÒNG] Popup KHÔNG còn giới hạn chiều cao: cả ScrollView lẫn LinearLayout đều
+         wrap_content nên danh sách cao đúng bằng tổng số dòng, không cắt và không thừa khoảng trống.
+         Trước đây height là match_parent + fillViewport, cộng với cap ở ShortcutsItemView.onMeasure
+         (~6.5 dòng) nên vừa thừa chỗ khi ít mục vừa bị cắt khi nhiều mục.
+
+         ScrollView giữ lại (không xoá) vì ShortcutsItemView.canScrollList() tra @id/shortcuts_scroll
+         để PopupContainerWithArrow.onInterceptTouchEvent biết có nên nhường cử chỉ vuốt hay không.
+         Giờ viewport luôn bằng nội dung -> canScrollList() trả false -> quay về hành vi gốc, đúng
+         như mong muốn khi danh sách không cuộn. Nếu sau này cần cap lại chiều cao thì chỉ việc
+         khôi phục override onMeasure, không phải dựng lại cây view. -->
     <ScrollView
         android:id="@+id/shortcuts_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:overScrollMode="never"
-        android:fillViewport="true">
+        android:overScrollMode="never">
 
         <LinearLayout
             android:id="@+id/deep_shortcuts"

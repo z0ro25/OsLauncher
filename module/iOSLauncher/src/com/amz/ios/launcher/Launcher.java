@@ -2132,6 +2132,18 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             mWorkspace.addInScreen(launcherInfo.hostView, container, screenId, info.cellX,
                     info.cellY, launcherInfo.spanX, launcherInfo.spanY, isWorkspaceLocked());
 
+            // [BUG FIX] Widget vừa thêm KHÔNG hiện cho tới khi vuốt sang page khác rồi quay lại.
+            //   Vị trí/kích thước thật của item (lp.x/y/width/height) chỉ được tính trong
+            //   ShortcutAndWidgetContainer.measureChild() -> lp.setup(), tức chỉ trong lượt
+            //   onMeasure. requestLayout() do addView() phát ra BỊ BỎ QUA nếu cây view đang ở giữa
+            //   một lượt layout — xảy ra khi ta gỡ view cũ rồi thêm view mới trong cùng chuỗi xử lý
+            //   (đổi loại/cỡ widget từ popup). Khi đó view nằm trong cây nhưng width/height = 0.
+            //   bindAppWidget() (luồng bind từ model, Launcher:5497) vốn đã gọi
+            //   workspace.requestLayout() ngay sau addInScreen vì lý do này; completeAddAppWidget
+            //   thì thiếu. Bổ sung cho khớp — thêm một lời gọi requestLayout là vô hại với các
+            //   luồng cũ (kéo widget từ khay) vì lúc đó cây view không đang layout.
+            mWorkspace.requestLayout();
+
             addWidgetToAutoAdvanceIfNeeded(launcherInfo.hostView, appWidgetInfo);
         }
         resetAddInfo();
@@ -6623,6 +6635,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     public void onRecentChange(ArrayList<ComponentName> sortComps) {
+        if (mCustomContentView != null) {
+            mCustomContentView.reloadAppSuggestions();
+        }
     }
 
     public void restartSelf() {
@@ -7622,6 +7637,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         final DragLayer dragLayer = getDragLayer();
         final View content = LayoutInflater.from(this).inflate(R.layout.edit_home_menu, dragLayer, false);
+        // Nền kính + làm nhoè lớp workspace phía sau, tự bật/tắt theo vòng đời view (PopupGlassHelper).
+        com.amz.ios.launcher.popup.PopupGlassHelper.bind(
+                content, com.amz.ios.launcher.popup.PopupGlassHelper.widgetPopupCorner(content));
 
         // Lớp phủ trong suốt phủ kín màn hình: chạm ra ngoài menu thì đóng menu.
         final FrameLayout overlay = new FrameLayout(this);
@@ -7703,6 +7721,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         final DragLayer dragLayer = getDragLayer();
         final View content = LayoutInflater.from(this)
                 .inflate(R.layout.widget_popup_menu, dragLayer, false);
+        // Nền kính + làm nhoè lớp workspace phía sau, tự bật/tắt theo vòng đời view (PopupGlassHelper).
+        com.amz.ios.launcher.popup.PopupGlassHelper.bind(
+                content, com.amz.ios.launcher.popup.PopupGlassHelper.widgetPopupCorner(content));
 
         final FrameLayout overlay = new FrameLayout(this);
         overlay.setLayoutParams(new DragLayer.LayoutParams(
@@ -7780,10 +7801,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         overlay.addView(content, contentLp);
 
-        // Hàng 4 nút chọn kích cỡ ở đầu popup — MỚI DỰNG GIAO DIỆN, chưa nối chức năng.
-        // Ô tương ứng size hiện tại của widget được tô nền (setSelected) để người dùng biết đang ở size nào.
-        // TODO: nối hành vi đổi size sau khi có mô tả chi tiết từng nút.
-        markCurrentWidgetSizeOption(content);
+        // Hàng 4 ô ở đầu popup: ô đầu là logo app (bấm -> mở app, ẩn nếu là widget nội bộ),
+        // 3 ô sau đổi widget sang biến thể cùng dòng có cỡ tương ứng (không có -> disable).
+        setupWidgetAppIcon(content);
+        setupWidgetSizeVariants(content);
 
         content.findViewById(R.id.menu_widget_edit_screen).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -7814,42 +7835,834 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     /**
-     * Tô nền ô kích cỡ ứng với size HIỆN TẠI của widget đang mở popup (hàng 4 nút ở đầu popup).
-     *
-     * Ánh xạ theo spanX x spanY của widget:
-     *   2x2 -> nhỏ | 4x2 -> vừa | 4x4 -> lớn | còn lại (cao hơn) -> rất lớn.
-     *
-     * GHI CHÚ: đây MỚI là phần GIAO DIỆN — chỉ hiển thị ô đang chọn, CHƯA nối hành vi đổi size khi
-     * bấm (chờ mô tả chi tiết từng nút). Vì vậy 4 ô hiện chưa có OnClickListener.
+     * Span mục tiêu của 3 ô đổi cỡ trong popup widget: vừa / lớn / rất lớn.
+     * Đây KHÔNG phải kích thước ép cho widget hiện tại — mỗi ô đại diện một "cỡ", ta đi TÌM widget
+     * khác cùng dòng có cỡ đó rồi thay vào (giống popup widget của iOS), chứ không co giãn widget
+     * đang đặt.
      */
-    private void markCurrentWidgetSizeOption(View content) {
-        View small = content.findViewById(R.id.widget_size_small);
-        View medium = content.findViewById(R.id.widget_size_medium);
-        View large = content.findViewById(R.id.widget_size_large);
-        View extra = content.findViewById(R.id.widget_size_extra);
-        if (small == null || medium == null || large == null || extra == null) {
+    private static final int[][] WIDGET_VARIANT_SPANS = {
+            {2, 2},   // nhỏ
+            {4, 2},   // vừa
+            {4, 4},   // lớn
+    };
+    // [BUG FIX] "Widget mặc định không enable nút nào dù Lịch/Thời tiết/Đồng hồ có đủ loại."
+    //   Trước đây 3 ô đặt 4x2 / 4x4 / 4x6. Nhưng lưới màn hình chỉ 4..6 HÀNG
+    //   (InvariantDeviceProfile.getDeviceGrid: 4x4, 5x4, 5x5 hoặc 6x4) và
+    //   LauncherAppWidgetProviderInfo.initSpans() kẹp spanY = min(spanY, numRows), nên KHÔNG widget
+    //   nào có spanY = 6 -> ô "rất lớn" vĩnh viễn disable. Đồng thời cỡ 2x2 bị bỏ mất khi ô đầu
+    //   chuyển thành nút logo app, mà đó lại là cỡ nhỏ mà Weather/Picture đều có.
+    //   Nay 3 ô đúng bằng 3 cỡ widget nội bộ thực sự khai báo (xem getSpanX/getSpanY của
+    //   WeatherWidgetProvider 2x2, WeatherMediumWidgetProvider 4x2, WeatherLargeWidgetProvider 4x4).
+
+    /** Id 3 ô đổi cỡ, cùng thứ tự với {@link #WIDGET_VARIANT_SPANS}. */
+    private static final int[] WIDGET_VARIANT_IDS = {
+            R.id.widget_size_medium,   // nhỏ 2x2
+            R.id.widget_size_large,    // vừa 4x2
+            R.id.widget_size_extra,    // lớn 4x4
+    };
+
+    /**
+     * Ô ĐẦU của popup — cỡ NHỎ NHẤT của widget: thu widget về đúng một ô như icon app thường.
+     *
+     * Icon của ô này là ảnh TĨNH đặt sẵn trong widget_popup_menu.xml (@drawable/ic_app_wg), không
+     * nạp logo từng app nữa — ô chỉ mang nghĩa "cỡ 1 ô", giống 3 ô cỡ còn lại.
+     * Bấm vào thì widget bị gỡ và thay bằng ICON APP THẬT (ShortcutInfo 1x1) — từ đó nó hành xử y
+     * hệt mọi icon khác: bấm mở app, giữ để kéo/xoá, có nhãn tên app.
+     *
+     * Ẩn hẳn khi widget là widget nội bộ (không thuộc app nào) hoặc app không có màn để mở — hai
+     * trường hợp đó không thu về icon app được.
+     */
+    private void setupWidgetAppIcon(View content) {
+        View iconSlot = content.findViewById(R.id.widget_app_icon);
+        if (iconSlot == null) {
             return;
         }
-
-        small.setSelected(false);
-        medium.setSelected(false);
-        large.setSelected(false);
-        extra.setSelected(false);
+        iconSlot.setVisibility(View.GONE);
 
         View hostView = mOpenAppWidgetHostView;
-        if (hostView == null || !(hostView.getTag() instanceof ItemInfo)) {
+        if (hostView == null || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
             return;
         }
-        ItemInfo info = (ItemInfo) hostView.getTag();
-        if (info.spanX <= 2 && info.spanY <= 2) {
-            small.setSelected(true);
-        } else if (info.spanY <= 2) {
-            medium.setSelected(true);
-        } else if (info.spanY <= 4) {
-            large.setSelected(true);
-        } else {
-            extra.setSelected(true);
+        LauncherAppWidgetInfo info = (LauncherAppWidgetInfo) hostView.getTag();
+        // Widget nội bộ (đồng hồ, thời tiết, lịch, pin, ảnh) không thuộc app nào -> không thu về
+        // icon app được.
+        if (info.isIOSWidget() || info.providerName == null) {
+            return;
         }
+        final String packageName = info.providerName.getPackageName();
+        if (TextUtils.isEmpty(packageName)) {
+            return;
+        }
+        if (getPackageManager().getLaunchIntentForPackage(packageName) == null) {
+            return;   // app không có activity khởi chạy -> icon app sẽ vô dụng, ẩn ô đi
+        }
+
+        iconSlot.setVisibility(View.VISIBLE);
+        // Đặt tường minh cả hai state để icon lấy đúng màu từ @color/widget_size_option_icon:
+        // ô này luôn bấm được khi hiện, và không bao giờ ở trạng thái "đang chọn" — widget đang mở
+        // popup thì theo định nghĩa chưa phải là icon app.
+        iconSlot.setEnabled(true);
+        iconSlot.setSelected(false);
+        iconSlot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shrinkWidgetToAppIcon();
+            }
+        });
+    }
+
+    /**
+     * Thu widget đang mở popup về một ICON APP thường (1x1) đặt đúng chỗ widget cũ.
+     *
+     * Gỡ widget rồi thêm ShortcutInfo của app sở hữu widget. Icon tạo ra là icon app THẬT (cùng
+     * đường dựng với icon trên desktop qua {@link #createShortcut}), nên mọi thao tác quen thuộc —
+     * bấm mở app, giữ để kéo, kéo vào thùng xoá — chạy y như các icon khác.
+     */
+    private void shrinkWidgetToAppIcon() {
+        View hostView = mOpenAppWidgetHostView;
+        if (hostView == null || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            dismissWidgetMenu();
+            return;
+        }
+        LauncherAppWidgetInfo oldInfo = (LauncherAppWidgetInfo) hostView.getTag();
+        if (oldInfo.providerName == null) {
+            dismissWidgetMenu();
+            return;
+        }
+        String packageName = oldInfo.providerName.getPackageName();
+        UserHandleCompat user = oldInfo.user != null
+                ? oldInfo.user : UserHandleCompat.myUserHandle();
+
+        // Icon app = activity khởi chạy của package. Không có -> không thu được.
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(packageName);
+        if (launchIntent == null) {
+            dismissWidgetMenu();
+            return;
+        }
+        LauncherActivityInfoCompat activityInfo = LauncherAppsCompat.getInstance(this)
+                .resolveActivity(launchIntent, user);
+        if (activityInfo == null) {
+            dismissWidgetMenu();
+            return;
+        }
+
+        final long container = oldInfo.container;
+        // screenId lấy từ CellLayout đang chứa view, KHÔNG từ ItemInfo (xem resolveScreenIdForView).
+        final long screenId = resolveScreenIdForView(hostView, oldInfo.screenId);
+        final int cellX = oldInfo.cellX;
+        final int cellY = oldInfo.cellY;
+
+        dismissWidgetMenu();
+        getDragLayer().clearAllResizeFrames();
+        mWidgetResizeMode = false;
+        mOpenAppWidgetHostView = null;
+
+        // Giữ page khỏi bị dọn khi nó tạm rỗng giữa lúc gỡ và thêm (xem markScreenPendingDrop).
+        CellLayout pendingScreen = markScreenPendingDrop(screenId);
+
+        // Chụp ảnh widget cũ cho hiệu ứng mờ dần TRƯỚC khi gỡ (gỡ xong là không vẽ lại được nữa).
+        animateWidgetMorphOut(hostView);
+        removeWidgetForReplacement(oldInfo, hostView);
+
+        // Icon chiếm đúng 1 ô; ô cũ của widget luôn đủ chỗ nên không cần dò lại vị trí.
+        ShortcutInfo shortcut = new AppInfo(this, activityInfo, user, mIconCache).makeShortcut();
+        shortcut.container = container;
+        shortcut.screenId = screenId;
+        shortcut.cellX = cellX;
+        shortcut.cellY = cellY;
+        shortcut.spanX = 1;
+        shortcut.spanY = 1;
+
+        LauncherModel.addItemToDatabase(this, shortcut, container, screenId, cellX, cellY);
+        View icon = createShortcut(shortcut);
+        mWorkspace.addInScreen(icon, container, screenId, cellX, cellY, 1, 1, isWorkspaceLocked());
+        // BẮT BUỘC: ép page đo lại để lp của icon mới được setup (xem forceRelayoutAfterWidgetSwap).
+        forceRelayoutAfterWidgetSwap(screenId);
+        // Icon thêm ĐỒNG BỘ nên cầm được view ngay, khỏi phải dò theo ô như luồng widget.
+        // Huỷ mọi lượt dò view còn treo từ lần thay trước, tránh nó bắt nhầm icon vừa thêm.
+        mWidgetMorphToken++;
+        startMorphInAnimation(icon, pendingScreen != null ? pendingScreen.getChildrenScale() : 1f);
+        clearScreenPendingDrop(pendingScreen);
+    }
+
+    /**
+     * Rút "dòng widget" từ tên class provider để nhóm các biến thể cùng loại.
+     *
+     * CẦN THIẾT vì mọi widget NỘI BỘ đều nằm trong package của chính launcher (xem
+     * LauncherAppWidgetProviderInfo: {@code new ComponentName(context, widget.getClass().getName())}).
+     * Nếu chỉ lọc theo package thì Thời tiết / Ảnh / Đồng hồ / Lịch / Pin bị trộn chung — bấm ô
+     * "lớn" trên widget Thời tiết có thể ra widget Ảnh.
+     *
+     * Quy tắc: bỏ đuôi "WidgetProvider" rồi bỏ tiếp hậu tố chỉ cỡ ở cuối.
+     *   WeatherMediumWidgetProvider -> Weather | PictureAppWidgetProvider -> Picture
+     */
+    /**
+     * Bảng nhóm biến thể của widget NỘI BỘ, khai báo TƯỜNG MINH theo tên class provider.
+     *
+     * [BUG FIX] "Chỉ widget Thời tiết đổi được kiểu, các widget mặc định khác thì không."
+     *   Bản trước suy nhóm bằng cách cắt hậu tố cỡ khỏi tên class. Cách đó chỉ đúng với Weather và
+     *   Picture (ba biến thể cùng tiền tố). Các dòng còn lại đặt tên rời rạc nên bị tách nhầm:
+     *     - Lịch: CalendarMonth (2x2) vs CalendarUpNext{Small,Medium,Large} -> thành 2 nhóm khác
+     *       nhau, nên thẻ Lịch trên desktop không thấy biến thể 4x2/4x4 nào.
+     *     - Đồng hồ: Clock / AnalogClock / AnalogClockDark / CityClock / MiniAnalogClock (đều 2x2)
+     *       và WorldClock (4x2) -> mỗi cái một nhóm, không cái nào đổi cỡ được.
+     *   Khai báo thẳng ra thì không phải đoán theo quy tắc đặt tên. Thêm widget nội bộ mới sau này
+     *   chỉ cần bổ sung tên class vào đúng hàng ở đây.
+     */
+    private static final String[][] INTERNAL_WIDGET_FAMILIES = {
+            {"Weather",  "WeatherWidgetProvider", "WeatherMediumWidgetProvider",
+                         "WeatherLargeWidgetProvider"},
+            {"Picture",  "PictureAppWidgetProvider", "PictureMediumWidgetProvider",
+                         "PictureLargeWidgetProvider"},
+            {"Calendar", "CalendarMonthWidgetProvider", "CalendarWidgetProvider",
+                         "CalendarUpNextSmallWidgetProvider", "CalendarUpNextMediumWidgetProvider",
+                         "CalendarUpNextLargeWidgetProvider"},
+            {"Clock",    "ClockWidgetProvider", "AnalogClockWidgetProvider",
+                         "AnalogClockDarkWidgetProvider", "CityClockWidgetProvider",
+                         "MiniAnalogClockWidgetProvider", "WorldClockWidgetProvider"},
+            {"Battery",  "BatteryWidgetProvider"},
+    };
+
+    /**
+     * Rút "dòng widget" từ tên class provider để nhóm các biến thể cùng loại.
+     *
+     * CẦN THIẾT vì mọi widget NỘI BỘ đều nằm trong package của chính launcher (xem
+     * LauncherAppWidgetProviderInfo: {@code new ComponentName(context, widget.getClass().getName())}).
+     * Nếu chỉ lọc theo package thì Thời tiết / Ảnh / Đồng hồ / Lịch / Pin bị trộn chung — bấm ô
+     * "lớn" trên widget Thời tiết có thể ra widget Ảnh.
+     *
+     * Tra {@link #INTERNAL_WIDGET_FAMILIES} trước; không có tên trong bảng (widget nội bộ mới chưa
+     * khai, hoặc widget app ngoài) thì quay về suy theo tên class như cũ.
+     */
+    private static String widgetFamilyOf(ComponentName provider) {
+        if (provider == null) return "";
+        String name = provider.getShortClassName();
+        int dot = name.lastIndexOf('.');
+        if (dot >= 0) {
+            name = name.substring(dot + 1);
+        }
+        for (String[] family : INTERNAL_WIDGET_FAMILIES) {
+            for (int i = 1; i < family.length; i++) {
+                if (family[i].equals(name)) {
+                    return family[0];
+                }
+            }
+        }
+        if (name.endsWith("WidgetProvider")) {
+            name = name.substring(0, name.length() - "WidgetProvider".length());
+        } else if (name.endsWith("Provider")) {
+            name = name.substring(0, name.length() - "Provider".length());
+        }
+        for (String suffix : new String[]{"Medium", "Large", "Small", "Extra", "App"}) {
+            if (name.length() > suffix.length() && name.endsWith(suffix)) {
+                name = name.substring(0, name.length() - suffix.length());
+                break;
+            }
+        }
+        return name;
+    }
+
+    /**
+     * Tìm widget CÙNG DÒNG với widget đang đặt, có kích cỡ khớp spanX x spanY.
+     *
+     * Phạm vi tìm khác nhau theo loại widget:
+     *   - Widget app ngoài: cùng packageName (mỗi app một package nên đủ chính xác).
+     *   - Widget nội bộ: cùng "dòng" suy từ tên class (xem {@link #widgetFamilyOf}), vì tất cả
+     *     widget nội bộ dùng chung package của launcher.
+     *
+     * @return biến thể khớp nhất, hoặc null nếu dòng widget này không có cỡ đó.
+     */
+    /**
+     * Nhớ provider mà người dùng ĐANG dùng ở mỗi cỡ, theo từng dòng widget.
+     * Khoá: "<tên dòng>|<spanX>x<spanY>" — giá trị: provider đã chọn ở cỡ đó.
+     *
+     * [BUG FIX] "Đồng hồ đổi 2x2 -> 4x2 rồi đổi về 2x2 thì hiển thị SAI."
+     *   Dòng Clock có tới 5 provider CÙNG cỡ 2x2 nhưng giao diện khác hẳn nhau (Clock số,
+     *   AnalogClock kim, AnalogClockDark, CityClock, MiniAnalogClock). findWidgetVariant() duyệt
+     *   danh sách và trả về cái KHỚP SPAN ĐẦU TIÊN, nên quay về 2x2 sẽ ra một kiểu đồng hồ khác
+     *   chứ không phải cái người dùng đang dùng trước đó.
+     *   Ghi lại lựa chọn theo (dòng, cỡ) để lần sau quay về đúng provider cũ.
+     */
+    private final java.util.HashMap<String, ComponentName> mLastWidgetVariantPerSize =
+            new java.util.HashMap<>();
+
+    private static String widgetVariantKey(String family, int spanX, int spanY) {
+        return family + "|" + spanX + "x" + spanY;
+    }
+
+    private LauncherAppWidgetProviderInfo findWidgetVariant(
+            LauncherAppWidgetInfo current, int spanX, int spanY) {
+        if (current == null || current.providerName == null) {
+            return null;
+        }
+        String packageName = current.providerName.getPackageName();
+        String family = widgetFamilyOf(current.providerName);
+        boolean internal = current.isIOSWidget();
+
+        // Người dùng từng chọn provider nào ở cỡ này thì quay về đúng cái đó.
+        ComponentName remembered = mLastWidgetVariantPerSize.get(
+                widgetVariantKey(family, spanX, spanY));
+
+        LauncherAppWidgetProviderInfo best = null;
+        LauncherAppWidgetProviderInfo exact = null;
+        int bestDiff = Integer.MAX_VALUE;
+        for (LauncherAppWidgetProviderInfo info : LauncherModel.getWidgetProviders(this, false)) {
+            if (info == null || info.provider == null) continue;
+            if (!packageName.equals(info.provider.getPackageName())) continue;
+            // Widget nội bộ dùng chung package -> phải lọc thêm theo dòng, không thì lẫn loại.
+            if (internal && !family.equals(widgetFamilyOf(info.provider))) continue;
+
+            if (info.spanX == spanX && info.spanY == spanY) {
+                if (remembered != null && remembered.equals(info.provider)) {
+                    return info;   // đúng cái đang dùng trước đó ở cỡ này
+                }
+                // Giữ lại cái khớp span đầu tiên làm phương án dự phòng, nhưng ĐỪNG trả về ngay:
+                // còn phải duyệt hết để xem có provider đã được nhớ hay không.
+                if (exact == null) {
+                    exact = info;
+                }
+                continue;
+            }
+            // Không khớp tuyệt đối thì chấp nhận lệch tối đa 1 ô mỗi chiều, lấy cái gần nhất.
+            if (Math.abs(info.spanX - spanX) > 1 || Math.abs(info.spanY - spanY) > 1) continue;
+            int diff = Math.abs(info.spanX * info.spanY - spanX * spanY);
+            if (diff < bestDiff) {
+                bestDiff = diff;
+                best = info;
+            }
+        }
+        // Khớp span tuyệt đối luôn hơn phương án xấp xỉ.
+        return exact != null ? exact : best;
+    }
+
+    /**
+     * 3 ô đổi cỡ: ô nào dòng widget này có biến thể thì bấm được (bấm -> thay widget), không có thì
+     * disable + làm mờ. Ô ứng với widget ĐANG đặt được tô nền.
+     */
+    private void setupWidgetSizeVariants(View content) {
+        View hostView = mOpenAppWidgetHostView;
+        LauncherAppWidgetInfo current =
+                (hostView != null && hostView.getTag() instanceof LauncherAppWidgetInfo)
+                        ? (LauncherAppWidgetInfo) hostView.getTag() : null;
+
+        // Widget ĐANG đặt chính là lựa chọn của người dùng ở cỡ của nó -> ghi nhớ ngay, để sau này
+        // đổi sang cỡ khác rồi quay lại thì ra đúng kiểu này (xem mLastWidgetVariantPerSize).
+        if (current != null && current.providerName != null) {
+            mLastWidgetVariantPerSize.put(
+                    widgetVariantKey(widgetFamilyOf(current.providerName),
+                            current.spanX, current.spanY),
+                    current.providerName);
+        }
+
+        // Tra biến thể cho từng ô TRƯỚC, rồi mới quyết định ô nào được tô nền.
+        LauncherAppWidgetProviderInfo[] variants =
+                new LauncherAppWidgetProviderInfo[WIDGET_VARIANT_IDS.length];
+        for (int i = 0; i < variants.length; i++) {
+            variants[i] = findWidgetVariant(
+                    current, WIDGET_VARIANT_SPANS[i][0], WIDGET_VARIANT_SPANS[i][1]);
+        }
+
+        // [BUG FIX] "Chọn cỡ to nhất thì 2 nút cuối sáng cùng lúc."
+        //   findWidgetVariant() chấp nhận lệch ±1 ô, và span THỰC TẾ của widget nội bộ do
+        //   initSpans() tính từ minWidth/minHeight trong XML chia cho cell size của máy — KHÔNG
+        //   nhất thiết bằng con số provider khai báo (vd weather_large 320dp có thể ra 4x3 chứ
+        //   không phải 4x4). Khi đó một provider lọt vào vùng ±1 của HAI ô cùng lúc, và cả hai ô
+        //   đều trỏ về nó.
+        //   Nay khử trùng lặp: mỗi provider chỉ giữ ở ô GẦN NHẤT (chênh lệch diện tích nhỏ nhất),
+        //   các ô còn lại trỏ về nó bị bỏ trống -> không bao giờ có hai ô cùng một widget.
+        for (int i = 0; i < variants.length; i++) {
+            if (variants[i] == null || variants[i].provider == null) continue;
+            for (int j = i + 1; j < variants.length; j++) {
+                if (variants[j] == null || variants[j].provider == null) continue;
+                if (!variants[i].provider.equals(variants[j].provider)) continue;
+
+                int diffI = Math.abs(variants[i].spanX * variants[i].spanY
+                        - WIDGET_VARIANT_SPANS[i][0] * WIDGET_VARIANT_SPANS[i][1]);
+                int diffJ = Math.abs(variants[j].spanX * variants[j].spanY
+                        - WIDGET_VARIANT_SPANS[j][0] * WIDGET_VARIANT_SPANS[j][1]);
+                if (diffJ < diffI) {
+                    variants[i] = null;
+                    break;          // ô i đã bị loại, khỏi so với các ô sau
+                }
+                variants[j] = null;
+            }
+        }
+
+        // Ô đang chọn = ô trỏ đúng provider của widget hiện tại. Sau bước khử trùng ở trên, nhiều
+        // nhất chỉ còn một ô như vậy.
+        int selectedIndex = -1;
+        if (current != null) {
+            for (int i = 0; i < variants.length; i++) {
+                if (variants[i] != null && variants[i].provider != null
+                        && variants[i].provider.equals(current.providerName)) {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < WIDGET_VARIANT_IDS.length; i++) {
+            View slot = content.findViewById(WIDGET_VARIANT_IDS[i]);
+            if (slot == null) continue;
+
+            final LauncherAppWidgetProviderInfo variant = variants[i];
+            boolean available = variant != null;
+            // Chỉ cần đặt state; màu icon tự đổi theo @color/widget_size_option_icon nhờ ImageView
+            // bên trong khai duplicateParentState (xem widget_popup_menu.xml). Không còn phải chỉnh
+            // alpha từng ImageView bằng code như trước.
+            slot.setEnabled(available);
+            slot.setSelected(i == selectedIndex);
+
+            if (!available) {
+                slot.setOnClickListener(null);
+                continue;
+            }
+            slot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    replaceWidgetWith(variant);
+                }
+            });
+        }
+    }
+
+    /**
+     * Thay widget đang mở popup bằng một biến thể khác cùng dòng: gỡ widget cũ rồi thêm widget mới
+     * vào ĐÚNG ô cũ.
+     *
+     * Dùng lại nguyên đường đi sẵn có (DeleteDropTarget.removeWorkspaceOrFolderItem +
+     * addAppWidgetFromDrop) thay vì tự thao tác CellLayout/DB, để mọi bước phụ (xoá appWidgetId,
+     * bind quyền, mở màn cấu hình nếu widget yêu cầu) vẫn chạy đúng như khi thêm widget từ khay.
+     */
+    private void replaceWidgetWith(LauncherAppWidgetProviderInfo target) {
+        View hostView = mOpenAppWidgetHostView;
+        if (target == null || hostView == null
+                || !(hostView.getTag() instanceof LauncherAppWidgetInfo)) {
+            dismissWidgetMenu();
+            return;
+        }
+        LauncherAppWidgetInfo oldInfo = (LauncherAppWidgetInfo) hostView.getTag();
+        if (target.provider != null && target.provider.equals(oldInfo.providerName)) {
+            dismissWidgetMenu();   // bấm đúng cỡ đang dùng
+            return;
+        }
+
+        // Ghi nhớ lựa chọn ở CẢ HAI cỡ: cỡ cũ (để sau này quay về đúng kiểu đang dùng) và cỡ mới
+        // (kiểu vừa chọn). Cần cho các dòng có nhiều provider cùng cỡ — vd Clock có 5 kiểu 2x2
+        // khác nhau. Xem mLastWidgetVariantPerSize.
+        String family = widgetFamilyOf(oldInfo.providerName);
+        mLastWidgetVariantPerSize.put(
+                widgetVariantKey(family, oldInfo.spanX, oldInfo.spanY), oldInfo.providerName);
+        mLastWidgetVariantPerSize.put(
+                widgetVariantKey(family, target.spanX, target.spanY), target.provider);
+
+        // Chốt vị trí TRƯỚC khi gỡ: sau khi xoá, oldInfo không còn đáng tin.
+        final long container = oldInfo.container;
+        // screenId lấy từ CellLayout đang chứa view, KHÔNG từ ItemInfo (xem resolveScreenIdForView).
+        final long screenId = resolveScreenIdForView(hostView, oldInfo.screenId);
+        final int cellX = oldInfo.cellX;
+        final int cellY = oldInfo.cellY;
+
+        dismissWidgetMenu();
+        getDragLayer().clearAllResizeFrames();
+        mWidgetResizeMode = false;
+        mOpenAppWidgetHostView = null;
+
+        // Giữ page khỏi bị dọn khi nó tạm rỗng giữa lúc gỡ và thêm (xem markScreenPendingDrop).
+        CellLayout pendingScreen = markScreenPendingDrop(screenId);
+
+        // Chụp ảnh widget cũ cho hiệu ứng mờ dần TRƯỚC khi gỡ (gỡ xong là không vẽ lại được nữa).
+        animateWidgetMorphOut(hostView);
+        removeWidgetForReplacement(oldInfo, hostView);
+
+        // Widget mới thường KHÁC cỡ widget cũ, nên ô cũ chưa chắc chứa nổi. Ưu tiên đặt lại đúng
+        // chỗ cũ (kéo vào trong lưới nếu tràn mép); không đủ chỗ thì tìm ô trống khác trên cùng
+        // page. Không có chỗ nào thì báo và dừng — lúc này page đã trống ô của widget cũ, người
+        // dùng tự dọn rồi thêm lại.
+        int[] cell = findCellForReplacement(screenId, cellX, cellY, target.spanX, target.spanY);
+        if (cell == null) {
+            clearScreenPendingDrop(pendingScreen);
+            showOutOfSpaceMessage(false);
+            return;
+        }
+
+        PendingAddWidgetInfo pending = new PendingAddWidgetInfo(this, target, null);
+        pending.spanX = target.spanX;
+        pending.spanY = target.spanY;
+        pending.minSpanX = target.minSpanX;
+        pending.minSpanY = target.minSpanY;
+        addAppWidgetFromDrop(pending, container, screenId,
+                cell, new int[]{target.spanX, target.spanY});
+        // BẮT BUỘC trước animation: ép page đo lại để lp của widget mới được setup (xem
+        // forceRelayoutAfterWidgetSwap). Thiếu bước này widget nằm trong cây nhưng width/height = 0.
+        forceRelayoutAfterWidgetSwap(screenId);
+        animateWidgetMorphIn(screenId, cell[0], cell[1]);
+        clearScreenPendingDrop(pendingScreen);
+    }
+
+    /** Thời lượng hiệu ứng biến hình khi đổi cỡ widget / thu về icon app. */
+    private static final int WIDGET_MORPH_DURATION = 220;
+    /** Cỡ khởi điểm của view MỚI trong hiệu ứng biến hình (phóng dần lên 1.0). */
+    private static final float WIDGET_MORPH_START_SCALE = 0.92f;
+    /** Cỡ kết thúc của view CŨ trong hiệu ứng biến hình (thu nhỏ dần trong lúc mờ đi). */
+    private static final float WIDGET_MORPH_END_SCALE = 0.94f;
+
+    /**
+     * Cho view cũ mờ + thu nhỏ dần, KHÔNG gỡ ngay.
+     *
+     * [FIX NHÁY] Trước đây gỡ view cũ rồi mới thêm view mới, giữa hai bước có một khoảnh khắc ô
+     * trống nên nhìn như màn hình bị nháy. Nay hai pha CHỒNG nhau: view cũ vẫn nằm đó (đã tách khỏi
+     * dữ liệu/DB) và mờ dần, trong khi view mới hiện lên bên trên.
+     *
+     * View cũ được vẽ ở lớp riêng của DragLayer để việc gỡ nó khỏi CellLayout (giải phóng ô cho
+     * view mới) không làm nó biến mất giữa chừng.
+     *
+     * @param oldView view sắp bị thay; hàm tự lo gỡ khỏi cha khi hiệu ứng xong.
+     */
+    private void animateWidgetMorphOut(final View oldView) {
+        if (oldView == null) {
+            return;
+        }
+        final DragLayer dragLayer = getDragLayer();
+        // Chụp view cũ thành ảnh đặt ở DragLayer, đúng vị trí đang thấy trên màn.
+        final Rect bounds = new Rect();
+        dragLayer.getViewRectRelativeToSelf(oldView, bounds);
+        if (bounds.width() <= 0 || bounds.height() <= 0) {
+            return;
+        }
+        Bitmap snapshot;
+        try {
+            snapshot = Bitmap.createBitmap(
+                    bounds.width(), bounds.height(), Bitmap.Config.ARGB_8888);
+            oldView.draw(new Canvas(snapshot));
+        } catch (Throwable th) {
+            return;   // hết bộ nhớ hoặc view chưa vẽ được -> bỏ hiệu ứng, không làm hỏng luồng chính
+        }
+
+        final ImageView ghost = new ImageView(this);
+        ghost.setImageBitmap(snapshot);
+        DragLayer.LayoutParams lp = new DragLayer.LayoutParams(bounds.width(), bounds.height());
+        lp.customPosition = true;
+        lp.x = bounds.left;
+        lp.y = bounds.top;
+        ghost.setLayoutParams(lp);
+        ghost.setPivotX(bounds.width() / 2f);
+        ghost.setPivotY(bounds.height() / 2f);
+        dragLayer.addView(ghost);
+
+        AnimatorSet out = LauncherAnimUtils.createAnimatorSet();
+        out.playTogether(
+                LauncherAnimUtils.ofFloat(ghost, "alpha", 1f, 0f),
+                LauncherAnimUtils.ofFloat(ghost, "scaleX", 1f, WIDGET_MORPH_END_SCALE),
+                LauncherAnimUtils.ofFloat(ghost, "scaleY", 1f, WIDGET_MORPH_END_SCALE));
+        out.setDuration(WIDGET_MORPH_DURATION);
+        out.setInterpolator(new DecelerateInterpolator(1.5f));
+        out.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                dragLayer.removeView(ghost);
+            }
+        });
+        out.start();
+    }
+
+    /** Số lần thử tìm view mới trước khi bỏ hiệu ứng (mỗi lần cách nhau 1 frame). */
+    private static final int WIDGET_MORPH_MAX_RETRY = 12;
+
+    /**
+     * Cho view MỚI hiện dần + phóng từ {@link #WIDGET_MORPH_START_SCALE} lên 1.0.
+     *
+     * View mới do completeAddAppWidget/addInScreen tạo ra nên không cầm được tham chiếu trực tiếp;
+     * phải tra lại theo Ô mà nó vừa chiếm.
+     *
+     * [FIX] "Không thấy animation, cũng không thấy widget — vuốt sang page khác rồi quay lại mới
+     * thấy." Hai nguyên nhân, sửa cả hai:
+     *   1) Widget hệ thống đi qua bind/configure BẤT ĐỒNG BỘ nên tại thời điểm post() đầu tiên
+     *      view có thể CHƯA tồn tại. Bản cũ return luôn -> mất hiệu ứng. Nay thử lại tối đa
+     *      WIDGET_MORPH_MAX_RETRY frame.
+     *   2) Bản cũ setAlpha(0) rồi mới start() animation. Nếu view chưa được layout, animation
+     *      không chạy tới nơi và view MẮC KẸT vô hình — đúng triệu chứng phải vuốt qua page khác
+     *      (ép vẽ lại) mới thấy. Nay chỉ hạ alpha khi view ĐÃ có kích thước thật, và luôn có
+     *      listener trả alpha/scale về 1 dù animation kết thúc hay bị huỷ.
+     */
+    /**
+     * Số thứ tự lượt thay widget gần nhất.
+     *
+     * [BUG FIX] Đổi cỡ LIÊN TIẾP: lượt trước vẫn đang dò tìm view (retry tối đa 12 frame) và có thể
+     *   bắt trúng widget của lượt SAU rồi setAlpha(0); animation của nó lại bị lượt sau huỷ giữa
+     *   chừng -> view kẹt vô hình, phải vuốt qua lại mới thấy. Mỗi lượt mang một số thứ tự; lượt cũ
+     *   thấy số đã đổi thì tự dừng, không đụng vào view nữa.
+     */
+    private int mWidgetMorphToken = 0;
+
+    private void animateWidgetMorphIn(final long screenId, final int cellX, final int cellY) {
+        final int token = ++mWidgetMorphToken;
+        mWorkspace.post(new Runnable() {
+            int attempt = 0;
+
+            @Override
+            public void run() {
+                if (token != mWidgetMorphToken) {
+                    return;   // đã có lượt thay mới hơn -> bỏ lượt này
+                }
+                CellLayout layout = mWorkspace.getScreenWithId(screenId);
+                View newView = layout == null ? null
+                        : layout.getShortcutsAndWidgets().getChildAt(cellX, cellY);
+                // getChildAt(x,y) trả về BẤT KỲ view nào phủ ô đó. Chỉ nhận view thật sự BẮT ĐẦU
+                // tại ô này, tránh bắt nhầm item bên cạnh trong lúc widget mới chưa kịp vào.
+                if (newView != null) {
+                    ViewGroup.LayoutParams raw = newView.getLayoutParams();
+                    if (!(raw instanceof CellLayout.LayoutParams)
+                            || ((CellLayout.LayoutParams) raw).cellX != cellX
+                            || ((CellLayout.LayoutParams) raw).cellY != cellY) {
+                        newView = null;
+                    }
+                }
+
+                // Chưa có view, hoặc có rồi nhưng chưa đo xong -> chờ frame sau.
+                if (newView == null || newView.getWidth() <= 0 || newView.getHeight() <= 0) {
+                    if (++attempt < WIDGET_MORPH_MAX_RETRY) {
+                        mWorkspace.postDelayed(this, 16);
+                    }
+                    return;
+                }
+                startMorphInAnimation(newView, layout.getChildrenScale());
+            }
+        });
+    }
+
+    /**
+     * Ép đo/vẽ lại page sau khi thêm widget hoặc icon thay thế.
+     *
+     * [BUG FIX GỐC] "Đổi loại widget xong không thấy widget mới, phải vuốt qua page khác rồi quay
+     *   lại mới hiện."
+     *
+     *   Vị trí và kích thước THẬT của một item trên lưới nằm ở lp.x/y/width/height, và chúng chỉ
+     *   được tính trong ShortcutAndWidgetContainer.measureChild() -> lp.setup(...), tức CHỈ trong
+     *   lượt onMeasure. addView() có gọi requestLayout(), nhưng lời gọi đó bị BỎ QUA nếu cây view
+     *   đang ở giữa một lượt layout (View.requestLayout không xếp lịch mới khi đang layout) — đúng
+     *   tình huống ở đây: ta gỡ view cũ rồi thêm view mới ngay trong cùng một chuỗi xử lý.
+     *   Kết quả: view mới nằm trong cây nhưng lp chưa được setup -> width/height = 0 -> không thấy
+     *   gì. Vuốt sang page khác rồi quay lại buộc PagedView đo lại nên nó mới hiện.
+     *
+     *   Luồng bind widget chuẩn của AOSP tránh lỗi này bằng workspace.requestLayout() ngay sau
+     *   addInScreen (xem bindAppWidget, Launcher:5497) — nhưng completeAddAppWidget() KHÔNG gọi,
+     *   nên widget thêm qua addAppWidgetFromDrop không được đo lại. Ta bù đúng bước đó ở đây.
+     *
+     *   Đây mới là nguyên nhân gốc; các bản vá trước (drop-pending, screenId thật, token animation)
+     *   chỉ chữa những đường dẫn tới cùng triệu chứng này.
+     */
+    private void forceRelayoutAfterWidgetSwap(final long screenId) {
+        // requestLayout() ngay trong lượt hiện tại có thể bị nuốt -> đẩy sang frame sau cho chắc.
+        mWorkspace.post(new Runnable() {
+            @Override
+            public void run() {
+                CellLayout layout = mWorkspace.getScreenWithId(screenId);
+                if (layout != null) {
+                    layout.getShortcutsAndWidgets().requestLayout();
+                    layout.requestLayout();
+                    layout.invalidate();
+                }
+                mWorkspace.requestLayout();
+                mWorkspace.invalidate();
+            }
+        });
+    }
+
+    /** Chạy hiệu ứng hiện dần + phóng to trên view đã sẵn sàng (đã có kích thước thật). */
+    private void startMorphInAnimation(final View view, final float finalScale) {
+        // Bảo hiểm cuối: dù animation kết thúc, bị huỷ, hay KHÔNG BAO GIỜ chạy (view bị gỡ khỏi cửa
+        // sổ giữa chừng vì người dùng đổi cỡ tiếp), view vẫn phải trở lại nhìn thấy được. Không có
+        // chốt này thì một lượt đổi bị cắt ngang là widget kẹt vô hình cho tới khi vuốt qua lại.
+        final Runnable restore = new Runnable() {
+            @Override
+            public void run() {
+                view.setAlpha(1f);
+                view.setScaleX(finalScale);
+                view.setScaleY(finalScale);
+            }
+        };
+        // Hẹn trên mWorkspace chứ KHÔNG trên chính view: view có thể bị gỡ khỏi cửa sổ giữa chừng,
+        // lúc đó callback hẹn trên nó sẽ không bao giờ chạy — đúng trường hợp cần bảo hiểm nhất.
+        mWorkspace.postDelayed(restore, WIDGET_MORPH_DURATION + 120);
+
+        view.setAlpha(0f);
+        view.setScaleX(finalScale * WIDGET_MORPH_START_SCALE);
+        view.setScaleY(finalScale * WIDGET_MORPH_START_SCALE);
+
+        // Dùng LauncherAnimUtils.ofFloat chứ KHÔNG ObjectAnimator.ofFloat trần: bản của project gắn
+        // thêm FirstFrameAnimatorHelper, thứ ép invalidate + đặt lại play-time ở frame đầu. Thiếu
+        // nó, animation ngắn (220ms) trên view vừa được thêm thường bị nuốt trọn mấy frame đầu rồi
+        // nhảy thẳng tới trạng thái cuối — nhìn như KHÔNG có animation.
+        AnimatorSet in = LauncherAnimUtils.createAnimatorSet();
+        in.playTogether(
+                LauncherAnimUtils.ofFloat(view, "alpha", 0f, 1f),
+                LauncherAnimUtils.ofFloat(view, "scaleX",
+                        finalScale * WIDGET_MORPH_START_SCALE, finalScale),
+                LauncherAnimUtils.ofFloat(view, "scaleY",
+                        finalScale * WIDGET_MORPH_START_SCALE, finalScale));
+        in.setDuration(WIDGET_MORPH_DURATION);
+        in.setInterpolator(new DecelerateInterpolator(1.5f));
+        in.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                // BẮT BUỘC: dù chạy xong hay bị huỷ (đổi cỡ liên tiếp, activity dừng...), view phải
+                // trở lại trạng thái nhìn thấy được. Thiếu bước này là widget vô hình vĩnh viễn.
+                // Scale trả về finalScale chứ KHÔNG phải 1.0 — CellLayout tự đặt scale cho con qua
+                // getChildrenScale() (hotseat dùng giá trị khác 1), ép 1.0 sẽ làm icon sai cỡ.
+                view.setAlpha(1f);
+                view.setScaleX(finalScale);
+                view.setScaleY(finalScale);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                view.setAlpha(1f);
+                view.setScaleX(finalScale);
+                view.setScaleY(finalScale);
+            }
+        });
+        in.start();
+    }
+
+    /**
+     * Lấy screenId THẬT của page đang chứa {@code hostView}, thay vì tin vào ItemInfo.
+     *
+     * [BUG FIX] "Widget vừa add vào màn rồi bấm chỉnh cỡ thì bị mất, phải vuốt qua lại mới thấy;
+     *            widget có sẵn thì không sao."
+     *   Khi thêm widget vào page trống cuối cùng, page đó là "extra empty screen" và được
+     *   commitExtraEmptyScreen() cấp một screenId MỚI (Workspace:936-963 — nó remove id cũ khỏi
+     *   mWorkspaceScreens rồi put lại dưới id mới). ItemInfo của widget vừa thêm có thể còn giữ
+     *   screenId CŨ. Ta chốt vị trí từ ItemInfo đó nên thêm widget thay thế vào một id không còn
+     *   trỏ tới page nào -> widget "biến mất" cho tới khi vuốt qua lại (ép bind lại từ DB).
+     *   Widget có sẵn không dính vì page của nó đã được commit từ lần chạy trước.
+     *
+     *   Hỏi thẳng Workspace xem view đang nằm ở CellLayout nào rồi lấy id của chính nó — luôn đúng
+     *   với trạng thái hiện tại.
+     *
+     * @return screenId thật, hoặc {@code fallback} nếu không tra được (vd widget trong hotseat).
+     */
+    private long resolveScreenIdForView(View hostView, long fallback) {
+        CellLayout parent = mWorkspace.getParentCellLayoutForView(hostView);
+        if (parent == null) {
+            return fallback;
+        }
+        long realId = mWorkspace.getIdForScreen(parent);
+        return realId != -1 ? realId : fallback;
+    }
+
+    /**
+     * Giữ page khỏi bị "dọn" trong lúc thay widget.
+     *
+     * [BUG FIX] "Đổi type xong không thấy widget, phải vuốt qua page khác rồi quay lại mới hiện."
+     *   Sau khi gỡ widget cũ, nếu nó là thứ DUY NHẤT trên page CUỐI thì page đó rỗng. Ít lâu sau
+     *   addAppWidgetImpl() gọi removeExtraEmptyScreenDelayed(..., 300ms) ->
+     *   convertFinalScreenToEmptyScreenIfNecessary() thấy page rỗng liền ĐỔI screenId của nó thành
+     *   EXTRA_EMPTY_SCREEN_ID1 (Workspace:805-810). Widget mới đã được thêm vào screenId CŨ nên
+     *   không còn khớp page nào đang hiển thị -> phải vuốt qua lại (ép bind lại) mới thấy.
+     *
+     *   CellLayout.isDropPending() chính là cờ AOSP dùng để chặn việc này: page đang chờ nhận item
+     *   thì không bị coi là rỗng (điều kiện ở Workspace:804). Launcher đã dùng đúng cách này cho
+     *   luồng widget hai bước (xem onActivityResult, dropLayout.setDropPending). Ta dùng lại y vậy.
+     *
+     * @return page đã được đánh dấu, để nhả cờ sau khi thêm xong; null nếu không tra được.
+     */
+    /**
+     * Số lượt thay widget đang treo trên mỗi page.
+     *
+     * [BUG FIX] "Đổi cỡ LIÊN TIẾP thì widget không hiện ngay, phải vuốt qua lại."
+     *   clearScreenPendingDrop() nhả cờ sau 500ms. Nếu người dùng đổi cỡ lần 2 trong khoảng đó,
+     *   lượt nhả của lần 1 sẽ tắt cờ NGAY GIỮA lượt 2 — page lại bị coi là rỗng và
+     *   convertFinalScreenToEmptyScreenIfNecessary() đổi screenId của nó, đúng lỗi cũ tái diễn.
+     *   Đếm số lượt đang treo: chỉ lượt CUỐI CÙNG kết thúc mới thực sự nhả cờ.
+     */
+    private final java.util.HashMap<CellLayout, Integer> mPendingWidgetSwaps = new java.util.HashMap<>();
+
+    private CellLayout markScreenPendingDrop(long screenId) {
+        CellLayout layout = mWorkspace.getScreenWithId(screenId);
+        if (layout != null) {
+            Integer count = mPendingWidgetSwaps.get(layout);
+            mPendingWidgetSwaps.put(layout, count == null ? 1 : count + 1);
+            layout.setDropPending(true);
+        }
+        return layout;
+    }
+
+    /** Nhả cờ drop-pending sau khi widget/icon mới đã vào chỗ. */
+    private void clearScreenPendingDrop(final CellLayout layout) {
+        if (layout == null) {
+            return;
+        }
+        // Nhả TRỄ hơn removeExtraEmptyScreenDelayed (300ms) để cờ còn hiệu lực đúng lúc hàm đó
+        // kiểm tra page rỗng.
+        mWorkspace.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Integer count = mPendingWidgetSwaps.get(layout);
+                int remaining = (count == null ? 1 : count) - 1;
+                if (remaining > 0) {
+                    // Còn lượt thay khác đang treo -> GIỮ cờ, để lượt cuối cùng lo việc nhả.
+                    mPendingWidgetSwaps.put(layout, remaining);
+                    return;
+                }
+                mPendingWidgetSwaps.remove(layout);
+                layout.setDropPending(false);
+            }
+        }, EXIT_SPRINGLOADED_MODE_SHORT_TIMEOUT + 200);
+    }
+
+    /**
+     * Gỡ widget khỏi màn + DB để THAY bằng thứ khác (widget cỡ khác, hoặc icon app).
+     *
+     * [BUG FIX] "Bấm chỉnh kích cỡ thì MẤT LUÔN widget."
+     *   Trước đây gỡ bằng DeleteDropTarget.removeWorkspaceOrFolderItem(). Hàm đó kết thúc bằng
+     *   stripEmptyScreens(false) — khi widget là thứ DUY NHẤT trên page, page bị xoá ngay tại đó.
+     *   screenId đã chốt trước khi gỡ liền trỏ tới page KHÔNG CÒN TỒN TẠI, nên bước thêm sau đó
+     *   không có chỗ đặt -> thứ mới không xuất hiện, còn widget cũ thì đã mất.
+     *   Vì vậy hàm này KHÔNG gọi stripEmptyScreens: page trống trong khoảnh khắc giữa gỡ và thêm là
+     *   bình thường, và nó sẽ có nội dung mới ngay sau đó.
+     */
+    private void removeWidgetForReplacement(LauncherAppWidgetInfo oldInfo, View hostView) {
+        removeAppWidget(oldInfo);
+        LauncherModel.deleteItemFromDatabase(this, oldInfo);
+        if (!oldInfo.isIOSWidget() && oldInfo.isWidgetIdValid()) {
+            final LauncherAppWidgetHost host = getAppWidgetHost();
+            final int oldWidgetId = oldInfo.appWidgetId;
+            if (host != null) {
+                // deleteAppWidgetId() ghi xuống đĩa trước khi trả về -> đẩy sang luồng nền, giống
+                // cách DeleteDropTarget vẫn làm.
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    public Void doInBackground(Void... args) {
+                        host.deleteAppWidgetId(oldWidgetId);
+                        return null;
+                    }
+                }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        }
+        mWorkspace.removeWorkspaceItem(hostView);
+    }
+
+    /**
+     * Chọn ô đặt widget thay thế trên page {@code screenId}: giữ nguyên chỗ cũ nếu chứa được,
+     * không thì lấy ô trống đầu tiên vừa cỡ.
+     *
+     * @return {cellX, cellY}, hoặc null nếu page không còn chỗ cho cỡ này.
+     */
+    private int[] findCellForReplacement(long screenId, int cellX, int cellY,
+                                         int spanX, int spanY) {
+        CellLayout layout = mWorkspace.getScreenWithId(screenId);
+        if (layout == null) {
+            return new int[]{cellX, cellY};   // không tra được thì cứ thử chỗ cũ
+        }
+        // Kéo vào trong lưới nếu widget mới rộng/cao hơn làm tràn mép phải/dưới.
+        int x = Math.max(0, Math.min(cellX, layout.getCountX() - spanX));
+        int y = Math.max(0, Math.min(cellY, layout.getCountY() - spanY));
+        if (layout.isRegionVacant(x, y, spanX, spanY)) {
+            return new int[]{x, y};
+        }
+        int[] found = new int[2];
+        return layout.findCellForSpan(found, spanX, spanY) ? found : null;
     }
 
     public boolean dismissWidgetMenu() {

@@ -14,7 +14,7 @@ import com.amz.ios.launcher.R;
  * lớp này không cần logic gì thêm ngoài việc inflate layout (khác với {@link CalendarWidget_2x2}
  * vốn phải xử lý xin quyền + list sự kiện). Dùng đúng widget "đủ ngày" giống thẻ nổi bật ở khay.
  */
-public class CalendarMonthWidget_2x2 extends BlurConstraintLayoutWidget {
+public class CalendarMonthWidget_2x2 extends SquareBlurWidget {
 
     public CalendarMonthWidget_2x2(Context context, AttributeSet attrs) {
         this(context, attrs, 0);

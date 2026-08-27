@@ -25,11 +25,8 @@ import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.CornerPathEffect;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -68,7 +65,6 @@ import com.amz.ios.launcher.badge.BadgeInfo;
 import com.amz.ios.launcher.config.Settings;
 import com.amz.ios.launcher.dragndrop.DragOptions;
 import com.amz.ios.launcher.graphics.IconPalette;
-import com.amz.ios.launcher.graphics.TriangleShape;
 import com.amz.ios.launcher.notification.NotificationItemView;
 import com.amz.ios.launcher.notification.NotificationKeyData;
 import com.amz.ios.launcher.shortcuts.DeepShortcutManager;
@@ -534,26 +530,15 @@ public class PopupContainerWithArrow extends AbstractFloatingView implements Dra
             layoutParams.bottomMargin = verticalOffset;
         }
 
+        // [YÊU CẦU] BỎ mũi tên nối popup tới icon app — popup đứng độc lập như menu iOS.
+        //   Vẫn TẠO view rỗng (không xoá hẳn) vì cả lớp này dựa vào sự tồn tại của nó:
+        //   getItemViewAt()/getItemCount() bỏ qua đúng MỘT child là mũi tên để quy ra danh sách
+        //   item, và animation mở/đóng gọi createArrowScaleAnim() thao tác trên mArrow. Xoá view
+        //   sẽ làm lệch chỉ số child và ném NPE ở các chỗ đó — ẩn đi vừa đủ và an toàn.
+        //   popup_arrow_height cũng đã về 0dp bên dimens nên popup không còn chừa khoảng hở cho
+        //   mũi tên khi orientAboutIcon() tính chỗ đặt.
         View arrowView = new View(getContext());
-        if (Gravity.isVertical(((FrameLayout.LayoutParams) getLayoutParams()).gravity)) {
-            // This is only true if there wasn't room for the container next to the icon,
-            // so we centered it instead. In that case we don't want to show the arrow.
-            arrowView.setVisibility(INVISIBLE);
-        } else {
-            ShapeDrawable arrowDrawable = new ShapeDrawable(TriangleShape.create(
-                    width, height, !mIsAboveIcon));
-            Paint arrowPaint = arrowDrawable.getPaint();
-            // Note that we have to use getChildAt() instead of getItemViewAt(),
-            // since the latter expects the arrow which hasn't been added yet.
-            PopupItemView itemAttachedToArrow = (PopupItemView)
-                    (getChildAt(mIsAboveIcon ? getChildCount() - 1 : 0));
-            arrowPaint.setColor(itemAttachedToArrow.getArrowColor(mIsAboveIcon));
-            // The corner path effect won't be reflected in the shadow, but shouldn't be noticeable.
-            int radius = getResources().getDimensionPixelSize(R.dimen.popup_arrow_corner_radius);
-            arrowPaint.setPathEffect(new CornerPathEffect(radius));
-            arrowView.setBackground(arrowDrawable);
-            arrowView.setElevation(getElevation());
-        }
+        arrowView.setVisibility(INVISIBLE);
         addView(arrowView, mIsAboveIcon ? getChildCount() : 0, layoutParams);
         return arrowView;
     }

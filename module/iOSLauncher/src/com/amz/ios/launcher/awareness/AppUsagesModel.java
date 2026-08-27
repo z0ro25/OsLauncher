@@ -58,6 +58,19 @@ public class AppUsagesModel {
         return mCallbacks != null ? mCallbacks.get() : null;
     }
 
+    /**
+     * Danh sách app đã mở, sắp theo thời điểm mở GẦN NHẤT trước (xem {@link #sortByLaunchTime()}).
+     *
+     * Trả về BẢN SAO và đọc trong {@link #sLock}: sRecentComps được ghi ở worker thread
+     * (onLaunch/loadUsages), còn nơi dùng — khung app gợi ý ở trang trái — đọc trên main thread.
+     * Trả thẳng tham chiếu sẽ có nguy cơ ConcurrentModificationException khi vừa đọc vừa ghi.
+     */
+    public static ArrayList<ComponentName> getRecentComponents() {
+        synchronized (sLock) {
+            return new ArrayList<>(sRecentComps);
+        }
+    }
+
     public void onLaunch(final Context context, final ComponentName cn) {
         if (!mHasLoaderCompletedOnce || cn == null) {
             return;

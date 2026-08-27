@@ -23,6 +23,7 @@ import com.amz.ios.launcher.R;
 import com.amz.ios.launcher.bounce.BouncyRecyclerView;
 import com.amz.ios.launcher.bounce.OnOverPullListener;
 import com.amz.ios.launcher.leftpage.custom.CustomZoomButton;
+import com.amz.ios.launcher.leftpage.widgets.AppSuggestionWidget;
 import com.amz.ios.launcher.leftpage.widgets.WidgetBaseLayout;
 import com.amz.ios.launcher.leftpage.adapter.CustomContentWidgetAdapter;
 import com.amz.ios.launcher.leftpage.adapter.WrapStaggeredGridLayoutManager;
@@ -418,6 +419,24 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
             View childAt = mListWidgetRV.getChildAt(i);
             if (childAt instanceof WidgetBaseLayout) {
                 ((WidgetBaseLayout) childAt).setAppSuggestionViewMargin();
+            }
+        }
+    }
+
+    /**
+     * Nạp lại khung app gợi ý (app mở gần nhất).
+     *
+     * Gọi từ Launcher.onRecentChange() — AppUsagesModel phát callback đó sau mỗi lần người dùng mở
+     * app, nên danh sách luôn khớp thứ tự dùng thật mà không cần cơ chế theo dõi riêng.
+     * Cùng khuôn duyệt con với onOpenPage().
+     */
+    public void reloadAppSuggestions() {
+        if (mListWidgetRV == null) return;
+        int childCount = mListWidgetRV.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View childAt = mListWidgetRV.getChildAt(i);
+            if (childAt instanceof AppSuggestionWidget) {
+                AppSuggestionWidget.reloadSuggestionApps((AppSuggestionWidget) childAt);
             }
         }
     }
