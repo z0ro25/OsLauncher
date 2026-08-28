@@ -731,9 +731,15 @@ public class DragLayer extends InsettableFrameLayout {
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
-            final FrameLayout.LayoutParams flp = (FrameLayout.LayoutParams) child.getLayoutParams();
-            if (flp instanceof LayoutParams) {
-                final LayoutParams lp = (LayoutParams) flp;
+            // [BUG FIX] Ép kiểu THẲNG sang FrameLayout.LayoutParams (bản cũ) sẽ ném
+            //   ClassCastException nếu có view nào trong DragLayer mang LayoutParams khác loại —
+            //   và vì đây là onLayout, một lần ném là HỎNG CẢ LƯỢT LAYOUT của mọi con, kể cả menu
+            //   hoặc DragView vừa được add (chúng kẹt w=0 h=0 -> "bấm Chỉnh sửa không hiện gì",
+            //   "kéo app mất logo"). Kiểm tra kiểu trước khi ép: view lạ thì bỏ qua, các con hợp lệ
+            //   khác vẫn được layout bình thường.
+            final ViewGroup.LayoutParams raw = child.getLayoutParams();
+            if (raw instanceof LayoutParams) {
+                final LayoutParams lp = (LayoutParams) raw;
                 if (lp.customPosition) {
                     child.layout(lp.x, lp.y, lp.x + lp.width, lp.y + lp.height);
                 }

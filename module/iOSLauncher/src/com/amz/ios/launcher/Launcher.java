@@ -4526,6 +4526,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 // chúng cũng MATCH_PARENT và cũng che popup sắp add. Xem
                 // removeStaleDragLayerOverlays().
                 removeStaleDragLayerOverlays();
+                // Phá kẹt chuỗi requestLayout() TRƯỚC khi add popup: PopupContainerWithArrow cũng add
+                // vào DragLayer nên dính đúng bug "kẹt 0x0 từ lần bật edit thứ 2" như menu Chỉnh sửa
+                // ("giữ app không ra popup"). Xem ensureLayoutTraversalAlive().
+                ensureLayoutTraversalAlive("truoc-showForIcon-popupApp");
                 showingFloatingMenu = true;
                 getDragLayer().addView(mFloatingMenuBlurBg, new DragLayer.LayoutParams(-1, -1));
                 com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
@@ -4808,6 +4812,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         //   (startTidyUp() bên dưới đặt lại cùng giá trị -> vô hại.)
         DragLayer.sTidyUping = true;
         this.mIsShaking = true;
+        // [CHẨN ĐOÁN — TẠM THỜI] Vào edit mode: chụp trạng thái DragLayer để so lần 1 với lần 2.
+        logEditMenuDiag("BAT-edit-mode", null, null);
 
         // [BUG FIX] Edit mode có thể vào từ popup ngữ cảnh của long-press app, lúc đó lớp phủ
         // full-screen mFloatingMenuBlurBg đang nằm TRÊN 2 nút Chỉnh sửa/Done và nuốt hết touch
@@ -4935,6 +4941,16 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * không edit -> hiện. Tránh bug long-press mở popup (không hiện 2 nút) làm status bar ẩn lì.
      */
     private void syncStatusBarToEditButtons() {
+        // [BUG FIX] KHÔNG đụng vào window khi một popup/menu vừa được add mà chưa kịp đo.
+        //   setStatusBarHiddenForEdit() có thể gọi setAttributes()/controller.hide(), thứ ép framework
+        //   re-layout TOÀN cửa sổ và HUỶ lượt layout đang chờ của view mới -> nó kẹt w=0 h=0: có trong
+        //   cây view nhưng không vẽ ra gì ("bấm Chỉnh sửa không hiện gì", "giữ app không ra popup").
+        //   Hàm này chạy ở MỌI onWindowFocusChanged nên rất dễ rơi trúng khoảnh khắc đó.
+        //   Hoãn lại là an toàn: trạng thái status bar sẽ được đồng bộ ở lần focus kế tiếp, hoặc ngay
+        //   khi menu đóng (dismissEditMenu/dismissWidgetMenu đều dẫn tới đường này).
+        if (mEditMenuView != null || mWidgetMenuView != null) {
+            return;
+        }
         boolean buttonsVisible = mAddWidgetBtn != null
                 && mAddWidgetBtn.getVisibility() == View.VISIBLE;
         setStatusBarHiddenForEdit(buttonsVisible);
@@ -4951,6 +4967,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             // nếu không một lượt toggle rơi vào giữa sẽ hiểu là "đang edit" và tắt/bật lệch nhịp.
             DragLayer.sTidyUping = false;
             mIsShaking = false;
+            // [CHẨN ĐOÁN — TẠM THỜI] Thoát edit: chụp TRƯỚC khi dọn, để biết vòng edit vừa rồi
+            // để lại những gì trong DragLayer.
+            logEditMenuDiag("TAT-edit-truoc-don", null, null);
             dismissEditMenu();
             dismissWidgetMenu();
 
@@ -4985,6 +5004,16 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             PageIndicator pageIndicator = this.mWorkspace.getPageIndicator();
             pageIndicator.removeCallbacks(pageIndicator.mSearchAnimRunnable);
             pageIndicator.postOnAnimationDelayed(pageIndicator.mSearchAnimRunnable, 1999L);
+            // [CHẨN ĐOÁN — TẠM THỜI] Chụp SAU khi dọn xong: cái gì còn sót lại ở đây sẽ là thứ
+            // lần bật edit kế tiếp phải sống chung. So với mốc "TAT-edit-truoc-don" ở trên.
+            logEditMenuDiag("TAT-edit-sau-don", null, null);
+            getDragLayer().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Sau khi animation ẩn nút (300ms) + fade overlay (255ms) đã chạy xong hẳn.
+                    logEditMenuDiag("TAT-edit-sau-500ms", null, null);
+                }
+            }, 500);
         }
     }
 
@@ -7946,6 +7975,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      */
     public void removeStaleDragLayerOverlaysForDrag() {
         removeStaleDragLayerOverlays();
+        // DragView (thứ vẽ logo app đang kéo) cũng add vào DragLayer -> cũng kẹt 0x0 khi chuỗi
+        // requestLayout() bị đứt, người dùng thấy "kéo app mất logo". Cùng nguyên nhân với menu
+        // Chỉnh sửa. Đây là điểm chung của MỌI đường kéo nên phá kẹt tại đây là đủ.
+        // Xem ensureLayoutTraversalAlive().
+        ensureLayoutTraversalAlive("truoc-tao-DragView");
     }
 
     private void removeStalePopupContainer() {
@@ -8137,8 +8171,21 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Rect r = new Rect();
         dragLayer.getViewRectRelativeToSelf(anchor, r);
-        contentLp.leftMargin = r.left;
-        contentLp.topMargin = r.bottom + (int) (getResources().getDisplayMetrics().density * 6);
+
+        // [BUG FIX] anchor (nút "Chỉnh sửa") có thể CHƯA qua lượt layout khi hàm này chạy:
+        //   onShakingAllApps() vừa setVisibility(VISIBLE) cho 2 nút thì người dùng đã bấm được ngay.
+        //   Lúc đó getViewRectRelativeToSelf trả (0,0,0,0) -> menu dán sát góc trên-trái và bị status
+        //   bar che -> nhìn như "không hiện gì".
+        //   Không đo được thì đặt menu ngay dưới status bar thay vì mép trên tuyệt đối.
+        int gap = (int) (getResources().getDisplayMetrics().density * 6);
+        if (r.bottom <= 0 || anchor.getWidth() <= 0) {
+            contentLp.leftMargin = gap;
+            contentLp.topMargin = getResources().getDimensionPixelSize(R.dimen.status_bar_heightex)
+                    + gap;
+        } else {
+            contentLp.leftMargin = r.left;
+            contentLp.topMargin = r.bottom + gap;
+        }
         overlay.addView(content, contentLp);
 
         content.findViewById(R.id.menu_add_widget).setOnClickListener(new View.OnClickListener() {
@@ -8163,9 +8210,226 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         });
 
-        dragLayer.addView(overlay);
-        mEditMenuView = overlay;
+        // [BUG FIX] "Bấm Chỉnh sửa: hàm chạy hết mà màn hình không hiện gì."
+        //   Gán mEditMenuView TRƯỚC addView, không phải sau.
+        //
+        //   Lý do: navHideRunnable (xem onCreate) tự chặn mình bằng guard
+        //   `isShaking() || showingFloatingMenu || mEditMenuView != null` — nhưng guard đó chỉ có
+        //   hiệu lực khi mEditMenuView đã khác null. Nếu gán SAU addView thì tồn tại một khoảng
+        //   trong đó menu đã nằm trong cây view mà guard vẫn thấy null; một lượt
+        //   hide(navigationBars) rơi trúng khoảng đó sẽ ép framework re-layout TOÀN cửa sổ và HUỶ
+        //   lượt layout đang chờ của menu -> menu kẹt w=0 h=0: có trong cây, hàm chạy hết, nhưng
+        //   không vẽ ra gì. Đúng triệu chứng, và cũng đúng cơ chế đã được ghi lại ở onCreate cho
+        //   ba lỗi cùng họ (menu edit / DragView / PopupContainerWithArrow đều kẹt 0x0).
+        //
+        //   Gán trước là an toàn: nếu addView ném lỗi thì dismissEditMenu() vẫn dọn được vì nó bám
+        //   theo biến này, và removeView trên view chưa có parent là no-op.
+        // [BUG FIX — NGUYÊN NHÂN GỐC, đo bằng log trên Samsung A50 Android 9]
+        //   "Từ lần bật edit thứ 2, bấm Chỉnh sửa không hiện gì" = chuỗi requestLayout() BỊ ĐỨT.
+        //   PHẢI gọi TRƯỚC addView: phá kẹt xong thì lượt layout của menu mới có nơi để chạy.
+        //   Xem ensureLayoutTraversalAlive() để biết đầy đủ cơ chế + số đo.
+        ensureLayoutTraversalAlive("truoc-addView-editMenu");
 
+        mEditMenuView = overlay;
+        dragLayer.addView(overlay);
+
+        // [CHẨN ĐOÁN — TẠM THỜI, GỠ SAU KHI TÌM RA NGUYÊN NHÂN]
+        //   Bug: từ lần bấm thứ 2, hàm này chạy hết mà menu không hiện. Kèm theo đó popup giữ-app và
+        //   DragView cũng hỏng — cả ba đều là view MỚI add vào DragLayer, trong khi con CŨ của
+        //   DragLayer vẫn vẽ đúng. Chữ ký của "layout traversal chết": requestLayout() không bubble
+        //   được tới ViewRootImpl nên view mới không bao giờ được đo.
+        //   Khối này CHỈ ĐỌC trạng thái và in log, không đổi hành vi. Xem logEditMenuDiag().
+        mEditMenuDiagCount++;
+        logEditMenuDiag("T0-ngay-sau-addView", content, overlay);
+        dragLayer.post(new Runnable() {
+            @Override
+            public void run() {
+                logEditMenuDiag("T1-frame-ke-tiep", content, overlay);
+            }
+        });
+        dragLayer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logEditMenuDiag("T2-sau-100ms", content, overlay);
+            }
+        }, 100);
+        dragLayer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logEditMenuDiag("T3-sau-500ms", content, overlay);
+            }
+        }, 500);
+
+        // Menu vừa được add nhưng CHƯA đo. Nếu lượt layout đầu bị huỷ (bởi bất kỳ thao tác nào đụng
+        // vào window), menu sẽ kẹt 0x0 vĩnh viễn vì không ai yêu cầu đo lại. Kiểm ở frame kế tiếp và
+        // ép đo lại một lần — rẻ, và chỉ chạy khi thực sự hỏng.
+        dragLayer.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mEditMenuView != overlay) return;          // menu đã bị đóng, khỏi làm gì
+                if (content.getWidth() > 0 && content.getHeight() > 0) return;   // đo tốt rồi
+                overlay.requestLayout();
+                content.requestLayout();
+            }
+        });
+    }
+
+    /**
+     * [BUG FIX — NGUYÊN NHÂN GỐC của "từ lần bật edit thứ 2, bấm Chỉnh sửa không hiện gì"]
+     *
+     * TRIỆU CHỨNG: hàm showEditMenu() chạy hết, menu CÓ trong cây view, nhưng kẹt w=0 h=0 vĩnh viễn
+     * nên không vẽ ra gì. Kèm theo đó popup giữ-app và DragView cũng hỏng — cả ba đều là view MỚI
+     * add vào DragLayer.
+     *
+     * NGUYÊN NHÂN (đo bằng log trên Samsung A50 Android 9, so lần 1 với lần 2):
+     *   Chuỗi requestLayout() BỊ ĐỨT GIỮA CHỪNG. Cơ chế của View.requestLayout():
+     *       if (mParent != null && !mParent.isLayoutRequested()) mParent.requestLayout();
+     *   Tức nó CHỈ leo tiếp lên cha khi cha CHƯA có cờ layout. Gặp một cấp đã bật cờ sẵn thì DỪNG.
+     *
+     *   Số đo cột isLayoutRequested() của chuỗi tổ tiên menu:
+     *     lần 1 (chạy được):  menu→overlay→DragLayer→RootView→content→LinearLayout→DecorView
+     *                         tất cả true ở T0, về false hết ở T1 -> menu đo được 394x346. BÌNH THƯỜNG.
+     *     lần 2 (hỏng):       menu/overlay/DragLayer/RootView/content = true (KẸT vĩnh viễn)
+     *                         LinearLayout/DecorView = FALSE  <-- chuỗi đứt ở đây
+     *   Vì content đã true sẵn, requestLayout() của menu dừng tại đó, KHÔNG bao giờ tới DecorView ->
+     *   ViewRootImpl.scheduleTraversals() KHÔNG được gọi -> không có lượt đo nào -> menu kẹt 0x0.
+     *
+     *   Trạng thái kẹt sinh ra ở vòng THOÁT edit: mốc "TAT-edit-sau-don" DecorView=true/con=false,
+     *   nhưng 500ms sau thì ĐẢO NGƯỢC — DecorView=false mà cả 6 con DragLayer=true. Traversal đã chạy
+     *   và clear cờ ở tầng trên, rồi có thứ set cờ lại cho riêng cây con SAU đó nên không bubble được.
+     *   Cả 6 con cùng dính, kể cả expanded_image_anim (INVISIBLE) và launcher_img_folder_bg_blur (GONE)
+     *   vốn không animation nào đụng tới -> thủ phạm là thứ quét QUA MỌI CON: InsettableFrameLayout
+     *   .setInsets() gọi child.setLayoutParams() cho từng con (xem file đó), chạy khi status bar đổi
+     *   trạng thái — đúng thứ setStatusBarHiddenForEdit(false) kích hoạt lúc bấm Done.
+     *
+     * VÌ SAO CÁC FIX TRƯỚC KHÔNG ĂN: chúng đều gọi overlay.requestLayout()/content.requestLayout()
+     * — mà đó chính là lời gọi bị chặn. Nó dừng ngay tại DragLayer, là no-op đúng vào lúc cần nhất.
+     *
+     * CÁCH SỬA: leo NGƯỢC từ DragLayer lên decorView, gọi requestLayout() TRỰC TIẾP trên từng cấp.
+     * Gọi thẳng trên view nào thì view đó tự bật cờ của mình, không phụ thuộc cờ của con — nên chuỗi
+     * không thể đứt. Tới decorView thì ViewRootImpl chắc chắn nhận được và lên lịch traversal.
+     *
+     * An toàn: requestLayout() thừa chỉ tốn thêm MỘT lượt đo (framework tự gộp nhiều lời gọi trong
+     * cùng frame thành một traversal), không đổi hành vi, không đụng hàm dùng chung nào.
+     *
+     * @param lyDo mô tả điểm gọi, chỉ để đọc log khi cần truy lại.
+     */
+    private void ensureLayoutTraversalAlive(String lyDo) {
+        try {
+            View v = getDragLayer();
+            if (v == null) {
+                return;
+            }
+            int soCapDaPha = 0;
+            // Leo tới decorView. Chặn 12 cấp phòng cây view dị thường (không có trong thực tế, chuỗi
+            // thật đo được là 8 cấp) — tránh vòng lặp vô hạn nếu getParent() trả về cấu trúc lạ.
+            int cap = 0;
+            while (v != null && cap < 12) {
+                // Gọi TRỰC TIẾP trên từng cấp: đây là điểm mấu chốt. Không dùng đường bubble mặc định
+                // vì chính nó là thứ đang bị chặn.
+                v.requestLayout();
+                soCapDaPha++;
+                android.view.ViewParent p = v.getParent();
+                v = (p instanceof View) ? (View) p : null;
+                cap++;
+            }
+            Log.i(DIAG_TAG, "ensureLayoutTraversalAlive(" + lyDo + "): da yeu cau layout "
+                    + soCapDaPha + " cap");
+        } catch (Throwable th) {
+            // Không bao giờ để việc phá kẹt làm hỏng luồng mở menu.
+            Log.e(DIAG_TAG, "ensureLayoutTraversalAlive loi: " + th);
+        }
+    }
+
+    /** [CHẨN ĐOÁN — TẠM THỜI] Đếm số lần showEditMenu() được gọi, để phân biệt lần 1 với lần 2+. */
+    private int mEditMenuDiagCount = 0;
+
+    /** Tag riêng cho log chẩn đoán, lọc bằng: adb logcat -s EditMenuDiag */
+    private static final String DIAG_TAG = "EditMenuDiag";
+
+    /**
+     * [CHẨN ĐOÁN — TẠM THỜI, GỠ SAU KHI TÌM RA NGUYÊN NHÂN]
+     *
+     * In trạng thái đo/layout của menu vừa add và TOÀN BỘ chuỗi tổ tiên của nó, tại 4 mốc thời gian.
+     * Mục đích: xác định lượt layout chết Ở CẤP NÀO.
+     *
+     * Cột quan trọng nhất là {@code layoutReq} ({@link View#isLayoutRequested()}). Đọc như sau:
+     *   - T0 mọi cấp layoutReq=true, tới T1/T2 về hết false và w/h > 0  -> BÌNH THƯỜNG (lần 1).
+     *   - Tới T3 mà content vẫn w=0 h=0: tìm cấp CAO NHẤT còn layoutReq=true — lượt layout dừng ở
+     *     ngay trên cấp đó, tức thủ phạm nằm ở view/cơ chế sở hữu cấp ấy.
+     *   - Nếu decorView layoutReq=true kéo dài qua cả T3 -> traversal của cả cửa sổ đã chết, thủ phạm
+     *     ở tầng window (setAttributes / controller.hide-show), không phải trong showEditMenu.
+     *   - Nếu content w>0 h>0 mà vẫn không nhìn thấy -> KHÔNG phải lỗi đo; xem tiếp vis/alpha và
+     *     danh sách con DragLayer (có view nào add SAU menu, tức nằm đè lên nó).
+     *
+     * Hàm chỉ ĐỌC trạng thái, không gọi requestLayout/invalidate — để không tự làm nhiễu thứ đang đo.
+     */
+    private void logEditMenuDiag(String moc, View content, View overlay) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("=== lan#").append(mEditMenuDiagCount).append(' ').append(moc).append(" ===");
+
+            // Chuỗi tổ tiên: content -> overlay -> DragLayer -> ... -> decorView.
+            // Lượt layout đi từ ViewRootImpl xuống, nên cấp nào còn layoutReq=true là cấp chưa được
+            // xử lý; cấp cao nhất còn true chính là nơi lượt layout dừng lại.
+            // content == null ở các mốc bật/tắt edit (chưa có menu nào) -> bắt đầu từ DragLayer.
+            View v = content != null ? content : getDragLayer();
+            int cap = 0;
+            while (v != null && cap < 12) {
+                sb.append("\n  [").append(cap).append("] ").append(moTaView(v));
+                android.view.ViewParent p = v.getParent();
+                v = (p instanceof View) ? (View) p : null;
+                cap++;
+            }
+
+            // Con của DragLayer theo ĐÚNG thứ tự add: con đứng SAU menu sẽ vẽ ĐÈ lên menu.
+            DragLayer dl = getDragLayer();
+            if (dl != null) {
+                sb.append("\n  DragLayer co ").append(dl.getChildCount()).append(" con:");
+                for (int i = 0; i < dl.getChildCount(); i++) {
+                    View c = dl.getChildAt(i);
+                    sb.append("\n    #").append(i);
+                    if (c == overlay) {
+                        sb.append(" <== OVERLAY MENU");
+                    }
+                    sb.append(' ').append(moTaView(c));
+                }
+            }
+
+            sb.append("\n  co: isShaking=").append(isShaking())
+                    .append(" showingFloatingMenu=").append(showingFloatingMenu)
+                    .append(" mEditMenuView=").append(mEditMenuView != null)
+                    .append(" mWidgetMenuView=").append(mWidgetMenuView != null)
+                    .append(" statusBarHidden=").append(mStatusBarHiddenForEdit)
+                    .append(" btnEditVis=")
+                    .append(mAddWidgetBtn == null ? "null" : mAddWidgetBtn.getVisibility());
+
+            Log.e(DIAG_TAG, sb.toString());
+        } catch (Throwable th) {
+            Log.e(DIAG_TAG, "loi khi in chan doan: " + th);
+        }
+    }
+
+    /** [CHẨN ĐOÁN — TẠM THỜI] Một dòng mô tả trạng thái đo/vẽ của một view. */
+    private String moTaView(View v) {
+        String ten = v.getClass().getSimpleName();
+        String id;
+        try {
+            id = v.getId() == View.NO_ID ? "no-id" : getResources().getResourceEntryName(v.getId());
+        } catch (Throwable th) {
+            id = "id?" + v.getId();
+        }
+        return ten + "{" + id + "}"
+                + " w=" + v.getWidth() + " h=" + v.getHeight()
+                + " measured=" + v.getMeasuredWidth() + "x" + v.getMeasuredHeight()
+                + " xy=" + v.getLeft() + "," + v.getTop()
+                // layoutReq: cấp này đang CHỜ được đo lại. Còn true ở T3 = lượt layout không tới nơi.
+                + " layoutReq=" + v.isLayoutRequested()
+                + " vis=" + v.getVisibility()
+                + " alpha=" + v.getAlpha()
+                + " transY=" + v.getTranslationY()
+                + " shown=" + v.isShown()
+                + " attached=" + v.isAttachedToWindow();
     }
 
 
@@ -8175,6 +8439,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         if (mEditMenuView != null) {
             getDragLayer().removeView(mEditMenuView);
             mEditMenuView = null;
+            // Menu đã đóng -> lượt hoãn ở syncStatusBarToEditButtons() không còn lý do; đồng bộ lại
+            // ngay để status bar khớp trạng thái edit thật (xem ghi chú ở hàm đó).
+            syncStatusBarToEditButtons();
             return true;
         }
         return false;
@@ -8315,8 +8582,27 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         });
 
-        dragLayer.addView(overlay);
+        // Phá kẹt chuỗi requestLayout() TRƯỚC addView — cùng lý do với showEditMenu(): popup này cũng
+        // là view mới add vào DragLayer nên dính đúng bug "kẹt 0x0 từ lần thứ 2".
+        // Xem ensureLayoutTraversalAlive().
+        ensureLayoutTraversalAlive("truoc-addView-widgetMenu");
+
+        // Gán TRƯỚC addView, cùng lý do với showEditMenu(): guard chống-đụng-window bám vào biến này,
+        // gán sau sẽ để hở một khoảng mà menu đã trong cây view nhưng guard vẫn thấy null.
         mWidgetMenuView = overlay;
+        dragLayer.addView(overlay);
+
+        // Menu chưa được đo; nếu lượt layout đầu bị huỷ thì nó kẹt 0x0 vĩnh viễn -> ép đo lại một lần.
+        final View widgetMenuContent = content;
+        dragLayer.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mWidgetMenuView != overlay) return;
+                if (widgetMenuContent.getWidth() > 0 && widgetMenuContent.getHeight() > 0) return;
+                overlay.requestLayout();
+                widgetMenuContent.requestLayout();
+            }
+        });
     }
 
     /**
@@ -9154,6 +9440,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         if (mWidgetMenuView != null) {
             getDragLayer().removeView(mWidgetMenuView);
             mWidgetMenuView = null;
+            // Đối xứng với dismissEditMenu(): menu đóng -> đồng bộ lại status bar.
+            syncStatusBarToEditButtons();
             return true;
         }
         return false;
