@@ -49,6 +49,7 @@
                         android:textStyle="bold"
                         android:singleLine="true"
                         android:ellipsize="end"
+                        android:id="@+id/widget_weather_city"
                         android:text="@string/weather_sample_city" />
                 </LinearLayout>
 
@@ -58,6 +59,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/white"
                     android:textSize="36sp"
+                    android:id="@+id/widget_weather_temp"
                     android:text="@string/weather_sample_temp" />
             </LinearLayout>
 
@@ -85,6 +87,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:textSize="13sp"
+                        android:id="@+id/widget_weather_condition"
                         android:text="@string/weather_sample_condition" />
                 </LinearLayout>
 
@@ -94,6 +97,7 @@
                     android:layout_marginTop="2dp"
                     android:textColor="#CCFFFFFF"
                     android:textSize="13sp"
+                    android:id="@+id/widget_weather_highlow"
                     android:text="@string/weather_sample_highlow" />
             </LinearLayout>
         </LinearLayout>

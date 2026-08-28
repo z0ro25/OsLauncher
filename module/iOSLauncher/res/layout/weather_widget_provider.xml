@@ -3,9 +3,10 @@
      LƯU Ý: LauncherAppWidgetHostView.onSizeChanged() ÉP setPadding(0,0,0,0) lên view ROOT của
      widget đặt màn -> KHÔNG đặt padding ở root (sẽ bị mất). Nền để ở root (full-bleed), nội dung
      bọc trong lớp con "content" giữ padding. Cùng quy ước với battery/clock. Dữ liệu MẪU TĨNH. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Root đổi từ LinearLayout sang FrameLayout để lớp phủ xin quyền nằm ĐÈ LÊN nội dung.
+     Giữ nguyên id widget_weather_layout (code bind + gắn click theo id này). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_weather_layout"
-    android:orientation="vertical"
     android:background="@drawable/widget_weather_bg_blue"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -81,4 +82,44 @@
             android:textSize="13sp"
             android:text="@string/weather_sample_highlow" />
     </LinearLayout>
-</LinearLayout>
+
+    <!-- [CHƯA CẤP QUYỀN] Lớp phủ mờ + lời nhắc, đè lên nội dung mẫu khi app chưa có quyền vị trí.
+         Bấm vào widget lúc này sẽ hiện hộp xin quyền (xem WeatherWidgetProvider.bindInflatedView).
+         Mặc định GONE; code bật lên khi thiếu quyền. -->
+    <LinearLayout
+        android:id="@+id/widget_weather_permission"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/widget_weather_permission_scrim"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_weather_location"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/widget_weather_need_permission"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="@string/widget_picture_tap_to_grant"
+            android:textColor="#CCFFFFFF"
+            android:textSize="11sp" />
+    </LinearLayout>
+</FrameLayout>

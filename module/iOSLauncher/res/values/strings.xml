@@ -709,6 +709,19 @@
     <string name="city_clock">City Clock</string>
     <!-- Weather widget (built-in). Dữ liệu là mẫu tĩnh: dự án chưa có API thời tiết. -->
     <string name="weather">Weather</string>
+    <!-- Mô tả thời tiết theo mã WMO của Open-Meteo (xem WeatherRepository.conditionTextRes). -->
+    <string name="weather_code_clear">Trời quang</string>
+    <string name="weather_code_partly_cloudy">Có mây</string>
+    <string name="weather_code_overcast">Nhiều mây</string>
+    <string name="weather_code_fog">Sương mù</string>
+    <string name="weather_code_drizzle">Mưa phùn</string>
+    <string name="weather_code_rain">Mưa</string>
+    <string name="weather_code_heavy_rain">Mưa to</string>
+    <string name="weather_code_snow">Tuyết</string>
+    <string name="weather_code_thunderstorm">Giông</string>
+    <!-- Hiện đè lên widget thời tiết khi app chưa có quyền vị trí; bấm vào widget để cấp. -->
+    <string name="widget_weather_need_permission">Cần quyền vị trí</string>
+
     <string name="weather_sample_city">San Francisco</string>
     <string name="weather_sample_temp">53°</string>
     <string name="weather_sample_condition">Sunny</string>

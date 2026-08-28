@@ -156,6 +156,17 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
                     com.amz.ios.launcher.widget.widgetprovider.BatteryWidgetProvider
                             .bindInflatedView(context, lahv);
                 }
+                // Widget Weather: đổ dữ liệu thật từ Open-Meteo (hoặc lớp phủ xin quyền vị trí).
+                // Dùng chung cho cả 3 size vì bindInflatedView tra view theo id, độc lập layout.
+                if (appWidget.provider != null) {
+                    String weatherCls = appWidget.provider.getClassName();
+                    if (com.amz.ios.launcher.widget.widgetprovider.WeatherWidgetProvider.class.getName().equals(weatherCls)
+                            || com.amz.ios.launcher.widget.widgetprovider.WeatherMediumWidgetProvider.class.getName().equals(weatherCls)
+                            || com.amz.ios.launcher.widget.widgetprovider.WeatherLargeWidgetProvider.class.getName().equals(weatherCls)) {
+                        com.amz.ios.launcher.widget.widgetprovider.WeatherWidgetProvider
+                                .bindInflatedView(context, lahv);
+                    }
+                }
 
             } else {
                 try {

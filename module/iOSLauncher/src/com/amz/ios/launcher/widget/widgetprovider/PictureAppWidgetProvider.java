@@ -672,18 +672,37 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
     /** Duyệt cây view, gặp widget ảnh nội bộ nào thì bind lại bằng ảnh mới nhất. */
     private static void rebindInflatedPictureWidgets(Context context, View view) {
         if (view == null) return;
-        // Nhận diện bằng chính view con mà bindInflatedView cần — không phụ thuộc kiểu host view.
-        if (view.findViewById(R.id.widget_picture_image) != null
-                && view.findViewById(R.id.widget_picture_layout) != null) {
-            bindInflatedView(context, view);
-            return;   // đã là một widget ảnh, không cần đi sâu hơn
+
+        // [BUG FIX] Bản trước nhận diện bằng view.findViewById(...) != null. Sai vì findViewById tìm
+        //   TRONG CẢ CÂY CON: decorView cũng "chứa" các id đó nên khớp ngay ở lần gọi đầu -> bind
+        //   nhầm vào decorView rồi return, không duyệt xuống widget thật. Chạy được với MỘT widget
+        //   chỉ là may (bindInflatedView tra view theo id nên vô tình vẫn tìm đúng), nhưng có nhiều
+        //   widget ảnh thì chỉ cái đầu tiên được cập nhật.
+        //   Nay nhận diện bằng KIỂU host view — thứ chỉ đúng ở đúng một cấp trong cây.
+        if (view instanceof com.amz.ios.launcher.LauncherAppWidgetHostView) {
+            com.amz.ios.launcher.LauncherAppWidgetProviderInfo info =
+                    ((com.amz.ios.launcher.LauncherAppWidgetHostView) view)
+                            .getLauncherAppWidgetProviderInfo();
+            if (info != null && info.provider != null
+                    && isPictureProvider(info.provider.getClassName())) {
+                bindInflatedView(context, view);
+            }
+            return;   // host view là một widget hoàn chỉnh, không đi sâu hơn
         }
+
         if (view instanceof android.view.ViewGroup) {
             android.view.ViewGroup group = (android.view.ViewGroup) view;
             for (int i = 0; i < group.getChildCount(); i++) {
                 rebindInflatedPictureWidgets(context, group.getChildAt(i));
             }
         }
+    }
+
+    /** Tên class có phải một trong 3 provider ảnh không. */
+    private static boolean isPictureProvider(String className) {
+        return PictureAppWidgetProvider.class.getName().equals(className)
+                || PictureMediumWidgetProvider.class.getName().equals(className)
+                || PictureLargeWidgetProvider.class.getName().equals(className);
     }
 
     @Override

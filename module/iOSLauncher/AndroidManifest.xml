@@ -55,6 +55,12 @@
 <!--    <uses-permission android:name="android.permission.CAMERA" />-->
 <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Widget thời tiết: lấy vị trí để gọi API Open-Meteo.
+         COARSE là đủ (độ chính xác ~thành phố) — thời tiết không cần chính xác tới mét, và quyền
+         này ít nhạy cảm hơn FINE nên người dùng dễ cấp hơn.
+         KHÔNG xin lúc vào desktop; chỉ xin khi người dùng bấm vào widget thời tiết
+         (xem WeatherWidgetProvider.attachPermissionClick). -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <!--    <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" />-->
 <!--    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />-->
     <uses-permission

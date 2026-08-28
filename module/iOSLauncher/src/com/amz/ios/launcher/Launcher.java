@@ -305,6 +305,15 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     // To keep track of activity's foreground/background status
     boolean isPaused;
 
+    /**
+     * Trạng thái quyền vị trí ở lần onResume trước.
+     *
+     * Dùng để phát hiện người dùng vừa cấp quyền ở màn CÀI ĐẶT — đường đó không có callback
+     * onRequestPermissionsResult, chỉ quay lại launcher. Không có cờ này thì widget thời tiết phải
+     * chờ hết TTL 30 phút mới gọi API.
+     */
+    private boolean mHadLocationPermission;
+
     public boolean showingFloatingMenu = false;
     public boolean mIsShaking = false;
 
@@ -1386,14 +1395,52 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 //            initApp();
         }
 
-        // Người dùng vừa trả lời hộp xin quyền ảnh (mở từ chính widget ảnh) -> vẽ lại widget ngay
-        // để bỏ lớp phủ "cần cấp quyền" và hiện ảnh thật, không phải chờ lần onResume sau.
-        if (requestCode == com.amz.ios.launcher.widget.widgetprovider
-                .PictureAppWidgetProvider.REQUEST_PHOTO_PERMISSION) {
-            com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
-        }
+        // Người dùng vừa trả lời hộp thoại quyền của hệ thống -> cập nhật NGAY widget liên quan,
+        // bỏ lớp phủ "cần cấp quyền" và hiện nội dung thật.
+        //
+        // Xét theo TÊN QUYỀN chứ không theo requestCode: quyền ảnh/vị trí có thể được cấp từ nhiều
+        // hộp thoại khác nhau (hộp riêng của từng widget, hoặc hộp xin nhiều quyền lúc khởi động).
+        // Bám requestCode thì chỉ bắt được đúng một đường, cấp từ đường khác là widget vẫn kẹt ở
+        // trạng thái "chưa cấp quyền" cho tới lần onResume sau.
+        onSystemPermissionsAnswered(permissions, grantResults);
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    /**
+     * Cập nhật widget ngay khi người dùng CẤP quyền ở hộp thoại hệ thống.
+     *
+     * Duyệt theo tên quyền vừa được cấp, không theo requestCode — xem giải thích ở nơi gọi.
+     * Chỉ phản ứng với quyền được CẤP; từ chối thì giữ nguyên lớp phủ, không làm gì thêm.
+     */
+    private void onSystemPermissionsAnswered(String[] permissions, int[] grantResults) {
+        if (permissions == null || grantResults == null) return;
+
+        boolean photoGranted = false;
+        boolean locationGranted = false;
+        for (int i = 0; i < permissions.length && i < grantResults.length; i++) {
+            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) continue;
+            String permission = permissions[i];
+            if (permission == null) continue;
+
+            if (Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)
+                    || Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
+                locationGranted = true;
+            } else if ("android.permission.READ_MEDIA_IMAGES".equals(permission)
+                    || Manifest.permission.READ_EXTERNAL_STORAGE.equals(permission)) {
+                photoGranted = true;
+            }
+        }
+
+        if (photoGranted) {
+            com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
+        }
+        if (locationGranted) {
+            // force = true: vừa cấp quyền thì phải gọi API ngay, không chờ TTL 30 phút.
+            // Dữ liệu về sau vài trăm ms sẽ tự vẽ lại qua WeatherRepository.setUpdateListener.
+            com.amz.ios.launcher.widget.weather.WeatherRepository.refreshIfStale(this, true);
+            com.amz.ios.launcher.widget.widgetprovider.WeatherWidgetProvider.refreshAll(this);
+        }
     }
 
     private PendingAddArguments preparePendingAddArgs(int requestCode, Intent data, int
@@ -1515,6 +1562,27 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // nên không thể trông vào chu kỳ tự cập nhật — chụp ảnh xong quay về launcher sẽ vẫn thấy
         // ảnh cũ. Người dùng bao giờ cũng quay lại launcher sau khi chụp, nên làm mới ở đây.
         com.amz.ios.launcher.widget.widgetprovider.PictureAppWidgetProvider.refreshAll(this);
+        // Widget thời tiết: vẽ lại từ cache và gọi API nếu cache đã cũ (TTL 30 phút) — không tốn gì
+        // khi cache còn tươi hoặc chưa cấp quyền vị trí.
+        // Gọi mạng là bất đồng bộ nên đăng ký listener để vẽ lại KHI dữ liệu về, không phải chờ
+        // lần onResume sau.
+        com.amz.ios.launcher.widget.weather.WeatherRepository.setUpdateListener(new Runnable() {
+            @Override
+            public void run() {
+                com.amz.ios.launcher.widget.widgetprovider.WeatherWidgetProvider
+                        .refreshAll(Launcher.this);
+            }
+        });
+        // Quyền vị trí có thể vừa được cấp ở màn CÀI ĐẶT (đường RemoteViews mở Settings) — đường đó
+        // không có callback nào, chỉ quay lại đây. Phát hiện chuyển trạng thái chưa-cấp -> đã-cấp
+        // thì ép gọi API ngay thay vì chờ TTL.
+        boolean locationGrantedNow =
+                com.amz.ios.launcher.widget.weather.WeatherRepository.hasLocationPermission(this);
+        if (locationGrantedNow && !mHadLocationPermission) {
+            com.amz.ios.launcher.widget.weather.WeatherRepository.refreshIfStale(this, true);
+        }
+        mHadLocationPermission = locationGrantedNow;
+        com.amz.ios.launcher.widget.widgetprovider.WeatherWidgetProvider.refreshAll(this);
 
         if (DEBUG_RESUME_TIME) {
             startTime = System.currentTimeMillis();
