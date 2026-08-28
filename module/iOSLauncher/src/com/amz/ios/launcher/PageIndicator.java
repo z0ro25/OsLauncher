@@ -50,6 +50,12 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
     private int mActiveMarkerIndex;
 
     public Runnable mSearchAnimRunnable;
+
+    /**
+     * Lượt thử lại của {@link #mSearchAnimRunnable} khi mSearchTV chưa đo được kích thước.
+     * Xem ghi chú bug ở chỗ khởi tạo mSearchAnimRunnable.
+     */
+    private Runnable mSearchRetryRunnable;
     public TextViewCustomFont mSearchTV;
 
     @Override
@@ -126,13 +132,67 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
             @Override
             public void run() {
                 try {
+                    // [BUG FIX] "Dot indicator biến mất, khung rỗng, cũng không thấy ô Tìm kiếm."
+                    //   Runnable này ẩn CHẤM rồi hiện SEARCH. Nhưng nếu mSearchTV không đo được kích
+                    //   thước (w=0/h=0) thì nó VISIBLE mà chẳng vẽ ra gì — trong khi chấm đã bị ẩn
+                    //   mất -> người dùng thấy khung indicator RỖNG HOÀN TOÀN.
+                    //   Đo được trên Samsung A50 sau chuỗi giữ-app -> Edit Home Screen -> Done:
+                    //     ind[0] PageIndicatorMarker vis=8 (GONE)
+                    //     ind[1] PageIndicatorMarker vis=8 (GONE)
+                    //     ind[2] TextViewCustomFont  vis=0 alpha=1.0 w=0 h=0   <- rỗng
+                    //   (mSearchTV mất kích thước vì lượt layout của nó bị huỷ giữa chừng khi vào/ra
+                    //   edit — cùng họ với các bug layout đã ghi ở Launcher.setStatusBarHiddenForEdit.)
+                    //
+                    //   Nguyên tắc: THÀ GIỮ CHẤM còn hơn để trống. Chỉ đổi sang search khi search
+                    //   thực sự vẽ được; nếu chưa đo xong thì yêu cầu đo lại và thử lại một lần.
+                    if (mSearchTV == null) {
+                        return;   // không có search -> giữ nguyên chấm
+                    }
+                    boolean searchDoDuoc = mSearchTV.getWidth() > 0 && mSearchTV.getHeight() > 0;
+                    if (!searchDoDuoc) {
+                        // Chưa có kích thước: ép đo lại rồi thử lại SAU, và QUAN TRỌNG là chưa ẩn
+                        // chấm — để khung không bao giờ rỗng trong lúc chờ.
+                        mSearchTV.setVisibility(View.VISIBLE);
+                        mSearchTV.setAlpha(0.0f);
+                        requestLayout();
+                        removeCallbacks(mSearchRetryRunnable);
+                        postDelayed(mSearchRetryRunnable, 120L);
+                        return;
+                    }
+
                     for (PageIndicatorMarker marker : mMarkers){
                         if (marker != null)
                             marker.setVisibility(View.GONE);
                     }
-                    if (mSearchTV != null) {
+                    mSearchTV.setVisibility(View.VISIBLE);
+                    mSearchTV.animate().alpha(1.0f).setDuration(668L).start();
+                } catch (Throwable th) {
+                    th.getMessage();
+                }
+            }
+        };
+
+        // Lượt thử lại sau khi đã ép đo mSearchTV. Nếu vẫn không đo được thì BỎ CUỘC và giữ chấm —
+        // khung có chấm vẫn đúng hơn khung trống trơn.
+        mSearchRetryRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (mSearchTV == null) return;
+                    if (mSearchTV.getWidth() > 0 && mSearchTV.getHeight() > 0) {
+                        for (PageIndicatorMarker marker : mMarkers){
+                            if (marker != null) marker.setVisibility(View.GONE);
+                        }
                         mSearchTV.setVisibility(View.VISIBLE);
                         mSearchTV.animate().alpha(1.0f).setDuration(668L).start();
+                    } else {
+                        // Không đo được -> trả về trạng thái CHẤM cho chắc chắn nhìn thấy được.
+                        mSearchTV.setVisibility(View.GONE);
+                        mSearchTV.setAlpha(0.0f);
+                        for (PageIndicatorMarker marker : mMarkers){
+                            if (marker != null) marker.setVisibility(View.VISIBLE);
+                        }
+                        requestLayout();
                     }
                 } catch (Throwable th) {
                     th.getMessage();
@@ -143,6 +203,10 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
     }
 
     public void disableSearch(){
+        // Sắp quay về chế độ CHẤM -> huỷ lượt thử-lại-hiện-search đang chờ (nếu có), tránh nó chạy
+        // sau lưng và ẩn chấm vừa hiện. Xem mSearchRetryRunnable.
+        removeCallbacks(mSearchRetryRunnable);
+
         if (this.mSearchTV != null){
             mSearchTV.setVisibility(View.GONE);
             mSearchTV.setAlpha(0.0f);
@@ -163,9 +227,58 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
+
+        // [BUG FIX] Lớp bảo vệ CUỐI: khung indicator KHÔNG BAO GIỜ được rỗng.
+        //   Sau mỗi lượt layout, nếu cả chấm lẫn search đều không hiển thị được thì trả về trạng
+        //   thái CHẤM — đó là trạng thái mặc định luôn vẽ được. Đặt ở onLayout vì đây là nơi biết
+        //   chắc kích thước thật của các con, không phải phỏng đoán.
+        ensureIndicatorNotEmpty();
         // Nền kính mờ của thanh indicator được quản bởi GlassBlurWindowController (compositor blur,
         // window MEDIA riêng) — attach 1 lần trong Launcher sau findViewById(page_indicator). Không set
         // background ở đây nữa (controller bám bounds container mỗi frame, kể cả khi số trang đổi width).
+    }
+
+    /**
+     * Bảo đảm thanh indicator luôn hiển thị được MỘT trong hai: cụm chấm, hoặc ô Tìm kiếm.
+     *
+     * [BUG FIX] "Khung dot indicator rỗng, không chấm cũng không search" (đo trên Samsung A50):
+     *   mSearchAnimRunnable ẩn chấm rồi hiện search; nếu search không đo được kích thước (w=0,h=0)
+     *   thì khung trống hoàn toàn. Ở đây bắt đúng trạng thái đó sau mỗi lượt layout và khôi phục
+     *   cụm chấm — trạng thái mặc định luôn vẽ được.
+     *
+     * Không đụng gì khi đang bình thường (một trong hai đang hiện), nên an toàn với mọi luồng cũ.
+     */
+    private void ensureIndicatorNotEmpty() {
+        boolean searchHienDuoc = mSearchTV != null
+                && mSearchTV.getVisibility() == View.VISIBLE
+                && mSearchTV.getWidth() > 0 && mSearchTV.getHeight() > 0;
+        if (searchHienDuoc) return;
+
+        boolean coChamHien = false;
+        for (PageIndicatorMarker marker : mMarkers) {
+            if (marker != null && marker.getVisibility() == View.VISIBLE) {
+                coChamHien = true;
+                break;
+            }
+        }
+        if (coChamHien) return;
+
+        // Cả hai đều không hiện được -> khung đang RỖNG. Trả về cụm chấm.
+        if (mSearchTV != null) {
+            mSearchTV.setVisibility(View.GONE);
+            mSearchTV.setAlpha(0.0f);
+        }
+        for (PageIndicatorMarker marker : mMarkers) {
+            if (marker != null) marker.setVisibility(View.VISIBLE);
+        }
+        // Đang trong lượt layout -> hoãn requestLayout sang frame sau, tránh cảnh báo
+        // "requestLayout() improperly called during layout" và bị nuốt mất.
+        post(new Runnable() {
+            @Override
+            public void run() {
+                requestLayout();
+            }
+        });
     }
 
     private void enableLayoutTransitions() {

@@ -115,6 +115,19 @@ public class Hotseat extends FrameLayout implements Stats.LaunchSourceProvider {
     }
 
     /**
+     * Ẩn/hiện lớp kính mờ của dock.
+     *
+     * [BUG FIX] "Nền hotseat vẫn còn khi vuốt sang App Library": lớp kính là WINDOW RIÊNG nên việc
+     * App Library làm mờ màn home bằng alpha của view cha không chạm tới nó. Launcher gọi hàm này
+     * ở các mốc trượt App Library. Xem {@link DockBlurView#setPanelHidden(boolean)}.
+     */
+    public void setDockGlassHidden(boolean hidden) {
+        if (mDockGlassBg instanceof DockBlurView) {
+            ((DockBlurView) mDockGlassBg).setPanelHidden(hidden);
+        }
+    }
+
+    /**
      * CellLayout luôn đo full-width nên khung glass không thể "wrap" hàng icon
      * bằng XML. Ở đây tính bounding-box THẬT của các icon dock (union các cell
      * có child) rồi đặt khung glass ôm sát khối icon, cộng thêm padding.

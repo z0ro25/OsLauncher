@@ -315,7 +315,30 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     private boolean mHadLocationPermission;
 
     public boolean showingFloatingMenu = false;
+
+    /**
+     * @deprecated KHÔNG đọc cờ này để biết có đang edit mode hay không — dùng {@link #isShaking()}.
+     *
+     * Cờ này từng là cờ trạng thái edit thứ hai, song song với {@code DragLayer.sTidyUping}, và hai
+     * cờ LỆCH NHAU (gây bug bật edit lần 2 bị nuốt + kéo app thì app biến mất — xem ghi chú đầy đủ ở
+     * {@link #isShaking()}). Nay isShaking() đọc sTidyUping làm nguồn sự thật duy nhất; cờ này chỉ
+     * còn được ghi ở vài chỗ và không còn ai đọc. Giữ lại để không phải sửa rộng.
+     */
+    @Deprecated
     public boolean mIsShaking = false;
+
+    /**
+     * Thời điểm popup ngữ cảnh app được mở (uptimeMillis).
+     *
+     * Dùng để phân biệt hai tình huống mà trước đây bị gộp làm một:
+     *   - onLongClick bắn TRÙNG trong CÙNG một cử chỉ (listener kép) -> phải giữ nguyên popup;
+     *   - popup còn SÓT từ cử chỉ TRƯỚC -> phải dọn, nếu không overlay bên dưới nuốt hết touch.
+     * Xem chỗ dùng trong onLongClick.
+     */
+    private long mContextPopupOpenAt;
+
+    /** Trong khoảng này coi hai lần onLongClick là double-fire của cùng một cử chỉ. */
+    private static final long DUPLICATE_LONG_PRESS_WINDOW_MS = 500L;
 
     // Popup ngữ cảnh app đang mở (giữ liền): icon + cellInfo để chuyển sang KÉO THẢ khi ngón tay di
     // chuyển vượt touch-slop trong lúc popup còn hiện (xem isContextPopupOpen/startDragFromContextPopup).
@@ -1557,6 +1580,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Đã tắt dialog "Rate us" hiện lên khi mở launcher theo yêu cầu.
 
         isPaused = false;
+
 
         // Widget ảnh luôn hiện ảnh MỚI NHẤT trong máy. Android chặn updatePeriodMillis dưới 30 phút
         // nên không thể trông vào chu kỳ tự cập nhật — chụp ảnh xong quay về launcher sẽ vẫn thấy
@@ -3472,7 +3496,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         Object tag = v.getTag();
         Log.d(TAG, "onClick");
-        if (tag == null && this.mIsShaking) {
+        if (tag == null && isShaking()) {
             cancelShakingAnimation();
         } else if (tag == null && mWorkspace.isInOverviewMode()) {
             showWorkspace(true);
@@ -4274,9 +4298,23 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Vào edit mode từ long-press vùng trống desktop.
+     *
+     * [BUG FIX] "Giữ lâu ở desktop bị NHÁY trạng thái edit."
+     *   Bản cũ gọi startTidyUp() rồi showPanel(). Nhưng showPanel() -> showOverviewMode() là một
+     *   TOGGLE (đang edit thì tắt, chưa edit thì bật). startTidyUp() vừa đặt sTidyUping = true, nên
+     *   ngay sau đó toggle đọc isShaking() == true và TẮT lại -> bật rồi tắt tức thì = nháy.
+     *
+     *   Trước đây bug này bị che vì isShaking() đọc mIsShaking — cờ mà startTidyUp() KHÔNG đụng tới,
+     *   nên toggle vẫn thấy false và bật. Nay isShaking() đọc đúng sTidyUping (xem ghi chú ở
+     *   isShaking()) nên sự chồng chéo lộ ra.
+     *
+     *   Sửa: gọi thẳng onShakingAllApps() — đường VÀO edit tường minh, không đi qua toggle.
+     *   onShakingAllApps() đã tự gọi startTidyUp() ở cuối nên không cần gọi riêng nữa.
+     */
     public void popWorkspace(boolean isShowOverViewPanel) {
-        mWorkspace.startTidyUp();
-        showPanel(isShowOverViewPanel);
+        onShakingAllApps();
         mWorkspace.buildPageHardwareLayers();
     }
 
@@ -4301,7 +4339,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             if (this.mWorkspace.isInOverviewMode()) {
                 return false;
             }
-            showPanel(true);
+            // Long-press vùng trống luôn là ý định VÀO edit -> gọi thẳng, không qua toggle
+            // showPanel() (toggle sẽ TẮT nếu cờ còn kẹt true). Xem ghi chú ở popWorkspace().
+            onShakingAllApps();
             this.mWorkspace.performHapticFeedback(0, 1);
             return true;
         }
@@ -4310,12 +4350,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         CellLayout.CellInfo longClickCellInfo = null;
         View itemUnderLongClick = null;
 
-        if (this.mIsShaking || this.showingFloatingMenu || !((v instanceof BubbleTextView) || (v instanceof LauncherAppWidgetHostView))){
+        if (isShaking() || this.showingFloatingMenu || !((v instanceof BubbleTextView) || (v instanceof LauncherAppWidgetHostView))){
             closeFloatingMenu();
             if (!(v.getTag() instanceof AppInfo)){
                 longClickCellInfo = null;
             }
-            else if (!this.mIsShaking){
+            else if (!isShaking()){
                 onShakingAllApps();
                 return true;
             }
@@ -4448,18 +4488,51 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 // Long-press có thể phát onLongClick 2 LẦN cho 1 cử chỉ (listener kép). Lần 2 tới khi
                 // popup đã mở -> showForIcon trả null -> nếu chạy fallback jiggle sẽ XÉ popup thành edit
                 // mode. Vì vậy: đã có popup mở thì BỎ QUA lần gọi trùng (giữ nguyên popup).
-                if (com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this) != null) {
-                    return true;
+                // [BUG FIX] "Giữ app lần 2 không ra popup; bấm Chỉnh sửa không hiện gì; kéo app mất
+                //   logo." (đo trực tiếp trên Samsung A50 — xem chuỗi bằng chứng ở dưới)
+                //
+                //   Guard này vốn để chặn onLongClick bắn TRÙNG trong CÙNG một cử chỉ. Nhưng nó
+                //   return sớm cả khi popup còn mở từ CỬ CHỈ TRƯỚC — mà popup + overlay
+                //   mFloatingMenuBlurBg (CLICKABLE, phủ kín 1080x2340) chỉ được dọn khi người dùng
+                //   CHẠM RA NGOÀI (onClick của overlay). Nếu thao tác tiếp theo không phải cú chạm
+                //   đơn — giữ app lần nữa, kéo, bấm nút Xong, chuyển màn — thì overlay KẸT LẠI và
+                //   nuốt mọi touch từ đó trở đi.
+                //
+                //   Đo được trên máy: giữ app lần 1 -> soCon=6, showForIcon OK. Giữ lần 2 ->
+                //   soCon=8 với RAC[6] BlurScreenLayout 1080x2340 clickable=true và RAC[7]
+                //   PopupContainerWithArrow còn nguyên; BubbleTextView.onTouchEvent KHÔNG hề chạy.
+                //   Chạm ra ngoài một cái -> soCon về 6 -> mọi thứ hoạt động lại. Đúng một nguyên
+                //   nhân cho cả ba triệu chứng, vì popup/edit-menu/DragView đều nằm trong DragLayer.
+                //
+                //   Sửa: phân biệt "trùng trong cùng cử chỉ" với "sót từ cử chỉ trước". Chỉ giữ
+                //   nguyên popup khi nó vừa mở trong CÙNG cử chỉ (< 500ms); còn lại coi là rác và
+                //   dọn sạch rồi mở popup mới.
+                com.amz.ios.launcher.popup.PopupContainerWithArrow openPopup =
+                        com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this);
+                if (openPopup != null) {
+                    long sinceOpen = android.os.SystemClock.uptimeMillis() - mContextPopupOpenAt;
+                    if (sinceOpen < DUPLICATE_LONG_PRESS_WINDOW_MS) {
+                        return true;   // đúng là double-fire của cùng một cử chỉ -> giữ popup
+                    }
+                    // Sót từ cử chỉ TRƯỚC -> đóng hẳn để dọn cả overlay bên dưới.
+                    closeFloatingMenu();
                 }
                 removeFloatingMenuOverlay();
                 // Dọn XÁC CHẾT popup của vòng kéo trước (nếu có) — nếu không, nó nằm lì trên cùng
                 // DragLayer và che popup mới -> "giữ app không hiện popup gì". Xem
                 // removeStalePopupContainer() để biết vì sao xác chết phát sinh.
                 removeStalePopupContainer();
+                // Quét nốt MỌI lớp phủ rác khác (overlay của edit menu / widget menu / edit pages):
+                // chúng cũng MATCH_PARENT và cũng che popup sắp add. Xem
+                // removeStaleDragLayerOverlays().
+                removeStaleDragLayerOverlays();
                 showingFloatingMenu = true;
                 getDragLayer().addView(mFloatingMenuBlurBg, new DragLayer.LayoutParams(-1, -1));
                 com.amz.ios.launcher.popup.PopupContainerWithArrow popup =
                         com.amz.ios.launcher.popup.PopupContainerWithArrow.showForIcon(v);
+                // Ghi mốc mở để lần onLongClick sau phân biệt được "trùng cùng cử chỉ" với "sót từ
+                // cử chỉ trước". Xem DUPLICATE_LONG_PRESS_WINDOW_MS.
+                mContextPopupOpenAt = android.os.SystemClock.uptimeMillis();
                 if (popup == null) {
                     // App không hỗ trợ popup (itemType lạ / bị disable): GIỮ YÊN KHÔNG bật edit.
                     // Yêu cầu người dùng: giữ liền chỉ hiện popup; edit CHỈ bật khi KÉO item đi.
@@ -4483,14 +4556,21 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return true;
     }
 
-    //todo edit item in screen
+    /**
+     * Mục "Chỉnh sửa màn hình" trong popup ngữ cảnh app -> VÀO edit mode.
+     *
+     * [BUG FIX] "Bấm Chỉnh sửa không ăn." Bản cũ gọi showPanel() -> showOverviewMode(), vốn là một
+     * TOGGLE. Đây luôn là yêu cầu VÀO edit (mục này chỉ hiện khi chưa edit), nên nếu cờ trạng thái
+     * còn kẹt true từ lượt trước thì toggle sẽ TẮT — bấm xong không thấy gì. Gọi thẳng
+     * onShakingAllApps() để ý định luôn rõ ràng, không phụ thuộc cờ.
+     */
     public void onEditHomeScreen() {
         Log.d(TAG, "closeFloatingMenu onEditHomeScreen: ");
         closeFloatingMenu();
         if (this.mWorkspace.isInOverviewMode()) {
             return;
         }
-        showPanel(true);
+        onShakingAllApps();
         this.mWorkspace.performHapticFeedback(0, 1);
     }
 
@@ -4712,25 +4792,36 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     public void onShakingAllApps() {
-        if (this.mIsShaking) {
+        // Guard theo isShaking() (= sTidyUping, nguồn sự thật) thay vì mIsShaking. Cờ mIsShaking có
+        // thể đã bị Workspace.stopShakeAnimations() đặt false trong khi sTidyUping vẫn true (hoặc
+        // ngược lại) -> dùng nó ở đây sẽ nuốt lần bấm thứ 2. Xem ghi chú ở isShaking().
+        if (isShaking()) {
             return;
         }
+        if (this.mWorkspace == null) return;
+
+        // [BUG FIX] "Giữ lâu ở desktop bị NHÁY trạng thái edit."
+        //   showOverviewMode() là một TOGGLE: isShaking() -> tắt, ngược lại -> bật. Trước đây cờ chỉ
+        //   thực sự bật ở CUỐI hàm này (bên trong startTidyUp), nên trong khoảng giữa isShaking()
+        //   vẫn trả false — một lượt gọi toggle nữa rơi vào đúng khoảng đó sẽ BẬT LẠI thay vì tắt,
+        //   nhìn ra như nháy. Nay bật cờ NGAY, trước mọi việc khác, để toggle luôn đọc đúng.
+        //   (startTidyUp() bên dưới đặt lại cùng giá trị -> vô hại.)
+        DragLayer.sTidyUping = true;
         this.mIsShaking = true;
-        if (this.mWorkspace != null) {
-            // [BUG FIX] Edit mode có thể vào từ popup ngữ cảnh của long-press app, lúc đó lớp phủ
-            // full-screen mFloatingMenuBlurBg đang nằm TRÊN 2 nút Chỉnh sửa/Done và nuốt hết touch
-            // -> bấm nút không ăn. Gỡ dứt điểm trước khi hiện 2 nút. Xem removeFloatingMenuOverlay().
-            removeFloatingMenuOverlay();
-            // Vào edit mode: ẩn status bar ở đỉnh để 2 nút Sửa/Xong ở góc trên không bị đè.
-            setStatusBarHiddenForEdit(true);
-            this.mAddWidgetBtn.setVisibility(View.VISIBLE);
-            this.mAddWidgetDoneBtn.setVisibility(View.VISIBLE);
-            int[] iArr = new int[2];
-            this.mAddWidgetBtn.getLocationOnScreen(iArr);
-            this.mAddWidgetDoneBtn.getLocationInWindow(iArr);
-            this.mWorkspace.getPageIndicator().disableSearch();
-            this.mWorkspace.startTidyUp();
-        }
+
+        // [BUG FIX] Edit mode có thể vào từ popup ngữ cảnh của long-press app, lúc đó lớp phủ
+        // full-screen mFloatingMenuBlurBg đang nằm TRÊN 2 nút Chỉnh sửa/Done và nuốt hết touch
+        // -> bấm nút không ăn. Gỡ dứt điểm trước khi hiện 2 nút. Xem removeFloatingMenuOverlay().
+        removeFloatingMenuOverlay();
+        // Vào edit mode: ẩn status bar ở đỉnh để 2 nút Sửa/Xong ở góc trên không bị đè.
+        setStatusBarHiddenForEdit(true);
+        this.mAddWidgetBtn.setVisibility(View.VISIBLE);
+        this.mAddWidgetDoneBtn.setVisibility(View.VISIBLE);
+        int[] iArr = new int[2];
+        this.mAddWidgetBtn.getLocationOnScreen(iArr);
+        this.mAddWidgetDoneBtn.getLocationInWindow(iArr);
+        this.mWorkspace.getPageIndicator().disableSearch();
+        this.mWorkspace.startTidyUp();
     }
 
     /**
@@ -4855,9 +4946,33 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // == false nhưng 2 nút vẫn VISIBLE -> trạng thái edit "đã tắt" mà nút không ẩn. Vì vậy
         // vẫn phải dọn dẹp khi 2 nút còn đang hiển thị, không chỉ dựa vào cờ.
         if (isShaking() || (mAddWidgetBtn != null && mAddWidgetBtn.getVisibility() == View.VISIBLE)) {
+            // Tắt cờ NGAY, đối xứng với onShakingAllApps(). endTidyUp() ở dưới cũng đặt lại cùng giá
+            // trị, nhưng nó nằm sau vài bước dọn dẹp — trong khoảng đó isShaking() phải đã là false,
+            // nếu không một lượt toggle rơi vào giữa sẽ hiểu là "đang edit" và tắt/bật lệch nhịp.
+            DragLayer.sTidyUping = false;
             mIsShaking = false;
             dismissEditMenu();
             dismissWidgetMenu();
+
+            // [BUG FIX] "Tắt edit lần 1 xong thì từ lần 2 hỏng gần hết: bấm Chỉnh sửa không hiện gì,
+            //   giữ app không ra popup, kéo app mất logo."
+            //
+            //   Đường TẮT edit này KHÔNG ĐỐI XỨNG với đường BẬT: onShakingAllApps() có gọi
+            //   removeFloatingMenuOverlay(), còn ở đây thì không. Trong khi đang edit, giữ một app sẽ
+            //   chạy nhánh isShaking() -> openFloatingMenu() -> add mFloatingMenuBlurBg (CLICKABLE,
+            //   MATCH_PARENT) vào DragLayer và bật showingFloatingMenu = true.
+            //
+            //   Tắt edit mà không dọn -> lớp phủ NẰM LẠI trong DragLayer và cờ showingFloatingMenu
+            //   KẸT true. Hậu quả đúng 3 triệu chứng, vì cả ba thứ đó đều add vào DragLayer và đều
+            //   bị lớp phủ che/nuốt touch; riêng cờ kẹt còn làm navHideRunnable (xem onCreate) hiểu
+            //   sai trạng thái.
+            //
+            //   Dọn ở đây cho đối xứng với lúc bật. removeFloatingMenuOverlay() bám getParent() nên
+            //   dọn được cả khi cờ đã lệch, và nó cũng hạ showingFloatingMenu về false.
+            removeFloatingMenuOverlay();
+            removeStalePopupContainer();
+            removeStaleDragLayerOverlays();
+
             getDragLayer().clearAllResizeFrames();
             mWidgetResizeMode = false;
             if (mWorkspace != null) {
@@ -4880,7 +4995,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * đóng nhưng 2 nút vẫn ẩn -> đang edit mà không có nút Done. Gọi hàm này để hiện lại cho khớp.
      */
     public void showEditTopButtons() {
-        if (mIsShaking && mAddWidgetBtn != null && mAddWidgetDoneBtn != null) {
+        if (isShaking() && mAddWidgetBtn != null && mAddWidgetDoneBtn != null) {
             // [BUG FIX] Cùng lý do với onShakingAllApps(): 2 nút sắp VISIBLE nên lớp phủ
             // mFloatingMenuBlurBg (nếu còn sót từ long-press app) phải được gỡ, nếu không nó nằm đè
             // lên và nuốt mọi cú chạm vào nút. Xem removeFloatingMenuOverlay().
@@ -7275,6 +7390,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         //    vẫn HIỆN như iOS) -> chỉ còn HÌNH NỀN mờ hiện qua kính.
         if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(1.0f);
         setWorkspaceHidden(true);
+        // Ghim luôn trạng thái ẩn của kính dock, phòng chuỗi onAppsLibrarySlide bị cắt ngang trước
+        // khi tới mốc cuối (fling nhanh).
+        setDockGlassHiddenSafe(true);
     }
 
     //todo app library
@@ -7337,6 +7455,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         dl.setAlpha(1.0f);
         dl.setScaleX(1.0f);
         dl.setScaleY(1.0f);
+        // Kính dock nằm ở window riêng nên không được khôi phục kèm alpha/scale ở trên — phải hiện
+        // lại tường minh. Đây là điểm "khôi phục cứng" nên đặt ở đây để dù animation bị cắt ngang
+        // kính cũng không kẹt ẩn.
+        setDockGlassHiddenSafe(false);
     }
 
     @Override
@@ -7355,6 +7477,21 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // RIÊNG workspace + hotseat khi MỞ (KHÔNG đụng DragLayer -> không tái phát bug fling mất dock;
         // ẩn cả dock để App Library không đè chồng lên). Về HOME interpolation=0 -> alpha=1 hiện đủ.
         setHomeAlpha(1.0f - interpolation);
+        // Lớp kính của dock là WINDOW RIÊNG nên setHomeAlpha ở trên KHÔNG chạm tới nó — không ẩn
+        // tường minh thì nền dock vẫn nằm nguyên trên màn khi App Library đã mở.
+        setDockGlassHiddenSafe(interpolation > 0f);
+    }
+
+    /**
+     * Ẩn/hiện lớp kính mờ của dock, an toàn khi hotseat chưa dựng xong.
+     *
+     * Kính dock là WINDOW RIÊNG ({@code TYPE_APPLICATION_MEDIA}), không phải view con của hotseat,
+     * nên mọi cách làm mờ/ẩn bằng alpha hay visibility của view cha đều KHÔNG chạm tới nó. Phải ẩn
+     * tường minh ở từng mốc chuyển màn. Xem {@link DockBlurView#setPanelHidden(boolean)}.
+     */
+    private void setDockGlassHiddenSafe(boolean hidden) {
+        Hotseat hotseat = getHotseat();
+        if (hotseat != null) hotseat.setDockGlassHidden(hidden);
     }
 
     private BlurScreenLayout getAppsLibraryBlurBackgroundView() {
@@ -7385,6 +7522,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Ghim frost đầy khi đã mở hẳn (giống App Library onAppsLibraryClosed).
         if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(1.0f);
         setWorkspaceHidden(true);
+        // Ghim ẩn kính dock khi đã mở hẳn (window riêng, không theo alpha home). Đối xứng với
+        // onAppsLibraryClosed; resetHomeTransform ở onLeftPageClosed sẽ hiện lại.
+        setDockGlassHiddenSafe(true);
     }
 
     @Override
@@ -7400,6 +7540,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // workspace + hotseat khi mở negative page (KHÔNG đụng DragLayer -> không kẹt khi fling bị
         // cắt ngang; ẩn cả dock để không đè chồng). interpolation: 0 đóng -> 1 mở.
         setHomeAlpha(1.0f - interpolation);
+        // Kính dock là window riêng, setHomeAlpha không chạm tới -> ẩn tường minh (như App Library).
+        setDockGlassHiddenSafe(interpolation > 0f);
     }
 
     public static Interpolator initInterpolator(float control1, float control2, float control3, float control4) {
@@ -7483,6 +7625,38 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
 
         view.setVisibility(View.INVISIBLE);
+        // [BUG FIX] Nhớ view vừa bị ẩn để CHẮC CHẮN trả lại VISIBLE khi đóng menu.
+        //   Trước đây không ai theo dõi việc này: closeFloatingMenu() gỡ overlay + popup nhưng KHÔNG
+        //   hiện lại icon. Ở đường long-press app khi ĐANG edit (Launcher:4448), nhánh đó gọi
+        //   openFloatingMenu(v) rồi chuyển ngay sang kéo thả — menu bị đóng giữa chừng, icon vĩnh
+        //   viễn INVISIBLE. Người dùng thấy "kéo app thì app biến mất, không đổi được vị trí", dù
+        //   logcat cho thấy drop THÀNH CÔNG (success=true) và app đã sang ô mới — chỉ là vô hình.
+        //   Xem restoreFloatingMenuIcon().
+        // [BUG FIX] "Từ lần bật edit thứ 2, gần như MỌI chức năng liên quan tới app đều hỏng."
+        //   mFloatingMenuBlurBg là view DÙNG CHUNG một-instance, CLICKABLE, cỡ MATCH_PARENT, nằm
+        //   trên cùng DragLayer. closeFloatingMenu() KHÔNG gỡ nó ngay: nó gọi clear(true), thứ chạy
+        //   một animation alpha ~255ms rồi mới removeView trong onAnimationEnd (BlurScreenLayout:519).
+        //   Trong suốt 255ms đó overlay VẪN nằm trong cây view và VẪN nuốt mọi cú chạm.
+        //
+        //   Hậu quả nếu addView lại trong khoảng đó (giữ app lần nữa — rất dễ xảy ra từ lần edit
+        //   thứ 2 trở đi):
+        //     - view còn parent -> addView ném IllegalStateException "child already has a parent";
+        //     - hoặc removeView của lượt CŨ bắn sau, gỡ mất chính overlay VỪA add -> cờ
+        //       showingFloatingMenu = true mà overlay không còn -> trạng thái lệch vĩnh viễn.
+        //   Cả hai đều để lại một lớp phủ nuốt touch hoặc một cờ sai, làm hỏng đồng loạt: bấm
+        //   "Chỉnh sửa" không ra menu, giữ app không hiện popup, kéo app mất logo.
+        //
+        //   Gỡ DỨT KHOÁT trước khi add lại. removeFloatingMenuOverlay() bám theo getParent() nên dọn
+        //   được cả khi animation của clear(true) chưa kịp chạy xong. Đường add còn lại
+        //   (onLongClick, ~dòng 4486) đã có sẵn lời gọi này — nay đường thứ hai cũng vậy.
+        removeFloatingMenuOverlay();
+        // removeFloatingMenuOverlay() đặt showingFloatingMenu = false -> bật lại cho đúng trạng thái
+        // "đang mở menu" mà openFloatingMenu vừa thiết lập ở đầu hàm.
+        this.showingFloatingMenu = true;
+        // Ghi nhớ icon SAU removeFloatingMenuOverlay(): hàm đó gọi restoreFloatingMenuIcon() nên nếu
+        // gán trước sẽ bị xoá mất ngay, icon lượt này không còn ai trả về VISIBLE.
+        mFloatingMenuHiddenIcon = view;
+
         // Vẫn thêm overlay trong suốt để chạm ra ngoài thì đóng menu, nhưng KHÔNG vẽ
         // nền mờ (blur) xung quanh khi menu hiện lên theo yêu cầu.
         getDragLayer().addView(mFloatingMenuBlurBg, layoutParams);
@@ -7503,6 +7677,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     public void closeFloatingMenu() {
         Log.d(TAG, "closeFloatingMenu: ");
+        // Trả icon về VISIBLE TRƯỚC guard bên dưới: cờ showingFloatingMenu có thể đã bị đặt false ở
+        // luồng khác trong khi icon vẫn còn ẩn — đúng trạng thái rò rỉ gây bug "app biến mất".
+        restoreFloatingMenuIcon();
         if (!this.showingFloatingMenu) {
             return;
         }
@@ -7512,7 +7689,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         this.mContextPopupCellInfo = null;
         AbstractFloatingView.closeAllOpenViews(this, true);
 
+        // clear(true) chỉ chạy animation alpha rồi mới removeView ở onAnimationEnd (~255ms sau, xem
+        // BlurScreenLayout:519). Giữ lại để phần fade vẫn mượt, NHƯNG không thể trông vào nó để dọn:
+        // trong 255ms đó overlay CLICKABLE MATCH_PARENT vẫn nuốt mọi cú chạm, và nếu người dùng giữ
+        // app lần nữa trong khoảng ấy thì view đang-còn-parent gây lệch trạng thái (xem ghi chú ở
+        // openFloatingMenu). Vì vậy gỡ DỨT KHOÁT ngay sau đó.
         this.mFloatingMenuBlurBg.clear(true);
+        removeFloatingMenuOverlay();
 
         // Dọn popup riêng của widget + cờ resize nếu còn sót.
         dismissWidgetMenu();
@@ -7542,12 +7725,75 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * hay không nên dọn được cả trường hợp đó.
      */
     private void removeFloatingMenuOverlay() {
+        // Gỡ overlay thì icon phía dưới cũng phải hiện lại — nếu không nó kẹt INVISIBLE.
+        restoreFloatingMenuIcon();
         if (mFloatingMenuBlurBg == null || mFloatingMenuBlurBg.getParent() == null) {
             return;
         }
         showingFloatingMenu = false;
         mFloatingMenuBlurBg.clearBlur();
         ((ViewGroup) mFloatingMenuBlurBg.getParent()).removeView(mFloatingMenuBlurBg);
+    }
+
+    /**
+     * Icon đang bị {@link #openFloatingMenu(View)} ẩn, chờ được trả về VISIBLE.
+     *
+     * openFloatingMenu() đặt icon thành INVISIBLE để popup vẽ đè lên chỗ trống, nhưng KHÔNG chỗ nào
+     * hiện lại. Xem {@link #restoreFloatingMenuIcon()}.
+     */
+    private View mFloatingMenuHiddenIcon;
+
+    /**
+     * Trả icon bị popup ẩn về VISIBLE.
+     *
+     * [BUG FIX] "Kéo app trong edit mode thì app biến mất, không đổi được vị trí."
+     *   Chuỗi tái hiện (đã xác nhận bằng logcat trên Samsung A):
+     *     1. Đang edit, giữ lâu một app -> nhánh isShaking() ở onLongClick gọi openFloatingMenu(v),
+     *        hàm này đặt v.setVisibility(INVISIBLE).
+     *     2. Nhấc ngón kéo đi -> BubbleTextView.handEventWhenTidyUp() gọi closeFloatingMenu() rồi
+     *        startDrag().
+     *     3. closeFloatingMenu() gỡ overlay + popup nhưng KHÔNG hiện lại icon -> icon kẹt INVISIBLE
+     *        vĩnh viễn.
+     *   Logcat chứng minh việc kéo thả VẪN CHẠY ĐÚNG: onDrop báo dropTargetLayout=ok, onDropCompleted
+     *   báo success=true — app đã sang ô mới thật, chỉ là vô hình nên nhìn như "biến mất và không
+     *   đổi được vị trí".
+     *
+     *   Đây cũng là lý do bug chỉ lộ ra từ lần edit thứ 2: lần đầu vào edit qua đường khác
+     *   (long-press vùng trống / nút Chỉnh sửa) không đi qua openFloatingMenu.
+     *
+     * Idempotent — gọi nhiều lần vô hại, nên đặt được ở mọi điểm dọn dẹp.
+     */
+    private void restoreFloatingMenuIcon() {
+        View icon = mFloatingMenuHiddenIcon;
+        if (icon == null) return;
+
+        // Đang KÉO chính icon này -> GIỮ NGUYÊN tham chiếu, chưa hiện lại và CHƯA xoá.
+        //   Workspace cố tình giữ nó INVISIBLE trong lúc kéo và sẽ tự hiện lại khi thả xong; ép
+        //   VISIBLE ở đây sẽ làm icon gốc hiện song song với ảnh đang kéo.
+        //   PHẢI giữ lại tham chiếu: DragController.onTouchEvent gọi closeFloatingMenu() ngay GIỮA
+        //   lúc kéo (DragController:769). Bản trước xoá tham chiếu về null trước khi kiểm tra, nên
+        //   sau lượt đó không còn gì để khôi phục -> nếu đường thả không hiện lại view thì icon kẹt
+        //   INVISIBLE vĩnh viễn. Xác nhận bằng logcat: closeFloatingMenu bắn ở giữa chuỗi kéo.
+        CellLayout.CellInfo dragInfo = mWorkspace == null ? null : mWorkspace.getDragInfo();
+        if (dragInfo != null && dragInfo.cell == icon) return;
+
+        mFloatingMenuHiddenIcon = null;   // xoá trước khi hiện, phòng gọi đệ quy
+        icon.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Điểm gọi lại {@link #restoreFloatingMenuIcon()} SAU khi một lượt kéo kết thúc.
+     *
+     * Gọi từ {@code Workspace.onDropCompleted()} sau khi mDragInfo đã về null, nên guard "đang kéo"
+     * trong restoreFloatingMenuIcon() không còn chặn nữa. Không có điểm này thì icon bị
+     * closeFloatingMenu() giữa-lúc-kéo bỏ qua sẽ kẹt INVISIBLE vĩnh viễn.
+     *
+     * Đường thả thành công vốn tự hiện lại view (DragLayer.animateViewIntoPosition), nên phần lớn
+     * trường hợp hàm này chỉ dọn tham chiếu — nhưng nó bao được cả những nhánh thoát sớm của onDrop
+     * (tạo folder, thêm vào folder, không tìm được ô trống) vốn không đi qua animation đó.
+     */
+    public void restoreFloatingMenuIconAfterDrag() {
+        restoreFloatingMenuIcon();
     }
 
     /**
@@ -7578,6 +7824,130 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * {@code closeComplete()} qua {@code close(false)} để popup tự dọn listener + trả label icon về
      * đúng trạng thái, thay vì {@code removeView} thô.
      */
+    /**
+     * [BUG FIX] "Từ lần bật edit thứ 2: bấm nút Chỉnh sửa không hiện gì, giữ app không ra popup,
+     * kéo app thì mất logo."
+     *
+     * BA TRIỆU CHỨNG, MỘT NGUYÊN NHÂN: cả ba thứ đó — edit menu, popup ngữ cảnh, và {@link DragView}
+     * (cái vẽ logo app đang kéo) — đều được add vào {@link DragLayer}. Nếu còn sót một lớp phủ
+     * MATCH_PARENT nào trong DragLayer thì nó nằm TRÊN cả ba, vừa che vừa nuốt touch, nên cả ba
+     * cùng "hỏng" một lượt. Đây chính là lý do triệu chứng trông như "hỏng gần hết mọi thứ liên
+     * quan tới app" chứ không phải nhiều bug riêng lẻ.
+     *
+     * DragLayer chỉ có ĐÚNG 4 con cố định khai báo trong launcher.xml (xem file đó):
+     *   focus_indicator, workspace_root_view, blur_background, expanded_image_anim.
+     * Mọi view khác đều do code add lúc chạy (overlay của edit menu / widget menu / edit pages,
+     * PopupContainerWithArrow, mFloatingMenuBlurBg, DragView, folder, ghost animation...) và PHẢI
+     * được gỡ khi xong việc. Cái nào còn nằm lại lúc bắt đầu một luồng mới đều là rác.
+     *
+     * Vì sao các hàm dismiss có sẵn không đủ: {@code dismissEditMenu()}/{@code dismissWidgetMenu()}
+     * chỉ gỡ khi biến tham chiếu ({@code mEditMenuView}/{@code mWidgetMenuView}) còn khác null. Biến
+     * đó bị gán null ở nhiều luồng khác nhau trong khi view VẪN còn attach -> từ đó không hàm nào
+     * thấy nó nữa. {@code mFloatingMenuBlurBg} còn tệ hơn: nó được gỡ qua animation 255ms của
+     * {@code clear(true)} nên có cả một khoảng thời gian nó vẫn nằm đó nuốt touch.
+     *
+     * Hàm này quét THẲNG cây view theo id cố định nên dọn được mọi trường hợp trên, không phụ thuộc
+     * cờ hay biến tham chiếu nào. Bỏ qua DragView (đang kéo thật) và Folder (đang mở thật).
+     */
+    private void removeStaleDragLayerOverlays() {
+        DragLayer dragLayer = getDragLayer();
+        if (dragLayer == null) return;
+
+        for (int i = dragLayer.getChildCount() - 1; i >= 0; i--) {
+            View child = dragLayer.getChildAt(i);
+            int id = child.getId();
+            // 4 con hợp lệ khai báo sẵn trong launcher.xml -> giữ.
+            if (id == R.id.focus_indicator || id == R.id.workspace_root_view
+                    || id == R.id.blur_background || id == R.id.expanded_image_anim) {
+                continue;
+            }
+            // Đang kéo thật / thư mục đang mở thật -> KHÔNG đụng, gỡ sẽ phá luồng đang chạy.
+            if (child instanceof DragView || child instanceof Folder) {
+                continue;
+            }
+            // mDeleteExplosionField được add MỘT LẦN lúc khởi tạo (setupViews) và sống suốt vòng đời
+            // Activity, nhưng MATCH_PARENT và KHÔNG có id nên rất dễ bị hiểu nhầm là rác. Gỡ nó sẽ
+            // làm mất hiệu ứng nổ khi xoá app.
+            if (child == mDeleteExplosionField) {
+                continue;
+            }
+
+            // CHỈ gỡ đúng những loại view mà ta BIẾT là lớp phủ của popup/menu, thay vì "gỡ tất cả
+            // những gì không nhận ra". DragLayer còn nhận nhiều view tạm khác do luồng khác quản:
+            //   - hostView của WidgetHostViewLoader (add bất đồng bộ khi kéo widget từ khay),
+            //   - mFolderIconImageView (animation mở/đóng thư mục),
+            //   - ghost ImageView (animation đổi cỡ widget).
+            // Gỡ nhầm chúng sẽ phá chính những luồng đó — nguy hiểm hơn cả bug đang sửa.
+            // AppWidgetHostView cũng là FrameLayout không id (hostView do WidgetHostViewLoader add
+            // khi kéo widget từ khay) -> phải loại trừ TRƯỚC, nếu không sẽ bị coi là lớp phủ và gỡ
+            // mất giữa lúc kéo widget.
+            if (child instanceof android.appwidget.AppWidgetHostView) {
+                continue;
+            }
+
+            boolean isOverlay =
+                    // Lớp phủ "chạm ra ngoài để đóng" của edit menu / widget menu: FrameLayout trần,
+                    // không id, phủ kín màn (xem showEditMenu / showWidgetMenu).
+                    (child instanceof FrameLayout && child.getId() == View.NO_ID)
+                    || child instanceof com.amz.ios.launcher.popup.PopupContainerWithArrow
+                    || child instanceof com.amz.ios.launcher.editpage.EditPagesOverlay
+                    || child == mFloatingMenuBlurBg;
+            if (!isOverlay) {
+                continue;
+            }
+            dragLayer.removeView(child);
+        }
+        // Các biến tham chiếu tới view vừa gỡ giờ đã treo -> dọn cho khớp, tránh dismiss*() sau này
+        // tưởng còn view mà gọi removeView trên thứ không còn parent.
+        mEditMenuView = null;
+        mWidgetMenuView = null;
+        mEditPagesOverlay = null;
+        showingFloatingMenu = false;
+    }
+
+    /**
+     * Dọn lớp phủ ngữ cảnh còn SÓT (overlay + popup) nếu nó không còn phục vụ popup nào đang mở.
+     *
+     * [BUG FIX] Gốc của cả ba triệu chứng "từ lần thứ 2 hỏng hết" (đo trực tiếp trên Samsung A50):
+     *   {@code mFloatingMenuBlurBg} là view CLICKABLE phủ kín màn, chỉ được gỡ khi người dùng CHẠM
+     *   RA NGOÀI (onClick của chính nó). Nếu thao tác kế tiếp không phải cú chạm đơn — giữ app lần
+     *   nữa, kéo, bấm nút Xong, chuyển màn — thì nó nằm lại vĩnh viễn và nuốt MỌI cú chạm:
+     *     - popup mới không mở được (BubbleTextView không nhận nổi ACTION_DOWN),
+     *     - nút "Chỉnh sửa" bấm không ăn,
+     *     - DragView bị che -> "kéo app mất logo".
+     *   Bằng chứng đo được: giữ app lần 2 -> DragLayer có 8 con, dư RAC[6] BlurScreenLayout
+     *   1080x2340 clickable=true. Chạm ra ngoài -> về 6 con -> mọi thứ chạy lại.
+     *
+     * Gọi từ {@code DragLayer.onInterceptTouchEvent} ở ACTION_DOWN — nơi mọi cú chạm đi qua đầu
+     * tiên, nên không sót đường nào. An toàn: chỉ dọn khi KHÔNG còn popup mở, tức chắc chắn là rác.
+     */
+    public void dropStaleContextOverlayIfAny() {
+        if (mFloatingMenuBlurBg == null || mFloatingMenuBlurBg.getParent() == null) {
+            return;   // không có overlay -> không việc gì phải làm (đường chạy thường xuyên nhất)
+        }
+        if (com.amz.ios.launcher.popup.PopupContainerWithArrow.getOpen(this) != null) {
+            return;   // overlay đang phục vụ một popup THẬT đang mở -> giữ nguyên
+        }
+        if (mWidgetMenuView != null || mEditMenuView != null) {
+            return;   // đang phục vụ menu widget / edit menu -> giữ nguyên
+        }
+        removeFloatingMenuOverlay();
+        removeStalePopupContainer();
+    }
+
+    /**
+     * Bản dùng cho luồng KÉO: dọn lớp phủ rác ngay trước khi {@link DragView} được add vào DragLayer.
+     *
+     * Gọi từ {@code Workspace.beginDragShared()} — điểm chung của MỌI đường kéo. Nếu còn lớp phủ
+     * MATCH_PARENT sót lại, nó nằm đè lên DragView -> người dùng thấy "kéo app mất logo".
+     *
+     * Kéo bao giờ cũng đồng nghĩa với việc mọi popup/menu phải đóng, nên dọn sạch ở đây là đúng
+     * ngữ nghĩa, không phá luồng nào đang chạy hợp lệ.
+     */
+    public void removeStaleDragLayerOverlaysForDrag() {
+        removeStaleDragLayerOverlays();
+    }
+
     private void removeStalePopupContainer() {
         DragLayer dragLayer = getDragLayer();
         if (dragLayer == null) {
@@ -7631,8 +8001,31 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Có đang ở EDIT MODE không.
+     *
+     * [BUG FIX] "Bật edit lần 2 không hiện gì; kéo app thì app biến mất, không đổi được vị trí."
+     *   Trạng thái edit trước đây được biểu diễn bằng HAI cờ độc lập, và chúng LỆCH NHAU:
+     *     - {@code DragLayer.sTidyUping} — do Workspace.startTidyUp/endTidyUp quản.
+     *     - {@code mIsShaking} — bị ghi ở 4 chỗ khác nhau, trong đó
+     *       {@code Workspace.stopShakeAnimations()} đặt false mà KHÔNG đụng tới sTidyUping.
+     *
+     *   Hai nơi quyết định hành vi lại đọc HAI cờ khác nhau:
+     *     - {@code BubbleTextView:388} đọc sTidyUping để chọn nhánh xử lý chạm.
+     *     - {@code Workspace:3339} đọc isShaking() để quyết định giữ hay tắt edit sau khi thả.
+     *
+     *   Khi lệch: sTidyUping = true nên chạm đi vào nhánh edit và gọi startDrag (startDrag đặt
+     *   {@code child.setVisibility(INVISIBLE)} -> app biến mất); nhưng isShaking() = false nên sau
+     *   khi thả, Workspace tưởng KHÔNG ở edit và gọi endTidyUp() -> dọn dẹp nửa vời, app không được
+     *   trả về VISIBLE. Đồng thời guard {@code if (mIsShaking) return;} ở onShakingAllApps() đọc cờ
+     *   đã lệch nên lần bấm sau bị nuốt -> "bật edit lần 2 không hiện gì".
+     *
+     *   Nay lấy sTidyUping làm NGUỒN SỰ THẬT DUY NHẤT — nó là cờ được đặt/xoá đúng cặp ở
+     *   startTidyUp/endTidyUp. mIsShaking giữ lại để không phải sửa 4 nơi đang ghi nó, nhưng không
+     *   còn được dùng để quyết định trạng thái.
+     */
     public boolean isShaking() {
-        return mIsShaking;
+        return DragLayer.sTidyUping;
     }
 
     /**
@@ -7719,6 +8112,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      */
     public void showEditMenu(final View anchor) {
         dismissEditMenu();
+        // Dọn lớp phủ rác của luồng trước TRƯỚC khi add menu mới: nếu còn sót, nó nằm TRÊN menu vừa
+        // add và nuốt hết touch -> "bấm Chỉnh sửa không hiện gì". Xem removeStaleDragLayerOverlays().
+        removeStaleDragLayerOverlays();
 
         final DragLayer dragLayer = getDragLayer();
         final View content = LayoutInflater.from(this).inflate(R.layout.edit_home_menu, dragLayer, false);
@@ -7769,7 +8165,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         dragLayer.addView(overlay);
         mEditMenuView = overlay;
+
     }
+
+
+
 
     public boolean dismissEditMenu() {
         if (mEditMenuView != null) {

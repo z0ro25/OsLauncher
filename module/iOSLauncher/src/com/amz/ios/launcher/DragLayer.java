@@ -283,6 +283,16 @@ public class DragLayer extends InsettableFrameLayout {
         int action = motionEvent.getAction();
 
         if (action == MotionEvent.ACTION_DOWN) {
+            // [BUG FIX] Lớp bảo vệ CUỐI cho "overlay popup kẹt lại nuốt hết touch".
+            //   mFloatingMenuBlurBg chỉ tự đóng khi nhận onClick (chạm ra ngoài). Mọi thao tác khác
+            //   — giữ lâu, kéo, bấm nút, chuyển màn — để nó nằm lại và chặn toàn bộ cú chạm sau đó.
+            //   Ở đây bắt ngay tại ACTION_DOWN: nếu overlay còn attach mà KHÔNG còn popup nào mở
+            //   thì chắc chắn là rác của lượt trước -> dọn trước khi phát sự kiện xuống con.
+            //   Đặt ở DragLayer vì đây là nơi MỌI cú chạm đi qua đầu tiên, không sót đường nào.
+            if (mLauncher != null) {
+                mLauncher.dropStaleContextOverlayIfAny();
+            }
+
             if (handleTouchDown(motionEvent, true)) {
                 return true;
             }

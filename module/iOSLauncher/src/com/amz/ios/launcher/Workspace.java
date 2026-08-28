@@ -2863,6 +2863,12 @@ public class Workspace extends PagedView
 
          */
 
+        // Dọn lớp phủ rác trong DragLayer TRƯỚC khi tạo DragView. DragView (thứ vẽ logo app đang
+        // kéo) cũng add vào DragLayer, nên một lớp phủ MATCH_PARENT còn sót sẽ nằm ĐÈ lên nó ->
+        // "kéo app bị mất logo, không thấy gì ở chỗ đang giữ". Xem
+        // Launcher.removeStaleDragLayerOverlays().
+        mLauncher.removeStaleDragLayerOverlaysForDrag();
+
         DragView dv = mDragController.startDrag(b, dragLayerX, dragLayerY, source, child.getTag(),
                 DragController.DRAG_ACTION_MOVE, dragVisualizeOffset, dragRect, scale, accessible, dragOptions);
         dv.setIntrinsicIconScaleFactor(source.getIntrinsicIconScaleFactor());
@@ -4362,6 +4368,12 @@ public class Workspace extends PagedView
         completePendingAlignTask();
         mDragOutline = null;
         mDragInfo = null;
+
+        // Lượt kéo đã kết thúc -> icon từng bị popup ngữ cảnh ẩn (openFloatingMenu) giờ phải hiện
+        // lại. Phải gọi Ở ĐÂY, SAU khi mDragInfo = null: DragController gọi closeFloatingMenu()
+        // ngay giữa lúc kéo, lúc đó Launcher cố tình bỏ qua vì view đang được kéo — nếu không có
+        // điểm gọi lại sau khi thả thì icon kẹt INVISIBLE. Xem Launcher.restoreFloatingMenuIcon().
+        mLauncher.restoreFloatingMenuIconAfterDrag();
     }
 
     /**
@@ -5495,7 +5507,9 @@ public class Workspace extends PagedView
             this.mLauncher.getHotseat().beginShakeAnimations();
         }
 
-        this.mLauncher.mIsShaking = true;
+        // Đối xứng với stopShakeAnimations(): chỉ chạy ANIMATION, không đặt trạng thái edit.
+        // Hàm này còn được gọi lại từ onPageEndMoving khi đang edit (vuốt sang trang khác) nên nó
+        // không phải điểm "bắt đầu edit". Trạng thái do startTidyUp()/endTidyUp() quản.
     }
 
     public void stopShakeAnimations() {
@@ -5513,7 +5527,14 @@ public class Workspace extends PagedView
             docBar.stopShakeAnimations();
         }
 
-        mLauncher.mIsShaking = false;
+        // CHỈ dừng ANIMATION rung, KHÔNG đổi trạng thái edit.
+        //
+        // [BUG FIX] Trước đây dòng này đặt mLauncher.mIsShaking = false. Nhưng hàm này còn được gọi
+        // ở openFolder() (mở thư mục trong lúc edit — chỉ tạm dừng rung, vẫn đang edit) nên nó làm
+        // cờ trạng thái LỆCH với DragLayer.sTidyUping. Hệ quả là bật edit lần 2 bị nuốt, và kéo app
+        // thì app biến mất vì hai nhánh code đọc hai cờ khác nhau. Xem ghi chú ở Launcher.isShaking().
+        //
+        // Trạng thái edit nay chỉ do startTidyUp()/endTidyUp() quản qua sTidyUping.
     }
 
     private DelIconAnim mDelIconAnim;
@@ -5523,7 +5544,6 @@ public class Workspace extends PagedView
     }
 
     public void startTidyUp(boolean animation) {
-
         DragLayer.sTidyUping = true;
         this.mDelIconAnim.initAnimParam(true, new Runnable() {
             public void run() {

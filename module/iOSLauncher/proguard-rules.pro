@@ -111,3 +111,28 @@
 
 -keep class org.sqlite.** { *; }
 -keep class org.sqlite.database.** { *; }
+
+# ---------- ConstraintLayout / MotionLayout ----------
+# [BUG FIX] Bản release crash lúc khởi động:
+#     java.lang.NoSuchMethodException: androidx.constraintlayout.motion.widget.KeyCycle.<init> []
+#         at androidx.constraintlayout.motion.widget.KeyFrames.<clinit>(KeyFrames.java:52)
+#         at com.amz.ios.launcher.applibrary.AppsLibraryLayout.<init>
+#
+# NGUYÊN NHÂN: KeyFrames dựng các lớp Key* (KeyCycle, KeyAttributes, KeyPosition, KeyTrigger...)
+# bằng REFLECTION với constructor rỗng. ProGuard không thấy chỗ nào gọi trực tiếp nên xoá constructor
+# -> getConstructor() ném NoSuchMethodException, MotionScene không load được, AppsLibraryLayout
+# (MotionLayout) không inflate được -> chết ngay ở setContentView.
+#
+# Rule cũ "-keepclasseswithmembers class * { public <init>(Context, AttributeSet); }" ở trên KHÔNG
+# cứu được vì các lớp Key* dùng constructor RỖNG, không phải constructor có AttributeSet.
+-keep class androidx.constraintlayout.** { *; }
+-keep interface androidx.constraintlayout.** { *; }
+-keepclassmembers class androidx.constraintlayout.motion.widget.** {
+    public <init>(...);
+}
+-dontwarn androidx.constraintlayout.**
+
+# Giữ constructor rỗng của MỌI lớp được tạo bằng reflection kiểu này (phòng thư viện khác cùng cách).
+-keepclassmembers class * extends androidx.constraintlayout.motion.widget.Key {
+    public <init>();
+}
