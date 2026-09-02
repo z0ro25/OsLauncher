@@ -44,6 +44,7 @@ public class SearchPullDetector {
             if (mSearchViewLayout.mState == SearchViewLayout.SearchViewState.CLOSED) {
                 return;
             }
+            mSearchViewLayout.restoreSoftInputMode(); // trả adjustPan cho các màn khác
             mSearchViewLayout.mState = SearchViewLayout.SearchViewState.CLOSED;
             mSearchViewLayout.mSearchKeyEDT.removeTextChangedListener(mSearchViewLayout.mSearchKeywordTextWatcher);
             mSearchViewLayout.mSearchKeyEDT.setText("");
@@ -95,6 +96,23 @@ public class SearchPullDetector {
 
         @Override
         public boolean onScroll(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float distanceX, float distanceY) {
+
+            // [FEATURE] Đóng màn search bằng cử chỉ VUỐT LÊN (ngược hướng mở — mở là vuốt xuống).
+            // Trước đây onScroll chỉ bắt distanceY < 0 (vuốt xuống) để MỞ, không có nhánh nào ĐÓNG khi
+            // vuốt lên -> search kẹt cả khi đang kéo dở (OPENING) lẫn khi đã mở hẳn (OPENED).
+            // Theo yêu cầu: LUÔN đóng khi vuốt lên (chấp nhận danh sách gợi ý khó cuộn lúc đã mở).
+            // Quy ước GestureDetector: distanceY > 0 = ngón tay đi LÊN (đối xứng nhánh mở dùng < 0).
+            // Chặn nhầm vuốt ngang bằng |distanceX| < |distanceY|.
+            if ((mSearchViewLayout.isOpening() || mSearchViewLayout.isOpened())
+                    && Math.abs(distanceX) < Math.abs(distanceY)
+                    && distanceY > mTouchSlop) {
+                isContinueScroll = false;                 // dừng bám-tay nếu đang kéo mở dở
+                close(borderTop);                         // đóng có animation + hạ nền blur (PullEndAnimListenerAdapter)
+                // Đánh dấu CLOSING ngay để các onScroll kế tiếp trong CÙNG cử chỉ không gọi close() lặp
+                // (mState chỉ về CLOSED khi animation kết thúc).
+                mSearchViewLayout.setState(SearchViewLayout.SearchViewState.CLOSING);
+                return true;
+            }
 
             if (isContinueScroll){
                 borderTop += distanceY;
@@ -163,6 +181,9 @@ public class SearchPullDetector {
         SpringForce springForce = new SpringForce();
         springForce.setDampingRatio(1f);
         springForce.setStiffness(200f);
+        // Bố cục mới: search mở dừng ở translationY 0 (đáy view khớp đáy màn). Đặt final-position 0
+        // dứt khoát để spring luôn settle về 0 dù mở bằng cử chỉ kéo hay chạm ô Tìm kiếm.
+        springForce.setFinalPosition(0f);
         mSpringAnimation.setSpring(springForce);
 
         mSpringAnimation.addUpdateListener(new DynamicAnimation.OnAnimationUpdateListener() {
@@ -180,7 +201,8 @@ public class SearchPullDetector {
                             mSearchViewLayout.setState(true);
                         }
                         if (mSearchViewLayout.mSearchKeyEDT != null) {
-                            mSearchViewLayout.showKeyboard(mSearchViewLayout.mSearchKeyEDT);
+                            // Dùng cơ chế mới (ExtendedEditText) để IME lên cả trên máy không bàn phím cứng.
+                            mSearchViewLayout.showKeyboardCompat();
                         }
                     }
                 }
@@ -224,10 +246,12 @@ public class SearchPullDetector {
 
     public void open(float f, float f2){
         int max = Math.max(289, (int) ((f / this.mHeight) * 3689.0f));
-        int statusBarHeightPX = mLauncher.getDeviceProfile().statusBarHeightPx + 50;
+        // Bố cục mới: ô nhập nằm ở ĐÁY search_view. Đích mở = translationY 0f (đáy view khớp đáy màn)
+        // thay cho statusBarHeightPx+50 cũ (đẩy view xuống làm ô input lọt khỏi đáy màn). Khi et_search
+        // focus + IME bung, adjustPan pan window đẩy ô input lên trên bàn phím. Giữ biên độ ẩn -height/6.
         AnimatorSet animatorSet = LauncherAnimUtils.createAnimatorSet();
         animatorSet.playTogether(
-                ObjectAnimator.ofPropertyValuesHolder(mSearchViewLayout, PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, statusBarHeightPX),PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f)),
+                ObjectAnimator.ofPropertyValuesHolder(mSearchViewLayout, PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 0f),PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f)),
                 ObjectAnimator.ofFloat(this.mLauncher.getBlurBackground(), "alpha", 1.0f)
         );
         animatorSet.setInterpolator(new DecelerateInterpolator());

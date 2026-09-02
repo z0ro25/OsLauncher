@@ -33,6 +33,13 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
     ArrayList<AppInfo> mSearchedInfoList = new ArrayList<>();
     Filter mFilter;
 
+    /**
+     * Giới hạn số app hiển thị ở CHẾ ĐỘ GỢI Ý (khi text rỗng). Mặc định = {@link #MAX_SEARCH_ITEM_SIZE}
+     * để KHÔNG đổi hành vi các instance cũ (kết quả/lịch sử). Instance gợi ý set = 4, bấm "Xem thêm"
+     * set = 8. KHÔNG sửa hằng số dùng chung MAX_SEARCH_ITEM_SIZE.
+     */
+    int mSuggestionLimit = MAX_SEARCH_ITEM_SIZE;
+
     public SearchViewAdapter(Context context, ArrayList<AppInfo> apps){
         mLauncher = (Launcher) context;
         mApplicationInfoList.clear();
@@ -88,9 +95,20 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
             bubbleTextView.setTag(appInfo);
             bubbleTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             bubbleTextView.reapplyItemInfo(appInfo);
-            bubbleTextView.setOnClickListener(
-                mLauncher
-            );
+            // Bọc listener: GHI lịch sử app mở-từ-search TRƯỚC, rồi vẫn gọi luồng mở app dùng chung
+            // của Launcher. Bất biến: phải gọi mLauncher.onClick(v) để giữ nguyên hành vi mở app cũ
+            // (chỉ thêm ghi lịch sử, KHÔNG thay thế). Áp cho mọi instance (click item lịch sử cũng
+            // được đẩy lên đầu — hợp lý vì vừa mở lại).
+            bubbleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Object tag = v.getTag();
+                    if (tag instanceof AppInfo && ((AppInfo) tag).componentName != null) {
+                        SearchHistoryStore.push(mLauncher, ((AppInfo) tag).componentName);
+                    }
+                    mLauncher.onClick(v);
+                }
+            });
         }
     }
 
@@ -107,10 +125,23 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
 
     public final ArrayList<AppInfo> getSearchedInfoList(){
         ArrayList<AppInfo> applicationInfoArrayList = new ArrayList<>();
-        int size = Math.min(MAX_SEARCH_ITEM_SIZE, mApplicationInfoList.size());
+        // Dùng mSuggestionLimit (mặc định = MAX_SEARCH_ITEM_SIZE) thay hằng số để nút "Xem thêm"
+        // đổi 4<->8 chỉ trên instance gợi ý, không ảnh hưởng instance khác.
+        int size = Math.min(mSuggestionLimit, mApplicationInfoList.size());
         for (int i = 0 ; i < size ; i++)
             applicationInfoArrayList.add(mApplicationInfoList.get(i));
         return applicationInfoArrayList;
+    }
+
+    /**
+     * Đổi giới hạn số app ở chế độ gợi ý (4 hoặc 8) rồi nạp lại danh sách hiển thị. Chỉ có ý nghĩa
+     * khi text rỗng (chế độ gợi ý); khi đang gõ, kết quả filter không bị cắt theo limit.
+     */
+    public void setSuggestionLimit(int limit) {
+        mSuggestionLimit = limit;
+        mSearchedInfoList.clear();
+        mSearchedInfoList.addAll(getSearchedInfoList());
+        notifyDataSetChanged();
     }
 
     public static class ListViewHolder extends RecyclerView.ViewHolder {

@@ -58,6 +58,15 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
     private Runnable mSearchRetryRunnable;
     public TextViewCustomFont mSearchTV;
 
+    /**
+     * LayoutTransition gốc (sinh ra từ {@code animateLayoutChanges="true"}) của thanh indicator.
+     * Giữ lại để tạm GỠ khi cần ép container co width NGAY (search -> chấm) rồi KHÔI PHỤC — xem
+     * ghi chú bug ở {@link #disableSearch()}.
+     */
+    private LayoutTransition mSavedTransition;
+    /** Khôi phục lại {@link #mSavedTransition} sau khi width đã co xong. */
+    private Runnable mRestoreTransitionRunnable;
+
     @Override
     public void onClick(View v) {
         Launcher launcher = Launcher.getLauncher(getContext());
@@ -74,7 +83,9 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
 
         SpringAnimation springAnimation = launcher.mSearchPullDetector.mSpringAnimation;
         springAnimation.setStartVelocity(launcher.mSearchPullDetector.mMinimumFlingVelocity);
-        springAnimation.animateToFinalPosition(100);
+        // Bố cục mới: ô nhập ở ĐÁY -> search mở dừng ở translationY 0 (trước là 100 sẽ đẩy ô input
+        // lọt khỏi đáy màn). Bàn phím do adjustPan pan lên khi et_search focus.
+        springAnimation.animateToFinalPosition(0);
         springAnimation.start();
     }
 
@@ -125,6 +136,7 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
         // Set the layout transition properties
         LayoutTransition transition = getLayoutTransition();
         transition.setDuration(368L);
+        mSavedTransition = transition;   // giữ ref để tạm gỡ/khôi phục trong disableSearch()
         setGravity(Gravity.CENTER);
         setOnClickListener(this);
 
@@ -199,6 +211,17 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
                 }
             }
         };
+
+        // Khôi phục LayoutTransition sau khi container đã co width xong. Đặt lại đúng ref gốc để các
+        // lượt chuyển chấm<->search về sau vẫn animate mượt như baseline.
+        mRestoreTransitionRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (getLayoutTransition() == null && mSavedTransition != null) {
+                    setLayoutTransition(mSavedTransition);
+                }
+            }
+        };
 //        addView(mSearchBtn);
     }
 
@@ -207,6 +230,10 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
         // sau lưng và ẩn chấm vừa hiện. Xem mSearchRetryRunnable.
         removeCallbacks(mSearchRetryRunnable);
 
+        // Chỉ khi search ĐANG chiếm chỗ (VISIBLE) thì container mới đang bị phình theo bề rộng ô Tìm
+        // kiếm -> mới cần ép co. Nếu vốn đã ở chế độ chấm thì không đụng gì -> giữ nguyên baseline.
+        boolean searchDangChiemCho = mSearchTV != null && mSearchTV.getVisibility() == View.VISIBLE;
+
         if (this.mSearchTV != null){
             mSearchTV.setVisibility(View.GONE);
             mSearchTV.setAlpha(0.0f);
@@ -214,14 +241,26 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
         for (PageIndicatorMarker marker : mMarkers){
             marker.setVisibility(View.VISIBLE);
         }
-        // [BUG FIX] Chấm trang bị LỆCH HẲN SANG TRÁI (đo trên Samsung A50 Android 9: khung
-        // 402..678 = 276px nhưng 3 chấm chỉ nằm 47..143, dư 86px bên phải).
+
+        // [BUG FIX] Chấm trang bị LỆCH HẲN SANG TRÁI + (Android 9) NỀN KÍNH bọc quanh phình rộng bằng
+        // khung ô Tìm kiếm dù chỉ còn 2 chấm.
         // Nguyên nhân: khung từng được đo ở trạng thái search — lúc đó mSearchTV VISIBLE và rộng
-        // 160px, trong khi 3 chấm chỉ rộng 96px. Khi quay lại chế độ chấm, mSearchTV đã GONE nhưng
-        // container KHÔNG đo lại (LinearLayout giữ width cũ, lại có animateLayoutChanges) -> khung
-        // vẫn rộng theo spotlight, gravity=center căn giữa CỦA KHUNG RỘNG nên cụm chấm lệch trái.
-        // Ép đo lại để width bám đúng nội dung đang hiển thị -> cụm chấm về giữa màn.
-        requestLayout();
+        // ~160px, trong khi cụm chấm chỉ rộng ~96px. Khi quay lại chế độ chấm, mSearchTV đã GONE nhưng
+        // container KHÔNG co width: animateLayoutChanges (LayoutTransition) GIỮ LẠI khoảng trống của
+        // mSearchTV trong lúc animate DISAPPEARING -> requestLayout() đơn thuần không đủ. Hệ quả trên
+        // Android 9: nền kính đi nhánh fallback (GlassBlurDrawable vẽ theo bounds container) nên bám
+        // đúng bề rộng phình -> nền dài lê thê ôm cả khung search rỗng.
+        // Cách xử lý: chỉ ở đúng lượt search->chấm, TẠM GỠ LayoutTransition để width co NGAY theo nội
+        // dung thật (chỉ còn chấm), rồi khôi phục transition ở frame sau (giữ animation cho lần sau).
+        if (searchDangChiemCho) {
+            setLayoutTransition(null);
+            requestLayout();
+            removeCallbacks(mRestoreTransitionRunnable);
+            // > thời lượng transition (368ms) để layout co xong hẳn mới bật lại animation.
+            postDelayed(mRestoreTransitionRunnable, 450L);
+        } else {
+            requestLayout();
+        }
     }
 
     @Override
