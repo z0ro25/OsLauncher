@@ -264,8 +264,13 @@ public class DockBlurView extends RealtimeBlurView {
      */
     private Drawable createBitmapBlurDrawable() {
         try {
+            // fallback cuối là nền TRẮNG MỜ ĐỀU khi máy không đọc được wallpaper để panel không trống
+            // (máy đọc được wallpaper vẫn ra frosted bitmap như trước).
+            android.graphics.drawable.ColorDrawable staticFallback =
+                    new android.graphics.drawable.ColorDrawable(
+                            getResources().getColor(R.color.glass_fallback_fill));
             return new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
-                    this, mCornerRadius, 0f, mStrokeColor, PANEL_TINT, null);
+                    this, mCornerRadius, 0f, mStrokeColor, PANEL_TINT, staticFallback);
         } catch (Throwable t) {
             android.util.Log.e(TAG, "createBitmapBlurDrawable fail: " + t);
             return null;

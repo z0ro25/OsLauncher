@@ -179,6 +179,9 @@
 
     <!-- Viền khung blur glass của dock (DockBlurView, hiệu ứng iOS 26). Trắng mờ nhẹ. -->
     <color name="dock_glass_stroke_color">#40FFFFFF</color>
+    <!-- Nền trắng mờ đều dùng khi máy KHÔNG dựng được compositor blur và cũng không đọc được wallpaper
+         (GlassBlurDrawable fallback) — để dock / widget clock / page-indicator pill không bị trống. -->
+    <color name="glass_fallback_fill">#33FFFFFF</color>
 
     <!-- Tint trắng phủ lên mặt kính glass, để vẫn nhìn xuyên thấy nền mờ phía sau.
          Bằng đúng DockBlurView.PANEL_TINT (0x1AFFFFFF) để popup Edit và dock cùng một chất kính.

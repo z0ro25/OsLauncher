@@ -700,6 +700,7 @@
     <string name="warning_storage_permission">No READ STORAGE permission, grant the permission to loading photo.</string>
     <string name="hint_prompt">Speak a keyword</string>
     <string name="suggestions">Suggestions</string>
+    <string name="search_results_title">Results</string>
     <string name="search_show_more">See more</string>
     <string name="search_history_title">Recent</string>
     <string name="search_history_clear">Clear</string>

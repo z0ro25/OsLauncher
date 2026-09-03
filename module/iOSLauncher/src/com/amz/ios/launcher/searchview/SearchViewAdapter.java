@@ -32,6 +32,8 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
     ArrayList<AppInfo> mApplicationInfoList = new ArrayList<>();
     ArrayList<AppInfo> mSearchedInfoList = new ArrayList<>();
     Filter mFilter;
+    /** Layout cho 1 item: {@code R.layout.search_item} = ô lưới (BubbleTextView); {@code R.layout.search_item_row} = dòng dọc icon-trái/tên-phải. */
+    int mItemLayoutRes = R.layout.search_item;
 
     /**
      * Giới hạn số app hiển thị ở CHẾ ĐỘ GỢI Ý (khi text rỗng). Mặc định = {@link #MAX_SEARCH_ITEM_SIZE}
@@ -41,7 +43,13 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
     int mSuggestionLimit = MAX_SEARCH_ITEM_SIZE;
 
     public SearchViewAdapter(Context context, ArrayList<AppInfo> apps){
+        this(context, apps, R.layout.search_item);
+    }
+
+    /** Thêm itemLayoutRes để dùng chung adapter cho cả lưới lẫn dòng dọc. */
+    public SearchViewAdapter(Context context, ArrayList<AppInfo> apps, int itemLayoutRes){
         mLauncher = (Launcher) context;
+        mItemLayoutRes = itemLayoutRes;
         mApplicationInfoList.clear();
         mApplicationInfoList.addAll(apps);
         mFilter = new SearchFilter();
@@ -81,7 +89,7 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.search_item,parent,false);
+        View view = inflater.inflate(mItemLayoutRes,parent,false);
         return new ListViewHolder(view);
     }
 
@@ -89,28 +97,45 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (position < 0 || position >= mSearchedInfoList.size()) return;
         AppInfo appInfo = mSearchedInfoList.get(position);
-        if (holder instanceof ListViewHolder) {
-            ListViewHolder listViewHolder = (ListViewHolder) holder;
-            BubbleTextView bubbleTextView = (BubbleTextView) listViewHolder.itemView;
-            bubbleTextView.setTag(appInfo);
-            bubbleTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            bubbleTextView.reapplyItemInfo(appInfo);
-            // Bọc listener: GHI lịch sử app mở-từ-search TRƯỚC, rồi vẫn gọi luồng mở app dùng chung
-            // của Launcher. Bất biến: phải gọi mLauncher.onClick(v) để giữ nguyên hành vi mở app cũ
-            // (chỉ thêm ghi lịch sử, KHÔNG thay thế). Áp cho mọi instance (click item lịch sử cũng
-            // được đẩy lên đầu — hợp lý vì vừa mở lại).
-            bubbleTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Object tag = v.getTag();
-                    if (tag instanceof AppInfo && ((AppInfo) tag).componentName != null) {
-                        SearchHistoryStore.push(mLauncher, ((AppInfo) tag).componentName);
-                    }
-                    mLauncher.onClick(v);
-                }
-            });
+        if (!(holder instanceof ListViewHolder)) return;
+        View itemView = holder.itemView;
+        if (mItemLayoutRes == R.layout.search_item_row) {
+            // Dòng DỌC: icon trái (FullBubbleTextView) + tên phải (TextView).
+            BubbleTextView icon = itemView.findViewById(R.id.icon);
+            android.widget.TextView name = itemView.findViewById(R.id.text);
+            // BubbleTextView.reapplyItemInfo chỉ áp khi getTag()==info -> phải setTag trước.
+            if (icon != null) {
+                icon.setTag(appInfo);
+                icon.reapplyItemInfo(appInfo);
+            }
+            if (name != null && appInfo.title != null) name.setText(appInfo.title);
+            itemView.setTag(appInfo);
+            itemView.setOnClickListener(openAppClickListener);
+            return;
         }
+        // Ô LƯỚI (BubbleTextView icon trên + tên dưới) — hành vi cũ.
+        BubbleTextView bubbleTextView = (BubbleTextView) itemView;
+        bubbleTextView.setTag(appInfo);
+        bubbleTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        bubbleTextView.reapplyItemInfo(appInfo);
+        bubbleTextView.setOnClickListener(openAppClickListener);
     }
+
+    /**
+     * Bọc listener: GHI lịch sử app mở-từ-search TRƯỚC, rồi vẫn gọi luồng mở app dùng chung của Launcher.
+     * Bất biến: phải gọi mLauncher.onClick(v) để giữ nguyên hành vi mở app cũ (chỉ thêm ghi lịch sử, KHÔNG
+     * thay thế). Áp cho mọi instance.
+     */
+    private final View.OnClickListener openAppClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Object tag = v.getTag();
+            if (tag instanceof AppInfo && ((AppInfo) tag).componentName != null) {
+//                SearchHistoryStore.push(mLauncher, ((AppInfo) tag).componentName);
+            }
+            mLauncher.onClick(v);
+        }
+    };
 
     @Override
     public int getItemCount() {

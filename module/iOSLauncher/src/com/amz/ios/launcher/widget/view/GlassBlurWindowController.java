@@ -70,6 +70,9 @@ public final class GlassBlurWindowController {
     private boolean mAttached;
     /** true khi đã xác định compositor blur không dựng được -> chuyển hẳn sang fallback. */
     private boolean mUseFallback;
+    /** Overlay đang bị yêu cầu ẩn (mở App Library / left page). Overlay là WINDOW riêng nên không
+     * theo alpha của view cha — phải ẩn tường minh (giống DockBlurView.mPanelHidden). */
+    private boolean mPanelHidden;
 
     private final ViewTreeObserver.OnPreDrawListener mPreDraw =
             new ViewTreeObserver.OnPreDrawListener() {
@@ -167,9 +170,31 @@ public final class GlassBlurWindowController {
         mTarget.setBackground(mFallbackBackground);
     }
 
+    /**
+     * Ẩn/hiện overlay pill theo lệnh ngoài (mở App Library / left page thì ẩn, về home hiện lại).
+     * Overlay là window riêng nên không theo alpha của view cha — cần ẩn tường minh. Máy fallback
+     * (không compositor) nền nằm trên chính view chủ nên đã mờ theo alpha -> không cần làm gì.
+     */
+    public void setPanelHidden(boolean hidden) {
+        if (mPanelHidden == hidden) return;
+        mPanelHidden = hidden;
+        if (hidden) {
+            removePreDraw();
+            removePanel();
+        } else {
+            if (mUseFallback || mTarget == null) return;
+            addPreDraw();
+            if (mTarget.isAttachedToWindow()) {
+                mTarget.post(this::syncPanel);
+            }
+        }
+    }
+
     /** Đặt/di chuyển overlay window trùng khít vị trí THẬT (kèm scale) của view chủ mỗi frame. */
     private void syncPanel() {
         if (mWm == null || mUseFallback) return;
+        // Đang bị yêu cầu ẩn (mở App Library / left page...) -> không dựng lại panel vừa gỡ.
+        if (mPanelHidden) return;
         // Ẩn overlay khi view chủ bị che/mờ (mở App Library/folder → workspace fade alpha→0) hoặc GONE.
         if (!mTarget.isShown() || mTarget.getAlpha() < 0.05f
                 || mTarget.getWindowVisibility() != View.VISIBLE) {

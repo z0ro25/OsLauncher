@@ -2038,7 +2038,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             float indicatorBorder = getResources().getDisplayMetrics().density; // 1dp
             android.graphics.drawable.Drawable indicatorFallback =
                     new com.amz.ios.launcher.widget.view.GlassBlurDrawable(
-                            mPageIndicatorContainer, -1f, indicatorBorder, 0x40FFFFFF, 0x1AFFFFFF, null);
+                            mPageIndicatorContainer, -1f, indicatorBorder, 0x40FFFFFF, 0x1AFFFFFF,
+                            // Nền trắng mờ đều khi máy không đọc được wallpaper -> pill không bị trống.
+                            new android.graphics.drawable.ColorDrawable(
+                                    getResources().getColor(R.color.glass_fallback_fill)));
             mPageIndicatorBlurController = new com.amz.ios.launcher.widget.view.GlassBlurWindowController(
                     mPageIndicatorContainer, -1f /*pill*/, indicatorBorder, 0x40FFFFFF, 0x1AFFFFFF, 60,
                     indicatorFallback);
@@ -4935,6 +4938,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
     /**
+     * Ẩn/hiện status bar khi MỞ/ĐÓNG search — cho CẢ máy mới (API>=30) lẫn máy cũ (API<30).
+     * TÁI SỬ DỤNG đúng cơ chế {@link #setStatusBarHiddenForEdit} (API>=30: WindowInsetsController;
+     * API<30: cờ legacy + OR LAYOUT_FULLSCREEN) vì search & edit không bao giờ đồng thời. Máy cũ ẩn được
+     * vì khi mở search window vẫn GIỮ FLAG_LAYOUT_NO_LIMITS (full màn như edit) nên không bị PAN — việc
+     * nâng ô nhập theo bàn phím do SearchViewLayout tự đo (ime-inset / hidden API), không dựa window co.
+     */
+    public void setStatusBarHiddenForSearch(boolean hidden) {
+        setStatusBarHiddenForEdit(hidden);
+    }
+
+    /**
      * Đồng bộ status bar theo trạng thái edit THỰC SỰ (yêu cầu người dùng): status bar ẩn KHI VÀ CHỈ KHI
      * 2 nút Sửa/Xong ({@code mAddWidgetBtn}) đang VISIBLE. Dùng ở {@link #onWindowFocusChanged(boolean)}
      * để mọi lần lấy lại focus (đóng popup/dialog, resume) status bar khớp đúng UI: đang edit -> ẩn,
@@ -4953,6 +4967,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
         boolean buttonsVisible = mAddWidgetBtn != null
                 && mAddWidgetBtn.getVisibility() == View.VISIBLE;
+        // [FIX search] Khi search đang mở, SearchViewLayout đang ẩn status bar theo yêu cầu màn search; cửa
+        // sổ mất/lấy lại focus lúc bàn phím lên sẽ chạy hàm này và làm HIỆN LẠI bar. Search & edit không bao
+        // giờ đồng thời nên OR thêm isOpeningSearchView() là an toàn (áp dụng cho cả máy cũ & mới).
+        buttonsVisible |= isOpeningSearchView();
         setStatusBarHiddenForEdit(buttonsVisible);
     }
 
@@ -7421,7 +7439,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         setWorkspaceHidden(true);
         // Ghim luôn trạng thái ẩn của kính dock, phòng chuỗi onAppsLibrarySlide bị cắt ngang trước
         // khi tới mốc cuối (fling nhanh).
-        setDockGlassHiddenSafe(true);
+        setWorkspaceGlassHidden(true);
     }
 
     //todo app library
@@ -7487,7 +7505,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Kính dock nằm ở window riêng nên không được khôi phục kèm alpha/scale ở trên — phải hiện
         // lại tường minh. Đây là điểm "khôi phục cứng" nên đặt ở đây để dù animation bị cắt ngang
         // kính cũng không kẹt ẩn.
-        setDockGlassHiddenSafe(false);
+        setWorkspaceGlassHidden(false);
     }
 
     @Override
@@ -7508,19 +7526,47 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         setHomeAlpha(1.0f - interpolation);
         // Lớp kính của dock là WINDOW RIÊNG nên setHomeAlpha ở trên KHÔNG chạm tới nó — không ẩn
         // tường minh thì nền dock vẫn nằm nguyên trên màn khi App Library đã mở.
-        setDockGlassHiddenSafe(interpolation > 0f);
+        setWorkspaceGlassHidden(interpolation > 0f);
     }
 
     /**
-     * Ẩn/hiện lớp kính mờ của dock, an toàn khi hotseat chưa dựng xong.
-     *
-     * Kính dock là WINDOW RIÊNG ({@code TYPE_APPLICATION_MEDIA}), không phải view con của hotseat,
-     * nên mọi cách làm mờ/ẩn bằng alpha hay visibility của view cha đều KHÔNG chạm tới nó. Phải ẩn
-     * tường minh ở từng mốc chuyển màn. Xem {@link DockBlurView#setPanelHidden(boolean)}.
+     * Ẩn/hiện lớp kính blur của các thành phần màn home khi chuyển App Library / left page: DOCK +
+     * WIDGET CLOCK analog (page 0) + DOT-INDICATOR pill. Tất cả đều là WINDOW RIÊNG
+     * ({@code TYPE_APPLICATION_MEDIA}) — không phải view con nên alpha/visibility của view cha (khi
+     * workspace bị setAlpha(0)) KHÔNG chạm tới; phải ẩn tường minh ở từng mốc. Xem
+     * {@link DockBlurView#setPanelHidden(boolean)}.
      */
-    private void setDockGlassHiddenSafe(boolean hidden) {
+    private void setWorkspaceGlassHidden(boolean hidden) {
         Hotseat hotseat = getHotseat();
         if (hotseat != null) hotseat.setDockGlassHidden(hidden);
+        // Widget clock analog (WidgetBlurView extends DockBlurView) nằm trong workspace page 0.
+        setWidgetClockGlassHidden(hidden);
+        // Dot-indicator pill (GlassBlurWindowController) — cần guard riêng (mPanelHidden).
+        if (mPageIndicatorBlurController != null) {
+            mPageIndicatorBlurController.setPanelHidden(hidden);
+        }
+    }
+
+    /** Ẩn/hiện kính blur của mọi WidgetBlurView (đồng hồ kim) đang có trong workspace. */
+    private void setWidgetClockGlassHidden(boolean hidden) {
+        if (mWorkspace != null) {
+            setWidgetBlurHiddenRecursive(mWorkspace, hidden);
+        }
+    }
+
+    /** Duyệt cây view để tìm WidgetBlurView và gọi setPanelHidden. */
+    private void setWidgetBlurHiddenRecursive(View v, boolean hidden) {
+        if (v == null) return;
+        if (v instanceof com.amz.ios.launcher.widget.view.WidgetBlurView) {
+            ((com.amz.ios.launcher.widget.view.WidgetBlurView) v).setPanelHidden(hidden);
+            return;
+        }
+        if (v instanceof ViewGroup) {
+            ViewGroup g = (ViewGroup) v;
+            for (int i = 0; i < g.getChildCount(); i++) {
+                setWidgetBlurHiddenRecursive(g.getChildAt(i), hidden);
+            }
+        }
     }
 
     private BlurScreenLayout getAppsLibraryBlurBackgroundView() {
@@ -7553,7 +7599,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         setWorkspaceHidden(true);
         // Ghim ẩn kính dock khi đã mở hẳn (window riêng, không theo alpha home). Đối xứng với
         // onAppsLibraryClosed; resetHomeTransform ở onLeftPageClosed sẽ hiện lại.
-        setDockGlassHiddenSafe(true);
+        setWorkspaceGlassHidden(true);
     }
 
     @Override
@@ -7570,7 +7616,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // cắt ngang; ẩn cả dock để không đè chồng). interpolation: 0 đóng -> 1 mở.
         setHomeAlpha(1.0f - interpolation);
         // Kính dock là window riêng, setHomeAlpha không chạm tới -> ẩn tường minh (như App Library).
-        setDockGlassHiddenSafe(interpolation > 0f);
+        setWorkspaceGlassHidden(interpolation > 0f);
     }
 
     public static Interpolator initInterpolator(float control1, float control2, float control3, float control4) {
@@ -7636,6 +7682,26 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public boolean isOpeningSearchView() {
         SearchViewLayout searchViewLayout = this.mSearchViewLayout;
         return searchViewLayout != null && (searchViewLayout.isOpening() || this.mSearchViewLayout.isOpened());
+    }
+
+    /**
+     * Đảm bảo màn search có danh sách app (cho lưới GỢI Ý) khi mở search. Nếu chưa có (bind callback
+     * của loader có thể rơi vào activity cũ nên setApps chưa chạy) thì đọc thẳng từ nguồn sự thật của
+     * model như apps library (xem ensureAppsLibraryReady) — tránh lưới gợi ý rỗng trên máy mới.
+     */
+    public void ensureSearchViewApps() {
+        if (mSearchViewLayout == null || mSearchViewLayout.hasApps()) return;
+        ArrayList<AppInfo> src = allApp;
+        if ((src == null || src.isEmpty()) && mModel != null) {
+            java.util.List<AppInfo> fromModel = mModel.getAllAppInfo();
+            if (fromModel != null && !fromModel.isEmpty()) {
+                src = new ArrayList<>(fromModel);
+                allApp = src;
+            }
+        }
+        if (src != null && !src.isEmpty()) {
+            mSearchViewLayout.setApps(src);
+        }
     }
 
     public void openFloatingMenu(View view) {
