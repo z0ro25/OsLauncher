@@ -344,10 +344,10 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
     // setAppsLibraryWindowBlur. Trước đây dùng tint xám-xanh 0xF0505860; giờ bỏ hết màu.
     private static final int APP_LIBRARY_FROST = 0x00000000;
 
-    // Scrim cho màn Search (kéo xuống): trước đây nền search chỉ là wallpaper-blur nhạt
-    // (không scrim) nên nhìn còn "trong". Phủ thêm lớp tối để nền mờ ĐẬM hơn, ô search +
-    // icon gợi ý nổi rõ hơn. ~50% đen (đậm hơn LEFT_PAGE_SCRIM một chút cho giống ảnh mẫu).
-    private static final int SEARCH_SCRIM = 0x80000000;
+    // Scrim cho màn Search (kéo xuống): phủ lớp tối lên nền blur để content app phía sau gần như
+    // bị che khuất (chỉ còn lờ mờ), ô search + icon gợi ý nổi rõ. Yêu cầu người dùng: nền search
+    // mờ GẦN NHƯ ĐỤC -> ~85% đen (0xD9). Trước đây chỉ 50% (0x80) nên app sau vẫn lộ rõ.
+    private static final int SEARCH_SCRIM = 0xD9000000;
 
     // Vẽ lớp scrim tối lên trên bitmap (in-place). Trả lại chính bitmap đó.
     private Bitmap applyScrim(Bitmap bmp, int scrimColor) {

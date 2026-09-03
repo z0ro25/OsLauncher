@@ -87,6 +87,8 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     SearchViewAdapter mHistoryAdapter;
     boolean mHistoryHasData;                 // có lịch sử để hiển thị hay không
     boolean mHasResult;                      // lần gõ gần nhất có app khớp? (để bật/tắt khung Kết quả)
+    /** Cờ "Show more/Show less": đang ở chế độ gợi ý MỞ RỘNG (8 mục) hay thu gọn (4 mục). */
+    boolean mSuggestionsExpanded;
 
     // Khung KẾT QUẢ app khớp + list GỢI Ý DỌC (khi đang gõ).
     View mResultAppBox;                      // wrapper "Kết quả" (title + list)
@@ -205,14 +207,9 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
                 mSearchKeyEDT.setText("");
         }
         else if (v == mActionShowMore){
-            // "Xem thêm": mở rộng gợi ý 4 -> 8 cho CẢ lưới (text rỗng) lẫn list dọc (đang gõ).
-            if (mSearchViewAdapter != null) {
-                mSearchViewAdapter.setSuggestionLimit(SearchViewAdapter.MAX_SEARCH_ITEM_SIZE);
-            }
-            if (mSuggestionVerticalAdapter != null) {
-                mSuggestionVerticalAdapter.setSuggestionLimit(SearchViewAdapter.MAX_SEARCH_ITEM_SIZE);
-            }
-            if (mActionShowMore != null) mActionShowMore.setVisibility(View.GONE); // đã mở hết -> ẩn nút
+            // "Show more / Show less": đảo giữa 4 và 8 mục gợi ý cho CẢ lưới (text rỗng) lẫn list dọc
+            // (đang gõ). Mở rộng -> giới hạn MAX (8); thu gọn -> về mặc định (4). Nhãn nút đổi theo.
+            toggleSuggestionsLimit();
         }
         else if (v == mActionClearHistory){
             // "Xóa": xoá toàn bộ lịch sử app mở-từ-search rồi làm mới UI.
@@ -863,6 +860,33 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     }
 
     /**
+     * Đảo "Show more" <-> "Show less" cho danh sách GỢI Ý: mở rộng giữa 4 và 8 mục.
+     *
+     * <p>Áp cho CẢ lưới gợi ý (text rỗng, {@link #mSearchViewAdapter}) lẫn list gợi ý dọc (đang gõ,
+     * {@link #mSuggestionVerticalAdapter}) — giữ đồng bộ giới hạn như nút cũ (chỉ mở 4->8). Đổi khác
+     * nút cũ: KHÔNG ẩn nút sau khi bấm mà cho đảo ngược lại (thu 8 -> 4), nhãn đổi theo trạng thái.
+     * Khi nạp ít hơn giới hạn (máy ít app) limit không gây lỗi — {@code getSearchedInfoList} cắt theo
+     * {@code Math.min} sẵn.
+     */
+    private void toggleSuggestionsLimit() {
+        mSuggestionsExpanded = !mSuggestionsExpanded;
+        int limit = mSuggestionsExpanded
+                ? SearchViewAdapter.MAX_SEARCH_ITEM_SIZE
+                : SUGGESTION_DEFAULT_LIMIT;
+        if (mSearchViewAdapter != null) {
+            mSearchViewAdapter.setSuggestionLimit(limit);
+        }
+        if (mSuggestionVerticalAdapter != null) {
+            mSuggestionVerticalAdapter.setSuggestionLimit(limit);
+        }
+        if (mActionShowMore != null) {
+            mActionShowMore.setText(mSuggestionsExpanded
+                    ? mLauncher.getString(R.string.search_show_less)
+                    : mLauncher.getString(R.string.search_show_more));
+        }
+    }
+
+    /**
      * Nạp lại lưới LỊCH SỬ từ {@link SearchHistoryStore}: map componentName -> AppInfo bằng cách dò
      * trong {@link #mApplicationInfoList} (đã có toàn bộ app), bỏ app đã gỡ. Rỗng -> ẩn cả cụm.
      * Gọi khi mở search và khi text về rỗng.
@@ -971,6 +995,11 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         }
         if (mSuggestionVerticalAdapter != null) {
             mSuggestionVerticalAdapter.setSuggestionLimit(SUGGESTION_DEFAULT_LIMIT);
+        }
+        // Reset nút "Show more/Show less" về trạng thái thu gọn (4 mục) mỗi lần mở search mới.
+        mSuggestionsExpanded = false;
+        if (mActionShowMore != null) {
+            mActionShowMore.setText(mLauncher.getString(R.string.search_show_more));
         }
         mHasResult = false;
         refreshHistory();

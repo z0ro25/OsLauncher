@@ -28,10 +28,15 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <!-- 4 icon preview mỗi cái chiếm đúng 1 góc phần tư (guideline 0.5) với margin 8dp đều 4 cạnh
+             -> rãnh giữa 2 icon kề = 8+8 = 16dp, mép icon-cạnh khối = 8dp (icon lấp đầy, rãnh 16 đều).
+             width/height = 0dp (match constraint) nên icon tự to theo khối (theo màn). Icon là nền của
+             view (AppsLibraryBubbleTextView) nên Android tự vẽ + tự invalidate khi icon đổi. -->
         <com.amz.ios.launcher.applibrary.AppsLibraryBubbleTextView
             android:id="@+id/app_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
             app:hideIconName="true"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -40,8 +45,9 @@
 
         <com.amz.ios.launcher.applibrary.AppsLibraryBubbleTextView
             android:id="@+id/app_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
             app:hideIconName="true"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,8 +56,9 @@
 
         <com.amz.ios.launcher.applibrary.AppsLibraryBubbleTextView
             android:id="@+id/app_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
             app:hideIconName="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -60,8 +67,9 @@
 
         <com.amz.ios.launcher.applibrary.AppsLibraryBubbleTextView
             android:id="@+id/app_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
             app:hideIconName="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

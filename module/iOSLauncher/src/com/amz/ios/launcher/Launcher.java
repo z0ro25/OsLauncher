@@ -7669,7 +7669,16 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     public void onSearchViewOpened() {
-
+        // [FIX search blur khi mở NHANH] SearchPullDetector chỉ nạp ảnh nền blur (mBlurBackgroundView)
+        // trong lúc KÉO TỪ TỪ (onScroll gọi changeBlur mỗi frame); đường mở nhanh (fling/spring) không
+        // đi qua đủ frame kéo nên ảnh chưa kịp tạo -> search mở hẳn mà content app phía sau vẫn hiện
+        // RÕ (không mờ). Đảm bảo nạp NGAY khi search bắt đầu mở nếu nền chưa có ảnh; alpha của nền
+        // vẫn do pull/open animate điều khiển nên không đổi hành vi kéo chậm. Idempotent: bỏ qua khi
+        // đã có background (đang mờ / đang chờ clear xong).
+        BlurScreenLayout blurBg = mBlurBackgroundView;
+        if (blurBg != null && blurBg.getBackground() == null) {
+            blurBg.mHandler1.obtainMessage(2, null).sendToTarget();
+        }
     }
 
     public void showFolderBlurBackground(float amount) {

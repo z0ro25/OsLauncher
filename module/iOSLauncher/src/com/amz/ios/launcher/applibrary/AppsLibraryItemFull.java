@@ -148,6 +148,14 @@ public class AppsLibraryItemFull extends ConstraintLayout implements View.OnClic
         int size = infos.size();
         if (size == 0) return;
 
+        // [FIX icon dư khi RecyclerView tái dùng view] Category chỉ có 1-3 app -> các ô thừa
+        // (app_2/3/4) vẫn giữ ICON CŨ của lần bind trước (view được tái dùng) -> khối hiện icon
+        // lệch/dư, khối thì không. Luôn ẩn ô trống (INVISIBLE giữ chỗ, không co layout), chỉ hiện
+        // đúng số ô có app. Số app category <= 4 nên app_1 luôn có.
+        mItem2.setVisibility(size > 1 ? View.VISIBLE : View.INVISIBLE);
+        mItem3.setVisibility(size > 2 ? View.VISIBLE : View.INVISIBLE);
+        mItem4.setVisibility(size > 3 ? View.VISIBLE : View.INVISIBLE);
+
         mItem1.setTag(infos.get(0));
         mItem1.reapplyItemInfo(infos.get(0));
 
