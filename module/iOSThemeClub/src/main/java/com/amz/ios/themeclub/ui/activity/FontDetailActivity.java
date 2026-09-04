@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.amz.ios.ioslite.common.CommonFragmentActivity;
 import com.amz.ios.ioslite.common.launcher.LauncherSettingCallback;
 import com.amz.ios.launcher.config.Settings;
 import com.amz.ios.launcher.views.CustomTextView;
@@ -19,7 +20,7 @@ import com.amz.ios.themeclub.model.FontModel;
  * Created by TUDOL on 10/18/2019.
  */
 
-public class FontDetailActivity extends FragmentActivity implements LauncherSettingCallback {
+public class FontDetailActivity extends CommonFragmentActivity implements LauncherSettingCallback {
 
     private FontModel fontModel;
     private CustomTextView fontText;

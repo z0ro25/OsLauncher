@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 
 import com.amz.ios.ioslite.common.CommonSdk;
 import com.amz.ios.ioslite.common.LiteAction;
@@ -14,6 +15,9 @@ import com.amz.ios.ioslite.common.debug.ExceptionHandler;
 import com.amz.ios.ioslite.common.util.ProcessUtil;
 import com.amz.ios.launcher.LauncherAppState;
 import com.amz.ios.themeclub.ThemeClubApplication;
+import com.oslauncher.applauncher.themelauncher.tool.languageTool.LanguageUtil;
+
+import java.util.Locale;
 
 public class BaseLauncherApplication extends Application {
     private static final String TAG = "BaseLauncherApplication";
@@ -142,6 +146,19 @@ public class BaseLauncherApplication extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
+        // Localize: áp ngôn ngữ đã chọn ở màn hình Language cho TOÀN tiến trình (kể cả desktop
+        // iOSLauncher — trước đây chỉ có module app tự setLocale, desktop chạy theo locale hệ thống).
+        // Đặt ở Application là sớm nhất trong vòng đời process nên mọi Activity/plugin (search,
+        // settings launcher, theme club) đều thừa hưởng đúng configuration khi được tạo mới.
+        // Nếu chưa từng chọn ngôn ngữ (KEY_LANGUAGE rỗng) thì giữ NGUYÊN hành vi cũ.
+        String lang = LanguageUtil.getPreLanguage(base);
+        if (lang != null && !lang.isEmpty()) {
+            Locale locale = new Locale(lang);
+            Locale.setDefault(locale);
+            Configuration cfg = new Configuration(base.getResources().getConfiguration());
+            cfg.setLocale(locale);
+            base = base.createConfigurationContext(cfg);
+        }
         super.attachBaseContext(base);
 //        MultiDex.install(this);
     }

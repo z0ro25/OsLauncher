@@ -79,4 +79,83 @@
     <string name="next">Próximo</string>
     <string name="language">Idioma</string>
     <string name="general">General</string>
+
+    <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
+    <string name="app_function_settings">Configuración de funciones de la aplicación</string>
+    <string name="app_library">Biblioteca de aplicaciones</string>
+    <string name="app_library_title">Biblioteca de aplicaciones</string>
+    <string name="app_name" translatable="false">OS Launcher 26</string>
+    <string name="app_name_launcher" translatable="false">IOS Launcher</string>
+    <string name="appearance">Apariencia</string>
+    <string name="appearance_auto_desc">Su interfaz cambiará automáticamente según la hora del día.</string>
+    <string name="appearance_system_desc">Su interfaz se ajustará según la configuración del sistema</string>
+    <string name="applib_folder_name_empty">Introduzca un nombre para la carpeta</string>
+    <string name="applib_folder_name_exists">Este nombre de carpeta ya existe</string>
+    <string name="applib_no_folder">No tienes ninguna carpeta</string>
+    <string name="apply_transition">Aplicar transición</string>
+    <string name="auto">Automático</string>
+    <string name="auto_arrange_home_screen">Organizar la pantalla de inicio automáticamente</string>
+    <string name="badge_notifications">Notificaciones con distintivo</string>
+    <string name="blur_effect">Efecto de desenfoque</string>
+    <string name="cancel">Cancelar</string>
+    <string name="change_app_icon">Cambiar el icono de la aplicación</string>
+    <string name="change_app_name">Cambiar el nombre de la aplicación</string>
+    <string name="change_app_size">Cambiar el tamaño de la aplicación</string>
+    <string name="change_icon_failed">No se puede usar esta imagen. Pruebe con otra.</string>
+    <string name="choose_from_gallery">Elegir de la galería</string>
+    <string name="complete">Completar</string>
+    <string name="copied_to_clipboard">Copiado al portapapeles</string>
+    <string name="dark">Oscuro</string>
+    <string name="device_id">Identificador del dispositivo</string>
+    <string name="explore_your_os_interface_on_device">Explora la interfaz de tu sistema operativo en tu dispositivo</string>
+    <string name="folder_name">Nombre de la carpeta</string>
+    <string name="general_hide_apps_name">Ocultar el nombre de las aplicaciones</string>
+    <string name="general_message_preview">Mensaje</string>
+    <string name="general_options">Opciones</string>
+    <string name="hidden_apps">Aplicaciones ocultas</string>
+    <string name="hidden_apps_desc">Después de restaurar las aplicaciones ocultas desde Aplicaciones ocultas, puede encontrarlas en su Biblioteca de aplicaciones.</string>
+    <string name="homescreen_style">Estilo de la pantalla de inicio</string>
+    <string name="launcher_ai">IA del lanzador</string>
+    <string name="light">Claro</string>
+    <string name="mail_to_us">Escríbanos</string>
+    <string name="manage_library">Administrar biblioteca</string>
+    <string name="new_folder">Nueva carpeta</string>
+    <string name="new_folder_hint">Introduzca un nombre para esta carpeta (máximo 30 caracteres)</string>
+    <string name="no_hidden_app">No tienes ninguna aplicación oculta</string>
+    <string name="no_internet">Sin internet</string>
+    <string name="notification">Notificación</string>
+    <string name="other">Otro</string>
+    <string name="permission_desc">Permítanos acceder a su dispositivo para que la aplicación pueda funcionar correctamente y sin problemas.</string>
+    <string name="permission_required">Permiso necesario</string>
+    <string name="rate_our_app">Califica nuestra aplicación</string>
+    <string name="rename_app_hint">Nombre de la aplicación</string>
+    <string name="reset">Restablecer</string>
+    <string name="reset_name_to_default">Restablecer el nombre al predeterminado</string>
+    <string name="screen_grid">Cuadrícula de pantalla</string>
+    <string name="screen_grid_4x4" translatable="false">4x5</string>
+    <string name="screen_grid_4x5" translatable="false">4x6</string>
+    <string name="screen_grid_4x6" translatable="false">4x7</string>
+    <string name="select_default_launcher">Seleccionar el lanzador predeterminado</string>
+    <string name="select_folder">Seleccionar carpeta</string>
+    <string name="set_default">Establecer predeterminado</string>
+    <string name="set_default_launcher_card_desc">Empecemos por configurarnos como el lanzador predeterminado de su dispositivo.</string>
+    <string name="set_default_launcher_desc">Hermosos iconos y widgets en tu dispositivo y más. ¡Empecemos por configurarnos como tu lanzador predeterminado!</string>
+    <string name="system">Sistema</string>
+    <string name="there_is_no_internet_connection">¡No hay conexión a internet! ¡Compruebe su conexión a internet!</string>
+    <string name="title1">Experimenta IOS 26 con un aspecto futurista</string>
+    <string name="title2">Tema claro y oscuro compatible</string>
+    <string name="title3">Todas tus aplicaciones organizadas ordenadamente en la Biblioteca de aplicaciones</string>
+    <string name="try_again">Intentar de nuevo</string>
+
+    <!-- Nhãn thể loại cố định App Library (hiển thị) -->
+    <string-array name="applib_fixed_categories">
+        <item>Juegos</item>
+        <item>Música y audio</item>
+        <item>Películas y vídeo</item>
+        <item>Fotos e imágenes</item>
+        <item>Social y comunicación</item>
+        <item>Noticias y revistas</item>
+        <item>Mapas y navegación</item>
+        <item>Productividad</item>
+    </string-array>
 </resources>

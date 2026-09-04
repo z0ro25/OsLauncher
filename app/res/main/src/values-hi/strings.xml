@@ -79,4 +79,83 @@
     <string name="next">अगला</string>
     <string name="language">भाषा</string>
     <string name="general">सामान्य</string>
+
+    <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
+    <string name="app_function_settings">ऐप फ़ंक्शन सेटिंग्स</string>
+    <string name="app_library">ऐप लाइब्रेरी</string>
+    <string name="app_library_title">ऐप लाइब्रेरी</string>
+    <string name="app_name" translatable="false">OS Launcher 26</string>
+    <string name="app_name_launcher" translatable="false">IOS Launcher</string>
+    <string name="appearance">दिखावट</string>
+    <string name="appearance_auto_desc">आपका इंटरफ़ेस दिन के समय के अनुसार स्वचालित रूप से बदल जाएगा।</string>
+    <string name="appearance_system_desc">आपका इंटरफ़ेस सिस्टम सेटिंग्स के अनुसार समायोजित किया जाएगा</string>
+    <string name="applib_folder_name_empty">कृपया फ़ोल्डर का नाम दर्ज करें</string>
+    <string name="applib_folder_name_exists">यह फ़ोल्डर नाम पहले से मौजूद है</string>
+    <string name="applib_no_folder">आपके पास कोई फ़ोल्डर नहीं है</string>
+    <string name="apply_transition">संक्रमण लागू करें</string>
+    <string name="auto">ऑटो</string>
+    <string name="auto_arrange_home_screen">होम स्क्रीन को स्वचालित रूप से व्यवस्थित करें</string>
+    <string name="badge_notifications">बैज सूचनाएं</string>
+    <string name="blur_effect">धुंधला प्रभाव</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="change_app_icon">ऐप आइकन बदलें</string>
+    <string name="change_app_name">ऐप का नाम बदलें</string>
+    <string name="change_app_size">ऐप का आकार बदलें</string>
+    <string name="change_icon_failed">इस छवि का उपयोग नहीं किया जा सकता। कृपया कोई अन्य छवि चुनें।</string>
+    <string name="choose_from_gallery">गैलरी से चुनें</string>
+    <string name="complete">पूर्ण करें</string>
+    <string name="copied_to_clipboard">क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="dark">डार्क</string>
+    <string name="device_id">डिवाइस आईडी</string>
+    <string name="explore_your_os_interface_on_device">अपने डिवाइस पर अपने OS इंटरफ़ेस का अन्वेषण करें</string>
+    <string name="folder_name">फ़ोल्डर का नाम</string>
+    <string name="general_hide_apps_name">ऐप्स का नाम छिपाएं</string>
+    <string name="general_message_preview">संदेश</string>
+    <string name="general_options">विकल्प</string>
+    <string name="hidden_apps">छिपे हुए ऐप्स</string>
+    <string name="hidden_apps_desc">छिपे हुए ऐप्स से छिपे हुए ऐप्स को पुनर्स्थापित करने के बाद, आप उन्हें अपनी ऐप लाइब्रेरी में पा सकते हैं।</string>
+    <string name="homescreen_style">होम स्क्रीन शैली</string>
+    <string name="launcher_ai">लॉन्चर एआई</string>
+    <string name="light">लाइट</string>
+    <string name="mail_to_us">हमें मेल करें</string>
+    <string name="manage_library">लाइब्रेरी प्रबंधित करें</string>
+    <string name="new_folder">नया फ़ोल्डर</string>
+    <string name="new_folder_hint">इस फ़ोल्डर के लिए एक नाम दर्ज करें (अधिकतम 30 अक्षर)</string>
+    <string name="no_hidden_app">आपके पास कोई छिपा हुआ ऐप नहीं है</string>
+    <string name="no_internet">कोई इंटरनेट नहीं</string>
+    <string name="notification">सूचना</string>
+    <string name="other">अन्य</string>
+    <string name="permission_desc">हमें अपने डिवाइस तक पहुंचने की अनुमति दें ताकि ऐप ठीक से और सुचारू रूप से काम कर सके।</string>
+    <string name="permission_required">अनुमति आवश्यक</string>
+    <string name="rate_our_app">हमारे ऐप को रेट करें</string>
+    <string name="rename_app_hint">ऐप का नाम</string>
+    <string name="reset">रीसेट</string>
+    <string name="reset_name_to_default">नाम को डिफ़ॉल्ट पर रीसेट करें</string>
+    <string name="screen_grid">स्क्रीन ग्रिड</string>
+    <string name="screen_grid_4x4" translatable="false">4x5</string>
+    <string name="screen_grid_4x5" translatable="false">4x6</string>
+    <string name="screen_grid_4x6" translatable="false">4x7</string>
+    <string name="select_default_launcher">डिफ़ॉल्ट लॉन्चर चुनें</string>
+    <string name="select_folder">फ़ोल्डर चुनें</string>
+    <string name="set_default">डिफ़ॉल्ट सेट करें</string>
+    <string name="set_default_launcher_card_desc">चलिए शुरू करते हैं, हमें अपने डिवाइस के डिफ़ॉल्ट लॉन्चर के रूप में सेट करके।</string>
+    <string name="set_default_launcher_desc">आपके डिवाइस पर सुंदर आइकन और विजेट और भी बहुत कुछ! चलिए शुरू करते हैं, हमें अपने डिफ़ॉल्ट लॉन्चर के रूप में सेट करके।</string>
+    <string name="system">सिस्टम</string>
+    <string name="there_is_no_internet_connection">कोई इंटरनेट कनेक्शन नहीं है! कृपया अपना इंटरनेट कनेक्शन जांचें!</string>
+    <string name="title1">भविष्यवादी रूप के साथ IOS 26 का अनुभव करें</string>
+    <string name="title2">लाइट और डार्क थीम समर्थित</string>
+    <string name="title3">आपके सभी ऐप्स ऐप लाइब्रेरी में बड़े करीने से व्यवस्थित हैं</string>
+    <string name="try_again">पुनः प्रयास करें</string>
+
+    <!-- Nhãn thể loại cố định App Library (hiển thị) -->
+    <string-array name="applib_fixed_categories">
+        <item>गेम</item>
+        <item>संगीत और ऑडियो</item>
+        <item>फ़िल्में और वीडियो</item>
+        <item>फ़ोटो और छवियां</item>
+        <item>सोशल और संचार</item>
+        <item>समाचार और पत्रिकाएं</item>
+        <item>मानचित्र और नेविगेशन</item>
+        <item>उत्पादकता</item>
+    </string-array>
 </resources>

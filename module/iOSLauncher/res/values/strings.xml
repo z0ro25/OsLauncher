@@ -715,17 +715,17 @@
     <!-- Weather widget (built-in). Dữ liệu là mẫu tĩnh: dự án chưa có API thời tiết. -->
     <string name="weather">Weather</string>
     <!-- Mô tả thời tiết theo mã WMO của Open-Meteo (xem WeatherRepository.conditionTextRes). -->
-    <string name="weather_code_clear">Trời quang</string>
-    <string name="weather_code_partly_cloudy">Có mây</string>
-    <string name="weather_code_overcast">Nhiều mây</string>
-    <string name="weather_code_fog">Sương mù</string>
-    <string name="weather_code_drizzle">Mưa phùn</string>
-    <string name="weather_code_rain">Mưa</string>
-    <string name="weather_code_heavy_rain">Mưa to</string>
-    <string name="weather_code_snow">Tuyết</string>
-    <string name="weather_code_thunderstorm">Giông</string>
+    <string name="weather_code_clear">Clear</string>
+    <string name="weather_code_partly_cloudy">Partly Cloudy</string>
+    <string name="weather_code_overcast">Overcast</string>
+    <string name="weather_code_fog">Fog</string>
+    <string name="weather_code_drizzle">Drizzle</string>
+    <string name="weather_code_rain">Rain</string>
+    <string name="weather_code_heavy_rain">Heavy Rain</string>
+    <string name="weather_code_snow">Snow</string>
+    <string name="weather_code_thunderstorm">Thunderstorm</string>
     <!-- Hiện đè lên widget thời tiết khi app chưa có quyền vị trí; bấm vào widget để cấp. -->
-    <string name="widget_weather_need_permission">Cần quyền vị trí</string>
+    <string name="widget_weather_need_permission">Location permission needed</string>
 
     <string name="weather_sample_city">San Francisco</string>
     <string name="weather_sample_temp">53°</string>
@@ -758,8 +758,8 @@
     <!-- Overlay tiêu đề trên widget Photos (kiểu iOS "On This Day"). -->
     <string name="widget_picture_on_this_day">ON THIS DAY</string>
     <!-- Hiện đè lên widget ảnh khi app chưa có quyền đọc ảnh; bấm vào widget để cấp. -->
-    <string name="widget_picture_need_permission">Cần quyền truy cập ảnh</string>
-    <string name="widget_picture_tap_to_grant">Nhấn để cấp quyền</string>
+    <string name="widget_picture_need_permission">Photo access needed</string>
+    <string name="widget_picture_tap_to_grant">Tap to allow access</string>
     <string name="widget_meta_title_batteries">Batteries</string>
     <string name="widget_meta_desc_batteries">Keep an eye on battery level.</string>
     <string name="widget_meta_title_weather">Weather</string>

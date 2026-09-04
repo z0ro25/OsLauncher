@@ -20,6 +20,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.amz.ios.ioslite.common.CommonAppCompatActivity;
 import com.amz.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.amz.ios.ioslite.common.analytics.UMEventConstants;
 import com.amz.ios.themeclub.R;
@@ -28,7 +29,7 @@ import com.amz.ios.themeclub.adapter.BottomTabPagerAdapter;
 import com.amz.ios.themeclub.app.AppConfig;
 import com.amz.ios.themeclub.util.PermissionUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends CommonAppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private ViewPager mViewPager;

@@ -16,10 +16,13 @@ public class LauncherBaseActivity extends CommonActivity implements WallpaperCol
     private int mActivityFlags;
 
     private int mForceInvisible;
-    
+
     private int mThemeRes = R.style.LauncherTheme;
 
     protected SystemUiController mSystemUiController;
+
+    // Localize desktop: ép ngôn ngữ + tự recreate khi ngôn ngữ lưu đổi được xử lý ở base chung
+    // CommonActivity (iOSLiteCommon) qua IosLocale — không cần làm lại ở đây.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +57,8 @@ public class LauncherBaseActivity extends CommonActivity implements WallpaperCol
 
     @Override
     protected void onStart() {
-        mActivityFlags |= ACTIVITY_STATE_STARTED;
         super.onStart();
+        mActivityFlags |= ACTIVITY_STATE_STARTED;
     }
 
     @Override

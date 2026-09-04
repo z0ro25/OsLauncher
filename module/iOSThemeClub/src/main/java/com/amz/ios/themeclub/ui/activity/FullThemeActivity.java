@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import com.amz.ios.themeclub.R;
+import com.amz.ios.ioslite.common.CommonAppCompatActivity;
 import com.amz.ios.themeclub.bean.ThemeInfo;
 import com.amz.ios.themeclub.util.ThemeUtils;
 import com.amz.ios.themeclub.view.ThemePagedView;
@@ -21,7 +22,7 @@ import static com.amz.ios.themeclub.effect.ThemeScrollEffect.SCROLL_EFFECT_STACK
  * Created by TUDOL on 10/25/2019.
  */
 
-public class FullThemeActivity extends AppCompatActivity implements ThemePagedView.PageSwitchListener {
+public class FullThemeActivity extends CommonAppCompatActivity implements ThemePagedView.PageSwitchListener {
     private List<Bitmap> mListviews = new ArrayList<>();
     private int mCurIdx;
     private ThemePagedView mPagedView;

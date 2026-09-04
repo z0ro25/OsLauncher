@@ -63,13 +63,15 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
             ) {
                 Locale.getDefault().language
             } else LanguageUtil.getPreLanguage(this)
+        // Bộ ngôn ngữ thống nhất với màn cài đặt (LanguageSettingActivity): en/hi/es/fr/de/ko/pt.
+        // Bỏ Indonesian (không thuộc danh sách), thêm Korean cho khớp — xem Localize note.
         listLanguage!!.add(LanguageModel("English", "en"))
+        listLanguage!!.add(LanguageModel("Hindi", "hi"))
+        listLanguage!!.add(LanguageModel("Spanish", "es"))
         listLanguage!!.add(LanguageModel("French", "fr"))
         listLanguage!!.add(LanguageModel("German", "de"))
-        listLanguage!!.add(LanguageModel("Hindi", "hi"))
-        listLanguage!!.add(LanguageModel("Indonesian", "in"))
+        listLanguage!!.add(LanguageModel("Korean", "ko"))
         listLanguage!!.add(LanguageModel("Portuguese", "pt"))
-        listLanguage!!.add(LanguageModel("Spanish", "es"))
 
 
         val model = listLanguage?.lastOrNull { it.code == codeLang }
