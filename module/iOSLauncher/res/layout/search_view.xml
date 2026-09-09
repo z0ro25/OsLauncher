@@ -138,6 +138,12 @@
                         <com.amz.ios.launcher.RoundedImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/google_maps_icon" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
                     </LinearLayout>
                 </LinearLayout>
+                <!-- "Khoảng chống" trống dưới suggestion: vuốt BẮT ĐẦU ở đây mới đóng màn search;
+                     vuốt trên result/suggestion luôn CUỘN (không tự tắt). Xem SearchPullDetector.
+                     weight=1 + fillViewport -> GIÃN lấp hết vùng trống dưới nội dung (khi chưa có result
+                     thì vùng trống lớn, vuốt bất kỳ đâu dưới suggestion đều đóng); minHeight 120dp giữ
+                     một dải chống tối thiểu khi nội dung dài phải cuộn. -->
+                <View android:id="@+id/dismiss_spacer" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:minHeight="120dp" android:focusable="false" android:clickable="false"/>
             </LinearLayout>
         </ScrollView>
     </com.amz.ios.launcher.overscroll.OverScrollLayout>

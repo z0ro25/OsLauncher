@@ -942,6 +942,10 @@ public class Workspace extends PagedView
 
         int index = getPageIndexForScreenId(nEmptyScreenId);
         CellLayout cl = mWorkspaceScreens.get(nEmptyScreenId);
+        if (cl == null) {
+            // Trang trống không còn trong map (đã bị strip / commit trước đó) -> bỏ qua, tránh NPE.
+            return -1;
+        }
         cl.setNullScreen(true);
         mWorkspaceScreens.remove(nEmptyScreenId);
         mScreenOrder.remove(nEmptyScreenId);
@@ -3062,6 +3066,145 @@ public class Workspace extends PagedView
         return false;
     }
 
+    /**
+     * TRÀN PAGE khi thả vào page ĐÃ FULL: đẩy item cuối của page đích sang page kế để lấy chỗ, đặt
+     * item đang kéo vào đúng điểm thả (reorder lại trong page), rồi cascade item bị đẩy qua các page
+     * sau; hết page thật thì TẠO page mới. Reorder-trong-page vẫn dùng engine cũ (performReorder).
+     *
+     * @return true nếu đã tràn + đặt xong (caller bỏ qua báo out-of-space); false nếu không tràn được
+     *         (caller giữ hành vi cũ: trả item về chỗ cũ + báo full). Mọi lỗi -> trả false, KHÔNG crash.
+     */
+    private boolean tryOverflowDropToNextPages(View cell, long container, CellLayout targetLayout, ItemInfo item) {
+        // Chỉ áp cho desktop (không đụng hotseat/dock).
+        if (container != LauncherSettings.Favorites.CONTAINER_DESKTOP) return false;
+        if (targetLayout == null || cell == null || item == null) return false;
+        try {
+            long targetScreenId = getIdForScreen(targetLayout);
+            if (targetScreenId == -1 || targetScreenId == EXTRA_EMPTY_SCREEN_ID1) return false;
+
+            // 1. Chọn item cuối (thứ tự đọc) trên page đích để nhường chỗ.
+            View bumpView = getLastReorderableItem(targetLayout, cell);
+            if (bumpView == null || !(bumpView.getTag() instanceof ItemInfo)) return false;
+            ItemInfo bumpInfo = (ItemInfo) bumpView.getTag();
+
+            // 2. Gỡ item cuối khỏi page đích -> giải phóng 1 ô (removeView tự clear occupancy).
+            targetLayout.removeView(bumpView);
+
+            // 3. Reorder lại cho item kéo tại điểm thả (giờ đã có chỗ trống).
+            int[] resultSpan = new int[2];
+            int[] tc = findNearestArea((int) mDragViewVisualCenter[0], (int) mDragViewVisualCenter[1],
+                    item.spanX, item.spanY, targetLayout, new int[2]);
+            tc = targetLayout.performReorder((int) mDragViewVisualCenter[0], (int) mDragViewVisualCenter[1],
+                    item.spanX, item.spanY, item.spanX, item.spanY, cell, tc, resultSpan,
+                    CellLayout.MODE_ON_DROP);
+            if (tc == null || tc[0] < 0 || tc[1] < 0) {
+                // Không đặt được (vd widget lớn) -> add lại item cuối, báo caller fallback.
+                addInScreen(bumpView, container, targetScreenId, bumpInfo.cellX, bumpInfo.cellY,
+                        bumpInfo.spanX, bumpInfo.spanY);
+                return false;
+            }
+
+            // 4. Reparent item kéo sang page đích tại ô reorder.
+            CellLayout srcParent = getParentCellLayoutForView(cell);
+            if (srcParent != null) srcParent.removeView(cell);
+            addInScreen(cell, container, targetScreenId, tc[0], tc[1], item.spanX, item.spanY);
+            if (cell.getLayoutParams() instanceof CellLayout.LayoutParams) {
+                CellLayout.LayoutParams lp = (CellLayout.LayoutParams) cell.getLayoutParams();
+                lp.cellX = lp.tmpCellX = tc[0];
+                lp.cellY = lp.tmpCellY = tc[1];
+                lp.cellHSpan = item.spanX;
+                lp.cellVSpan = item.spanY;
+                lp.isLockedToGrid = true;
+            }
+            LauncherModel.modifyItemInDatabase(mLauncher, item, container, targetScreenId, tc[0], tc[1],
+                    item.spanX, item.spanY);
+            mTargetCell[0] = tc[0];
+            mTargetCell[1] = tc[1];
+
+            // 5. Đưa item bị đẩy sang page kế (cascade, tạo page mới nếu hết chỗ).
+            placeItemCascade(bumpView, bumpInfo, getPageIndexForScreenId(targetScreenId) + 1);
+            return true;
+        } catch (Throwable t) {
+            // Bất kỳ lỗi nào -> báo caller fallback (không crash).
+            return false;
+        }
+    }
+
+    /** Item ở vị trí thứ-tự-đọc LỚN NHẤT (dưới-phải nhất) trên {@code page}, bỏ qua {@code exclude}. */
+    private View getLastReorderableItem(CellLayout page, View exclude) {
+        ShortcutAndWidgetContainer c = page.getShortcutsAndWidgets();
+        int countX = Math.max(1, page.getCountX());
+        View best = null;
+        int bestIdx = -1;
+        for (int i = 0; i < c.getChildCount(); i++) {
+            View v = c.getChildAt(i);
+            if (v == null || v == exclude) continue;
+            if (!(v.getLayoutParams() instanceof CellLayout.LayoutParams)) continue;
+            CellLayout.LayoutParams lp = (CellLayout.LayoutParams) v.getLayoutParams();
+            int idx = lp.cellY * countX + lp.cellX;
+            if (idx > bestIdx) {
+                bestIdx = idx;
+                best = v;
+            }
+        }
+        return best;
+    }
+
+    /**
+     * Đặt {@code view} (đã gỡ khỏi page trước) vào page tại {@code startPageIndex}; nếu page đó full thì
+     * đẩy tiếp item cuối của nó sang page sau (cascade). Hết page thật -> tạo page mới ở cuối.
+     */
+    private void placeItemCascade(View view, ItemInfo info, int startPageIndex) {
+        int pageIndex = startPageIndex;
+        int guard = 0; // chặn vòng lặp vô hạn (an toàn)
+        while (guard++ < 50 && view != null && info != null) {
+            long screenId = getScreenIdForPageIndex(pageIndex);
+            CellLayout page = (screenId >= 0) ? getScreenWithId(screenId) : null;
+            if (page == null || screenId == EXTRA_EMPTY_SCREEN_ID1) {
+                // Không còn page thật -> tạo page mới (trước trang trống cuối).
+                screenId = LauncherAppState.getLauncherProvider().generateNewScreenId();
+                insertNewWorkspaceScreenBeforeEmptyScreen(screenId);
+                page = getScreenWithId(screenId);
+                if (page == null) return; // an toàn
+            }
+            int[] vacant = new int[2];
+            if (page.findVacantCell(info.spanX, info.spanY, vacant)) {
+                addInScreen(view, info.container, screenId, vacant[0], vacant[1], info.spanX, info.spanY);
+                updateItemPlacement(view, info, screenId, vacant[0], vacant[1]);
+                return;
+            }
+            // Page kế cũng full -> đẩy item cuối của nó sang page sau; đặt view vào ô vừa trống.
+            View nextBump = getLastReorderableItem(page, null);
+            if (nextBump == null || !(nextBump.getTag() instanceof ItemInfo)) return;
+            ItemInfo nextInfo = (ItemInfo) nextBump.getTag();
+            page.removeView(nextBump);
+            if (!page.findVacantCell(info.spanX, info.spanY, vacant)) {
+                // Vẫn không đủ chỗ (vd view là widget lớn) -> add lại nextBump, thoát an toàn.
+                addInScreen(nextBump, nextInfo.container, screenId, nextInfo.cellX, nextInfo.cellY,
+                        nextInfo.spanX, nextInfo.spanY);
+                return;
+            }
+            addInScreen(view, info.container, screenId, vacant[0], vacant[1], info.spanX, info.spanY);
+            updateItemPlacement(view, info, screenId, vacant[0], vacant[1]);
+            // Cascade tiếp với item vừa bị đẩy.
+            view = nextBump;
+            info = nextInfo;
+            pageIndex++;
+        }
+    }
+
+    /** Cập nhật LayoutParams + DB cho item vừa đặt vào (screenId, x, y). */
+    private void updateItemPlacement(View view, ItemInfo info, long screenId, int x, int y) {
+        if (view.getLayoutParams() instanceof CellLayout.LayoutParams) {
+            CellLayout.LayoutParams lp = (CellLayout.LayoutParams) view.getLayoutParams();
+            lp.cellX = lp.tmpCellX = x;
+            lp.cellY = lp.tmpCellY = y;
+            lp.isLockedToGrid = true;
+        }
+        LauncherModel.modifyItemInDatabase(mLauncher, info, info.container, screenId, x, y,
+                info.spanX, info.spanY);
+    }
+
     boolean createUserFolderIfNecessary(View newView, long container, CellLayout target,
                                         int[] targetCell, float distance, boolean external, DragView dragView,
                                         Runnable postAnimationRunnable) {
@@ -3087,7 +3230,12 @@ public class Workspace extends PagedView
             ShortcutInfo destInfo = (ShortcutInfo) v.getTag();
             // if the drag started here, we need to remove it from the workspace
             if (!external) {
-                getParentCellLayoutForView(mDragInfo.cell).removeView(mDragInfo.cell);
+                // Null-guard: kéo sang page khác / cell đã bị reparent -> getParentCellLayoutForView
+                // có thể trả null -> NPE. Chỉ removeView khi còn parent.
+                CellLayout parentCell = getParentCellLayoutForView(mDragInfo.cell);
+                if (parentCell != null) {
+                    parentCell.removeView(mDragInfo.cell);
+                }
             }
 
             Rect folderLocation = new Rect();
@@ -3134,7 +3282,11 @@ public class Workspace extends PagedView
 
                 // if the drag started here, we need to remove it from the workspace
                 if (!external) {
-                    getParentCellLayoutForView(mDragInfo.cell).removeView(mDragInfo.cell);
+                    // Null-guard như trên: tránh NPE khi cell không còn parent CellLayout.
+                    CellLayout parentCell = getParentCellLayoutForView(mDragInfo.cell);
+                    if (parentCell != null) {
+                        parentCell.removeView(mDragInfo.cell);
+                    }
                 }
                 return true;
             }
@@ -3240,15 +3392,31 @@ public class Workspace extends PagedView
                 if (foundCell) {
                     final ItemInfo info = (ItemInfo) cell.getTag();
                     if (hasMovedLayouts) {
-                        // Reparent the view
-                        CellLayout parentCell = getParentCellLayoutForView(cell);
-                        if (parentCell != null) {
-                            parentCell.removeView(cell);
-                        } else if (LauncherAppState.isDogfoodBuild()) {
-                            throw new NullPointerException("mDragInfo.cell has null parent");
+                        // Chỉ reparent khi TRANG ĐÍCH hợp lệ (tồn tại + không phải -1 / trang trống chưa
+                        // commit). Nếu không, addInScreen sẽ âm thầm không add (getScreenWithId==null) hoặc
+                        // ném RuntimeException (EXTRA_EMPTY) -> sau khi đã removeView, cell MẤT parent ->
+                        // NPE ở cell.getParent().getParent() bên dưới (crash "kéo app sang page khác").
+                        boolean validTargetScreen = screenId != -1
+                                && screenId != EXTRA_EMPTY_SCREEN_ID1
+                                && getScreenWithId(screenId) != null;
+                        if (validTargetScreen) {
+                            // Reparent the view
+                            CellLayout parentCell = getParentCellLayoutForView(cell);
+                            if (parentCell != null) {
+                                parentCell.removeView(cell);
+                            } else if (LauncherAppState.isDogfoodBuild()) {
+                                throw new NullPointerException("mDragInfo.cell has null parent");
+                            }
+                            addInScreen(cell, container, screenId, mTargetCell[0], mTargetCell[1],
+                                    info.spanX, info.spanY);
+                        } else {
+                            // Trang đích không hợp lệ -> KHÔNG di chuyển view (giữ cell ở trang cũ để luôn
+                            // còn parent, tránh crash). Trả item về đúng ô cũ + ghi DB theo trang gốc.
+                            CellLayout.LayoutParams curLp = (CellLayout.LayoutParams) cell.getLayoutParams();
+                            mTargetCell[0] = curLp.cellX;
+                            mTargetCell[1] = curLp.cellY;
+                            screenId = mDragInfo.screenId;
                         }
-                        addInScreen(cell, container, screenId, mTargetCell[0], mTargetCell[1],
-                                info.spanX, info.spanY);
                     }
 
                     // update the item's position after drop
@@ -3290,6 +3458,10 @@ public class Workspace extends PagedView
 
                     LauncherModel.modifyItemInDatabase(mLauncher, info, container, screenId, lp.cellX,
                             lp.cellY, item.spanX, item.spanY);
+                } else if (tryOverflowDropToNextPages(cell, container, dropTargetLayout, item)) {
+                    // Page FULL -> đã tràn item cuối sang page kế / tạo page mới, và đặt item kéo vào
+                    // đúng điểm thả ở page đích. Bỏ qua thông báo out-of-space. Phần animate cell vào
+                    // chỗ mới do đoạn chung phía dưới (parent = cell.getParent().getParent()) xử lý.
                 } else {
                     // If we can't find a drop location, we return the item to its original position
                     CellLayout.LayoutParams lp = (CellLayout.LayoutParams) cell.getLayoutParams();
@@ -3653,12 +3825,17 @@ public class Workspace extends PagedView
         float smallestDistSoFar = Float.MAX_VALUE;
 
         for (int i = 0; i < screenCount; i++) {
-            // The custom content screen is not a valid drag over option
-            if (mScreenOrder.get(i) == CUSTOM_CONTENT_SCREEN_ID) {
+            // The custom content screen is not a valid drag over option.
+            // Bounds-check mScreenOrder: số View (getChildCount) và model list mScreenOrder có thể
+            // LỆCH khi thêm/xoá trang trống giữa lúc kéo -> mScreenOrder.get(i) IOOBE.
+            if (i < mScreenOrder.size() && mScreenOrder.get(i) == CUSTOM_CONTENT_SCREEN_ID) {
                 continue;
             }
 
             CellLayout cl = (CellLayout) getChildAt(i);
+            if (cl == null) {
+                continue; // tránh NPE cl.getMatrix() khi getChildAt trả null
+            }
 
             final float[] touchXy = {originX, originY};
             // Transform the touch coordinates to the CellLayout's local coordinates
@@ -3919,6 +4096,12 @@ public class Workspace extends PagedView
         }
 
         public void onAlarm(Alarm alarm) {
+            // Đổi page lúc kéo (onEnterScrollArea -> setCurrentDropLayout(null)) có thể đặt
+            // mDragTargetLayout = null trong khi alarm reorder này còn pending -> NPE khi
+            // findNearestArea/performReorder trên layout null. Bỏ qua nếu không còn layout đích.
+            if (mDragTargetLayout == null) {
+                return;
+            }
             int[] resultSpan = new int[2];
             mTargetCell = findNearestArea((int) mDragViewVisualCenter[0],
                     (int) mDragViewVisualCenter[1], minSpanX, minSpanY, mDragTargetLayout,

@@ -74,6 +74,10 @@ public class SearchViewAdapter extends RecyclerView.Adapter implements Filterabl
                 applicationInfoArrayList.addAll(getSearchedInfoList());
             }
             filterResults.values = applicationInfoArrayList;
+            // BẮT BUỘC set count: Filter.onFilterComplete(count) dựa vào đây. Thiếu -> count luôn 0 ->
+            // SearchViewLayout coi như "không có kết quả" (mHasResult=false) -> khung result_app_box
+            // luôn GONE dù có app khớp. Đây là lý do kết quả search không hiện trên phần Gợi ý.
+            filterResults.count = applicationInfoArrayList.size();
             return filterResults;
         }
 

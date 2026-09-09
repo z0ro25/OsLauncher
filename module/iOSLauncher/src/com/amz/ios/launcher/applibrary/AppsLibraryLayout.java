@@ -32,6 +32,7 @@ import com.amz.ios.launcher.DeviceProfile;
 import com.amz.ios.launcher.ExtendedEditText;
 import com.amz.ios.launcher.Launcher;
 import com.amz.ios.launcher.R;
+import androidx.recyclerview.widget.RecyclerView;
 import com.amz.ios.launcher.bounce.BouncyRecyclerView;
 import com.amz.ios.launcher.bounce.OnOverPullListener;
 import com.amz.ios.launcher.model.AppNameComparator;
@@ -67,6 +68,9 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     public SearchResultAdapter mSearchResultAdapter;
     public ArrayList<AppCategory> mCategories = new ArrayList<>();
     public AppLibraryAdapter mAppLibraryAdapter = new AppLibraryAdapter();
+    // Số app của lần build category gần nhất — để ensureReady biết cần rebuild khi nội dung đổi
+    // (không chỉ dựa vào size()==10, vì category rỗng vẫn giữ size()==10 -> bỏ sót rebuild).
+    private int mLastBuiltAppCount = -1;
 
     public AppsLibraryLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs,0);
@@ -169,6 +173,19 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
             }
         });
 
+        // RealtimeBlurView không tự vẽ lại khi list con cuộn (chỉ invalidate lúc overpull). Vì vậy khi
+        // cuộn list search, dải kính giữ khung cũ -> icon app trượt dưới thanh search hiện ra "xuyên
+        // thấy". Ép blur vẽ lại theo từng frame cuộn để luôn frost đúng nội dung -> hết xuyên thấy,
+        // KHÔNG cần đổi màu nền.
+        RecyclerView.OnScrollListener blurInvalidator = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                mSearchBlurView.invalidate();
+            }
+        };
+        mTotalLibraryRV.addOnScrollListener(blurInvalidator);
+        mSearchResultRV.addOnScrollListener(blurInvalidator);
+
         mSearchWordET.setOnTouchListener(
             new OnTouchListener(){
                 @SuppressLint("ClickableViewAccessibility")
@@ -188,6 +205,17 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         );
 
         mSearchWordET.addTextChangedListener(mSearchWordWatcher);
+
+        // Bấm vào CẢ KHUNG search (nền ô) cũng mở search, không chỉ mỗi chữ hint "App Library".
+        // et_search ở start là wrap_content nên vùng chạm cũ chỉ ôm sát chữ; khung nền phủ hết bề rộng.
+        mSearchAppBoxLibrary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!flag) {
+                    transitionToEnd();
+                }
+            }
+        });
     }
 
     void setUpAdapter(){
@@ -197,7 +225,10 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     }
 
     public void setApps(ArrayList<AppInfo> apps){
-        mAppLibraryAdapter.mCategories = new SortAppsCallable(this,apps,0).call();
+        // SortAppsCallable.call() build lại mCategories (10 mục cố định) và trả về chính nó.
+        // Đưa qua setCategories() để adapter lọc ẩn folder rỗng trước khi render.
+        mAppLibraryAdapter.setCategories(new SortAppsCallable(this,apps,0).call());
+        mLastBuiltAppCount = (apps != null) ? apps.size() : 0;
         mAppLibraryAdapter.notifyDataSetChanged();
         mTotalLibraryRV.setAdapter(mAppLibraryAdapter);
     }
@@ -217,7 +248,11 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     public void ensureReady(ArrayList<AppInfo> apps){
         boolean categoriesEmpty = (mCategories == null || mCategories.size() != 10);
         boolean adapterMissing = (mTotalLibraryRV.getAdapter() == null);
-        if ((categoriesEmpty || adapterMissing) && apps != null && !apps.isEmpty()) {
+        // Rebuild cả khi số app đã đổi so với lần build trước: lần build đầu có thể chạy với danh
+        // sách app thiếu (cold-load qua bindAppsAdded) -> mCategories vẫn size()==10 nhưng thiếu app,
+        // trước đây guard cũ bỏ qua khiến folder trống dù model đã đủ app.
+        boolean countChanged = (apps != null && apps.size() != mLastBuiltAppCount);
+        if ((categoriesEmpty || adapterMissing || countChanged) && apps != null && !apps.isEmpty()) {
             setApps(apps);
         }
         // Khôi phục hiển thị danh sách category (phòng khi transition search để lại alpha=0).

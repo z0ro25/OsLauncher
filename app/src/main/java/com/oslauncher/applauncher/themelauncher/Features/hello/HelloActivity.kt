@@ -1,13 +1,17 @@
 package com.oslauncher.applauncher.themelauncher.Features.hello
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Handler
 import androidx.core.view.isVisible
 import com.amz.ios.launcher.searchlauncher.SearchLauncher
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
+import com.oslauncher.applauncher.themelauncher.Features.wallpaperonboarding.SelectBackgroundActivity
 import com.oslauncher.applauncher.themelauncher.R
 import com.oslauncher.applauncher.themelauncher.databinding.ActivityHelloBinding
 import com.oslauncher.applauncher.themelauncher.extensions.launchActivity
 import com.oslauncher.applauncher.themelauncher.theme.AppThemeManager
+import com.oslauncher.applauncher.themelauncher.tool.sharePreferenceTool.SharePrefUtils
 
 
 class HelloActivity : BaseActivity<ActivityHelloBinding>() {
@@ -17,8 +21,11 @@ class HelloActivity : BaseActivity<ActivityHelloBinding>() {
     override fun initView() {
         binding.frAdsHello.isVisible = false
         val dark = AppThemeManager.isDark(this)
-        // Nền + Lottie theo theme: dark -> bg_hello_dark/hello_dark, light -> bg_hello/hello_light.
-        binding.root.setBackgroundResource(if (dark) R.drawable.bg_hello_dark else R.drawable.bg_hello)
+        // Nền màn Hello: ưu tiên hình nền user đã chọn ở màn Chọn hình nền (onboarding); nếu không có
+        // (chưa chọn / lỗi đọc) thì fallback nền theo theme (bg_hello / bg_hello_dark).
+        if (!applyOnboardingBackground()) {
+            binding.root.setBackgroundResource(if (dark) R.drawable.bg_hello_dark else R.drawable.bg_hello)
+        }
         binding.lottieAnimationView.repeatCount = com.airbnb.lottie.LottieDrawable.INFINITE
         binding.lottieAnimationView.setAnimation(
             if (dark) R.raw.hello_dark else R.raw.hello_light
@@ -41,5 +48,24 @@ class HelloActivity : BaseActivity<ActivityHelloBinding>() {
 
     override fun dataObservable() {
 
+    }
+
+    /**
+     * Đặt nền màn Hello = hình nền user đã chọn ở onboarding (asset đã lưu qua SharePref).
+     * @return true nếu đã đặt được; false nếu không có/đọc lỗi (để caller fallback nền theme).
+     */
+    private fun applyOnboardingBackground(): Boolean {
+        val assetPath = SharePrefUtils.getString(
+            this, SelectBackgroundActivity.HELLO_BG_ASSET_KEY, ""
+        )
+        if (assetPath.isNullOrEmpty()) return false
+        return try {
+            val bm = assets.open(assetPath).use { BitmapFactory.decodeStream(it) } ?: return false
+            binding.root.background = BitmapDrawable(resources, bm)
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 }

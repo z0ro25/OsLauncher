@@ -342,17 +342,9 @@ public final class Utilities {
                     bitmapDrawable.setTargetDensity(context.getResources().getDisplayMetrics());
                 }
             }
-            int sourceWidth = icon.getIntrinsicWidth();
-            int sourceHeight = icon.getIntrinsicHeight();
-            if (sourceWidth > 0 && sourceHeight > 0) {
-                // Scale the icon proportionally to the icon dimensions
-                final float ratio = (float) sourceWidth / sourceHeight;
-                if (sourceWidth > sourceHeight) {
-                    height = (int) (width / ratio);
-                } else if (sourceHeight > sourceWidth) {
-                    width = (int) (height * ratio);
-                }
-            }
+            // fitXY: LẤP ĐẦY ô vuông (bỏ scale giữ tỉ lệ / letterbox) để logo phủ khít, đồng bộ hình
+            // vuông. Ảnh logo vốn vuông bo góc sẵn nên KHÔNG méo; nguồn không vuông (hiếm) bị kéo giãn
+            // nhẹ - chấp nhận để mọi icon đồng bộ. width = height = iconBitmapSize (đã set ở trên).
 
             // no intrinsic size --> use default size
             int textureWidth = iconBitmapSize;
@@ -377,13 +369,93 @@ public final class Utilities {
                 canvas.drawRect(left, top, left+width, top+height, debugPaint);
             }
 
-            sOldBounds.set(icon.getBounds());
-            icon.setBounds(left, top, left+width, top+height);
-            icon.draw(canvas);
-            icon.setBounds(sOldBounds);
+            // App CH Play dùng adaptive icon -> icon.draw() áp MASK TRÒN mặc định của hệ thống
+            // (IconShapeOverride qua reflection thường vô hiệu trên Android mới) -> logo TRÒN. Vẽ TRỰC
+            // TIẾP 2 lớp nền + tiền cảnh phủ khít ô để BỎ mask tròn -> ra hình vuông.
+            if (ATLEAST_OREO && icon instanceof android.graphics.drawable.AdaptiveIconDrawable) {
+                android.graphics.drawable.AdaptiveIconDrawable a =
+                        (android.graphics.drawable.AdaptiveIconDrawable) icon;
+                Drawable bg = a.getBackground();
+                Drawable fg = a.getForeground();
+                // 2 lớp adaptive có nội dung ở VÙNG AN TOÀN giữa (~2/3); phần mép là overhang để mask
+                // cắt. Nếu vẽ đúng full ô -> nội dung chỉ ~2/3 -> logo BÉ đi. Phóng layer lên (bounds
+                // tràn ra -inset..size+inset theo getExtraInsetFraction=0.25 -> ~1.5x) để vùng an toàn
+                // LẤP ĐẦY ô; phần overhang tràn ngoài bị canvas cắt.
+                int inset = Math.round(textureWidth
+                        * android.graphics.drawable.AdaptiveIconDrawable.getExtraInsetFraction());
+                int bl = -inset, bt = -inset, br = textureWidth + inset, bb = textureHeight + inset;
+                if (bg != null) {
+                    bg.setBounds(bl, bt, br, bb);
+                    bg.draw(canvas);
+                }
+                if (fg != null) {
+                    fg.setBounds(bl, bt, br, bb);
+                    fg.draw(canvas);
+                }
+            } else {
+                sOldBounds.set(icon.getBounds());
+                // centerCrop: scale GIỮ TỈ LỆ để phủ kín ô vuông (cạnh lớn hơn phủ, phần thừa bị canvas
+                // cắt) -> KHÔNG méo. Thay fitXY (kéo giãn nguồn không vuông gây méo). Nguồn vuông thì
+                // trùng fitXY (không cắt).
+                int sw = icon.getIntrinsicWidth();
+                int sh = icon.getIntrinsicHeight();
+                if (sw > 0 && sh > 0) {
+                    float s = Math.max((float) textureWidth / sw, (float) textureHeight / sh);
+                    int dw = Math.round(sw * s);
+                    int dh = Math.round(sh * s);
+                    int l = (textureWidth - dw) / 2;
+                    int t = (textureHeight - dh) / 2;
+                    icon.setBounds(l, t, l + dw, t + dh);
+                } else {
+                    icon.setBounds(0, 0, textureWidth, textureHeight);
+                }
+                icon.draw(canvas);
+                icon.setBounds(sOldBounds);
+            }
             canvas.setBitmap(null);
 
-            return bitmap;
+            // Bo góc đồng bộ cho MỌI icon (KHÔNG thêm nền): cắt 4 góc theo rounded-rect. Logo theme vốn
+            // bo góc (góc trong suốt) nên clip trùng, không đổi; adaptive/legacy vuông -> được bo góc.
+            return roundIconCorners(bitmap);
+        }
+    }
+
+    /** Độ dày viền rim iOS 26 theo % cạnh icon (~1.5%). Tăng để viền rõ hơn, giảm để mảnh hơn. */
+    private static final float RIM_STROKE_FRACTION = 0.015f;
+
+    /** Bo 4 góc bitmap icon theo rounded-rect (~22.37% cạnh, xấp xỉ squircle iOS) + viền rim iOS 26. */
+    private static Bitmap roundIconCorners(Bitmap src) {
+        try {
+            int w = src.getWidth();
+            int h = src.getHeight();
+            if (w <= 0 || h <= 0) return src;
+            Bitmap out = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(out);
+            float r = Math.min(w, h) * 0.2237f;
+            android.graphics.Path path = new android.graphics.Path();
+            path.addRoundRect(new android.graphics.RectF(0, 0, w, h), r, r,
+                    android.graphics.Path.Direction.CW);
+            c.clipPath(path);
+            c.drawBitmap(src, 0, 0, new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+
+            // Viền rim kiểu iOS 26: stroke mảnh chạy dọc mép bo góc, gradient SÁNG ở đỉnh -> TỐI ở đáy
+            // tạo cảm giác bề mặt lồi/sắc. Vẽ trong clip + inset nửa stroke để không bị cắt mất nửa ngoài.
+            float strokeW = Math.max(1f, Math.min(w, h) * RIM_STROKE_FRACTION);
+            float inset = strokeW / 2f;
+            android.graphics.RectF rimRect = new android.graphics.RectF(inset, inset, w - inset, h - inset);
+            float rimR = Math.max(0f, r - inset);
+            Paint rim = new Paint(Paint.ANTI_ALIAS_FLAG);
+            rim.setStyle(Paint.Style.STROKE);
+            rim.setStrokeWidth(strokeW);
+            rim.setShader(new android.graphics.LinearGradient(
+                    0, 0, 0, h,
+                    new int[]{0x59FFFFFF, 0x14FFFFFF, 0x33000000},
+                    new float[]{0f, 0.5f, 1f},
+                    android.graphics.Shader.TileMode.CLAMP));
+            c.drawRoundRect(rimRect, rimR, rimR, rim);
+            return out;
+        } catch (Throwable t) {
+            return src;
         }
     }
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Màn "Chọn hình nền" (onboarding) — chèn sau màn Permission, trước Home.
+  Nền + chữ dùng token onb_* để tự đổi theo light/dark như các màn onboarding khác.
+  ViewPager2 hiển thị hình nền kiểu carousel: trang giữa to, 2 bên thu nhỏ thò mép
+  (cấu hình offscreenPageLimit + PageTransformer trong SelectBackgroundActivity).
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/onb_bg">
+
+    <!-- Tiêu đề: canh giữa ngang màn hình -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:includeFontPadding="false"
+        android:text="@string/select_bg_title"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Nút "Bỏ qua": pill góc phải, cùng hàng tiêu đề -->
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_skip_pill"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="10dp"
+        android:text="@string/select_bg_skip"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_title" />
+
+    <!-- Mô tả -->
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:text="@string/select_bg_desc"
+        android:textColor="@color/onb_text_secondary"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <!-- Carousel hình nền -->
+
+    <!-- Nút "Đặt làm hình nền" -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_set_wallpaper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_set_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_set_wallpaper_button"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="18dp"
+        android:text="@string/select_bg_set"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Loading khi đang set hình nền -->
+    <FrameLayout
+        android:id="@+id/fr_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

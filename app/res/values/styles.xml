@@ -79,6 +79,12 @@
         <item name="cornerSize">18dp</item>
     </style>
 
+    <!-- Bo góc ảnh hình nền màn Chọn hình nền (onboarding) -->
+    <style name="SelectBgImageShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
     <!-- Nhãn nhóm card (App Function Settings / Other / Device ID) -->
     <style name="HomeGroupLabel">
         <item name="android:layout_width">wrap_content</item>

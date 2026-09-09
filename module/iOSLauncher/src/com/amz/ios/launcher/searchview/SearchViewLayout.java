@@ -114,6 +114,9 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     private boolean mSearchStatusBarHidden;
     // === Máy mới (API>=30): ime-inset qua decor ===
     private boolean mSearchImeListenerAttached;
+    // Chiều cao bàn phím hiện tại (px); > 0 nghĩa là bàn phím đang hiện. Dùng cho cử chỉ đóng: khi
+    // bàn phím che vùng đáy thì cho đóng bằng vuốt từ bất kỳ đâu (xem SearchPullDetector).
+    private int mKeyboardHeightPx = 0;
     // CHÚ Ý: SearchViewLayout extends ConstraintLayout -> kế thừa nested type View.OnApplyWindowInsetsListener
     // (platform) nên tên NGẮN "OnApplyWindowInsetsListener" luôn resolve về platform (che import androidx) —
     // phải FULLY-QUALIFIED kiểu androidx.core.view.OnApplyWindowInsetsListener thì ViewCompat mới nhận.
@@ -361,6 +364,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
      * {@code SearchPullDetector} đều gọi hàm này.
      */
     public void restoreSoftInputMode() {
+        mKeyboardHeightPx = 0; // đóng search -> reset cờ IME
         detachKbTracking(); // gỡ theo đúng API (decor ime-listener / legacy OnGlobalLayout)
         // Bỏ padding-top (nếu máy thấp chừa vì bar không ẩn được) và padding-bottom (chèn vì bàn phím).
         if (mSearchTopInsetPx != 0 || getPaddingBottom() != 0) {
@@ -426,6 +430,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
      */
     private void applyKeyboardHeightToSearchBox(int kbPx) {
         if (mState != SearchViewState.OPENING && mState != SearchViewState.OPENED) return;
+        mKeyboardHeightPx = kbPx; // cập nhật cờ IME cho cử chỉ đóng
         int gap = Math.round(SEARCH_BOTTOM_GAP_DP * getResources().getDisplayMetrics().density);
         int target = kbPx > 0 ? kbPx + gap : 0;
         ConstraintLayout.LayoutParams lp =
@@ -789,6 +794,22 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
 
     public boolean isOpening(){
         return mState == SearchViewState.OPENING;
+    }
+
+    /**
+     * Điểm chạm (toạ độ màn hình rawX/rawY) có nằm trong "khoảng chống" (dismiss_spacer) không.
+     * Cử chỉ đóng: chỉ đóng khi vuốt BẮT ĐẦU trong vùng trống này; vuốt trên result/suggestion -> cuộn.
+     * Spacer nằm trong ScrollView nên vị trí đổi theo cuộn — chỉ đúng khi nó đang hiện trên màn.
+     */
+    public boolean isTouchInDismissSpacer(float rawX, float rawY){
+        View spacer = findViewById(R.id.dismiss_spacer);
+        if (spacer == null || spacer.getVisibility() != View.VISIBLE || spacer.getHeight() == 0) {
+            return false;
+        }
+        int[] loc = new int[2];
+        spacer.getLocationOnScreen(loc);
+        return rawX >= loc[0] && rawX <= loc[0] + spacer.getWidth()
+                && rawY >= loc[1] && rawY <= loc[1] + spacer.getHeight();
     }
 
     public SearchViewState getState(){

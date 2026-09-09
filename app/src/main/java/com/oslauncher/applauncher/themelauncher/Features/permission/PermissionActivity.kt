@@ -10,7 +10,7 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.oslauncher.applauncher.themelauncher.Base.BaseActivity
-import com.oslauncher.applauncher.themelauncher.Features.home.HomeActivity
+import com.oslauncher.applauncher.themelauncher.Features.wallpaperonboarding.SelectBackgroundActivity
 import com.oslauncher.applauncher.themelauncher.databinding.ActivityPermissionBinding
 import com.oslauncher.applauncher.themelauncher.extensions.launchActivity
 import com.oslauncher.applauncher.themelauncher.tool.sharePreferenceTool.SharePrefUtils
@@ -89,7 +89,8 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
 
             btnComplete.setOnClickListener {
                 SharePrefUtils.putBoolean(this@PermissionActivity, "PERMISSION_SHOWED", true)
-                launchActivity<HomeActivity> { }
+                // Onboarding: qua màn Chọn hình nền trước khi vào Home (bước cuối setup).
+                launchActivity<SelectBackgroundActivity> { }
             }
         }
     }

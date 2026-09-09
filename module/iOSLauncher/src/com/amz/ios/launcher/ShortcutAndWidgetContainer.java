@@ -77,6 +77,12 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements View.OnTouc
         mClickTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
         setOnTouchListener(this);
+
+        // Dấu trừ (chế độ edit) của icon vẽ nhô lên KHỎI mép trên của chính view (chồng góc icon). Nếu
+        // clipChildren=true (mặc định), phần vẽ vượt khỏi bounds icon bị CẮT -> "dấu trừ bị hàng trên
+        // cắt mất 1 phần". Tắt clip ở container để icon được vẽ ra ngoài bounds, dấu trừ hiện đủ (cùng
+        // cách đã làm cho widget qua LauncherAppWidgetHostView.disableClipForBadge).
+        setClipChildren(false);
     }
 
     public void setCellDimensions(int cellWidth, int cellHeight, int widthGap, int heightGap,

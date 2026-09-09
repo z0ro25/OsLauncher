@@ -158,4 +158,9 @@
         <item>Mapas e navegação</item>
         <item>Produtividade</item>
     </string-array>
+    <!-- Màn Chọn hình nền (onboarding) -->
+    <string name="select_bg_title">Escolher papel de parede</string>
+    <string name="select_bg_desc">Escolha um papel de parede que você goste para a tela inicial do seu novo launcher.</string>
+    <string name="select_bg_skip">Ignorar</string>
+    <string name="select_bg_set">Definir como papel de parede</string>
 </resources>

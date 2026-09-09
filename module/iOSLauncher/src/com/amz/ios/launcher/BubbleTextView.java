@@ -1004,8 +1004,12 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
             Rect bound = new Rect();
             getIconBounds(bound);
 
-            int left = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f) + getDelIconLeftPadding();
-            int top = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f);
+            // Chồng lên GÓC TRÊN-TRÁI của logo: tâm dấu trừ = (bound.left, bound.top). Trước đây top=0
+            // (mép trên cả view, không bám icon) + left qua getDelIconLeftPadding nên dấu trừ KHÔNG neo
+            // đúng góc icon và không đồng bộ với widget/folder. Scale co quanh tâm góc này.
+            int half = (int) (mDelIconSize * scale * .5f);
+            int left = bound.left - half;
+            int top = bound.top - half;
 
             Rect rect = new Rect(
                     left,
@@ -1078,12 +1082,11 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
         Rect bound = new Rect();
         getIconBounds(bound);
 
+        // Phải khớp ĐÚNG vị trí vẽ ở drawDelIcon() (tâm = góc trên-trái icon): left/top đều = bound - half.
         int scale = 1;
-        // BUG FIX: thiếu lề trái nên vùng chạm LỆCH khỏi dấu trừ đang vẽ (drawDelIcon() có cộng lề).
-        // Dùng CHUNG getDelIconLeftPadding() với lúc vẽ để 2 chỗ luôn khớp, kể cả trong hotseat
-        // (ô hotseat rộng khác ô workspace).
-        int left = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f) + getDelIconLeftPadding();
-        int top = (int)(mDelIconSize / 2 - mDelIconSize * scale * .5f);
+        int half = mDelIconSize / 2;
+        int left = bound.left - half;
+        int top = bound.top - half;
 
         // Nới vùng chạm ra mỗi phía 1/4 kích thước dấu trừ: dấu trừ khá nhỏ (45% icon), chạm sát mép
         // rất dễ trượt ra ngoài -> rơi xuống nhánh mở app. Nới nhẹ để bấm "ăn" như iOS.

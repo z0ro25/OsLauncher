@@ -691,9 +691,19 @@ public class BlurScreenLayout extends InsettableFrameLayout implements ViewGroup
                                 if (!isOpeningLeftPage && !isOpeningAppsLibrary && !isOpeningSearchView) {
                                     return true;
                                 }
-                                float alpha = this.mBlurScreenLayout.getAlpha();
-                                this.mBlurScreenLayout.setBackground(drawable);
-                                interpolator = this.mBlurScreenLayout.animate().alpha(alpha).setDuration((long) (255.0f * alpha)).setInterpolator(new DecelerateInterpolator());
+                                if (isOpeningSearchView) {
+                                    // Màn search: nền blur đích là hiển thị đầy (alpha 1.0). Trước đây animate
+                                    // về getAlpha() HIỆN TẠI -> nếu bitmap (dựng trên worker thread) về TRỄ
+                                    // lúc alpha đang ~0 (kéo nhanh/đang mở), nó animate về ~0: có background
+                                    // nhưng trong suốt = "blur lúc được lúc không". Ép về 1.0 để nền luôn hiện
+                                    // khi mở search (khớp animator open() cũng ramp về 1.0).
+                                    this.mBlurScreenLayout.setBackground(drawable);
+                                    interpolator = this.mBlurScreenLayout.animate().alpha(1.0f).setDuration(268L).setInterpolator(new DecelerateInterpolator());
+                                } else {
+                                    float alpha = this.mBlurScreenLayout.getAlpha();
+                                    this.mBlurScreenLayout.setBackground(drawable);
+                                    interpolator = this.mBlurScreenLayout.animate().alpha(alpha).setDuration((long) (255.0f * alpha)).setInterpolator(new DecelerateInterpolator());
+                                }
                             }
                         }
                         interpolator.start();

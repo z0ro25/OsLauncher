@@ -14,7 +14,9 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.amz.ios.launcher.Launcher;
 import com.amz.ios.launcher.R;
@@ -113,8 +115,12 @@ public class GlassBlurView extends View {
                 int top = Math.max(0, Math.min(cy - side / 2, blur.getHeight() - side));
                 mSrcRect.set(left, top, left + side, top + side);
             } else {
-                // Vị trí view trong cửa sổ = vị trí trên màn (launcher fullscreen) -> crop wallpaper.
-                getLocationInWindow(mLoc);
+                // Bitmap blur có kích thước bằng MÀN HÌNH -> phải crop theo vị trí THẬT trên màn.
+                // Trước đây dùng getLocationInWindow với giả định "window luôn top=0"; giả định vỡ khi
+                // status bar ẩn/hiện hoặc màn search mở (framework dịch/re-layout cửa sổ) -> location
+                // trong-cửa-sổ lệch với vị trí màn -> nền bị "đẩy xuống". getLocationOnScreen luôn khớp
+                // với bitmap cỡ-màn nên nền đứng yên bất kể offset cửa sổ.
+                getLocationOnScreen(mLoc);
                 int left = Math.max(0, Math.min(mLoc[0], blur.getWidth() - 1));
                 int top = Math.max(0, Math.min(mLoc[1], blur.getHeight() - 1));
                 int right = Math.min(blur.getWidth(), left + w);
@@ -148,8 +154,22 @@ public class GlassBlurView extends View {
 
     /** Lấy/ dựng bitmap wallpaper-đã-blur scale về kích thước màn hiện tại (cache tĩnh). */
     private Bitmap ensureScreenBlur() {
-        int sw = getResources().getDisplayMetrics().widthPixels;
-        int sh = getResources().getDisplayMetrics().heightPixels;
+        // Scale bitmap theo kích thước màn THẬT (getRealMetrics: gồm cả status/nav bar) để KHỚP hệ toạ
+        // độ getLocationOnScreen dùng khi crop (onDraw). Nếu dùng displayMetrics thường (vùng content,
+        // đã trừ status/nav bar) thì bitmap "ngắn" hơn hệ toạ độ crop -> lệch đúng bằng chiều cao bar
+        // -> nền clock bị "đẩy xuống". Hai bên cùng hệ màn-thật thì nền đứng yên mọi lúc.
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        try {
+            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            if (wm != null && wm.getDefaultDisplay() != null) {
+                DisplayMetrics real = new DisplayMetrics();
+                wm.getDefaultDisplay().getRealMetrics(real);
+                dm = real;
+            }
+        } catch (Throwable ignored) {
+        }
+        int sw = dm.widthPixels;
+        int sh = dm.heightPixels;
         if (sScreenBlur != null && !sScreenBlur.isRecycled()
                 && sScreenW == sw && sScreenH == sh) {
             return sScreenBlur;

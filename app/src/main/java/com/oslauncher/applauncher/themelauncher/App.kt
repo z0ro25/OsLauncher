@@ -24,7 +24,6 @@ class App : BaseLauncherApplication(), ActivityLifecycleCallbacks {
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        setUpAdjust()
         registerActivityLifecycleCallbacks(this)
     }
 
@@ -33,11 +32,9 @@ class App : BaseLauncherApplication(), ActivityLifecycleCallbacks {
     }
 
     override fun onActivityResumed(activity: Activity) {
-        Adjust.onResume()
     }
 
     override fun onActivityPaused(activity: Activity) {
-        Adjust.onPause()
     }
 
     override fun onActivityStopped(activity: Activity) {
@@ -53,15 +50,7 @@ class App : BaseLauncherApplication(), ActivityLifecycleCallbacks {
     }
 
     private fun setUpAdjust() {
-        val environment: String = AdjustConfig.ENVIRONMENT_PRODUCTION
-        val config: AdjustConfig = AdjustConfig(this, "adjust key", environment)
-        config.setLogLevel(LogLevel.VERBOSE)
-        config.setFbAppId(getString(R.string.facebook_app_id))
-        config.setDefaultTracker("adjust key")
-        config.setSendInBackground(true)
-        Adjust.onCreate(config)
-        // Enable the SDK
-        Adjust.setEnabled(true)
+
     }
 
     fun buildDebug(): Boolean? = false

@@ -79,7 +79,14 @@ public class AppSuggestionAdapter extends RecyclerView.Adapter {
                             if (componentName == null || (intent = Intent.makeRestartActivityTask(componentName)) == null) {
                                 return;
                             }
-                            mLauncher.startActivity(intent);
+                            // Click widget "có sẵn" (App Suggestion) mở app -> gate interstitial trước.
+                            final Intent launchIntent = intent;
+                            com.amz.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, new Runnable() {
+                                @Override
+                                public void run() {
+                                    mLauncher.startActivity(launchIntent);
+                                }
+                            });
                         }
                     }
             );

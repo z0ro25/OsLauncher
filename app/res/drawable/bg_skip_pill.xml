@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền pill cho nút "Bỏ qua" ở màn Chọn hình nền. Dùng token onb_card để tự đổi theo light/dark. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_card" />
+    <corners android:radius="100dp" />
+</shape>

@@ -224,19 +224,25 @@ public class FavouriteContactWidget extends BlurConstraintLayoutWidget implement
             }
         }
         else if (v == mMoreIconIV){
-            boolean z = true;
-            boolean z2 = !this.u;
-            this.u = z2;
-            RecyclerView rv;
-            if (z2) {
-                this.mMoreIconIV.animate().rotation(90.0f).setDuration(268L).start();
-                rv = this.mFavouriteContactAllRV;
-            } else {
-                this.mMoreIconIV.animate().rotation(0.0f).setDuration(268L).start();
-                rv = this.mFavouriteContactAllRV;
-                z = false;
-            }
-            w(rv, z);
+            // Mở rộng/thu gọn list là click "widget có sẵn" -> gate interstitial trước (trừ nút xin quyền ở nhánh trên).
+            com.amz.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, new Runnable() {
+                @Override
+                public void run() {
+                    boolean z = true;
+                    boolean z2 = !u;
+                    u = z2;
+                    RecyclerView rv;
+                    if (z2) {
+                        mMoreIconIV.animate().rotation(90.0f).setDuration(268L).start();
+                        rv = mFavouriteContactAllRV;
+                    } else {
+                        mMoreIconIV.animate().rotation(0.0f).setDuration(268L).start();
+                        rv = mFavouriteContactAllRV;
+                        z = false;
+                    }
+                    w(rv, z);
+                }
+            });
         }
     }
 

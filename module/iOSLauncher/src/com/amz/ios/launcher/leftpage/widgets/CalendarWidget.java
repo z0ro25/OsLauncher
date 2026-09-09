@@ -167,20 +167,27 @@ public class CalendarWidget extends BlurConstraintLayoutWidget implements View.O
     @Override
     public void onClick(View v) {
         if (v == mMoreIconIV){
-            boolean z = true;
-            this.showMore = !this.showMore;
-            RecyclerView recyclerView;
-            if (showMore) {
-                this.mMoreIconIV.animate().rotation(90.0f).setDuration(268L).start();
-                recyclerView = mEventAllRV;
-            } else {
-                this.mMoreIconIV.animate().rotation(0.0f).setDuration(268L).start();
-                recyclerView = mEventOneRV;
-                z = false;
-            }
-            w(recyclerView, z);
+            // Mở rộng/thu gọn list là click "widget có sẵn" -> gate interstitial trước (trừ nút xin quyền).
+            com.amz.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, new Runnable() {
+                @Override
+                public void run() {
+                    boolean z = true;
+                    showMore = !showMore;
+                    RecyclerView recyclerView;
+                    if (showMore) {
+                        mMoreIconIV.animate().rotation(90.0f).setDuration(268L).start();
+                        recyclerView = mEventAllRV;
+                    } else {
+                        mMoreIconIV.animate().rotation(0.0f).setDuration(268L).start();
+                        recyclerView = mEventOneRV;
+                        z = false;
+                    }
+                    w(recyclerView, z);
+                }
+            });
         }
         else if (v == mPermissionRequestBtn){
+            // Nút xin quyền: KHÔNG gate ad (tránh chen ngang dialog xin quyền hệ thống).
             // TODO: 2023.11.22 Request Permission
         }
     }

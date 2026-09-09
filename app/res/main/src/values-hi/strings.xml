@@ -158,4 +158,9 @@
         <item>मानचित्र और नेविगेशन</item>
         <item>उत्पादकता</item>
     </string-array>
+    <!-- Màn Chọn hình nền (onboarding) -->
+    <string name="select_bg_title">वॉलपेपर चुनें</string>
+    <string name="select_bg_desc">अपने नए लॉन्चर की होम स्क्रीन के लिए पसंदीदा वॉलपेपर चुनें।</string>
+    <string name="select_bg_skip">छोड़ें</string>
+    <string name="select_bg_set">वॉलपेपर सेट करें</string>
 </resources>

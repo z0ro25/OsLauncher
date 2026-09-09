@@ -106,6 +106,18 @@ public class SearchPullDetector {
             if ((mSearchViewLayout.isOpening() || mSearchViewLayout.isOpened())
                     && Math.abs(distanceX) < Math.abs(distanceY)
                     && distanceY > mTouchSlop) {
+                // Đã mở HẲN: chỉ ĐÓNG khi cử chỉ vuốt lên BẮT ĐẦU từ vùng ĐÁY view (nơi ô tìm kiếm) —
+                // e1.getY() là điểm chạm đầu (toạ độ toàn màn). Vuốt ở vùng list phía trên -> để
+                // scroll_view cuộn, KHÔNG đóng (LauncherRootView vẫn gọi super.dispatchTouchEvent nên
+                // ScrollView nhận touch). Trước đây đóng khi list cuộn hết đáy gây hụt: cuộn tới cuối là
+                // bị ẩn luôn. Ngưỡng CLOSE_FROM_BOTTOM_FRACTION dễ chỉnh nếu muốn vùng đáy rộng/hẹp hơn.
+                // Đã mở HẲN: chỉ ĐÓNG khi vuốt BẮT ĐẦU trong "khoảng chống" (dismiss_spacer, vùng trống
+                // dưới suggestion). Vuốt trên result/suggestion -> nhường ScrollView CUỘN (cuộn được hết
+                // tới cuối, không tự tắt). Khi đang KÉO DỞ (OPENING) thì vẫn đóng như cũ.
+                if (mSearchViewLayout.isOpened()
+                        && !mSearchViewLayout.isTouchInDismissSpacer(e1.getRawX(), e1.getRawY())) {
+                    return false;
+                }
                 isContinueScroll = false;                 // dừng bám-tay nếu đang kéo mở dở
                 close(borderTop);                         // đóng có animation + hạ nền blur (PullEndAnimListenerAdapter)
                 // Đánh dấu CLOSING ngay để các onScroll kế tiếp trong CÙNG cử chỉ không gọi close() lặp

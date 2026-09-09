@@ -88,7 +88,18 @@ public class EventListAdapter extends RecyclerView.Adapter {
                                 buildUpon.appendPath(Long.toString(i));
                                 intent.setData(buildUpon.build());
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mLauncher.startActivity(intent);
+                                // Click Event (widget lịch có sẵn) mở app -> gate interstitial trước.
+                                final Intent launchIntent = intent;
+                                com.amz.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            mLauncher.startActivity(launchIntent);
+                                        } catch (Throwable thr) {
+                                            Toast.makeText(mLauncher, mLauncher.getString(R.string.application_not_found), 1).show();
+                                        }
+                                    }
+                                });
                             }
                             catch (Throwable thr){
                                 Toast.makeText(mLauncher, mLauncher.getString(R.string.application_not_found), 1).show();

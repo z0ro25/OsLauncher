@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền nút "Đặt làm hình nền" — xanh accent iOS, bo tròn mạnh (pill). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_accent" />
+    <corners android:radius="100dp" />
+</shape>

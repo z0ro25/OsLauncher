@@ -13,7 +13,33 @@ import java.util.ArrayList;
 
 public class AppLibraryAdapter extends RecyclerView.Adapter {
 
+    // Danh sách đầy đủ (giữ nguyên thứ tự 10 category cố định) — nguồn dữ liệu gốc.
     ArrayList<AppCategory> mCategories;
+    // Danh sách HIỂN THỊ: chỉ các category có app (>0) — dùng để render/đếm, ẩn folder rỗng.
+    private final ArrayList<AppCategory> mVisible = new ArrayList<>();
+
+    /** Gán danh sách category đầy đủ rồi lọc lại danh sách hiển thị (ẩn folder rỗng). */
+    public void setCategories(ArrayList<AppCategory> categories) {
+        mCategories = categories;
+        rebuildVisible();
+    }
+
+    /** Lọc lại danh sách hiển thị từ mCategories và refresh (gọi khi nội dung category đổi). */
+    public void refresh() {
+        rebuildVisible();
+        notifyDataSetChanged();
+    }
+
+    private void rebuildVisible() {
+        mVisible.clear();
+        if (mCategories != null) {
+            for (AppCategory c : mCategories) {
+                if (c != null && c.mApps != null && !c.mApps.isEmpty()) {
+                    mVisible.add(c);
+                }
+            }
+        }
+    }
 
     @NonNull
     @Override
@@ -29,10 +55,10 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.mItemFull.setApps(
-                    mCategories.get(position).mApps
+                    mVisible.get(position).mApps
             );
             itemViewHolder.mItemFull.setTitle(
-                    mCategories.get(position).mCategoryName
+                    mVisible.get(position).mCategoryName
             );
         }
 
@@ -40,8 +66,7 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (mCategories == null) return 0;
-        return mCategories.size();
+        return mVisible.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -196,15 +198,21 @@ public class AppsLibraryItemFull extends ConstraintLayout implements View.OnClic
         int restItemSize = Math.min(infos.size() - 3, 4);
 
         int i = 0;
+        float miniRadius = smallIconSize * 0.2237f; // bo góc mini logo (squircle iOS)
         while (i < restItemSize) {
             int row = i % 2;
             int cell = i / 2;
             int left = ((row + 1) * padding) + (row * smallIconSize);
             int top = ((cell + 1) * padding) + (cell * smallIconSize);
-            canvas.drawBitmap(
-                    infos.get(i + 3).getIcon(),
-                    (Rect) null,
-                    new Rect(left, top, left + smallIconSize, top + smallIconSize), paint);
+            Rect dst = new Rect(left, top, left + smallIconSize, top + smallIconSize);
+            // Clip mỗi mini logo vào khung bo góc rồi mới vẽ -> logo trong ô composite cũng bo góc
+            // (trước đây vẽ raw nên vuông sắc góc).
+            Path clip = new Path();
+            clip.addRoundRect(new RectF(dst), miniRadius, miniRadius, Path.Direction.CW);
+            int save = canvas.save();
+            canvas.clipPath(clip);
+            canvas.drawBitmap(infos.get(i + 3).getIcon(), (Rect) null, dst, paint);
+            canvas.restoreToCount(save);
             i++;
         }
 

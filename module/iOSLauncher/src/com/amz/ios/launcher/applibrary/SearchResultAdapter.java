@@ -84,6 +84,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter implements Filtera
             );
             viewHolder.mIconIV.setTag(result.getAppInfo());
             viewHolder.mIconIV.reapplyItemInfo(result.getAppInfo());
+            // reapplyItemInfo chặn relayout (mDisableRelayout) -> view tái sử dụng có thể giữ kích
+            // thước đo cũ khiến icon lệch/không đều "thi thoảng". Ép đo lại để mọi item đồng cỡ.
+            viewHolder.mIconIV.requestLayout();
             viewHolder.itemView.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -115,13 +118,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter implements Filtera
         return mSearchedResult.get(position).getType();
     }
 
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        recyclerView.addItemDecoration(
-                new SearchResultDecoration(this)
-        );
-    }
+    // Bỏ addItemDecoration(SearchResultDecoration): không dùng sticky header ghim đỉnh nữa.
+    // Chữ cái đầu nhóm đã là item thường (type 0) trong list nên tự cuộn theo khi vuốt.
 
     public class HeaderAppsViewHolder extends RecyclerView.ViewHolder {
 

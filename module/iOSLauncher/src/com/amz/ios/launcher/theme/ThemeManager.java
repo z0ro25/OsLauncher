@@ -242,7 +242,10 @@ public class ThemeManager {
         if (TextUtils.isEmpty(prePkgName) || !PackageUtil.isAppInstalled(mContext, prePkgName)) {
             prePkgName = ThemeConfig.getDefaultThemePkg();
         }
-        applyThemePkg(prePkgName, Settings.shouldResetDefaultWallpaper(mContext));
+        // changeWallpaper = false: KHÔNG set wallpaper mặc định của theme khi launcher khởi tạo (sau khi
+        // đặt default launcher). Hình nền đã được đặt ở màn Chọn hình nền (onboarding); set lại ở đây sẽ
+        // ĐÈ MẤT ảnh user chọn. Đổi theme thủ công (applyNewTheme) vẫn đổi wallpaper như cũ.
+        applyThemePkg(prePkgName, false);
     }
 
     private void setThemeContext(Context context) {

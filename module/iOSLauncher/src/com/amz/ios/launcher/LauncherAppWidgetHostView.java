@@ -116,10 +116,11 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
         mDelBadgeView.setElevation(Float.MAX_VALUE / 4);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(mDelIconSize, mDelIconSize);
         lp.gravity = android.view.Gravity.TOP | android.view.Gravity.LEFT;
-        // Margin ÂM nhỏ: badge nhô nhẹ ra ngoài mép trên-trái widget (không đè nội dung),
-        // nhưng vẫn nằm gọn trong khe giữa các ô nên KHÔNG bị mép lưới/Workspace cắt.
-        lp.leftMargin = -mDelIconSize / 4;
-        lp.topMargin = -mDelIconSize / 4;
+        // Chồng lên GÓC TRÊN-TRÁI widget (như iOS): margin -size/2 đưa TÂM badge về (0,0) = góc trên-trái
+        // host (widget content phủ host). Trước đây -size/4 đặt tâm lệch vào trong 1/4 nên không trùng
+        // góc với dấu trừ app. Clip đã tắt qua disableClipForBadge để phần nhô ra ngoài hiển thị.
+        lp.leftMargin = -mDelIconSize / 2;
+        lp.topMargin = -mDelIconSize / 2;
         mDelBadgeView.setLayoutParams(lp);
         mDelBadgeView.setOnClickListener(new OnClickListener() {
             @Override

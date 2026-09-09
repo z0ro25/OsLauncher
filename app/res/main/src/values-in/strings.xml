@@ -79,4 +79,9 @@
     <string name="next">Berikutnya</string>
     <string name="language">Bahasa</string>
     <string name="general">Umum</string>
+    <!-- Màn Chọn hình nền (onboarding) -->
+    <string name="select_bg_title">Pilih wallpaper</string>
+    <string name="select_bg_desc">Pilih wallpaper yang Anda sukai untuk layar utama peluncur baru Anda.</string>
+    <string name="select_bg_skip">Lewati</string>
+    <string name="select_bg_set">Jadikan wallpaper</string>
 </resources>

@@ -158,4 +158,9 @@
         <item>Mapas y navegación</item>
         <item>Productividad</item>
     </string-array>
+    <!-- Màn Chọn hình nền (onboarding) -->
+    <string name="select_bg_title">Elegir fondo de pantalla</string>
+    <string name="select_bg_desc">Elige un fondo de pantalla que te guste para la pantalla de inicio de tu nuevo launcher.</string>
+    <string name="select_bg_skip">Omitir</string>
+    <string name="select_bg_set">Establecer como fondo</string>
 </resources>

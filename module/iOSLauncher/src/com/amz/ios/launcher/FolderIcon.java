@@ -385,15 +385,18 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
         Rect bound = new Rect();
         getIconBounds(bound);
 
+        // Khớp vị trí vẽ ở drawDelIcon(): cỡ 45% icon, tâm = góc trên-trái face folder.
+        int delSize = (int) (mLauncher.getDeviceProfile().iconSizePx * 0.45f);
         int scale = 1;
-        int left = (int)(DELETE_BUTTON_SIZE / 2 - DELETE_BUTTON_SIZE * scale * .5f);
-        int top = (int)(DELETE_BUTTON_SIZE / 2 - DELETE_BUTTON_SIZE * scale * .5f);
+        int half = delSize / 2;
+        int left = folderFaceLeft() - half;
+        int top = folderFaceTop() - half;
 
         Rect rect = new Rect(
                 left,
                 top,
-                (int) (((float) left) + (((float) DELETE_BUTTON_SIZE) * scale)),
-                (int) (((float) top) + (((float) DELETE_BUTTON_SIZE) * scale)));
+                (int) (((float) left) + (((float) delSize) * scale)),
+                (int) (((float) top) + (((float) delSize) * scale)));
 
         return rect.contains(x,y);
     }
@@ -466,7 +469,6 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
         }
     }
 
-    static final int DELETE_BUTTON_SIZE = 60;
     public void drawDelIcon(Canvas canvas) {
         int scrollX = getScrollX();
         int scrollY = getScrollY();
@@ -476,17 +478,18 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
             canvas.save();
             canvas.translate((float) scrollX, (float) scrollY);
 
-            Rect bound = new Rect();
-            getIconBounds(bound);
-
-            int left = (int)(DELETE_BUTTON_SIZE / 2 - DELETE_BUTTON_SIZE * scale * .5f);
-            int top = (int)(DELETE_BUTTON_SIZE / 2 - DELETE_BUTTON_SIZE * scale * .5f);
+            // Đồng bộ cỡ với app/widget (45% icon) và neo tâm tại GÓC TRÊN-TRÁI của nền folder (face).
+            // Trước đây hằng 60px + gốc (0,0) = mép view -> folder lệch cỡ và lệch vị trí.
+            int delSize = (int) (mLauncher.getDeviceProfile().iconSizePx * 0.45f);
+            int half = (int) (delSize * scale * .5f);
+            int left = folderFaceLeft() - half;
+            int top = folderFaceTop() - half;
 
             Rect rect = new Rect(
                     left,
                     top,
-                    (int) (((float) left) + (((float) DELETE_BUTTON_SIZE) * scale)),
-                    (int) (((float) top) + (((float) DELETE_BUTTON_SIZE) * scale)));
+                    (int) (((float) left) + (((float) delSize) * scale)),
+                    (int) (((float) top) + (((float) delSize) * scale)));
 
             this.mLeftPaint.setAlpha((int) (scale * 255.0f));
             VectorDrawable drawable = (VectorDrawable)getContext().getResources().getDrawable(R.drawable.delete_button);
@@ -495,6 +498,26 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
             canvas.translate((float) (-scrollX), (float) (-scrollY));
             canvas.restore();
         }
+    }
+
+    /** X trái của nền folder (face) trong view; fallback về icon bounds nếu chưa có. */
+    private int folderFaceLeft() {
+        if (mPreviewBackground != null && mPreviewBackground.getWidth() > 0) {
+            return mPreviewBackground.getLeft();
+        }
+        Rect b = new Rect();
+        getIconBounds(b);
+        return b.left;
+    }
+
+    /** Y trên của nền folder (face) trong view; fallback về icon bounds nếu chưa có. */
+    private int folderFaceTop() {
+        if (mPreviewBackground != null && mPreviewBackground.getHeight() > 0) {
+            return mPreviewBackground.getTop();
+        }
+        Rect b = new Rect();
+        getIconBounds(b);
+        return b.top;
     }
     public void getIconBounds(Rect outBounds) {
         int iconSize = mLauncher.getDeviceProfile().iconSizePx;

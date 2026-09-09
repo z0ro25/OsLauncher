@@ -1,8 +1,11 @@
 package com.amz.ios.launcher.applibrary;
 
 import android.content.Context;
+import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewOutlineProvider;
 
 import com.amz.ios.launcher.BubbleTextView;
 import com.amz.ios.launcher.Launcher;
@@ -37,6 +40,21 @@ public class AppsLibraryBubbleTextView extends BubbleTextView {
             mLauncher = (Launcher) context;
         }
         mOpenView = new OpenedLibraryView(context);
+
+        // Bo góc ô preview (icon đặt làm background): logo app trong khung preview App Library trước
+        // đây vuông sắc góc (icon hệ thống dạng vuông, hoặc ô composite vẽ raw). Clip theo outline bo
+        // góc tỉ lệ ~22.37% cạnh (squircle iOS) để mọi mini logo preview bo góc đồng bộ.
+        setClipToOutline(true);
+        setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View v, Outline outline) {
+                int w = v.getWidth();
+                int h = v.getHeight();
+                if (w <= 0 || h <= 0) return;
+                float r = Math.min(w, h) * 0.2237f;
+                outline.setRoundRect(0, 0, w, h, r);
+            }
+        });
     }
 
     public void clearBackground() {

@@ -500,10 +500,11 @@ public class IconCache {
             if (drawable == null)
                 drawable = app.getIcon(mIconDpi);
 
+            // Dùng thẳng ảnh logo (hình vuông bo góc sẵn), không qua getRoundDrawable.
             entry.icon = Utilities.createBadgedIconBitmap(drawable, app.getUser(), mContext);
         }
         else {
-            entry.icon = Utilities.createBadgedIconBitmap(getRoundDrawable(new FastBitmapDrawable(entry.icon)), app.getUser(), mContext);
+            entry.icon = Utilities.createBadgedIconBitmap(new FastBitmapDrawable(entry.icon), app.getUser(), mContext);
         }
 
         entry.title = getCustomLabel(app.getComponentName());
@@ -526,7 +527,11 @@ public class IconCache {
             raw = ((FastBitmapDrawable) drawable).getBitmap();
         }
         if (Utilities.hasTransparentCorners(raw)) {
-            return drawable;
+            // Logo iOS (góc trong suốt): trước đây trả NGUYÊN XI -> logo nào có padding trong suốt
+            // khác nhau sẽ hiển thị content TO/NHỎ lệch nhau. Chuẩn hoá CỠ NHÌN cho đồng đều: cắt bỏ
+            // padding trong suốt lấy đúng khung nội dung rồi scale về cùng tỉ lệ ô icon, KHÔNG mask/bo
+            // lại góc (giữ nguyên hình dạng thật của logo).
+            return normalizeLogoSize(raw);
         }
 
         Bitmap bmp = drawableToBitmap(drawable);
@@ -541,7 +546,14 @@ public class IconCache {
         path.addRoundRect(rectF,radius,radius, Path.Direction.CW);
         canvas.clipPath(path);
         Paint paint = new Paint(1);
-        paint.setColor(Color.WHITE);
+        // Nền ô = MÀU TRỘI của icon (thay nền trắng cứng): icon legacy/adaptive không full-bleed sẽ có
+        // nền hoà theo màu icon thay vì viền trắng. Ép opaque để không lộ nền phía sau. Lỗi -> trắng.
+        int bgColor = Color.WHITE;
+        try {
+            bgColor = 0xFF000000 | com.amz.ios.launcher.graphics.ColorExtractor.findDominantColorByHue(bitmap);
+        } catch (Throwable ignored) {
+        }
+        paint.setColor(bgColor);
         paint.setStyle(Paint.Style.FILL);
 
         int count = ClockDrawable.drawBgAndReturnSave(
@@ -555,6 +567,53 @@ public class IconCache {
 //        canvas.drawBitmap(bitmap,0,0,new Paint(Paint.ANTI_ALIAS_FLAG));
 
         return new FastBitmapDrawable(newBitmap);
+    }
+
+    /**
+     * Chuẩn hoá cỡ NHÌN của logo iOS (bitmap có góc trong suốt): tìm khung nội dung (alpha > ngưỡng),
+     * cắt bỏ padding trong suốt, rồi vẽ lại vào bitmap VUÔNG sao cho nội dung chiếm cùng một tỉ lệ
+     * (LOGO_FILL_RATIO). createIconBitmap phía sau scale bitmap vuông này về cỡ ô icon -> mọi logo iOS
+     * hiển thị CÙNG CỠ, khớp icon thường. Không mask/bo lại góc. Lỗi bất kỳ -> trả logo nguyên xi.
+     */
+    private Drawable normalizeLogoSize(Bitmap raw) {
+        try {
+            // Tỉ lệ nội dung chiếm trong ô (0..1). Giảm nếu muốn logo iOS nhỏ lại cho khớp icon thường.
+            final float LOGO_FILL_RATIO = 0.96f;
+            final int ALPHA_THRESHOLD = 24;
+            int w = raw.getWidth();
+            int h = raw.getHeight();
+            if (w < 2 || h < 2) return new FastBitmapDrawable(raw);
+            int[] px = new int[w * h];
+            raw.getPixels(px, 0, w, 0, 0, w, h);
+            int minX = w, minY = h, maxX = -1, maxY = -1;
+            for (int y = 0; y < h; y++) {
+                int row = y * w;
+                for (int x = 0; x < w; x++) {
+                    if ((px[row + x] >>> 24) > ALPHA_THRESHOLD) {
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+                    }
+                }
+            }
+            if (maxX < minX || maxY < minY) return new FastBitmapDrawable(raw); // rỗng -> nguyên xi
+            int cw = maxX - minX + 1;
+            int ch = maxY - minY + 1;
+            int content = Math.max(cw, ch);
+            int side = Math.max(1, Math.round(content / LOGO_FILL_RATIO));
+            Bitmap out = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(out);
+            int left = (side - cw) / 2;
+            int top = (side - ch) / 2;
+            android.graphics.Rect src = new android.graphics.Rect(minX, minY, maxX + 1, maxY + 1);
+            android.graphics.Rect dst = new android.graphics.Rect(left, top, left + cw, top + ch);
+            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+            c.drawBitmap(raw, src, dst, p);
+            return new FastBitmapDrawable(out);
+        } catch (Throwable t) {
+            return new FastBitmapDrawable(raw);
+        }
     }
 
     /**
@@ -882,11 +941,9 @@ public class IconCache {
                     Drawable drawable = getThemeIconForAppComp(componentName, info, user);
                     if (drawable == null)
                         drawable = info.getIcon(mIconDpi);
-                    entry.icon = Utilities.createBadgedIconBitmap(
-                            drawable,
-                            info.getUser(),
-                            mContext
-                    );
+                    // Dùng THẲNG ảnh logo (vốn là hình vuông bo góc sẵn), KHÔNG qua getRoundDrawable
+                    // (đường squircle + nền trắng/màu trội gây "tất cả trắng"). Ảnh được đưa về ô vuông
+                    // lấp đầy (fitXY) ở createIconBitmap.
                     entry.icon = Utilities.createBadgedIconBitmap(drawable, info.getUser(), mContext);
 
                 } else {
@@ -1356,7 +1413,13 @@ public class IconCache {
         // Bump để xoá blob logo gốc của Gmail/Maps/Google TV/Meet -> vẽ lại bằng logo iOS.
         // v18: gỡ apps.photos khỏi CTS + thêm Keep vào app_note. Bump để xoá blob Photos gốc
         // (chong chóng Google) -> vẽ lại ic_app_gallery; và dựng logo ic_app_note cho Keep.
-        public static int DB_VERSION = 18;
+        // v19: áp khuôn vuông bo góc squircle + nền màu trội cho MỌI icon (getRoundDrawable ở cacheLocked).
+        // v20: bỏ getRoundDrawable; icon dựng ở createIconBitmap theo fitXY + adaptive ghép fg/bg (bỏ mask
+        // tròn) + bo góc rounded-rect. v21: fitXY -> centerCrop (hết méo). v22: adaptive phóng layer 1.5x.
+        // v23: thêm viền rim iOS 26 (gradient bevel) quanh mép icon.
+        // LƯU Ý: version THỰC dùng là def_iconcache_db_version trong custom_config.xml (Partner ghi đè
+        // hằng này). Muốn rebuild icon cache phải bump ở ĐÓ, không phải chỉ ở đây.
+        public static int DB_VERSION = 23;
 
         public final static String TABLE_NAME = "icons";
         public final static String COLUMN_ROWID = "rowid";

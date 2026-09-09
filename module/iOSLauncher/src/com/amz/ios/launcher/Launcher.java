@@ -3831,10 +3831,21 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             throw new IllegalArgumentException("Input must be a Shortcut or AppInfo");
         }
 
-        boolean success = startActivitySafely(v, intent, tag);
-        mAppUsagesModel.onLaunch(this, intent.getComponent());
-        mStats.recordLaunch(v, intent, shortcut);
-        LauncherModel.updateCalledTimeAndCountItemInDatabase(this, shortcut);
+        // Interstitial "mở app": có ad thì show trước, đóng ad xong mới mở app; chưa có ad
+        // thì mở app ngay (hành vi cũ không đổi). Điểm này bao cả icon home/dock lẫn App Library.
+        final View clickedView = v;
+        final Object launchTag = tag;
+        final Intent launchIntent = intent;
+        final ShortcutInfo launchShortcut = shortcut;
+        com.amz.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(this, new Runnable() {
+            @Override
+            public void run() {
+                startActivitySafely(clickedView, launchIntent, launchTag);
+                mAppUsagesModel.onLaunch(Launcher.this, launchIntent.getComponent());
+                mStats.recordLaunch(clickedView, launchIntent, launchShortcut);
+                LauncherModel.updateCalledTimeAndCountItemInDatabase(Launcher.this, launchShortcut);
+            }
+        });
     }
 
     public void resumeNormalHomeState() {
@@ -5482,7 +5493,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     }
                     return;
                 }
-                // Category đã có sẵn: cập nhật tăng dần + đồng bộ danh sách tổng.
+                // Category đã có sẵn: gộp app mới vào danh sách tổng rồi rebuild sạch (bên dưới).
                 if (allApp == null) {
                     allApp = new ArrayList<>();
                 }
@@ -5491,24 +5502,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                         allApp.add(ai);
                     }
                 }
-                Iterator<AppInfo> it = addedApps.iterator();
-                while (it.hasNext()) {
-                    AppInfo next = it.next();
-                    if (next != null) {
-                        int type = mAppsLibraryLayout.getAppType(next);
-                        if (type >= 0) {
-                            if (mAppsLibraryLayout.mCategories.get(type) != null) {
-                                mAppsLibraryLayout.mCategories.get(type).mApps.add(next);
-                                mAppsLibraryLayout.mAppLibraryAdapter.notifyItemChanged(type);
-                                mAppsLibraryLayout.mSearchResultAdapter.notifyDataSetChanged();
-                            }
-                        }
-                        if (mAppsLibraryLayout.mCategories.get(9) != null) {
-                            mAppsLibraryLayout.mCategories.get(9).mApps.add(next);
-                            mAppsLibraryLayout.mAppLibraryAdapter.notifyItemChanged(9);
-                            mAppsLibraryLayout.mSearchResultAdapter.notifyDataSetChanged();
-                        }
-                    }
+                // Rebuild sạch từ danh sách tổng (allApp đã gộp addedApps ở trên). Luồng incremental cũ
+                // gán theo index sai (getAppType có thể trả 0 -> nhét vào Recent) và LUÔN cộng thêm vào
+                // Other(9) -> app bị đếm 2 lần / sai bucket. Rebuild đảm bảo đúng bucket, tự ẩn folder
+                // rỗng, đồng bộ cả list search.
+                mAppsLibraryLayout.setApps(allApp);
+                if (mSearchViewLayout != null) {
+                    mSearchViewLayout.setApps(allApp);
                 }
             } catch (Throwable th) {
                 th.getMessage();
@@ -6095,27 +6095,17 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             mWorkspace.disableShortcutsByPackageName(packageNames, user, reason);
         }
 
-        if (mAppsLibraryLayout != null) {
+        if (mAppsLibraryLayout != null && allApp != null) {
+            // Xoá khỏi danh sách tổng rồi rebuild sạch: đồng bộ đúng mọi bucket + list search, tự ẩn
+            // folder vừa trống. Luồng xoá theo index cũ dễ lệch bucket và KHÔNG cập nhật list search.
             for (AppInfo next : appInfos) {
                 if (next != null) {
-                    if (mAppsLibraryLayout.mCategories.get(0).mApps.contains(next)) {
-                        mAppsLibraryLayout.mCategories.get(0).mApps.remove(next);
-                        mAppsLibraryLayout.mSearchResultAdapter.notifyDataSetChanged();
-                        mAppsLibraryLayout.mAppLibraryAdapter.notifyItemChanged(0);
-                    }
-                    int appType = mAppsLibraryLayout.getAppType(next);
-                    if (appType > 0) {
-                        if (mAppsLibraryLayout.mCategories.get(appType) != null) {
-                            mAppsLibraryLayout.mCategories.get(appType).mApps.remove(next);
-                            mAppsLibraryLayout.mSearchResultAdapter.notifyDataSetChanged();
-                            mAppsLibraryLayout.mAppLibraryAdapter.notifyItemChanged(appType);
-                        }
-                    } else if (mAppsLibraryLayout.mCategories.get(0) != null && mAppsLibraryLayout.mCategories.get(9) != null) {
-                        mAppsLibraryLayout.mCategories.get(9).mApps.remove(next);
-                        mAppsLibraryLayout.mAppLibraryAdapter.notifyItemChanged(9);
-                        mAppsLibraryLayout.mSearchResultAdapter.notifyDataSetChanged();
-                    }
+                    allApp.remove(next);
                 }
+            }
+            mAppsLibraryLayout.setApps(allApp);
+            if (mSearchViewLayout != null) {
+                mSearchViewLayout.setApps(allApp);
             }
         }
     }

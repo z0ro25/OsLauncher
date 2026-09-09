@@ -322,6 +322,9 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
 
     private void enableLayoutTransitions() {
         LayoutTransition transition = getLayoutTransition();
+        // getLayoutTransition() có thể trả null (PageIndicator không cấu hình LayoutTransition) -> NPE
+        // khi kéo app tới mép, edge-scroll đổi page gọi setActiveMarker -> offsetWindowCenterTo. Bỏ qua.
+        if (transition == null) return;
         transition.enableTransitionType(LayoutTransition.APPEARING);
         transition.enableTransitionType(LayoutTransition.DISAPPEARING);
         transition.enableTransitionType(LayoutTransition.CHANGE_APPEARING);
@@ -330,6 +333,8 @@ public class PageIndicator extends LinearLayout implements View.OnClickListener 
 
     private void disableLayoutTransitions() {
         LayoutTransition transition = getLayoutTransition();
+        // Cùng lý do như enableLayoutTransitions(): null-guard tránh crash khi đổi page lúc kéo app.
+        if (transition == null) return;
         transition.disableTransitionType(LayoutTransition.APPEARING);
         transition.disableTransitionType(LayoutTransition.DISAPPEARING);
         transition.disableTransitionType(LayoutTransition.CHANGE_APPEARING);

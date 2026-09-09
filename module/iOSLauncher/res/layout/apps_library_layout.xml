@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipChildren="false"
-            android:clipToPadding="false"
+            android:clipToPadding="true"
             android:paddingTop="@dimen/realtime_blur_height_search_view"
             android:paddingBottom="@dimen/search_margin_top"
             android:visibility="invisible"
