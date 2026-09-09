@@ -429,6 +429,12 @@ public final class Utilities {
             int w = src.getWidth();
             int h = src.getHeight();
             if (w <= 0 || h <= 0) return src;
+            // Logo MẶC ĐỊNH iOS (theme: đã tạo hình sẵn, 4 góc trong suốt) -> giữ NGUYÊN: không bo lại
+            // và KHÔNG thêm viền rim. Viền chỉ dành cho icon vuông đặc (system/adaptive) để không đè lên
+            // mép riêng của logo theme.
+            if (hasTransparentCorners(src)) {
+                return src;
+            }
             Bitmap out = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(out);
             float r = Math.min(w, h) * 0.2237f;

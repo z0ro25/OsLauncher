@@ -1417,9 +1417,10 @@ public class IconCache {
         // v20: bỏ getRoundDrawable; icon dựng ở createIconBitmap theo fitXY + adaptive ghép fg/bg (bỏ mask
         // tròn) + bo góc rounded-rect. v21: fitXY -> centerCrop (hết méo). v22: adaptive phóng layer 1.5x.
         // v23: thêm viền rim iOS 26 (gradient bevel) quanh mép icon.
+        // v24: logo mặc định iOS (góc trong suốt) giữ nguyên, không bo lại + không viền rim.
         // LƯU Ý: version THỰC dùng là def_iconcache_db_version trong custom_config.xml (Partner ghi đè
         // hằng này). Muốn rebuild icon cache phải bump ở ĐÓ, không phải chỉ ở đây.
-        public static int DB_VERSION = 23;
+        public static int DB_VERSION = 24;
 
         public final static String TABLE_NAME = "icons";
         public final static String COLUMN_ROWID = "rowid";

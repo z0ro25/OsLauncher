@@ -1004,18 +1004,15 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
             Rect bound = new Rect();
             getIconBounds(bound);
 
-            // Chồng lên GÓC TRÊN-TRÁI của logo: tâm dấu trừ = (bound.left, bound.top). Trước đây top=0
-            // (mép trên cả view, không bám icon) + left qua getDelIconLeftPadding nên dấu trừ KHÔNG neo
-            // đúng góc icon và không đồng bộ với widget/folder. Scale co quanh tâm góc này.
-            int half = (int) (mDelIconSize * scale * .5f);
-            int left = bound.left - half;
-            int top = bound.top - half;
+            // Dấu trừ ở góc TRÊN-TRÁI logo: thu nhỏ (DEL_ICON_DRAW_SCALE) + LÙI XUỐNG (DEL_ICON_DOWN_SHIFT)
+            // để phần nhô lên khỏi mép trên icon nhỏ lại -> không bị hàng trên cắt. drawn co theo anim
+            // scale; down (lùi xuống) tính theo cỡ đầy đủ để ổn định vị trí.
+            int drawn = (int) (mDelIconSize * DEL_ICON_DRAW_SCALE * scale);
+            int down = (int) (mDelIconSize * DEL_ICON_DRAW_SCALE * DEL_ICON_DOWN_SHIFT);
+            int left = bound.left - drawn / 2;
+            int top = bound.top - drawn / 2 + down;
 
-            Rect rect = new Rect(
-                    left,
-                    top,
-                    (int) (((float) left) + (((float) mDelIconSize) * scale)),
-                    (int) (((float) top) + (((float) mDelIconSize) * scale)));
+            Rect rect = new Rect(left, top, left + drawn, top + drawn);
 
             this.mLeftPaint.setAlpha((int) (scale * 255.0f));
             VectorDrawable drawable = (VectorDrawable)getContext().getResources().getDrawable(R.drawable.delete_button);
@@ -1082,20 +1079,20 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
         Rect bound = new Rect();
         getIconBounds(bound);
 
-        // Phải khớp ĐÚNG vị trí vẽ ở drawDelIcon() (tâm = góc trên-trái icon): left/top đều = bound - half.
-        int scale = 1;
-        int half = mDelIconSize / 2;
-        int left = bound.left - half;
-        int top = bound.top - half;
+        // Phải khớp ĐÚNG vị trí vẽ ở drawDelIcon() (thu nhỏ + lùi xuống). scale = 1 (đã mở hẳn).
+        int drawn = (int) (mDelIconSize * DEL_ICON_DRAW_SCALE);
+        int down = (int) (mDelIconSize * DEL_ICON_DRAW_SCALE * DEL_ICON_DOWN_SHIFT);
+        int left = bound.left - drawn / 2;
+        int top = bound.top - drawn / 2 + down;
 
-        // Nới vùng chạm ra mỗi phía 1/4 kích thước dấu trừ: dấu trừ khá nhỏ (45% icon), chạm sát mép
-        // rất dễ trượt ra ngoài -> rơi xuống nhánh mở app. Nới nhẹ để bấm "ăn" như iOS.
-        int touchPadding = mDelIconSize / 4;
+        // Nới vùng chạm ra mỗi phía 1/4 cỡ dấu trừ: dấu trừ nhỏ, chạm sát mép dễ trượt ra ngoài ->
+        // rơi xuống nhánh mở app. Nới nhẹ để bấm "ăn" như iOS.
+        int touchPadding = drawn / 4;
         Rect rect = new Rect(
                 left - touchPadding,
                 top - touchPadding,
-                (int) (((float) left) + (((float) mDelIconSize) * scale)) + touchPadding,
-                (int) (((float) top) + (((float) mDelIconSize) * scale)) + touchPadding);
+                left + drawn + touchPadding,
+                top + drawn + touchPadding);
 
         return rect.contains(x,y);
     }
@@ -1300,6 +1297,11 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
     private int mDelIconLeftPadding;
     private int mDelIconTopPadding;
     private int mDelIconSize;
+    // Dấu trừ (edit mode) của app: thu nhỏ so với mDelIconSize và lùi xuống 1 chút để không bị hàng
+    // trên cắt. DEL_ICON_DRAW_SCALE = tỉ lệ cỡ vẽ (nhỏ hơn 1); DEL_ICON_DOWN_SHIFT = phần lùi xuống
+    // theo cỡ dấu trừ. Chỉnh 2 số này để đổi cỡ/vị trí.
+    private static final float DEL_ICON_DRAW_SCALE = 0.78f;
+    private static final float DEL_ICON_DOWN_SHIFT = 0.28f;
 
     private Drawable mNewInstallPrefix;
     private Paint mLeftPaint;

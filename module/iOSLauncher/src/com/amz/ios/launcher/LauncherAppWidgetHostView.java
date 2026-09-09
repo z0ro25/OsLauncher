@@ -102,9 +102,14 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
     // hook lifecycle đáng tin cậy (beginOrAdjustHintAnimations / completeAndClearReorderHintAnimations),
     // elevation cao để nổi trên nội dung, có OnClickListener riêng -> không phụ thuộc draw() hay Z của
     // canvas. Bản RIÊNG cho widget, không đụng dấu trừ của app (memory isolate-resources).
-    private int mDelIconSize;   // kích thước dấu trừ (45% icon, giống app)
+    private int mDelIconSize;   // kích thước gốc dấu trừ (45% icon, giống app)
     private int mDelInset;       // chừa 4dp từ mép trên-trái host
     private ImageView mDelBadgeView;
+    // Cỡ dấu trừ widget (theo % icon). Tách inset TRÁI và TRÊN để chỉnh riêng: dương = lùi vào trong,
+    // âm = nhô ra. Giảm TOP_INSET để dịch LÊN TRÊN. (Theo cỡ dấu trừ.)
+    private static final float DEL_ICON_DRAW_SCALE = 0.9f;
+    private static final float DEL_ICON_WIDGET_INSET = 0.18f;      // lùi vào từ mép TRÁI
+    private static final float DEL_ICON_WIDGET_TOP_INSET = 0f;  // trên: nhỏ hơn -> dịch lên trên
 
     private void ensureDelBadge() {
         if (mDelBadgeView != null) return;
@@ -114,13 +119,13 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
         mDelBadgeView.setVisibility(View.GONE);
         // Nổi trên nội dung widget (nội dung có thể có elevation) + luôn vẽ sau cùng.
         mDelBadgeView.setElevation(Float.MAX_VALUE / 4);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(mDelIconSize, mDelIconSize);
+        // Dấu trừ nhỏ (như app) nằm GỌN ở góc trên-trái widget: margin DƯƠNG = lùi vào trong từ góc,
+        // không nhô nửa ra ngoài (trước đây -drawn/2). Clip đã tắt qua disableClipForBadge.
+        int drawn = Math.round(mDelIconSize * DEL_ICON_DRAW_SCALE);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(drawn, drawn);
         lp.gravity = android.view.Gravity.TOP | android.view.Gravity.LEFT;
-        // Chồng lên GÓC TRÊN-TRÁI widget (như iOS): margin -size/2 đưa TÂM badge về (0,0) = góc trên-trái
-        // host (widget content phủ host). Trước đây -size/4 đặt tâm lệch vào trong 1/4 nên không trùng
-        // góc với dấu trừ app. Clip đã tắt qua disableClipForBadge để phần nhô ra ngoài hiển thị.
-        lp.leftMargin = -mDelIconSize / 2;
-        lp.topMargin = -mDelIconSize / 2;
+        lp.leftMargin = Math.round(drawn * DEL_ICON_WIDGET_INSET);
+        lp.topMargin = Math.round(drawn * DEL_ICON_WIDGET_TOP_INSET);
         mDelBadgeView.setLayoutParams(lp);
         mDelBadgeView.setOnClickListener(new OnClickListener() {
             @Override

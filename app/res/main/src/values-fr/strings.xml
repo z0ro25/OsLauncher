@@ -163,4 +163,5 @@
     <string name="select_bg_desc">Choisissez un fond d\'écran que vous aimez pour l\'écran d\'accueil de votre nouveau lanceur.</string>
     <string name="select_bg_skip">Ignorer</string>
     <string name="select_bg_set">Définir comme fond d\'écran</string>
+    <string name="theme_default_name">Par défaut</string>
 </resources>

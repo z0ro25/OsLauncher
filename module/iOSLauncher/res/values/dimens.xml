@@ -412,7 +412,7 @@
     <dimen name="clock_hand_size">1dp</dimen>
     <dimen name="clock_padding">3dp</dimen>
     <dimen name="clock_text_size">3dp</dimen>
-    <dimen name="icon_delete_size">20dp</dimen>
+    <dimen name="icon_delete_size">28dp</dimen>
     <dimen name="edit_text_padding">1dp</dimen>
     <dimen name="widget_padding">10dp</dimen>
     <dimen name="battery_widget_progress_size">60dp</dimen>

@@ -137,8 +137,9 @@
          Partner.getInteger -> BẮT BUỘC bump ở đây thì icon cache mới rebuild.
          v21: đổi fitXY -> centerCrop (hết méo logo nguồn không vuông).
          v22: adaptive icon phóng layer 1.5x (vùng an toàn lấp đầy ô) -> logo hết bị bé/chừa viền.
-         v23: thêm viền rim iOS 26 (gradient bevel sáng->tối) quanh mép icon. -->
-    <integer name="def_iconcache_db_version">23</integer>
+         v23: thêm viền rim iOS 26 (gradient bevel sáng->tối) quanh mép icon.
+         v24: logo mặc định iOS (góc trong suốt) -> giữ nguyên, KHÔNG bo lại + KHÔNG viền rim. -->
+    <integer name="def_iconcache_db_version">24</integer>
 
     <!-- default launcher setting version -->
     <integer name="def_setting_db_version">5</integer>

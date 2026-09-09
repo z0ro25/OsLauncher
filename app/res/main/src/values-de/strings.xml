@@ -163,4 +163,5 @@
     <string name="select_bg_desc">Wählen Sie einen Hintergrund für den Startbildschirm Ihres neuen Launchers.</string>
     <string name="select_bg_skip">Überspringen</string>
     <string name="select_bg_set">Als Hintergrund festlegen</string>
+    <string name="theme_default_name">Standard</string>
 </resources>

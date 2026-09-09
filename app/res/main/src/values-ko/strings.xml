@@ -188,4 +188,5 @@
     <string name="select_bg_desc">새 런처의 홈 화면에 사용할 마음에 드는 배경화면을 선택하세요.</string>
     <string name="select_bg_skip">건너뛰기</string>
     <string name="select_bg_set">배경화면으로 설정</string>
+    <string name="theme_default_name">기본</string>
 </resources>

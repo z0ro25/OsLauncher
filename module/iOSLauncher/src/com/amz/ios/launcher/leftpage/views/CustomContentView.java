@@ -118,6 +118,10 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
 
         this.mSearchBoxLeftPage = findViewById(R.id.search_box_left_page);
         this.mListWidgetRV = findViewById(R.id.recycler_view_list_widget);
+        // Dấu trừ (edit) canh giữa tại góc trên-trái widget -> nhô ra ngoài item; tắt clip để hiển thị
+        // đủ (widget root cũng tắt clip ở WidgetBaseLayout).
+        this.mListWidgetRV.setClipChildren(false);
+        this.mListWidgetRV.setClipToPadding(false);
         this.mSlidingUpWidgetsAppStyle = findViewById(R.id.left_page_sliding_up_widgets_app_style);
         this.mSlidingUpWidgetsList = findViewById(R.id.left_page_sliding_up_widgets_list);
         this.mSearchBoxRealtimeBlurView = findViewById(R.id.realtime_blur_search_box_custom_content);

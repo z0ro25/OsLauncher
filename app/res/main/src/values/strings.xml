@@ -96,6 +96,8 @@
     <string name="select_bg_desc">Choose a wallpaper you like for the home screen of your new launcher.</string>
     <string name="select_bg_skip">Skip</string>
     <string name="select_bg_set">Set as wallpaper</string>
+    <!-- Tên theme mặc định (gói logo + hình nền) -->
+    <string name="theme_default_name">Default</string>
     <string name="language">Language</string>
     <string name="general">General</string>
     <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->

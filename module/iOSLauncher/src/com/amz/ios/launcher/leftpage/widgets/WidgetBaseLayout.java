@@ -12,10 +12,21 @@ public class WidgetBaseLayout extends ConstraintLayout implements IShakeInterfac
 
     public WidgetBaseLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        disableClipForDelBadge();
     }
 
     public WidgetBaseLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, 0);
+        disableClipForDelBadge();
+    }
+
+    /**
+     * Dấu trừ (edit) của widget trang trái canh giữa tại GÓC TRÊN-TRÁI -> nửa icon nhô ra ngoài bounds
+     * widget. Tắt clip để phần nhô hiển thị (RecyclerView list cũng tắt clip ở CustomContentView).
+     */
+    private void disableClipForDelBadge() {
+        setClipChildren(false);
+        setClipToPadding(false);
     }
 
     public void r() {
