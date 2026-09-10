@@ -27,6 +27,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+        <!-- Ô nhập từ khoá. [CĂN CHỈNH] marginStart 10dp -> 16dp: chừa khoảng thoáng giữa icon
+             kính lúp và chữ. Khai cả marginLeft lẫn marginStart để đúng ở mọi hướng bố cục. -->
         <com.truongnt.ios.launcher.ExtendedEditText
             android:id="@+id/et_search"
             android:textColor="@color/white"
@@ -44,7 +46,8 @@
             android:imeOptions="flagNoExtractUi|actionSearch"
             android:textAlignment="viewStart"
             android:textCursorDrawable="@drawable/cursor_line"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,13 +105,13 @@
             <LinearLayout android:orientation="vertical" android:id="@+id/result_layout" android:animationCache="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:animateLayoutChanges="true">
                 <!-- Khung KẾT QUẢ app khớp (chỉ hiện khi gõ CÓ kết quả). Đứng trước header Gợi ý. -->
                 <LinearLayout android:orientation="vertical" android:id="@+id/result_app_box" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
-                    <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white_50" android:gravity="start" android:id="@+id/result_app_title" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:paddingBottom="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/search_results_title" android:textAllCaps="true" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
+                    <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white_50" android:gravity="start" android:id="@+id/result_app_title" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:paddingBottom="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/search_results_title" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
                     <com.truongnt.ios.launcher.searchview.ExpandableHeightRecyclerView android:id="@+id/result_app_list" android:background="@drawable/round_rect_qsb" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <!-- Header GỢI Ý: tiêu đề + nút "Xem thêm" (mở rộng lưới 4 -> 8). Padding đáy để text không
                      sát khung lưới bên dưới. -->
                 <LinearLayout android:orientation="horizontal" android:id="@+id/header_suggestion" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingBottom="8dp">
-                    <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white" android:gravity="start" android:layout_gravity="center" android:id="@+id/suggestion_text" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:focusable="true" android:clickable="true" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/suggestions" android:textAllCaps="true" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
+                    <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white" android:gravity="start" android:layout_gravity="center" android:id="@+id/suggestion_text" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:focusable="true" android:clickable="true" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/suggestions" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
                     <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white" android:gravity="end" android:layout_gravity="center" android:id="@+id/action_show_more" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/search_show_more" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
                 </LinearLayout>
                 <com.truongnt.ios.launcher.searchview.ExpandableHeightRecyclerView android:id="@+id/suggestion_list" android:background="@drawable/round_rect_qsb" android:focusable="true" android:visibility="visible" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content"/>
@@ -117,7 +120,7 @@
                 <!-- Mục LỊCH SỬ app mở từ search: tiêu đề + nút "Xóa" + lưới; cả cụm ẩn khi rỗng -->
                 <LinearLayout android:orientation="vertical" android:id="@+id/history_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
                     <LinearLayout android:orientation="horizontal" android:id="@+id/header_history" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white_50" android:gravity="start" android:layout_gravity="center" android:id="@+id/history_text" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/search_history_title" android:textAllCaps="true" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
+                        <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white_50" android:gravity="start" android:layout_gravity="center" android:id="@+id/history_text" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/search_history_title" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
                         <com.truongnt.ios.launcher.TextViewCustomFont android:textColor="@color/white" android:gravity="end" android:layout_gravity="center" android:id="@+id/action_clear_history" android:paddingLeft="6dp" android:paddingTop="10dp" android:paddingRight="6dp" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/search_history_clear" android:paddingStart="6dp" android:paddingEnd="6dp" app:customFont="1"/>
                     </LinearLayout>
                     <com.truongnt.ios.launcher.searchview.ExpandableHeightRecyclerView android:id="@+id/history_list" android:background="@drawable/round_rect_qsb" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content"/>

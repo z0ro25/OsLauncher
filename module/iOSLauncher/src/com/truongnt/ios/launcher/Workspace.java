@@ -3205,6 +3205,32 @@ public class Workspace extends PagedView
                 info.spanX, info.spanY);
     }
 
+    /**
+     * Hotseat đã kín chỗ chưa (tính theo item ĐANG kéo).
+     *
+     * @param layout layout đích của cú thả; không phải hotseat -> luôn false.
+     * @param dragChild view đang được kéo; nếu nó vốn NẰM TRONG hotseat thì không tính là chiếm
+     *                  chỗ (kéo đổi vị trí trong dock vẫn phải sắp xếp lại được).
+     */
+    private boolean isHotseatFull(CellLayout layout, View dragChild) {
+        if (layout == null || !mLauncher.isHotseatLayout(layout)) {
+            return false;
+        }
+        ShortcutAndWidgetContainer container = layout.getShortcutsAndWidgets();
+        if (container == null) {
+            return false;
+        }
+        int occupied = 0;
+        for (int i = 0; i < container.getChildCount(); i++) {
+            View child = container.getChildAt(i);
+            if (child == null || child.getVisibility() == GONE || child == dragChild) {
+                continue;
+            }
+            occupied++;
+        }
+        return occupied >= layout.getCountX() * layout.getCountY();
+    }
+
     boolean createUserFolderIfNecessary(View newView, long container, CellLayout target,
                                         int[] targetCell, float distance, boolean external, DragView dragView,
                                         Runnable postAnimationRunnable) {
@@ -3469,7 +3495,13 @@ public class Workspace extends PagedView
                     mTargetCell[1] = lp.cellY;
                     CellLayout layout = (CellLayout) cell.getParent().getParent();
                     layout.markCellsAsOccupiedForView(cell);
-                    mLauncher.showOutOfSpaceMessage(mLauncher.isHotseatLayout(dropTargetLayout));
+                    // HOTSEAT ĐẦY: chỉ ÂM THẦM trả app về chỗ cũ, KHÔNG báo "hết chỗ".
+                    // Dock đầy 4 app thì cách duy nhất để thêm là thả ĐÈ lên một app để gộp thành
+                    // folder (đã xử lý ở createUserFolder/addToExistingFolder phía trên) — thả vào
+                    // khoảng trống là thao tác không hợp lệ, báo lỗi chỉ gây khó chịu.
+                    if (!mLauncher.isHotseatLayout(dropTargetLayout)) {
+                        mLauncher.showOutOfSpaceMessage(false);
+                    }
                 }
             }
 
@@ -3984,7 +4016,12 @@ public class Workspace extends PagedView
                         d.dragView.getDragVisualizeOffset(), d.dragView.getDragRegion());
             } else if ((mDragMode == DRAG_MODE_NONE || mDragMode == DRAG_MODE_REORDER)
                     && !mReorderAlarm.alarmPending() && (mLastReorderX != reorderX ||
-                    mLastReorderY != reorderY)) {
+                    mLastReorderY != reorderY)
+                    // HOTSEAT ĐẦY: KHÔNG sắp xếp lại để dồn chỗ. Dock chỉ có 4 ô cố định, cách duy
+                    // nhất để thêm app là thả ĐÈ lên một app -> gộp folder (manageFolderFeedback ở
+                    // trên vẫn chạy). Cho reorder ở đây sẽ đẩy app trong dock chạy loạn rồi cuối
+                    // cùng vẫn không có chỗ.
+                    && !isHotseatFull(mDragTargetLayout, child)) {
 
                 int[] resultSpan = new int[2];
                 mDragTargetLayout.performReorder((int) mDragViewVisualCenter[0],

@@ -93,6 +93,9 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
     private Paint mLeftPaint;
 
     private boolean mPressedDelIcon = false;
+    /** Toạ độ điểm chạm ở ACTION_DOWN — để đo quãng di chuyển, biết lúc nào bắt đầu kéo folder. */
+    private float mTouchDownX;
+    private float mTouchDownY;
     private static final Property<FolderIcon, Float> BADGE_SCALE_PROPERTY = new Property<FolderIcon, Float>(Float.TYPE, "badgeScale") {
         @Override
         public Float get(FolderIcon folderIcon) {
@@ -380,25 +383,15 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
         }
     }
 
+    /**
+     * [BỎ DẤU TRỪ FOLDER] Luôn trả false: folder KHÔNG còn nút xoá ở góc trên-trái.
+     *
+     * Dấu trừ đã bỏ khỏi {@code onDraw}; nếu vẫn giữ vùng chạm cũ thì góc đó thành nút VÔ HÌNH —
+     * chạm nhầm là xoá cả folder. Giữ lại hàm (thay vì gỡ chỗ gọi) để luồng onTouchEvent không
+     * đổi cấu trúc, chỉ rẽ nhánh "không phải dấu trừ" -> mở folder / long-press như bình thường.
+     */
     private boolean checkUninstallPressed(int x, int y) {
-
-        Rect bound = new Rect();
-        getIconBounds(bound);
-
-        // Khớp vị trí vẽ ở drawDelIcon(): cỡ 45% icon, tâm = góc trên-trái face folder.
-        int delSize = (int) (mLauncher.getDeviceProfile().iconSizePx * 0.45f);
-        int scale = 1;
-        int half = delSize / 2;
-        int left = folderFaceLeft() - half;
-        int top = folderFaceTop() - half;
-
-        Rect rect = new Rect(
-                left,
-                top,
-                (int) (((float) left) + (((float) delSize) * scale)),
-                (int) (((float) top) + (((float) delSize) * scale)));
-
-        return rect.contains(x,y);
+        return false;
     }
     public float getLocalCenterForIndex(int index, int[] center) {
         mParams = computePreviewItemDrawingParams(Math.min(NUM_ITEMS_IN_PREVIEW - 1, index), mParams);
@@ -453,7 +446,9 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
 
         UnreadLoaderCompact.drawUnreadEventIfNeed(mLauncher, canvas, this);
         drawBadge(canvas);
-        drawDelIcon(canvas);
+        // [BỎ DẤU TRỪ FOLDER] Không vẽ dấu trừ khi bật edit mode nữa (theo yêu cầu): folder chỉ
+        // xoá bằng cách kéo hết app ra ngoài. Vùng chạm cũng đã bỏ ở checkUninstallPressed() để
+        // không còn nút vô hình. Giữ nguyên dấu trừ của APP và WIDGET.
     }
 
     public void drawBadge(Canvas canvas) {
@@ -659,6 +654,9 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                // Mốc đo quãng di chuyển để biết khi nào bắt đầu kéo (xem ACTION_MOVE).
+                mTouchDownX = event.getX();
+                mTouchDownY = event.getY();
                 if (!checkUninstallPressed(x, y)) {
                     mLongPressHelper.postCheckForLongPress();
                     this.mPressedDelIcon = false;
@@ -676,11 +674,48 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
                     });
                 } else {
                     this.mPressedDelIcon = false;
+                    // Nhấc tay mà long-press CHƯA nổ và ngón còn trong view -> đây là một cú CHẠM:
+                    // tự gọi click để mở folder. Cần vì onTouchEvent nay trả true (giữ chuỗi touch
+                    // cho long-press/kéo thả), khiến super không còn tự phát click nữa.
+                    if (!mLongPressHelper.hasPerformedLongPress()
+                            && Utilities.pointInView(this, event.getX(), event.getY(), mSlop)) {
+                        performClick();
+                    }
                 }
 
                 mLongPressHelper.cancelLongPress();
                 break;
             case MotionEvent.ACTION_MOVE:
+                // [FIX] "Giữ liền rồi kéo folder" — giống thao tác với icon app.
+                //
+                // Bắt đầu kéo NGAY khi ngón di quá touchSlop, KHÔNG cần bật edit mode trước.
+                // Nếu chưa ở edit thì tự bật (startTidyUp) rồi nhấc folder lên kéo luôn.
+                //
+                // Vì sao không trông chờ long-press: ACTION_MOVE gọi cancelLongPress() ngay khi
+                // ngón nhích ra ngoài view — mà kéo thì đương nhiên đi ra ngoài — nên long-press
+                // bị huỷ trước khi kịp nổ.
+                if (mLauncher != null
+                        && !mLauncher.isFolderOpen()          // folder đang mở -> không nhấc kéo
+                        && (getTag() instanceof ItemInfo)
+                        && mLauncher.getDragController() != null
+                        && !mLauncher.getDragController().isDragging()
+                        && (Math.abs(event.getX() - mTouchDownX) > mSlop
+                            || Math.abs(event.getY() - mTouchDownY) > mSlop)) {
+                    mLongPressHelper.cancelLongPress();
+                    mLauncher.closeFloatingMenu();
+                    // Chưa ở edit -> bật edit để folder rung, đồng bộ với cách app hoạt động.
+                    // Gọi TRƯỚC startDrag: startTidyUp có thể re-layout, làm hỏng drag vừa khởi tạo.
+                    if (!DragLayer.sTidyUping) {
+                        mLauncher.getWorkspace().startTidyUp();
+                    }
+                    // Chỉ gọi startDrag (KHÔNG kèm showInfo): hai hàm này làm trùng việc nhau
+                    // (cùng set mDragInfo, ẩn child, prepareChildForDrag) — gọi cả hai sẽ ẩn
+                    // child hai lần và ghi đè trạng thái drag.
+                    CellLayout.CellInfo cellInfo =
+                            new CellLayout.CellInfo(this, (ItemInfo) getTag());
+                    mLauncher.getWorkspace().startDrag(cellInfo, false);
+                    break;
+                }
                 if (!Utilities.pointInView(this, event.getX(), event.getY(), mSlop)) {
                     mLongPressHelper.cancelLongPress();
                 }
@@ -689,6 +724,18 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
                 this.mLongPressHelper.cancelLongPress();
                 this.mPressedDelIcon = false;
                 break;
+        }
+        // [FIX] Không kéo được folder để đổi vị trí.
+        //
+        // super.onTouchEvent() trả FALSE khi view không ở trạng thái clickable — trả thẳng giá trị
+        // đó ra thì FolderIcon "buông" chuỗi touch ngay sau ACTION_DOWN, nên ACTION_MOVE/UP không
+        // về nữa và long-press (mốc bắt đầu kéo) không bao giờ nổ.
+        //
+        // Trước đây nhánh dấu trừ đôi lúc trả true nên che lấp vấn đề; sau khi bỏ dấu trừ folder
+        // thì lộ ra. Có listener click/long-click thì coi như đã xử lý — giống cách BubbleTextView
+        // (icon app) đang làm, nhờ vậy kéo thả folder hoạt động như kéo app.
+        if (isClickable() || isLongClickable()) {
+            return true;
         }
         return result;
     }

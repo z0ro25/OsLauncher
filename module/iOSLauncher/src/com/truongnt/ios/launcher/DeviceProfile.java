@@ -265,16 +265,23 @@ public class DeviceProfile {
         // trong ô), chỉ hở dọc giữa các hàng rộng ra một chút.
         cellHeightPx = Math.max(cellWidthPx, iconSizePx + iconDrawablePaddingPx + labelHeight);
 
+        // Chiều cao ô lưới TRƯỚC KHI ép vuông. Hotseat phải dùng giá trị này, KHÔNG dùng
+        // cellHeightPx đã ép vuông: chiều cao dải hotseat quyết định luôn VÙNG NHẬN THẢ
+        // (DeviceProfile.getHotseatRect -> Workspace.isPointInSelfOverHotseat). Ép vuông làm ô cao
+        // thêm ~26px, dải hotseat "phình" lên che mất hàng icon cuối, và toạ độ nhận thả lệch với
+        // vị trí dock đang vẽ -> KÉO APP XUỐNG HOTSEAT KHÔNG ĂN.
+        final int gridCellHeightPx = iconSizePx + iconDrawablePaddingPx + labelHeight;
+
         final float scaleDps = res.getDimensionPixelSize(R.dimen.dragViewScale);
         dragViewScale = (iconSizePx + scaleDps) / iconSizePx;
 
         // Hotseat
         if (Partner.getBoolean(mContext,Partner.DEF_HOTSEAT_LABEL_FORCED_SHOW)){
-            hotseatBarHeightPx = cellHeightPx;
+            hotseatBarHeightPx = gridCellHeightPx;
             hotseatCellWidthPx = cellWidthPx;
         }else {
             if (Partner.getBoolean(mContext, Partner.DEF_HOTSEAT_LABEL_SHOW_ENABLE)) {
-                hotseatBarHeightPx = cellHeightPx + res.getDimensionPixelSize(R.dimen.dynamic_grid_hotseatbar_compensation_height);
+                hotseatBarHeightPx = gridCellHeightPx + res.getDimensionPixelSize(R.dimen.dynamic_grid_hotseatbar_compensation_height);
                 hotseatCellWidthPx = cellWidthPx;
             } else {
                 hotseatBarHeightPx = iconSizePx + res.getDimensionPixelSize(R.dimen.dynamic_grid_hotseatbar_compensation_height);
@@ -289,10 +296,13 @@ public class DeviceProfile {
         // Folder
         folderCellWidthPx = cellWidthPx + 3 * edgeMarginPx;
         // Với folder: chiều rộng ô tự co theo khung, chiều cao ô = folderCellHeightPx (cố định).
-        // Khối app [icon + đệm + nhãn] cao cellHeightPx, canh giữa trong ô → hở dọc giữa 2
-        // hàng = folderCellHeightPx - cellHeightPx. Cho hở dọc ~ hở ngang giữa các icon
+        // Khối app [icon + đệm + nhãn] cao gridCellHeightPx, canh giữa trong ô → hở dọc giữa 2
+        // hàng = folderCellHeightPx - chiều cao khối. Cho hở dọc ~ hở ngang giữa các icon
         // (nhỏ, ~edgeMargin) để khoảng cách trông đều nhau, tính cả phần title.
-        folderCellHeightPx = cellHeightPx + edgeMarginPx;
+        // Dùng gridCellHeightPx (chưa ép vuông): việc ép ô vuông là để widget NxN vuông trên
+        // DESKTOP, không liên quan lưới bên trong folder — dùng cellHeightPx sẽ làm folder cao
+        // vống lên một cách vô cớ.
+        folderCellHeightPx = gridCellHeightPx + edgeMarginPx;
         folderBackgroundOffset = 0;
         folderIconSizePx = iconSizePx;
     }

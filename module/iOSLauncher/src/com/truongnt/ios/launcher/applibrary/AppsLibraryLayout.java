@@ -66,6 +66,8 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     public ExtendedEditText mSearchWordET;
     public AppNameComparator mAppNameComparator;
     public SearchResultAdapter mSearchResultAdapter;
+    /** Thanh chữ cái A-Z mép phải list kết quả search (chạm/vuốt để nhảy nhóm). */
+    public AlphabetIndexBar mIndexBar;
     public ArrayList<AppCategory> mCategories = new ArrayList<>();
     public AppLibraryAdapter mAppLibraryAdapter = new AppLibraryAdapter();
     // Số app của lần build category gần nhất — để ensureReady biết cần rebuild khi nội dung đổi
@@ -110,6 +112,8 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
 
         mSearchResultRV = findViewById(R.id.apps_library_search_view);
         mTotalLibraryRV = findViewById(R.id.list_apps_library);
+        mIndexBar = findViewById(R.id.apps_library_index_bar);
+        setUpIndexBar();
         mSearchWordET = findViewById(R.id.et_search);
         mInputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
@@ -216,12 +220,139 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
                 }
             }
         });
+
+        setUpPullDownToSearch();
+    }
+
+    /**
+     * Quãng vuốt tối thiểu (px) để coi là "kéo xuống mở search".
+     * [CĂN CHỈNH] 120 -> 40: mức cũ phải kéo khá dài mới ăn, cảm giác ì. 40px đủ để phân biệt với
+     * chạm nhẹ/rung tay nhưng phản hồi gần như tức thì.
+     */
+    private static final int PULL_DOWN_TO_SEARCH_THRESHOLD_PX = 40;
+
+    /**
+     * Kéo xuống ở ĐỈNH lưới App Library -> mở ô search (kiểu iOS).
+     *
+     * Chỉ nhận khi list ĐANG Ở ĐỈNH (không cuộn được lên nữa) để không cướp thao tác cuộn thường:
+     * đang xem giữa list mà vuốt xuống thì vẫn là cuộn lên bình thường.
+     *
+     * Dùng OnTouchListener chứ không phải OnScrollListener: khi list đã ở đỉnh, RecyclerView
+     * không sinh sự kiện cuộn nữa (chỉ có hiệu ứng nảy của BouncyRecyclerView), nên phải đọc
+     * thẳng quãng di chuyển của ngón tay. Trả về false ở mọi nhánh để KHÔNG nuốt sự kiện —
+     * cuộn/bấm item vẫn hoạt động như cũ.
+     */
+    private void setUpPullDownToSearch() {
+        if (mTotalLibraryRV == null) {
+            return;
+        }
+        mTotalLibraryRV.setOnTouchListener(new OnTouchListener() {
+            private float mDownY = -1f;
+            private boolean mTriggered;
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mDownY = event.getY();
+                        mTriggered = false;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (mTriggered || flag) {
+                            break;
+                        }
+                        // canScrollVertically(-1) = còn cuộn LÊN được -> chưa ở đỉnh.
+                        if (mTotalLibraryRV.canScrollVertically(-1)) {
+                            // Chưa tới đỉnh: xoá mốc đo. Nhờ vậy khi list vừa CHẠM đỉnh, quãng kéo
+                            // được tính LẠI từ đúng thời điểm đó — không cộng dồn phần đã cuộn
+                            // trước đó (trước đây phải kéo thêm rất dài mới ăn, cảm giác ì).
+                            mDownY = -1f;
+                            break;
+                        }
+                        if (mDownY < 0f) {
+                            mDownY = event.getY();   // vừa tới đỉnh -> đặt mốc đo tại đây
+                            break;
+                        }
+                        if (event.getY() - mDownY >= PULL_DOWN_TO_SEARCH_THRESHOLD_PX) {
+                            mTriggered = true;   // chỉ mở MỘT lần cho mỗi lần chạm
+                            transitionToEnd();
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        mDownY = -1f;
+                        mTriggered = false;
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     void setUpAdapter(){
         mTotalLibraryRV.setLayoutManager(new GridLayoutManager(this.getContext(),2));
         mTotalLibraryRV.setAdapter(null);
         mSearchResultRV.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    /**
+     * Gắn xử lý chạm cho thanh chữ cái: chọn chữ nào thì cuộn list kết quả tới đúng nhóm đó.
+     * Dùng scrollToPositionWithOffset để header chữ cái nằm SÁT ĐỈNH vùng nhìn thấy.
+     */
+    void setUpIndexBar() {
+        if (mIndexBar == null) {
+            return;
+        }
+        mIndexBar.setOnLetterSelectedListener(new AlphabetIndexBar.OnLetterSelectedListener() {
+            @Override
+            public void onLetterSelected(String letter) {
+                if (mSearchResultAdapter == null || mSearchResultRV == null) {
+                    return;
+                }
+                int pos = mSearchResultAdapter.findPositionForLetter(letter);
+                if (pos < 0) {
+                    return;
+                }
+                RecyclerView.LayoutManager lm = mSearchResultRV.getLayoutManager();
+                if (lm instanceof LinearLayoutManager) {
+                    ((LinearLayoutManager) lm).scrollToPositionWithOffset(pos, 0);
+                } else {
+                    mSearchResultRV.scrollToPosition(pos);
+                }
+            }
+        });
+    }
+
+    /**
+     * Nạp danh sách chữ cái cho thanh A-Z theo adapter hiện tại, và đăng ký cập nhật lại mỗi khi
+     * người dùng gõ tìm kiếm (kết quả lọc đổi -> số nhóm chữ đổi theo).
+     */
+    public void bindIndexBarToAdapter() {
+        if (mIndexBar == null || mSearchResultAdapter == null) {
+            return;
+        }
+        mIndexBar.setLetters(mSearchResultAdapter.getSectionLetters());
+        mSearchResultAdapter.setOnResultsChangedListener(
+                new SearchResultAdapter.OnResultsChangedListener() {
+                    @Override
+                    public void onResultsChanged() {
+                        // LUÔN cập nhật chữ (không phụ thuộc flag): kết quả có thể đổi trước khi
+                        // hiệu ứng vào màn search chạy xong, chờ flag=true sẽ bỏ lỡ lần nạp đó.
+                        if (mIndexBar == null || mSearchResultAdapter == null) {
+                            return;
+                        }
+                        mIndexBar.setLetters(mSearchResultAdapter.getSectionLetters());
+                        // Đang ở màn search thì đồng bộ luôn ẩn/hiện theo việc còn chữ hay không
+                        // (gõ lọc tới mức không còn nhóm nào -> thanh tự ẩn).
+                        if (flag) {
+                            mIndexBar.setVisibility(
+                                    mIndexBar.hasLetters() ? View.VISIBLE : View.GONE);
+                        }
+                    }
+                });
     }
 
     public void setApps(ArrayList<AppInfo> apps){
@@ -278,7 +409,13 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         this.mLayoutAppsLibrary.setPadding(0, 0, 0, 0);
         ((MarginLayoutParams) ((LayoutParams) this.mLayoutAppsLibrary.getLayoutParams())).height = mDeviceProfile.getCurrentHeight();
         this.mTotalLibraryRV.setPadding(mDeviceProfile.edgeMarginPx, paddingTop, mDeviceProfile.edgeMarginPx, paddingBottom);
-        this.mSearchResultRV.setPadding(mDeviceProfile.edgeMarginPx, paddingTop, mDeviceProfile.edgeMarginPx, paddingBottom);
+        // List kết quả chừa thêm chỗ bên PHẢI cho thanh chữ cái A-Z (đè lên mép phải), để tên app
+        // dài không chạy xuống dưới thanh.
+        // paddingBottom = 0: list kết quả KHÔNG cần chừa đáy (khoảng 60dp thừa hưởng từ layout
+        // vốn dành cho lưới category) -> bỏ để không hở một dải trống dưới app cuối.
+        int indexBarWidth = getResources().getDimensionPixelSize(R.dimen.apps_library_index_bar_width);
+        this.mSearchResultRV.setPadding(mDeviceProfile.edgeMarginPx, paddingTop,
+                mDeviceProfile.edgeMarginPx + indexBarWidth, 0);
         LayoutParams params = (LayoutParams) this.mSearchAppBoxLibrary.getLayoutParams();
         ((MarginLayoutParams) params).rightMargin = margin;
         ((MarginLayoutParams) params).leftMargin = margin;
@@ -289,7 +426,26 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
         if (endId == R.id.apps_library_end) {
             this.mSearchResultRV.setVisibility(View.VISIBLE);
+            // Vào màn search -> hiện thanh chữ cái ngay từ đầu hiệu ứng cho mượt.
+            showIndexBarIfSearching();
         }
+    }
+
+    /**
+     * Nạp chữ cái mới nhất rồi hiện thanh A-Z (ẩn nếu không có nhóm chữ nào).
+     *
+     * Gọi ở CẢ HAI mốc vào màn search (onTransitionStarted + onTransitionCompleted): mốc đầu cho
+     * thanh xuất hiện sớm, mốc sau chốt lại phòng khi lúc đó adapter chưa sẵn sàng.
+     * Gọi lặp vô hại vì chỉ đọc dữ liệu và set visibility.
+     */
+    private void showIndexBarIfSearching() {
+        if (mIndexBar == null) {
+            return;
+        }
+        if (mSearchResultAdapter != null) {
+            mIndexBar.setLetters(mSearchResultAdapter.getSectionLetters());
+        }
+        mIndexBar.setVisibility(mIndexBar.hasLetters() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -308,6 +464,9 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
 
         if (currentId == R.id.apps_library_end) {
             this.flag = true;
+            // Chốt lại việc hiện thanh chữ cái tại mốc CHẮC CHẮN này (onTransitionStarted có thể
+            // chạy khi adapter chưa sẵn sàng, hoặc không nổ nếu vào màn search không qua hiệu ứng).
+            showIndexBarIfSearching();
             mSearchWordET.requestFocus();
             if (this.mSearchWordET != null) {
                 if (mInputMethodManager != null) {
@@ -319,6 +478,10 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
             this.flag = false;
             mSearchResultRV.setVisibility(View.INVISIBLE);
             mSearchResultRV.setAlpha(0.0f);
+            // Rời màn search -> ẩn thanh chữ cái (thanh chỉ dùng cho list kết quả).
+            if (mIndexBar != null) {
+                mIndexBar.setVisibility(View.GONE);
+            }
             mSearchWordET.setText("");
             mSearchWordET.clearFocus();
             if (mSearchWordET == null || this.mInputMethodManager == null) {

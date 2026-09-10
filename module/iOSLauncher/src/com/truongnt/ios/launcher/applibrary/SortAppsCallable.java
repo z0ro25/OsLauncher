@@ -135,6 +135,8 @@ public class SortAppsCallable implements Callable<ArrayList<AppCategory>> {
                 layout.mSearchResultAdapter = new SearchResultAdapter(results);
                 layout.mSearchResultRV.setAdapter(layout.mSearchResultAdapter);
                 layout.mSearchResultAdapter.notifyDataSetChanged();
+                // Nạp chữ cái cho thanh A-Z + theo dõi mỗi lần lọc để thanh rút gọn theo kết quả.
+                layout.bindIndexBarToAdapter();
                 // Bỏ sticky header (SearchResultDecoration): trước đây ghim chữ cái cố định ở đỉnh
                 // -> "đứng im" khi vuốt. Chữ cái đã tồn tại như item thường trong list nên sẽ cuộn
                 // theo list bình thường. (Cũng tránh addItemDecoration chồng chất mỗi lần setApps.)

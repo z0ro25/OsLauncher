@@ -45,6 +45,19 @@
             app:recyclerview_fling_animation_size="0.8"
             app:recyclerview_overscroll_animation_size="0.8"
             app:recyclerview_stiffness="1" />
+
+        <!-- Thanh chữ cái A-Z dọc mép PHẢI list kết quả search: chạm/vuốt để nhảy tới nhóm chữ.
+             Nằm trong cùng FrameLayout với list nên đè lên mép phải; chỉ hiện khi đang search
+             (AppsLibraryLayout bật/tắt cùng apps_library_search_view). -->
+        <!-- Cao wrap_content + căn giữa dọc: cụm chữ tự canh giữa vùng list, KHÔNG dùng padding
+             lớn để đẩy (paddingTop 102dp mà không có paddingBottom bù lại sẽ đẩy cụm chữ lệch
+             hẳn xuống, có khi ra ngoài vùng nhìn thấy). -->
+        <com.truongnt.ios.launcher.applibrary.AlphabetIndexBar
+            android:id="@+id/apps_library_index_bar"
+            android:layout_width="@dimen/apps_library_index_bar_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:visibility="gone" />
     </FrameLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView

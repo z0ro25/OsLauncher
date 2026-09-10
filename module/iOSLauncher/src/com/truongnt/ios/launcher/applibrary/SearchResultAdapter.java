@@ -56,7 +56,23 @@ public class SearchResultAdapter extends RecyclerView.Adapter implements Filtera
             mSearchedResult.clear();
             mSearchedResult.addAll((ArrayList) results.values);
             notifyDataSetChanged();
+            // Kết quả đổi -> thanh chữ cái phải rút gọn/mở rộng theo, nếu không sẽ còn chữ bấm
+            // vào chẳng nhảy đi đâu (nhóm đó đã bị lọc mất).
+            if (mOnResultsChangedListener != null) {
+                mOnResultsChangedListener.onResultsChanged();
+            }
         }
+    }
+
+    /** Báo cho màn ngoài biết danh sách kết quả vừa đổi (để cập nhật thanh chữ cái). */
+    public interface OnResultsChangedListener {
+        void onResultsChanged();
+    }
+
+    private OnResultsChangedListener mOnResultsChangedListener;
+
+    public void setOnResultsChangedListener(OnResultsChangedListener l) {
+        mOnResultsChangedListener = l;
     }
 
     @NonNull
@@ -84,6 +100,13 @@ public class SearchResultAdapter extends RecyclerView.Adapter implements Filtera
             );
             viewHolder.mIconIV.setTag(result.getAppInfo());
             viewHolder.mIconIV.reapplyItemInfo(result.getAppInfo());
+            // ĐỒNG BỘ CỠ ICON: ép mọi icon về đúng cỡ icon desktop (originalIconSizePx, scale 1f).
+            //
+            // reapplyItemInfo đặt bounds theo drawable của TỪNG app nên cỡ hiển thị chênh nhau —
+            // đây là lý do danh sách trông so le. scaleIconSize() đặt lại bounds về MỘT cỡ duy
+            // nhất cho mọi hàng, và vì view dùng wrap_content nên khung tự ôm trọn icon ở cỡ đó
+            // (không cắt xén). KHÔNG ép khung cố định nhỏ hơn icon — sẽ cắt mất logo.
+            viewHolder.mIconIV.scaleIconSize(1f);
             // reapplyItemInfo chặn relayout (mDisableRelayout) -> view tái sử dụng có thể giữ kích
             // thước đo cũ khiến icon lệch/không đều "thi thoảng". Ép đo lại để mọi item đồng cỡ.
             viewHolder.mIconIV.requestLayout();
@@ -100,6 +123,38 @@ public class SearchResultAdapter extends RecyclerView.Adapter implements Filtera
 
     public final boolean isNormalItem(int i) {
         return this.mSearchedResult.get(i).getType() == 0;
+    }
+
+    /**
+     * Danh sách chữ cái nhóm ĐANG CÓ trong kết quả hiện tại (item type 0 = header chữ cái).
+     * Dùng cho thanh A-Z: chỉ hiện chữ có thật, để bấm chữ nào cũng nhảy được tới nơi.
+     */
+    public ArrayList<String> getSectionLetters() {
+        ArrayList<String> letters = new ArrayList<>();
+        for (SearchResult r : mSearchedResult) {
+            if (r != null && r.getType() == 0 && r.getName() != null) {
+                String name = r.getName().trim();
+                if (!name.isEmpty() && !letters.contains(name)) {
+                    letters.add(name);
+                }
+            }
+        }
+        return letters;
+    }
+
+    /** Vị trí item header của chữ cái này trong list; -1 nếu không có. */
+    public int findPositionForLetter(String letter) {
+        if (letter == null) {
+            return -1;
+        }
+        for (int i = 0; i < mSearchedResult.size(); i++) {
+            SearchResult r = mSearchedResult.get(i);
+            if (r != null && r.getType() == 0 && letter.equalsIgnoreCase(
+                    r.getName() != null ? r.getName().trim() : null)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
