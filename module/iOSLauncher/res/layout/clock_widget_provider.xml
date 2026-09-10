@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Đồng hồ Digital (#1 trong khay widget): KHUNG VUÔNG, thẻ TRẮNG + vòng vạch phút
      "sáng dồn theo giây" (acvSecondProgress) quanh mép + giờ ĐEN đậm ở giữa.
-     Ô lưới 2x2 rộng hơn cao -> bọc ConstraintLayout, ép khối vuông 1:1 CĂN GIỮA
-     (giống widget đồng hồ kim page 0) để khung vuông đều. Vạch vẽ bằng AnalogClockView
-     chế độ acvTicksOnly (chỉ vòng vạch, không mặt/kim/số). -->
+     Thẻ LẤP ĐẦY Ô LƯỚI (bỏ ép vuông 1:1): dấu trừ lúc edit neo theo bounds host nên nội dung
+     phải trùng bounds host thì dấu trừ mới không lệch vào trong. Vòng vạch do AnalogClockView
+     tự vẽ tròn căn giữa (Math.min của rộng/cao) nên vẫn tròn dù thẻ là chữ nhật.
+     Vạch vẽ bằng AnalogClockView chế độ acvTicksOnly (chỉ vòng vạch, không mặt/kim/số). -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Khối VUÔNG 1:1 căn giữa: giữ id widget_clock_layout để code cũ bám không đổi. -->
+    <!-- Thẻ lấp đầy ô: giữ id widget_clock_layout để code cũ bám không đổi. -->
     <FrameLayout
         android:id="@+id/widget_clock_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

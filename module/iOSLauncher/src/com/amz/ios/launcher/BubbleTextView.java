@@ -1301,7 +1301,10 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
     // trên cắt. DEL_ICON_DRAW_SCALE = tỉ lệ cỡ vẽ (nhỏ hơn 1); DEL_ICON_DOWN_SHIFT = phần lùi xuống
     // theo cỡ dấu trừ. Chỉnh 2 số này để đổi cỡ/vị trí.
     private static final float DEL_ICON_DRAW_SCALE = 0.78f;
-    private static final float DEL_ICON_DOWN_SHIFT = 0.28f;
+    // [CĂN CHỈNH] 0.28 -> 0.5: ô lưới đã cao bằng rộng (DeviceProfile.cellHeightPx = cellWidthPx)
+    // nên icon được căn giữa ô, phần trống phía trên icon ít đi -> dấu trừ nhô lên bị mép trên cắt.
+    // Lùi xuống đúng NỬA cỡ dấu trừ để nó nằm trọn từ mép trên icon trở xuống.
+    private static final float DEL_ICON_DOWN_SHIFT = 0.5f;
 
     private Drawable mNewInstallPrefix;
     private Paint mLeftPaint;

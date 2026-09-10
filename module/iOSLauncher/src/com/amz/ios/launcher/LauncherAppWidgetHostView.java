@@ -105,11 +105,16 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
     private int mDelIconSize;   // kích thước gốc dấu trừ (45% icon, giống app)
     private int mDelInset;       // chừa 4dp từ mép trên-trái host
     private ImageView mDelBadgeView;
-    // Cỡ dấu trừ widget (theo % icon). Tách inset TRÁI và TRÊN để chỉnh riêng: dương = lùi vào trong,
-    // âm = nhô ra. Giảm TOP_INSET để dịch LÊN TRÊN. (Theo cỡ dấu trừ.)
+    // Cỡ dấu trừ widget (theo % icon).
     private static final float DEL_ICON_DRAW_SCALE = 0.9f;
-    private static final float DEL_ICON_WIDGET_INSET = 0.18f;      // lùi vào từ mép TRÁI
-    private static final float DEL_ICON_WIDGET_TOP_INSET = 0f;  // trên: nhỏ hơn -> dịch lên trên
+    /**
+     * Phần badge NHÔ RA NGOÀI góc trên-trái host, tính theo tỉ lệ cỡ badge.
+     *
+     * 0.5 = nhô ra đúng MỘT NỬA, khớp cách dấu trừ của icon app đang vẽ
+     * (BubbleTextView: {@code left = bound.left - drawn / 2}) -> hai loại nhìn đồng bộ.
+     * Phần nhô hiển thị được nhờ đã tắt clip trên host + chuỗi cha (xem disableClipForBadge).
+     */
+    private static final float DEL_ICON_WIDGET_OVERHANG = 0.5f;
 
     private void ensureDelBadge() {
         if (mDelBadgeView != null) return;
@@ -119,13 +124,11 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
         mDelBadgeView.setVisibility(View.GONE);
         // Nổi trên nội dung widget (nội dung có thể có elevation) + luôn vẽ sau cùng.
         mDelBadgeView.setElevation(Float.MAX_VALUE / 4);
-        // Dấu trừ nhỏ (như app) nằm GỌN ở góc trên-trái widget: margin DƯƠNG = lùi vào trong từ góc,
-        // không nhô nửa ra ngoài (trước đây -drawn/2). Clip đã tắt qua disableClipForBadge.
+        // Vị trí đặt theo VIỀN CỦA VIEW NỘI DUNG (không phải viền ô lưới) — tính trong
+        // positionDelBadgeToContent(), gọi mỗi lần hiện badge và sau mỗi lần host đổi kích thước.
         int drawn = Math.round(mDelIconSize * DEL_ICON_DRAW_SCALE);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(drawn, drawn);
         lp.gravity = android.view.Gravity.TOP | android.view.Gravity.LEFT;
-        lp.leftMargin = Math.round(drawn * DEL_ICON_WIDGET_INSET);
-        lp.topMargin = Math.round(drawn * DEL_ICON_WIDGET_TOP_INSET);
         mDelBadgeView.setLayoutParams(lp);
         mDelBadgeView.setOnClickListener(new OnClickListener() {
             @Override
@@ -144,12 +147,64 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
     private void disableClipForBadge() {
         setClipChildren(false);
         setClipToPadding(false);
+        // Badge nhô RA NGOÀI bounds host nên phải tắt clip đủ sâu trên chuỗi cha
+        // (ShortcutAndWidgetContainer -> CellLayout -> ...); chỉ tắt 2 tầng thì phần nhô ở hàng
+        // trên cùng / cột trái vẫn bị cắt. Dừng ở Workspace để không đụng rộng hơn mức cần.
         android.view.ViewParent p = getParent();
-        for (int i = 0; i < 2 && p instanceof ViewGroup; i++) {
+        for (int i = 0; i < 4 && p instanceof ViewGroup; i++) {
             ViewGroup vg = (ViewGroup) p;
             vg.setClipChildren(false);
             vg.setClipToPadding(false);
+            if (vg instanceof Workspace) {
+                break;
+            }
             p = vg.getParent();
+        }
+    }
+
+    /**
+     * Neo dấu trừ vào góc trên-trái của VIEW NỘI DUNG widget.
+     *
+     * QUY ƯỚC: mọi layout widget phải để lớp ngoài cùng LẤP ĐẦY host (match_parent, không ép tỉ lệ
+     * 1:1 căn giữa) — khi đó nội dung trùng bounds host nên dấu trừ nằm đúng góc ô lưới. Trước đây
+     * vài widget (đồng hồ, pin, ảnh) ép vuông 1:1 khiến thẻ hẹp hơn host và dấu trừ trông lệch hẳn
+     * vào trong; các layout đó đã được sửa để lấp đầy host.
+     *
+     * Hàm này vẫn neo theo nội dung (thay vì cứng theo host) để phòng widget của BÊN THỨ BA không
+     * tuân quy ước trên — khi đó dấu trừ vẫn bám đúng phần nhìn thấy.
+     *
+     * Chưa có kích thước (chưa layout xong) thì giữ nguyên vị trí cũ, lần gọi sau sẽ chỉnh lại.
+     */
+    private void positionDelBadgeToContent() {
+        if (mDelBadgeView == null) {
+            return;
+        }
+        View content = null;
+        for (int i = 0; i < getChildCount(); i++) {
+            View c = getChildAt(i);
+            if (c != mDelBadgeView && c.getVisibility() != View.GONE) {
+                content = c;
+                break;
+            }
+        }
+        if (content == null || content.getWidth() <= 0 || content.getHeight() <= 0) {
+            return;
+        }
+        ViewGroup.LayoutParams raw = mDelBadgeView.getLayoutParams();
+        if (!(raw instanceof FrameLayout.LayoutParams)) {
+            return;
+        }
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) raw;
+        int drawn = lp.width > 0 ? lp.width : Math.round(mDelIconSize * DEL_ICON_DRAW_SCALE);
+        int overhang = Math.round(drawn * DEL_ICON_WIDGET_OVERHANG);
+        // Góc trên-trái của NỘI DUNG trong hệ toạ độ host, lùi ra ngoài một chút cho giống dấu
+        // trừ của icon app.
+        int newLeft = content.getLeft() - overhang;
+        int newTop = content.getTop() - overhang;
+        if (lp.leftMargin != newLeft || lp.topMargin != newTop) {
+            lp.leftMargin = newLeft;
+            lp.topMargin = newTop;
+            mDelBadgeView.setLayoutParams(lp);
         }
     }
 
@@ -157,6 +212,18 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
         ensureDelBadge();
         mDelBadgeView.setVisibility(show ? View.VISIBLE : View.GONE);
         if (show) {
+            // Gọi LẠI mỗi lần hiện: ensureDelBadge() chỉ chạy một lần, mà lúc đó host có thể chưa
+            // được gắn vào cây view nên chuỗi cha còn null -> clip chưa kịp tắt. Badge nhô ra ngoài
+            // bounds nên thiếu bước này sẽ bị cắt ở hàng trên cùng / cột trái.
+            disableClipForBadge();
+            positionDelBadgeToContent();
+            // Nội dung có thể chưa layout xong tại thời điểm bật edit -> chỉnh lại ở vòng kế tiếp.
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    positionDelBadgeToContent();
+                }
+            });
             mDelBadgeView.bringToFront();
         }
     }
@@ -478,6 +545,17 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView implements Touc
         }
         catch (RuntimeException e){
 
+        }
+        // Nội dung vừa được đặt vị trí xong -> neo lại dấu trừ theo viền nội dung (nội dung ép
+        // vuông/căn giữa chỉ biết vị trí thật sau khi layout). Chỉ chạy khi badge đang hiện.
+        // Dùng post() vì hàm này đổi LayoutParams -> không gọi ngay giữa layout pass.
+        if (mDelBadgeView != null && mDelBadgeView.getVisibility() == View.VISIBLE) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    positionDelBadgeToContent();
+                }
+            });
         }
     }
 

@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,8 +41,20 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
     DeviceProfile mGrid;
     WidgetPreviewLoader mPreviewLoader;
     WidgetPreviewLoader.PreviewLoadRequest mActiveRequest;
+    /**
+     * Khung chứa preview sống, dựng SẴN ở constructor và KHÔNG BAO GIỜ bị gỡ.
+     *
+     * BẤT BIẾN: cây view của cell không đổi sau khi constructor chạy xong — widget sống chỉ được
+     * đổ VÀO TRONG khung này, việc bật/tắt hiển thị làm bằng setVisibility. Xem addLivePreview().
+     */
+    FrameLayout mLiveHost;
     View mLivePreview;
     Parcelable mParcelable;
+    /**
+     * Đã thử dựng preview sống cho widget iOS của cell này chưa (thành công hoặc rơi về ảnh tĩnh).
+     * Chặn dựng lặp sau khi ViewPager re-instantiate cell nhiều lần.
+     */
+    private boolean mLiveBuildAttempted;
     int mSize;
     int mWidth;
     int mHeight;
@@ -100,6 +113,29 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
 
         mStylusEventHelper = new StylusEventHelper(this);
 
+        // [SỬA LỖI Ô TRỐNG TRÊN ANDROID 9] Dựng SẴN khung chứa preview sống ngay tại constructor,
+        // theo đúng cách GalleryWidgetCell (màn 1) đang làm — cơ chế đó đã chạy tốt trên chính máy
+        // Android 9 bị lỗi này.
+        //
+        // Trước đây addLivePreview() gọi addView() để chèn host vào cell tại thời điểm ensurePreview(),
+        // mà ensurePreview() lại chạy trong setData() TRƯỚC khi ViewPager gắn cell vào cây view. Host
+        // vì thế được dựng khi cell còn rời, phải trông chờ ViewTreeObserver tạm được gộp lúc attach
+        // — điều không xảy ra trên Android 9, nên widget không bao giờ được áp scale và ô trông trống.
+        //
+        // Khung dựng ở đây luôn tồn tại; widget chỉ được đổ VÀO TRONG khung. Không sửa
+        // widget_app_style_cell.xml vì file đó dùng CHUNG với GalleryWidgetCell.
+        mLiveHost = new FrameLayout(context);
+        mLiveHost.setVisibility(View.GONE);
+        // Cell là LinearLayout DỌC và mWidgetPreview (ảnh tĩnh) đã khai báo height=match_parent
+        // trong widget_app_style_cell.xml. Nếu khung này cũng match_parent thì view thứ hai bị đẩy
+        // xuống với chiều cao 0 -> preview sống không có chỗ vẽ -> ô TRẮNG.
+        // Dùng height=0 + weight=1 để khung luôn nhận phần chiều cao còn lại của cell, không phụ
+        // thuộc việc ảnh tĩnh đang hiện hay đã ẩn.
+        LinearLayout.LayoutParams hostLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f);
+        hostLp.gravity = Gravity.CENTER;
+        addView(mLiveHost, indexOfChild(mWidgetPreview) + 1, hostLp);
+
         Resources resources = context.getResources();
 
         mWidgetDimenStrFormat = resources.getString(R.string.widget_dims_format);
@@ -140,7 +176,11 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
     public void ensurePreview(){
         // Widget iOS: dựng preview SỐNG (inflate layout thật, đồng hồ tự chạy) thay ảnh tĩnh.
         if (LiveWidgetPreviewHelper.isLivePreviewSupported(mParcelable)) {
-            addLivePreview((LauncherAppWidgetProviderInfo) mParcelable);
+            // KHÔNG dựng ngay nếu cell chưa có kích thước thật (setData chạy khi sheet còn chưa
+            // hiện, cell 0x0) — inflate vào ô 0x0 rồi trông chờ relayout sau chính là nguồn gốc ô
+            // trống trên Android 9. Việc dựng được chuyển cho maybeBuildLivePreview(), kích hoạt
+            // mỗi khi cell có kích thước thật + attach (xem onSizeChanged/onAttachedToWindow).
+            maybeBuildLivePreview();
             return;
         }
         if (mActiveRequest != null) {
@@ -166,25 +206,152 @@ public class WidgetAppStyleCell extends LinearLayout implements View.OnLayoutCha
         );
     }
 
-    /** Thay WidgetImageView tĩnh bằng host chứa widget đã inflate (preview sống). */
-    private void addLivePreview(LauncherAppWidgetProviderInfo info) {
-        if (mLivePreview != null) {
-            removeView(mLivePreview);
-            mLivePreview = null;
-        }
-        View host = LiveWidgetPreviewHelper.build(getContext(), info, mGrid);
-        if (host == null) {
+    /**
+     * Dựng preview sống khi cell THẬT SỰ sẵn sàng: đã có kích thước thật và đã gắn vào cây view.
+     *
+     * Gọi lại an toàn nhiều lần (mỗi lần cell có kích thước/attach lại) vì có cờ
+     * {@link #mLiveBuildAttempted} chặn dựng trùng. KHÔNG dựng khi cell còn 0x0.
+     */
+    private void maybeBuildLivePreview() {
+        if (mLiveBuildAttempted) {
             return;
         }
-        int idx = indexOfChild(mWidgetPreview);
-        mWidgetPreview.setVisibility(View.GONE);
-        ViewGroup.LayoutParams src = mWidgetPreview.getLayoutParams();
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(src.width, src.height);
-        lp.gravity = Gravity.CENTER;
+        if (!(mParcelable instanceof LauncherAppWidgetProviderInfo)) {
+            return;
+        }
+        LauncherAppWidgetProviderInfo info = (LauncherAppWidgetProviderInfo) mParcelable;
+        if (!LiveWidgetPreviewHelper.isLivePreviewSupported(info)) {
+            return;
+        }
+        if (getWidth() <= 0 || getHeight() <= 0 || !isAttachedToWindow()) {
+            return;
+        }
+        addLivePreview(info, getWidth(), getHeight());
+    }
+
+    /**
+     * Nạp preview NGAY với kích thước khung biết trước, không chờ cell được layout.
+     *
+     * Dùng khi adapter bind: màn chọn size đã biết khung rộng/cao bao nhiêu, nên không cần đợi
+     * vòng đo nào — đây là thứ khiến trước đây phải vuốt qua lại preview mới hiện.
+     *
+     * Widget iOS -> preview SỐNG; mọi trường hợp còn lại (widget APP NGOÀI, shortcut) -> ảnh tĩnh
+     * qua {@link #ensurePreview()}. Trước đây các nhánh đó return trắng nên widget app ngoài KHÔNG
+     * hiển thị gì ở màn chọn size.
+     */
+    void buildLivePreviewNow(int boxW, int boxH) {
+        if (mLiveBuildAttempted) {
+            return;
+        }
+        boolean live = (mParcelable instanceof LauncherAppWidgetProviderInfo)
+                && LiveWidgetPreviewHelper.isLivePreviewSupported(mParcelable);
+        if (!live || boxW <= 0 || boxH <= 0) {
+            // Không phải widget iOS (hoặc chưa biết kích thước khung) -> đi đường ảnh tĩnh.
+            ensurePreview();
+            return;
+        }
+        addLivePreview((LauncherAppWidgetProviderInfo) mParcelable, boxW, boxH);
+    }
+
+    /**
+     * Cell được ViewPager cấp kích thước THẬT lần đầu (sheet hiện, pager layout trang). Đây là mốc
+     * an toàn để dựng preview sống. Post() sang vòng layout kế để không inflate/addView ngay giữa
+     * layout pass của chính cell.
+     */
+    @Override
+    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        super.onSizeChanged(w, h, oldW, oldH);
+        if (w <= 0 || h <= 0 || mLiveBuildAttempted) {
+            return;
+        }
+        post(new Runnable() {
+            @Override
+            public void run() {
+                maybeBuildLivePreview();
+            }
+        });
+    }
+
+    /**
+     * Chốt chặn cuối: mỗi vòng layout của cell đều thử dựng preview nếu chưa dựng được.
+     *
+     * Cần vì các mốc kia (onSizeChanged / onAttachedToWindow / lúc adapter bind) đều có thể xảy ra
+     * khi cell chưa có kích thước. onLayout thì luôn nổ ĐÚNG lúc cell vừa được cấp kích thước thật.
+     * Cờ mLiveBuildAttempted chặn dựng lặp nên gọi mỗi vòng layout là an toàn.
+     */
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        if (mLiveBuildAttempted || r - l <= 0 || b - t <= 0) {
+            return;
+        }
+        post(new Runnable() {
+            @Override
+            public void run() {
+                maybeBuildLivePreview();
+            }
+        });
+    }
+
+    /**
+     * Cell vừa được gắn lại vào cây (ViewPager re-instantiate sau notifyDataSetChanged của
+     * forcePagerRelayout). Lúc này cell có thể đã có kích thước thật nhưng onSizeChanged sẽ không
+     * nổ lại (kích thước không đổi) -> phải nhắc maybeBuildLivePreview() ở đây.
+     */
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (mLiveBuildAttempted) {
+            return;
+        }
+        post(new Runnable() {
+            @Override
+            public void run() {
+                maybeBuildLivePreview();
+            }
+        });
+    }
+
+    /**
+     * Đổ widget đã inflate vào KHUNG CÓ SẴN (mLiveHost) rồi ẩn ảnh tĩnh đi.
+     *
+     * Dùng {@code buildForSizeSheet} chứ KHÔNG dùng {@code build}: bản cho sheet này tự áp scale ở
+     * onLayout của chính host — mốc nổ đúng khi sheet hiện ra và cell có kích thước thật (xem
+     * chú thích trong constructor và javadoc của buildForSizeSheet).
+     *
+     * Cây view của cell KHÔNG đổi: khung đã dựng ở constructor, đây chỉ đổ nội dung vào trong.
+     */
+    private void addLivePreview(LauncherAppWidgetProviderInfo info, int boxW, int boxH) {
+        mLiveBuildAttempted = true;   // đã thử (thành công hay rơi về ảnh tĩnh) -> không dựng lại
+        mLiveHost.removeAllViews();
+        mLivePreview = null;
+
+        View host = LiveWidgetPreviewHelper.buildForSizeSheet(
+                getContext(), info, mGrid, boxW, boxH);
+        if (host == null) {
+            // Dựng hụt -> quay về ảnh tĩnh thay vì để ô TRỐNG. Trước đây nhánh này return luôn nên
+            // bất kỳ trục trặc nào ở khâu dựng preview sống cũng thành ô trống không lối thoát.
+            mLiveHost.setVisibility(View.GONE);
+            mWidgetPreview.setVisibility(View.VISIBLE);
+            loadStaticPreview();
+            return;
+        }
         // Preview SỐNG là widget THẬT được inflate -> view con của nó sẽ nuốt touch. Việc chặn do
         // onInterceptTouchEvent() của cell lo (xem chú thích ở đó), không đụng vào bản thân host.
-        addView(host, idx, lp);
+        mLiveHost.addView(host, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mLiveHost.setVisibility(View.VISIBLE);
+        mWidgetPreview.setVisibility(View.GONE);
         mLivePreview = host;
+    }
+
+    /** Nạp ảnh preview tĩnh (đường dự phòng khi preview sống dựng hụt). */
+    private void loadStaticPreview() {
+        if (mActiveRequest != null) {
+            return;
+        }
+        int[] previewSize = getPreviewSize();
+        mActiveRequest = mPreviewLoader.getPreview(mParcelable, previewSize[0], previewSize[1], this);
     }
 
     @Override

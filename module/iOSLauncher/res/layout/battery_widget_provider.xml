@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Widget Battery (khay widget): KHUNG VUÔNG theo design iOS. Ô lưới 2x2 rộng hơn cao
-     -> bọc ConstraintLayout, ép thẻ tối vuông 1:1 CĂN GIỮA (giống clock #1/#2).
+<!-- Widget Battery (khay widget): thẻ LẤP ĐẦY Ô LƯỚI (bỏ ép vuông 1:1). Lý do: dấu trừ lúc
+     edit được neo theo bounds của host, nên nội dung phải trùng bounds host thì dấu trừ mới
+     không lệch vào trong. Đây là quy ước chung cho mọi widget.
      Bố cục: vòng pin (widget_battery_progress) góc TRÊN-TRÁI, chữ % (widget_battery_text)
      trắng TO ở DƯỚI-TRÁI. Vòng pin + % được bind trực tiếp bởi BatteryWidgetProvider
      .bindInflatedView() sau khi inflate (widget nội bộ không đi qua onUpdate). GIỮ NGUYÊN
@@ -11,7 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Thẻ VUÔNG 1:1 căn giữa: nền gradient tối + padding chung cho ring/chữ. -->
+    <!-- Thẻ lấp đầy ô: nền gradient tối + padding chung cho ring/chữ. -->
     <LinearLayout
         android:id="@+id/widget_battery_layout"
         android:orientation="vertical"
@@ -19,7 +20,6 @@
         android:padding="@dimen/widget_padding"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

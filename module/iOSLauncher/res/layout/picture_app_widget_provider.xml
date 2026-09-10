@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Widget ảnh đặt sẵn ở PAGE 0 (default_workspace screen 0, PictureAppWidgetProvider →
      initialLayout của picture_app_widget_provider_info.xml).
-     Ô lưới 2x2 RỘNG HƠN CAO nên trước đây FrameLayout phủ kín ô -> ảnh bị DÀI NGANG, không vuông.
-     Nay bọc trong ConstraintLayout và ép khối ảnh VUÔNG 1:1 = min(rộng,cao) CĂN GIỮA (giống hệt
-     widget đồng hồ analog_clock) -> 2 widget page 0 có cùng cỡ vuông, thẳng hàng. -->
+     Khối ảnh LẤP ĐẦY Ô LƯỚI (bỏ ép vuông 1:1). Lý do: dấu trừ lúc edit được neo theo bounds của
+     host, nên nội dung phải trùng bounds host thì dấu trừ mới không lệch vào trong — quy ước
+     chung cho mọi widget. Ảnh dùng centerCrop nên vẫn đầy khung, không méo. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Khối vuông 1:1 căn giữa: giữ id/nền bo góc/click như cũ để code (bindInflatedView,
+    <!-- Khối lấp đầy ô: giữ id/nền bo góc/click như cũ để code (bindInflatedView,
          updateWidget, onClick) vẫn hoạt động nguyên vẹn. -->
     <FrameLayout
         android:id="@+id/widget_picture_layout"
@@ -19,7 +19,6 @@
         android:background="@drawable/widget_picture_clip_bg"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

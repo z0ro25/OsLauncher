@@ -694,6 +694,22 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
             int vFreeSpace = vSpace - (mCountY * mCellHeight);
             mWidthGap = Math.min(mMaxGap, numWidthGaps > 0 ? (hFreeSpace / numWidthGaps) : 0);
             mHeightGap = Math.min(mMaxGap, numHeightGaps > 0 ? (vFreeSpace / numHeightGaps) : 0);
+            // ĐỒNG BỘ hở NGANG = hở DỌC để widget NxN ra đúng HÌNH VUÔNG.
+            //
+            // Kích thước widget = span * cell + (span-1) * gap. Ô đã vuông (cellHeightPx =
+            // cellWidthPx trong DeviceProfile) nhưng hai gap được tính RIÊNG từ chỗ trống thừa
+            // theo mỗi chiều nên vẫn lệch nhau -> widget 2x2 vẫn hơi bẹt. Lấy giá trị NHỎ HƠN cho
+            // cả hai chiều: vừa cân, vừa không bao giờ vượt chỗ trống sẵn có (không tràn lưới).
+            //
+            // CHỈ áp cho lưới desktop: chiều cao FOLDER tính theo mHeightGap (xem nhánh isFolder
+            // bên dưới) nên đổi gap ở đó sẽ làm khung folder co lại ngoài ý muốn.
+            if (!isFolder()) {
+                int squareGap = Math.min(mWidthGap, mHeightGap);
+                if (squareGap >= 0) {
+                    mWidthGap = squareGap;
+                    mHeightGap = squareGap;
+                }
+            }
             mShortcutsAndWidgets.setCellDimensions(mCellWidth, mCellHeight, mWidthGap,
                     mHeightGap, mCountX, mCountY);
         } else {

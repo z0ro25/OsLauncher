@@ -255,8 +255,16 @@ public class DeviceProfile {
         FontMetrics fm = textPaint.getFontMetrics();
         labelHeight = (int) Math.ceil(fm.bottom - fm.top);
         cellWidthPx = iconSizePx + 2 * edgeMarginPx;
-        cellHeightPx = iconSizePx + iconDrawablePaddingPx + labelHeight;
-//        cellHeightPx = cellWidthPx;
+        // Ô lưới VUÔNG: chiều cao hàng = chiều rộng cột.
+        //
+        // Trước đây chiều cao tính theo [icon + đệm + nhãn] nên ô 1x1 rộng hơn cao (vd 452x426),
+        // kéo theo widget 2x2/4x4 cũng bị bẹt và không "vuông" đúng như thiết kế iOS. Cho hai
+        // chiều bằng nhau thì widget NxN ra đúng hình vuông, và nội dung widget (đã lấp đầy ô)
+        // không cần ép tỉ lệ 1:1 nữa.
+        //
+        // Chiều cao mới LỚN HƠN chiều cao cũ nên khối [icon + nhãn] vẫn đủ chỗ (nó được căn giữa
+        // trong ô), chỉ hở dọc giữa các hàng rộng ra một chút.
+        cellHeightPx = Math.max(cellWidthPx, iconSizePx + iconDrawablePaddingPx + labelHeight);
 
         final float scaleDps = res.getDimensionPixelSize(R.dimen.dragViewScale);
         dragViewScale = (iconSizePx + scaleDps) / iconSizePx;
