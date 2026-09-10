@@ -165,7 +165,10 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
                         animation.cancel();
                     } else {
                         mDragOutlineAlphas[thisIndex] = (Float) animation.getAnimatedValue();
-                        CellLayout.this.invalidate(mDragOutlines[thisIndex]);
+                        // Ở hotseat outline được VẼ dịch ngang (xem onDraw), nên vùng invalidate
+                        // cũng phải dịch theo — nếu không, phần được vẽ lại không phủ chỗ outline
+                        // thật sự hiện ra và để lại vệt mờ trên dock.
+                        CellLayout.this.invalidateDragOutline(mDragOutlines[thisIndex]);
                     }
                 }
             });
@@ -395,11 +398,21 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
 //        }
 
         final Paint paint = mDragOutlinePaint;
+        // Khung xem trước chỗ sắp thả được đặt bằng cellToPoint() -> hệ LƯỚI GỐC. Nhưng ở hotseat,
+        // icon lại được VẼ dịch ngang để cụm nằm giữa khung
+        // (ShortcutAndWidgetContainer.getHotseatCenteringOffsetX). Không dịch outline theo thì khung
+        // xem trước hiện lệch khỏi hàng icon đúng bằng offset đó. Dịch lúc VẼ (không đụng toạ độ đã
+        // lưu trong mDragOutlines) để phần tính ô vẫn thuần lưới gốc.
+        // Vùng invalidate phải dịch CÙNG offset -> xem invalidateDragOutline().
+        final int outlineOffsetX = getDragOutlineOffsetX();
         for (int i = 0; i < mDragOutlines.length; i++) {
             final float alpha = mDragOutlineAlphas[i];
             if (alpha > 0) {
                 final Rect r = mDragOutlines[i];
                 mTempRect.set(r);
+                if (outlineOffsetX != 0) {
+                    mTempRect.offset(outlineOffsetX, 0);
+                }
                 Utilities.scaleRectAboutCenter(mTempRect, getChildrenScale());
                 final Bitmap b = (Bitmap) mDragOutlineAnims[i].getTag();
                 paint.setAlpha((int) (alpha + .5f));
@@ -437,7 +450,10 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
             View child = getChildAt(fra.mCellX, fra.mCellY);
 
             if (child != null) {
-                int centerX = mTempLocation[0] + mCellWidth / 2;
+                // + outlineOffsetX: cùng lý do với drag outline ở trên — cellToPoint() trả toạ độ
+                // theo lưới gốc, còn icon dock được vẽ dịch ngang để căn giữa. Không cộng thì vòng
+                // tròn "thả để gộp folder" hiện lệch khỏi icon nó đang nhắm tới.
+                int centerX = mTempLocation[0] + outlineOffsetX + mCellWidth / 2;
                 int centerY = mTempLocation[1] + previewOffset / 2 +
                         child.getPaddingTop() + grid.folderBackgroundOffset;
 
@@ -454,6 +470,42 @@ public class CellLayout extends BaseCellLayout implements BubbleTextShadowHandle
                 }
             }
         }
+    }
+
+    /**
+     * Khoảng dịch ngang phải áp cho MỌI thứ được vẽ theo toạ độ ô trong {@link #onDraw} (drag
+     * outline, vòng tròn gộp folder).
+     *
+     * Các hàm cellToPoint()/regionToRect() trả toạ độ theo LƯỚI GỐC và dùng chung cho desktop,
+     * folder lẫn dock nên KHÔNG được sửa. Riêng dock lại vẽ icon dịch ngang để cụm nằm giữa khung
+     * (xem {@link ShortcutAndWidgetContainer#getHotseatCenteringOffsetX}), nên phần vẽ đè lên lưới
+     * phải bù đúng khoảng đó, nếu không sẽ lệch khỏi hàng icon. Lưới không phải dock trả 0 -> giữ
+     * nguyên hành vi cũ.
+     */
+    private int getDragOutlineOffsetX() {
+        if (!mIsHotseat || mShortcutsAndWidgets == null) {
+            return 0;
+        }
+        return mShortcutsAndWidgets.getHotseatCenteringOffsetX();
+    }
+
+    /**
+     * invalidate() cho một drag outline, có bù {@link #getDragOutlineOffsetX()}.
+     *
+     * Toạ độ lưu trong mDragOutlines là hệ lưới gốc, còn onDraw vẽ nó ở vị trí ĐÃ DỊCH. Truyền
+     * thẳng rect gốc cho invalidate() thì vùng vẽ lại không phủ chỗ outline thật sự hiện ra ->
+     * outline cũ để lại vệt mờ trên dock.
+     */
+    private void invalidateDragOutline(Rect outline) {
+        int offsetX = getDragOutlineOffsetX();
+        if (offsetX == 0) {
+            invalidate(outline);
+            return;
+        }
+        // Không sửa rect gốc (onDraw còn đọc lại) -> dùng bản sao.
+        Rect dirty = new Rect(outline);
+        dirty.offset(offsetX, 0);
+        invalidate(dirty);
     }
 
     public void showFolderAccept(FolderRingAnimator fra) {

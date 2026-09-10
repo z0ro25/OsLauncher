@@ -3422,9 +3422,19 @@ public class Workspace extends PagedView
                         // commit). Nếu không, addInScreen sẽ âm thầm không add (getScreenWithId==null) hoặc
                         // ném RuntimeException (EXTRA_EMPTY) -> sau khi đã removeView, cell MẤT parent ->
                         // NPE ở cell.getParent().getParent() bên dưới (crash "kéo app sang page khác").
-                        boolean validTargetScreen = screenId != -1
+                        //
+                        // [BUG FIX] "Kéo app từ desktop xuống hotseat không ăn, app bay về chỗ cũ":
+                        //   Guard trên CHỈ đúng cho DESKTOP. Hotseat KHÔNG nằm trong mWorkspaceScreens nên
+                        //   getIdForScreen(hotseatLayout) LUÔN trả -1 -> guard tưởng là trang lỗi và chặn
+                        //   reparent, dù dock còn ô trống. Với container HOTSEAT thì screenId = -1 là hợp lệ
+                        //   và là chuyện BÌNH THƯỜNG: addInScreen bỏ qua getScreenWithId (lấy thẳng
+                        //   Hotseat.getLayout()) rồi tự tính lại screenId = rank qua getOrderInHotseat();
+                        //   LauncherModel.modifyItemInDatabase cũng có sẵn nhánh screenId < 0 + HOTSEAT để
+                        //   ghi rank. Nên hotseat luôn coi là đích hợp lệ, không đi qua guard trang.
+                        boolean validTargetScreen = hasMovedIntoHotseat
+                                || (screenId != -1
                                 && screenId != EXTRA_EMPTY_SCREEN_ID1
-                                && getScreenWithId(screenId) != null;
+                                && getScreenWithId(screenId) != null);
                         if (validTargetScreen) {
                             // Reparent the view
                             CellLayout parentCell = getParentCellLayoutForView(cell);
@@ -3818,7 +3828,24 @@ public class Workspace extends PagedView
         mLauncher.getDragLayer().getDescendantCoordRelativeToSelf(this, mTempPt, true);
         mLauncher.getDragLayer().mapCoordInSelfToDescendent(hotseat.getLayout(), mTempPt);
 
-        xy[0] = mTempPt[0];
+        // [BUG FIX] "Dock 4 ô mà chỉ thả vào được 3, hoặc thả vào chỗ trống lại gộp folder":
+        //   Cụm icon dock được DỊCH NGANG khi VẼ để nằm giữa khung (ShortcutAndWidgetContainer
+        //   .getHotseatCenteringOffsetX), nhưng các hàm quy đổi pixel -> ô lúc thả
+        //   (findNearestArea -> cellToCenterPoint) tính theo LƯỚI GỐC, không biết offset đó. Hệ quả:
+        //   icon hiện một nơi, ô nhận thả nằm một nơi, lệch đúng bằng offset -> nhắm vào khoảng
+        //   trống trông-như-ô-rỗng lại rơi trúng ô ĐÃ CÓ APP (gộp folder oan), hoặc không tìm ra ô
+        //   trống -> app bay ngược về desktop. Càng dồn gọn (compactHotseat) offset càng lớn, lệch
+        //   càng nặng.
+        //   TRỪ offset ở đây để đưa điểm chạm về hệ LƯỚI GỐC — đúng hệ mà findNearestArea đang
+        //   dùng. Đặt tại hàm map này vì nó là NÚT THẮT DUY NHẤT của mọi luồng thả vào dock
+        //   (acceptDrop / onDrop / onDragOver đều đi qua), không sót đường nào và không đụng tới
+        //   cellToPoint/regionToCenterPoint vốn dùng chung với desktop + folder.
+        CellLayout hotseatLayout = hotseat.getLayout();
+        if (hotseatLayout != null && hotseatLayout.getShortcutsAndWidgets() != null) {
+            xy[0] = mTempPt[0] - hotseatLayout.getShortcutsAndWidgets().getHotseatCenteringOffsetX();
+        } else {
+            xy[0] = mTempPt[0];
+        }
         xy[1] = mTempPt[1];
     }
 
@@ -4549,6 +4576,89 @@ public class Workspace extends PagedView
     }
 
     /**
+     * DỒN GỌN các app trong hotseat về đầu lưới (ô 0,1,2,...) rồi ghi DB.
+     *
+     * Dock luôn có numHotseatIcons ô nhưng thường chỉ dùng vài ô. Kéo một app RA KHỎI dock để lại
+     * một Ô TRỐNG Ở GIỮA (vd còn app ở ô 0,2,3). Phần căn giữa sẵn có ở
+     * {@link ShortcutAndWidgetContainer#onLayout} tính offset theo BAO NGOÀI (ô trái nhất -> ô phải
+     * nhất) nên cái lỗ đó vẫn được tính vào bề rộng cụm -> cụm app nhìn thưa và LỆCH tâm khung kính.
+     * Dồn hết về đầu lưới thì bao ngoài = đúng bề rộng thật của cụm, và offset căn giữa kia tự khớp
+     * tâm khung kính (positionDockGlass dùng cùng container.getMeasuredWidth()).
+     *
+     * Chỉ chạy SAU KHI THẢ (gọi từ onDropCompleted), KHÔNG chạy giữa lúc kéo: đang kéo thì dock phải
+     * giữ nguyên chỗ trống để người dùng còn thả app trở lại đúng vị trí cũ.
+     *
+     * Ghi DB thật (permanent = true -> animateChildToPosition đặt lại lp.cellX + info.requiresDbUpdate)
+     * nên thứ tự dồn được giữ lại sau khi mở lại app.
+     *
+     * KHÔNG dùng CellLayout.completeAlign()/alignToCell() có sẵn: chúng chỉ dồn cho MỘT ô trống đã
+     * đăng ký trước qua addAlignCell(), và bị chặn bởi Settings.isDesktopAlignEnable (tuỳ chọn dành
+     * cho DESKTOP). Dock cần dồn vô điều kiện và dồn hết mọi lỗ trong một lượt.
+     */
+    private void compactHotseat() {
+        // Hằng số RIÊNG cho nhịp dồn dock (không mượn REORDER_ANIMATION_DURATION/ALIGN_* của
+        // BaseCellLayout: chúng protected, Workspace không kế thừa lớp đó, và chỉnh nhịp dock sau này
+        // không được phép kéo theo animation reorder của desktop).
+        final int compactDuration = 150;
+        final int compactStagger = 20;
+
+        Hotseat hotseat = mLauncher.getHotseat();
+        if (hotseat == null) {
+            return;
+        }
+        CellLayout layout = hotseat.getLayout();
+        if (layout == null) {
+            return;
+        }
+        // Dock ngang (mặc định) xếp theo cellX, dock dọc (landscape transpose) xếp theo cellY.
+        // Dùng chính hotseat.getCellXFromOrder/getCellYFromOrder để rank -> ô luôn khớp quy ước
+        // getOrderInHotseat mà DB đang lưu, không tự suy diễn lại.
+        boolean vertical = mLauncher.getDeviceProfile().isVerticalBarLayout();
+        int cellCount = vertical ? layout.getCountY() : layout.getCountX();
+
+        // Duyệt theo THỨ TỰ Ô (không theo thứ tự child trong container — thứ tự đó phụ thuộc lúc add
+        // view nên không phản ánh vị trí trái->phải trên màn).
+        ArrayList<View> ordered = new ArrayList<View>();
+        for (int rank = 0; rank < cellCount; rank++) {
+            View child = layout.getChildAt(hotseat.getCellXFromOrder(rank),
+                    hotseat.getCellYFromOrder(rank));
+            if (child == null || child.getVisibility() == GONE) {
+                continue;
+            }
+            if (!ordered.contains(child)) {   // phòng item span > 1 ô bị đếm nhiều lần
+                ordered.add(child);
+            }
+        }
+
+        boolean moved = false;
+        int delay = 0;
+        for (int rank = 0; rank < ordered.size(); rank++) {
+            View child = ordered.get(rank);
+            CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
+            int targetX = hotseat.getCellXFromOrder(rank);
+            int targetY = hotseat.getCellYFromOrder(rank);
+            if (lp.cellX == targetX && lp.cellY == targetY) {
+                continue;   // đã đúng chỗ, khỏi animate
+            }
+            // permanent = true -> ghi lp.cellX/cellY + info.requiresDbUpdate (cho bước ghi DB dưới).
+            // adjustOccupied = true -> cập nhật bảng ô đã chiếm, nếu không thì cú thả kế tiếp sẽ
+            // tính nhầm ô trống theo vị trí CŨ.
+            if (layout.animateChildToPosition(child, targetX, targetY,
+                    compactDuration, delay, true, true)) {
+                delay += compactStagger;   // lệch nhẹ giữa các icon cho mượt
+                moved = true;
+            }
+        }
+
+        if (moved) {
+            updateItemLocationsInDatabase(layout);
+            // Cụm app đổi bề rộng -> khung kính phải đo lại để vẫn ôm đúng (positionDockGlass chạy
+            // trong Hotseat.onLayout).
+            hotseat.requestLayout();
+        }
+    }
+
+    /**
      * Called at the end of a drag which originated on the workspace.
      */
     public void onDropCompleted(final View target, final DragObject d,
@@ -4586,6 +4696,16 @@ public class Workspace extends PagedView
         }
 
         completePendingAlignTask();
+
+        // Lượt kéo đã xong -> dồn gọn dock nếu vừa để lại ô trống ở giữa (kéo app ra khỏi dock).
+        // Đặt SAU completePendingAlignTask() để không giành nhau với animation dồn của desktop, và
+        // trước khi mDragInfo bị xoá thì cũng không sao — compactHotseat đọc trạng thái ô THẬT của
+        // dock chứ không phụ thuộc mDragInfo. Không chạy khi lượt kéo bị huỷ (app trả về chỗ cũ,
+        // dock không đổi) để khỏi animate thừa.
+        if (!d.cancelled) {
+            compactHotseat();
+        }
+
         mDragOutline = null;
         mDragInfo = null;
 

@@ -211,29 +211,47 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements View.OnTouc
         return mInvertIfRtl && Utilities.isRtl(getResources());
     }
 
+    /**
+     * Khoảng DỊCH NGANG để cụm icon dock nằm giữa khung, tính theo bao ngoài của các icon đang có.
+     *
+     * Lưới dock có numHotseatIcons ô nhưng thường chỉ dùng vài ô; icon lấp từ trái nên hàng icon
+     * trông lệch trái. Offset này kéo cụm về giữa.
+     *
+     * TÁCH RA THÀNH HÀM RIÊNG (trước đây tính inline trong {@link #onLayout}) để chỗ khác đọc lại
+     * được CÙNG MỘT giá trị. Bắt buộc phải vậy: các hàm quy đổi ô -> pixel dùng khi THẢ
+     * (BaseCellLayout.regionToCenterPoint/cellToPoint) tính theo lưới GỐC, không biết gì về offset
+     * này. Nếu chỉ dịch lúc vẽ thì icon hiện một nơi còn ô nhận thả nằm một nơi -> thả vào chỗ
+     * trông-như-trống lại trúng ô đã có app (gộp folder oan) hoặc không tìm ra ô -> app bay về
+     * desktop. Xem Workspace.mapPointFromSelfToHotseatLayout().
+     *
+     * Trả 0 cho lưới KHÔNG phải hotseat (desktop/folder không căn giữa kiểu này).
+     */
+    public int getHotseatCenteringOffsetX() {
+        int count = getChildCount();
+        if (!mIsHotseatLayout || count == 0) {
+            return 0;
+        }
+        int minLeft = Integer.MAX_VALUE;
+        int maxRight = Integer.MIN_VALUE;
+        for (int i = 0; i < count; i++) {
+            final View child = getChildAt(i);
+            if (child.getVisibility() == GONE) continue;
+            BaseCellLayout.LayoutParams lp = (BaseCellLayout.LayoutParams) child.getLayoutParams();
+            minLeft = Math.min(minLeft, lp.x);
+            maxRight = Math.max(maxRight, lp.x + lp.width);
+        }
+        if (maxRight <= minLeft) {
+            return 0;
+        }
+        int occupiedWidth = maxRight - minLeft;
+        return ((getMeasuredWidth() - occupiedWidth) / 2) - minLeft;
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int count = getChildCount();
 
-        // On large screens the hotseat grid has more columns (numHotseatIcons) than
-        // there are dock apps, so icons fill from the left and leave empty cells on the
-        // right, making the row look shifted left. Center the occupied icons instead.
-        int hotseatOffsetX = 0;
-        if (mIsHotseatLayout && count > 0) {
-            int minLeft = Integer.MAX_VALUE;
-            int maxRight = Integer.MIN_VALUE;
-            for (int i = 0; i < count; i++) {
-                final View child = getChildAt(i);
-                if (child.getVisibility() == GONE) continue;
-                BaseCellLayout.LayoutParams lp = (BaseCellLayout.LayoutParams) child.getLayoutParams();
-                minLeft = Math.min(minLeft, lp.x);
-                maxRight = Math.max(maxRight, lp.x + lp.width);
-            }
-            if (maxRight > minLeft) {
-                int occupiedWidth = maxRight - minLeft;
-                hotseatOffsetX = ((getMeasuredWidth() - occupiedWidth) / 2) - minLeft;
-            }
-        }
+        int hotseatOffsetX = getHotseatCenteringOffsetX();
 
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
