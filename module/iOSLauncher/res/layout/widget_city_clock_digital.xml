@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.amz.ios.launcher.widget.view.GlassBlurView
+    <com.truongnt.ios.launcher.widget.view.GlassBlurView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:gbvOverlayColor="#00000000"
@@ -41,7 +41,7 @@
         android:format12Hour="hh:mm"
         android:format24Hour="HH:mm" />
 
-    <com.amz.ios.launcher.widget.view.WorldClockTextView
+    <com.truongnt.ios.launcher.widget.view.WorldClockTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

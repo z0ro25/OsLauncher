@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/text"
         android:textSize="11sp"
         android:textColor="@color/bottom_tab_text"

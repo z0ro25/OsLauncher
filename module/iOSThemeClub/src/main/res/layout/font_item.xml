@@ -22,7 +22,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/font_theme_bg" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/font_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:text="TextView"
             android:textSize="18sp" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/sumary_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

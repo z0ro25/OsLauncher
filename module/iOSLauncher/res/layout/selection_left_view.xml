@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.amz.ios.launcher.quickaccess.SelectionBg
+    <com.truongnt.ios.launcher.quickaccess.SelectionBg
         android:id="@+id/bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

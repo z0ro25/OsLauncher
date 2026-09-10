@@ -9,7 +9,7 @@
     android:layout_height="match_parent">
 
     <!-- Nền KÍNH MỜ (blur wallpaper); fallback thẻ TỐI theo theme khi máy không hỗ trợ blur. -->
-    <com.amz.ios.launcher.widget.view.GlassBlurView
+    <com.truongnt.ios.launcher.widget.view.GlassBlurView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:gbvCornerRadius="@dimen/widget_round_corner"
@@ -34,7 +34,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:acvShowNumbers="true"
@@ -50,7 +50,7 @@
             android:textSize="11sp"
             android:textStyle="bold" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF8E8E93"
@@ -58,7 +58,7 @@
             app:wctvMode="day"
             app:wctvTimeZone="America/New_York" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFF6D00"
@@ -75,7 +75,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:acvShowNumbers="true"
@@ -91,7 +91,7 @@
             android:textSize="11sp"
             android:textStyle="bold" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF8E8E93"
@@ -99,7 +99,7 @@
             app:wctvMode="day"
             app:wctvTimeZone="Europe/London" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFF6D00"
@@ -116,7 +116,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:acvShowNumbers="true"
@@ -132,7 +132,7 @@
             android:textSize="11sp"
             android:textStyle="bold" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF8E8E93"
@@ -140,7 +140,7 @@
             app:wctvMode="day"
             app:wctvTimeZone="Asia/Dubai" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFF6D00"
@@ -157,7 +157,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:acvShowNumbers="true"
@@ -173,7 +173,7 @@
             android:textSize="11sp"
             android:textStyle="bold" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF8E8E93"
@@ -181,7 +181,7 @@
             app:wctvMode="day"
             app:wctvTimeZone="Australia/Sydney" />
 
-        <com.amz.ios.launcher.widget.view.WorldClockTextView
+        <com.truongnt.ios.launcher.widget.view.WorldClockTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFF6D00"

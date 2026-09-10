@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.TopTitlebar
+        <com.truongnt.ios.launcher.views.TopTitlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,19 +28,19 @@
                     android:id="@+id/settings_default_launcher_gap"
                     layout="@layout/preference_gap" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     style="@style/pref_settingtitle"
                     android:textColor="@color/pref_category_grey"
                     android:text="@string/setting_category_desktop" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/desktop_loop"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     launcher:preferenceTitle="@string/desktop_loop"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/desktop_auto_align"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                     launcher:preferenceTitle="@string/desktop_auto_align"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/apps_smart_category"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     layout="@layout/preference_gap" />
 
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_leftpage"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -69,12 +69,12 @@
                     launcher:preferenceTitle="@string/news_center_title"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     style="@style/pref_settingtitle"
                     android:textColor="@color/pref_category_grey"
                     android:text="@string/setting_category_others" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_searchbar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -82,14 +82,14 @@
                     launcher:preferenceTitle="@string/search_bar_title"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/notification_badging"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     launcher:preferenceTitle="@string/notification_badging_title"
                     launcher:rightImage="rightArrow" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_apprecommend"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     launcher:preferenceTitle="@string/app_recommend_title"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_float_view"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     launcher:preferenceTitle="@string/ios_konw_title"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_appmgr"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                     android:id="@+id/settings_default_launcher_gap"
                     layout="@layout/preference_gap" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:id="@+id/message_category"
                     style="@style/pref_settingtitle"
                     android:text="@string/setting_category_msg" />

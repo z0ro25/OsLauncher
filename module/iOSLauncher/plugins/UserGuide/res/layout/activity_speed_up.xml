@@ -18,7 +18,7 @@
             android:layout_height="@dimen/boot_speedup_background_iv_height"
             android:background="@mipmap/illustration" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
@@ -28,7 +28,7 @@
             android:textColor="@color/boot_speedup_big_text_color"
             android:textSize="@dimen/boot_speedup_big_text_size" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/boot_speedup_text_marginleft"
@@ -57,7 +57,7 @@
                 android:textColor="@color/boot_speedup_setting_btn_text_color"
                 android:textSize="@dimen/boot_speedup_setting_text_size" />
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/boot_speedup_setting_tv"
                 android:layout_width="@dimen/boot_speedup_setting_width"
                 android:layout_height="@dimen/boot_speedup_setting_height"

@@ -5,6 +5,6 @@
     android:id="@+id/theme_club_activity_wallpaper_fling"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.amz.ios.themeclub.ui.activity.WallpaperFlingActivity">
+    tools:context="com.truongnt.ios.themeclub.ui.activity.WallpaperFlingActivity">
 
 </android.support.constraint.ConstraintLayout>

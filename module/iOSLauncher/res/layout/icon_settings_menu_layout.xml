@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.IOSPreference
+        <com.truongnt.ios.launcher.views.IOSPreference
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             launcher:hideDivider="true"
@@ -25,7 +25,7 @@
             android:id="@+id/divider"
             layout="@layout/pref_list_divider" />
 
-        <com.amz.ios.launcher.views.IOSPreference
+        <com.truongnt.ios.launcher.views.IOSPreference
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             launcher:hideDivider="true"
@@ -39,7 +39,7 @@
             android:id="@+id/divider"
             layout="@layout/pref_list_divider" />
 
-        <com.amz.ios.launcher.views.IOSPreference
+        <com.truongnt.ios.launcher.views.IOSPreference
             android:id="@+id/color_pref"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

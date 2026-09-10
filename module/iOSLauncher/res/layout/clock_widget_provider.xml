@@ -23,7 +23,7 @@
 
         <!-- Nền KÍNH MỜ (blur wallpaper); fallback thẻ TRẮNG theo theme khi máy không hỗ trợ blur.
              Tint trắng đậm để giờ ĐEN đọc rõ trên nền wallpaper bất kỳ. -->
-        <com.amz.ios.launcher.widget.view.GlassBlurView
+        <com.truongnt.ios.launcher.widget.view.GlassBlurView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:gbvCornerRadius="@dimen/widget_round_corner"
@@ -32,7 +32,7 @@
             app:gbvOverlayColor="#CCFFFFFF"
             app:gbvFallbackDrawable="@drawable/widget_clock_card_white" />
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/widget_padding"

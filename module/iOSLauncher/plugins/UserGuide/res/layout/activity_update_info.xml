@@ -14,7 +14,7 @@
         android:paddingRight="@dimen/boot_updateinfo_padding"
         android:paddingTop="@dimen/boot_updateinfo_padding">
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/boot_updateinfo_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,14 +42,14 @@
                 android:layout_marginLeft="@dimen/boot_updateinfo_space_marginleft"
                 android:orientation="vertical">
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/boot_updateinfo_speed"
                     android:textColor="@color/boot_speedup_big_text_color"
                     android:textSize="@dimen/boot_updateinfo_icon_text_size" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/boot_updateinfo_speed_detail"
@@ -73,14 +73,14 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/boot_updateinfo_news"
                     android:textColor="@color/boot_speedup_big_text_color"
                     android:textSize="@dimen/boot_updateinfo_icon_text_size" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/boot_updateinfo_news_detail"
@@ -113,14 +113,14 @@
                 android:layout_marginLeft="@dimen/boot_updateinfo_space_marginleft"
                 android:orientation="vertical">
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/boot_updateinfo_theme"
                     android:textColor="@color/boot_speedup_big_text_color"
                     android:textSize="@dimen/boot_updateinfo_icon_text_size" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/boot_updateinfo_theme_detail"
@@ -148,7 +148,7 @@
                 android:textColor="@color/boot_speedup_setting_btn_text_color"
                 android:textSize="@dimen/boot_speedup_setting_text_size" />
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/boot_updateinfo_setting_tv"
                 android:layout_width="@dimen/boot_updateinfo_setting_width"
                 android:layout_height="@dimen/boot_updateinfo_setting_height"

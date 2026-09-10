@@ -272,11 +272,11 @@
     -->
     <!--
     IOS行为：
-    <item>1:com.oslauncher.applauncher.themelauncher/com.amz.ios.launcher.shortcut.Theme:主题</item>
-    <item>1:com.oslauncher.applauncher.themelauncher/com.amz.ios.launcher.shortcut.Wallpaper:壁纸</item>
-    <item>1:com.oslauncher.applauncher.themelauncher/com.amz.ios.launcher.shortcut.BatterySave:省电模式</item>
+    <item>1:com.ezla.oslauncher/com.truongnt.ios.launcher.shortcut.Theme:主题</item>
+    <item>1:com.ezla.oslauncher/com.truongnt.ios.launcher.shortcut.Wallpaper:壁纸</item>
+    <item>1:com.ezla.oslauncher/com.truongnt.ios.launcher.shortcut.BatterySave:省电模式</item>
     <item>1:quick_access:快速访问</item>
-    <item>1:com.oslauncher.applauncher.themelauncher/com.ios.iossettings.SettingsActivity:快捷设置</item>
+    <item>1:com.ezla.oslauncher/com.ios.iossettings.SettingsActivity:快捷设置</item>
     其他app：
     格式：手势码:包名/类名:描述
     (之间用的是英文字符冒号隔开)

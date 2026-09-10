@@ -1,4 +1,4 @@
-package com.amz.ios.http.Internal;
+package com.ezt.ios.http.Internal;
 
 import java.util.Collection;
 import java.util.Comparator;

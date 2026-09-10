@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <!-- Nền KÍNH MỜ (blur wallpaper); fallback thẻ TỐI theo theme khi máy không hỗ trợ blur. -->
-    <com.amz.ios.launcher.widget.view.GlassBlurView
+    <com.truongnt.ios.launcher.widget.view.GlassBlurView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:gbvCornerRadius="@dimen/widget_round_corner"
@@ -32,7 +32,7 @@
         android:baselineAligned="false"
         android:weightSum="2">
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -41,7 +41,7 @@
             app:acvLabel="NYC"
             app:acvTimeZone="America/New_York" />
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
         android:baselineAligned="false"
         android:weightSum="2">
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -68,7 +68,7 @@
             app:acvLabel="DUB"
             app:acvTimeZone="Asia/Dubai" />
 
-        <com.amz.ios.launcher.widget.view.AnalogClockView
+        <com.truongnt.ios.launcher.widget.view.AnalogClockView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

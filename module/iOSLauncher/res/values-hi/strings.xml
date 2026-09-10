@@ -349,8 +349,8 @@
     <string name="rate_success">रेट सफल</string>
     <string name="rate_us" translatable="false">Rate us</string>
     <string name="rec_apps_predicted">अनुमान</string>
-    <string name="receive_first_load_broadcast_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
-    <string name="receive_launch_broadcasts_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
+    <string name="receive_first_load_broadcast_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
+    <string name="receive_launch_broadcasts_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
     <string name="receiver_expl">\"लॉक\" को स्क्रीन बंद करने की अनुमति दें?</string>
     <string name="recommon_name">अनुशंसाएं:</string>
     <string name="remove_app">ऐप हटाएं</string>
@@ -456,7 +456,7 @@
     <string name="six">6</string>
     <string name="sleep_mode_desc">स्लीप मोड में जाने के लिए डेस्कटॉप के खाली स्थान पर डबल क्लिक करें</string>
     <string name="sleep_mode_title">त्वरित स्क्रीन लॉक</string>
-    <string name="software_share_text">IOS लॉन्चर: तेज़ गति और अच्छे उपयोग अनुभव वाला सुंदर लॉन्चर, इसे आज़माएं~https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_text">IOS लॉन्चर: तेज़ गति और अच्छे उपयोग अनुभव वाला सुंदर लॉन्चर, इसे आज़माएं~https://play.google.com/store/apps/details?id=com.ezla.oslauncher</string>
     <string name="sort_button_text">आइकन क्रमबद्ध करें</string>
     <string name="sort_icon_all_bottom_screen_text">सभी नीचे</string>
     <string name="sort_icon_all_top_screen_text">सभी ऊपर</string>

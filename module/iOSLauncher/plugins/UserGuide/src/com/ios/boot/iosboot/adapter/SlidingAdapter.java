@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.amz.ios.launcher.R;
+import com.truongnt.ios.launcher.R;
 
 /**
  * Created by YiYang on 16-11-30.

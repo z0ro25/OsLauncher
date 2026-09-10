@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.amz.ios.launcher.SearchDropTargetBar xmlns:android="http://schemas.android.com/apk/res/android"
+<com.truongnt.ios.launcher.SearchDropTargetBar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,7 +36,7 @@
         android:layout_height="@dimen/drop_target_bar_height"
         android:layout_gravity="center_horizontal|top">
 
-        <com.amz.ios.launcher.views.DropTargetBgBar
+        <com.truongnt.ios.launcher.views.DropTargetBgBar
             android:id="@+id/drop_target_bg_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <com.amz.ios.launcher.DeleteDropTarget
+            <com.truongnt.ios.launcher.DeleteDropTarget
                 android:id="@+id/delete_drop_target"
                 style="@style/DropTargetButtonContainer"
                 android:background="@color/black15percent"
@@ -80,14 +80,14 @@
                             android:src="@drawable/ic_delete_line" />
                     </FrameLayout>
 
-                    <com.amz.ios.launcher.views.CustomTextView
+                    <com.truongnt.ios.launcher.views.CustomTextView
                         android:id="@+id/delete_target_title"
                         style="@style/DropTargetButtonLable"
                         android:text="@string/delete_target_label" />
                 </LinearLayout>
-            </com.amz.ios.launcher.DeleteDropTarget>
+            </com.truongnt.ios.launcher.DeleteDropTarget>
 
-            <com.amz.ios.launcher.InfoDropTarget
+            <com.truongnt.ios.launcher.InfoDropTarget
                 android:id="@+id/info_drop_target"
                 style="@style/DropTargetButtonContainer"
                 android:background="@color/black15percent"
@@ -128,13 +128,13 @@
                             android:src="@drawable/ic_info_line" />
                     </FrameLayout>
 
-                    <com.amz.ios.launcher.views.CustomTextView
+                    <com.truongnt.ios.launcher.views.CustomTextView
                         style="@style/DropTargetButtonLable"
                         android:text="@string/info_target_label" />
                 </LinearLayout>
-            </com.amz.ios.launcher.InfoDropTarget>
+            </com.truongnt.ios.launcher.InfoDropTarget>
 
-            <com.amz.ios.launcher.UninstallDropTarget
+            <com.truongnt.ios.launcher.UninstallDropTarget
                 android:id="@+id/uninstall_drop_target"
                 style="@style/DropTargetButtonContainer"
                 android:background="@color/black15percent"
@@ -169,13 +169,13 @@
                     </FrameLayout>
 
 
-                    <com.amz.ios.launcher.views.CustomTextView
+                    <com.truongnt.ios.launcher.views.CustomTextView
                         style="@style/DropTargetButtonLable"
                         android:text="@string/delete_target_uninstall_label" />
                 </LinearLayout>
-            </com.amz.ios.launcher.UninstallDropTarget>
+            </com.truongnt.ios.launcher.UninstallDropTarget>
 
-            <com.amz.ios.launcher.UnavailableDropTarget
+            <com.truongnt.ios.launcher.UnavailableDropTarget
                 android:id="@+id/unavaliable_drop_target"
                 style="@style/DropTargetButtonContainer"
                 android:background="@color/black15percent"
@@ -213,13 +213,13 @@
                             android:src="@drawable/ic_info_line" />
                     </FrameLayout>
 
-                    <com.amz.ios.launcher.views.CustomTextView
+                    <com.truongnt.ios.launcher.views.CustomTextView
                         android:id="@+id/unavaliable_prompt"
                         style="@style/DropTargetButtonLable" />
                 </LinearLayout>
-            </com.amz.ios.launcher.UnavailableDropTarget>
+            </com.truongnt.ios.launcher.UnavailableDropTarget>
 
-            <com.amz.ios.launcher.DesktopDropTarget
+            <com.truongnt.ios.launcher.DesktopDropTarget
                 android:id="@+id/desktop_drop_target"
                 style="@style/DropTargetButtonContainer"
                 android:background="@color/black15percent"
@@ -244,12 +244,12 @@
                             android:src="@drawable/ic_target_desktop" />/>
                     </FrameLayout>
 
-                    <com.amz.ios.launcher.views.CustomTextView
+                    <com.truongnt.ios.launcher.views.CustomTextView
                         style="@style/DropTargetButtonLable"
                         android:text="@string/desktop_target_label" />
                 </LinearLayout>
-            </com.amz.ios.launcher.DesktopDropTarget>
+            </com.truongnt.ios.launcher.DesktopDropTarget>
         </LinearLayout>
     </FrameLayout>
 
-</com.amz.ios.launcher.SearchDropTargetBar>
+</com.truongnt.ios.launcher.SearchDropTargetBar>

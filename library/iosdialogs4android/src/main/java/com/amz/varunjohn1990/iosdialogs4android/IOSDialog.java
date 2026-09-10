@@ -1,4 +1,4 @@
-package com.amz.varunjohn1990.iosdialogs4android;
+package com.ezt.varunjohn1990.iosdialogs4android;
 
 import android.content.Context;
 import android.view.View;

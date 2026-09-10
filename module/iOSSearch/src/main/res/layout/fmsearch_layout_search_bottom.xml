@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.amz.ios.search.MerlinCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.truongnt.ios.search.MerlinCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/btn_search_websit"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
@@ -30,7 +30,7 @@
             android:layout_height="1px"
             android:background="@color/cl_item_divider_bg" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/btn_search_pic"
             android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:layout_height="1px"
             android:background="@color/cl_item_divider_bg" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/btn_search_video"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_vertical"
@@ -57,4 +57,4 @@
             android:drawableStart="@mipmap/ic_video"
             android:text="@string/fmsearch_search_video" />
     </LinearLayout>
-</com.amz.ios.search.MerlinCardView>
+</com.truongnt.ios.search.MerlinCardView>

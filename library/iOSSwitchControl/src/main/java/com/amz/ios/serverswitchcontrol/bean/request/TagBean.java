@@ -1,9 +1,9 @@
-package com.amz.ios.serverswitchcontrol.bean.request;
+package com.ezt.ios.serverswitchcontrol.bean.request;
 
 import android.content.Context;
 import android.os.Build;
 
-import com.amz.ios.ioslite.common.util.DeviceInfoUtil;
+import com.truongnt.ios.ioslite.common.util.DeviceInfoUtil;
 
 public class TagBean {
 

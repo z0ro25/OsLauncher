@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.amz.ios.launcher.widget.WidgetsBottomSheet
+<com.truongnt.ios.launcher.widget.WidgetsBottomSheet
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -24,7 +24,7 @@
     android:elevation="@dimen/deep_shortcuts_elevation"
     android:layout_gravity="bottom">
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="24sp"/>
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -50,4 +50,4 @@
          android:layout_marginTop="45dp"
          android:layout_marginBottom="40dp"/>
 
-</com.amz.ios.launcher.widget.WidgetsBottomSheet>
+</com.truongnt.ios.launcher.widget.WidgetsBottomSheet>

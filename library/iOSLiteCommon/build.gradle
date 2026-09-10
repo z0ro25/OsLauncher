@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
 //
-    namespace "com.amz.ios.ioslite.common"
+    namespace "com.truongnt.ios.ioslite.common"
     compileSdkVersion cfgs.compileSdkVersion
 
     defaultConfig {

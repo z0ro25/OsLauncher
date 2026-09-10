@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.amz.ios.launcher.views.TopTitlebar
+    <com.truongnt.ios.launcher.views.TopTitlebar
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,12 +20,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 style="@style/pref_settingtitle"
                 android:textColor="@color/pref_category_grey"
                 android:text="@string/setting_gesture_swipe_action" />
 
-            <com.amz.ios.launcher.views.IOSPreference
+            <com.truongnt.ios.launcher.views.IOSPreference
                 android:id="@+id/swipe_down"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 launcher:preferenceTitle="@string/setting_gesture_swipe_down"
                 launcher:rightImage="rightArrow" />
 
-            <com.amz.ios.launcher.views.IOSPreference
+            <com.truongnt.ios.launcher.views.IOSPreference
                 android:id="@+id/swipe_up"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 launcher:preferenceTitle="@string/setting_gesture_swipe_up"
                 launcher:rightImage="rightArrow" />
 
-            <com.amz.ios.launcher.views.IOSPreference
+            <com.truongnt.ios.launcher.views.IOSPreference
                 android:id="@+id/swipe_obliquely"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -53,12 +53,12 @@
                 android:id="@+id/settings_default_launcher_gap"
                 layout="@layout/preference_gap" />
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 style="@style/pref_settingtitle"
                 android:textColor="@color/pref_category_grey"
                 android:text="@string/setting_gesture_press_action" />
 
-            <com.amz.ios.launcher.views.IOSPreference
+            <com.truongnt.ios.launcher.views.IOSPreference
                 android:id="@+id/settings_sleep"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 launcher:rightImage="showSwitch" />
 
 
-            <!--<com.amz.ios.launcher.views.IOSPreference-->
+            <!--<com.truongnt.ios.launcher.views.IOSPreference-->
                 <!--android:id="@+id/double_tap"-->
                 <!--android:layout_width="fill_parent"-->
                 <!--android:layout_height="wrap_content"-->

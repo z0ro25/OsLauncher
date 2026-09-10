@@ -1,4 +1,4 @@
-package com.amz.ios.http.Internal;
+package com.ezt.ios.http.Internal;
 
 import android.content.Context;
 import android.util.Log;
@@ -20,7 +20,7 @@ public abstract class BaseProvider {
 
     private static final String TAG = BaseProvider.class.getSimpleName();
 
-    private static final boolean DEBUG = com.amz.ios.ioslite.common.BuildConfig.DEBUG;
+    private static final boolean DEBUG = com.truongnt.ios.ioslite.common.BuildConfig.DEBUG;
 
     private long realexcuteTime = 0;
 

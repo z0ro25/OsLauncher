@@ -75,7 +75,7 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"/>
 
-        <com.amz.ios.themeclub.view.TextProgressBar
+        <com.truongnt.ios.themeclub.view.TextProgressBar
             android:id="@+id/lock_progressbar_id"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
@@ -88,6 +88,6 @@
             android:max="100"
             android:progressDrawable="@drawable/themeclub_download_progress"
             android:visibility="gone">
-        </com.amz.ios.themeclub.view.TextProgressBar>
+        </com.truongnt.ios.themeclub.view.TextProgressBar>
     </RelativeLayout>
 </RelativeLayout>

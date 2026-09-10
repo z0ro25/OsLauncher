@@ -1,0 +1,8 @@
+package com.truongnt.ios.launcher.shortcut;
+
+import android.app.Activity;
+
+
+public class BatterySave extends Activity {
+
+}

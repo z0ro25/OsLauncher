@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:gravity="center_vertical"
         android:id="@+id/hotapp_head"
         android:text="@string/fmsearch_txt_head_online_app"
@@ -16,7 +16,7 @@
         android:paddingStart="@dimen/fmsearch_dp_item_head_padding_left"
         android:layout_height="@dimen/fmsearch_dp_item_head_height" />
 
-    <com.amz.ios.search.widget.GridViewExtend
+    <com.truongnt.ios.search.widget.GridViewExtend
         android:id="@+id/hotapp_content"
         android:scrollbars="none"
         android:layout_marginBottom="@dimen/fmsearch_dp_item_outer_common_padding"

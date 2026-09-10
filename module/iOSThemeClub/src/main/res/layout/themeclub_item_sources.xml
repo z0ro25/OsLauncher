@@ -8,7 +8,7 @@
     android:paddingBottom="4dp"
     android:paddingLeft="24dp"
     android:paddingTop="4dp">
-    <com.amz.ios.themeclub.view.CircleImageView
+    <com.truongnt.ios.themeclub.view.CircleImageView
         android:id="@+id/sources_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -27,14 +27,14 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:text="@string/themeclub_author"
                 android:textColor="#DE000000"
                 android:textSize="14sp"/>
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/author"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -60,7 +60,7 @@
                 android:maxLines="1"
                 android:textColor="#8A000000"
                 android:textSize="14sp"/>
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/source_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

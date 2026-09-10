@@ -10,7 +10,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     // [AGP 8] namespace là BẮT BUỘC khai báo trong build.gradle; AGP 8 không còn đọc package từ
     // AndroidManifest.xml nữa (thuộc tính package trong manifest bị bỏ).
-    namespace "com.oslauncher.applauncher.themelauncher"
+    namespace "com.ezla.oslauncher"
     compileSdkVersion 36
     packaging { //Fix: http://stackoverflow.com/a/20675331/860488
         // [AGP 8] packagingOptions{exclude ...} -> packaging{ resources.excludes }
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.oslauncher.applauncher.themelauncher"
+        applicationId "com.ezla.oslauncher"
         minSdkVersion 26
         targetSdkVersion 36
         versionCode 100
@@ -45,7 +45,7 @@ android {
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

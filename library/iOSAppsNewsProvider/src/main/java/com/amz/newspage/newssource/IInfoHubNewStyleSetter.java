@@ -1,4 +1,4 @@
-package com.amz.newspage.newssource;
+package com.ezt.newspage.newssource;
 
 import android.app.Activity;
 

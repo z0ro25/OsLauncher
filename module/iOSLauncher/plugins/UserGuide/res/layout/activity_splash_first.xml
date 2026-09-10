@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/boot_first_banner_margintop">
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/ios_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#ffffff"
             />
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/ios_detail_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             android:layout_below="@+id/ios_welcome"
             android:textColor="#ffffff"
             />
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/ios_detail_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             />
     </RelativeLayout>
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/boot_first_layer_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
             android:background="@mipmap/desk" />
     </RelativeLayout>
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/wallpaper_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
         android:layout_marginRight="@dimen/boot_speedup_text_marginright"
         android:visibility="gone" />
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/setting_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

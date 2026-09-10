@@ -5,7 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.amz.ios.themeclub.MainActivity">
+    tools:context="com.truongnt.ios.themeclub.MainActivity">
 
 
     <com.google.android.material.tabs.TabLayout
@@ -27,7 +27,7 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/theme_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"

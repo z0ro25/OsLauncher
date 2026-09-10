@@ -1,6 +1,6 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
-import com.amz.ios.serverswitchcontrol.bean.response.SwitchResponseBean;
+import com.ezt.ios.serverswitchcontrol.bean.response.SwitchResponseBean;
 
 import java.util.HashMap;
 import java.util.List;

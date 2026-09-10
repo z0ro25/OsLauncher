@@ -14,7 +14,7 @@
         android:background="@color/themeclub_accent_color"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tool_bar_height">
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/theme_special_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

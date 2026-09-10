@@ -9,7 +9,7 @@
     android:background="@color/themeclub_common_title_bar_color"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    tools:context="com.amz.ios.themeclub.ui.activity.OnlineWallpapersDetailActivity">
+    tools:context="com.truongnt.ios.themeclub.ui.activity.OnlineWallpapersDetailActivity">
 
 
     <androidx.viewpager.widget.ViewPager

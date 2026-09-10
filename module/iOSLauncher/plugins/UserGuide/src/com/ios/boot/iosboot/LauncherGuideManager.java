@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.amz.ios.launcher.LauncherAppState;
+import com.truongnt.ios.launcher.LauncherAppState;
 
 /**
  * 用户向导管理

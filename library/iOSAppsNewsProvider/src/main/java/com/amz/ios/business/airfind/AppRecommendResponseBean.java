@@ -1,4 +1,4 @@
-package com.amz.ios.business.airfind;
+package com.ezt.ios.business.airfind;
 
 import android.view.View;
 

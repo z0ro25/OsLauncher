@@ -10,7 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.ios.boot.iosboot.commoninterface.BootAnimationListener;
-import com.amz.ios.launcher.R;
+import com.truongnt.ios.launcher.R;
 
 /**
  * Created by YiYang on 16-12-5.
@@ -60,7 +60,7 @@ public class UpdateInfoActivity extends Activity implements View.OnClickListener
             Intent intent = new Intent();
             intent.putExtra(MINIMALIST_THEME, MINIMALIST_THEME);
             intent.putExtra("themeclubtype", 1);
-            ComponentName componentName = new ComponentName("com.oslauncher.applauncher.themelauncher", "com.amz.ios.themeclub.MainActivity");
+            ComponentName componentName = new ComponentName("com.ezla.oslauncher", "com.truongnt.ios.themeclub.MainActivity");
             intent.setComponent(componentName);
             startActivity(intent);
             finish();

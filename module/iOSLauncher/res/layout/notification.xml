@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.amz.ios.launcher.notification.NotificationItemView
+<com.truongnt.ios.launcher.notification.NotificationItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notification_view"
     android:layout_width="@dimen/bg_popup_item_width"
@@ -37,7 +37,7 @@
             android:paddingEnd="@dimen/notification_padding_end"
             android:background="@color/popup_header_background_color"
             android:elevation="@dimen/notification_elevation">
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/notification_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -46,7 +46,7 @@
                 android:text="@string/notifications_header"
                 android:textSize="@dimen/notification_header_text_size"
                 android:textColor="?android:attr/textColorSecondary" />
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/notification_count"
                 android:layout_width="@dimen/notification_icon_size"
                 android:layout_height="match_parent"
@@ -78,4 +78,4 @@
 
     </RelativeLayout>
 
-</com.amz.ios.launcher.notification.NotificationItemView>
+</com.truongnt.ios.launcher.notification.NotificationItemView>

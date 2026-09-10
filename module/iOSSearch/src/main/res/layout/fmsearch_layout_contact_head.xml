@@ -6,7 +6,7 @@
     android:background="?android:attr/selectableItemBackground"
     android:layout_height="@dimen/fmsearch_dp_item_head_height">
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:textColor="@color/fmsearch_white"
         android:id="@+id/head_txt"
         android:textSize="@dimen/fmsearch_sp_search_head_txt"

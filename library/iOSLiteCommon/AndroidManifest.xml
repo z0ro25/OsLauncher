@@ -22,13 +22,13 @@
         <!--  应用使用统计 -->
         <provider
             android:name=".provider.AppUsagesProvider"
-            android:authorities="com.amz.ios.ioslite.provider.usages"
+            android:authorities="com.ezt.ios.ioslite.provider.usages"
             android:exported="true" />
 
         <!--  全局设置 -->
         <provider
             android:name=".setting.SettingProvider"
-            android:authorities="com.amz.ios.ioslite.common.setting"
+            android:authorities="com.truongnt.ios.ioslite.common.setting"
             android:exported="true" />
 
         <!-- 内存监测 -->

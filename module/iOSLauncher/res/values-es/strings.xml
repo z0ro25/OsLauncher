@@ -317,8 +317,8 @@
     <string name="rate_success">Calificación enviada</string>
     <string name="rate_us" translatable="false">Rate us</string>
     <string name="rec_apps_predicted">Adivinar</string>
-    <string name="receive_first_load_broadcast_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
-    <string name="receive_launch_broadcasts_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
+    <string name="receive_first_load_broadcast_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
+    <string name="receive_launch_broadcasts_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
     <string name="receiver_expl">¿Permitir que «Bloqueo» apague la pantalla?</string>
     <string name="recommon_name">Recomendaciones:</string>
     <string name="remove_app">Eliminar aplicación</string>
@@ -433,7 +433,7 @@
     <string name="six">6</string>
     <string name="sleep_mode_desc">Haz doble clic en el espacio en blanco del escritorio para activar el modo de suspensión</string>
     <string name="sleep_mode_title">Bloqueo rápido de pantalla</string>
-    <string name="software_share_text">IOS Launcher: un lanzador bonito, rápido y con buena experiencia de uso, ¡pruébalo~https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_text">IOS Launcher: un lanzador bonito, rápido y con buena experiencia de uso, ¡pruébalo~https://play.google.com/store/apps/details?id=com.ezla.oslauncher</string>
     <string name="software_share_titile">Compartir</string>
     <string name="sort_button_text">Ordenar iconos</string>
     <string name="sort_icon_all_bottom_screen_text">Todo abajo</string>

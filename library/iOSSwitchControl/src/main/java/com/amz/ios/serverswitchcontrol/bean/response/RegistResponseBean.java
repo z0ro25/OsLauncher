@@ -1,4 +1,4 @@
-package com.amz.ios.serverswitchcontrol.bean.response;
+package com.ezt.ios.serverswitchcontrol.bean.response;
 
 /**
  * Created by server on 17-11-14.

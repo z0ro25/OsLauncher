@@ -1,4 +1,4 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

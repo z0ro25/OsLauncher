@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="start">
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:layout_marginLeft="8dp"
                 android:id="@+id/more_wallpaper"
                 android:layout_gravity="left"

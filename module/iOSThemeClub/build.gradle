@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    namespace "com.amz.ios.themeclub"
+    namespace "com.truongnt.ios.themeclub"
     compileSdkVersion cfgs.compileSdkVersion
 
     defaultConfig {

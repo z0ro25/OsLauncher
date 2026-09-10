@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.TopTitlebar
+        <com.truongnt.ios.launcher.views.TopTitlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/wallpaper_scroll"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                     launcher:preferenceTitle="@string/setting_wallpaper_scrolling"
                     launcher:rightImage="showSwitch" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/app_trans_anim"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                     launcher:preferenceTitle="@string/pending_anim_title"
                     launcher:rightImage="rightArrow" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/delete_anim"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

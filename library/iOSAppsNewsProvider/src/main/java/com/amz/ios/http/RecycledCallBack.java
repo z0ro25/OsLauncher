@@ -1,4 +1,4 @@
-package com.amz.ios.http;
+package com.ezt.ios.http;
 
 /**
  * Author       : yizhihao

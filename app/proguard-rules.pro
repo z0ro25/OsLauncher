@@ -99,10 +99,10 @@
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 
--keep class com.oslauncher.applauncher.themelauncher.App { *; }
--keep class com.oslauncher.applauncher.themelauncher.model.** { *; }
--keep class com.oslauncher.applauncher.themelauncher.database.** { *; }
--keep class com.oslauncher.applauncher.themelauncher.Features.** { *;}
+-keep class com.ezla.oslauncher.App { *; }
+-keep class com.ezla.oslauncher.model.** { *; }
+-keep class com.ezla.oslauncher.database.** { *; }
+-keep class com.ezla.oslauncher.Features.** { *;}
 
 -keep class org.sqlite.** { *; }
 -keep class org.sqlite.database.** { *; }
@@ -117,13 +117,13 @@
 #   rồi gọi newInstance()/getDeclaredConstructor(Context). R8 không thấy ai gọi constructor trong mã
 #   nên XOÁ constructor (hoặc cả lớp). R8 của AGP 8 tối ưu mạnh hơn AGP 7 nên lỗi mới lộ ra.
 # Giữ nguyên lớp + constructor cho toàn bộ nhánh dùng cơ chế override này.
--keep class com.amz.ios.launcher.dynamicui.** { *; }
--keepclassmembers class com.amz.ios.launcher.dynamicui.** {
+-keep class com.truongnt.ios.launcher.dynamicui.** { *; }
+-keepclassmembers class com.truongnt.ios.launcher.dynamicui.** {
     <init>(...);
 }
 # Các lớp override khác cũng nạp qua getOverrideObject bằng tên trong res/values/*.xml.
--keep class com.amz.ios.launcher.**Callbacks { *; }
--keepclassmembers class com.amz.ios.launcher.** {
+-keep class com.truongnt.ios.launcher.**Callbacks { *; }
+-keepclassmembers class com.truongnt.ios.launcher.** {
     public <init>(android.content.Context);
 }
 
@@ -154,8 +154,8 @@
 #       at java.lang.Class.getConstructor(Class.java:1725)
 #       at androidx.constraintlayout.motion.widget.KeyFrames.<clinit>(KeyFrames.java:52)
 #       at androidx.constraintlayout.motion.widget.MotionScene.load(MotionScene.java:1132)
-#       at com.amz.ios.launcher.applibrary.AppsLibraryLayout.<init>(AppsLibraryLayout.java:76)
-#       at com.amz.ios.launcher.Launcher.initApp(Launcher.java:905)
+#       at com.truongnt.ios.launcher.applibrary.AppsLibraryLayout.<init>(AppsLibraryLayout.java:76)
+#       at com.truongnt.ios.launcher.Launcher.initApp(Launcher.java:905)
 # NGUYÊN NHÂN: KeyFrames dựng các lớp Key* (KeyCycle, KeyAttributes, KeyPosition, KeyTrigger...) bằng
 #   REFLECTION qua constructor RỖNG. R8 không thấy chỗ nào gọi trực tiếp nên xoá constructor ->
 #   getConstructor() ném -> MotionScene không load -> AppsLibraryLayout (một MotionLayout) không

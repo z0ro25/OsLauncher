@@ -4,10 +4,10 @@
     android:id="@+id/activity_newest_wallpaper_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.amz.ios.themeclub.ui.activity.NewestWallpaperDetailActivity">
+    tools:context="com.truongnt.ios.themeclub.ui.activity.NewestWallpaperDetailActivity">
 
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/text_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,4 +1,4 @@
--keep,allowshrinking,allowoptimization class com.amz.ios.launcher.** {
+-keep,allowshrinking,allowoptimization class com.truongnt.ios.launcher.** {
   *;
 }
 

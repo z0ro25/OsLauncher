@@ -16,7 +16,7 @@
 
         <!-- Search block -->
 
-        <receiver android:exported="true" android:name="com.amz.ios.search.SearchWidgetProvider">
+        <receiver android:exported="true" android:name="com.truongnt.ios.search.SearchWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.IOS_SEARCH_WIDGET" />
             </intent-filter>
@@ -27,8 +27,8 @@
         </receiver>
 
         <provider
-            android:name="com.amz.ios.search.SearchFileProvider"
-            android:authorities="com.amz.ios.search.fileprovider"
+            android:name="com.truongnt.ios.search.SearchFileProvider"
+            android:authorities="com.truongnt.ios.search.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data

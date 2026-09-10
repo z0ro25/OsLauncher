@@ -1,11 +1,11 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
-import com.amz.ios.serverswitchcontrol.Constants.SharedPreferencesConstants;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
+import com.ezt.ios.serverswitchcontrol.Constants.SharedPreferencesConstants;
 
 public class LocationSuccessfulReceiver extends BroadcastReceiver {
     private final String LOCATION_SUCCESSFUL_ACTION = "ios.intent.action.LOCATION.SUCCESSFUL";

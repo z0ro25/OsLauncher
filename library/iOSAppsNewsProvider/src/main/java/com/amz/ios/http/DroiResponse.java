@@ -1,10 +1,10 @@
-package com.amz.ios.http;
+package com.ezt.ios.http;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.amz.ios.ioslite.common.BuildConfig;
+import com.truongnt.ios.ioslite.common.BuildConfig;
 
 import java.util.Map;
 

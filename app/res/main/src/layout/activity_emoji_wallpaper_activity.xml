@@ -124,7 +124,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.oslauncher.applauncher.themelauncher.views.dot_Indicator.DotIndicator
+        <com.ezla.oslauncher.views.dot_Indicator.DotIndicator
             android:id="@+id/dot_wallpaper_emoji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -35,7 +35,7 @@
         android:textSize="17sp"
         android:textStyle="bold" />
 
-    <com.amz.ios.launcher.bounce.BouncyRecyclerView
+    <com.truongnt.ios.launcher.bounce.BouncyRecyclerView
         android:id="@+id/rcv_pages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -16,8 +16,8 @@ import android.view.animation.BounceInterpolator;
 import com.ios.boot.iosboot.animation.CircularAnim;
 import com.ios.boot.iosboot.utils.Utils;
 
-import com.amz.ios.launcher.R;
-import com.amz.ios.launcher.config.PreferredHomeSetting;
+import com.truongnt.ios.launcher.R;
+import com.truongnt.ios.launcher.config.PreferredHomeSetting;
 
 /**
  * Created by YiYang on 16-12-5.

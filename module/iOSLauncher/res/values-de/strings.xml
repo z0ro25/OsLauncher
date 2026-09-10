@@ -317,8 +317,8 @@
     <string name="rate_success">Bewertung erfolgreich</string>
     <string name="rate_us" translatable="false">Rate us</string>
     <string name="rec_apps_predicted">Tipp</string>
-    <string name="receive_first_load_broadcast_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
-    <string name="receive_launch_broadcasts_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
+    <string name="receive_first_load_broadcast_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
+    <string name="receive_launch_broadcasts_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
     <string name="receiver_expl">„Sperren“ erlauben, den Bildschirm auszuschalten?</string>
     <string name="recommon_name">Empfehlungen:</string>
     <string name="remove_app">App entfernen</string>
@@ -433,7 +433,7 @@
     <string name="six">6</string>
     <string name="sleep_mode_desc">Doppelklicken Sie auf den leeren Bereich des Desktops, um in den Energiesparmodus zu wechseln</string>
     <string name="sleep_mode_title">Schnell-Bildschirmsperre</string>
-    <string name="software_share_text">IOS Launcher: wunderschöner Launcher mit hoher Geschwindigkeit und gutem Nutzungserlebnis, probieren Sie es einfach aus~https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_text">IOS Launcher: wunderschöner Launcher mit hoher Geschwindigkeit und gutem Nutzungserlebnis, probieren Sie es einfach aus~https://play.google.com/store/apps/details?id=com.ezla.oslauncher</string>
     <string name="software_share_titile">Teilen</string>
     <string name="sort_button_text">Symbolsortierung</string>
     <string name="sort_icon_all_bottom_screen_text">Alle unten</string>

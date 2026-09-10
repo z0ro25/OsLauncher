@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
@@ -45,7 +45,7 @@
                 android:background="?android:attr/colorPrimaryDark"
                 android:theme="@style/WidgetContainerTheme">
 
-                <com.amz.ios.launcher.dragndrop.LivePreviewWidgetCell
+                <com.truongnt.ios.launcher.dragndrop.LivePreviewWidgetCell
                     android:id="@+id/widget_cell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
 
                     <include layout="@layout/widget_cell_content"  />
 
-                </com.amz.ios.launcher.dragndrop.LivePreviewWidgetCell>
+                </com.truongnt.ios.launcher.dragndrop.LivePreviewWidgetCell>
             </FrameLayout>
         </LinearLayout>
     </ScrollView>

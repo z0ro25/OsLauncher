@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.amz.ios.launcher.widget.view.WidgetBlurView
+    <com.truongnt.ios.launcher.widget.view.WidgetBlurView
         android:id="@+id/widget_analog_glass"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.amz.ios.launcher.widget.view.AnalogClockView
+    <com.truongnt.ios.launcher.widget.view.AnalogClockView
         android:id="@+id/analog_clock"
         android:layout_width="0dp"
         android:layout_height="0dp"

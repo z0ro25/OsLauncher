@@ -17,7 +17,7 @@
         android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.amz.ios.launcher.bounce.BouncyRecyclerView
+        <com.truongnt.ios.launcher.bounce.BouncyRecyclerView
             android:id="@+id/list_apps_library"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,7 +31,7 @@
             app:recyclerview_overscroll_animation_size="0.8"
             app:recyclerview_stiffness="1" />
 
-        <com.amz.ios.launcher.bounce.BouncyRecyclerView
+        <com.truongnt.ios.launcher.bounce.BouncyRecyclerView
             android:id="@+id/apps_library_search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="@+id/search_box_apps_library"
         app:layout_constraintTop_toTopOf="@+id/search_box_apps_library" />
 
-    <com.amz.ios.launcher.ExtendedEditText
+    <com.truongnt.ios.launcher.ExtendedEditText
         android:id="@+id/et_search"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -95,7 +95,7 @@
         app:layout_constraintStart_toEndOf="@+id/ic_search"
         app:layout_constraintTop_toTopOf="@+id/search_box_apps_library" />
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/cancel_button"
         android:layout_width="0dp"
         android:layout_height="0dp"

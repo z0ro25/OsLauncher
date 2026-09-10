@@ -108,7 +108,7 @@
 
         <activity
             android:exported="true"
-            android:name="com.amz.ios.themeclub.ui.activity.FontDetailActivity"
+            android:name="com.truongnt.ios.themeclub.ui.activity.FontDetailActivity"
             android:theme="@style/AppThemeDetailLocal"
             />
         <activity
@@ -129,7 +129,7 @@
             android:name=".ui.activity.ThemeSelectionSpecialActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDetail"/>
-        <!-- <receiver android:name="com.amz.ios.themeclub.ui.activity.OnlineThemeDetailActivity$InstallReceiver"> -->
+        <!-- <receiver android:name="com.truongnt.ios.themeclub.ui.activity.OnlineThemeDetailActivity$InstallReceiver"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.PACKAGE_ADDED"/> -->
         <!-- </intent-filter> -->
@@ -147,11 +147,11 @@
 
         <provider
             android:name=".dao.ThemeContentProvide"
-            android:authorities="com.amz.ios.themeclub.provide"
+            android:authorities="com.truongnt.ios.themeclub.provide"
             android:exported="true" />
 
         <provider
-            android:authorities="com.amz.ios.themeclub.file.provider"
+            android:authorities="com.truongnt.ios.themeclub.file.provider"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

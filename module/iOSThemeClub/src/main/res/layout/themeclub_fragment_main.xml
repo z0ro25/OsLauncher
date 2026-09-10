@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/themeclub_activity_horizontal_margin"
     android:paddingTop="@dimen/themeclub_activity_vertical_margin">
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

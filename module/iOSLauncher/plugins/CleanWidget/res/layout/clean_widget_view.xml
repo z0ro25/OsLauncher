@@ -18,7 +18,7 @@
             android:background="@drawable/clean_icon_circle_bg"
             android:scaleType="fitCenter" />
 
-        <com.amz.ios.launcher.BubbleTextView
+        <com.truongnt.ios.launcher.BubbleTextView
             android:id="@+id/widgetName"
             style="@style/Icon"
             android:layout_width="match_parent"

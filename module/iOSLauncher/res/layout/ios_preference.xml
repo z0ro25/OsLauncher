@@ -39,7 +39,7 @@
             android:minHeight="32.0dip"
             android:orientation="vertical">
 
-            <com.amz.ios.launcher.views.EnhancedTextView
+            <com.truongnt.ios.launcher.views.EnhancedTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 launcher:drawableRightHeight="24.0dip"
                 launcher:drawableRightWidth="24.0dip" />
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             android:src="@drawable/pref_update"
             android:visibility="gone" />
 
-        <com.amz.ios.ioslite.common.widget.Switch
+        <com.truongnt.ios.ioslite.common.widget.Switch
             android:id="@+id/switch1"
             android:layout_width="38dp"
             android:layout_height="16dp"

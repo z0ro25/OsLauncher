@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    namespace "com.amz.ios.launcher"
+    namespace "com.truongnt.ios.launcher"
     compileSdkVersion cfgs.compileSdkVersion
 
     defaultConfig {

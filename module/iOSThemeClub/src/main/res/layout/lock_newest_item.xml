@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
             android:layout_height="@dimen/theme_newest_image_height"/>
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/lock_newest_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

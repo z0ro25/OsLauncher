@@ -13,32 +13,32 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.amz.ios.launcher.screenedit.SortPanel xmlns:android="http://schemas.android.com/apk/res/android"
+<com.truongnt.ios.launcher.screenedit.SortPanel xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/OverViewPanelMainMenu"
     android:visibility="visible">
 
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/sort_screen_top"
         style="@style/PannelButton"
         android:drawableTop="@drawable/icon_sort_top"
         android:text="@string/sort_icon_cur_up_screen_text" />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/sort_screen_bottom"
         style="@style/PannelButton"
         android:drawableTop="@drawable/icon_sort_bottom"
         android:text="@string/sort_icon_cur_down_screen_text" />
 
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/sort_all_top"
         style="@style/PannelButton"
         android:drawableTop="@drawable/icon_sort_all_top"
         android:text="@string/sort_icon_all_top_screen_text" />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/sort_all_bottom"
         style="@style/PannelButton"
         android:drawableTop="@drawable/icon_sort_all_bottom"
         android:text="@string/sort_icon_all_bottom_screen_text" />
 
-</com.amz.ios.launcher.screenedit.SortPanel>
+</com.truongnt.ios.launcher.screenedit.SortPanel>

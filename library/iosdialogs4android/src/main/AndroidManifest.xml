@@ -3,7 +3,7 @@
     <application>
         <activity
             android:exported="true"
-            android:name="com.amz.varunjohn1990.iosdialogs4android.IOSDialogView"
+            android:name="com.ezt.varunjohn1990.iosdialogs4android.IOSDialogView"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeIosDialog"></activity>
     </application>

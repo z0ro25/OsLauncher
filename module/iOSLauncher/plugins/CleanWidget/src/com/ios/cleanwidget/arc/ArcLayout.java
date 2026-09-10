@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.amz.ios.launcher.R;
+import com.truongnt.ios.launcher.R;
 
 import java.util.WeakHashMap;
 

@@ -16,7 +16,7 @@
             android:contentDescription="@string/app_name"
             />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/text"
             android:layout_below="@id/image"
             android:layout_centerHorizontal="true"

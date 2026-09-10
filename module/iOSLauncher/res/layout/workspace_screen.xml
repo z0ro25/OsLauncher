@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.amz.ios.launcher.CellLayout
+<com.truongnt.ios.launcher.CellLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,4 +23,4 @@
     android:hapticFeedbackEnabled="false"
     launcher:maxGap="@dimen/workspace_max_gap">
 
-</com.amz.ios.launcher.CellLayout>
+</com.truongnt.ios.launcher.CellLayout>

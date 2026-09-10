@@ -24,9 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.ios.boot.iosboot.widget.ScrollWebView;
-import com.amz.ios.ioslite.common.http.SslHandler;
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
-import com.amz.ios.launcher.R;
+import com.truongnt.ios.ioslite.common.http.SslHandler;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
+import com.truongnt.ios.launcher.R;
 
 import java.util.Locale;
 

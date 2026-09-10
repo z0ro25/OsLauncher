@@ -15,7 +15,7 @@
  */
 syntax = "proto2";
 
-option java_package = "com.amz.ios.launcher.userevent";
+option java_package = "com.truongnt.ios.launcher.userevent";
 option java_outer_classname = "LauncherLogExtensions";
 
 package userevent;

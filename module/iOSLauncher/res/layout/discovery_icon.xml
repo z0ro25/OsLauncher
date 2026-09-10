@@ -10,7 +10,7 @@
         android:id="@+id/iv"
         android:layout_gravity="center" />
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:id="@+id/tv"

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.TopTitlebar
+        <com.truongnt.ios.launcher.views.TopTitlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

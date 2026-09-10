@@ -4,9 +4,9 @@ package com.ios.cleanwidget;
 import android.app.ActivityManager;
 import android.content.Context;
 
-import com.amz.ios.ioslite.common.debug.DebugLog;
-import com.amz.ios.ioslite.common.util.PackageUtil;
-import com.amz.ios.ioslite.common.util.TimeUtil;
+import com.truongnt.ios.ioslite.common.debug.DebugLog;
+import com.truongnt.ios.ioslite.common.util.PackageUtil;
+import com.truongnt.ios.ioslite.common.util.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

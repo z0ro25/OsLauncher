@@ -1,4 +1,4 @@
-package com.amz.newspage.newssource.entities;
+package com.ezt.newspage.newssource.entities;
 
 /**
  * Author       : yizhihao

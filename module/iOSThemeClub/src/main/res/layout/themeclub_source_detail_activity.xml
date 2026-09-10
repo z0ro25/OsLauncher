@@ -21,14 +21,14 @@
             android:layout_height="@dimen/source_detail_toorbar_height"
             scrollview:layout_scrollFlags="scroll|enterAlways|snap"/>
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             scrollview:layout_scrollFlags="scroll|enterAlways|snap"
             android:layout_marginTop="@dimen/source_detail_maigin"
             android:layout_marginLeft="@dimen/source_title_margin_left"/>
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/detail_des"
             android:layout_width="wrap_content"
             scrollview:layout_scrollFlags="scroll|enterAlways|snap"

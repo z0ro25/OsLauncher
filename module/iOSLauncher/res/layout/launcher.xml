@@ -14,7 +14,7 @@
 -->
 
 <!-- Full screen view projects under the status bar and contains the background -->
-<com.amz.ios.launcher.LauncherRootView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.truongnt.ios.launcher.LauncherRootView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:id="@+id/launcher"
     android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         launcher:layout_ignoreInsets="true" />
 
-    <com.amz.ios.launcher.applibrary.DragAppsLibraryLayout
+    <com.truongnt.ios.launcher.applibrary.DragAppsLibraryLayout
         android:id="@+id/sliding_pane_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,25 +39,25 @@
              (vào edit mode) lại chèn padding đẩy cả workspace + nền hotseat xuống. Bỏ đi để status bar
              ẩn/hiện KHÔNG còn ảnh hưởng layout. Inset thật (nav/multi-window) vẫn đi qua LauncherRootView
              -> setInsets (cơ chế Insettable), không liên quan thuộc tính này. -->
-        <com.amz.ios.launcher.DragLayer
+        <com.truongnt.ios.launcher.DragLayer
             android:id="@+id/drag_layer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.amz.ios.launcher.FocusIndicatorView
+            <com.truongnt.ios.launcher.FocusIndicatorView
                 android:id="@+id/focus_indicator"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="@dimen/status_bar_heightex" />
 
-            <com.amz.ios.launcher.WorkspaceRootView
+            <com.truongnt.ios.launcher.WorkspaceRootView
                 android:id="@+id/workspace_root_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/status_bar_heightex">
                 <!-- The workspace contains 5 screens of cells -->
                 <!-- DO NOT CHANGE THE ID -->
-                <com.amz.ios.launcher.Workspace
+                <com.truongnt.ios.launcher.Workspace
                     android:id="@+id/workspace"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -93,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:visibility="invisible" />
 
-                <com.amz.ios.launcher.leftpage.custom.CustomZoomButton
+                <com.truongnt.ios.launcher.leftpage.custom.CustomZoomButton
                     android:id="@+id/add_widgets"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
@@ -117,7 +117,7 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
 
-                <com.amz.ios.launcher.leftpage.custom.CustomZoomButton
+                <com.truongnt.ios.launcher.leftpage.custom.CustomZoomButton
                     android:id="@+id/add_widgets_done"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
@@ -141,7 +141,7 @@
                     android:textSize="14sp"
                     android:visibility="gone" />
 
-            </com.amz.ios.launcher.WorkspaceRootView>
+            </com.truongnt.ios.launcher.WorkspaceRootView>
 
             <ImageView
                 android:id="@+id/launcher_img_folder_bg_blur"
@@ -150,7 +150,7 @@
                 android:contentDescription="@null"
                 android:visibility="gone" />
 
-            <com.amz.ios.launcher.BlurScreenLayout
+            <com.truongnt.ios.launcher.BlurScreenLayout
                 android:id="@+id/blur_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -168,15 +168,15 @@
                 android:foregroundGravity="center"
                 android:scaleType="fitXY"
                 android:visibility="invisible" />
-        </com.amz.ios.launcher.DragLayer>
+        </com.truongnt.ios.launcher.DragLayer>
 
-        <com.amz.ios.launcher.BlurScreenLayout
+        <com.truongnt.ios.launcher.BlurScreenLayout
             android:id="@+id/blur_apps_library_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true" />
 
-        <com.amz.ios.launcher.applibrary.AppsLibraryLayout
+        <com.truongnt.ios.launcher.applibrary.AppsLibraryLayout
             android:id="@+id/apps_library_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -184,7 +184,7 @@
             android:focusable="true"
             launcher:layoutDescription="@xml/apps_library_layout_scene" />
 
-        <com.amz.ios.launcher.leftpage.views.CustomContentView
+        <com.truongnt.ios.launcher.leftpage.views.CustomContentView
             android:id="@+id/left_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -197,7 +197,7 @@
              blur_apps_library_background (đang dùng chung với negative page).
              ĐẶT CUỐI CÙNG: cha (LauncherDragLayer) cast child theo index 0..3 — chèn ở giữa
              sẽ lệch index gây ClassCastException; child #5 (index 4) là an toàn. -->
-        <com.amz.ios.launcher.AppLibraryBlurView
+        <com.truongnt.ios.launcher.AppLibraryBlurView
             android:id="@+id/apps_library_frost_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -210,14 +210,14 @@
              onLeftPageSlide/Opened/Closed gọi.
              ĐẶT CUỐI CÙNG: LauncherDragLayer cast child theo index 0..3 (onFinishInflate) — child mới
              ở cuối (index 5) không lệch cast, an toàn. -->
-        <com.amz.ios.launcher.AppLibraryBlurView
+        <com.truongnt.ios.launcher.AppLibraryBlurView
             android:id="@+id/left_page_frost_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true" />
-    </com.amz.ios.launcher.applibrary.DragAppsLibraryLayout>
+    </com.truongnt.ios.launcher.applibrary.DragAppsLibraryLayout>
 
-    <com.amz.ios.launcher.searchview.SearchViewLayout
+    <com.truongnt.ios.launcher.searchview.SearchViewLayout
         android:id="@+id/search_view"
         style="@style/SearchViewLayout"
         android:layout_width="match_parent"
@@ -245,4 +245,4 @@
         android:layout_height="match_parent"
         android:inflatedId="@+id/launcher_overlay"
         android:layout="@layout/launcher_overlay" />
-</com.amz.ios.launcher.LauncherRootView>
+</com.truongnt.ios.launcher.LauncherRootView>

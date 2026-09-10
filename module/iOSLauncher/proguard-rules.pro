@@ -102,9 +102,9 @@
 -keep interface okhttp3.** { *; }
 -keep class com.amazic.ads.**{ *; }
 
--keep class com.amz.ios.launcher.** { *; }
--keep class com.amz.ios.launcher.searchlauncher.** { *; }
--keep class com.amz.ios.** { *; }
+-keep class com.truongnt.ios.launcher.** { *; }
+-keep class com.truongnt.ios.launcher.searchlauncher.** { *; }
+-keep class com.ezt.ios.** { *; }
 -keep class com.ios.boot.** { *; }
 -keep class com.ios.cleanwidget.** { *; }
 -keep class com.ios.theme.** { *; }
@@ -116,7 +116,7 @@
 # [BUG FIX] Bản release crash lúc khởi động:
 #     java.lang.NoSuchMethodException: androidx.constraintlayout.motion.widget.KeyCycle.<init> []
 #         at androidx.constraintlayout.motion.widget.KeyFrames.<clinit>(KeyFrames.java:52)
-#         at com.amz.ios.launcher.applibrary.AppsLibraryLayout.<init>
+#         at com.truongnt.ios.launcher.applibrary.AppsLibraryLayout.<init>
 #
 # NGUYÊN NHÂN: KeyFrames dựng các lớp Key* (KeyCycle, KeyAttributes, KeyPosition, KeyTrigger...)
 # bằng REFLECTION với constructor rỗng. ProGuard không thấy chỗ nào gọi trực tiếp nên xoá constructor

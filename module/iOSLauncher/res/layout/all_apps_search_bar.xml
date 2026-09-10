@@ -36,7 +36,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_allapp_search_delete" />
 
-        <com.amz.ios.launcher.ExtendedEditText
+        <com.truongnt.ios.launcher.ExtendedEditText
             android:id="@+id/search_box_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -74,7 +74,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_allapp_search" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/search_button_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

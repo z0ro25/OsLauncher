@@ -1,4 +1,4 @@
-package com.amz.ios.business;
+package com.ezt.ios.business;
 
 /**
  * Created by liaozhongjun on 2017/2/25.

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <com.amz.ios.ioslite.common.view.IOSLoadingView
+        <com.truongnt.ios.ioslite.common.view.IOSLoadingView
             android:id="@+id/iosloadingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
             ios:indicatorType="1"
             android:layout_centerInParent="true"
             ios:indicatorColor="@color/themeclub_loading_color"/>
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textSize="@dimen/loading_size"
             android:textColor="@color/themeclub_loading_color"
             android:text="@string/themeclub_loading"/>
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/loading"

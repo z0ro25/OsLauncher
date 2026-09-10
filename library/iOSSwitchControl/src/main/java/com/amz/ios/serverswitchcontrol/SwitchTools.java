@@ -1,15 +1,15 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
-import com.amz.ios.serverswitchcontrol.bean.request.RegistRequestBean;
-import com.amz.ios.serverswitchcontrol.bean.request.SwitchRequestBean;
-import com.amz.ios.serverswitchcontrol.bean.request.CommonBean;
-import com.amz.ios.serverswitchcontrol.bean.request.LocationBean;
-import com.amz.ios.serverswitchcontrol.bean.request.TagBean;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
+import com.ezt.ios.serverswitchcontrol.bean.request.RegistRequestBean;
+import com.ezt.ios.serverswitchcontrol.bean.request.SwitchRequestBean;
+import com.ezt.ios.serverswitchcontrol.bean.request.CommonBean;
+import com.ezt.ios.serverswitchcontrol.bean.request.LocationBean;
+import com.ezt.ios.serverswitchcontrol.bean.request.TagBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

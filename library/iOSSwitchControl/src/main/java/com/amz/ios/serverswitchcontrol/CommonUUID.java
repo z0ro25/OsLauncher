@@ -1,10 +1,10 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 import android.content.Context;
 import android.os.IBinder;
 import android.text.TextUtils;
 
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
 
 import java.lang.reflect.Method;
 import java.util.UUID;

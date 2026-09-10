@@ -1,8 +1,8 @@
-package com.amz.ios.strategy;
+package com.ezt.ios.strategy;
 
 import android.content.Context;
 
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
 
 /**
  * Created by liaozhongjun on 2017/1/17.

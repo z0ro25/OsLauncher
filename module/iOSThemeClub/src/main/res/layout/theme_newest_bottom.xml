@@ -12,7 +12,7 @@
         android:layout_marginBottom="@dimen/theme_img_margin"
         android:layout_marginTop="@dimen/theme_img_margin"
         android:scaleType="centerCrop"/>
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/theme_newest_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_toEndOf="@id/theme_icon"
         android:layout_toRightOf="@id/theme_icon"
         android:layout_alignBottom="@id/theme_icon"/>
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:textSize="@dimen/title_size"
         android:id="@+id/newest_downlaod_number"
         android:layout_width="wrap_content"

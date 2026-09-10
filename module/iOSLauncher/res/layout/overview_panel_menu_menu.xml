@@ -19,52 +19,52 @@
     style="@style/OverViewPanelMainMenu"
     android:visibility="visible">
 
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/theme_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_wallpaper_icon"
         android:text="@string/theme_club_button_text"
         />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/widget_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_add_widget_icon"
         android:text="@string/widget_button_text"
         android:visibility="gone"
         />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/wallpaper_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_wallpaper_icon"
         android:text="@string/wallpaper_settings"
         android:visibility="gone"
         />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/effect_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_effect_icon"
         android:text="@string/effect_button_text"
         android:visibility="gone"
         />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/sort_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_icon_sort"
         android:text="@string/sort_button_text"
         android:visibility="visible"/>
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/local_settings_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_launcher_setting_icon"
         android:text="localST"
         android:visibility="gone"
         />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/app_search_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_search_icon"
         android:text="@string/search_button_text" />
-    <com.amz.ios.launcher.screenedit.IconTextView
+    <com.truongnt.ios.launcher.screenedit.IconTextView
         android:id="@+id/settings_button"
         style="@style/PannelButton"
         android:drawableTop="@drawable/quickactionbar_launcher_setting_icon"

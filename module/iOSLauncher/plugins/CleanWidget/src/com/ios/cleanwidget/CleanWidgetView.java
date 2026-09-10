@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.ContentObserver;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -29,16 +28,16 @@ import android.widget.LinearLayout;
 import com.ios.boot.iosboot.LauncherGuideManager;
 import com.ios.cleanwidget.anim.CleanAnimatorListener;
 import com.ios.cleanwidget.anim.CleanIconUpdateListener;
-import com.amz.ios.ioslite.common.ContextHelper;
-import com.amz.ios.ioslite.common.Partner;
-import com.amz.ios.ioslite.common.analytics.AnalyticsDelegate;
-import com.amz.ios.ioslite.common.analytics.UMEventConstants;
-import com.amz.ios.ioslite.common.setting.IOSSettings;
-import com.amz.ios.ioslite.common.util.DisplayUtil;
-import com.amz.ios.launcher.DeviceProfile;
-import com.amz.ios.launcher.Launcher;
-import com.amz.ios.launcher.R;
-import com.amz.ios.launcher.views.CustomTextView;
+import com.truongnt.ios.ioslite.common.ContextHelper;
+import com.truongnt.ios.ioslite.common.Partner;
+import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
+import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
+import com.truongnt.ios.ioslite.common.setting.IOSSettings;
+import com.truongnt.ios.ioslite.common.util.DisplayUtil;
+import com.truongnt.ios.launcher.DeviceProfile;
+import com.truongnt.ios.launcher.Launcher;
+import com.truongnt.ios.launcher.R;
+import com.truongnt.ios.launcher.views.CustomTextView;
 
 
 public class CleanWidgetView extends FrameLayout implements View.OnClickListener {

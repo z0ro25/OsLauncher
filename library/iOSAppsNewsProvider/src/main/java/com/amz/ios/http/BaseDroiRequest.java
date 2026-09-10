@@ -1,17 +1,17 @@
-package com.amz.ios.http;
+package com.ezt.ios.http;
 
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.amz.ios.http.Internal.DroiHttpRetryPolicy;
-import com.amz.newspage.newssource.config.Configeration;
+import com.ezt.ios.http.Internal.DroiHttpRetryPolicy;
+import com.ezt.newspage.newssource.config.Configeration;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
-import com.amz.ios.ioslite.common.BuildConfig;
-import com.amz.ios.ioslite.common.util.ZipUtil;
+import com.truongnt.ios.ioslite.common.BuildConfig;
+import com.truongnt.ios.ioslite.common.util.ZipUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

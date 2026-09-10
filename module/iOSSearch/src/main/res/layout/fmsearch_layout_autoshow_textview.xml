@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.amz.ios.launcher.views.CustomTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.truongnt.ios.launcher.views.CustomTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/txt_widget_search"
     android:layout_width="match_parent"
     android:gravity="center_vertical"
@@ -8,4 +8,4 @@
     android:textColor="@color/fmsearch_white"
     android:layout_height="match_parent">
 
-</com.amz.ios.launcher.views.CustomTextView>
+</com.truongnt.ios.launcher.views.CustomTextView>

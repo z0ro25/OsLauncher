@@ -1,4 +1,4 @@
-package com.amz.ios.http.Internal;
+package com.ezt.ios.http.Internal;
 
 import com.android.volley.DefaultRetryPolicy;
 

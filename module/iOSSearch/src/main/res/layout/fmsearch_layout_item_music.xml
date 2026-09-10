@@ -7,7 +7,7 @@
 
     <include layout="@layout/fmsearch_layout_music_header" />
 
-    <com.amz.ios.search.widget.ListViewExtend
+    <com.truongnt.ios.search.widget.ListViewExtend
         android:id="@+id/music_content"
         android:divider="@drawable/fmsearch_dw_divider"
         android:dividerHeight="1px"

@@ -1,4 +1,4 @@
-package com.amz.ios.serverswitchcontrol.bean.request;
+package com.ezt.ios.serverswitchcontrol.bean.request;
 
 public class LocationBean {
 

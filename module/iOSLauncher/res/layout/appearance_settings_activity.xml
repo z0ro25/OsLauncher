@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.TopTitlebar
+        <com.truongnt.ios.launcher.views.TopTitlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,12 +28,12 @@
                     android:id="@+id/settings_default_launcher_gap"
                     layout="@layout/preference_gap" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     style="@style/pref_settingtitle"
                     android:textColor="@color/pref_category_grey"
                     android:text="@string/setting_category_desktop" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/dekstop_style"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                     launcher:rightImage="rightArrow" />
 
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/desktop_grid"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -54,13 +54,13 @@
                     android:id="@+id/settings_default_launcher_gap"
                     layout="@layout/preference_gap" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     android:id="@+id/drawer_subtitle"
                     style="@style/pref_settingtitle"
                     android:textColor="@color/pref_category_grey"
                     android:text="@string/setting_category_drawer" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/drawer_style"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

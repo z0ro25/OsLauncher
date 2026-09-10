@@ -225,7 +225,7 @@
     <string name="terms_of_service">服务条款</string>
     <string name="menu_privacy_notice">隐私声明</string>
     <string name="about_version">版本信息</string>
-    <string name="software_share_text">IOS是世界上最快，最美，最好用的桌面，推荐你也试试~ https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_text">IOS是世界上最快，最美，最好用的桌面，推荐你也试试~ https://play.google.com/store/apps/details?id=com.ezla.oslauncher</string>
     <string name="software_share_titile">分享</string>
     <string name="update_start">正在检查新版本，请稍候…</string>
     <string name="update_check_no_update">恭喜！你现在已经是最新版本。</string>

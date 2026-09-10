@@ -36,10 +36,10 @@ import com.ios.boot.iosboot.utils.Utils;
 import com.ios.boot.iosboot.viewpager.ZoomOutPageTransFormer;
 import com.ios.boot.iosboot.widget.ExplosionView;
 import com.ios.boot.iosboot.widget.RippleView;
-import com.amz.ios.ioslite.common.Partner;
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
-import com.amz.ios.launcher.R;
-import com.amz.ios.launcher.views.CustomTextView;
+import com.truongnt.ios.ioslite.common.Partner;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
+import com.truongnt.ios.launcher.R;
+import com.truongnt.ios.launcher.views.CustomTextView;
 
 import java.io.IOException;
 

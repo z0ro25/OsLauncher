@@ -30,9 +30,9 @@ import com.ios.cleanwidget.anim.InCircleUpdateListener;
 import com.ios.cleanwidget.anim.InLightUpdateListener;
 import com.ios.cleanwidget.anim.OutLightUpdateListener;
 import com.ios.cleanwidget.arc.ArcLayout;
-import com.amz.ios.ioslite.common.anim.PropertyHolderUtis;
-import com.amz.ios.launcher.Launcher;
-import com.amz.ios.launcher.R;
+import com.truongnt.ios.ioslite.common.anim.PropertyHolderUtis;
+import com.truongnt.ios.launcher.Launcher;
+import com.truongnt.ios.launcher.R;
 
 import java.util.ArrayList;
 import java.util.List;

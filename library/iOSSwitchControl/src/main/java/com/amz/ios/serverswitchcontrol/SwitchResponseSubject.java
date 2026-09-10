@@ -1,10 +1,10 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
-import com.amz.ios.serverswitchcontrol.bean.response.SwitchResponseBean;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
+import com.ezt.ios.serverswitchcontrol.bean.response.SwitchResponseBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

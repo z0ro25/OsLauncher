@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.amz.ios.launcher.screenedit.OverviewPanel
+<com.truongnt.ios.launcher.screenedit.OverviewPanel
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:padding="10dip">
 
-       <!-- <com.amz.ios.launcher.views.CustomTextView
+       <!-- <com.truongnt.ios.launcher.views.CustomTextView
             android:textSize="12sp"
             android:textColor="@color/white80percent"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/home_icon"
             />
-        <com.amz.ios.launcher.screenedit.BlurButton
+        <com.truongnt.ios.launcher.screenedit.BlurButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Add"
@@ -50,7 +50,7 @@
             android:id="@+id/screen_edit_add"
             android:layout_gravity="start"
             />
-        <com.amz.ios.launcher.screenedit.BlurButton
+        <com.truongnt.ios.launcher.screenedit.BlurButton
             android:layout_width="wrap_content"
             android:id="@+id/screen_edit_done"
             android:layout_height="match_parent"
@@ -92,4 +92,4 @@
 
     </RelativeLayout>
 
-</com.amz.ios.launcher.screenedit.OverviewPanel>
+</com.truongnt.ios.launcher.screenedit.OverviewPanel>

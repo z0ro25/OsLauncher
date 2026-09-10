@@ -1,4 +1,4 @@
-package com.amz.newspage.newssource.utils;
+package com.ezt.newspage.newssource.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

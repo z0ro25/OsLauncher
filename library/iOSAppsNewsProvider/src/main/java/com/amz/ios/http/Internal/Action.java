@@ -1,10 +1,10 @@
-package com.amz.ios.http.Internal;
+package com.ezt.ios.http.Internal;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.amz.newspage.newssource.utils.WorkFlowScheduler;
+import com.ezt.newspage.newssource.utils.WorkFlowScheduler;
 
 /**
  * Author       : yizhihao
@@ -13,7 +13,7 @@ import com.amz.newspage.newssource.utils.WorkFlowScheduler;
  */
 public abstract class Action<T> implements Runnable, Comparable<Action> {
 
-    public static final boolean DEBUG = com.amz.ios.ioslite.common.BuildConfig.DEBUG;
+    public static final boolean DEBUG = com.truongnt.ios.ioslite.common.BuildConfig.DEBUG;
 
     private static final String TAG = Action.class.getSimpleName();
 

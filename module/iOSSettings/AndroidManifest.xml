@@ -41,7 +41,7 @@
         <activity
             android:exported="true"
             android:resizeableActivity="false"
-            android:name="com.amz.ios.iossettings.SettingsActivity"
+            android:name="com.truongnt.ios.iossettings.SettingsActivity"
             android:screenOrientation="portrait"
             android:anyDensity="true"
             android:icon="@drawable/settings_ic"
@@ -65,7 +65,7 @@
 
         <receiver
             android:exported="true"
-            android:name="com.amz.ios.iossettings.TorchWidgetProvider"
+            android:name="com.truongnt.ios.iossettings.TorchWidgetProvider"
             android:label="@string/torch_widget_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.IOS_WIDGET" />

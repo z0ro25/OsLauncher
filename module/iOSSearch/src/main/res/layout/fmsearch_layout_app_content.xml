@@ -13,7 +13,7 @@
     android:layout_width="80dp"
     android:layout_height="89dp">
 
-    <com.amz.ios.search.widget.MaskImageView
+    <com.truongnt.ios.search.widget.MaskImageView
         android:clickable="false"
         app:is_ignore_alpha="false"
         android:layout_margin="4dp"
@@ -24,7 +24,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp" />
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:layout_marginTop="6dp"
         android:textSize="13sp"
         android:gravity="center"

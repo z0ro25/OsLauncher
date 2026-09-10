@@ -1,4 +1,4 @@
-package com.amz.ios.business;
+package com.ezt.ios.business;
 
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;

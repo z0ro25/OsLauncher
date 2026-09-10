@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/themeclub_font_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:id="@+id/space_gap"
                 layout="@layout/preference_gap" />
 
-            <com.amz.ios.launcher.views.CustomTextView
+            <com.truongnt.ios.launcher.views.CustomTextView
                 android:id="@+id/themeclub_font_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.amz.ios.launcher.views.CustomTextView
+    <com.truongnt.ios.launcher.views.CustomTextView
         android:id="@+id/setting_button"
         android:layout_width="match_parent"
         android:layout_height="36dp"

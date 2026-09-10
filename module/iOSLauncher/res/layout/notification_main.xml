@@ -15,7 +15,7 @@
 -->
 
 
-<com.amz.ios.launcher.notification.NotificationMainView
+<com.truongnt.ios.launcher.notification.NotificationMainView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,7 +31,7 @@
         android:background="@color/popup_background_color"
         android:paddingStart="@dimen/notification_padding_start"
         android:paddingEnd="@dimen/notification_main_text_padding_end">
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:lines="1"
             android:ellipsize="end" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,5 +60,5 @@
         android:layout_marginEnd="@dimen/notification_padding_end"
         android:layout_gravity="center_vertical|end" />
 
-</com.amz.ios.launcher.notification.NotificationMainView>
+</com.truongnt.ios.launcher.notification.NotificationMainView>
 

@@ -5,7 +5,7 @@
         android:allowBackup="true"
         android:supportsRtl="true">
 
-        <receiver android:exported="true" android:name="com.amz.newspage.newssource.LanguageBroadcastReceiver">
+        <receiver android:exported="true" android:name="com.ezt.newspage.newssource.LanguageBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"></action>
             </intent-filter>

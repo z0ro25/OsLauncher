@@ -8,9 +8,8 @@ import android.graphics.Paint.Cap;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-import com.amz.ios.ioslite.common.Partner;
+import com.truongnt.ios.ioslite.common.Partner;
 
 public class CleanIconView extends androidx.appcompat.widget.AppCompatImageView {
     private static final String TAG = "CleanProgressView";

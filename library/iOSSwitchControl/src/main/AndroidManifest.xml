@@ -9,7 +9,7 @@
         android:allowBackup="true"
         android:supportsRtl="true">
 
-        <receiver android:name="com.amz.ios.serverswitchcontrol.LocationSuccessfulReceiver"
+        <receiver android:name="com.ezt.ios.serverswitchcontrol.LocationSuccessfulReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="ios.intent.action.LOCATION.SUCCESSFUL"/>

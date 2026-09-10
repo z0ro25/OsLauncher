@@ -1,4 +1,4 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 import android.content.Context;
 import android.content.IntentFilter;
@@ -6,10 +6,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.amz.ios.ioslite.common.util.BuildUtil;
-import com.amz.ios.ioslite.common.util.PreferencesUtil;
-import com.amz.ios.serverswitchcontrol.bean.response.RegistResponseBean;
-import com.amz.ios.serverswitchcontrol.bean.response.SwitchResponseBean;
+import com.truongnt.ios.ioslite.common.util.BuildUtil;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
+import com.ezt.ios.serverswitchcontrol.bean.response.RegistResponseBean;
+import com.ezt.ios.serverswitchcontrol.bean.response.SwitchResponseBean;
 
 import okhttp3.Call;
 import okhttp3.Response;

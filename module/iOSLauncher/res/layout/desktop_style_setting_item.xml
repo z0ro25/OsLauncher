@@ -16,14 +16,14 @@
         android:paddingRight="12dp"
         android:paddingTop="8dp">
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/launcher_dark"
             android:textSize="@dimen/launcher_pref_title_size" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textColor="@color/launcher_grey"
             android:textSize="@dimen/launcher_pref_desc_size" />
 
-        <com.amz.ios.ioslite.common.widget.SmoothCheckBox
+        <com.truongnt.ios.ioslite.common.widget.SmoothCheckBox
             android:id="@+id/checkbox"
             android:layout_width="24dp"
             android:layout_height="24dp"

@@ -19,11 +19,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- General -->
     <skip />
-    <!-- Permission to receive the com.amz.ios.launcher.action.LAUNCH intent. [DO NOT TRANSLATE] -->
-    <string name="receive_launch_broadcasts_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
+    <!-- Permission to receive the com.truongnt.ios.launcher.action.LAUNCH intent. [DO NOT TRANSLATE] -->
+    <string name="receive_launch_broadcasts_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_LAUNCH_BROADCASTS</string>
 
-    <!-- Permission to receive the com.amz.ios.launcher.action.FIRST_LOAD_COMPLETE intent. [DO NOT TRANSLATE] -->
-    <string name="receive_first_load_broadcast_permission" translatable="false">com.amz.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
+    <!-- Permission to receive the com.truongnt.ios.launcher.action.FIRST_LOAD_COMPLETE intent. [DO NOT TRANSLATE] -->
+    <string name="receive_first_load_broadcast_permission" translatable="false">com.truongnt.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
 
     <!-- Application name -->
     <string name="launcher_application_name">Launcher</string>
@@ -463,7 +463,7 @@
     <string name="copyright" translatable="false"> ©2017 <xliff:g id="product">%1$s</xliff:g> Group. All Rights Reserved.</string>
 
 
-    <string name="software_share_text">IOS Launcher:beautiful launcher with fast speed and good use experience, just try it~https://play.google.com/store/apps/details?id=com.oslauncher.applauncher.themelauncher</string>
+    <string name="software_share_text">IOS Launcher:beautiful launcher with fast speed and good use experience, just try it~https://play.google.com/store/apps/details?id=com.ezla.oslauncher</string>
     <string name="software_share_titile">Share</string>
     <string name="update_start">Checking update. Please wait a moment.</string>
     <string name="update_check_no_update">No update found! You are using the latest version.</string>

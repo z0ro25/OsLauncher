@@ -9,7 +9,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.TopTitlebar
+        <com.truongnt.ios.launcher.views.TopTitlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,13 +26,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/website"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     launcher:preferenceTitle="@string/about_website" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/facebook"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                     launcher:rightImage="rightArrow" />
 
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/communities"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                     launcher:preferenceTitle="@string/about_communities"
                     launcher:rightImage="rightArrow" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/email"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -57,28 +57,28 @@
                     launcher:rightImage="rightArrow" />
 
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/terms_of_service"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     launcher:preferenceTitle="@string/terms_of_service"
                     launcher:rightImage="rightArrow" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/privacy"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     launcher:preferenceTitle="@string/menu_privacy_notice"
                     launcher:rightImage="rightArrow" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/version"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     launcher:hideDivider="true"
                     launcher:preferenceTitle="@string/about_version" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/develop"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             </LinearLayout>
         </ScrollView>
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/copyright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

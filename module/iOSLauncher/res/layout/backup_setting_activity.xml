@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.amz.ios.launcher.views.TopTitlebar
+        <com.truongnt.ios.launcher.views.TopTitlebar
             android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,11 +24,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     style="@style/pref_subtitle"
                     android:text="@string/setting_category_backup" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_backup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,11 +40,11 @@
                     android:id="@+id/settings_default_launcher_gap"
                     layout="@layout/preference_gap" />
 
-                <com.amz.ios.launcher.views.CustomTextView
+                <com.truongnt.ios.launcher.views.CustomTextView
                     style="@style/pref_subtitle"
                     android:text="@string/setting_category_restore" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_import"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     launcher:preferenceTitle="@string/setting_import_desktop_title"
                     launcher:rightImage="rightArrow" />
 
-                <com.amz.ios.launcher.views.IOSPreference
+                <com.truongnt.ios.launcher.views.IOSPreference
                     android:id="@+id/settings_reset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

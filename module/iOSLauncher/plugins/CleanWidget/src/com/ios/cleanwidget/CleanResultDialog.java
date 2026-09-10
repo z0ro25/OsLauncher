@@ -7,8 +7,8 @@ import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.amz.ios.launcher.R;
-import com.amz.ios.launcher.views.CustomTextView;
+import com.truongnt.ios.launcher.R;
+import com.truongnt.ios.launcher.views.CustomTextView;
 
 
 public class CleanResultDialog extends Dialog {

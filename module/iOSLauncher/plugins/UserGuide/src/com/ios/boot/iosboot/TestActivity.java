@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.ios.boot.iosboot.widget.TailBall;
-import com.amz.ios.launcher.R;
+import com.truongnt.ios.launcher.R;
 
 /**
  * Created by YiYang on 16-12-7.

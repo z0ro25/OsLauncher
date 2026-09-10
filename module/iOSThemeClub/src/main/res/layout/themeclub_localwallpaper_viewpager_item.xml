@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.amz.ios.themeclub.view.ZoomInOutImage
+    <com.truongnt.ios.themeclub.view.ZoomInOutImage
         android:id="@+id/viewpager_localwallpaper_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.amz.ios.launcher.views.ScaleSeekBar
+    <com.truongnt.ios.launcher.views.ScaleSeekBar
         android:id="@+id/setting_size_seek_bar"
         android:layout_width="fill_parent"
         android:layout_height="40.0dip"
@@ -21,7 +21,7 @@
         android:layout_marginRight="44.0dip"
         android:layout_marginTop="4.0dip">
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
@@ -30,7 +30,7 @@
             android:textColor="@color/launcher_white"
             android:textSize="14.0sp" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -39,7 +39,7 @@
             android:textColor="@color/launcher_white"
             android:textSize="14.0sp" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|right"
@@ -57,7 +57,7 @@
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/setting_icon_size_cancel"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
@@ -75,7 +75,7 @@
             android:layout_height="fill_parent"
             android:background="@color/launcher_transparent" />
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/setting_icon_size_submit"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"

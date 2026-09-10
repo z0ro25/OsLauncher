@@ -1,9 +1,9 @@
-package com.amz.ios.http.Internal;
+package com.ezt.ios.http.Internal;
 
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.amz.ios.ioslite.common.BuildConfig;
+import com.truongnt.ios.ioslite.common.BuildConfig;
 
 /**
  * Wrap request call back add some state to control some logic and show action.

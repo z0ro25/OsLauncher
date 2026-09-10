@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:id="@+id/theme_title"

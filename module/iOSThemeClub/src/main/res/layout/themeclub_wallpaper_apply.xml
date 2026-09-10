@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/themeclub_crop_text_color_pressed">
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/apply_launch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/apply_wallpaper_height"
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#F7F7F7"/>
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/apply_lockscreen"
             android:layout_width="match_parent"
             android:layout_height="@dimen/apply_wallpaper_height"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#F7F7F7"/>
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/apply_all"
             android:layout_width="match_parent"
             android:layout_height="@dimen/apply_wallpaper_height"

@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.amz.ios.launcher.Hotseat xmlns:android="http://schemas.android.com/apk/res/android"
+<com.truongnt.ios.launcher.Hotseat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
 
@@ -38,7 +38,7 @@
                      kích thước + margin được tính trong Hotseat.positionDockGlass() để ôm
                      SÁT khối icon (CellLayout luôn đo full-width nên không thể wrap bằng XML).
                      overlayColor để trong suốt -> vẫn thấy hình nền mờ mờ xuyên qua dock. -->
-                <com.amz.ios.launcher.DockBlurView
+                <com.truongnt.ios.launcher.DockBlurView
                     android:id="@+id/dock_glass_bg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:layout_alignBottom="@+id/layout"
                     android:visibility="gone"
                     launcher:realtimeBlurRadius="25dp" />
-                <com.amz.ios.launcher.CellLayout
+                <com.truongnt.ios.launcher.CellLayout
                     android:id="@+id/layout"
                     launcher:layout_constraintStart_toStartOf="parent"
                     launcher:layout_constraintEnd_toEndOf="parent"
@@ -56,4 +56,4 @@
                     android:layout_gravity="center"/>
         </RelativeLayout>
 
-</com.amz.ios.launcher.Hotseat>
+</com.truongnt.ios.launcher.Hotseat>

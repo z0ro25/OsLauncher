@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.amz.ios.launcher.widget.WidgetCell
+<com.truongnt.ios.launcher.widget.WidgetCell
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingTop="@dimen/widget_preview_img_top_padding">
-        <com.amz.ios.launcher.widget.WidgetImageView
+        <com.truongnt.ios.launcher.widget.WidgetImageView
             android:id="@+id/widget_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:orientation="horizontal">
 
         <!-- The name of the widget. -->
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/widget_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
 
         <!-- The original dimensions of the widget (can't be the same text as above due to different
              style. -->
-        <com.amz.ios.launcher.views.CustomTextView
+        <com.truongnt.ios.launcher.views.CustomTextView
             android:id="@+id/widget_dims"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,4 +77,4 @@
             android:shadowRadius="2.0"
             android:shadowColor="#B0000000" />
     </LinearLayout>
-</com.amz.ios.launcher.widget.WidgetCell>
+</com.truongnt.ios.launcher.widget.WidgetCell>

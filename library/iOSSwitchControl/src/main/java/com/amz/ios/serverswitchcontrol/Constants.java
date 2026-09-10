@@ -1,4 +1,4 @@
-package com.amz.ios.serverswitchcontrol;
+package com.ezt.ios.serverswitchcontrol;
 
 public class Constants {
     public class Parameter {

@@ -1,4 +1,4 @@
-package com.amz.newspage.newssource;
+package com.ezt.newspage.newssource;
 
 import java.util.concurrent.atomic.AtomicReference;
 
