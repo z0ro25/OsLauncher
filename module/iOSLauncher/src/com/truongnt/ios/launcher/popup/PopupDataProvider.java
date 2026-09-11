@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 
 import com.truongnt.ios.launcher.ItemInfo;
 import com.truongnt.ios.launcher.Launcher;
+import com.truongnt.ios.launcher.FolderInfo;
 import com.truongnt.ios.launcher.LauncherAppWidgetInfo;
 import com.truongnt.ios.launcher.Utilities;
 import com.truongnt.ios.launcher.badge.BadgeInfo;
@@ -74,6 +75,16 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
     private static final SystemShortcut[] WIDGET_SHORTCUTS = new SystemShortcut[]{
             new SystemShortcut.EditHomeScreen(),
             new SystemShortcut.RemoveApp(),
+    };
+
+    /**
+     * Popup giữ-liền trên FOLDER ở màn hình chính: đúng 3 mục, không có App Info/Hidden App
+     * (vô nghĩa với folder).
+     */
+    private static final SystemShortcut[] FOLDER_SHORTCUTS = new SystemShortcut[]{
+            new SystemShortcut.DeleteFolder(),
+            new SystemShortcut.EditHomeScreen(),
+            new SystemShortcut.RenameFolder(),
     };
 
 
@@ -291,10 +302,15 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
 
         SystemShortcut[] shortcuts;
 
-        if (info instanceof LauncherAppWidgetInfo)
+        if (info instanceof LauncherAppWidgetInfo) {
             shortcuts = WIDGET_SHORTCUTS;
-        else {
-            if (info.getTargetComponent().getPackageName().equals("com.ezla.oslauncher")) {
+        } else if (info instanceof FolderInfo) {
+            // FOLDER: 3 mục riêng. Phải xét TRƯỚC nhánh dưới vì FolderInfo không có target
+            // component -> getTargetComponent() trả null -> NPE.
+            shortcuts = FOLDER_SHORTCUTS;
+        } else {
+            ComponentName cn = info.getTargetComponent();
+            if (cn != null && cn.getPackageName().equals("com.ezla.oslauncher")) {
                 shortcuts = MY_APP_SHORTCUTS;
             } else shortcuts = SYSTEM_SHORTCUTS;
         }

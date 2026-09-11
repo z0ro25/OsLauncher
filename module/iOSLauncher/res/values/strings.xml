@@ -680,6 +680,9 @@
     <string name="share_app">Share App</string>
     <string name="edit_home_screen">Edit Home Screen</string>
     <string name="hidden_app">Hidden App</string>
+    <!-- Popup giữ-liền trên FOLDER ở màn hình chính (3 mục: xoá folder / sửa màn hình / đổi tên) -->
+    <string name="delete_folder">Delete Folder</string>
+    <string name="rename_folder">Rename</string>
 
     <string name="app_library">App Library</string>
     <string name="done">Done</string>

@@ -188,6 +188,8 @@
     <string name="drop_delete_anim_title">Animação de exclusão</string>
     <string name="edit">Editar</string>
     <string name="edit_home_screen">Editar tela inicial</string>
+    <string name="delete_folder">Excluir pasta</string>
+    <string name="rename_folder">Renomear</string>
     <string name="edit_page">Editar página</string>
     <string name="edit_pages_title">Editar páginas</string>
     <string name="effect_button_text">Efeito</string>

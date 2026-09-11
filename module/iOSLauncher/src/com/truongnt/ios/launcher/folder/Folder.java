@@ -921,7 +921,11 @@ public class Folder extends BaseFolder implements FolderInfo.FolderListener, Acc
                     if (Folder.this.mFolderIcon instanceof DropTarget) {
                         Folder.this.mDragController.removeDropTarget((DropTarget) Folder.this.mFolderIcon);
                     }
-                    Folder.this.mLauncher.removeFolder(Folder.this.mInfo);
+                    // [BỎ POPUP] Trước đây gọi mLauncher.removeFolder() — hàm đó bật dialog
+                    // "Remove <tên folder>?" mỗi khi folder còn <=1 app. Dialog thừa: folder tự
+                    // giải thể là hành vi ĐÚNG và tự động (app cuối đã được trả ra desktop ở khối
+                    // trên), không cần hỏi; hơn nữa cả 2 nút của dialog đều không làm gì.
+                    // Việc dọn dữ liệu/view đã xong ở các dòng ngay trên nên chỉ cần bỏ lời gọi.
                     Folder.this.mFolderContent.removeAllViews();
                     Folder.this.mItemsInReadingOrder.clear();
                 }

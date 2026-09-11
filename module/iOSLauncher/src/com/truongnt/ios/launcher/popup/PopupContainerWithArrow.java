@@ -47,6 +47,7 @@ import com.truongnt.ios.launcher.DragController;
 import com.truongnt.ios.launcher.DragLayer;
 import com.truongnt.ios.launcher.DragSource;
 import com.truongnt.ios.launcher.DropTarget;
+import com.truongnt.ios.launcher.FolderIcon;
 import com.truongnt.ios.launcher.ItemInfo;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
@@ -186,6 +187,41 @@ public class PopupContainerWithArrow extends AbstractFloatingView implements Dra
         container.setVisibility(View.INVISIBLE);
         launcher.getDragLayer().addView(container);
         container.populateAndShow(icon, shortcutIds, notificationKeys, systemShortcuts);
+        return container;
+    }
+
+    /**
+     * Popup giữ-liền cho FOLDER trên màn hình chính (3 mục: Delete Folder / Edit Home Screen /
+     * Rename).
+     *
+     * Tách riêng khỏi {@link #showForIcon(View)} vì hàm đó chặn ở
+     * {@code DeepShortcutManager.supportsShortcuts()} — chỉ chấp nhận APPLICATION/APPWIDGET, nên
+     * ITEM_TYPE_FOLDER luôn bị loại. Folder cũng không có deep shortcut hay notification, nên bỏ
+     * luôn 2 phần đó, chỉ truyền danh sách system shortcut.
+     */
+    public static PopupContainerWithArrow showForFolder(FolderIcon icon) {
+        Launcher launcher = Launcher.getLauncher(icon.getContext());
+        if (getOpen(launcher) != null) {
+            icon.clearFocus();
+            return null;
+        }
+        Object tag = icon.getTag();
+        if (!(tag instanceof ItemInfo)) {
+            return null;
+        }
+        List<SystemShortcut> systemShortcuts = launcher.getPopupDataProvider()
+                .getEnabledSystemShortcutsForItem((ItemInfo) tag);
+        if (systemShortcuts.isEmpty()) {
+            return null;
+        }
+
+        final PopupContainerWithArrow container =
+                (PopupContainerWithArrow) launcher.getLayoutInflater().inflate(
+                        R.layout.popup_container, launcher.getDragLayer(), false);
+        container.setVisibility(View.INVISIBLE);
+        launcher.getDragLayer().addView(container);
+        container.populateAndShow(icon, new ArrayList<String>(),
+                new ArrayList<NotificationKeyData>(), systemShortcuts);
         return container;
     }
 

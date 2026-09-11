@@ -87,7 +87,7 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:paddingVertical="18dp"
-        android:text="@string/select_bg_set"
+        android:text="@string/select_bg_start_launcher"
         android:textColor="#FFFFFF"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -7,30 +7,31 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 import com.ezla.oslauncher.Base.BaseActivity
-import com.ezla.oslauncher.R
+import com.ezla.oslauncher.Features.appearance.AppearanceActivity
 import com.ezla.oslauncher.Features.general.GeneralActivity
 import com.ezla.oslauncher.Features.general.applibrary.AppLibraryActivity
 import com.ezla.oslauncher.Features.general.changeicon.ChangeAppIconActivity
 import com.ezla.oslauncher.Features.general.hiddenapp.HiddenAppActivity
 import com.ezla.oslauncher.Features.general.renameapp.ChangeAppNameActivity
 import com.ezla.oslauncher.Features.general.screengrid.ScreenGridActivity
-import com.ezla.oslauncher.Features.appearance.AppearanceActivity
 import com.ezla.oslauncher.Features.general.transitionpage.PageTransitionActivity
 import com.ezla.oslauncher.Features.lang.LanguageSettingActivity
+import com.ezla.oslauncher.R
 import com.ezla.oslauncher.databinding.ActivityHomeBinding
 import com.ezla.oslauncher.dialog.SetDefaultLauncherDialog
 import com.ezla.oslauncher.extensions.launchActivity
 import com.ezla.oslauncher.extensions.tap
 import com.ezla.oslauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.utils.PermissionManager
+import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
@@ -65,8 +66,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
      */
     private fun applyDefaultLauncherState() {
         val isDefault = isDefaultLauncher()
-        binding.llSetDefaultCard.visibility = if (isDefault) android.view.View.GONE else android.view.View.VISIBLE
-        binding.llSelectDefault.visibility = if (isDefault) android.view.View.VISIBLE else android.view.View.GONE
+        binding.llSetDefaultCard.visibility =
+            if (isDefault) android.view.View.GONE else android.view.View.VISIBLE
+        binding.llSelectDefault.visibility =
+            if (isDefault) android.view.View.VISIBLE else android.view.View.GONE
 //        binding.dividerSelectDefault.visibility = if (isDefault) android.view.View.VISIBLE else android.view.View.GONE
     }
 
@@ -89,7 +92,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
      */
     private fun isDefaultLauncher(): Boolean {
         val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-        val res: ResolveInfo? = packageManager.resolveActivity(home, PackageManager.MATCH_DEFAULT_ONLY)
+        val res: ResolveInfo? =
+            packageManager.resolveActivity(home, PackageManager.MATCH_DEFAULT_ONLY)
         return res?.activityInfo?.packageName == packageName
     }
 
@@ -121,9 +125,19 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.llWeather.tap { /* TODO: chưa có màn Weather */ }
 
         // ===== Other =====
-        binding.llRate.tap { /* TODO: chưa gắn Rate Our App */ }
-        binding.llMail.tap { /* TODO: chưa gắn Mail To Us */ }
-        binding.llPrivacy.tap { /* TODO: chưa gắn Privacy Policy */ }
+        binding.llRate.tap {
+            showRateDialog(false) {
+
+            }
+        }
+        binding.llMail.tap { sendFeedbackMail() }
+        binding.llPrivacy.tap {
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://docs.google.com/document/d/1MQhESaXwlgu5Gx9JWXSfXQMGBaaWCJBs-ochf5Cng3Y/edit?tab=t.0")
+            )
+            startActivity(browserIntent)
+        }
 
         // ===== Device ID =====
         binding.ivCopyDeviceId.tap { copyDeviceId() }
@@ -196,6 +210,56 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             }
         }
         SharePrefUtils.putBoolean(this, "is_login", false)
+    }
+
+    /**
+     * Mở ứng dụng mail để người dùng gửi góp ý.
+     *
+     * Dùng ACTION_SENDTO + data "mailto:" thay cho ACTION_SEND: chỉ những app THẬT SỰ gửi mail mới
+     * nhận intent này, nên danh sách chọn không lẫn Bluetooth/Drive/Zalo... như ACTION_SEND.
+     *
+     * Địa chỉ nhận + tiền tố tiêu đề lấy từ [SharePrefUtils] (nơi cấu hình chung của app).
+     * Phần thân thư điền sẵn thông tin máy để đội hỗ trợ đỡ phải hỏi lại.
+     */
+    private fun sendFeedbackMail() {
+        val recipients = listOf(SharePrefUtils.email, SharePrefUtils.email1)
+            .filter { it.isNotBlank() }
+            .toTypedArray()
+
+        val subject = "${SharePrefUtils.subject}${getString(R.string.app_name)}"
+        val body = buildString {
+            append("\n\n---\n")
+            append("Device ID: ").append(readAndroidId()).append('\n')
+            append("Model: ").append(Build.MANUFACTURER).append(' ').append(Build.MODEL).append('\n')
+            append("Android: ").append(Build.VERSION.RELEASE)
+                .append(" (API ").append(Build.VERSION.SDK_INT).append(")\n")
+            append("App version: ").append(readAppVersion())
+        }
+
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            // Để trống phần sau "mailto:" và truyền người nhận qua EXTRA_EMAIL: cách này giữ được
+            // dấu tiếng Việt / ký tự đặc biệt ở subject-body mà không phải tự encode URI.
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, recipients)
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+        }
+
+        try {
+            startActivity(Intent.createChooser(intent, getString(R.string.Send_Email)))
+        } catch (e: Exception) {
+            // Máy không có app mail nào -> createChooser vẫn ném ActivityNotFoundException.
+            Toast.makeText(this, getString(R.string.There_is_no), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /** Tên phiên bản app; trả chuỗi rỗng nếu không đọc được (không để crash vì việc phụ này). */
+    private fun readAppVersion(): String {
+        return try {
+            packageManager.getPackageInfo(packageName, 0).versionName ?: ""
+        } catch (e: Exception) {
+            ""
+        }
     }
 
     @Suppress("HardwareIds")

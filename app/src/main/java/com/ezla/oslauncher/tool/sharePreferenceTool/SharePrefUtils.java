@@ -12,7 +12,7 @@ import android.preference.PreferenceManager;
 
 public class SharePrefUtils {
     //email nhận khi gửi mail qua rate hoặc ....
-    public static String email = "trustedapp.help@gmail.com";
+    public static String email = "eztcenterhelper@gmail.com";
     public static String email1 = "";
     //chữ đầu ở body email ở đây nhé (subject + tên app)
     public static String subject = "Feedback ";

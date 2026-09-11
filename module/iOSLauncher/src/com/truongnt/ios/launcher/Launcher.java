@@ -4408,6 +4408,37 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             itemUnderLongClick = longClickCellInfo.cell;
             resetAddInfo();
 
+            // FOLDER trên màn hình chính: giữ liền -> popup 3 mục (Delete Folder / Edit Home
+            // Screen / Rename), giống cách app mở popup ngữ cảnh. Đang ở edit mode thì KHÔNG mở
+            // popup — lúc đó giữ để nhấc folder lên kéo (FolderIcon.onTouchEvent tự lo).
+            if (info instanceof FolderInfo && v instanceof FolderIcon && !isShaking()) {
+                com.truongnt.ios.launcher.popup.PopupContainerWithArrow openFolderPopup =
+                        com.truongnt.ios.launcher.popup.PopupContainerWithArrow.getOpen(this);
+                if (openFolderPopup != null) {
+                    long sinceOpen = android.os.SystemClock.uptimeMillis() - mContextPopupOpenAt;
+                    if (sinceOpen < DUPLICATE_LONG_PRESS_WINDOW_MS) {
+                        return true;   // double-fire của cùng một cử chỉ -> giữ nguyên popup
+                    }
+                    closeFloatingMenu();
+                }
+                removeFloatingMenuOverlay();
+                removeStalePopupContainer();
+                showingFloatingMenu = true;
+                getDragLayer().addView(mFloatingMenuBlurBg, new DragLayer.LayoutParams(-1, -1));
+                com.truongnt.ios.launcher.popup.PopupContainerWithArrow folderPopup =
+                        com.truongnt.ios.launcher.popup.PopupContainerWithArrow
+                                .showForFolder((FolderIcon) v);
+                mContextPopupOpenAt = android.os.SystemClock.uptimeMillis();
+                if (folderPopup == null) {
+                    removeFloatingMenuOverlay();
+                } else {
+                    // Nhớ để "giữ rồi kéo" vẫn nhấc được folder (xem startDragFromContextPopup).
+                    mContextPopupIcon = v;
+                    mContextPopupCellInfo = longClickCellInfo;
+                }
+                return true;
+            }
+
             if (info instanceof LauncherAppWidgetInfo) {
                 mOpenAppWidgetHostView = (LauncherAppWidgetHostView) v;
                 if (isShaking()) {
@@ -7127,6 +7158,115 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 .iosDialogButtonList(iosDialogButtons)
                 .build()
                 .show();
+    }
+
+    /**
+     * Xoá FOLDER khỏi màn hình chính và BỨNG toàn bộ app bên trong ra desktop.
+     *
+     * Không app nào bị gỡ khỏi máy — chỉ folder biến mất, các app trong đó được đặt lại thành
+     * shortcut rời ở những ô trống gần nhất. Dùng cho mục "Delete Folder" ở popup giữ-liền.
+     */
+    public void deleteFolderAndUnpackApps(FolderInfo folderInfo) {
+        if (folderInfo == null) {
+            return;
+        }
+        final long container = folderInfo.container;
+        final long screenId = folderInfo.screenId;
+
+        // Chụp lại danh sách app TRƯỚC khi xoá: contents sẽ bị dọn trong quá trình gỡ folder.
+        ArrayList<ShortcutInfo> contents = new ArrayList<>(folderInfo.contents);
+
+        // Gỡ icon folder khỏi workspace + xoá bản ghi folder trong DB.
+        View folderIcon = mWorkspace.getViewForTag(folderInfo);
+        if (folderIcon != null) {
+            mWorkspace.removeWorkspaceItem(folderIcon);
+        }
+        LauncherModel.deleteFolderContentsFromDatabase(this, folderInfo);
+        mModel.forceReload();
+
+        // Đặt lại từng app thành shortcut rời. Tìm ô trống trên CHÍNH màn chứa folder trước;
+        // hết chỗ thì để addItemToWorkspace tự lo (tràn sang màn kế / tạo màn mới).
+        for (ShortcutInfo info : contents) {
+            info.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+            info.cellX = -1;
+            info.cellY = -1;
+            addPendingItemToWorkspaceSafely(info, container, screenId);
+        }
+    }
+
+    /**
+     * Thêm 1 shortcut vào workspace, ưu tiên màn đang chứa folder vừa xoá.
+     * Tách riêng để {@link #deleteFolderAndUnpackApps} đọc gọn và bắt lỗi từng item.
+     */
+    private void addPendingItemToWorkspaceSafely(ShortcutInfo info, long container, long screenId) {
+        try {
+            // Tìm ô trống: ưu tiên MÀN CHỨA FOLDER vừa xoá, hết chỗ thì quét các màn còn lại.
+            int[] cell = new int[2];
+            long targetScreen = screenId;
+            CellLayout layout = getCellLayout(
+                    LauncherSettings.Favorites.CONTAINER_DESKTOP, screenId);
+            boolean placed = layout != null && layout.findCellForSpan(cell, 1, 1);
+
+            if (!placed) {
+                ArrayList<Long> screens = mWorkspace.getScreenOrder();
+                for (Long id : screens) {
+                    if (id == null || id == screenId) {
+                        continue;
+                    }
+                    CellLayout other = getCellLayout(
+                            LauncherSettings.Favorites.CONTAINER_DESKTOP, id);
+                    if (other != null && other.findCellForSpan(cell, 1, 1)) {
+                        targetScreen = id;
+                        layout = other;
+                        placed = true;
+                        break;
+                    }
+                }
+            }
+            if (!placed || layout == null) {
+                return;   // hết chỗ trên mọi màn -> bỏ qua item này thay vì ném lỗi
+            }
+
+            info.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+            info.screenId = targetScreen;
+            info.cellX = cell[0];
+            info.cellY = cell[1];
+            LauncherModel.addItemToDatabase(this, info,
+                    LauncherSettings.Favorites.CONTAINER_DESKTOP, targetScreen, cell[0], cell[1]);
+            View shortcut = createShortcut(layout, info);
+            mWorkspace.addInScreenFromBind(shortcut,
+                    LauncherSettings.Favorites.CONTAINER_DESKTOP, targetScreen,
+                    cell[0], cell[1], 1, 1);
+        } catch (Throwable ignored) {
+            // Một item hỏng không được làm hỏng cả thao tác xoá folder.
+        }
+    }
+
+    /**
+     * Mở folder rồi đặt con trỏ vào ô tên (kèm bàn phím) để người dùng đổi tên ngay.
+     * Dùng cho mục "Rename" ở popup giữ-liền trên folder.
+     */
+    public void openFolderForRename(FolderInfo folderInfo) {
+        if (folderInfo == null) {
+            return;
+        }
+        View v = mWorkspace.getViewForTag(folderInfo);
+        if (!(v instanceof FolderIcon)) {
+            return;
+        }
+        final FolderIcon folderIcon = (FolderIcon) v;
+        openFolder(folderIcon);
+        // Chờ folder mở + layout xong rồi mới focus ô tên, nếu không requestFocus rơi vào view
+        // chưa attach và bàn phím không bật.
+        mDragLayer.post(new Runnable() {
+            @Override
+            public void run() {
+                Folder folder = folderIcon.getFolder();
+                if (folder != null) {
+                    folder.startEditingFolderName();
+                }
+            }
+        });
     }
 
     public int getPrivatePageCount() {

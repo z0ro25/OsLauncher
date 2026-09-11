@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">MIOS Launcher 26</string>
+    <string name="app_name" translatable="false">MiOS Launcher 26</string>
     <string name="we_are_working_hard_for_a_better_user_experience">We are working hard for a better user experience.</string>
     <string name="we_d_greatly_appreciate_if_you_can_rate_us">We’d greatly appreciate if you can rate us.</string>
     <string name="may_be_later">Maybe later</string>
@@ -96,6 +96,8 @@
     <string name="select_bg_desc">Choose a wallpaper you like for the home screen of your new launcher.</string>
     <string name="select_bg_skip">Skip</string>
     <string name="select_bg_set">Set as wallpaper</string>
+    <!-- Nút chính màn chọn hình nền ở lần đầu vào app: đặt nền rồi vào thẳng launcher -->
+    <string name="select_bg_start_launcher">Start Launcher</string>
     <!-- Tên theme mặc định (gói logo + hình nền) -->
     <string name="theme_default_name">Default</string>
     <string name="language">Language</string>

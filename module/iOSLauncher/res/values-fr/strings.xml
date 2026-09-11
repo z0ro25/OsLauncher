@@ -188,6 +188,8 @@
     <string name="drop_delete_anim_title">Animation de suppression</string>
     <string name="edit">Modifier</string>
     <string name="edit_home_screen">Modifier l\'écran d\'accueil</string>
+    <string name="delete_folder">Supprimer le dossier</string>
+    <string name="rename_folder">Renommer</string>
     <string name="edit_page">Modifier la page</string>
     <string name="edit_pages_title">Modifier les pages</string>
     <string name="effect_button_text">Effet</string>

@@ -189,6 +189,8 @@
     <string name="drop_delete_anim_title">Animación de eliminación</string>
     <string name="edit">Editar</string>
     <string name="edit_home_screen">Editar pantalla de inicio</string>
+    <string name="delete_folder">Eliminar carpeta</string>
+    <string name="rename_folder">Cambiar nombre</string>
     <string name="edit_page">Editar página</string>
     <string name="edit_pages_title">Editar páginas</string>
     <string name="effect_button_text">Efecto</string>

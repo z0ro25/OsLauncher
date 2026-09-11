@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.truongnt.ios.launcher.DeleteDropTarget;
+import com.truongnt.ios.launcher.FolderInfo;
 import com.truongnt.ios.launcher.InfoDropTarget;
 import com.truongnt.ios.launcher.ItemInfo;
 import com.truongnt.ios.launcher.Launcher;
@@ -119,6 +120,56 @@ public abstract class SystemShortcut {
                     if (itemInfo instanceof LauncherAppWidgetInfo) {
 
                     }
+                }
+            };
+        }
+    }
+
+    /**
+     * Xoá FOLDER khỏi màn hình chính: folder biến mất, toàn bộ app bên trong được BỨNG RA desktop
+     * (không app nào bị gỡ). Chỉ dùng cho popup giữ-liền trên folder.
+     */
+    public static class DeleteFolder extends SystemShortcut {
+        public DeleteFolder() {
+            super(R.drawable.ic_remove, R.string.delete_folder);
+        }
+
+        @Override
+        public View.OnClickListener getOnClickListener(final Launcher launcher,
+                                                       final ItemInfo itemInfo) {
+            if (!(itemInfo instanceof FolderInfo)) {
+                return null;   // không phải folder -> không hiện mục này
+            }
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    launcher.closeFloatingMenu();
+                    launcher.deleteFolderAndUnpackApps((FolderInfo) itemInfo);
+                }
+            };
+        }
+    }
+
+    /**
+     * Đổi tên folder: mở folder rồi đặt con trỏ vào ô tên sẵn có (kèm bàn phím), thay vì dựng
+     * một hộp thoại nhập tên riêng.
+     */
+    public static class RenameFolder extends SystemShortcut {
+        public RenameFolder() {
+            super(R.drawable.ic_edit_home, R.string.rename_folder);
+        }
+
+        @Override
+        public View.OnClickListener getOnClickListener(final Launcher launcher,
+                                                       final ItemInfo itemInfo) {
+            if (!(itemInfo instanceof FolderInfo)) {
+                return null;
+            }
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    launcher.closeFloatingMenu();
+                    launcher.openFolderForRename((FolderInfo) itemInfo);
                 }
             };
         }

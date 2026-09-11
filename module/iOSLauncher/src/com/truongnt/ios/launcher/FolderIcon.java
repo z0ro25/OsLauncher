@@ -694,7 +694,13 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
                 // Vì sao không trông chờ long-press: ACTION_MOVE gọi cancelLongPress() ngay khi
                 // ngón nhích ra ngoài view — mà kéo thì đương nhiên đi ra ngoài — nên long-press
                 // bị huỷ trước khi kịp nổ.
-                if (mLauncher != null
+                // Nhấc folder lên kéo khi ngón di quá touchSlop — CHỈ trong edit mode.
+                //
+                // NGOÀI edit mode, giữ liền phải MỞ POPUP 3 mục (Delete Folder / Edit Home Screen
+                // / Rename) giống app, nên ở đó để long-press nổ bình thường; muốn kéo thì giữ cho
+                // popup hiện rồi kéo tiếp — DragLayer lo qua startDragFromContextPopup().
+                if (DragLayer.sTidyUping
+                        && mLauncher != null
                         && !mLauncher.isFolderOpen()          // folder đang mở -> không nhấc kéo
                         && (getTag() instanceof ItemInfo)
                         && mLauncher.getDragController() != null
@@ -703,11 +709,6 @@ public class FolderIcon extends BaseFolderIcon implements FolderListener, IShake
                             || Math.abs(event.getY() - mTouchDownY) > mSlop)) {
                     mLongPressHelper.cancelLongPress();
                     mLauncher.closeFloatingMenu();
-                    // Chưa ở edit -> bật edit để folder rung, đồng bộ với cách app hoạt động.
-                    // Gọi TRƯỚC startDrag: startTidyUp có thể re-layout, làm hỏng drag vừa khởi tạo.
-                    if (!DragLayer.sTidyUping) {
-                        mLauncher.getWorkspace().startTidyUp();
-                    }
                     // Chỉ gọi startDrag (KHÔNG kèm showInfo): hai hàm này làm trùng việc nhau
                     // (cùng set mDragInfo, ẩn child, prepareChildForDrag) — gọi cả hai sẽ ẩn
                     // child hai lần và ghi đè trạng thái drag.

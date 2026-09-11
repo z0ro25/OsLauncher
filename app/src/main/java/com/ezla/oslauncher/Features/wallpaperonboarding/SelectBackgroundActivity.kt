@@ -1,6 +1,9 @@
 package com.ezla.oslauncher.Features.wallpaperonboarding
 
 import android.app.WallpaperManager
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.widget.Toast
@@ -11,21 +14,25 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.Base.BaseActivity
-import com.ezla.oslauncher.Features.home.HomeActivity
 import com.ezla.oslauncher.databinding.ActivitySelectBackgroundBinding
 import com.ezla.oslauncher.extensions.launchActivity
 import com.ezla.oslauncher.theme.AppThemeManager
 import com.ezla.oslauncher.tool.sharePreferenceTool.SharePrefUtils
+import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
 /**
- * Màn "Chọn hình nền" của onboarding — chèn sau PermissionActivity, trước HomeActivity.
+ * Màn "Chọn hình nền" — BƯỚC CUỐI của onboarding lần đầu vào app.
  *
  * - Nguồn ảnh: các file trong assets/wallpapers/ (người dùng tự bổ sung sau);
  *   danh sách được liệt kê động lúc chạy nên không cần sửa code khi thêm ảnh.
- * - "Đặt làm hình nền": set ảnh đang chọn cho MÀN HÌNH CHÍNH (FLAG_SYSTEM) rồi vào Home.
- * - "Bỏ qua": vào thẳng Home, không đổi hình nền.
+ * - "Start Launcher": set ảnh đang chọn cho MÀN HÌNH CHÍNH (FLAG_SYSTEM) rồi vào THẲNG LAUNCHER.
+ * - "Bỏ qua": vào thẳng launcher, không đổi hình nền.
  *
- * Bất biến: chỉ điều hướng tiến tới Home (bước cuối onboarding); không đụng lock screen.
+ * [ĐỔI LUỒNG] Trước đây cả 2 nút đều dẫn sang HomeActivity (màn cài đặt). Nay lần đầu vào app đi
+ * thẳng ra launcher cho người dùng thấy ngay thành quả; màn Home chỉ mở khi người dùng chủ động
+ * vào app settings sau này.
+ *
+ * Bất biến: không đụng lock screen.
  */
 class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>() {
 
@@ -49,21 +56,21 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
         setupViewPager()
 
         onBackPressedDispatcher.addCallback {
-            // Onboarding không cho lùi về Permission; back = bỏ qua vào Home.
-            goToHome()
+            // Onboarding không cho lùi về Permission; back = bỏ qua, vào thẳng launcher.
+            goToLauncher()
         }
     }
 
     override fun viewListener() {
-        binding.tvSkip.setOnClickListener { goToHome() }
+        binding.tvSkip.setOnClickListener { goToLauncher() }
 
         binding.tvSetWallpaper.setOnClickListener {
             if (wallpaperAssets.isEmpty()) {
                 // Chưa có ảnh nào trong assets -> coi như bỏ qua.
-                goToHome()
+                goToLauncher()
                 return@setOnClickListener
             }
-            setWallpaperAndGoHome(wallpaperAssets[currentPos])
+            setWallpaperAndStartLauncher(wallpaperAssets[currentPos])
         }
     }
 
@@ -118,8 +125,12 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
         }
     }
 
-    /** Set ảnh cho màn hình chính rồi vào Home. Giải mã + set trên thread nền để không nghẽn UI. */
-    private fun setWallpaperAndGoHome(assetPath: String) {
+    /**
+     * Set ảnh cho màn hình chính rồi vào THẲNG launcher.
+     * Giải mã + set trên thread nền để không nghẽn UI; dù set thành công hay lỗi vẫn đi tiếp
+     * (khối finally) — không chặn người dùng lại ở màn onboarding.
+     */
+    private fun setWallpaperAndStartLauncher(assetPath: String) {
         binding.frLoading.isVisible = true
         // User chủ động chọn hình nền -> từ đây đổi mode không ghi đè ảnh của user.
         AppThemeManager.markUserWallpaper(this)
@@ -147,19 +158,54 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
             } finally {
                 runOnUiThread {
                     binding.frLoading.isVisible = false
-                    goToHome()
+                    goToLauncher()
                 }
             }
         }.start()
     }
 
-    private fun goToHome() {
-        launchActivity<HomeActivity> { }
-        finish()
+    /**
+     * Kết thúc onboarding: vào THẲNG launcher (không qua màn Home nữa).
+     *
+     * Dùng lại đúng logic của HomeActivity.goToLauncher() để hai đường vào launcher hành xử giống
+     * nhau:
+     * - ĐÃ là launcher mặc định: mở desktop rồi đóng app (finishAffinity) — không còn gì để làm
+     *   trong app settings.
+     * - CHƯA là default: đặt cờ để desktop hiện màn Hello và nhắc lại dialog "Set as default
+     *   launcher"; KHÔNG đóng app để người dùng còn quay lại được.
+     */
+    private fun goToLauncher() {
+        val isDefault = isDefaultLauncher()
+        if (isDefault) {
+            launchActivity<SearchLauncher> { }
+            finishAffinity()
+        } else {
+            SharePrefUtils.putBoolean(this, "hello_pending", false)
+            SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
+            launchActivity<SearchLauncher> { }
+            finishAffinity()
+        }
+    }
+
+    /**
+     * App hiện có đang là launcher mặc định không. Resolve HOME intent rồi so package — đúng ở MỌI
+     * API (RoleManager chỉ có từ Q trở lên).
+     */
+    private fun isDefaultLauncher(): Boolean {
+        val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+        val res: ResolveInfo? =
+            packageManager.resolveActivity(home, PackageManager.MATCH_DEFAULT_ONLY)
+        return res?.activityInfo?.packageName == packageName
     }
 
     companion object {
         /** Key SharePref lưu đường dẫn asset hình nền onboarding đã chọn — màn Hello dùng lại. */
         const val HELLO_BG_ASSET_KEY = "HELLO_BG_ASSET"
+
+        /**
+         * Cờ dùng-1-lần: vào launcher khi CHƯA là default -> desktop hiện lại dialog Set default.
+         * Phải TRÙNG tên với hằng cùng tên trong HomeActivity (SearchLauncher đọc chung key này).
+         */
+        private const val PREF_PROMPT_SET_DEFAULT_ON_DESKTOP = "prompt_set_default_on_desktop"
     }
 }

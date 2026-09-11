@@ -246,6 +246,8 @@
     <string name="drop_delete_anim_title">हटाने की एनीमेशन</string>
     <string name="edit">संपादित करें</string>
     <string name="edit_home_screen">होम स्क्रीन संपादित करें</string>
+    <string name="delete_folder">फ़ोल्डर हटाएं</string>
+    <string name="rename_folder">नाम बदलें</string>
     <string name="edit_page">पृष्ठ संपादित करें</string>
     <string name="edit_pages_title">पृष्ठ संपादित करें</string>
     <string name="effect_button_text">प्रभाव</string>
