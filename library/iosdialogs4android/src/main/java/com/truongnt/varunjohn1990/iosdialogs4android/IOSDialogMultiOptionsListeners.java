@@ -1,4 +1,4 @@
-package com.ezt.varunjohn1990.iosdialogs4android;
+package com.truongnt.varunjohn1990.iosdialogs4android;
 
 /**
  * Created by Varun John on Feb 2020.

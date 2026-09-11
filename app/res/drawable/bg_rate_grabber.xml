@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thanh grabber của bottom sheet Rate. Bản RIÊNG của :app (không dùng widget_sheet_grabber của
+     module launcher) để màu bám theo token của :app và không phụ thuộc chéo module. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/rate_grabber" />
+    <corners android:radius="3dp" />
+</shape>

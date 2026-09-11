@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import com.truongnt.ios.launcher.Launcher
-import com.ezt.ios.rate.LauncherSharePrefUtils
+import com.truongnt.ios.rate.LauncherSharePrefUtils
 import com.ezla.oslauncher.Base.BaseActivity
 import com.ezla.oslauncher.Features.lang.LanguageSettingActivity
 import com.ezla.oslauncher.Features.permission.PermissionActivity

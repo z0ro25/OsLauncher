@@ -71,6 +71,11 @@
     <string name="There_is_no" translatable="false">No hay ningún cliente de correo electrónico instalado.</string>
     <string name="not_now" translatable="false">Ahora no</string>
     <string name="rate_us" translatable="false">Nos califica</string>
+    <string name="rate_app_title">Valorar app</string>
+    <string name="rate_app_question">¿Te gusta %1$s?</string>
+    <string name="rate_app_desc">Tu opinión nos ayuda a entender mejor tus necesidades y adaptar nuestro servicio</string>
+    <string name="rate_app_best_star">La mejor valoración</string>
+    <string name="rate_app_action">Valorar ahora</string>
     <string name="rate_success">Calificar el éxito</string>
     <string name="please_reate_use">Por favor califícanos</string>
     <string name="message1">Pantalla de inicio única</string>

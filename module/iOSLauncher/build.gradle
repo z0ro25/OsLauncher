@@ -13,6 +13,14 @@ android {
         versionName "1.0"
         // renderscriptSupportModeEnabled đã tắt: gói libRSSupport/librsjni prebuilt (align 4KB,
         // không có bản 16KB) khỏi APK. Blur dùng framework android.renderscript, không cần .so.
+
+        // Rule R8 mà AAR MANG THEO và tự áp khi :app build release.
+        //
+        // Khác proguardFiles ở buildTypes bên dưới: rule đó chỉ dùng lúc build RIÊNG library, mà
+        // Android library vốn không bị minify thật (bytecode để nguyên trong AAR, R8 chạy ở tầng
+        // app khi gộp tất cả) -> rule không bao giờ tới được :app. consumerProguardFiles mới là nơi
+        // đặt rule bảo vệ code của launcher. Xem chi tiết từng nhóm trong consumer-rules.pro.
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     lintOptions {

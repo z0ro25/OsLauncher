@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mũi tên cong vàng chỉ từ dòng chữ lên sao thứ 5 (chi tiết trang trí theo ảnh thiết kế). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="36dp"
+    android:viewportWidth="48"
+    android:viewportHeight="36">
+    <!-- Thân cong: đi từ dưới-trái vòng lên trên-phải. -->
+    <path
+        android:pathData="M4,31 C16,30 32,24 41,8"
+        android:strokeColor="#F0A500"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+    <!-- Đầu mũi tên ở điểm cuối. -->
+    <path
+        android:pathData="M41,8 L33,11 M41,8 L41.5,16.5"
+        android:strokeColor="#F0A500"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+</vector>

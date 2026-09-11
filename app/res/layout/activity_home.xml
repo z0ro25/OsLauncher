@@ -305,6 +305,7 @@
 
                 <!-- Badge Notifications -->
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ll_badge_notifications"
                     style="@style/HomeSettingRow">
 
@@ -520,8 +521,9 @@
                     android:id="@+id/iv_copy_device_id"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:tint="@color/color.007AFF"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_home_copy" />
+                    android:src="@drawable/ic_copy" />
 
             </LinearLayout>
 

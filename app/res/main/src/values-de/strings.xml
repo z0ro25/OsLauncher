@@ -71,6 +71,11 @@
     <string name="There_is_no" translatable="false">Es ist kein E-Mail-Client installiert.</string>
     <string name="not_now" translatable="false">Nicht jetzt</string>
     <string name="rate_us" translatable="false">Bewerten Sie uns</string>
+    <string name="rate_app_title">App bewerten</string>
+    <string name="rate_app_question">Gefällt dir %1$s?</string>
+    <string name="rate_app_desc">Dein Feedback hilft uns, deine Bedürfnisse besser zu verstehen und unseren Service anzupassen</string>
+    <string name="rate_app_best_star">Die beste Bewertung</string>
+    <string name="rate_app_action">Jetzt bewerten</string>
     <string name="rate_success">Erfolg bewerten</string>
     <string name="please_reate_use">Bitte bewerten Sie uns</string>
     <string name="message1">Einzigartiger Startbildschirm</string>

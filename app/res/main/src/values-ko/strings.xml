@@ -85,6 +85,11 @@
     <string name="There_is_no" translatable="false">설치된 이메일 클라이언트가 없습니다.</string>
     <string name="not_now" translatable="false">나중에</string>
     <string name="rate_us" translatable="false">평가하기</string>
+    <string name="rate_app_title">앱 평가</string>
+    <string name="rate_app_question">%1$s이(가) 마음에 드시나요?</string>
+    <string name="rate_app_desc">여러분의 의견은 필요를 더 잘 이해하고 서비스를 개선하는 데 큰 도움이 됩니다</string>
+    <string name="rate_app_best_star">최고 평점</string>
+    <string name="rate_app_action">지금 평가하기</string>
     <string name="rate_success">평가 완료</string>
     <string name="please_reate_use">저희를 평가해 주세요</string>
     <string name="message1">독특한 홈 화면</string>

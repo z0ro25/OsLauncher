@@ -16,7 +16,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
-import com.ezt.ios.rate.LauncherSharePrefUtils
 import com.ezla.oslauncher.Features.no_internet.NetworkReceiver
 import com.ezla.oslauncher.Features.no_internet.NoInternetActivity
 import com.ezla.oslauncher.Features.splash.SplashActivity
@@ -34,6 +33,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.truongnt.ios.rate.LauncherSharePrefUtils
 
 
 abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {

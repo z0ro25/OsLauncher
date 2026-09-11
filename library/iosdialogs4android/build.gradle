@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
 
-    namespace "com.ezt.varunjohn1990.iosdialogs4android"
+    namespace "com.truongnt.varunjohn1990.iosdialogs4android"
     compileSdkVersion cfgs.compileSdkVersion
 
     defaultConfig {

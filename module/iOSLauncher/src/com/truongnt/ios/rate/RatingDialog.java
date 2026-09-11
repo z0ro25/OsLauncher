@@ -1,4 +1,4 @@
-package com.ezt.ios.rate;
+package com.truongnt.ios.rate;
 
 
 import android.app.Dialog;

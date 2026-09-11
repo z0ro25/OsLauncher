@@ -84,8 +84,8 @@ object PermissionManager {
             isPermissionGranted(
                 context,
                 arrayOf(
-                    Manifest.permission.READ_MEDIA_IMAGES,
-                    Manifest.permission.READ_MEDIA_AUDIO,
+//                    Manifest.permission.READ_MEDIA_IMAGES,
+//                    Manifest.permission.READ_MEDIA_AUDIO,
                     Manifest.permission.READ_MEDIA_VIDEO
                 )
             )
@@ -104,8 +104,8 @@ object PermissionManager {
     fun isExternalPermission(context: Context): Boolean {
         externalPermisison = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(
-                Manifest.permission.READ_MEDIA_VIDEO,
-                Manifest.permission.READ_MEDIA_AUDIO,
+//                Manifest.permission.READ_MEDIA_VIDEO,
+//                Manifest.permission.READ_MEDIA_AUDIO,
                 Manifest.permission.READ_MEDIA_IMAGES
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) arrayOf(

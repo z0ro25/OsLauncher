@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ios_dialog_bg"
-    tools:context="com.ezt.varunjohn1990.iosdialogs4android.IOSDialogView">
+    tools:context="com.ezt.varunjohn1990.iosdialogs4android.com.truongnt.varunjohn1990.iosdialogs4android.IOSDialogView">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -71,6 +71,11 @@
     <string name="There_is_no" translatable="false">Tidak ada klien email yang terpasang.</string>
     <string name="not_now" translatable="false">Tidak sekarang</string>
     <string name="rate_us" translatable="false">Nilai kami</string>
+    <string name="rate_app_title">Nilai aplikasi</string>
+    <string name="rate_app_question">Apakah kamu suka %1$s?</string>
+    <string name="rate_app_desc">Masukanmu membantu kami memahami kebutuhanmu dan meningkatkan layanan</string>
+    <string name="rate_app_best_star">Penilaian terbaik</string>
+    <string name="rate_app_action">Nilai sekarang</string>
     <string name="rate_success">Nilai Keberhasilan</string>
     <string name="please_reate_use">Silakan beri peringkat pada kami</string>
     <string name="message1">Layar beranda yang unik</string>

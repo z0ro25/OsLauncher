@@ -1,4 +1,4 @@
-package com.ezt.varunjohn1990.iosdialogs4android;
+package com.truongnt.varunjohn1990.iosdialogs4android;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.ezt.varunjohn1990.iosdialogs4android.R;
+import com.truongnt.varunjohn1990.iosdialogs4android.R;
 
 /**
  * Created by Varun John on August 2018.

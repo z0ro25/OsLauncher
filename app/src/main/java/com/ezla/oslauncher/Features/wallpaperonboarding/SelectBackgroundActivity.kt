@@ -180,7 +180,7 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
             launchActivity<SearchLauncher> { }
             finishAffinity()
         } else {
-            SharePrefUtils.putBoolean(this, "hello_pending", false)
+            SharePrefUtils.putBoolean(this, "hello_pending", true)
             SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
             launchActivity<SearchLauncher> { }
             finishAffinity()

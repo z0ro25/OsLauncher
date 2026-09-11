@@ -30,4 +30,8 @@
     <color name="theme_accent">#FFFF8C21</color>
     <!-- Icon mặc định -->
     <color name="theme_icon">#FF000000</color>
+
+    <style name="ic_x_rate">
+        <item name="android:src">@drawable/ic_x_round</item>
+    </style>
 </resources>

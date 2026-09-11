@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu (DARK) cho dialog Rate App. Tương ứng 1-1 với values/colors_rate.xml.
+  Áp khi app ở MODE_NIGHT_YES.
+-->
+<resources>
+    <!-- DARK: thẻ #1C1C1E trên nền đen gần như không phân biệt được -> thêm viền mảnh (ảnh thiết kế). -->
+    <color name="rate_star_card_stroke">#2C2C2E</color>
+    <color name="rate_close_bg">#2C2C2E</color>
+    <color name="rate_grabber">#48484A</color>
+</resources>

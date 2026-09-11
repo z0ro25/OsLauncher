@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// [GỠ] kotlin-android-extensions: plugin đã bị XOÁ khỏi Kotlin 1.9 (deprecated từ 1.4.20).
-//   Đã kiểm tra: không file nào dùng `import kotlinx.android.synthetic.*` hay `@Parcelize`,
-//   dự án dùng ViewBinding (buildFeatures.viewBinding = true) nên gỡ không ảnh hưởng gì.
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -29,17 +26,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         def formattedDate = new Date().format('MM.dd.yyyy')
-        archivesBaseName = "Launcher_OS_26_v${versionName}_${formattedDate}"
+        archivesBaseName = "MiOS_Launcher_26_v${versionName}_${formattedDate}"
     }
 
     buildTypes {
         debug {
-            // [BUG FIX] Trước đây debug bật minifyEnabled true (đảo ngược so với release ở dưới).
-            //   Hậu quả: bản debug bị R8 xử lý -> xoá constructor rỗng của androidx.constraintlayout
-            //   .motion.widget.Key* (chỉ được gọi bằng reflection) -> app CHẾT ngay setContentView:
-            //     NoSuchMethodException: ...KeyCycle.<init> []  (xem rule trong proguard-rules.pro)
-            //   Ngoài ra minify làm build lâu và stack trace bị rút gọn, rất khó tìm lỗi.
-            //   Nay tắt: debug build nhanh, chạy đúng mã gốc, log đầy đủ.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

@@ -1,101 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<!--
+  Dialog "Rate App" — bottom sheet kiểu iOS, hỗ trợ ĐỦ light + dark.
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+  Màu lấy từ token onb_* (colors_onboarding.xml) và rate_* (colors_rate.xml); cả hai bộ đều có
+  bản values-night tương ứng 1-1 nên chỉ cần một layout duy nhất cho cả 2 mode.
+
+  Bố cục: grabber -> header (icon sao + "Rate App" + nút X) -> tiêu đề -> mô tả ->
+          thẻ 5 sao (RatingBar + chữ gợi ý + mũi tên) -> nút "Rate Now".
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rate_sheet"
+    android:orientation="vertical"
+    android:paddingBottom="24dp">
+
+    <!-- Thanh grabber: gợi ý đây là sheet kéo được. -->
+    <View
+        android:layout_width="36dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_rate_grabber" />
+
+    <!-- Header: icon sao + tiêu đề nhóm bên trái, nút X bên phải. -->
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="32dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/background_dialog"
-        android:orientation="vertical">
+        android:layout_marginTop="18dp"
+        android:paddingHorizontal="16dp">
 
         <ImageView
             android:id="@+id/imgIcon"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rating_0" />
-
-        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/rate_us"
+            android:src="@drawable/ic_rate_star" />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="@string/your_opinion_matter_to_us"
-                android:textColor="#0A64BD"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/imgIcon"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/rate_app_title"
+            android:textColor="@color/onb_text_primary"
+            android:textSize="19sp" />
 
-            <TextView
-                android:id="@+id/tvContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/content_dialog"
-                android:textColor="#939191"
-                android:textSize="12sp" />
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            style="@style/ic_x_rate" />
+    </RelativeLayout>
 
-            <RatingBar
-                android:id="@+id/rtb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:numStars="5"
-                android:rating="5"
-                android:progressTint="#FFF732"
-                android:secondaryProgressTint="#FFF732"
-                android:stepSize="1"
-                tools:ignore="UnusedAttribute" />
+    <!-- Câu hỏi chính. -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="24dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/rate_app_question"
+        android:textColor="@color/onb_text_primary"
+        android:textSize="24sp" />
 
+    <!-- Mô tả phụ. -->
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="24dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:gravity="center"
+        android:text="@string/rate_app_desc"
+        android:textColor="@color/onb_text_secondary"
+        android:textSize="15sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="32dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+    <!-- Thẻ bọc cụm 5 sao + dòng gợi ý + mũi tên. -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/bg_rate_star_card"
+        android:paddingTop="20dp"
+        android:paddingBottom="16dp">
 
-                <TextView
-                    android:id="@+id/btnRateUs"
-                    android:layout_width="136dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/circle_bg_light"
-                    android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:text="@string/rate_us"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+        <!-- 5 sao dựng bằng ImageView thay cho RatingBar.
+             LÝ DO: RatingBar vẽ sao bằng cách LẶP NGANG progressDrawable, mà tileMode="repeat"
+             chỉ chạy với <bitmap> (ảnh raster). Bọc icon VECTOR trong <bitmap> làm Resources ném
+             NotFoundException -> InflateException "Error inflating class RatingBar" (crash đã gặp).
+             Tự dựng 5 ImageView thì dùng thẳng vector được, và kiểm soát chính xác cỡ/khoảng cách
+             sao theo thiết kế. Việc chọn sao do RatingDialog xử lý (xem setupStars). -->
+        <LinearLayout
+            android:id="@+id/layoutStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/btnNotNow"
-                    android:layout_width="136dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:paddingVertical="10dp"
-                    android:text="@string/not_now"
-                    android:textAllCaps="false"
-                    android:textColor="#939393"
-                    android:textSize="16sp" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/star1"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_rate_star_filled" />
+
+            <ImageView
+                android:id="@+id/star2"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_rate_star_filled" />
+
+            <ImageView
+                android:id="@+id/star3"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_rate_star_filled" />
+
+            <ImageView
+                android:id="@+id/star4"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_rate_star_filled" />
+
+            <ImageView
+                android:id="@+id/star5"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_rate_star_filled" />
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+
+        <!-- Dòng gợi ý + mũi tên chỉ lên sao cuối. -->
+        <TextView
+            android:id="@+id/tvBestRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutStars"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:text="@string/rate_app_best_star"
+            android:textColor="@color/onb_text_primary"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imgArrow"
+            android:layout_width="44dp"
+            android:layout_height="32dp"
+            android:layout_alignBottom="@id/tvBestRating"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="4dp"
+            android:layout_toEndOf="@id/tvBestRating"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_rate_arrow_curve" />
+    </RelativeLayout>
+
+    <!-- Nút hành động chính. Nút "Not now" cũ đã bỏ: đóng sheet bằng nút X ở header. -->
+    <TextView
+        android:id="@+id/btnRateUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/bg_rate_button"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="17dp"
+        android:text="@string/rate_app_action"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+</LinearLayout>

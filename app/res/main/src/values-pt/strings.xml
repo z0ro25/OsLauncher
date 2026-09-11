@@ -71,6 +71,11 @@
     <string name="There_is_no" translatable="false">Não há nenhum cliente de e-mail instalado.</string>
     <string name="not_now" translatable="false">Agora não</string>
     <string name="rate_us" translatable="false">Nos avalie</string>
+    <string name="rate_app_title">Avaliar app</string>
+    <string name="rate_app_question">Você gosta do %1$s?</string>
+    <string name="rate_app_desc">Sua opinião nos ajuda a entender melhor suas necessidades e aprimorar nosso serviço</string>
+    <string name="rate_app_best_star">A melhor avaliação</string>
+    <string name="rate_app_action">Avaliar agora</string>
     <string name="rate_success">Avalie o sucesso</string>
     <string name="please_reate_use">Por favor, avalie-nos</string>
     <string name="message1">Tela inicial exclusiva</string>

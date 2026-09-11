@@ -71,6 +71,11 @@
     <string name="There_is_no" translatable="false">Aucun client de messagerie n\'est installé.</string>
     <string name="not_now" translatable="false">Pas maintenant</string>
     <string name="rate_us" translatable="false">Évaluez nous</string>
+    <string name="rate_app_title">Noter l\'app</string>
+    <string name="rate_app_question">Aimez-vous %1$s ?</string>
+    <string name="rate_app_desc">Votre avis nous aide à mieux comprendre vos besoins et à adapter notre service</string>
+    <string name="rate_app_best_star">La meilleure note</string>
+    <string name="rate_app_action">Noter maintenant</string>
     <string name="rate_success">Évaluer le succès</string>
     <string name="please_reate_use">Veuillez nous évaluer</string>
     <string name="message1">Écran d\'accueil unique</string>

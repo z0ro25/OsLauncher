@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Token màu (LIGHT) RIÊNG cho dialog Rate App.
+  Các màu nền/chữ chính dùng lại onb_* (colors_onboarding.xml) vì cùng hệ thiết kế iOS;
+  file này chỉ khai thêm những màu dialog Rate cần mà bộ onb_* chưa có.
+  Bản dark tương ứng 1-1 ở values-night/colors_rate.xml.
+-->
+<resources>
+    <!-- Viền thẻ bọc 5 sao. LIGHT: trong suốt (thẻ trắng nổi sẵn trên nền xám #F2F2F7). -->
+    <color name="rate_star_card_stroke">#00000000</color>
+    <!-- Nền nút X đóng (icon ic_x_round dùng tint này). -->
+    <color name="rate_close_bg">#E5E5EA</color>
+    <!-- Thanh grabber trên đỉnh sheet. -->
+    <color name="rate_grabber">#C7C7CC</color>
+</resources>

@@ -71,6 +71,11 @@
     <string name="There_is_no" translatable="false">कोई ईमेल क्लाइंट स्थापित नहीं है.</string>
     <string name="not_now" translatable="false">अभी नहीं</string>
     <string name="rate_us" translatable="false">हमें रेटिंग दें</string>
+    <string name="rate_app_title">ऐप रेट करें</string>
+    <string name="rate_app_question">क्या आपको %1$s पसंद है?</string>
+    <string name="rate_app_desc">आपकी प्रतिक्रिया हमें आपकी ज़रूरतों को बेहतर समझने और सेवा बेहतर बनाने में मदद करती है</string>
+    <string name="rate_app_best_star">सर्वश्रेष्ठ रेटिंग</string>
+    <string name="rate_app_action">अभी रेट करें</string>
     <string name="rate_success">सफलता का मूल्यांकन करें</string>
     <string name="please_reate_use">कृपया हमें रेट करें</string>
     <string name="message1">अद्वितीय होम स्क्रीन</string>

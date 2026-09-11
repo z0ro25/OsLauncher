@@ -85,6 +85,12 @@
     <string name="There_is_no" translatable="false">There is no email client installed.</string>
     <string name="not_now" translatable="false">Not now</string>
     <string name="rate_us" translatable="false">Rate us</string>
+    <!-- Dialog Rate App (bottom sheet kiểu iOS) -->
+    <string name="rate_app_title">Rate App</string>
+    <string name="rate_app_question">Do you like %1$s?</string>
+    <string name="rate_app_desc">Your input is valuable in helping us better understand your needs and tailor our service accordingly</string>
+    <string name="rate_app_best_star">The best rating star</string>
+    <string name="rate_app_action">Rate Now</string>
     <string name="rate_success">Rate Success</string>
     <string name="please_reate_use">Please rate us</string>
     <string name="message1">Unique home screen</string>

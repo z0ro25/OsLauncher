@@ -168,3 +168,83 @@
     public <init>(...);
 }
 -dontwarn androidx.constraintlayout.**
+
+# ===== TOÀN BỘ lõi launcher + các module phụ thuộc =====
+# TRIỆU CHỨNG: build release -> vào launcher MÀN ĐEN HOÀN TOÀN (không crash, chỉ không vẽ gì).
+# Lõi launcher (nền AOSP Launcher3) phụ thuộc dày đặc vào tên lớp dạng CHUỖI và reflection:
+#   - LauncherProvider giữ DB workspace, DatabaseHelper đọc/ghi theo TÊN CỘT;
+#   - default_workspace_*.xml khai TÊN LỚP widget đặt sẵn ở page 0 -> R8 đổi tên là workspace rỗng;
+#   - hàng loạt callback/loader gọi chéo qua interface.
+# Dò từng lớp đã sót 3 lần (dynamicui, ConstraintLayout, widget provider) nên giữ cả package.
+# Khai ở ĐÂY (ngoài consumer-rules.pro của module) để có hiệu lực ngay, không phụ thuộc AAR.
+-keep class com.truongnt.ios.** { *; }
+-keep interface com.truongnt.ios.** { *; }
+-dontwarn com.truongnt.ios.**
+-keep class com.ios.theme.** { *; }
+-keep class com.github.mmin18.** { *; }
+-keep class com.zhuoyi.security.** { *; }
+-keep class com.ezt.ios.** { *; }
+-keep class com.ezt.varunjohn1990.** { *; }
+-keep class com.theartofdev.edmodo.cropper.** { *; }
+-dontwarn com.ios.**
+-dontwarn com.ezt.**
+
+# ===== AppWidgetProvider của launcher (đồng hồ / lịch / pin / thời tiết / ảnh) =====
+# Hệ thống dựng provider bằng TÊN LỚP đọc từ AndroidManifest (reflection), R8 không thấy ai gọi
+# constructor nên có thể xoá/đổi tên -> widget nội bộ không hiện, hoặc ném ClassNotFoundException
+# khi hệ thống gửi broadcast onUpdate. Giữ cả lớp + constructor rỗng.
+-keep class * extends android.appwidget.AppWidgetProvider { *; }
+-keep class com.truongnt.ios.launcher.widget.widgetprovider.** { *; }
+# Custom view của widget được inflate từ initialLayout (XML) -> cần constructor (Context, AttributeSet).
+-keep class com.truongnt.ios.launcher.widget.view.** { *; }
+
+# ===== BroadcastReceiver / Service / ContentProvider khai trong manifest =====
+# Cùng lý do: hệ thống nạp bằng tên lớp, không có lời gọi trực tiếp trong mã.
+-keep class * extends android.content.BroadcastReceiver { *; }
+-keep class * extends android.app.Service { *; }
+-keep class * extends android.content.ContentProvider { *; }
+
+# ===== Lớp nạp qua Class.forName bằng tên đọc từ string resource =====
+# AppFilter.loadByName() và BuildInfo.loadByName() (module iOSLauncher) nhận tên lớp dạng CHUỖI
+# rồi Class.forName(...).newInstance(). Không giữ thì R8 xoá lớp/constructor -> loadByName trả null
+# hoặc ném ClassNotFoundException. Cùng cơ chế với getOverrideObject đã gây crash ở phần trên.
+-keep class * extends com.truongnt.ios.launcher.AppFilter { *; }
+-keep class * extends com.truongnt.ios.launcher.BuildInfo { *; }
+-keepclassmembers class * extends com.truongnt.ios.launcher.AppFilter {
+    public <init>();
+}
+-keepclassmembers class * extends com.truongnt.ios.launcher.BuildInfo {
+    public <init>();
+}
+
+# ===== Parcelable =====
+# Framework đọc field CREATOR bằng reflection; R8 xoá field không được tham chiếu trực tiếp
+# -> BadParcelableException khi truyền object qua Intent/Bundle.
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+# ===== Room =====
+# Lớp *_Impl (Room sinh lúc build) được nạp bằng Class.forName từ tên entity/dao.
+-keep class * extends androidx.room.RoomDatabase { *; }
+-keep @androidx.room.Entity class * { *; }
+-dontwarn androidx.room.paging.**
+
+# ===== Retrofit + model JSON =====
+# Retrofit dựng implementation của interface service bằng dynamic proxy -> cần giữ interface + annotation.
+-keep,allowobfuscation interface com.ezla.oslauncher.api.** { *; }
+-keepattributes RuntimeVisibleAnnotations,RuntimeVisibleParameterAnnotations
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+
+# ===== Kotlin =====
+# Metadata cần cho reflection của Kotlin (data class, default args...); Continuation dùng cho coroutine.
+-keep class kotlin.Metadata { *; }
+-dontwarn kotlin.**
+-keepclassmembers class **$WhenMappings { <fields>; }
+
+# ===== Giữ số dòng trong stacktrace của bản release =====
+# Không ảnh hưởng kích thước đáng kể nhưng giúp đọc được crash log từ Play Console.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
