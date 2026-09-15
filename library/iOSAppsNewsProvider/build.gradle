@@ -19,19 +19,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-//    compile files('libs/AdudienceNetwork4.13.2.aar')
-//    compile files('libs/audience-network-sdk-4.99.0.aar')
-    implementation files('libs/droiselfupdate-1.1.019.jar')
-    implementation files('libs/commons-lang3-3.5.jar')
-//    implementation files('libs/ads-6.4.2.jar')
-//    implementation files('libs/inmobi-ads-7.0.4.jar')
-//    compile files('libs/fresco-1.4.0.aar')
-//    implementation files('libs/adzodiac-0.3.102.jar')
-
-//    implementation(name: 'audience-network-sdk-4.99.0', ext: 'aar')
-//    implementation(name: 'fresco-1.4.0', ext: 'aar')
-//    implementation(name: 'infohub-release', ext: 'aar')
+    // Đã gỡ hết thư viện cục bộ trong libs/:
+    //  - droiselfupdate-1.1.019.jar: SDK tự cập nhật của Droi (tải + cài APK). Code khởi tạo
+    //    (ThirdPartAdManager.initialDroiUpdate) đã bị comment toàn bộ và không ai gọi.
+    //  - commons-lang3-3.5.jar: không có chỗ nào dùng (org.apache.commons).
+    //  - adzodiac / inmobi / audience-network / fresco / infohub / ads: SDK QUẢNG CÁO, đều đã
+    //    bị comment từ trước. Gỡ hẳn để không thể bật lại nhầm.
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
@@ -45,16 +38,4 @@ dependencies {
     implementation libs['cardview-v7']
     implementation libs['design']
     implementation project(':library:iOSLiteCommon')
-//    //facebook
-//    compile libs['audience-network-sdk']
-    //infohub
-//    implementation libs['gms-play-services-ads']
-//    implementation libs['gms-play-services-analytics']
-//    implementation libs['gms-play-services-gcm']
-//    compile libs['droi-bass-selfupdate']
-//    compile libs['commons-lang']
-//    compile libs['flurry-ads']
-//    compile libs['inmobi-ads']
-//    compile libs['droi-adzodiac']
-//    compile libs['facebook-fresco']
 }

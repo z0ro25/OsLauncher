@@ -43,7 +43,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.6.1"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation files('libs/utdid4all-1.0.4.jar')
+    // Đã gỡ utdid4all-1.0.4.jar: SDK định danh thiết bị của Alibaba, chứa PhoneInfoUtils
+    // đọc IMEI/IMSI (getDeviceId/getSubscriberId). Không có chỗ nào trong dự án gọi tới nó
+    // nên gỡ hẳn để APK không còn thư viện thu thập định danh thiết bị.
     implementation files('libs/slf4j-api-1.7.6.jar')
 
     // Retrofit

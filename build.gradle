@@ -3,13 +3,6 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        // [NÂNG CẤP AGP] 7.3.1 -> 8.6.1 để build được compileSdk/targetSdk 36.
-        //   LÝ DO BẮT BUỘC NÂNG: aapt2 đi kèm AGP 7.3.1 (bản 2022) KHÔNG đọc nổi bảng tài nguyên của
-        //   android.jar API 36 — lỗi thật đo được:
-        //     LoadedArsc.cpp:94] RES_TABLE_TYPE_TYPE entry offsets overlap actual entry data.
-        //     error: failed to load include path .../platforms/android-36/android.jar
-        //   Không phải file hỏng (unzip đọc được đủ 14.996 entry); là định dạng resources.arsc mới mà
-        //   parser cũ không hiểu. Chỉ nâng AGP mới có aapt2 đọc được.
         agp_version = '8.6.1'
     }
     repositories {
