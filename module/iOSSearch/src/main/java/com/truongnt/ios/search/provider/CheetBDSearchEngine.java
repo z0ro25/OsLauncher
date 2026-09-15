@@ -1,8 +1,6 @@
 package com.truongnt.ios.search.provider;
 
 import android.content.Context;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.SparseArray;
 
 
@@ -77,31 +75,12 @@ public class CheetBDSearchEngine implements ISearchEngine {
         mHostBuilder.delete(0, mHostBuilder.length());
 
         //build host
-        final String mcc = mMccMap.get(getMcc(mContext));
-        if (!TextUtils.isEmpty(mcc)) {
-            mHostBuilder.append(mcc).append(".");
-        }
+        // Đã bỏ việc đọc nhà mạng từ SIM (getSimOperator) => không còn tách host theo MCC,
+        // dùng thẳng search.yahoo.com cho mọi máy.
         mHostBuilder.append(CHEET_SEARCH_BODY);
 
         final String typeId = "2025100";
 
         return String.format(CHEET_SEARCH_URL, mHostBuilder.toString(), typeId, keyWord);
-    }
-
-    public int getMcc(Context context) {
-        if (context != null) {
-            try {
-                final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                String mmc = tm.getSimOperator();
-                if (!TextUtils.isEmpty(mmc)) {
-                    if (mmc.length() >= 3) {
-                        return Integer.valueOf(mmc.substring(0, 3));
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
     }
 }

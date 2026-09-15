@@ -1,4 +1,4 @@
-package com.ezt.ios.business.airfind;
+package com.amz.ios.business.airfind;
 
 import com.google.gson.annotations.Expose;
 

@@ -1,4 +1,4 @@
-package com.ezt.ios.strategy;
+package com.amz.ios.strategy;
 
 import android.content.Context;
 

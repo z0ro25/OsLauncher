@@ -107,7 +107,6 @@ import com.truongnt.ios.ioslite.common.util.BuildUtil;
 import com.truongnt.ios.ioslite.common.util.CommonUtilities;
 import com.truongnt.ios.ioslite.common.util.DeviceInfoUtil;
 import com.truongnt.ios.ioslite.common.util.FileUtil;
-import com.truongnt.ios.ioslite.common.util.PermissionUtil;
 import com.truongnt.ios.launcher.anim.explosion.ExplosionField;
 import com.truongnt.ios.launcher.applibrary.AppCategory;
 import com.truongnt.ios.launcher.applibrary.AppsLibraryLayout;
@@ -819,17 +818,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     private void checkPermissionGranted() {
         ArrayList<String> permissionList = new ArrayList<>();
 
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)
-//                == PackageManager.PERMISSION_DENIED) {
-//            permissionList.add(Manifest.permission.READ_CALL_LOG);
-//        }
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 //                == PackageManager.PERMISSION_DENIED) {
 //            permissionList.add(Manifest.permission.CAMERA);
-//        }
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-//                == PackageManager.PERMISSION_DENIED) {
-//            permissionList.add(Manifest.permission.READ_PHONE_STATE);
 //        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED) {
@@ -846,10 +837,6 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
 //                == PackageManager.PERMISSION_DENIED) {
 //            permissionList.add(Manifest.permission.READ_CALENDAR);
-//        }
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-//                == PackageManager.PERMISSION_DENIED) {
-//            permissionList.add(Manifest.permission.READ_CONTACTS);
 //        }
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.EXPAND_STATUS_BAR)
 //                == PackageManager.PERMISSION_DENIED) {
@@ -1032,12 +1019,6 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mWidgetsAppStyle = findViewById(R.id.sliding_up_widgets_app_style);
         mWidgetsView = findViewById(R.id.widgets_view);
 
-//        if(this.checkSelfPermission(Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED){
-//                this.requestPermissions(new String[]{Manifest.permission.READ_CALL_LOG},1);
-//                Log.d("585=====>xiaopeng","Manifest.permission.READ_CALL_LOG.......");
-//        }
-//        ios.gejun remove permission
-//        checkAndRequestPermission();
 //        SwitchResponseSubject.registerObserver(getApplicationContext(), this);
 //        NetworkManager.handleNetConnect(getApplicationContext());
 
@@ -1407,7 +1388,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 //                    startActivity(intent);
                 }
             }
-            // Sau khi user cấp/từ chối quyền từ nút trên widget (calendar/contact),
+            // Sau khi user cấp/từ chối quyền từ nút trên widget (calendar),
             // refresh lại màn trái để widget đọc lại trạng thái quyền và hiển thị
             // nội dung (thay vì màn xin quyền) nếu đã được cấp.
             if (perMissionGranted > 0 && mCustomContentView != null) {
@@ -4160,13 +4141,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 StrictMode.setVmPolicy(oldPolicy);
             }
         } catch (SecurityException e) {
-            // Due to legacy reasons, direct call shortcuts require Launchers to have the
-            // corresponding permission. Show the appropriate permission prompt if that
-            // is the case.
-            if (intent.getComponent() == null
-                    && Intent.ACTION_CALL.equals(intent.getAction())) {
-                PermissionUtil.checkSelfPermissions(this, Manifest.permission.CALL_PHONE);
-            }
+            // Shortcut gọi điện trực tiếp (ACTION_CALL) trước đây đòi quyền CALL_PHONE.
+            // Quyền này đã bị gỡ khỏi manifest nên không xin nữa — bắt exception chỉ để
+            // không crash khi bấm shortcut đó.
         }
     }
 
@@ -6912,19 +6889,6 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     public boolean enableGestureEvent() {
         return mWorkspace.isInNormalMode() && !isOnCustomContent() && !isFolderOpen();
-    }
-
-    private void checkAndRequestPermission() {
-
-        if (Utilities.ATLEAST_MARSHMALLOW) {
-            PermissionUtil.checkSelfPermissions(this, Manifest.permission.READ_CALL_LOG);
-        }
-        /*
-        if(this.checkSelfPermission(Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED){
-              this.requestPermissions(new String[]{Manifest.permission.READ_CALL_LOG},1);
-              Log.d("5258=====>xiaopeng","Manifest.permission.READ_CALL_LOG.......");
-        }
-        */
     }
 
     private void startNewspageApp() {

@@ -1,4 +1,4 @@
-package com.ezt.ios.business;
+package com.amz.ios.business;
 
 import android.content.Context;
 

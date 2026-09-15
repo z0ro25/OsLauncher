@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Build;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -27,8 +26,6 @@ public class DeviceInfoUtil {
     private static final String IOSOS_PHONE_MODEL_SYSTEM_PROPERTY_NAME = "ro.build.iosos_customer_br";
 
     private static final String UNKNOWN = "unknown";
-    private static final String DEFAULT_IMEI = "012345678912345";
-    private static final String DEFAULT_IMSI = "012345678912345";
     private static final String DEFAULT_MCC = "000";
 
     private static final String KEY_CHANNEL = "cp";
@@ -36,8 +33,6 @@ public class DeviceInfoUtil {
     private static final String CHANNEL_ASSET_FILE = "channel";
 
     private static String channelId;
-    private static String imei = DEFAULT_IMEI;
-    private static String imsi = DEFAULT_IMSI;
     private static String mcc = DEFAULT_MCC;
     private static String customerId;
     private static String phoneModel;
@@ -146,55 +141,10 @@ public class DeviceInfoUtil {
     }
 
     /**
-     * 读取 IMEI
-     */
-    public static String getImei(Context context) {
-        if (!imei.equals(DEFAULT_IMEI)) {
-            return imei;
-        }
-        try {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            imei = tm.getDeviceId();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (TextUtils.isEmpty(imei)) {
-            imei = DEFAULT_IMEI;
-        }
-        return imei;
-    }
-
-    /**
-     * 读取 IMSI
-     */
-    public static String getImsi(Context context) {
-        if (!imsi.equals(DEFAULT_IMSI)) {
-            return imsi;
-        }
-        try {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            imsi = tm.getSubscriberId();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (TextUtils.isEmpty(imsi)) {
-            imsi = DEFAULT_IMSI;
-        }
-        return imsi;
-    }
-
-    /**
      * 读取 MCC
+     * Đã bỏ IMSI (thông tin người dùng) => không suy ra MCC từ IMSI nữa, trả mặc định.
      */
     public static String getMcc(Context context) {
-        if (!mcc.equals(DEFAULT_MCC)) {
-            return mcc;
-        }
-
-        if (!getImsi(context).equals(DEFAULT_IMSI)) {
-            mcc = getImsi(context).substring(0, 3);
-        }
-
         mcc = DEFAULT_MCC;
         return mcc;
     }

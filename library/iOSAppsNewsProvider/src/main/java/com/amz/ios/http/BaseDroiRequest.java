@@ -1,10 +1,10 @@
-package com.ezt.ios.http;
+package com.amz.ios.http;
 
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.ezt.ios.http.Internal.DroiHttpRetryPolicy;
-import com.ezt.newspage.newssource.config.Configeration;
+import com.amz.ios.http.Internal.DroiHttpRetryPolicy;
+import com.amz.newspage.newssource.config.Configeration;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;

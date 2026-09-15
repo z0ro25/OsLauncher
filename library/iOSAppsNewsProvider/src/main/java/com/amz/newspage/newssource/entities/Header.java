@@ -1,4 +1,4 @@
-package com.ezt.newspage.newssource.entities;
+package com.amz.newspage.newssource.entities;
 
 import org.json.JSONException;
 import org.json.JSONObject;

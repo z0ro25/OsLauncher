@@ -1,10 +1,10 @@
-package com.ezt.ios.http.Internal;
+package com.amz.ios.http.Internal;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.ezt.newspage.newssource.utils.WorkFlowScheduler;
+import com.amz.newspage.newssource.utils.WorkFlowScheduler;
 
 /**
  * Author       : yizhihao

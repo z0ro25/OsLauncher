@@ -1,4 +1,4 @@
-package com.ezt.ios.http;
+package com.amz.ios.http;
 
 import android.util.Log;
 

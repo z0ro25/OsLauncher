@@ -62,15 +62,7 @@ import com.truongnt.ios.launcher.model.PackageItemInfo;
 import com.truongnt.ios.launcher.theme.ThemeManager;
 import com.truongnt.ios.launcher.views.CustomTextView;
 import com.truongnt.ios.launcher.provider.AppTypeProvider;
-import android.net.Uri;
-import android.provider.CallLog.Calls;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 
-import androidx.core.content.ContextCompat;
-import android.content.pm.PackageManager;
-import android.Manifest;
-import android.util.Log;
 import android.view.animation.LinearInterpolator;
 
 import java.util.Calendar;
@@ -445,46 +437,17 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
             final int scrollX = getScrollX();
             final int scrollY = getScrollY();
             canvas.translate(scrollX, scrollY);
-            //*/ wangqingsong add show miss number
-            if(ShowBadgeNumber && mBadgeInfo !=null/* && BadgeList.contains(mBadgeInfo.getPackageUserKey().mPackageName)*/){
-                if(mBadgeInfo.getPackageUserKey().mPackageName.contains("dialer")){
-                    if(startCheckPermission()){
-                        if (getMissCallCount() > 0) {
-                            mBadgeRenderer.drawIconBadge(canvas,
-                                    mBadgePalette,
-                                    mBadgeInfo,
-                                    mTempIconBounds,
-                                    mBadgeScale,
-                                    mTempSpaceForBadgeOffset,
-                                    getMissCallCount());
-                            Log.d("hct--->xiaopeng==401","getMissCallCount  ");
-                        }
-                    }
-                    else {
-                        if (mBadgeInfo.getNotificationCount() > 0) {
-                            mBadgeRenderer.drawIconBadge(canvas,
-                                    mBadgePalette,
-                                    mBadgeInfo,
-                                    mTempIconBounds,
-                                    mBadgeScale,
-                                    mTempSpaceForBadgeOffset,
-                                    mBadgeInfo.getNotificationCount());
-                            Log.d("hct--->xiaopeng==406","null......  ");
-                        }
-                    }
-                }
-                else {
-                    if (mBadgeInfo.getNotificationCount() > 0) {
-                        mBadgeRenderer.drawIconBadge(canvas,
-                                mBadgePalette,
-                                mBadgeInfo,
-                                mTempIconBounds,
-                                mBadgeScale,
-                                mTempSpaceForBadgeOffset,
-                                mBadgeInfo.getNotificationCount());
-                        Log.d("hct--->xiaopeng==411","getNotificationCount  ");
-                    }
-
+            // Đã bỏ quyền READ_CALL_LOG (không đọc lịch sử cuộc gọi) => badge chỉ dựa trên
+            // số thông báo, không đếm riêng cuộc gọi nhỡ cho dialer nữa.
+            if(ShowBadgeNumber && mBadgeInfo !=null){
+                if (mBadgeInfo.getNotificationCount() > 0) {
+                    mBadgeRenderer.drawIconBadge(canvas,
+                            mBadgePalette,
+                            mBadgeInfo,
+                            mTempIconBounds,
+                            mBadgeScale,
+                            mTempSpaceForBadgeOffset,
+                            mBadgeInfo.getNotificationCount());
                 }
             }
 //            else
@@ -803,35 +766,6 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
         void setPressedIcon(BubbleTextView icon, Bitmap background);
     }
 
-
-    private boolean startCheckPermission() {
-        // Log.d("startCheckPermission", "startCheckPermission");
-        if (ContextCompat.checkSelfPermission(mLauncher, Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
-    }
-
-    private int getMissCallCount() {
-
-        int missCallCount = 0;
-        Uri missingCallUri = Calls.CONTENT_URI;
-        String where = Calls.TYPE + "='" + Calls.MISSED_TYPE + "'" + " AND new=1";
-        Cursor cursorCall = null;
-        try {
-            cursorCall = mLauncher.getContentResolver().query(missingCallUri,
-                    null, where, null, null);
-        } catch (SQLiteException e) {
-            return missCallCount;
-        }
-
-        if (cursorCall != null) {
-            missCallCount = cursorCall.getCount();
-            cursorCall.close();
-        }
-
-        return missCallCount;
-    }
 
     private void initClock(ComponentName componentName) {
         if (componentName == null)

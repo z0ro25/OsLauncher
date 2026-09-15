@@ -1,9 +1,9 @@
-package com.ezt.ios.business.airfind;
+package com.amz.ios.business.airfind;
 
 
-import com.ezt.ios.business.CommonBean;
-import com.ezt.ios.business.TagBean;
-import com.ezt.ios.strategy.AppRequestStrategy;
+import com.amz.ios.business.CommonBean;
+import com.amz.ios.business.TagBean;
+import com.amz.ios.strategy.AppRequestStrategy;
 import com.truongnt.ios.ioslite.common.util.encrypt.MD5Util;
 import com.google.gson.annotations.SerializedName;
 

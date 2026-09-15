@@ -1,8 +1,6 @@
 package com.ezla.oslauncher.Features.home
 
 import android.app.role.RoleManager
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -46,8 +44,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         }
 
         PermissionManager.initLauncher(this)
-
-        binding.tvDeviceId.text = readAndroidId()
 
         applyDefaultLauncherState()
 
@@ -138,9 +134,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             )
             startActivity(browserIntent)
         }
-
-        // ===== Device ID =====
-        binding.ivCopyDeviceId.tap { copyDeviceId() }
     }
 
     override fun dataObservable() {}
@@ -229,7 +222,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         val subject = "${SharePrefUtils.subject}${getString(R.string.app_name)}"
         val body = buildString {
             append("\n\n---\n")
-            append("Device ID: ").append(readAndroidId()).append('\n')
             append("Model: ").append(Build.MANUFACTURER).append(' ').append(Build.MODEL).append('\n')
             append("Android: ").append(Build.VERSION.RELEASE)
                 .append(" (API ").append(Build.VERSION.SDK_INT).append(")\n")
@@ -260,17 +252,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         } catch (e: Exception) {
             ""
         }
-    }
-
-    @Suppress("HardwareIds")
-    private fun readAndroidId(): String {
-        return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID) ?: ""
-    }
-
-    private fun copyDeviceId() {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.setPrimaryClip(ClipData.newPlainText("device_id", readAndroidId()))
-        Toast.makeText(this, getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
     }
 
     companion object {

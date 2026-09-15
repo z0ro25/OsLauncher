@@ -1,4 +1,4 @@
-package com.ezt.ios.http;
+package com.amz.ios.http;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;

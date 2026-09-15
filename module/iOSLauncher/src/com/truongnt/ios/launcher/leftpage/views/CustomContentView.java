@@ -301,12 +301,6 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
                         break;
                     }
                     break;
-                case 1613163831:
-                    if (next.equals("widget_favorite")) {
-                        c = 4;
-                        break;
-                    }
-                    break;
             }
             switch (c) {
                 case 0:
@@ -321,9 +315,6 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
                     break;
                 case 2:
                     i = 71;
-                    break;
-                case 4:
-                    i = 51;
                     break;
                 default:
             }

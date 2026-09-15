@@ -16,31 +16,7 @@ import com.truongnt.ios.themeclub.R;
 public class PermissionUtils {
 
     public static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1;
-    public static final int READ_PHONE_STATE_CODE = 2;
     private static final String PACKAGE_URL_SCHEME = "package:";
-    //获取读取手机的权限请求
-    public static boolean getReadPhonePermission(final Activity activity){
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_PHONE_STATE)) {
-                showMessageOKCancel(activity,activity.getResources().getString(R.string.themeclub_get_phone_permission),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE},
-                                        READ_PHONE_STATE_CODE);
-                            }
-                        });
-                return false;
-            }
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE},
-                    READ_PHONE_STATE_CODE);
-            return false;
-        }else {
-            return true;
-        }
-    }
-
     //获取读取sdCard的权限请求
     public static boolean getSdPermission(final Activity activity){
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)

@@ -1,4 +1,4 @@
-package com.ezt.newspage.newssource.utils;
+package com.amz.newspage.newssource.utils;
 
 import android.os.Handler;
 import android.os.HandlerThread;

@@ -1,4 +1,4 @@
-package com.ezt.newspage.newssource;
+package com.amz.newspage.newssource;
 
 
 import android.content.Context;

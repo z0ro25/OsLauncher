@@ -111,14 +111,6 @@ public class SlidingUpWidgetsList extends SlidingUpPanelLayout {
                 )
         );
 
-        ArrayList<CustomWidgetDetailInfo> contact = new ArrayList<>();
-        contact.add(
-                new CustomWidgetDetailInfo(
-                        getDrawable(R.drawable.sample_contact_favorite),
-                        SlidingUpWidgetListAdapter.SAMPLE_CONTACT_FAVOURITE
-                )
-        );
-
         ArrayList<CustomWidgetDetailInfo> calendar = new ArrayList<>();
         calendar.add(
                 new CustomWidgetDetailInfo(
@@ -152,15 +144,6 @@ public class SlidingUpWidgetsList extends SlidingUpPanelLayout {
                         getResources().getString(R.string.suggestions),
                         true,
                         appSuggestion
-                )
-        );
-
-        mWidgetSummaries.add(
-                new CustomWidgetSummaryInfo(
-                        getDrawable(R.drawable.sample_contact_favorite),
-                        getResources().getString(R.string.favorites),
-                        true,
-                        contact
                 )
         );
 

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,16 +24,15 @@ import com.truongnt.ios.ioslite.common.ad.IOSNAdResponse;
 import com.truongnt.ios.ioslite.common.ad.IOSNativeAd;
 import com.truongnt.ios.ioslite.common.ad.IOSNativeAdListener;
 import com.truongnt.ios.ioslite.common.util.CommonUtilities;
-import com.ezt.ios.http.Internal.Action;
-import com.ezt.ios.http.Internal.BaseProvider;
-import com.ezt.ios.http.Internal.CancelableCallBack;
+import com.amz.ios.http.Internal.Action;
+import com.amz.ios.http.Internal.BaseProvider;
+import com.amz.ios.http.Internal.CancelableCallBack;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.ItemInfo;
 import com.truongnt.ios.launcher.LauncherModel;
 import com.truongnt.ios.search.config.MSCConfiguration;
 import com.truongnt.ios.search.entities.AdCardItemInfo;
 import com.truongnt.ios.search.entities.AppCardInfo;
-import com.truongnt.ios.search.entities.ContactItemInfo;
 import com.truongnt.ios.search.entities.FileItemInfo;
 import com.truongnt.ios.search.entities.LauncherAppInfo;
 import com.truongnt.ios.search.entities.MusicCardItemInfo;
@@ -44,7 +42,6 @@ import com.truongnt.ios.search.utils.PinyinUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +61,6 @@ public class DataFlowProvider extends BaseProvider {
 
     private PinyinUtils mPininUtils = null;
 
-    private Comparator<ContactItemInfo> mContactItemInfoComparator;
     private SparseArray<String> mEventIdList;
     private final String SYSTEM_PATH = "system";
     private IOSAppAd mAppAd;
@@ -157,106 +153,6 @@ public class DataFlowProvider extends BaseProvider {
         }
         mTaskRef.put(name, ref + 1);
         return name.concat("-").concat(String.valueOf(ref));
-    }
-
-    //load contact
-    @SuppressLint("Range")
-    public Action loadContact(final String keyWord) {
-
-        if (DEBUG) Log.d(TAG, ">>>>>>DataFlowProvider#loadContact : start load!");
-        String name = "loadContact";
-        final String taskName = checkAndgetRefName(name);
-        final int limit = MSCConfiguration.MUSIC_SHOW_NUMBER;
-        Action<List<ContactItemInfo>> contactItemInfoAction = new Action<List<ContactItemInfo>>(this, taskName) {
-            @Override
-            protected void work(CancelableCallBack<List<ContactItemInfo>> callBack) {
-                if (DEBUG) {
-                    Log.d(TAG, ">>>>>>DataFlowProvider#work : get contact info with keyword " + keyWord);
-                }
-                if (keyWord.isEmpty()) {
-                    if (callBack != null) callBack.onFalure("", 0);
-                   return;
-                }
-                Cursor lookUpCursor = null;
-                Cursor personCursor = null;
-                Cursor contactCursor = null;
-                ContentResolver cntr = null;
-                long begin = System.currentTimeMillis();
-                try {
-                    StringBuilder selection = new StringBuilder();
-                    String[] selectionArgs = null;
-                    if (!TextUtils.isEmpty(keyWord)) {
-                        final String allStr = "%";
-                        //filter title
-                        selection.append(ContactsContract.Contacts.DISPLAY_NAME).append(" like ?").append(" and ").append(" has_phone_number = ?");
-                        selectionArgs = new String[]{allStr.concat(keyWord).concat(allStr), "1"};
-                    }
-                    String[] projection = {ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.LOOKUP_KEY, ContactsContract.Contacts.LAST_TIME_CONTACTED};
-                    List<ContactItemInfo> contactItemInfos = null;
-                    cntr = getContext().getContentResolver();
-                    lookUpCursor = cntr.query(ContactsContract.Contacts.CONTENT_URI, projection, selection.toString(), selectionArgs
-                            , ContactsContract.Contacts.LAST_TIME_CONTACTED + " desc ");
-                    if (lookUpCursor != null && lookUpCursor.moveToFirst()) {
-                        contactItemInfos = new ArrayList<>();
-                        ContactItemInfo item;
-                        int i = 0;
-                        do {
-                            item = new ContactItemInfo();
-                            item.contactId = lookUpCursor.getLong(lookUpCursor.getColumnIndex(ContactsContract.Contacts._ID));
-                            item.name = lookUpCursor.getString(lookUpCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                            item.lookupkey = lookUpCursor.getString(lookUpCursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-                            item.lastTimeConnected = lookUpCursor.getLong(lookUpCursor.getColumnIndex(ContactsContract.Contacts.LAST_TIME_CONTACTED));
-                            if (mQuit) {
-                                Log.d(TAG, ">>>>>>DataFlowProvider : " + getName() + " is canceled");
-                                if (callBack != null) callBack.onFalure("", 0);
-                                return;
-                            }
-                            // Phone info are stored in the ContactsContract.Data table
-                            selection.delete(0, selection.length());
-                            selection.append(ContactsContract.Contacts.LOOKUP_KEY).append(" = ?");
-                            projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
-                            selectionArgs = new String[]{item.lookupkey};
-                            personCursor = cntr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, selection.toString(), selectionArgs, null);
-                            if (personCursor != null && personCursor.moveToNext()) {
-                                item.phoneNumber = personCursor.getString(0);
-                            }
-                            if (mQuit) {
-                                Log.d(TAG, ">>>>>>DataFlowProvider : " + getName() + " is canceled");
-                                if (callBack != null) callBack.onFalure("", 0);
-                                return;
-                            }
-                            contactItemInfos.add(item);
-                            i += 1;
-                        } while (lookUpCursor.moveToNext() && i < limit);
-                    }
-                    Log.d(TAG, ">>>>>>DataFlowProvider#work : query key info takes : " + (System.currentTimeMillis() - begin) + "ms");
-                    if (mQuit) {
-                        Log.d(TAG, ">>>>>>DataFlowProvider : " + getName() + " is canceled");
-                        if (callBack != null) callBack.onFalure("", 0);
-                        return;
-                    }
-                    //sort app
-                    if (mContactItemInfoComparator == null) {
-                        mContactItemInfoComparator = new Comparator<ContactItemInfo>() {
-                            @Override
-                            public int compare(ContactItemInfo lhs, ContactItemInfo rhs) {
-                                return lhs.lastTimeConnected >= rhs.lastTimeConnected ? -1 : 1;
-                            }
-                        };
-                    }
-                    Collections.sort(contactItemInfos, mContactItemInfoComparator);
-                    if (callBack != null) callBack.onRealSucess(contactItemInfos);
-                } catch (Exception e) {
-                    Log.e(TAG, ">>>>>>DataFlowProvider#work :" + e.getMessage());
-                    if (callBack != null) callBack.onFalure(e.getMessage(), 0);
-                } finally {
-                    CommonUtilities.close(lookUpCursor);
-                    CommonUtilities.close(personCursor);
-                    CommonUtilities.close(contactCursor);
-                }
-            }
-        };
-        return contactItemInfoAction;
     }
 
     //load ad

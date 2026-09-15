@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.provider.Contacts;
 
 import androidx.core.content.FileProvider;
 import android.text.TextUtils;
@@ -34,37 +33,6 @@ public class IntentUtils {
     private static final String TAG = IntentUtils.class.getSimpleName();
 
     public static final String ACTION_DROI_APP = "com.zhuoyi.appDetailInfo";
-
-    public static void newCall(Context context, String phoneNumber) {
-        try {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            Uri data = Uri.parse("tel:".concat(phoneNumber));
-            intent.setData(data);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, ">>>>>>IntentUtils#newCall : " + e.getMessage());
-        }
-    }
-
-    public static void toContactDetail(Context context, String lookupKey, long contactId) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("content://com.android.contacts/contacts/lookup/")
-                .append(lookupKey)
-                .append("/")
-                .append(contactId);
-        Uri personUri = Uri.parse(sb.toString());
-        Intent contactIntent = new Intent();
-        contactIntent.setData(personUri);
-        contactIntent.setAction(Intent.ACTION_VIEW);
-        context.startActivity(contactIntent);
-    }
-
-    public static void toContact(Context context) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Contacts.People.CONTENT_URI);
-        context.startActivity(intent);
-    }
 
     public static boolean toApp(Context context, ComponentName componentName) {
         try {

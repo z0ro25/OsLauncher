@@ -12,7 +12,6 @@ import com.ezla.oslauncher.databinding.ActivitySplashBinding
 import com.ezla.oslauncher.extensions.hideNavigation
 import com.ezla.oslauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.utils.EventTrackingHelper
-import com.ezla.oslauncher.utils.YourWallpaperDataManager
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override val setViewBinding: ActivitySplashBinding
@@ -34,11 +33,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         }
 
-        YourWallpaperDataManager.addYourWallpaper(this, YourWallpaperDataManager.DefaultData)
-
         // Không còn quảng cáo: hiển thị splash ngắn rồi điều hướng.
         // Lần đầu cài -> onboarding (chọn ngôn ngữ...); đã hoàn tất onboarding -> vào thẳng Home.
-        Handler(Looper.getMainLooper()).postDelayed({ goNext() }, 1000)
+        Handler(Looper.getMainLooper()).postDelayed({ goNext() }, 3000)
     }
 
     override fun viewListener() {

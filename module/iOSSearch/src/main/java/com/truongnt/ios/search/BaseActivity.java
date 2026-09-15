@@ -8,8 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.truongnt.ios.ioslite.common.CommonAppCompatActivity;
 import com.truongnt.ios.ioslite.common.util.PermissionUtil;
-import com.ezt.ios.http.Internal.Action;
-import com.ezt.ios.http.Internal.CancelableCallBack;
+import com.amz.ios.http.Internal.Action;
+import com.amz.ios.http.Internal.CancelableCallBack;
 
 import org.jetbrains.annotations.Nullable;
 

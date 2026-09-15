@@ -28,7 +28,6 @@ public class SlidingUpWidgetListAdapter extends RecyclerView.Adapter {
     public static final int SAMPLE_BATTERY_WIDGET = 60;
     public static final int SAMPLE_PHOTO_WIDGET = 30;
     public static final int SAMPLE_APP_SUGGESTIONS = 71;
-    public static final int SAMPLE_CONTACT_FAVOURITE = 51;
     public static final int SAMPLE_CALENDAR_WIDGET = 40;
 
     LayoutInflater mLayoutInflater;

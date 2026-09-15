@@ -81,9 +81,6 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         else if (i == 70 || i == 71) {
             resId = R.layout.widget_suggestion_2x4;
         }
-        else if (i == 51){
-            resId = R.layout.widget_layout_favourite_contact_2x4;
-        }
         else {
             resId = R.layout.widget_clock_2x4;
 //            return new LauncherWidgetListViewHolder(null);
@@ -168,7 +165,6 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
             case 21:  // clock 2x4
             case 41:  // calendar 2x4
             case 60:  // battery 2x4
-            case 51:  // favourite contact 2x4
             case 70:  // app suggestion
             case 71:  // app suggestion
                 return true;

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import com.ezt.ios.http.Internal.MerlinTreeList;
+import com.amz.ios.http.Internal.MerlinTreeList;
 import com.truongnt.ios.search.entities.BaseCardItemInfo;
 import com.truongnt.ios.search.provider.AdapterItemPresenter;
 

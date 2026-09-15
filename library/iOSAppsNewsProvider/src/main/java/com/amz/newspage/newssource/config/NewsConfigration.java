@@ -1,8 +1,8 @@
-package com.ezt.newspage.newssource.config;
+package com.amz.newspage.newssource.config;
 
 import android.content.Context;
 
-import com.ezt.ios.newssource.R;
+import com.amz.ios.newssource.R;
 
 import java.util.HashMap;
 import java.util.Map;

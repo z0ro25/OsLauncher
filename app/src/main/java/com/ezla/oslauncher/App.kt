@@ -45,9 +45,5 @@ class App : BaseLauncherApplication(), ActivityLifecycleCallbacks {
         
     }
 
-    private fun setUpAdjust() {
-
-    }
-
     fun buildDebug(): Boolean? = false
 }

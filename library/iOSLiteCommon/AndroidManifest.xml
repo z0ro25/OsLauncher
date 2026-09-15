@@ -20,10 +20,17 @@
     <application>
 
         <!--  应用使用统计 -->
+        <!-- Provider này lưu LỊCH SỬ DÙNG APP của người dùng (mở bao nhiêu lần, lần cuối là khi nào)
+             trong DB không mã hoá, và bản thân nó KHÔNG có dòng kiểm tra caller nào ở
+             query/insert/update/delete -> để exported="true" là app bất kỳ đọc/ghi/xoá được.
+
+             Bất biến cần giữ: chỉ AppUsagesModel (module/iOSLauncher) dùng provider này, cùng APK
+             nên cùng UID. ContentProvider không export vẫn cho cùng UID truy cập -> exported="false"
+             không ảnh hưởng chức năng đếm lượt dùng app. -->
         <provider
             android:name=".provider.AppUsagesProvider"
             android:authorities="com.ezt.ios.ioslite.provider.usages"
-            android:exported="true" />
+            android:exported="false" />
 
         <!--  全局设置 -->
         <provider

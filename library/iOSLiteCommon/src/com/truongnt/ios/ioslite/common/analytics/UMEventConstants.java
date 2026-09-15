@@ -370,10 +370,6 @@ public class UMEventConstants {
     public static final String IOSEXCHANGE_EXPENSES50_SUCCESS = "Exp50Success";
     //100元话费兑换成功
     public static final String IOSEXCHANGE_EXPENSES100_SUCCESS = "Exp100Success";
-    //输入手机号码
-    public static final String IOSEXCHANGE_PHONENUM_INPUT = "PhoneNum";
-    //输入手机运营商
-    public static final String IOSEXCHANGE_PHONEOPERATOR_INPUT = "PhoneOperator";
     //提交按钮点击
     public static final String IOSEXCHANGE_SUBMIT_CLICK = "SubmitBtnClick";
     //提交成功

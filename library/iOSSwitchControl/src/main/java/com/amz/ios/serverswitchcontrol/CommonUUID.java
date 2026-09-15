@@ -17,10 +17,9 @@ public class CommonUUID {
         final String KEY_DEVICE_UUID = "key_deviceUUID";
         String uuid = PreferencesUtil.getString(context, KEY_DEVICE_UUID, "");
         if (TextUtils.isEmpty(uuid)) {
+            // Không dùng chip id / IMEI làm định danh thiết bị nữa (thông tin phần cứng).
+            // Chỉ đọc UUID hệ thống; nếu không có thì sinh UUID ngẫu nhiên.
             uuid = readUUID();
-            if (TextUtils.isEmpty(uuid)) {
-                uuid = CommonDeviceInfo.getChipId();
-            }
             if (TextUtils.isEmpty(uuid)) {
                 UUID uuidtmp = UUID.randomUUID();
                 uuid = uuidtmp + "";

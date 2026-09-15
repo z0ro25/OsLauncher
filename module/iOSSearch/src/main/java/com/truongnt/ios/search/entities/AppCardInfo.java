@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.util.DisplayUtil;
-import com.ezt.ios.http.Internal.DroiRequestQueue;
+import com.amz.ios.http.Internal.DroiRequestQueue;
 import com.truongnt.ios.launcher.LauncherAppState;
 import com.truongnt.ios.launcher.views.CustomTextView;
 import com.truongnt.ios.search.config.MSCConfiguration;

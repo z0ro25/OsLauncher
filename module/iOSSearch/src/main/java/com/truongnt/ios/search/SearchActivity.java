@@ -34,7 +34,7 @@ import android.widget.RelativeLayout;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.util.ToastUtil;
-import com.ezt.ios.http.Internal.CancelableCallBack;
+import com.amz.ios.http.Internal.CancelableCallBack;
 import com.truongnt.ios.launcher.LauncherAppState;
 import com.truongnt.ios.launcher.LauncherModel;
 import com.truongnt.ios.search.config.MSCConfiguration;
@@ -294,9 +294,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 mSearchDataPresenter.cancelAllTask();
                 //load recommod app
                 mSearchDataPresenter.loadRecommondApp().asynLoop().observer(new UiHandler());
-                //load contact MOVE TO permission request logic
-                //mDataFlowPresenter.loadContact().observer(mUihandler)
-                checkPermissionAndLoadContacts();
                 //load ad
                 mSearchDataPresenter.loadAd().asynLoop().delay(0).observer(new UiHandler());
                 //preload all app
@@ -387,8 +384,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 //        mBottomViewProxy.showBottom();
         //search local app
         mSearchDataPresenter.loadLocalApp(word).asynLoop().observer(new UiHandler());
-        //search contact
-        mSearchDataPresenter.loadContact(word).asynLoop().observer(new UiHandler());
         //search local files
         mSearchDataPresenter.loadLocalFile(word).asynLoop().observer(new UiHandler());
 //        search music
@@ -398,14 +393,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //cancel it because.
-        /*if (requestCode == PERMISSION_REQUEST_CODE && resultCode == RESULT_OK) {
-            mSearchDataPresenter.loadContact("").asynLoop().observer(new UiHandler());
-        }*/
-    }
-
-    private void checkPermissionAndLoadContacts() {
-        checkPermissionAndLoad(mSearchDataPresenter.loadContact("").addInPool().asynLoop(), PERMISSION_REQUEST_CODE, new UiHandler(), Manifest.permission.READ_CONTACTS);
     }
 
     private void checkPermissionAndLoadMusic() {

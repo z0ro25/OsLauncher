@@ -20,8 +20,8 @@ android {
         applicationId "com.ezla.oslauncher"
         minSdkVersion 26
         targetSdkVersion 36
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 103
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -147,21 +147,19 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-    //fb sdk
-    implementation 'com.facebook.android:facebook-android-sdk:16.0.1'
-
-    //adjust
-    implementation 'com.adjust.sdk:adjust-android:4.38.5'
-    implementation 'com.android.installreferrer:installreferrer:2.2'
-    // Add the following if you're using the Adjust SDK inside web views on your app
-    implementation 'com.adjust.sdk:adjust-android-webbridge:4.38.5'
+    //adjust — đã gỡ: SDK này kéo quyền Advertising ID (AD_ID) vào app, mà app không dùng
+    //API Adjust nào (chỉ còn hàm setUpAdjust() rỗng, đã xoá). Bỏ luôn installreferrer vì
+    //nó chỉ phục vụ Adjust.
+//    implementation 'com.adjust.sdk:adjust-android:4.38.5'
+//    implementation 'com.android.installreferrer:installreferrer:2.2'
+//    implementation 'com.adjust.sdk:adjust-android-webbridge:4.38.5'
 
     // 4.3 build bằng Kotlin 1.6/1.7 → tương thích compiler dự án (1.7.10); 5.x cần Kotlin 1.9.
     implementation("com.tbuonomo:dotsindicator:4.3")
 
     //ads
 //    implementation 'com.google.android.gms:play-services-ads:24.6.0'
-    implementation 'com.truongnt.fsd:fsdads:1.1.36'
+//    implementation 'com.truongnt.fsd:fsdads:1.1.36'
 }
 
 preBuild {

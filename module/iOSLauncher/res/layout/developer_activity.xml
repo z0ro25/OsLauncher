@@ -67,18 +67,6 @@
                     android:text="@string/category_device_detail" />
 
                 <com.truongnt.ios.ioslite.common.view.InfoItemLayout
-                    android:id="@+id/device_imei"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    launcher:itemInfoTitle="@string/device_imei" />
-
-                <com.truongnt.ios.ioslite.common.view.InfoItemLayout
-                    android:id="@+id/device_imsi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    launcher:itemInfoTitle="@string/device_imsi" />
-
-                <com.truongnt.ios.ioslite.common.view.InfoItemLayout
                     android:id="@+id/device_brand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

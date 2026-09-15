@@ -492,41 +492,6 @@
 
             </LinearLayout>
 
-            <!-- ===================== Device ID ===================== -->
-            <TextView
-                style="@style/HomeGroupLabel"
-                android:text="@string/device_id" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="@drawable/bg_lang_card"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
-
-                <TextView
-                    android:id="@+id/tv_device_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/sf_pro_display_medium"
-                    android:maxLines="1"
-                    android:textColor="@color/onb_accent"
-                    android:textSize="16sp"
-                    tools:text="70d277738cacf2a53a5080d3abe02cae" />
-
-                <ImageView
-                    android:id="@+id/iv_copy_device_id"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:tint="@color/color.007AFF"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_copy" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

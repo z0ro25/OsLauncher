@@ -88,7 +88,6 @@
         tools:ignore="ProtectedPermissions" />
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name="com.truongnt.ios.IOSLauncher"
@@ -345,23 +344,32 @@
             </intent-filter>
         </receiver>
 
-        <!-- The settings provider contains Home's data, like the workspace favorites -->
+        <!-- 3 provider dưới đây chứa dữ liệu người dùng: workspace/favorites, danh sách app ẩn,
+             ánh xạ app->icon. Trước đây để exported="true" KHÔNG kèm permission -> app bất kỳ trên
+             máy query/insert/update/delete được (AppTypeProvider còn không có dòng kiểm tra caller nào).
+
+             Bất biến cần giữ: mọi nơi đọc/ghi 3 authority này đều nằm TRONG cùng APK
+             (LauncherSettings, GestureSettings, AppConfigureProvider, AppTypeProvider trong
+             module/iOSLauncher) nên cùng UID. ContentProvider KHÔNG export vẫn cho cùng UID truy
+             cập bình thường -> đổi sang exported="false" không ảnh hưởng chức năng hiện có.
+
+             Nếu sau này có APK companion ký cùng key cần đọc các provider này thì KHÔNG bật lại
+             exported="true" trần như cũ, mà thêm android:readPermission/writePermission với
+             permission protectionLevel="signature". -->
         <provider
             android:name="com.truongnt.ios.launcher.LauncherProvider"
             android:authorities="com.truongnt.ios.launcher.settings"
-            android:exported="true" />
+            android:exported="false" />
 
-        <!-- The hideapp provider contains like the workspace favorites -->
         <provider
             android:name="com.truongnt.ios.launcher.provider.AppConfigureProvider"
             android:authorities="com.truongnt.ios.launcher.appconfigure"
-            android:exported="true" />
+            android:exported="false" />
 
-        <!-- The settings provider contains Home's data, like the workspace favorites -->
         <provider
             android:name="com.truongnt.ios.launcher.provider.AppTypeProvider"
             android:authorities="com.truongnt.ios.launcher.apptype"
-            android:exported="true" />
+            android:exported="false" />
 
 
         <!--     ***********************   IOS shortcuts   ******************************  -->

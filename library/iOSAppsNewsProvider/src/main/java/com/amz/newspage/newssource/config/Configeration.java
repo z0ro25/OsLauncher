@@ -1,4 +1,4 @@
-package com.ezt.newspage.newssource.config;
+package com.amz.newspage.newssource.config;
 
 /**
  * Author       : yizhihao

@@ -1,4 +1,4 @@
-package com.ezt.ios.http.Internal;
+package com.amz.ios.http.Internal;
 
 import android.text.TextUtils;
 import android.util.Log;

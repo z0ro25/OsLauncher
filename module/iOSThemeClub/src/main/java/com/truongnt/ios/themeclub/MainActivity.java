@@ -187,13 +187,6 @@ public class MainActivity extends CommonAppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case PermissionUtils.READ_PHONE_STATE_CODE:
-                if (grantResults.length > 0 && !(grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Toast.makeText(this, getString(R.string.themeclub_permissions_not_granted),
-                            Toast.LENGTH_SHORT).show();
-                    this.finish();
-                }
-                break;
             default:
                 break;
 

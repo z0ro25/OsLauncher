@@ -4,9 +4,9 @@ import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
-import com.ezt.ios.http.BaseDroiRequest;
-import com.ezt.ios.http.DroiResponse;
-import com.ezt.ios.http.Internal.DroiRequestQueue;
+import com.amz.ios.http.BaseDroiRequest;
+import com.amz.ios.http.DroiResponse;
+import com.amz.ios.http.Internal.DroiRequestQueue;
 import com.truongnt.ios.search.config.Urls;
 import com.google.gson.Gson;
 

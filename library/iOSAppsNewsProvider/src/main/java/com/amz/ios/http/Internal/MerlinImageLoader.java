@@ -1,4 +1,4 @@
-package com.ezt.ios.http.Internal;
+package com.amz.ios.http.Internal;
 
 import android.graphics.Bitmap;
 import android.util.Log;

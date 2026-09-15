@@ -1,4 +1,4 @@
-package com.ezt.ios.http.Internal;
+package com.amz.ios.http.Internal;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,7 +11,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.truongnt.ios.ioslite.common.BuildConfig;
 import com.truongnt.ios.ioslite.common.util.FileUtil;
 import com.truongnt.ios.ioslite.common.util.NetworkStateUtil;
-import com.ezt.ios.http.BaseDroiRequest;
+import com.amz.ios.http.BaseDroiRequest;
 
 
 import java.io.File;

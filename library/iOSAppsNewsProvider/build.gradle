@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    namespace "com.ezt.ios.newssource"
+    namespace "com.amz.ios.newssource"
     compileSdkVersion cfgs.compileSdkVersion
 
     defaultConfig {

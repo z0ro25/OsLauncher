@@ -27,8 +27,6 @@ public class DeveloperActivity extends SettingBaseActivity {
     private InfoItemLayout mBuildChannel;
     private InfoItemLayout mBuildTime;
 
-    private InfoItemLayout mImei;
-    private InfoItemLayout mImsi;
     private InfoItemLayout mBrand;
 
     private InfoItemLayout mCustomConfigPk;
@@ -63,8 +61,6 @@ public class DeveloperActivity extends SettingBaseActivity {
         mBuildChannel = (InfoItemLayout) findViewById(R.id.build_channel);
         mBuildTime = (InfoItemLayout) findViewById(R.id.build_time);
 
-        mImei = (InfoItemLayout) findViewById(R.id.device_imei);
-        mImsi = (InfoItemLayout) findViewById(R.id.device_imsi);
         mBrand = (InfoItemLayout) findViewById(R.id.device_brand);
 
         mCustomConfigPk = (InfoItemLayout) findViewById(R.id.custom_config_pkg);
@@ -133,8 +129,6 @@ public class DeveloperActivity extends SettingBaseActivity {
     }
 
     private void showDeviceDetail() {
-        mImei.setDescription(DeviceInfoUtil.getImei(this));
-        mImsi.setDescription(DeviceInfoUtil.getImsi(this));
         mBrand.setDescription(DeviceInfoUtil.getBrand());
     }
 

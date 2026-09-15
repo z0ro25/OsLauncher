@@ -25,7 +25,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.RemoteException;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import androidx.core.app.ActivityCompat;
@@ -496,15 +495,6 @@ public class FunctionUtil {
     }
 
     /**
-     * 打开拨号
-     */
-    public void openCall() {
-        Intent call = new Intent(Intent.ACTION_DIAL);
-        call.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mContext.startActivity(call);
-    }
-
-    /**
      * 打开短信
      */
     public void openMessage() {
@@ -512,17 +502,6 @@ public class FunctionUtil {
         Intent chat = new Intent(Intent.ACTION_SENDTO, smsToUri);
         chat.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(chat);
-    }
-
-    /**
-     * 打开联系人
-     */
-    public void openContact() {
-        Intent contact = new Intent();
-        contact.setAction(Intent.ACTION_PICK);
-        contact.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        contact.setData(ContactsContract.Contacts.CONTENT_URI);
-        mContext.startActivity(contact);
     }
 
     /**
