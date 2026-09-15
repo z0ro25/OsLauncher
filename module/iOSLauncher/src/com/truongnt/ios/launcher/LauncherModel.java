@@ -3723,7 +3723,14 @@ public class LauncherModel extends BroadcastReceiver
                     mBgAllAppsList.add(appInfo);
                 }
 
-                final List<LauncherActivityInfoCompat> homeApp = mLauncherApps.getActivityList("com.ezla.oslauncher", user);
+                // App của CHÍNH launcher: vòng lặp trên đã bỏ nó qua AppFilter.filterLoadApp()
+                // (loại app trùng getPackageName()) nên phải lấy lại ở đây.
+                // BẮT BUỘC dùng getPackageName(), KHÔNG hardcode chuỗi package: đổi applicationId
+                // là chuỗi cứng lệch ngay -> getActivityList trả rỗng -> app launcher không vào
+                // mBgAllAppsList -> verifyApplication() không thấy homeApp -> không đặt được icon
+                // ở ô đầu page 0 (0,2) dưới 2 widget, và app cũng mất khỏi All Apps.
+                final List<LauncherActivityInfoCompat> homeApp =
+                        mLauncherApps.getActivityList(mContext.getPackageName(), user);
                 for (LauncherActivityInfoCompat app: homeApp) {
                     AppInfo appInfo = new AppInfo(mContext, app, user, mIconCache, quietMode);
                     String packageName = appInfo.componentName.getPackageName();

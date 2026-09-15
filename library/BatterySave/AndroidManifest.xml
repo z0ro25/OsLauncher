@@ -3,21 +3,14 @@
     android:versionCode="10"
     android:versionName="1.0">
 
-<!--    <uses-permission android:name="android.permission.BLUETOOTH" />-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
-<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
-<!--    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
-<!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />-->
-<!--    <uses-permission android:name="android.permission.READ_SYNC_STATS" />-->
-<!--    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />-->
-<!--    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />-->
+    <!-- [DỌN DATA SAFETY] Đã xoá GET_TASKS (deprecated, no-op từ API 21) và các dòng đã comment sẵn
+         (BLUETOOTH, *_WIFI_STATE, *_NETWORK_STATE, *_SYNC_*, PACKAGE_USAGE_STATS, INTERNET,
+         BATTERY_STATS) — khai trong source nhưng không vào APK.
+
+         Bất biến: SYSTEM_ALERT_WINDOW giữ lại vì tính năng còn dùng (special access, user cấp tay
+         trong Settings). Không code nào tham chiếu GET_TASKS. -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-<!--    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-<!--    <uses-permission android:name="android.permission.INTERNET" />-->
-<!--    <uses-permission android:name="android.permission.BATTERY_STATS" />-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

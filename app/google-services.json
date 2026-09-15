@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:540567802035:android:8c186fcdda8f52535be0c6",
+        "mobilesdk_app_id": "1:540567802035:android:83539a67e23e16175be0c6",
         "android_client_info": {
-          "package_name": "com.ezla.oslauncher"
+          "package_name": "com.ezla.oslauncher.beautylauncher"
         }
       },
       "oauth_client": [],

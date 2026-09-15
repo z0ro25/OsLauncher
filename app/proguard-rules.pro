@@ -99,7 +99,7 @@
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 
--keep class com.ezla.oslauncher.App { *; }
+-keep class com.ezla.oslauncher.beautylauncher.App { *; }
 -keep class com.ezla.oslauncher.model.** { *; }
 -keep class com.ezla.oslauncher.database.** { *; }
 -keep class com.ezla.oslauncher.Features.** { *;}

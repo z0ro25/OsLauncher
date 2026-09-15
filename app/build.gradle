@@ -5,23 +5,20 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    // [AGP 8] namespace là BẮT BUỘC khai báo trong build.gradle; AGP 8 không còn đọc package từ
-    // AndroidManifest.xml nữa (thuộc tính package trong manifest bị bỏ).
-    namespace "com.ezla.oslauncher"
+    namespace "com.ezla.oslauncher.beautylauncher"
     compileSdkVersion 36
-    packaging { //Fix: http://stackoverflow.com/a/20675331/860488
-        // [AGP 8] packagingOptions{exclude ...} -> packaging{ resources.excludes }
+    packaging {
         resources {
             excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/NOTICE']
         }
     }
 
     defaultConfig {
-        applicationId "com.ezla.oslauncher"
+        applicationId "com.ezla.oslauncher.beautylauncher"
         minSdkVersion 26
         targetSdkVersion 36
-        versionCode 103
-        versionName "1.0.3"
+        versionCode 100
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -47,8 +44,6 @@ android {
     }
 
     kotlinOptions {
-        // Java compile ở VERSION_17 (compileOptions trên) -> Kotlin/kapt phải cùng 17,
-        // nếu không AGP 8 báo "Inconsistent JVM-target: Java(17) vs Kotlin(1.8)".
         jvmTarget = '17'
     }
 

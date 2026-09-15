@@ -10,8 +10,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-<!--    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />-->
-<!--    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />-->
     <!-- Quyền hiển thị thông báo (runtime từ Android 13). Dùng cho toggle Notification màn xin quyền. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
@@ -86,16 +84,8 @@
         <activity
             android:name=".Features.hello.HelloActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
-        <!-- Dialog "Set as default launcher" nổi trên desktop (mở từ SearchLauncher qua ComponentName).
-
-             taskAffinity PHẢI TRÙNG với SearchLauncher (com.truongnt.ios.launcher.Launcher):
-             SearchLauncher khai taskAffinity riêng + launchMode=singleTask nên nó chạy ở TASK KHÁC
-             với các activity của :app. Nếu dialog giữ affinity mặc định của :app, startActivity từ
-             desktop sẽ đẩy nó sang task của :app -> dialog KHÔNG nổi lên trên desktop mà nằm ở task
-             nền (người dùng không thấy gì). Cùng affinity thì dialog ở đúng task launcher. -->
         <activity
             android:name=".dialog.SetDefaultLauncherPromptActivity"
             android:excludeFromRecents="true"
