@@ -141,7 +141,7 @@ public class BaseLauncherApplication extends Application {
         // Token Adjust — ĐIỀN VÀO ĐÂY khi có. Để rỗng thì Ads.init() bỏ qua luôn phần
         // Adjust (chỉ log cảnh báo); hạ tầng quảng cáo vẫn chạy bình thường, chỉ mất
         // phần revenue tracking qua Adjust.
-        final String adjustToken = "";
+        final String adjustToken = "seu0i6ptzxmo";
 
         // isSubs/tier1 hiện để mặc định false vì dự án CHƯA có code billing nào (đã kiểm:
         // không có BillingClient/queryPurchases ở đâu cả; billing:8.0.0 mới chỉ khai báo).
@@ -151,7 +151,7 @@ public class BaseLauncherApplication extends Application {
             public void run() {
                 // App-open KHÔNG có hàm show(): FSDAds tự đăng ký ActivityLifecycleCallbacks
                 // và tự hiện khi Activity được tạo. Xem AdsOpen.
-                AdsOpen.setup(mApplication, AdsSlot.APP_OPEN, null);
+//                AdsOpen.setup(mApplication, AdsSlot.APP_OPEN, null);
             }
         });
     }

@@ -293,7 +293,24 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     }
 
     void setUpAdapter(){
-        mTotalLibraryRV.setLayoutManager(new GridLayoutManager(this.getContext(),2));
+        GridLayoutManager libraryLayoutManager = new GridLayoutManager(this.getContext(), 2);
+        // Item quảng cáo native ở đầu danh sách phải chiếm TRỌN 2 cột.
+        //
+        // KHÔNG dùng GridLayoutManager.LayoutParams.setFullSpan() ở adapter: GridLayoutManager
+        // lấy span size từ SpanSizeLookup này, nên setFullSpan bị bỏ qua và quảng cáo chỉ rộng
+        // 1 cột. Mọi item khác giữ nguyên 1 cột như cũ.
+        libraryLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (mAppLibraryAdapter != null
+                        && mAppLibraryAdapter.getItemViewType(position)
+                            == AppLibraryAdapter.TYPE_NATIVE_AD) {
+                    return libraryLayoutManager.getSpanCount();
+                }
+                return 1;
+            }
+        });
+        mTotalLibraryRV.setLayoutManager(libraryLayoutManager);
         mTotalLibraryRV.setAdapter(null);
         mSearchResultRV.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }

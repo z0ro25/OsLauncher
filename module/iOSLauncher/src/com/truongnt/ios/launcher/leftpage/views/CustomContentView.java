@@ -17,6 +17,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.R;
@@ -232,6 +234,13 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         mWidgetInfoList = new ArrayList<>();
 
         mWidgetListAdapter = new CustomContentWidgetAdapter(this,mWidgetInfoList);
+
+        // Tải trước native cho màn trái. FSDAds giữ ad theo alias nên gọi sớm để lúc list bind
+        // là đã có sẵn; AdsNative.preload tự chặn gọi trùng nên không tốn thêm request.
+        if (mLauncher != null) {
+            AdsNative.preload(mLauncher, AdsSlot.NATIVE_IN_APP, null);
+        }
+
         WrapStaggeredGridLayoutManager manager = new WrapStaggeredGridLayoutManager(
                 2,StaggeredGridLayoutManager.VERTICAL
         );
@@ -325,14 +334,25 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
     }
 
     public final void addWidget(int i) {
+        // Chụp trạng thái item quảng cáo TRƯỚC khi thêm: vượt mốc 2 widget thì quảng cáo
+        // xuất hiện, tức cấu trúc list đổi ở HAI chỗ chứ không phải một.
+        final boolean adBefore = mWidgetListAdapter.hasNativeAdItem();
         final WidgetInfo info = new WidgetInfo();
         info.order = mWidgetInfoList.size() + 1;
         info.type = i;
         this.mWidgetInfoList.add(info);
         info.save();
+        if (adBefore != mWidgetListAdapter.hasNativeAdItem()) {
+            // notifyItemInserted chỉ báo được MỘT vị trí nên không đủ khi quảng cáo vừa chèn
+            // vào giữa list -> phải notifyDataSetChanged, nếu không RecyclerView báo
+            // "Inconsistency detected" rồi crash.
+            mWidgetListAdapter.notifyDataSetChanged();
+            return;
+        }
         // Item vừa được thêm vào cuối list => vị trí insert là (size - 1), KHÔNG phải order+1
         // (order+1 vượt quá số item, gây RecyclerView "Inconsistency detected" -> crash).
-        mWidgetListAdapter.notifyItemInserted(mWidgetInfoList.size() - 1);
+        mWidgetListAdapter.notifyItemInserted(
+                mWidgetListAdapter.displayPositionForWidget(mWidgetInfoList.size() - 1));
     }
 
     @Override

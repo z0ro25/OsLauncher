@@ -38,6 +38,16 @@ public class DragDropCallBack extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        // Adapter được phép ghim vài item không cho kéo (vd item quảng cáo trên màn trái).
+        // getAdapterPosition() trả NO_POSITION lúc view chưa gắn vào RecyclerView -> coi như
+        // bình thường, vẫn cho kéo, để không đổi hành vi của các adapter cũ.
+        if (adapter instanceof DragDropAdapter) {
+            int position = viewHolder.getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION
+                    && !((DragDropAdapter) adapter).canDragItem(position)) {
+                dragFlags = 0;
+            }
+        }
         int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
         return makeMovementFlags(dragFlags, swipeFlags);
     }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Item quảng cáo native ở ĐẦU danh sách App Library.
+
+  KÍCH THƯỚC — chiếm 2 cột, cao bằng ĐÚNG khung của một ô category:
+
+  · Danh sách là GridLayoutManager 2 cột, mỗi ô rộng C. Item này được setFullSpan(true) lúc
+    bind (xem AppLibraryAdapter) nên rộng 2C.
+  · Ô category (apps_library_item_full.xml) có khung glass cao = rộng = C-40: cha
+    AppsLibraryItemFull được setPadding(20,20,20,20) rồi view "app_background" bên trong ăn
+    theo bề rộng còn lại với tỉ lệ 1:1. Nên ô cao C-40, cả cell cao C.
+  · Ở đây lặp lại đúng cách đó nhưng tỉ lệ 2:1: "box" rộng 2C, cao = 2C/2 = C — tức đúng
+    một hàng của lưới. Container bên trong thụt vào 20 mỗi bên (set trong
+    AppLibraryAdapter.NativeAdViewHolder, ĐƠN VỊ PIXEL cho khớp setPadding của ô category)
+    -> khung quảng cáo cao 2C/2 - 40 = C-40, ĐÚNG bằng khung ô category.
+
+  Vì sao thụt lề đặt trong code chứ không phải android:layout_margin: ô category thụt bằng
+  setPadding(20px), mà margin trong XML tính bằng dp -> lệch nhau trên màn mật độ cao.
+
+  Container (FrameLayout trong cùng) là view truyền cho AdsNative.show — FSDAds đổ nội dung
+  quảng cáo thẳng vào đó (nó không trả View cho mình tự gắn). Layout FSDAds không có nền riêng
+  nên bg_glass_tile ở đây chính là nền người dùng thấy, khớp với các ô category.
+
+  descendantFocusability="afterDescendants": giống container chuẩn
+  (library/iOSLiteCommon/res/layout/ads_native_container.xml) — để view con của quảng cáo
+  nhận được click dù FrameLayout cha không focusable.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/apps_library_native_ad_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- box: rộng trọn 2 cột, cao bằng 1 hàng lưới (tỉ lệ 2:1). -->
+    <FrameLayout
+        android:id="@+id/apps_library_native_ad_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h, 2:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/apps_library_native_ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_glass_tile"
+            android:descendantFocusability="afterDescendants" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

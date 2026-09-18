@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.truongnt.ios.launcher.DeviceProfile;
-import com.truongnt.ios.launcher.FastBitmapDrawable;
 import com.truongnt.ios.launcher.IconCache;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.R;
@@ -61,7 +59,7 @@ public class AppSuggestionAdapter extends RecyclerView.Adapter {
 
             Bitmap bitmap = ClockDrawable.getIconBitmap(
                     Utilities.createIconBitmap(
-                            info.mBitmap,mLauncher
+                            info.mBitmap, mLauncher
                     )
             );
 
@@ -80,8 +78,10 @@ public class AppSuggestionAdapter extends RecyclerView.Adapter {
                                 return;
                             }
                             // Click widget "có sẵn" (App Suggestion) mở app -> gate interstitial trước.
+                            // KHÔNG tự show ad ở đây nữa: việc hiện ad (kèm lọc tần suất) đã do
+                            // LauncherAdTrigger quyết định, show lồng thêm sẽ phá bộ đếm click.
                             final Intent launchIntent = intent;
-                            com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, new Runnable() {
+                            com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, launchIntent, new Runnable() {
                                 @Override
                                 public void run() {
                                     mLauncher.startActivity(launchIntent);
@@ -91,7 +91,7 @@ public class AppSuggestionAdapter extends RecyclerView.Adapter {
                     }
             );
 
-            if (position > mLoadAnimIndex){
+            if (position > mLoadAnimIndex) {
                 // TODO: 2023.11.20 Set Load Anim
                 mLoadAnimIndex = position;
             }

@@ -3812,11 +3812,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         // Interstitial "mở app": có ad thì show trước, đóng ad xong mới mở app; chưa có ad
         // thì mở app ngay (hành vi cũ không đổi). Điểm này bao cả icon home/dock lẫn App Library.
+        // Truyền launchIntent để tầng trigger bỏ qua khi app mở ra chính là launcher này.
         final View clickedView = v;
         final Object launchTag = tag;
         final Intent launchIntent = intent;
         final ShortcutInfo launchShortcut = shortcut;
-        com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(this, new Runnable() {
+        com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(this, launchIntent, new Runnable() {
             @Override
             public void run() {
                 startActivitySafely(clickedView, launchIntent, launchTag);

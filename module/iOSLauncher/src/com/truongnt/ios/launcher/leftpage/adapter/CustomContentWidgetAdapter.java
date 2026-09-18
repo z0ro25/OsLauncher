@@ -9,12 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.truongnt.ios.ioslite.common.ads.Ads;
+import com.truongnt.ios.ioslite.common.ads.AdsError;
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
 import com.truongnt.ios.launcher.R;
 import com.truongnt.ios.launcher.bounce.BouncyRecyclerView;
@@ -31,12 +37,86 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     private static final float DRAG_SCALE = 1.08f;
     private static final float DRAG_ELEVATION = 24.0f;
 
+    /** View type của item quảng cáo. Số âm để KHÔNG đụng dải type widget (20..71, 100). */
+    public static final int TYPE_NATIVE_AD = -1;
+
+    /** Vị trí item quảng cáo: ngay dưới 2 widget đầu tiên. */
+    private static final int AD_POSITION = 2;
+
     private final CustomContentView mCustomContentView;
     private final ArrayList<WidgetInfo> mWidgetInfoArrayList;
+
+    /** Slot quảng cáo được phép dùng lúc dựng adapter (premium/tắt native/policy chặn -> false). */
+    private final boolean mAdAllowed;
 
     public CustomContentWidgetAdapter(CustomContentView customContentView, ArrayList<WidgetInfo> arrayList) {
         this.mCustomContentView = customContentView;
         this.mWidgetInfoArrayList = arrayList;
+        this.mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP);
+    }
+
+    // ── Quảng cáo native: chèn như một ITEM CỦA ADAPTER, không nhét vào mWidgetInfoArrayList ──
+    //
+    // Vì sao không thêm một WidgetInfo giả vào list: WidgetInfo là bản ghi DB (có save()/delete()),
+    // lại dính vào kéo-thả sắp xếp + nút xoá + lưu order. Thêm giả sẽ hỏng cả ba.
+    // Thay vào đó quảng cáo chiếm một vị trí HIỂN THỊ riêng, còn chỉ số trong list widget
+    // được suy ra qua [widgetIndexFor] — mọi chỗ dùng position đều phải đi qua hàm này.
+
+    /** Có chèn item quảng cáo không. Cần >= AD_POSITION widget để quảng cáo còn chỗ nằm. */
+    private boolean isAdVisible() {
+        return mAdAllowed
+                && mWidgetInfoArrayList != null
+                && mWidgetInfoArrayList.size() >= AD_POSITION;
+    }
+
+    /** Adapter hiện có chèn item quảng cáo không — để call-site biết cấu trúc list có đổi. */
+    public boolean hasNativeAdItem() {
+        return isAdVisible();
+    }
+
+    /** Vị trí HIỂN THỊ của widget ở chỉ số {@code widgetIndex} trong mWidgetInfoArrayList. */
+    public int displayPositionForWidget(int widgetIndex) {
+        return isAdVisible() && widgetIndex >= AD_POSITION ? widgetIndex + 1 : widgetIndex;
+    }
+
+    /** Vị trí hiển thị -> chỉ số trong [mWidgetInfoArrayList]. -1 nghĩa là chính item quảng cáo. */
+    private int widgetIndexFor(int position) {
+        if (!isAdVisible() || position < AD_POSITION) {
+            return position;
+        }
+        return position == AD_POSITION ? -1 : position - 1;
+    }
+
+    /**
+     * Như [widgetIndexFor] nhưng dùng cho kéo-thả — KHÔNG bao giờ trả -1.
+     *
+     * Thả trúng ngay chỗ quảng cáo thì coi như thả xuống ngay trên nó, thay vì để
+     * ItemTouchHelper nhận chỉ số âm rồi làm hỏng list.
+     */
+    private int widgetIndexForMove(int position) {
+        int index = widgetIndexFor(position);
+        return index < 0 ? Math.max(0, AD_POSITION - 1) : index;
+    }
+
+    /** Đổ quảng cáo native vào item. Không có ad thì ẩn item để không chừa khoảng trống. */
+    private void bindNativeAd(final NativeAdViewHolder holder) {
+        StaggeredGridLayoutManager.LayoutParams lp =
+                (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
+        // Quảng cáo chiếm nguyên hàng, không đứng nửa hàng như widget 2x2.
+        lp.setFullSpan(true);
+        AdsNative.show(holder.mContainer, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
+            @Override
+            public void onLoaded() {
+                holder.itemView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadFailed(AdsError error) {
+                // FSDAds không có ad để đổ -> giấu item. Vị trí vẫn được giữ, lần bind sau
+                // (nếu ad đã tải xong) sẽ hiện lại.
+                holder.itemView.setVisibility(View.GONE);
+            }
+        });
     }
 
     @NonNull
@@ -44,6 +124,12 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        if (i == TYPE_NATIVE_AD) {
+            return new NativeAdViewHolder(
+                    inflater.inflate(R.layout.left_page_native_ad, parent, false)
+            );
+        }
 
         if (i == 100){
             return new WidgetItemViewHolder(
@@ -93,7 +179,10 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof WidgetItemViewHolder) {
+        if (holder instanceof NativeAdViewHolder) {
+            bindNativeAd((NativeAdViewHolder) holder);
+        }
+        else if (holder instanceof WidgetItemViewHolder) {
             WidgetItemViewHolder viewHolder = (WidgetItemViewHolder) holder;
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,7 +196,12 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         else if (holder instanceof LauncherWidgetListViewHolder) {
             LauncherWidgetListViewHolder viewHolder = (LauncherWidgetListViewHolder) holder;
             CustomZoomImageView customZoomImageView = viewHolder.mDeleteBtn;
-            final int pos = position;
+            // position là vị trí HIỂN THỊ (đã tính cả item quảng cáo) -> phải quy về chỉ số widget
+            // trước khi đụng vào mWidgetInfoArrayList, nếu không nút xoá sẽ xoá nhầm widget.
+            final int pos = widgetIndexFor(position);
+            if (pos < 0 || pos >= mWidgetInfoArrayList.size()) {
+                return;
+            }
             if (customZoomImageView != null) {
                 customZoomImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -117,9 +211,16 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
                         if (mCustomContentView.mListWidgetRV == null || mCustomContentView.mWidgetListAdapter == null)
                             return;
                         final WidgetInfo info = mWidgetInfoArrayList.get(pos);
+                        // Xoá xuống dưới mốc AD_POSITION widget thì item quảng cáo cũng biến mất
+                        // -> cấu trúc list đổi ở hai chỗ, notifyItemRemoved không đủ.
+                        final boolean adBefore = isAdVisible();
                         mWidgetInfoArrayList.remove(pos);
-                        notifyItemRemoved(pos);
-                        notifyItemRangeChanged(pos, mWidgetInfoArrayList.size(),null);
+                        if (adBefore != isAdVisible()) {
+                            notifyDataSetChanged();
+                        } else {
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mWidgetInfoArrayList.size(),null);
+                        }
                         new Thread(
                                 new Runnable() {
                                     @Override
@@ -179,23 +280,46 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         // widget (long-press) -> rung + kéo thả sắp xếp, giống màn app. Nên chỉ đếm số widget.
         ArrayList<WidgetInfo> arrayList = this.mWidgetInfoArrayList;
         if (arrayList != null) {
-            return arrayList.size();
+            return arrayList.size() + (isAdVisible() ? 1 : 0);
         }
         return 0;
     }
 
     @Override
     public int getItemViewType(int position) {
+        if (isAdVisible() && position == AD_POSITION) {
+            return TYPE_NATIVE_AD;
+        }
         if (this.mWidgetInfoArrayList != null) {
-            return this.mWidgetInfoArrayList.get(position).type;
+            int index = widgetIndexFor(position);
+            if (index >= 0 && index < this.mWidgetInfoArrayList.size()) {
+                return this.mWidgetInfoArrayList.get(index).type;
+            }
         }
         return 0;
     }
 
+    /**
+     * Có được kéo item ở vị trí này không. Quảng cáo đứng yên một chỗ nên cấm kéo —
+     * xem {@code DragDropCallBack.getMovementFlags} và {@link #TYPE_NATIVE_AD}.
+     */
+    @Override
+    public boolean canDragItem(int position) {
+        return !(isAdVisible() && position == AD_POSITION);
+    }
+
     @Override
     public void onItemMoved(int fromPosition, int toPosition) {
-        if (this.mWidgetInfoArrayList.size() > fromPosition) {
-            this.mWidgetInfoArrayList.add(toPosition, this.mWidgetInfoArrayList.remove(fromPosition));
+        // Tham số là vị trí HIỂN THỊ (đã tính item quảng cáo) -> quy về chỉ số widget trước khi
+        // sửa list. notifyItemMoved vẫn dùng vị trí hiển thị: quảng cáo không đổi chỗ nên cách
+        // ánh xạ chỉ số widget -> vị trí hiển thị giữ nguyên sau khi đổi thứ tự.
+        int from = widgetIndexForMove(fromPosition);
+        int to = widgetIndexForMove(toPosition);
+        if (from >= this.mWidgetInfoArrayList.size() || to >= this.mWidgetInfoArrayList.size()) {
+            return;
+        }
+        if (this.mWidgetInfoArrayList.size() > from) {
+            this.mWidgetInfoArrayList.add(to, this.mWidgetInfoArrayList.remove(from));
             notifyItemMoved(fromPosition, toPosition);
             final CustomContentView customContentView = this.mCustomContentView;
 
@@ -264,6 +388,18 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         if (mCustomContentView != null && mCustomContentView.t
                 && viewHolder instanceof LauncherWidgetListViewHolder) {
             ((LauncherWidgetListViewHolder) viewHolder).startShaking();
+        }
+    }
+
+    /** ViewHolder của item quảng cáo native — xem {@link #TYPE_NATIVE_AD}. */
+    public static class NativeAdViewHolder extends RecyclerView.ViewHolder {
+
+        /** Chính là root FrameLayout; FSDAds đổ nội dung quảng cáo vào đây. */
+        public final FrameLayout mContainer;
+
+        public NativeAdViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.mContainer = (FrameLayout) itemView;
         }
     }
 
