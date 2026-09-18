@@ -1,7 +1,7 @@
 package com.truongnt.ios;
 
 import android.app.Application;
-import com.ezt.ios.database.HiddenAppManager;
+import com.truongnt.ios.database.HiddenAppManager;
 import org.litepal.LitePal;
 
 public class IOSLauncher extends Application {

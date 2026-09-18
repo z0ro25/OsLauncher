@@ -32,9 +32,11 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Util;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import android.widget.FrameLayout;
+
 import com.truongnt.ios.ioslite.common.CommonAppCompatActivity;
-import com.truongnt.ios.ioslite.common.ad.IOSAdConfig;
-import com.truongnt.ios.ioslite.common.ad.NativeAdCardView;
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -350,9 +352,9 @@ public class OnlineWallpaperDetailActivity extends CommonAppCompatActivity imple
     }
 
     private void initAdView() {
-        NativeAdCardView adView = (NativeAdCardView) findViewById(R.id.adview);
-        adView.setAdvertiseId(IOSAdConfig.ID_WALLPAPER_DETAIL);
-        adView.loadAdvertise();
+        FrameLayout adView = (FrameLayout) findViewById(R.id.adview);
+        AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
+        AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
     }
 
     @Override

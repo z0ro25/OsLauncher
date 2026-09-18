@@ -6,7 +6,7 @@ import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.general.hiddenapp.adapters.HiddenAdapter
 import com.ezla.oslauncher.beautylauncher.Features.general.hiddenapp.viewmodels.HiddenAppViewModel
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityHiddenappBinding
-import com.ezt.ios.database.HiddenAppManager
+import com.truongnt.ios.database.HiddenAppManager
 import com.truongnt.ios.launcher.ItemInfo
 
 class HiddenAppActivity : BaseActivity<ActivityHiddenappBinding>() {

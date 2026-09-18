@@ -3,13 +3,16 @@ package com.truongnt.ios.launcher.applibrary;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.truongnt.ios.ioslite.common.ad.IOSAdConfig;
-import com.truongnt.ios.ioslite.common.ad.IOSAdManager;
-import com.truongnt.ios.ioslite.common.ad.NativeAdCardView;
+import com.truongnt.ios.ioslite.common.ads.Ads;
+import com.truongnt.ios.ioslite.common.ads.AdsError;
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.BubbleTextView;
 import com.truongnt.ios.launcher.Launcher;
@@ -33,14 +36,31 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
     public Launcher mLauncher;
 
     /**
-     * Có slot native ad hay không — tính 1 lần lúc dựng adapter. Chưa gắn SDK thì
-     * getNativeAd trả null -> false -> ô ad ẩn hoàn toàn, grid không đổi.
+     * Có chừa ô quảng cáo hay không — quyết định theo CẤU HÌNH slot (tắt cờ / user đã mua
+     * bản không quảng cáo), không phải theo việc ad đã tải xong chưa, vì việc tải là bất
+     * đồng bộ. Không chừa -> grid giữ nguyên như trước.
      */
     private final boolean mHasAd;
 
     public OpenLibraryItemAdapter(Launcher launcher){
         mLauncher = launcher;
-        mHasAd = IOSAdManager.getInstance(launcher).getNativeAd(IOSAdConfig.ID_ALL_APPS) != null;
+        mHasAd = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP);
+
+        if (mHasAd) {
+            // Tải trước ngay khi dựng adapter; lúc bind chỉ việc đổ vào container.
+            // onLoaded có thể về sau lúc bind đầu tiên, nên phải bind lại ô ad khi xong.
+            AdsNative.preload(launcher, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
+                @Override
+                public void onLoaded() {
+                    mLauncher.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyItemChanged(AD_POSITION);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     /** Ô ad có hiển thị ở {@code position} không. */
@@ -98,9 +118,24 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
                     textViewCustomFont.getPaddingBottom());
         }
         else if (holder instanceof AdViewHolder){
-            NativeAdCardView adCardView = (NativeAdCardView) holder.itemView;
-            adCardView.setAdvertiseId(IOSAdConfig.ID_ALL_APPS);
-            adCardView.loadAdvertise();
+            final View container = holder.itemView;
+            // Adapter tái dùng view, mà FSDAds đổ nội dung vào container — chỉ đổ khi
+            // container còn trống, tránh nhồi chồng khi bind lại.
+            if (container instanceof FrameLayout && ((FrameLayout) container).getChildCount() == 0) {
+                AdsNative.show((FrameLayout) container, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
+
+                    @Override
+                    public void onLoaded() {
+                        container.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onLoadFailed(AdsError error) {
+                        // Chưa kịp có ad -> thu ô lại thay vì để khoảng trống.
+                        container.setVisibility(View.GONE);
+                    }
+                });
+            }
         }
         else if (holder instanceof ItemViewHolder){
             AppInfo appInfo = mApps.get(appIndex(position));

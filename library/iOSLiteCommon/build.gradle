@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
 //
@@ -20,12 +21,22 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src', "Volley/src"]
+            // Package `ads` viết bằng Kotlin nhưng nằm chung cây `src` với phần Java.
+            // Mặc định của kotlin-android là src/main/java + src/main/kotlin nên không thấy file.
+            kotlin.srcDirs = ['src', "Volley/src"]
             resources.srcDirs = ['src']
             aidl.srcDirs = ['src']
             res.srcDirs = ['res']
@@ -39,13 +50,16 @@ dependencies {
     api files('libs/launcher_client.jar')
 
     // Room (Java) — migrate SQLite thủ công sang Room
-    implementation "androidx.room:room-runtime:2.6.1"
-    annotationProcessor "androidx.room:room-compiler:2.6.1"
+    // 2.6.1 -> 2.7.2: BẮT BUỘC khi compiler Kotlin là 2.1.x (xem build.gradle gốc).
+    // room-compiler 2.6.1 dùng kotlinx-metadata-jvm — chỉ đọc được metadata tới 2.0.0 — nên kapt
+    // báo "Provided Metadata instance has version 2.1.0". Từ 2.7.0 Room dùng kotlin-metadata-jvm.
+    implementation "androidx.room:room-runtime:2.7.2"
+    annotationProcessor "androidx.room:room-compiler:2.7.2"
+
+    implementation "androidx.work:work-runtime:2.7.1"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    // Đã gỡ utdid4all-1.0.4.jar: SDK định danh thiết bị của Alibaba, chứa PhoneInfoUtils
-    // đọc IMEI/IMSI (getDeviceId/getSubscriberId). Không có chỗ nào trong dự án gọi tới nó
-    // nên gỡ hẳn để APK không còn thư viện thu thập định danh thiết bị.
+
     implementation files('libs/slf4j-api-1.7.6.jar')
 
     // Retrofit
@@ -56,24 +70,53 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
-//    compile(libs['droi-bass-core']) {
-//        changing = true
-//    }
-//
-//    compile(libs['droi-bass-analytics']) {
-//        changing = true
-//    }
-//    compile libs['okhttp-urlconnection']
-//    compile libs['okhttp']
     api libs['gson']
     implementation libs['support-v4']
-//    implementation libs['recyclerview-v7']
-//    api libs['appcompat-v7']
-//    api libs['cardview-v7']
-    api libs['palette-v7']
-//    compile libs['umeng']
-//    compile libs['glide']
-//    compile libs['okhttp-urlconnection']
-//    compile libs['okhttp']
 
+    api libs['palette-v7']
+
+    //ads
+    implementation 'com.google.android.gms:play-services-ads:24.6.0'
+
+    // fsdads khai kotlin-stdlib 2.0.21 — thấp hơn 2.1.21 của project nên Gradle tự nâng lên
+    // 2.1.21, không cần exclude. (Exclude chỉ cần khi stdlib của lib MỚI HƠN compiler.)
+    implementation 'com.truongnt.fsd:fsdads:1.1.36'
+
+    // adjust-android là dependency RUNTIME-ONLY của fsdads (variant `api` chỉ khai kotlin-stdlib),
+    // nên không nhìn thấy được lúc biên dịch. Khai báo tường minh cùng version 5.7.0 để package
+    // `ads` gọi được Adjust.initSdk() khi có token. KHÔNG làm nặng thêm APK: fsdads vốn bundle sẵn
+    // Adjust ở runtime, đây thuần là để có mặt trên compileClasspath.
+    // LƯU Ý: thư viện này mang quyền com.google.android.gms.permission.AD_ID.
+    implementation 'com.adjust.sdk:adjust-android:5.7.0'
+
+}
+
+/*
+ * [BẮT BUỘC] Vá lỗi "cannot access ListenableFuture" khi biên dịch DailyNotiWorker.
+ *
+ * Cơ chế lỗi:
+ *   - DailyNotiWorker kế thừa androidx.work.Worker, mà ListenableWorker.getForegroundInfoAsync()
+ *     trả về com.google.common.util.concurrent.ListenableFuture -> javac phải nạp được class đó
+ *     mới dịch được lớp con.
+ *   - 2 thư viện ads ở trên (play-services-ads -> androidx.privacysandbox.ads:ads-adservices-java)
+ *     kéo com.google.guava:guava:31.1-android vào graph, nhưng CHỈ ở runtime (guava là dep
+ *     'implementation' của ads-adservices-java nên không expose ra compile).
+ *   - Guava lại ghim 'listenablefuture' lên bản 9999.0-empty-to-avoid-conflict-with-guava — một jar
+ *     RỖNG (0 class), tồn tại chỉ để nhường chỗ cho class thật nằm trong guava. Gradle chọn version
+ *     cao nhất nên bản rỗng thắng bản 1.0 -> compileClasspath không còn class nào cả.
+ *
+ * Cách vá: ép 'listenablefuture' về lại 1.0 — jar 1.0 chứa đúng một class là ListenableFuture.class
+ * (bản stub do chính androidx.work khai báo, đủ để javac dịch). KHÔNG thêm thư viện nào mới.
+ *
+ * CHỈ ép trên classpath BIÊN DỊCH, KHÔNG ép ở runtime: ở runtime guava đã cung cấp class thật rồi,
+ * ép ở runtime sẽ khiến APK có 2 bản ListenableFuture -> D8 báo "Type ... is defined multiple times".
+ *
+ * BẤT BIẾN: nếu sau này bỏ 2 dòng ads ở trên thì lỗi này tự hết (graph không còn guava) và có thể
+ * gỡ luôn khối này. Ngược lại, thêm class nào khác kế thừa Worker/ListenableWorker ở :app thì phải
+ * áp cách vá tương tự cho :app (compileClasspath của :app cũng đang bị đẩy lên bản rỗng).
+ */
+configurations.all { cfg ->
+    if (cfg.name.endsWith('CompileClasspath')) {
+        cfg.resolutionStrategy.force 'com.google.guava:listenablefuture:1.0'
+    }
 }

@@ -2,11 +2,10 @@ package com.truongnt.ios.search.entities;
 
 import androidx.cardview.widget.CardView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
-import com.truongnt.ios.ioslite.common.util.DisplayUtil;
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.search.config.MSCConfiguration;
 import com.truongnt.ios.search.provider.AdapterItemPresenter;
 import com.truongnt.ios.search.R;
@@ -20,7 +19,9 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
 
     public static final boolean TEST = true;
     public static final int SHOW_LEVEL = 1;
-    public View adView;
+
+    /** Vị trí quảng cáo cần hiển thị. Null = không có ad. */
+    public AdsSlot mSlot;
 
     /**
      * Each view should has a viewType to register int recycleView;
@@ -32,17 +33,14 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
         setShowLevel(SHOW_LEVEL);
     }
 
-    public AdCardItemInfo(View adView) {
+    public AdCardItemInfo(AdsSlot slot) {
         this();
-        this.adView = adView;
+        this.mSlot = slot;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        /*if(ad != null){
-            ad.destory();
-        }*/
     }
 
     @Override
@@ -55,10 +53,11 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
     private boolean tempBind(AdViewHolder viewHolder) {
         if (!TEST) return false;
         AdViewHolderTmp viewHolderTmp = (AdViewHolderTmp) viewHolder;
-        if (adView != null) {
-            viewHolderTmp.mAdLayout.removeAllViews();
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(DisplayUtil.getScreenWidthInPx(adView.getContext()), ViewGroup.LayoutParams.WRAP_CONTENT);
-            viewHolderTmp.mAdLayout.addView(adView, layoutParams);
+        // FSDAds tự đổ native vào container. CardView ở đây kế thừa FrameLayout nên dùng được.
+        // Chỉ đổ khi container còn trống — RecyclerView tái dùng view nên bind lại sẽ
+        // gọi tới đây lần nữa.
+        if (mSlot != null && viewHolderTmp.mAdLayout.getChildCount() == 0) {
+            AdsNative.show(viewHolderTmp.mAdLayout, mSlot, null);
         }
         return TEST;
     }

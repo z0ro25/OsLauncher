@@ -23,12 +23,14 @@ import com.ezla.oslauncher.beautylauncher.Features.general.screengrid.ScreenGrid
 import com.ezla.oslauncher.beautylauncher.Features.general.transitionpage.PageTransitionActivity
 import com.ezla.oslauncher.beautylauncher.Features.lang.LanguageSettingActivity
 import com.ezla.oslauncher.beautylauncher.R
+import com.ezla.oslauncher.beautylauncher.databinding.ActivityHomeBinding
 import com.ezla.oslauncher.beautylauncher.dialog.SetDefaultLauncherDialog
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.extensions.tap
 import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
-import com.ezla.oslauncher.beautylauncher.databinding.ActivityHomeBinding
+import com.truongnt.ios.ioslite.common.ads.AdsInterstitial
+import com.truongnt.ios.ioslite.common.ads.AdsSlot
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
 
@@ -97,24 +99,84 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // ===== 2 card đầu màn =====
         // Go to launcher: đã là default -> vào thẳng desktop + thoát app; chưa default -> xem trải
         // nghiệm bình thường (qua màn Hello) và nhắc lại dialog Set default ngay khi tới desktop.
-        binding.llGoToLauncher.tap { goToLauncher() }
+        binding.llGoToLauncher.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                goToLauncher()
+            }
+        }
         // Set as default launcher: bấm cả card hoặc nút "Set default" đều mở chọn launcher mặc định.
-        binding.llSetDefaultCard.tap { selectDefaultLauncher() }
-        binding.btnSetDefault.tap { selectDefaultLauncher() }
+        binding.llSetDefaultCard.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                selectDefaultLauncher()
+            }
+        }
+        binding.btnSetDefault.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                selectDefaultLauncher()
+            }
+        }
 
         // ===== Card chính (12 mục) =====
-        binding.llGeneral.tap { launchActivity<GeneralActivity>() }
-        binding.llChangeAppIcon.tap { launchActivity<ChangeAppIconActivity>() }
+        binding.llGeneral.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<GeneralActivity>()
+            }
+
+        }
+        binding.llChangeAppIcon.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<ChangeAppIconActivity>()
+            }
+
+        }
         binding.llHomescreenStyle.tap { /* TODO: chưa có màn Homescreen Style */ }
-        binding.llScreenGrid.tap { launchActivity<ScreenGridActivity>() }
-        binding.llHiddenApps.tap { launchActivity<HiddenAppActivity>() }
-        binding.llPageTransition.tap { launchActivity<PageTransitionActivity>() }
-        binding.llAppLibrary.tap { launchActivity<AppLibraryActivity>() }
-        binding.llChangeAppName.tap { launchActivity<ChangeAppNameActivity>() }
+        binding.llScreenGrid.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<ScreenGridActivity>()
+            }
+
+        }
+        binding.llHiddenApps.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<HiddenAppActivity>()
+            }
+
+        }
+        binding.llPageTransition.tap {
+
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<PageTransitionActivity>()
+            }
+
+        }
+        binding.llAppLibrary.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<AppLibraryActivity>()
+            }
+
+        }
+        binding.llChangeAppName.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<ChangeAppNameActivity>()
+            }
+
+        }
         binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
-        binding.llLanguage.tap { launchActivity<LanguageSettingActivity>() }
-        binding.llAppearance.tap { launchActivity<AppearanceActivity>() }
-        binding.llSelectDefault.tap { selectDefaultLauncher() }
+        binding.llLanguage.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<LanguageSettingActivity>()
+            }
+
+        }
+        binding.llAppearance.tap {
+            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
+                launchActivity<AppearanceActivity>()
+            }
+
+        }
+        binding.llSelectDefault.tap {
+            selectDefaultLauncher()
+        }
 
         // ===== App Function Settings =====
         binding.llLauncherAi.tap { /* TODO: chưa có màn Launcher AI */ }
@@ -222,7 +284,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         val subject = "${SharePrefUtils.subject}${getString(R.string.app_name)}"
         val body = buildString {
             append("\n\n---\n")
-            append("Model: ").append(Build.MANUFACTURER).append(' ').append(Build.MODEL).append('\n')
+            append("Model: ").append(Build.MANUFACTURER).append(' ').append(Build.MODEL)
+                .append('\n')
             append("Android: ").append(Build.VERSION.RELEASE)
                 .append(" (API ").append(Build.VERSION.SDK_INT).append(")\n")
             append("App version: ").append(readAppVersion())

@@ -18,8 +18,10 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.util.Util;
-import com.truongnt.ios.ioslite.common.ad.IOSAdConfig;
-import com.truongnt.ios.ioslite.common.ad.NativeAdCardView;
+import android.widget.FrameLayout;
+
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -70,7 +72,7 @@ public class OnlineThemeDetailActivity<W> extends BaseDetailActivity<ThemesBean,
     private RequestManager mGlide;
     private LinearLayout mGoToSourceDetail;
     private ScrollView mScroolView;
-    private NativeAdCardView mAdView;
+    private FrameLayout mAdView;
     private int mId;
 
     @Override
@@ -99,13 +101,14 @@ public class OnlineThemeDetailActivity<W> extends BaseDetailActivity<ThemesBean,
         mProgressBar = (ProgressBar) findViewById(R.id.progressbar_id);
         mGoToSourceDetail = (LinearLayout) findViewById(R.id.source_1);
         mScroolView = (ScrollView) findViewById(R.id.scroolView);
-        mAdView = (NativeAdCardView) findViewById(R.id.adview);
+        mAdView = (FrameLayout) findViewById(R.id.adview);
+        // Tải trước một lần ở đây; setupView() chỉ việc đổ vào container.
+        AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
     }
 
     @Override
     public void setupView(ThemesBean themesBean) {
-        mAdView.setAdvertiseId(IOSAdConfig.ID_THEME_DETAIL);
-        mAdView.loadAdvertise();
+        AdsNative.show(mAdView, AdsSlot.NATIVE_IN_APP, null);
     }
 
     @Override

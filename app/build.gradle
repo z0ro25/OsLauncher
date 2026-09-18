@@ -39,12 +39,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
 
     buildFeatures {
@@ -53,9 +53,6 @@ android {
         buildConfig = true
     }
 
-    kotlinOptions {
-        freeCompilerArgs = ["-Xallow-result-return-type"]
-    }
     bundle {
         language {
             enableSplit = false
@@ -89,7 +86,7 @@ android {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.1.21'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
@@ -155,6 +152,18 @@ dependencies {
     //ads
 //    implementation 'com.google.android.gms:play-services-ads:24.6.0'
 //    implementation 'com.truongnt.fsd:fsdads:1.1.36'
+
+    //billing — bản Java 'billing', KHÔNG dùng 'billing-ktx'.
+    //Lý do ban đầu: billing-ktx 8.0.0 mang metadata Kotlin 2.1.0, mà compiler của dự án khi đó
+    //(1.9.24) chỉ đọc được tối đa 2.0.0 -> "Module was compiled with an incompatible version of
+    //Kotlin". Bản Java thuần không chứa *.kotlin_module nào nên không vướng.
+    //LÝ DO NÀY NAY KHÔNG CÒN ĐÚNG: compiler đã lên 2.1.21 (xem build.gradle gốc, mục
+    //kotlin-gradle-plugin) nên billing-ktx cũng dùng được. Vẫn giữ bản Java vì chưa có lý do
+    //đổi — chuyển sang -ktx chỉ để có thêm extension suspend/Flow, mà dự án chưa dùng tới.
+    //Vẫn là Billing Library 8 -> đúng yêu cầu Google Play (từ 31/08/2026 bắt buộc >= 8).
+    implementation 'com.android.billingclient:billing:8.0.0'
+
+    implementation 'com.google.android.ump:user-messaging-platform:3.2.0'
 }
 
 preBuild {

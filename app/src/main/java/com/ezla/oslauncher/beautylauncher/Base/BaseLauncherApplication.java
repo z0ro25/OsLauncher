@@ -7,21 +7,34 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 
+import com.ezla.oslauncher.beautylauncher.BuildConfig;
+import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil;
+import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.truongnt.ios.ioslite.common.CommonSdk;
 import com.truongnt.ios.ioslite.common.LiteAction;
+import com.truongnt.ios.ioslite.common.ads.Ads;
+import com.truongnt.ios.ioslite.common.ads.AdsOpen;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
 import com.truongnt.ios.ioslite.common.debug.ExceptionHandler;
+import com.truongnt.ios.ioslite.common.noti.DailyNotiScheduler;
 import com.truongnt.ios.ioslite.common.util.ProcessUtil;
 import com.truongnt.ios.launcher.LauncherAppState;
 import com.truongnt.ios.themeclub.ThemeClubApplication;
-import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil;
 
 import java.util.Locale;
 
 public class BaseLauncherApplication extends Application {
     private static final String TAG = "BaseLauncherApplication";
     private static final String KEY_EX_CATCHER = "ios_ex_catcher";
+
+    // Key Remote Config cho notification hằng ngày — khai báo giá trị mặc định ở
+    // res/xml/remote_config_defaults.xml, đọc ở setupDailyNotification().
+    private static final String KEY_DAILY_NOTI_ENABLED = "daily_noti_enabled";
+    private static final String KEY_DAILY_NOTI_TIME = "daily_noti_time";
     protected Application mApplication;
     //private WeatherApplication mWeatherApplication;
 
@@ -68,7 +81,7 @@ public class BaseLauncherApplication extends Application {
             ThemeClubApplication.initalize(this);
 
             // 定位服务初始化
-           // IOSLocationManager.initalize(this);
+            // IOSLocationManager.initalize(this);
 
             //负一平初始化
 //            ThirdPartAdManager.initNewsSDKAndAd(this);
@@ -82,6 +95,9 @@ public class BaseLauncherApplication extends Application {
             // Khởi tạo môi trường quảng cáo (broadcast ACTION_LAUNCHER_LOAD_COMPLETE
             // đang tắt nên gọi thẳng ở đây thay vì chờ initalizeAfterLauncherLoadCompelte).
             setupAdEnvironment();
+
+            // Notification hằng ngày — mốc giờ lấy từ Remote Config.
+            setupDailyNotification();
 
             DebugUtil.debugLaunch(TAG, "main process init complete");
         }
@@ -107,7 +123,7 @@ public class BaseLauncherApplication extends Application {
         IntentFilter filter = new IntentFilter();
         //  桌面加载完成通知
         filter.addAction(LiteAction.ACTION_LAUNCHER_LOAD_COMPLETE);
-        registerReceiver(mReceiver, filter,RECEIVER_EXPORTED);
+        registerReceiver(mReceiver, filter, RECEIVER_EXPORTED);
     }
 
     private void unRegistReveiver() {
@@ -116,20 +132,58 @@ public class BaseLauncherApplication extends Application {
 
 
     /**
-     * 广告环境建立
+     * Khởi tạo hạ tầng quảng cáo.
+     *
+     * <p>Được gọi từ onCreate() của process chính, và cả từ initalizeAfterLauncherLoadCompelte().
+     * Ads.init() tự chặn lần gọi thứ hai nên gọi bao nhiêu lần cũng an toàn.
      */
     private void setupAdEnvironment() {
-        // Registry ad đã được khởi tạo ở CommonSdk.initalize() (cả 2 process).
-        // Đây là điểm gắn SDK ad thật sau này — chỉ cần tiêm 1 lớp con IOSAdManager
-        // (native + fullscreen) là mọi slot/điểm hiện có tự hoạt động:
-        //
-        //     IOSAdManager.setInstance(new AdMobAdManager(mApplication));
-        //     IOSAdManager.getInstance(mApplication).init();
-        //
-        // Có thể set thêm policy hiển thị:
-        //     IOSAdManager.getInstance(mApplication).setDiaplayHelper(adController);
-        //
-        // Hiện chưa có SDK -> giữ DefaultAdManager no-op, không hiển thị gì.
+        // Token Adjust — ĐIỀN VÀO ĐÂY khi có. Để rỗng thì Ads.init() bỏ qua luôn phần
+        // Adjust (chỉ log cảnh báo); hạ tầng quảng cáo vẫn chạy bình thường, chỉ mất
+        // phần revenue tracking qua Adjust.
+        final String adjustToken = "";
+
+        // isSubs/tier1 hiện để mặc định false vì dự án CHƯA có code billing nào (đã kiểm:
+        // không có BillingClient/queryPurchases ở đâu cả; billing:8.0.0 mới chỉ khai báo).
+        // Khi có IAP thật thì gọi Ads.setPremium(isSubs, isTier1) ở chỗ biết trạng thái mua.
+        Ads.init(this, adjustToken, BuildConfig.DEBUG, Ads.DEFAULT_INTER_DELAY_MS, new Runnable() {
+            @Override
+            public void run() {
+                // App-open KHÔNG có hàm show(): FSDAds tự đăng ký ActivityLifecycleCallbacks
+                // và tự hiện khi Activity được tạo. Xem AdsOpen.
+                AdsOpen.setup(mApplication, AdsSlot.APP_OPEN, null);
+            }
+        });
+    }
+
+
+    /**
+     * Đẩy cấu hình notification hằng ngày từ Remote Config xuống iOSLiteCommon.
+     *
+     * <p>Vì sao tách ở đây: iOSLiteCommon cố ý KHÔNG phụ thuộc Firebase (chỉ :app có
+     * firebase-config). Module common chỉ giữ phần hẹn giờ + bắn noti, còn đọc Remote Config
+     * thì :app đọc rồi đẩy xuống qua DailyNotiScheduler.applyRemoteConfig(). Nhờ vậy đổi mốc
+     * giờ trên console có hiệu lực ở lần mở app kế tiếp, không cần build lại.
+     *
+     * <p>Lưu ý: initRemoteConfig trước đây không được gọi ở đâu — Remote Config chưa từng được
+     * fetch. Đây là chỗ gọi đầu tiên, nên nó cũng là điểm duy nhất kích hoạt fetch.
+     */
+    private void setupDailyNotification() {
+        RemoteConfigUtils.INSTANCE.initRemoteConfig(new OnCompleteListener() {
+            @Override
+            public void onComplete(Task task) {
+                boolean enabled = false;
+                String time = null;
+                try {
+                    enabled = RemoteConfigUtils.INSTANCE.getRemoteConfigBoolean(mApplication,KEY_DAILY_NOTI_ENABLED);
+                    time = RemoteConfigUtils.INSTANCE.getRemoteConfigString(mApplication,KEY_DAILY_NOTI_TIME);
+                } catch (Exception e) {
+
+                    DebugUtil.debugLaunch(TAG, "đọc Remote Config notification lỗi: " + e.getMessage());
+                }
+                DailyNotiScheduler.applyRemoteConfig(enabled, time);
+            }
+        });
     }
 
 

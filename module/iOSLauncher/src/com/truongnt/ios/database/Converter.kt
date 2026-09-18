@@ -1,4 +1,4 @@
-package com.ezt.ios.database
+package com.truongnt.ios.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

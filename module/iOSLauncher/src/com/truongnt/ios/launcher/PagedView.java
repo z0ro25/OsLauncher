@@ -54,7 +54,7 @@ import com.truongnt.ios.launcher.config.Settings;
 import com.truongnt.ios.launcher.effect.ScrollEffect;
 import com.truongnt.ios.launcher.touch.OverScroll;
 import com.truongnt.ios.launcher.util.Thunk;
-import com.ezt.ios.utils.LauncherInteractor;
+import com.truongnt.ios.utils.LauncherInteractor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

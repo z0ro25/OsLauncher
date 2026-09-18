@@ -109,4 +109,17 @@
         <key>interstitial_from_start</key>
         <value>15</value>
     </entry>
+
+    <!-- Notification hằng ngày. Đọc ở BaseLauncherApplication.setupDailyNotification()
+         rồi đẩy xuống iOSLiteCommon qua DailyNotiScheduler.applyRemoteConfig().
+         daily_noti_time sai định dạng (ví dụ "8h" thiếu phút) sẽ tự rơi về 08:00. -->
+    <entry>
+        <key>daily_noti_enabled</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>daily_noti_time</key>
+        <value>08:00</value>
+    </entry>
 </defaultsMap>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.truongnt.ios.ioslite.common.ad.NativeAdCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Container native ad của ThemeClub. Được cả include vào 2 activity chi tiết lẫn
+     dùng làm item layout cho RecyclerView (xem ThemeNewestAdapter). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/adview"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:descendantFocusability="afterDescendants" />

@@ -12,7 +12,7 @@ import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.extensions.tap
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityPageTransitionBinding
 import com.truongnt.ios.launcher.PagedView.PageAnimationType
-import com.ezt.ios.utils.LauncherInteractor
+import com.truongnt.ios.utils.LauncherInteractor
 
 
 class PageTransitionActivity : BaseActivity<ActivityPageTransitionBinding>() {

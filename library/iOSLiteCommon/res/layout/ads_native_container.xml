@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Container cho native ad.
+
+  FSDAds tự đổ nội dung của nó vào FrameLayout này — xem AdsNative.show(container, slot, callback).
+  Thay cho NativeAdCardView + ad_native_view_container.xml của hạ tầng cũ.
+
+  Dùng trong layout màn hình:
+
+      <include layout="@layout/ads_native_container" />
+      hoặc khai báo trực tiếp một FrameLayout có id bất kỳ rồi truyền view đó vào AdsNative.
+
+  descendantFocusability="afterDescendants": giữ nguyên hành vi của container cũ — để view
+  con của quảng cáo nhận được click dù FrameLayout cha không focusable.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ads_native_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="afterDescendants" />

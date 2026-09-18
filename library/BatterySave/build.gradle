@@ -35,6 +35,10 @@ dependencies {
     implementation project(':library:iOSLiteCommon')
 
     // Room (Java) — migrate SQLite thủ công sang Room
-    implementation "androidx.room:room-runtime:2.6.1"
-    annotationProcessor "androidx.room:room-compiler:2.6.1"
+    // 2.6.1 -> 2.7.2: BẮT BUỘC khi compiler Kotlin là 2.1.x (xem build.gradle gốc).
+    // room-compiler 2.6.1 dùng kotlinx-metadata-jvm — thư viện chỉ đọc được metadata tới 2.0.0 —
+    // nên kapt báo "Provided Metadata instance has version 2.1.0, while maximum supported is
+    // 2.0.0". Từ 2.7.0 Room đã chuyển sang org.jetbrains.kotlin:kotlin-metadata-jvm.
+    implementation "androidx.room:room-runtime:2.7.2"
+    annotationProcessor "androidx.room:room-compiler:2.7.2"
 }

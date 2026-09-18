@@ -58,7 +58,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.ezt.ios.database.HiddenAppManager;
+import com.truongnt.ios.database.HiddenAppManager;
 import com.truongnt.ios.ioslite.common.Partner;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
 import com.truongnt.ios.ioslite.common.launcher.Insettable;

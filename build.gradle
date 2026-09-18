@@ -36,9 +36,14 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version"
-        // Kotlin 1.7.10 -> 1.9.24: AGP 8.6 yêu cầu Kotlin plugin >= 1.8; 1.9.24 là bản ổn định
-        // tương thích Gradle 8.7.
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24"
+        // Kotlin 1.9.24 -> 2.1.21: BẮT BUỘC, không phải nâng cho mới.
+        // play-services-ads:24.6.0 do Google build bằng Kotlin 2.1.0, nên các file
+        // META-INF/*.kotlin_module nằm BÊN TRONG AAR mang metadata 2.1.0. Compiler 1.9.24 chỉ đọc
+        // được tới 2.0.0 (JvmMetadataVersion.INSTANCE_NEXT = next(1.9.0) = [2,0,0]) nên báo
+        // "Module was compiled with an incompatible version of Kotlin".
+        // Ép kotlin-stdlib trên classpath KHÔNG vá được lỗi này: .kotlin_module nằm trong api.jar
+        // của play-services-ads, không phải một artifact trên classpath. Chỉ nâng compiler mới hết.
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21"
         classpath 'com.google.gms:google-services:4.4.2'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
     }
@@ -91,10 +96,29 @@ allprojects {
             dirs '../../libs'
         }
 
+        maven {
+            url = uri("https://maven.pkg.github.com/z0ro25/FSD-ADS")
+            credentials {
+                username = providers.gradleProperty("GITHUB_USERNAME").orElse("").get()
+                password = providers.gradleProperty("GITHUB_TOKEN").orElse("").get()
+            }
+        }
+
         // [GỠ] -Xbootclasspath/p: JDK 17 KHÔNG còn hỗ trợ cờ này (bỏ từ JDK 9, thay bằng
         //   --patch-module). Giữ lại sẽ làm javac lỗi ngay. Plugin PowerKey vốn đã bị comment ở
         //   app/build.gradle (compileOnly framework.jar) nên không có gì phụ thuộc cờ này.
     }
+
+    // [GỠ] Khối force kotlin-stdlib:1.9.24 trên compileClasspath.
+    //
+    // Khối đó chỉ tồn tại để compiler 1.9.24 không gặp metadata 2.1.0 của kotlin-stdlib mà
+    // play-services-ads kéo vào — đúng như phần "BẤT BIẾN" của chính nó đã ghi. Nay compiler
+    // là 2.1.21 (đọc được tới metadata 2.2.0) nên khối này không còn cần thiết; giữ lại thì
+    // nó lại ép NGƯỢC về stdlib cũ — sai hướng.
+    //
+    // Lưu ý: khối này chỉ vá được lỗi metadata của kotlin-stdlib. Lỗi "Module was compiled
+    // with an incompatible version of Kotlin" từ các file META-INF/*.kotlin_module nằm bên
+    // trong api.jar của play-services-ads thì nó KHÔNG chạm tới — chỉ nâng compiler mới hết.
 }
 
 tasks.register('clean', Delete) {

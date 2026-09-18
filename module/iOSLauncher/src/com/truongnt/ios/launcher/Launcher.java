@@ -83,7 +83,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.ezt.ios.blurkit.BlurKit;
-import com.ezt.ios.database.HiddenAppManager;
+import com.truongnt.ios.database.HiddenAppManager;
 import com.ezt.ios.gpuimage.GausianBlur;
 import com.truongnt.ios.ioslite.common.ContextHelper;
 import com.truongnt.ios.ioslite.common.LiteAction;

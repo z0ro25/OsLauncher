@@ -1,4 +1,4 @@
-package com.ezt.ios.database
+package com.truongnt.ios.database
 
 import android.content.Context
 import androidx.room.Database

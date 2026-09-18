@@ -35,9 +35,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    kotlinOptions {
-        freeCompilerArgs = ["-Xallow-result-return-type"]
-    }
 
     sourceSets {
         main {
@@ -79,7 +76,7 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.1.21'
     implementation 'androidx.core:core-ktx:1.9.0'
 
 //    implementation libs['support-v4']
@@ -103,8 +100,11 @@ dependencies {
     implementation project(':library:iosdialogs4android')
 
     //Room
-    implementation "androidx.room:room-runtime:2.6.1"
-    kapt  "androidx.room:room-compiler:2.6.1"
+    // 2.6.1 -> 2.7.2: BẮT BUỘC khi compiler Kotlin là 2.1.x (xem build.gradle gốc).
+    // room-compiler 2.6.1 dùng kotlinx-metadata-jvm — chỉ đọc được metadata tới 2.0.0 — nên kapt
+    // báo "Provided Metadata instance has version 2.1.0". Từ 2.7.0 Room dùng kotlin-metadata-jvm.
+    implementation "androidx.room:room-runtime:2.7.2"
+    kapt "androidx.room:room-compiler:2.7.2"
 
     //play core
     implementation 'com.google.android.play:review:2.0.1'

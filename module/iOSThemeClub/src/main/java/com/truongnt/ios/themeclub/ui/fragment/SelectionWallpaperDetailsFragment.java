@@ -36,8 +36,10 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Util;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.truongnt.ios.ioslite.common.ad.IOSAdConfig;
-import com.truongnt.ios.ioslite.common.ad.NativeAdCardView;
+import android.widget.FrameLayout;
+
+import com.truongnt.ios.ioslite.common.ads.AdsNative;
+import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -193,9 +195,11 @@ public class SelectionWallpaperDetailsFragment extends Fragment implements View.
 //    };
 
     protected void fragmentLoadData(View v) {
-        NativeAdCardView adView = (NativeAdCardView) v.findViewById(R.id.adview);
-        adView.setAdvertiseId(IOSAdConfig.ID_WALLPAPER_DETAIL);
-        adView.loadAdvertise();
+        FrameLayout adView = (FrameLayout) v.findViewById(R.id.adview);
+        if (getActivity() != null) {
+            AdsNative.preload(getActivity(), AdsSlot.NATIVE_IN_APP, null);
+        }
+        AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
         Log.e(TAG, "load data---------------" + mWallpaper.toString());
         filePath = mWallpaperPresenter.getWallpaperPath();
         downloadUrl = mWallpaper.getSourceLogoUrl();

@@ -138,4 +138,16 @@ public class SharePrefUtils {
         SharedPreferences pre = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         return pre.getLong(key, 0L);
     }
+
+    public static void putFloat(Context context, String key, Float defaultValue) {
+        SharedPreferences pre = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pre.edit();
+        editor.putFloat(key, defaultValue);
+        editor.commit();
+    }
+
+    public static Float getFloat(Context context, String key, Float defaultValue) {
+        SharedPreferences pre = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        return pre.getFloat(key, defaultValue);
+    }
 }

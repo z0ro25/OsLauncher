@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.truongnt.ios.ioslite.common.ad.NativeAdCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Ô native ad trong App Library. FSDAds tự đổ nội dung vào FrameLayout này. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal" />
+    android:descendantFocusability="afterDescendants" />

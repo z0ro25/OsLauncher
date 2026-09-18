@@ -1,4 +1,4 @@
-package com.ezt.ios.utils
+package com.truongnt.ios.utils
 
 import com.truongnt.ios.launcher.PagedView.PageAnimationType
 

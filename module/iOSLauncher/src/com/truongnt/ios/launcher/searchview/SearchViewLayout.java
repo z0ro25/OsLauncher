@@ -43,7 +43,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ezt.ios.database.HiddenAppManager;
+import com.truongnt.ios.database.HiddenAppManager;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.ExtendedEditText;
