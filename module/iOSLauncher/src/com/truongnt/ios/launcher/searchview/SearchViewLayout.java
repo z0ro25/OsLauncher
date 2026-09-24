@@ -49,6 +49,7 @@ import com.truongnt.ios.ioslite.common.ads.AdsError;
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.ExtendedEditText;
@@ -98,8 +99,16 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     // Khung KẾT QUẢ app khớp + list GỢI Ý DỌC (khi đang gõ).
     View mResultAppBox;                      // wrapper "Kết quả" (title + list)
     FrameLayout mNativeAdContainer;          // quảng cáo native ngay dưới lưới gợi ý
-    boolean mNativeAdRequested;              // đã gọi AdsNative.show lần nào chưa
+    boolean mNativeAdRequested;              // đã phát request ad cho lần vào màn này chưa
     boolean mNativeAdLoaded;                 // FSDAds đã đổ được ad vào ô chưa
+    /**
+     * Request ad thất bại -> ô quảng cáo phải ẩn hẳn cho tới lần vào màn sau.
+     *
+     * <p>Cần cờ riêng (không dùng {@code !mNativeAdLoaded}) vì lúc ĐANG CHỜ ad — kể cả 1 giây giữ
+     * skeleton của AdsNative — {@code mNativeAdLoaded} vẫn false nhưng ô quảng cáo PHẢI hiện, nếu
+     * không skeleton bị ẩn đi rồi hiện lại = nháy.
+     */
+    boolean mNativeAdFailed;
     boolean mLastHasText;                    // ô nhập có chữ ở lần updateSectionsVisibility gần nhất
     RecyclerView mResultAppList;             // list kết quả app khớp (dọc)
     RecyclerView mSuggestionVerticalList;    // list gợi ý dọc
@@ -622,7 +631,9 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
 
         // Tải trước native cho màn search. FSDAds giữ ad theo alias nên gọi sớm để lúc lưới
         // gợi ý hiện là có sẵn; AdsNative.preload tự chặn gọi trùng nên không tốn thêm request.
-        if (mLauncher != null) {
+        // Remote Config tắt native màn search -> không phát request nào.
+        if (mLauncher != null
+                && RemoteConfigs.isAdsEnabled(mLauncher, RemoteConfigs.NATIVE_APP_SEARCH)) {
             AdsNative.preload(mLauncher, AdsSlot.NATIVE_IN_APP, null);
         }
     }
@@ -909,14 +920,31 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     /**
      * Đổ quảng cáo native vào ô ngay dưới lưới gợi ý.
      *
-     * <p>Chỉ gọi {@code AdsNative.show} MỘT lần cho mỗi vòng đời view: FSDAds không có API
-     * "kiểm tra đã đổ chưa", mà hàm này lại nằm trong {@code updateSectionsVisibility} — chỗ
-     * chạy mỗi lần nội dung ô nhập đổi. Không chặn sẽ ném request liên tục mỗi lần gõ phím.
+     * <p>Chỉ gọi {@code AdsNative.show} MỘT lần cho MỘT lần vào màn: hàm này nằm trong
+     * {@code updateSectionsVisibility} — chỗ chạy mỗi lần nội dung ô nhập đổi — nên không chặn
+     * sẽ ném request liên tục mỗi lần gõ phím. {@code mNativeAdRequested} được hạ ở
+     * {@link #startOpen()} để lần vào màn sau ad được tải mới.
+     *
+     * <p>Skeleton trong lúc chờ + 1 giây giữ skeleton sau khi ad xong do {@code AdsNative} lo
+     * (đường tự populate, xem {@code AdsNative.pourOwnLayout}).
      */
     private void showNativeAd() {
+        // Remote Config tắt native màn search -> giấu ô quảng cáo, KHÔNG phát request.
+        // Kiểm tra ở đây (chứ không chỉ ở updateSectionsVisibility) để mọi đường vào hàm này
+        // đều bị chặn như nhau.
+        if (!RemoteConfigs.isAdsEnabled(
+                mNativeAdContainer.getContext(),
+                RemoteConfigs.NATIVE_APP_SEARCH)) {
+            mNativeAdContainer.setVisibility(View.GONE);
+            return;
+        }
         if (!mNativeAdRequested) {
             mNativeAdRequested = true;
-            AdsNative.show(mNativeAdContainer, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
+            mNativeAdFailed = false;
+            // Bật ô lên NGAY: AdsNative đã đổ skeleton vào trong đó, ẩn đi thì không thấy hiệu
+            // ứng chờ. Ô này chỉ nằm ở trạng thái "chưa gõ" nên bật ở đây là an toàn.
+            mNativeAdContainer.setVisibility(View.VISIBLE);
+            AdsNative.show(mNativeAdContainer, AdsSlot.NATIVE_IN_APP,com.truongnt.ios.ioslite.common.R.layout.layout_native_search ,new AdsNativeCallback() {
                 @Override
                 public void onLoaded() {
                     mNativeAdLoaded = true;
@@ -928,15 +956,16 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
                 @Override
                 public void onLoadFailed(AdsError error) {
                     // Không có ad -> giấu hẳn, không chừa khoảng trống giữa gợi ý và phần dưới.
+                    mNativeAdFailed = true;
                     mNativeAdContainer.setVisibility(View.GONE);
                 }
             });
             return;
         }
-        // Đã đổ ad từ trước: hàm này chạy lại mỗi lần nội dung ô nhập đổi, mà lúc đó vừa bị
-        // ẩn đi (đang gõ) — phải tự bật lại theo trạng thái ad, không thì xoá chữ xong quảng
-        // cáo biến mất luôn dù ad vẫn còn.
-        mNativeAdContainer.setVisibility(mNativeAdLoaded ? View.VISIBLE : View.GONE);
+        // Đã phát request: hàm này chạy lại mỗi lần nội dung ô nhập đổi, mà lúc đó vừa bị ẩn đi
+        // (đang gõ) — phải tự bật lại, không thì xoá chữ xong quảng cáo biến mất luôn dù ad vẫn còn.
+        // Chỉ ẩn khi request THẤT BẠI; đang chờ (kể cả 1s giữ skeleton) thì phải hiện.
+        mNativeAdContainer.setVisibility(mNativeAdFailed ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -1082,6 +1111,15 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
             mActionShowMore.setText(mLauncher.getString(R.string.search_show_more));
         }
         mHasResult = false;
+        // Vào (lại) màn search -> cho ô quảng cáo native tải MỚI đúng MỘT lần cho lần vào này.
+        // Không reset thì mNativeAdRequested chặn vĩnh viễn: ad chỉ tải một lần cho cả vòng đời
+        // view, lần vào sau vẫn dùng lại ad cũ (hoặc trắng nếu lần đầu thất bại).
+        //
+        // KHÔNG reset mNativeAdLoaded: ad cũ còn nằm trong container thì giữ nguyên hiển thị cho
+        // tới khi ad mới được đổ vào (AdsNative tự removeAllViews trước khi đổ) — nhờ vậy không có
+        // quãng trống giữa lúc vào màn và lúc ad mới về.
+        mNativeAdRequested = false;
+        mNativeAdFailed = false;
         refreshHistory();
         updateSectionsVisibility(false); // về trạng thái "chưa gõ": lưới hiện, kết quả/dọc ẩn
         enterSearchSoftInputMode();

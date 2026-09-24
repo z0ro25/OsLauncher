@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification hằng ngày (package com.truongnt.ios.ioslite.common.noti). -->
+    <string name="daily_noti_channel_name">Dicas diárias</string>
+    <string name="daily_noti_action">Explorar agora</string>
+    <string name="daily_noti_slot1_title">Transforme seu celular em 3 segundos! ✨</string>
+    <string name="daily_noti_slot1_text">Curta uma interface supersuave com ícones e temas exclusivos do MiSO Launcher. Explore agora!</string>
+    <string name="daily_noti_slot2_title">Libere toda a experiência VIP! 👑</string>
+    <string name="daily_noti_slot2_text">Sem anúncios e sem limite de temas premium. Mude para o MiSO Pro hoje e tenha a experiência mais fluida!</string>
+</resources>

@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.search.config.MSCConfiguration;
 import com.truongnt.ios.search.provider.AdapterItemPresenter;
 import com.truongnt.ios.search.R;
@@ -56,7 +57,12 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
         // FSDAds tự đổ native vào container. CardView ở đây kế thừa FrameLayout nên dùng được.
         // Chỉ đổ khi container còn trống — RecyclerView tái dùng view nên bind lại sẽ
         // gọi tới đây lần nữa.
-        if (mSlot != null && viewHolderTmp.mAdLayout.getChildCount() == 0) {
+        // Remote Config tắt native màn search -> không đổ ad (card rỗng đã bị UiHandler bỏ
+        // từ trước vì DataFlowProvider không trả về AdCardItemInfo nào).
+        if (mSlot != null
+                && viewHolderTmp.mAdLayout.getChildCount() == 0
+                && RemoteConfigs.isAdsEnabled(
+                        viewHolderTmp.mAdLayout.getContext(), RemoteConfigs.NATIVE_APP_SEARCH)) {
             AdsNative.show(viewHolderTmp.mAdLayout, mSlot, null);
         }
         return TEST;

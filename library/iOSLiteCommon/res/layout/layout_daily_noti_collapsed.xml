@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Thân notification khi THU GỌN. Không khai tên app / thời gian ở đây: từ API 24 hệ thống luôn
+  tự vẽ header đè lên trên, khai thêm sẽ bị lặp.
+  RemoteViews chỉ nhận vài view cơ bản — KHÔNG dùng được ConstraintLayout/ShapeableImageView,
+  nên ảnh bo góc phải bo sẵn trong bitmap (xem DailyNotiBuilder.roundedIcon).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="4dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+
+    <ImageView
+        android:id="@+id/ivDailyNotiIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- TextAppearance.Compat.Notification.* (androidx.core) tự chọn màu chữ theo nền noti
+             sáng/tối; hardcode màu hoặc ?android:attr sẽ mất chữ trên một số OEM. -->
+        <TextView
+            android:id="@+id/tvDailyNotiTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Compat.Notification.Title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDailyNotiText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Compat.Notification" />
+    </LinearLayout>
+</LinearLayout>

@@ -36,6 +36,7 @@ class ChangeAppIconActivity : BaseActivity<ActivityChangeAppIconBinding>() {
     override fun onResume() {
         super.onResume()
         if (loadedOnce) viewModel.loadInstalledApps() else loadedOnce = true
+        showBannerIfEnabled()
     }
 
     override fun viewListener() {

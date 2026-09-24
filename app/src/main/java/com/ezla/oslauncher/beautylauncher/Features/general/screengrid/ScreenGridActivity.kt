@@ -26,6 +26,11 @@ class ScreenGridActivity : BaseActivity<ActivityScreenGridBinding>() {
     override val setViewBinding: ActivityScreenGridBinding
         get() = ActivityScreenGridBinding.inflate(layoutInflater)
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         onBackPressedDispatcher.addCallback {
             finish()

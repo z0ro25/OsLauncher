@@ -19,12 +19,16 @@
     <string name="discovery_cancel">cancel</string>
 
     <!-- Notification hằng ngày (xem package com.truongnt.ios.ioslite.common.noti).
-         TEXT TẠM — chờ nội dung thật từ người dùng.
-         Theo phương án đã chốt: mới chỉ đặt bản tiếng Anh; khi có nội dung thật mới dịch đủ
-         bộ ngôn ngữ của app (values-de/es/fr/hi/ko/pt/in) để khỏi dịch hai lượt. -->
-    <string name="daily_noti_channel_name">Daily reminder</string>
-    <string name="daily_noti_slot1_title">Daily reminder</string>
-    <string name="daily_noti_slot1_text">Placeholder 1 — replace with the final copy.</string>
-    <string name="daily_noti_slot2_title">Daily reminder</string>
-    <string name="daily_noti_slot2_text">Placeholder 2 — replace with the final copy.</string>
+         Bản dịch nằm ở values-de/es/fr/hi/in/ko/pt CỦA LIBRARY này, không phải của :app —
+         DailyNotiBuilder đọc R của iOSLiteCommon. Thêm string mới phải dịch đủ 7 thư mục đó. -->
+    <string name="daily_noti_channel_name">Daily tips</string>
+    <string name="daily_noti_action">Explore now</string>
+    <string name="daily_noti_slot1_title">Transform your phone in 3 seconds! ✨</string>
+    <string name="daily_noti_slot1_text">Enjoy an ultra-smooth interface with exclusive icons &amp; themes from MiSO Launcher. Explore now!</string>
+    <string name="daily_noti_slot2_title">Unlock the full VIP experience! 👑</string>
+    <string name="daily_noti_slot2_text">No ads, no limits on premium themes. Upgrade to MiSO Pro today for the smoothest experience!</string>
+
+    <!-- Nút X đóng dialog native full của cặp inter + native (InterNativeFull).
+         Chuỗi này chỉ dùng làm contentDescription cho trình đọc màn hình — không hiện chữ. -->
+    <string name="ads_native_full_close">Close</string>
 </resources>

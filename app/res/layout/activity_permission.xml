@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Màn xin quyền (Permission) dựng lại theo Figma: light 182-5979 / dark 126-4194.
-  Bố cục: illustration team-building + tiêu đề "Permission Required" + mô tả + card 2 dòng quyền
-  (External Storage / Notification, mỗi dòng 1 switch iOS) + nút "Complete" bo tròn xanh dưới cùng.
-
-  Scope no side-effects: token 2-theme onb_* (bg/text/card/divider/accent) + resource RIÊNG perm_*
-  (card_bg / btn_complete / sw_track / sw_thumb) + illustration RIÊNG perm_illustration
-  (light drawable-xxxhdpi, dark drawable-night-xxxhdpi). KHÔNG mượn general_sw_* hay bg dùng chung.
--->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -20,7 +11,7 @@
         android:id="@+id/iv_illustration"
         android:layout_width="247dp"
         android:layout_height="228dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="@null"
         android:src="@drawable/perm_illustration"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +96,7 @@
 
         <!-- Dòng Notification -->
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center_vertical"
@@ -133,19 +124,30 @@
     <!-- ===== Nút Complete (bo tròn xanh, full-width) ===== -->
     <TextView
         android:id="@+id/btn_complete"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/perm_btn_complete"
         android:fontFamily="@font/sf_pro_display_medium"
         android:gravity="center"
-        android:paddingVertical="13dp"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/complete"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/color.007AFF"
         android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_permissions" />
+
+    <FrameLayout
+        android:id="@+id/fr_native"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_c16_fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include layout="@layout/fsd_ads_shimmer_small"/>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

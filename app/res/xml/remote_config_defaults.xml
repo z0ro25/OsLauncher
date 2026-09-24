@@ -1,106 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
     <entry>
-        <key>All_ads</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>banner_splash</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>open_splash</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>inter_splash</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>open_resume</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>banner_all</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_language</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_intro</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_intro_full</key>
-        <value>false</value>
-    </entry>
-
-    <entry>
-        <key>inter_intro</key>
-        <value>false</value>
-    </entry>
-
-    <entry>
-        <key>native_hello</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>inter_home</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>collapse_banner</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_home</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_general</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_current</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_wallpaper</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>inter_save</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>native_library</key>
-        <value>true</value>
-    </entry>
-
-    <entry>
-        <key>rate_aoa_inter_splash</key>
-        <value>30_70</value>
-    </entry>
-
-    <entry>
         <key>interval_between_interstitial</key>
         <value>20</value>
     </entry>
@@ -121,5 +21,147 @@
     <entry>
         <key>daily_noti_time</key>
         <value>08:00</value>
+    </entry>
+
+    <!-- ==================================================================================
+         Bộ key MỚI — tên khai trong RemoteConfigs (iOSLiteCommon), lưu ở SplashActivity rồi
+         mọi module đọc lại qua RemoteConfigs.get*().
+
+         Vì sao phải có default ở đây: Firebase trả `false` cho key KHÔNG tồn tại (chưa tạo
+         trên console, hoặc máy offline ở lần chạy đầu). Thiếu default thì mọi cờ dưới đây bị
+         save thành `false` và quảng cáo tắt hết dù console không hề tắt.
+
+         Mặc định chọn `true` cho toàn bộ cờ — theo đúng tiền lệ của bộ key cũ phía trên
+         (All_ads, banner_all, native_*, inter_splash… đều `true`). Muốn cờ nào mặc định tắt
+         thì sửa giá trị ngay tại đây.
+
+         Bộ key CŨ phía trên vẫn giữ nguyên, không xoá — khi nào chắc chắn không còn nơi nào
+         đọc thì dọn sau.
+         ================================================================================== -->
+
+    <entry>
+        <key>ads_enable</key>
+        <value>true</value>
+    </entry>
+
+    <!-- Interstitial -->
+    <entry>
+        <key>Inter_Splash</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Inter_InApp</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Inter_Open_App</key>
+        <value>true</value>
+    </entry>
+
+    <!-- Native -->
+    <entry>
+        <key>Native_Lang1</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Lang2</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Onb1</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Onb2</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Onb3</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Onb4</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Onb_Full</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_CLP</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Permission</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_AppLibrary</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_AppSearch</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_LeftPage</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_Dialog_Full</key>
+        <value>true</value>
+    </entry>
+
+    <!-- Reward -->
+    <entry>
+        <key>Reward_Inapp</key>
+        <value>true</value>
+    </entry>
+
+    <!-- Banner -->
+    <entry>
+        <key>Banner_Clp</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Banner_InApp</key>
+        <value>true</value>
+    </entry>
+
+    <!-- App-open khi quay lại app -->
+    <entry>
+        <key>RESUME</key>
+        <value>true</value>
+    </entry>
+
+    <!-- Native ở 3 màn ThemeClub (theme detail, wallpaper detail, selection wallpaper) -->
+    <entry>
+        <key>Native_ThemeClub</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Inter_Native_full</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>Native_In_App</key>
+        <value>true</value>
     </entry>
 </defaultsMap>

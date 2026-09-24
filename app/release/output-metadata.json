@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.ezla.oslauncher.beautylauncher",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 101,
+      "versionName": "1.0.1",
+      "outputFile": "MiOS_Launcher_26_v1.0.1_09.15.2026-release.apk"
+    }
+  ],
+  "elementType": "File",
+  "baselineProfiles": [
+    {
+      "minApi": 28,
+      "maxApi": 30,
+      "baselineProfiles": [
+        "baselineProfiles/1/MiOS_Launcher_26_v1.0.1_09.15.2026-release.dm"
+      ]
+    },
+    {
+      "minApi": 31,
+      "maxApi": 2147483647,
+      "baselineProfiles": [
+        "baselineProfiles/0/MiOS_Launcher_26_v1.0.1_09.15.2026-release.dm"
+      ]
+    }
+  ],
+  "minSdkVersionForDexing": 26
+}

@@ -36,6 +36,11 @@ class ChangeIconDetailActivity : BaseActivity<ActivityChangeIconDetailBinding>()
             if (uri != null) applyGalleryIcon(uri)
         }
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         component = intent.getStringExtra(EXTRA_COMPONENT).orEmpty()
         packageName = intent.getStringExtra(EXTRA_PACKAGE).orEmpty()

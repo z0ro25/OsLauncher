@@ -8,6 +8,7 @@ import androidx.work.WorkManager;
 
 import com.truongnt.ios.ioslite.common.CommonSdk;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
+import com.truongnt.ios.ioslite.common.util.PreferencesUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,16 +26,23 @@ import java.util.concurrent.TimeUnit;
  *
  * <p>WorkManager tự lưu work vào DB nội bộ nên work sống qua reboot: máy khởi động lại thì
  * JobScheduler chạy lại work đã hẹn, không cần RECEIVE_BOOT_COMPLETED.
+ *
+ * <p>Bất biến quan trọng nhất: chuỗi hằng ngày nối bằng HAI tên work luân phiên — xem
+ * {@link #WORK_NAMES}. Gộp về một tên là chuỗi đứt sau lần bắn đầu tiên.
  */
 public final class DailyNotiScheduler {
 
     private static final String TAG = "DailyNoti";
 
     /**
-     * Tên work duy nhất — dùng kèm {@link ExistingWorkPolicy#REPLACE} để mỗi lần đổi mốc giờ
-     * chỉ còn ĐÚNG MỘT work đang chờ, không tích tụ work cũ bắn sai giờ.
+     * HAI tên work dùng LUÂN PHIÊN, không phải một. Lý do: {@link ExistingWorkPolicy#REPLACE}
+     * cancel + xoá mọi work cùng tên KỂ CẢ work đang RUNNING — worker mà hẹn ngày mai bằng chính
+     * tên nó đang chạy thì tự huỷ mình, chuỗi đứt ngay sau lần bắn đầu tiên.
      */
-    private static final String UNIQUE_WORK_NAME = "daily_noti_work";
+    private static final String[] WORK_NAMES = {"daily_noti_work", "daily_noti_work_b"};
+
+    /** Tên work đang chờ; lưu để worker biết phải hẹn ngày mai bằng tên CÒN LẠI. */
+    private static final String KEY_ACTIVE_SLOT = "daily_noti_work_slot";
 
     private DailyNotiScheduler() {
     }
@@ -70,7 +78,7 @@ public final class DailyNotiScheduler {
             // Lần đầu hẹn (vừa cài / vừa bật): hẹn thẳng mốc KẾ TIẾP, không bắn bù cho hôm nay.
             // Nếu không chặn ở đây thì ai cài app lúc 3h chiều sẽ ăn noti ngay lập tức.
             DailyNotiStore.setEverScheduled(context);
-            enqueueAt(context, DailyNotiStore.nextTriggerAt(hm[0], hm[1], now), now);
+            enqueueAt(context, DailyNotiStore.nextTriggerAt(hm[0], hm[1], now), now, false);
             return;
         }
 
@@ -83,7 +91,7 @@ public final class DailyNotiScheduler {
         if (missedToday) {
             DebugLog.d(TAG, "lỡ mốc hôm nay, bắn bù ngay");
         }
-        enqueueAt(context, targetAt, now);
+        enqueueAt(context, targetAt, now, false);
     }
 
     /** Huỷ work đang chờ — dùng khi Remote Config tắt tính năng. */
@@ -96,7 +104,11 @@ public final class DailyNotiScheduler {
     }
 
     private static void cancel(Context context) {
-        WorkManager.getInstance(context).cancelUniqueWork(UNIQUE_WORK_NAME);
+        // Huỷ cả hai tên: không biết chắc tên nào đang giữ work chờ.
+        WorkManager manager = WorkManager.getInstance(context);
+        for (String name : WORK_NAMES) {
+            manager.cancelUniqueWork(name);
+        }
     }
 
     /**
@@ -106,17 +118,32 @@ public final class DailyNotiScheduler {
     static void enqueueNextDay(Context context) {
         int[] hm = DailyNotiStore.parseTime(context);
         long now = System.currentTimeMillis();
-        enqueueAt(context, DailyNotiStore.nextTriggerAt(hm[0], hm[1], now), now);
+        enqueueAt(context, DailyNotiStore.nextTriggerAt(hm[0], hm[1], now), now, true);
     }
 
-    private static void enqueueAt(Context context, long targetAt, long now) {
+    /**
+     * @param fromWorker gọi từ trong {@link DailyNotiWorker} hay không. Quyết định có được dọn
+     *                   work ở slot cũ không: lúc worker chạy, slot cũ CHÍNH LÀ work chứa nó,
+     *                   dọn đi là tự huỷ mình giữa chừng.
+     */
+    private static void enqueueAt(Context context, long targetAt, long now, boolean fromWorker) {
         long delay = Math.max(0L, targetAt - now);
         OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(DailyNotiWorker.class)
                 .setInitialDelay(delay, TimeUnit.MILLISECONDS)
                 .addTag(TAG)
                 .build();
-        WorkManager.getInstance(context)
-                .enqueueUniqueWork(UNIQUE_WORK_NAME, ExistingWorkPolicy.REPLACE, request);
-        DebugLog.d(TAG, "đã hẹn work sau " + (delay / 1000) + "s");
+
+        int activeSlot = PreferencesUtil.getInt(context, KEY_ACTIVE_SLOT, 1);
+        int nextSlot = 1 - activeSlot;
+        PreferencesUtil.putInt(context, KEY_ACTIVE_SLOT, nextSlot);
+
+        WorkManager manager = WorkManager.getInstance(context);
+        if (!fromWorker) {
+            // Gọi từ app: slot cũ có thể còn work CHỜ từ lần mở trước. Không dọn thì mỗi lần mở
+            // app lại thêm một work, hôm sau chúng nối tiếp nhau nhân đôi vô hạn.
+            manager.cancelUniqueWork(WORK_NAMES[activeSlot]);
+        }
+        manager.enqueueUniqueWork(WORK_NAMES[nextSlot], ExistingWorkPolicy.REPLACE, request);
+        DebugLog.d(TAG, "đã hẹn work \"" + WORK_NAMES[nextSlot] + "\" sau " + (delay / 1000) + "s");
     }
 }

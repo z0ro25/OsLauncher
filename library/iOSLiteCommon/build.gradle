@@ -48,6 +48,8 @@ android {
 
 dependencies {
     api files('libs/launcher_client.jar')
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
 
     // Room (Java) — migrate SQLite thủ công sang Room
     // 2.6.1 -> 2.7.2: BẮT BUỘC khi compiler Kotlin là 2.1.x (xem build.gradle gốc).
@@ -77,7 +79,7 @@ dependencies {
 
     //ads
     implementation 'com.google.android.gms:play-services-ads:24.6.0'
-
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     // fsdads khai kotlin-stdlib 2.0.21 — thấp hơn 2.1.21 của project nên Gradle tự nâng lên
     // 2.1.21, không cần exclude. (Exclude chỉ cần khi stdlib của lib MỚI HƠN compiler.)
     implementation 'com.truongnt.fsd:fsdads:1.1.36'

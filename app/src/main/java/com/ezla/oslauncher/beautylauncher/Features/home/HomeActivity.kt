@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.appearance.AppearanceActivity
 import com.ezla.oslauncher.beautylauncher.Features.general.GeneralActivity
@@ -22,15 +24,21 @@ import com.ezla.oslauncher.beautylauncher.Features.general.renameapp.ChangeAppNa
 import com.ezla.oslauncher.beautylauncher.Features.general.screengrid.ScreenGridActivity
 import com.ezla.oslauncher.beautylauncher.Features.general.transitionpage.PageTransitionActivity
 import com.ezla.oslauncher.beautylauncher.Features.lang.LanguageSettingActivity
+import com.ezla.oslauncher.beautylauncher.Features.subs.SubsAct
 import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityHomeBinding
 import com.ezla.oslauncher.beautylauncher.dialog.SetDefaultLauncherDialog
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.extensions.tap
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
+import com.truongnt.ios.ioslite.common.ads.Ads
+import com.truongnt.ios.ioslite.common.ads.AdsError
 import com.truongnt.ios.ioslite.common.ads.AdsInterstitial
+import com.truongnt.ios.ioslite.common.ads.AdsNative
+import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback
 import com.truongnt.ios.ioslite.common.ads.AdsSlot
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
 
@@ -50,6 +58,42 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         applyDefaultLauncherState()
 
         maybeShowSetDefaultDialog()
+
+        binding.apply {
+            tvPro.isVisible = Ads.isPremium()
+            tvPro.setTypeface(
+                ResourcesCompat.getFont(
+                    this@HomeActivity,
+                    if (Ads.isPremium()) R.font.sf_pro_display_bold_italic else R.font.sf_pro_display_bold
+                )
+            )
+
+            ivPro.isVisible = !Ads.isPremium()
+            llSubs.isVisible = !Ads.isPremium()
+        }
+
+        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_INAPP)) {
+            AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, object : AdsNativeCallback() {
+                override fun onLoaded() {
+                    super.onLoaded()
+                    AdsNative.show(
+                        binding.frNativeHome,
+                        AdsSlot.NATIVE_IN_APP,
+                        com.truongnt.ios.ioslite.common.R.layout.layout_native_large,
+                        object : AdsNativeCallback() {
+
+                        })
+                }
+
+
+                override fun onLoadFailed(error: AdsError) {
+                    super.onLoadFailed(error)
+                    binding.frNativeHome.isVisible = false
+                }
+            })
+        } else {
+            binding.frNativeHome.isVisible = false
+        }
     }
 
     override fun onResume() {
@@ -100,84 +144,57 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // Go to launcher: đã là default -> vào thẳng desktop + thoát app; chưa default -> xem trải
         // nghiệm bình thường (qua màn Hello) và nhắc lại dialog Set default ngay khi tới desktop.
         binding.llGoToLauncher.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                goToLauncher()
-            }
+            tapWithInterInApp { goToLauncher() }
         }
         // Set as default launcher: bấm cả card hoặc nút "Set default" đều mở chọn launcher mặc định.
         binding.llSetDefaultCard.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                selectDefaultLauncher()
-            }
+            tapWithInterInApp { selectDefaultLauncher() }
         }
         binding.btnSetDefault.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                selectDefaultLauncher()
-            }
+            tapWithInterInApp { selectDefaultLauncher() }
         }
 
         // ===== Card chính (12 mục) =====
         binding.llGeneral.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<GeneralActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<GeneralActivity>() }
         }
         binding.llChangeAppIcon.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<ChangeAppIconActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<ChangeAppIconActivity>() }
         }
         binding.llHomescreenStyle.tap { /* TODO: chưa có màn Homescreen Style */ }
         binding.llScreenGrid.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<ScreenGridActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<ScreenGridActivity>() }
         }
         binding.llHiddenApps.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<HiddenAppActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<HiddenAppActivity>() }
         }
         binding.llPageTransition.tap {
-
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<PageTransitionActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<PageTransitionActivity>() }
         }
         binding.llAppLibrary.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<AppLibraryActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<AppLibraryActivity>() }
         }
         binding.llChangeAppName.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<ChangeAppNameActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<ChangeAppNameActivity>() }
         }
         binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
         binding.llLanguage.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<LanguageSettingActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<LanguageSettingActivity>() }
         }
         binding.llAppearance.tap {
-            AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) {
-                launchActivity<AppearanceActivity>()
-            }
-
+            tapWithInterInApp { launchActivity<AppearanceActivity>() }
         }
         binding.llSelectDefault.tap {
             selectDefaultLauncher()
         }
 
+        binding.btnUpgrade.setOnClickListener {
+            launchActivity<SubsAct>()
+        }
+
+        binding.ivPro.setOnClickListener {
+            launchActivity<SubsAct>()
+        }
         // ===== App Function Settings =====
         binding.llLauncherAi.tap { /* TODO: chưa có màn Launcher AI */ }
         binding.llWeather.tap { /* TODO: chưa có màn Weather */ }
@@ -199,6 +216,25 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     override fun dataObservable() {}
+
+    /**
+     * Bọc hành động của một lần bấm sau interstitial in-app.
+     *
+     * Remote Config tắt quảng cáo ở vị trí này thì chạy thẳng [action] — hành vi của người
+     * dùng không bao giờ bị nuốt.
+     *
+     * Vì sao phải kiểm tra ở ĐÂY chứ không phó mặc cho [AdsInterstitial.show]: show() chỉ tự
+     * chạy [action] khi trong tay KHÔNG có ad nào đã tải trước. Mà splash đã gọi
+     * `AdsInterstitial.load(INTER_IN_APP)` sẵn, nên nếu không chặn từ đầu thì cờ tắt trên
+     * console vẫn sẽ hiện ad đã nằm sẵn trong bộ nhớ.
+     */
+    private fun tapWithInterInApp(action: () -> Unit) {
+        if (!RemoteConfigs.isAdsEnabled(this, RemoteConfigs.INTER_INAPP)) {
+            action()
+            return
+        }
+        AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) { action() }
+    }
 
     /**
      * Mở desktop launcher từ card "Go to launcher".
@@ -273,7 +309,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
      * Dùng ACTION_SENDTO + data "mailto:" thay cho ACTION_SEND: chỉ những app THẬT SỰ gửi mail mới
      * nhận intent này, nên danh sách chọn không lẫn Bluetooth/Drive/Zalo... như ACTION_SEND.
      *
-     * Địa chỉ nhận + tiền tố tiêu đề lấy từ [SharePrefUtils] (nơi cấu hình chung của app).
+     * Địa chỉ nhận + tiền tố tiêu đề lấy từ [com.truongnt.ios.ioslite.common.config.SharePrefUtils] (nơi cấu hình chung của app).
      * Phần thân thư điền sẵn thông tin máy để đội hỗ trợ đỡ phải hỏi lại.
      */
     private fun sendFeedbackMail() {

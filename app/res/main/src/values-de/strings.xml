@@ -170,4 +170,21 @@
     <string name="select_bg_start_launcher">Launcher starten</string>
     <string name="select_bg_set">Als Hintergrund festlegen</string>
     <string name="theme_default_name">Standard</string>
+
+    <!-- Màn Subs (IAP) -->
+    <string name="yearly">Jährlich</string>
+    <string name="monthly">Monatlich</string>
+    <string name="renew_per_year_cancel_anytime">Jährliche Verlängerung. Jederzeit kündbar</string>
+    <string name="renew_per_month_cancel_anytime">Monatliche Verlängerung. Jederzeit kündbar</string>
+    <string name="cancel_anytime">Jederzeit kündbar</string>
+    <string name="restore">Wiederherstellen</string>
+    <string name="enjoy_an">Genieße ein</string>
+    <string name="ad_free">werbefreies</string>
+    <string name="experience">Erlebnis</string>
+    <string name="remove_ads_subtitle">Entferne die Werbung im Launcher MiOS und in allen internen Apps</string>
+    <string name="t_c"><u>AGB</u></string>
+    <string name="privacy_policy_u"><u>Datenschutz</u></string>
+    <string name="subs_product_not_ready">Produkt nicht bereit, bitte erneut versuchen</string>
+    <string name="subs_restore_success">Abo wiederhergestellt</string>
+    <string name="subs_restore_none">Kein Abo gefunden</string>
 </resources>

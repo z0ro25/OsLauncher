@@ -36,3 +36,18 @@ abstract class AdsBannerCallback {
 abstract class AdsOpenCallback {
     open fun onAvailabilityChanged(available: Boolean) {}
 }
+
+/**
+ * Kết quả load của cặp interstitial + native full ([InterNativeFull]).
+ *
+ * Bất biến: đúng MỘT trong hai hàm chạy cho mỗi lần [InterNativeFull.load], và chỉ chạy sau
+ * khi phần native có kết quả (thành công hay thất bại đều báo) — không chờ interstitial,
+ * vì interstitial load chậm hay lỗi cũng không quyết định được việc có dialog hay không.
+ */
+abstract class AdsInterNativeFullCallback {
+    /** Native full đã có ad — [InterNativeFull.show] lúc này mới hiện được dialog. */
+    open fun onLoaded() {}
+
+    /** Không có native full nào để hiện. Interstitial (nếu tải được) vẫn dùng bình thường. */
+    open fun onLoadFailed(error: AdsError) {}
+}

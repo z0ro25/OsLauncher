@@ -21,6 +21,7 @@ import com.truongnt.ios.ioslite.common.ads.AdsError;
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
 import com.truongnt.ios.launcher.R;
 import com.truongnt.ios.launcher.bounce.BouncyRecyclerView;
@@ -52,8 +53,32 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     public CustomContentWidgetAdapter(CustomContentView customContentView, ArrayList<WidgetInfo> arrayList) {
         this.mCustomContentView = customContentView;
         this.mWidgetInfoArrayList = arrayList;
-        this.mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP);
+        // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) VÀ cờ Remote Config của màn trái.
+        // Không gộp được vào slot vì App Library và App Search dùng chung NATIVE_IN_APP.
+        this.mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
+                && RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_LEFT_PAGE);
     }
+
+    // ── Trạng thái quảng cáo native trong MỘT lần vào màn ───────────────────────────────
+    //
+    // Vì sao cần: bindNativeAd() chạy mỗi lần ô ad được bind lại, mà mỗi lần gọi AdsNative.show()
+    // từ Activity trần (Launcher) là một request MỚI (AdsNative tự phát request khi chưa có ad
+    // tải sẵn) + đổ thêm một lớp view vào container. Bind lại liên tục -> quảng cáo nháy.
+    // Nên mỗi lần vào màn chỉ phát ĐÚNG MỘT request, tới khi user rời màn rồi vào lại.
+
+    /** Chưa phát request nào trong lần vào màn này. */
+    private static final int AD_IDLE = 0;
+    /** Đã phát request, đang chờ kết quả. */
+    private static final int AD_LOADING = 1;
+    /** Đã đổ được ad vào container. */
+    private static final int AD_LOADED = 2;
+    /** Request thất bại — không thử lại cho tới lần vào màn sau. */
+    private static final int AD_FAILED = 3;
+
+    private int mAdState = AD_IDLE;
+
+    /** Container đang giữ ad — để biết view cũ đã bị bỏ mà bắt đầu lại từ đầu. */
+    private FrameLayout mAdContainer;
 
     // ── Quảng cáo native: chèn như một ITEM CỦA ADAPTER, không nhét vào mWidgetInfoArrayList ──
     //
@@ -99,24 +124,72 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     }
 
     /** Đổ quảng cáo native vào item. Không có ad thì ẩn item để không chừa khoảng trống. */
-    private void bindNativeAd(final NativeAdViewHolder holder) {
+    private void bindNativeAd(final NativeAdViewHolder holder,int post) {
         StaggeredGridLayoutManager.LayoutParams lp =
                 (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
         // Quảng cáo chiếm nguyên hàng, không đứng nửa hàng như widget 2x2.
         lp.setFullSpan(true);
-        AdsNative.show(holder.mContainer, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
+
+        final FrameLayout container = holder.mContainer;
+        // Container khác container đang giữ ad -> view cũ đã bị bỏ, phải bắt đầu lại từ đầu.
+        if (mAdContainer != container) {
+            mAdState = AD_IDLE;
+            mAdContainer = container;
+        }
+
+        // Mỗi lần vào màn chỉ MỘT request: đang chờ / đã có ad / đã thất bại đều không gọi lại.
+        // Đây là chỗ chặn quảng cáo nháy — xem khối comment ở khai báo mAdState.
+        if (mAdState != AD_IDLE) {
+            return;
+        }
+
+        mAdState = AD_LOADING;
+        // Layout riêng cho màn trái. Màn trái chạy trong Launcher (Activity trần) nên SDK không
+        // nhận layout — AdsNative tự inflate layout này rồi tự populate, xem AdsNative.pourOwnLayout.
+        // Ghi rõ R của library vì file này đang import R của module launcher.
+        AdsNative.show(container, AdsSlot.NATIVE_IN_APP,
+                com.truongnt.ios.ioslite.common.R.layout.layout_native_leftpage,
+                new AdsNativeCallback() {
             @Override
             public void onLoaded() {
-                holder.itemView.setVisibility(View.VISIBLE);
+                mAdState = AD_LOADED;
+                // Callback về bất đồng bộ, holder có thể đã bị tái dùng -> chỉ đổi hiển thị khi
+                // nó vẫn đang gắn cho ô quảng cáo, tránh ẩn/hiện nhầm widget khác.
+                if (post == AD_POSITION) {
+                    holder.itemView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onLoadFailed(AdsError error) {
-                // FSDAds không có ad để đổ -> giấu item. Vị trí vẫn được giữ, lần bind sau
-                // (nếu ad đã tải xong) sẽ hiện lại.
-                holder.itemView.setVisibility(View.GONE);
+                mAdState = AD_FAILED;
+                // Không có ad để đổ -> giấu item, không chừa khoảng trống.
+                if (post == AD_POSITION) {
+                    holder.itemView.setVisibility(View.GONE);
+                }
             }
         });
+    }
+
+    /**
+     * Lần vào màn MỚI: xoá trạng thái của lần trước để ô quảng cáo được tải lại đúng một lần.
+     *
+     * <p>Gọi từ {@link CustomContentView} lúc user mở màn trái, KHÔNG gọi trong lúc đang ở màn.
+     *
+     * <p>Cố ý KHÔNG dọn container: container của màn trái là {@code wrap_content} nên nếu dọn thì
+     * ô quảng cáo trống trơn trong lúc chờ ad mới (đúng thứ gây cảm giác nháy). Giữ ad cũ hiển thị
+     * tới khi ad mới được đổ vào — AdsNative.pourNativeAdView tự removeAllViews trước khi addView.
+     */
+    public void resetNativeAd() {
+        mAdState = AD_IDLE;
+        mAdContainer = null;
+    }
+
+    /** Ép bind lại ô quảng cáo — cần gọi sau {@link #resetNativeAd()} thì ad mới được tải lại. */
+    public void notifyAdChanged() {
+        if (isAdVisible()) {
+            notifyItemChanged(AD_POSITION);
+        }
     }
 
     @NonNull
@@ -180,7 +253,7 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NativeAdViewHolder) {
-            bindNativeAd((NativeAdViewHolder) holder);
+            bindNativeAd((NativeAdViewHolder) holder,position);
         }
         else if (holder instanceof WidgetItemViewHolder) {
             WidgetItemViewHolder viewHolder = (WidgetItemViewHolder) holder;

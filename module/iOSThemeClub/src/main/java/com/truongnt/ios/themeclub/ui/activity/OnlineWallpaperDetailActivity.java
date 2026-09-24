@@ -37,6 +37,7 @@ import android.widget.FrameLayout;
 import com.truongnt.ios.ioslite.common.CommonAppCompatActivity;
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -353,6 +354,12 @@ public class OnlineWallpaperDetailActivity extends CommonAppCompatActivity imple
 
     private void initAdView() {
         FrameLayout adView = (FrameLayout) findViewById(R.id.adview);
+        // Remote Config tắt native ThemeClub -> không tải, không đổ, giấu luôn ô chứa để
+        // màn không chừa khoảng trống.
+        if (!RemoteConfigs.isAdsEnabled(this, RemoteConfigs.NATIVE_THEME_CLUB)) {
+            adView.setVisibility(View.GONE);
+            return;
+        }
         AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
         AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
     }

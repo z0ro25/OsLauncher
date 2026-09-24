@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.R;
@@ -237,7 +238,9 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
 
         // Tải trước native cho màn trái. FSDAds giữ ad theo alias nên gọi sớm để lúc list bind
         // là đã có sẵn; AdsNative.preload tự chặn gọi trùng nên không tốn thêm request.
-        if (mLauncher != null) {
+        // Remote Config tắt native màn trái -> không phát request nào.
+        if (mLauncher != null
+                && RemoteConfigs.isAdsEnabled(mLauncher, RemoteConfigs.NATIVE_LEFT_PAGE)) {
             AdsNative.preload(mLauncher, AdsSlot.NATIVE_IN_APP, null);
         }
 
@@ -261,6 +264,32 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
                 }
         );
         manager.requestLayout();
+    }
+
+    /**
+     * User vừa vào (lại) màn trái -> cho ô quảng cáo native tải MỘT lần cho lần vào này.
+     *
+     * <p>Trong lúc đang ở màn thì không tải lại nữa (xem
+     * {@link CustomContentWidgetAdapter#bindNativeAd}): bind lại liên tục mà cứ gọi
+     * {@code AdsNative.show} là quảng cáo nháy.
+     *
+     * <p>Không tải ngay ở đây mà chỉ xoá trạng thái rồi ép bind lại ô ad. {@code post()} để chắc
+     * chắn không rơi vào lúc RecyclerView đang tính layout — {@code notifyItemChanged} lúc đó sẽ
+     * ném IllegalStateException.
+     */
+    public void onEnteredLeftPage() {
+        if (mWidgetListAdapter == null || mListWidgetRV == null) {
+            return;
+        }
+        mWidgetListAdapter.resetNativeAd();
+        mListWidgetRV.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mWidgetListAdapter != null) {
+                    mWidgetListAdapter.notifyAdChanged();
+                }
+            }
+        });
     }
 
     public void getWidgetsFromDB(){

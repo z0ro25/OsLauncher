@@ -408,6 +408,32 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         mTotalLibraryRV.setAlpha(1.0f);
     }
 
+    /**
+     * User vừa vào (lại) màn App Library -> cho ô quảng cáo native tải MỘT lần cho lần vào này.
+     *
+     * <p>Trong lúc đang ở màn thì không tải lại nữa (xem {@link AppLibraryAdapter#bindNativeAd}):
+     * bind lại liên tục mà cứ gọi {@code AdsNative.show} là quảng cáo nháy, vì mỗi lần gọi là một
+     * request mới và FSDAds đổ thêm một lớp view vào container cũ.
+     *
+     * <p>Không tải ngay ở đây mà chỉ xoá trạng thái rồi ép bind lại ô ad. {@code post()} để chắc
+     * chắn không rơi vào lúc RecyclerView đang tính layout — {@code notifyItemChanged} lúc đó sẽ
+     * ném IllegalStateException.
+     */
+    public void onEnteredAppLibrary() {
+        if (mAppLibraryAdapter == null || mTotalLibraryRV == null) {
+            return;
+        }
+        mAppLibraryAdapter.resetNativeAd();
+        mTotalLibraryRV.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mAppLibraryAdapter != null) {
+                    mAppLibraryAdapter.notifyAdChanged();
+                }
+            }
+        });
+    }
+
     public void setSubViewsLayoutParams(){
         int margin = mDeviceProfile.edgeMarginPx * 2;
 

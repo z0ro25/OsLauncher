@@ -9,12 +9,22 @@ import android.provider.Settings
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.wallpaperonboarding.SelectBackgroundActivity
-import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
-import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityPermissionBinding
+import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
+import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
+import com.truongnt.ios.ioslite.common.R
+import com.truongnt.ios.ioslite.common.ads.AdsError
+import com.truongnt.ios.ioslite.common.ads.AdsNative
+import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback
+import com.truongnt.ios.ioslite.common.ads.AdsSlot
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
     override val setViewBinding: ActivityPermissionBinding
@@ -32,6 +42,22 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
 
         onBackPressedDispatcher.addCallback {
             finishAffinity()
+        }
+
+        MainScope().launch {
+            delay(200)
+            if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_PERMISSION)) {
+                AdsNative.show(
+                    binding.frNative,
+                    AdsSlot.NATIVE_PERMISSION,
+                    R.layout.layout_native_permission,
+                    object : AdsNativeCallback() {
+                        override fun onLoadFailed(error: AdsError) {
+                            super.onLoadFailed(error)
+                            binding.frNative.isVisible = false
+                        }
+                    })
+            }
         }
     }
 

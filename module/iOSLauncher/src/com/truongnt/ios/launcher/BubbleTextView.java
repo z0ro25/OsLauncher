@@ -904,7 +904,22 @@ public class BubbleTextView extends CustomTextView implements IShakeInterface, P
      * {@link Launcher#showRemoveAppDialog}), chứ không phải giấu luôn dấu trừ.
      */
     public boolean canShowDelIcon() {
+        // App của CHÍNH launcher (icon MiOS Launcher 26 hiện trên desktop/folder): không cho gỡ -> ẩn
+        // luôn dấu trừ. Cổng này gác CẢ vẽ (drawDelIcon) lẫn vùng chạm (checkUninstallPressed) nên phải
+        // giữ đúng một điều kiện, lệch nhau là dấu trừ hiện mà bấm không ăn.
+        if (isOwnLauncherApp()) {
+            return false;
+        }
         return this.mShortcutInfo != null;
+    }
+
+    /** Item có phải app của chính launcher này không. */
+    private boolean isOwnLauncherApp() {
+        if (this.mShortcutInfo == null) {
+            return false;
+        }
+        ComponentName cn = this.mShortcutInfo.getTargetComponent();
+        return cn != null && cn.getPackageName().equals(getContext().getPackageName());
     }
 
     /**

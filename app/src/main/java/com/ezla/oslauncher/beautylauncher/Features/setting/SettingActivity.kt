@@ -10,12 +10,17 @@ import com.ezla.oslauncher.beautylauncher.Features.lang.LanguageSettingActivity
 import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.extensions.tap
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.beautylauncher.databinding.ActivitySettingBinding
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     override val setViewBinding: ActivitySettingBinding
         get() = ActivitySettingBinding.inflate(layoutInflater)
+
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
 
     override fun initView() {
 

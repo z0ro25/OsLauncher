@@ -14,26 +14,15 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
+import com.ezla.oslauncher.beautylauncher.databinding.ActivitySelectBackgroundBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
-import com.ezla.oslauncher.beautylauncher.databinding.ActivitySelectBackgroundBinding
+import com.truongnt.ios.ioslite.common.ads.AdsInterNativeFullCallback
+import com.truongnt.ios.ioslite.common.ads.InterNativeFull
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
-/**
- * Màn "Chọn hình nền" — BƯỚC CUỐI của onboarding lần đầu vào app.
- *
- * - Nguồn ảnh: các file trong assets/wallpapers/ (người dùng tự bổ sung sau);
- *   danh sách được liệt kê động lúc chạy nên không cần sửa code khi thêm ảnh.
- * - "Start Launcher": set ảnh đang chọn cho MÀN HÌNH CHÍNH (FLAG_SYSTEM) rồi vào THẲNG LAUNCHER.
- * - "Bỏ qua": vào thẳng launcher, không đổi hình nền.
- *
- * [ĐỔI LUỒNG] Trước đây cả 2 nút đều dẫn sang HomeActivity (màn cài đặt). Nay lần đầu vào app đi
- * thẳng ra launcher cho người dùng thấy ngay thành quả; màn Home chỉ mở khi người dùng chủ động
- * vào app settings sau này.
- *
- * Bất biến: không đụng lock screen.
- */
 class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>() {
 
     override val setViewBinding: ActivitySelectBackgroundBinding
@@ -51,13 +40,26 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
 
     private var currentPos = 3
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
+
+        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.INTER_NATIVE_FULL)){
+            InterNativeFull.load(this, object : AdsInterNativeFullCallback() {
+
+            })
+        }
+
+
         loadWallpaperAssets()
         setupViewPager()
 
         onBackPressedDispatcher.addCallback {
             // Onboarding không cho lùi về Permission; back = bỏ qua, vào thẳng launcher.
-            goToLauncher()
+            finishAffinity()
         }
     }
 
@@ -119,7 +121,7 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
                 }
             })
 
-            if (wallpaperAssets.isNotEmpty()){
+            if (wallpaperAssets.isNotEmpty()) {
                 binding.vpWallpaper.currentItem = currentPos
             }
         }
@@ -176,14 +178,28 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
      */
     private fun goToLauncher() {
         val isDefault = isDefaultLauncher()
-        if (isDefault) {
-            launchActivity<SearchLauncher> { }
-            finishAffinity()
-        } else {
-            SharePrefUtils.putBoolean(this, "hello_pending", true)
-            SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
-            launchActivity<SearchLauncher> { }
-            finishAffinity()
+        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.INTER_NATIVE_FULL)){
+            InterNativeFull.show(this){
+                if (isDefault) {
+                    launchActivity<SearchLauncher> { }
+                    finishAffinity()
+                } else {
+                    SharePrefUtils.putBoolean(this, "hello_pending", true)
+                    SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
+                    launchActivity<SearchLauncher> { }
+                    finishAffinity()
+                }
+            }
+        }else{
+            if (isDefault) {
+                launchActivity<SearchLauncher> { }
+                finishAffinity()
+            } else {
+                SharePrefUtils.putBoolean(this, "hello_pending", true)
+                SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
+                launchActivity<SearchLauncher> { }
+                finishAffinity()
+            }
         }
     }
 

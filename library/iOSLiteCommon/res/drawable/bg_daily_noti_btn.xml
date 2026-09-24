@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền nút "Khám phá ngay" trong notification. Để riêng thay vì dùng chung drawable của ads:
+     RemoteViews chạy trong process SystemUI, đổi màu bên ads không được kéo theo noti. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="100dp" />
+    <solid android:color="#007AFF" />
+</shape>

@@ -1,4 +1,4 @@
-package com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool;
+package com.truongnt.ios.ioslite.common.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;

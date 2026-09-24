@@ -22,6 +22,11 @@ class PageTransitionActivity : BaseActivity<ActivityPageTransitionBinding>() {
 
 
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         onBackPressedDispatcher.addCallback {
             finish()

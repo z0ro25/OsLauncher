@@ -38,9 +38,9 @@ public class DailyNotiWorker extends Worker {
     public Result doWork() {
         Context context = getApplicationContext();
 
-        // Chốt "1 lần/ngày" kiểm tra ở ĐÂY chứ không chỉ ở DailyNotiScheduler: scheduler dùng
-        // ExistingWorkPolicy.REPLACE, nên nếu app được mở đúng lúc work đang chạy thì work có
-        // thể bị huỷ rồi enqueue lại — không có chốt này sẽ bắn 2 lần trong cùng một ngày.
+        // Chốt "1 lần/ngày" kiểm tra ở ĐÂY chứ không chỉ ở DailyNotiScheduler: scheduler luân
+        // phiên 2 tên work nên vẫn có thể tồn tại work chờ ở slot kia — không có chốt này thì
+        // mở app đúng lúc lỡ mốc sẽ bắn 2 lần trong cùng một ngày.
         if (DailyNotiStore.hasFiredToday(context)) {
             DebugLog.d(TAG, "hôm nay đã bắn rồi, bỏ qua");
             DailyNotiScheduler.enqueueNextDay(context);

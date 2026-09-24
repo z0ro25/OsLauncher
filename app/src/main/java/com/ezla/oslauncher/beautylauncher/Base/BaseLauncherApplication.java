@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 
 import com.ezla.oslauncher.beautylauncher.BuildConfig;
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil;
+import com.ezla.oslauncher.beautylauncher.utils.BillingUtils;
 import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,6 +19,7 @@ import com.truongnt.ios.ioslite.common.ads.Ads;
 import com.truongnt.ios.ioslite.common.ads.AdsOpen;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
 import com.truongnt.ios.ioslite.common.debug.ExceptionHandler;
 import com.truongnt.ios.ioslite.common.noti.DailyNotiScheduler;
@@ -96,6 +98,9 @@ public class BaseLauncherApplication extends Application {
             // đang tắt nên gọi thẳng ở đây thay vì chờ initalizeAfterLauncherLoadCompelte).
             setupAdEnvironment();
 
+            // Billing — xác thực trạng thái sub rồi cập nhật cờ + Ads.setPremium.
+            setupBilling();
+
             // Notification hằng ngày — mốc giờ lấy từ Remote Config.
             setupDailyNotification();
 
@@ -143,10 +148,13 @@ public class BaseLauncherApplication extends Application {
         // phần revenue tracking qua Adjust.
         final String adjustToken = "seu0i6ptzxmo";
 
-        // isSubs/tier1 hiện để mặc định false vì dự án CHƯA có code billing nào (đã kiểm:
-        // không có BillingClient/queryPurchases ở đâu cả; billing:8.0.0 mới chỉ khai báo).
-        // Khi có IAP thật thì gọi Ads.setPremium(isSubs, isTier1) ở chỗ biết trạng thái mua.
-        Ads.init(this, adjustToken, BuildConfig.DEBUG, Ads.DEFAULT_INTER_DELAY_MS, new Runnable() {
+        // Đọc cờ sub đã lưu TRƯỚC Ads.init(): FSDAds chốt cờ premium theo giá trị tại lúc
+        // setupConfig, nên đẩy premium sau khi init sẽ phải setup lại config. Giá trị đọc ở đây
+        // là cache lần chạy trước; setupBilling() xác thực lại với Google rồi cập nhật.
+        Ads.setPremium(BillingUtils.INSTANCE.isSubsCached(this), false);
+
+        int time = RemoteConfigs.INSTANCE.getRemoteConfigInt(this,RemoteConfigs.INTER_INTERVAL);
+        Ads.init(this, adjustToken, BuildConfig.DEBUG, time * 1000L, new Runnable() {
             @Override
             public void run() {
                 // App-open KHÔNG có hàm show(): FSDAds tự đăng ký ActivityLifecycleCallbacks
@@ -154,6 +162,13 @@ public class BaseLauncherApplication extends Application {
 //                AdsOpen.setup(mApplication, AdsSlot.APP_OPEN, null);
             }
         });
+    }
+
+
+    // Xác thực trạng thái sub với Google Play. Cờ sub + Ads.setPremium do BillingUtils tự cập
+    // nhật khi có kết quả (bất đồng bộ), nên lần chạy này vẫn dùng cờ đã lưu.
+    private void setupBilling() {
+        BillingUtils.INSTANCE.initBilling(this);
     }
 
 

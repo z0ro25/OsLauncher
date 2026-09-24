@@ -7533,6 +7533,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Ghim luôn trạng thái ẩn của kính dock, phòng chuỗi onAppsLibrarySlide bị cắt ngang trước
         // khi tới mốc cuối (fling nhanh).
         setWorkspaceGlassHidden(true);
+
+        // Mở App Library -> cho ô quảng cáo native tải MỘT lần cho lần vào này. Trong lúc ở màn
+        // không tải lại nữa, nếu không ad sẽ nháy liên tục (mỗi lần bind lại là một request mới).
+        // Xem AppLibraryAdapter.bindNativeAd / AppsLibraryLayout.onEnteredAppLibrary.
+        if (mAppsLibraryLayout != null) {
+            mAppsLibraryLayout.onEnteredAppLibrary();
+        }
     }
 
     //todo app library
@@ -7693,6 +7700,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Ghim ẩn kính dock khi đã mở hẳn (window riêng, không theo alpha home). Đối xứng với
         // onAppsLibraryClosed; resetHomeTransform ở onLeftPageClosed sẽ hiện lại.
         setWorkspaceGlassHidden(true);
+
+        // Mở màn trái -> cho ô quảng cáo native tải MỘT lần cho lần vào này. Trong lúc ở màn
+        // không tải lại nữa, nếu không ad sẽ nháy liên tục (mỗi lần bind lại là một request mới).
+        // Xem CustomContentWidgetAdapter.bindNativeAd / CustomContentView.onEnteredLeftPage.
+        if (mCustomContentView != null) {
+            mCustomContentView.onEnteredLeftPage();
+        }
     }
 
     @Override

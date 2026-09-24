@@ -30,6 +30,7 @@
 
         <TextView
             android:id="@+id/iv_done"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -49,7 +50,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="16dp"
         android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fr_native"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
@@ -64,5 +65,18 @@
             android:paddingVertical="4dp" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/fr_native"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_lang_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include layout="@layout/fsd_ads_shimmer_large" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.truongnt.ios.ioslite.common.ads.AdsInterstitial;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 
 import kotlin.Unit;
 
@@ -53,6 +54,13 @@ public final class LauncherAdTrigger {
      */
     public static void openAppWithInterstitial(Activity activity, Runnable onContinue) {
         if (onContinue == null) {
+            return;
+        }
+        // Remote Config tắt interstitial in-app -> không tải trước, không chèn ad, mở app
+        // ngay. Đặt TRƯỚC cả nhánh preloadQuietly để không phát request thừa lên AdMob.
+        if (activity == null
+                || !RemoteConfigs.isAdsEnabled(activity, RemoteConfigs.INTER_INAPP)) {
+            onContinue.run();
             return;
         }
         // Chưa tới lượt hiện ad -> tải trước cho lần thứ 5 rồi mở app ngay. Đây là nhánh

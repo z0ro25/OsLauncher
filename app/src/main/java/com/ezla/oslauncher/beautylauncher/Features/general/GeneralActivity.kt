@@ -10,9 +10,9 @@ import com.truongnt.ios.launcher.config.Settings
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.extensions.hideNavigation
 import com.ezla.oslauncher.beautylauncher.extensions.showNav
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.beautylauncher.utils.Constant
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityGeneralBinding
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import kotlin.math.roundToInt
 
 class GeneralActivity : BaseActivity<ActivityGeneralBinding>() {
@@ -23,6 +23,11 @@ class GeneralActivity : BaseActivity<ActivityGeneralBinding>() {
     // t=(p-50)/50 → iconScale∈[0.85,1.15], textScale∈[0.70,1.30] (nghịch với icon).
     private fun iconScaleOf(progress: Int): Float = 1f + 0.15f * ((progress - 50) / 50f)
     private fun textScaleOf(progress: Int): Float = 1f - 0.30f * ((progress - 50) / 50f)
+
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
 
     override fun initView() {
         onBackPressedDispatcher.addCallback {

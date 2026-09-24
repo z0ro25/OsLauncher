@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification hằng ngày (package com.truongnt.ios.ioslite.common.noti). -->
+    <string name="daily_noti_channel_name">Tips harian</string>
+    <string name="daily_noti_action">Jelajahi sekarang</string>
+    <string name="daily_noti_slot1_title">Ubah tampilan ponsel dalam 3 detik! ✨</string>
+    <string name="daily_noti_slot1_text">Nikmati antarmuka super mulus dengan ikon &amp; tema eksklusif dari MiSO Launcher. Jelajahi sekarang!</string>
+    <string name="daily_noti_slot2_title">Buka seluruh fitur VIP! 👑</string>
+    <string name="daily_noti_slot2_text">Tanpa iklan, tanpa batas tema premium. Tingkatkan ke MiSO Pro hari ini untuk pengalaman termulus!</string>
+</resources>

@@ -13,7 +13,20 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/ll_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/ic_close"
+        android:layout_width="32sp"
+        android:layout_height="32sp"
+        android:src="@drawable/ic_x_round"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -88,11 +101,12 @@
         android:id="@+id/fr_native"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <include layout="@layout/fsd_ads_shimmer_large"/>
 
     </FrameLayout>
 

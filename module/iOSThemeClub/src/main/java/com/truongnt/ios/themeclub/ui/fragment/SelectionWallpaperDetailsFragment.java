@@ -40,6 +40,7 @@ import android.widget.FrameLayout;
 
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -196,10 +197,15 @@ public class SelectionWallpaperDetailsFragment extends Fragment implements View.
 
     protected void fragmentLoadData(View v) {
         FrameLayout adView = (FrameLayout) v.findViewById(R.id.adview);
-        if (getActivity() != null) {
-            AdsNative.preload(getActivity(), AdsSlot.NATIVE_IN_APP, null);
+        // Remote Config tắt native ThemeClub -> không tải, không đổ, giấu luôn ô chứa.
+        if (!RemoteConfigs.isAdsEnabled(getContext(), RemoteConfigs.NATIVE_THEME_CLUB)) {
+            adView.setVisibility(View.GONE);
+        } else {
+            if (getActivity() != null) {
+                AdsNative.preload(getActivity(), AdsSlot.NATIVE_IN_APP, null);
+            }
+            AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
         }
-        AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
         Log.e(TAG, "load data---------------" + mWallpaper.toString());
         filePath = mWallpaperPresenter.getWallpaperPath();
         downloadUrl = mWallpaper.getSourceLogoUrl();

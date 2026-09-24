@@ -195,4 +195,21 @@
     <string name="select_bg_start_launcher">런처 시작</string>
     <string name="select_bg_set">배경화면으로 설정</string>
     <string name="theme_default_name">기본</string>
+
+    <!-- Màn Subs (IAP) -->
+    <string name="yearly">연간</string>
+    <string name="monthly">월간</string>
+    <string name="renew_per_year_cancel_anytime">매년 갱신. 언제든지 취소 가능</string>
+    <string name="renew_per_month_cancel_anytime">매월 갱신. 언제든지 취소 가능</string>
+    <string name="cancel_anytime">언제든지 취소 가능</string>
+    <string name="restore">복원</string>
+    <string name="enjoy_an">즐기세요</string>
+    <string name="ad_free">광고 없는</string>
+    <string name="experience">경험</string>
+    <string name="remove_ads_subtitle">런처 MiOS와 모든 내부 앱의 광고를 제거하세요</string>
+    <string name="t_c"><u>이용약관</u></string>
+    <string name="privacy_policy_u"><u>개인정보 처리방침</u></string>
+    <string name="subs_product_not_ready">상품이 준비되지 않았습니다. 다시 시도해 주세요</string>
+    <string name="subs_restore_success">구독이 복원되었습니다</string>
+    <string name="subs_restore_none">구독을 찾을 수 없습니다</string>
 </resources>

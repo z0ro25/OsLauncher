@@ -13,6 +13,7 @@ import com.truongnt.ios.ioslite.common.ads.AdsError;
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.BubbleTextView;
 import com.truongnt.ios.launcher.Launcher;
@@ -44,7 +45,11 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
 
     public OpenLibraryItemAdapter(Launcher launcher){
         mLauncher = launcher;
-        mHasAd = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP);
+        // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) VÀ cờ Remote Config của vị trí
+        // App Library. Cờ đó không gộp được vào slot vì App Search và Left Page dùng chung
+        // slot NATIVE_IN_APP. Tắt -> không chừa chỗ, grid giữ nguyên như trước.
+        mHasAd = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
+                && RemoteConfigs.isAdsEnabled(launcher, RemoteConfigs.NATIVE_APP_LIBRARY);
 
         if (mHasAd) {
             // Tải trước ngay khi dựng adapter; lúc bind chỉ việc đổ vào container.

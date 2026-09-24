@@ -16,6 +16,11 @@ class HiddenAppActivity : BaseActivity<ActivityHiddenappBinding>() {
     val adapter: HiddenAdapter by lazy { HiddenAdapter(this, allHiddenApp) }
     val viewModel: HiddenAppViewModel by lazy { ViewModelProvider(this)[HiddenAppViewModel::class.java] }
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         binding.rcvHidden.adapter = adapter
         viewModel.getAllHiddenApp()

@@ -44,6 +44,11 @@ class AppearanceActivity : BaseActivity<ActivityAppearanceBinding>() {
         refreshSelection()
     }
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         onBackPressedDispatcher.addCallback { finish() }
         refreshSelection()

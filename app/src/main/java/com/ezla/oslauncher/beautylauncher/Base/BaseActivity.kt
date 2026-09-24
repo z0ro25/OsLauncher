@@ -25,12 +25,15 @@ import com.ezla.oslauncher.beautylauncher.extensions.haveNetworkConnection
 import com.ezla.oslauncher.beautylauncher.extensions.hideNavigation
 import com.ezla.oslauncher.beautylauncher.extensions.showNav
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.beautylauncher.utils.Constant
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.truongnt.ios.ioslite.common.ads.AdsBanner
+import com.truongnt.ios.ioslite.common.ads.AdsSlot
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.rate.LauncherSharePrefUtils
 
 
@@ -49,6 +52,15 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
 
     //listen to database change here
     abstract fun dataObservable()
+
+    /**
+     * Hiện banner đáy màn nếu Remote Config cho phép. Gọi ở onResume của từng màn — màn nào
+     * không gắn banner thì không gọi. Layout phải include sẵn @layout/fsd_ads_banner.
+     */
+    protected fun showBannerIfEnabled() {
+        if (!RemoteConfigs.isAdsEnabled(this, RemoteConfigs.BANNER_INAPP)) return
+        AdsBanner.show(this, AdsSlot.BANNER_IN_APP, null)
+    }
 
     val internetBroadcast = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {

@@ -17,6 +17,7 @@ import android.util.SparseArray;
 import com.truongnt.ios.ioslite.common.ads.Ads;
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.ioslite.common.util.CommonUtilities;
 import com.amz.ios.http.Internal.Action;
 import com.amz.ios.http.Internal.BaseProvider;
@@ -87,7 +88,12 @@ public class DataFlowProvider extends BaseProvider {
 
                 // Không có ad -> trả danh sách RỖNG. Không dùng onFalure: UiHandler.onFalure
                 // hiện toast lỗi cho người dùng, mà "không có quảng cáo" không phải là lỗi.
-                if (!Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)) {
+                // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) và cờ Remote Config của
+                // vị trí App Search. Cờ đó không gộp được vào slot NATIVE_IN_APP vì App Library
+                // và Left Page dùng chung slot này.
+                if (!Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
+                        || !RemoteConfigs.isAdsEnabled(
+                                getContext(), RemoteConfigs.NATIVE_APP_SEARCH)) {
                     callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
                     return;
                 }
@@ -127,7 +133,12 @@ public class DataFlowProvider extends BaseProvider {
 
                 // Không có ad -> trả danh sách RỖNG. Không dùng onFalure: UiHandler.onFalure
                 // hiện toast lỗi cho người dùng, mà "không có quảng cáo" không phải là lỗi.
-                if (!Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)) {
+                // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) và cờ Remote Config của
+                // vị trí App Search. Cờ đó không gộp được vào slot NATIVE_IN_APP vì App Library
+                // và Left Page dùng chung slot này.
+                if (!Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
+                        || !RemoteConfigs.isAdsEnabled(
+                                getContext(), RemoteConfigs.NATIVE_APP_SEARCH)) {
                     callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
                     return;
                 }

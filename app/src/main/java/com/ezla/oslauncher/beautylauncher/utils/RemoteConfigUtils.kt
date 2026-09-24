@@ -2,14 +2,15 @@ package com.ezla.oslauncher.beautylauncher.utils
 
 import android.content.Context
 import com.ezla.oslauncher.beautylauncher.R
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 object RemoteConfigUtils {
 
+    private const val TAG = "RemoteConfigUtils"
 
     fun initRemoteConfig(listener: OnCompleteListener<Boolean>) {
         val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()

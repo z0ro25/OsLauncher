@@ -29,6 +29,11 @@ class RenameAppActivity : BaseActivity<ActivityRenameAppBinding>() {
     private var packageName: String = ""
     private var defaultLabel: String = ""
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         component = intent.getStringExtra(EXTRA_COMPONENT).orEmpty()
         packageName = intent.getStringExtra(EXTRA_PACKAGE).orEmpty()

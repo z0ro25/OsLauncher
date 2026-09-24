@@ -13,6 +13,7 @@ import com.truongnt.ios.ioslite.common.ads.AdsError;
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.launcher.R;
 
 import java.util.ArrayList;
@@ -32,6 +33,27 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
 
     /** Đã tính quyền hiện quảng cáo chưa; null = chưa tính. Tính một lần rồi giữ nguyên. */
     private Boolean mAdAllowed;
+
+    // ── Trạng thái quảng cáo native trong MỘT lần vào màn ───────────────────────────────
+    //
+    // Vì sao cần: bindNativeAd() chạy mỗi lần ô ad được bind lại, mà mỗi lần gọi AdsNative.show()
+    // từ Activity trần (Launcher) là một request MỚI + đổ THÊM một lớp view vào container cũ
+    // (FSDAds không thay thế nội dung cũ). Bind lại liên tục -> quảng cáo nháy liên tục.
+    // Nên mỗi lần vào màn chỉ phát ĐÚNG MỘT request, tới khi user rời màn rồi vào lại.
+
+    /** Chưa phát request nào trong lần vào màn này. */
+    private static final int AD_IDLE = 0;
+    /** Đã phát request, đang chờ kết quả. */
+    private static final int AD_LOADING = 1;
+    /** Đã đổ được ad vào container. */
+    private static final int AD_LOADED = 2;
+    /** Request thất bại — không thử lại cho tới lần vào màn sau. */
+    private static final int AD_FAILED = 3;
+
+    private int mAdState = AD_IDLE;
+
+    /** Container đang giữ ad (hoặc đang chờ ad) — để biết khi nào phải dọn trước khi đổ lại. */
+    private FrameLayout mAdContainer;
 
     /** Gán danh sách category đầy đủ rồi lọc lại danh sách hiển thị (ẩn folder rỗng). */
     public void setCategories(ArrayList<AppCategory> categories) {
@@ -62,10 +84,18 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     // category thật, dính vào SortAppsCallable + đếm app). Vì vậy mọi chỗ dùng position đều
     // phải quy về chỉ số category qua [categoryIndexFor].
 
-    /** Slot quảng cáo có được phép dùng không (tính một lần, sau đó giữ nguyên). */
+    /**
+     * Slot quảng cáo có được phép dùng không (tính một lần, sau đó giữ nguyên).
+     *
+     * <p>Có HAI vế: {@link Ads#isSlotAllowed} (premium / cờ loại / policy tần suất) và Remote
+     * Config {@code Native_AppLibrary}. Vế thứ hai không thể gộp vào {@code Ads.canUse} vì ba
+     * vị trí khác nhau (App Library, App Search, Left Page) dùng CHUNG một slot NATIVE_IN_APP —
+     * gác trong slot thì ba công tắc sẽ đè lên nhau.
+     */
     private boolean isAdAllowed() {
         if (mAdAllowed == null) {
-            mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP);
+            mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
+                    && RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_APP_LIBRARY);
         }
         return mAdAllowed;
     }
@@ -107,7 +137,7 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if (holder instanceof NativeAdViewHolder) {
-            bindNativeAd((NativeAdViewHolder) holder);
+            bindNativeAd((NativeAdViewHolder) holder,position);
             return;
         }
 
@@ -135,18 +165,71 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
      * lấy span size từ SpanSizeLookup nên {@code LayoutParams.setFullSpan()} gọi ở đây bị bỏ
      * qua, quảng cáo sẽ chỉ rộng 1 cột.
      */
-    private void bindNativeAd(final NativeAdViewHolder holder) {
-        AdsNative.show(holder.mContainer, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
+    private void bindNativeAd(final NativeAdViewHolder holder, int post) {
+        final FrameLayout container = holder.mContainer;
+
+        // Container khác container đang giữ ad -> view cũ đã bị bỏ, phải bắt đầu lại từ đầu.
+        if (mAdContainer != container) {
+            mAdState = AD_IDLE;
+            mAdContainer = container;
+        }
+
+        // Mỗi lần vào màn chỉ MỘT request: đang chờ / đã có ad / đã thất bại đều không gọi lại.
+        // Đây là chỗ chặn quảng cáo nháy — xem khối comment ở khai báo mAdState.
+        if (mAdState != AD_IDLE) {
+            return;
+        }
+
+        mAdState = AD_LOADING;
+        // Layout riêng cho App Library. App Library chạy trong Launcher (Activity trần) nên SDK
+        // không nhận layout — AdsNative tự inflate layout này rồi tự populate, xem
+        // AdsNative.pourOwnLayout. Ghi rõ R của library vì file này đang import R của module launcher.
+        AdsNative.show(container, AdsSlot.NATIVE_IN_APP,
+                com.truongnt.ios.ioslite.common.R.layout.layout_native_app_library,
+                new AdsNativeCallback() {
             @Override
             public void onLoaded() {
-                holder.itemView.setVisibility(View.VISIBLE);
+                mAdState = AD_LOADED;
+                // Callback về bất đồng bộ, holder có thể đã bị tái dùng cho item khác -> chỉ đổi
+                // hiển thị khi nó vẫn đang gắn cho ô quảng cáo, tránh ẩn/hiện nhầm item khác.
+                if (post == AD_POSITION) {
+                    holder.itemView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onLoadFailed(AdsError error) {
-                holder.itemView.setVisibility(View.GONE);
+                mAdState = AD_FAILED;
+                if (post == AD_POSITION) {
+                    holder.itemView.setVisibility(View.GONE);
+                }
             }
         });
+    }
+
+    /**
+     * Lần vào màn MỚI: xoá trạng thái của lần trước để ô quảng cáo được tải lại đúng một lần.
+     *
+     * <p>Gọi từ {@link AppsLibraryLayout} lúc user mở App Library, KHÔNG gọi trong lúc đang ở màn.
+     */
+    public void resetNativeAd() {
+        mAdState = AD_IDLE;
+        // FSDAds đổ THÊM view vào container chứ không thay thế -> dọn nội dung lần trước, nếu không
+        // ad mới sẽ chồng lên ad cũ.
+        if (mAdContainer != null) {
+            mAdContainer.removeAllViews();
+        }
+        mAdContainer = null;
+    }
+
+    /**
+     * Ép bind lại ô quảng cáo. Cần gọi SAU {@link #resetNativeAd()} thì ad mới thật sự được tải lại
+     * (không có bind lại thì không có ai gọi AdsNative.show).
+     */
+    public void notifyAdChanged() {
+        if (isAdVisible()) {
+            notifyItemChanged(AD_POSITION);
+        }
     }
 
     @Override

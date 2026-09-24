@@ -310,7 +310,7 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
             shortcuts = FOLDER_SHORTCUTS;
         } else {
             ComponentName cn = info.getTargetComponent();
-            if (cn != null && cn.getPackageName().equals("com.ezla.oslauncher")) {
+            if (cn != null && cn.getPackageName().equals("com.ezla.oslauncher.beautylauncher")) {
                 shortcuts = MY_APP_SHORTCUTS;
             } else shortcuts = SYSTEM_SHORTCUTS;
         }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card gói IAP đang chọn: viền gradient xanh→cyan + nền trắng.
+     stroke của shape không nhận gradient nên phải 2 lớp: lớp dưới phủ gradient,
+     lớp trên trắng inset 2dp để lộ mép gradient làm viền. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#007AFF"
+                android:endColor="#17D1FF"
+                android:angle="0" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+
+</layer-list>

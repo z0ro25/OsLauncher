@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 
 import com.truongnt.ios.ioslite.common.ads.AdsNative;
 import com.truongnt.ios.ioslite.common.ads.AdsSlot;
+import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -102,13 +103,21 @@ public class OnlineThemeDetailActivity<W> extends BaseDetailActivity<ThemesBean,
         mGoToSourceDetail = (LinearLayout) findViewById(R.id.source_1);
         mScroolView = (ScrollView) findViewById(R.id.scroolView);
         mAdView = (FrameLayout) findViewById(R.id.adview);
-        // Tải trước một lần ở đây; setupView() chỉ việc đổ vào container.
-        AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
+        // Remote Config tắt native ThemeClub -> không tải trước, giấu luôn ô chứa để màn
+        // không chừa khoảng trống.
+        if (RemoteConfigs.isAdsEnabled(this, RemoteConfigs.NATIVE_THEME_CLUB)) {
+            // Tải trước một lần ở đây; setupView() chỉ việc đổ vào container.
+            AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
+        } else {
+            mAdView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void setupView(ThemesBean themesBean) {
-        AdsNative.show(mAdView, AdsSlot.NATIVE_IN_APP, null);
+        if (RemoteConfigs.isAdsEnabled(this, RemoteConfigs.NATIVE_THEME_CLUB)) {
+            AdsNative.show(mAdView, AdsSlot.NATIVE_IN_APP, null);
+        }
     }
 
     @Override

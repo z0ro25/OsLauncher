@@ -18,6 +18,11 @@ class LanguageSettingActivity : BaseActivity<ActivityLanguageBinding>() {
     override val setViewBinding: ActivityLanguageBinding
         get() = ActivityLanguageBinding.inflate(LayoutInflater.from(this))
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         initData()
 

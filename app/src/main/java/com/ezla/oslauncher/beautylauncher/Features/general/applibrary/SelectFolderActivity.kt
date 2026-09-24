@@ -23,6 +23,11 @@ class SelectFolderActivity : BaseActivity<ActivitySelectFolderBinding>() {
     private var appCategory: Int = -1
     private lateinit var adapter: SelectFolderAdapter
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         component = intent.getStringExtra(EXTRA_COMPONENT).orEmpty()
         appCategory = intent.getIntExtra(EXTRA_APP_CATEGORY, -1)

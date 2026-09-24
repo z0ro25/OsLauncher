@@ -28,6 +28,11 @@ class ManageLibraryActivity : BaseActivity<ActivityManageLibraryBinding>() {
     }
     private lateinit var itemTouchHelper: ItemTouchHelper
 
+    override fun onResume() {
+        super.onResume()
+        showBannerIfEnabled()
+    }
+
     override fun initView() {
         binding.rcvFolders.adapter = adapter
         itemTouchHelper = ItemTouchHelper(FolderReorderCallback(adapter))

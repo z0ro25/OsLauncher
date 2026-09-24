@@ -176,7 +176,13 @@
     <string name="title1">Experience IOS 26 with a futuristic look</string>
     <string name="title2">Light &amp; Dark theme Supported</string>
     <string name="title3">All your apps arranged neatly in App Library</string>
-
+    <string name="t_c"><u><![CDATA[T&C]]></u></string>
+    <string name="cancel_anytime">Cancel anytime</string>
+    <string name="renew_per_month_cancel_anytime">Renew per month. Cancel anytime</string>
+    <string name="monthly">Monthly</string>
+    <string name="renew_per_year_cancel_anytime">Renew per Year. Cancel anytime</string>
+    <string name="yearly">Yearly</string>
+    <string name="privacy_policy_u"><u>Privacy policy</u></string>
     <!-- Nhãn category cố định (hiển thị) + id song song bất biến (khóa lưu, không dịch) -->
     <string-array name="applib_fixed_categories">
         <item>Games</item>
@@ -198,4 +204,14 @@
         <item>cat_maps</item>
         <item>cat_productivity</item>
     </string-array>
+
+    <!-- Màn Subs (IAP) -->
+    <string name="restore">Restore</string>
+    <string name="enjoy_an">Enjoy An</string>
+    <string name="ad_free">Ad-Free</string>
+    <string name="experience">Experience</string>
+    <string name="remove_ads_subtitle">remove ads of launcher MiOS and all of its internal apps</string>
+    <string name="subs_product_not_ready">Product not ready, please try again</string>
+    <string name="subs_restore_success">Subscription restored</string>
+    <string name="subs_restore_none">No subscription found</string>
 </resources>

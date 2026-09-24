@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification hằng ngày (package com.truongnt.ios.ioslite.common.noti). -->
+    <string name="daily_noti_channel_name">रोज़ाना सुझाव</string>
+    <string name="daily_noti_action">अभी देखें</string>
+    <string name="daily_noti_slot1_title">3 सेकंड में अपना फ़ोन बदलें! ✨</string>
+    <string name="daily_noti_slot1_text">MiSO Launcher के खास आइकन और थीम के साथ बेहद स्मूद इंटरफ़ेस का मज़ा लें। अभी देखें!</string>
+    <string name="daily_noti_slot2_title">पूरा VIP अनुभव अनलॉक करें! 👑</string>
+    <string name="daily_noti_slot2_text">कोई विज्ञापन नहीं, प्रीमियम थीम पर कोई सीमा नहीं। सबसे स्मूद अनुभव के लिए आज ही MiSO Pro लें!</string>
+</resources>
