@@ -11,6 +11,10 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryPurchasesParams
 import com.truongnt.ios.ioslite.common.ads.Ads
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
 
 object BillingUtils {
 
@@ -107,6 +111,28 @@ object BillingUtils {
         val phases = details?.subscriptionOfferDetails?.firstOrNull()
             ?.pricingPhases?.pricingPhaseList ?: return null
         return (phases.lastOrNull { it.priceAmountMicros > 0 } ?: phases.lastOrNull())?.formattedPrice
+    }
+
+    /**
+     * Giá GỐC (số gạch ngang) của offer 50% = giá bán × 2 — con số marketing, KHÔNG phải giá Play
+     * trả về. Format theo currency của phase nên vẫn đúng ký hiệu tiền tệ của từng thị trường.
+     */
+    fun formattedOriginalPrice(details: ProductDetails?): String? {
+        val phases = details?.subscriptionOfferDetails?.firstOrNull()
+            ?.pricingPhases?.pricingPhaseList ?: return null
+        val phase = phases.lastOrNull { it.priceAmountMicros > 0 } ?: return null
+        val currency = try {
+            Currency.getInstance(phase.priceCurrencyCode)
+        } catch (e: IllegalArgumentException) {
+            return null
+        }
+        val amount = BigDecimal.valueOf(phase.priceAmountMicros)
+            .divide(BigDecimal.valueOf(1_000_000))
+            .multiply(BigDecimal.valueOf(2))
+        return NumberFormat.getCurrencyInstance(Locale.getDefault()).apply {
+            this.currency = currency
+            maximumFractionDigits = if (amount.stripTrailingZeros().scale() <= 0) 0 else 2
+        }.format(amount)
     }
 
     /** Mở luồng mua sub. Gọi từ màn paywall khi user bấm mua. */

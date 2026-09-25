@@ -187,4 +187,14 @@
     <string name="subs_product_not_ready">Produit non disponible, veuillez réessayer</string>
     <string name="subs_restore_success">Abonnement restauré</string>
     <string name="subs_restore_none">Aucun abonnement trouvé</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">Profitez d\'une expérience sans pub</string>
+    <string name="subs_offer_sale_off">PROMO</string>
+    <string name="subs_offer_limited">Offre limitée</string>
+    <string name="subs_offer_only">SEULEMENT</string>
+    <string name="subs_offer_per_year">/an</string>
+    <string name="subs_offer_no_charge_today">Annulez à tout moment. Aucun frais aujourd\'hui.</string>
+    <string name="subs_offer_subscribe">S\'ABONNER</string>
+    <string name="subs_offer_close">Fermer</string>
 </resources>

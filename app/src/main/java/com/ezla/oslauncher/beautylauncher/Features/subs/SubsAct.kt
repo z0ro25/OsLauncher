@@ -123,7 +123,8 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
         super.onDestroy()
     }
 
-    private companion object {
+    // Public để dialog ưu đãi (SubsOfferDialog) dùng lại đúng 2 link này, khỏi chép trùng.
+    companion object {
         // TODO(url): thay bằng link T&C / Privacy thật của app.
         const val URL_PRIVACY =
             "https://docs.google.com/document/d/1MQhESaXwlgu5Gx9JWXSfXQMGBaaWCJBs-ochf5Cng3Y/edit?tab=t.0"

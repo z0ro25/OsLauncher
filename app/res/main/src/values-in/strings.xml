@@ -91,4 +91,17 @@
     <string name="select_bg_start_launcher">Mulai launcher</string>
     <string name="select_bg_set">Jadikan wallpaper</string>
     <string name="theme_default_name">Default</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">Nikmati Pengalaman Tanpa Iklan</string>
+    <string name="subs_offer_sale_off">DISKON</string>
+    <string name="subs_offer_limited">Penawaran terbatas</string>
+    <string name="subs_offer_only">HANYA</string>
+    <string name="subs_offer_per_year">/tahun</string>
+    <string name="subs_offer_no_charge_today">Batalkan kapan saja. Tanpa biaya hari ini.</string>
+    <string name="subs_offer_subscribe">BERLANGGANAN SEKARANG</string>
+    <string name="subs_offer_close">Tutup</string>
+    <!-- 2 nhãn dialog ưu đãi dùng chung với màn Subs: bản in trước đây chưa có nên rơi về tiếng Anh. -->
+    <string name="t_c"><u><![CDATA[S&K]]></u></string>
+    <string name="privacy_policy_u"><u>Kebijakan privasi</u></string>
 </resources>

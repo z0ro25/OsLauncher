@@ -96,6 +96,15 @@
             android:theme="@style/TransparentActivity" />
 
         <activity
+            android:name=".dialog.SubsOfferPromptActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.truongnt.ios.launcher.Launcher"
+            android:theme="@style/TransparentActivity" />
+
+        <activity
             android:name=".Features.general.GeneralActivity"
             android:exported="true"
             android:screenOrientation="portrait"

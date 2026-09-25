@@ -212,4 +212,14 @@
     <string name="subs_product_not_ready">상품이 준비되지 않았습니다. 다시 시도해 주세요</string>
     <string name="subs_restore_success">구독이 복원되었습니다</string>
     <string name="subs_restore_none">구독을 찾을 수 없습니다</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">광고 없는 경험을 즐기세요</string>
+    <string name="subs_offer_sale_off">할인</string>
+    <string name="subs_offer_limited">한정 혜택</string>
+    <string name="subs_offer_only">단</string>
+    <string name="subs_offer_per_year">/년</string>
+    <string name="subs_offer_no_charge_today">언제든지 취소 가능. 오늘 결제 없음.</string>
+    <string name="subs_offer_subscribe">지금 구독하기</string>
+    <string name="subs_offer_close">닫기</string>
 </resources>

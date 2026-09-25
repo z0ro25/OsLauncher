@@ -187,4 +187,14 @@
     <string name="subs_product_not_ready">उत्पाद तैयार नहीं है, कृपया पुनः प्रयास करें</string>
     <string name="subs_restore_success">सदस्यता पुनर्स्थापित की गई</string>
     <string name="subs_restore_none">कोई सदस्यता नहीं मिली</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">विज्ञापन-मुक्त अनुभव का आनंद लें</string>
+    <string name="subs_offer_sale_off">सेल ऑफ</string>
+    <string name="subs_offer_limited">सीमित ऑफर</string>
+    <string name="subs_offer_only">केवल</string>
+    <string name="subs_offer_per_year">/वर्ष</string>
+    <string name="subs_offer_no_charge_today">कभी भी रद्द करें। आज कोई शुल्क नहीं।</string>
+    <string name="subs_offer_subscribe">अभी सब्सक्राइब करें</string>
+    <string name="subs_offer_close">बंद करें</string>
 </resources>

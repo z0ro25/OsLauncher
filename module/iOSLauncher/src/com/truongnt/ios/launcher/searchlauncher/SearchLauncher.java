@@ -7,7 +7,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
+import com.truongnt.ios.ioslite.common.ads.Ads;
 import com.truongnt.ios.launcher.Launcher;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SearchLauncher extends Launcher {
 
@@ -24,6 +29,15 @@ public class SearchLauncher extends Launcher {
      * trống/đang loading, che mất quá trình desktop hiện ra.
      */
     private boolean mDesktopReady;
+
+    /**
+     * Lần vào desktop NÀY đã nhường lượt dialog ưu đãi sub cho dialog "Set as default" chưa.
+     * Cờ bộ nhớ (không persist): mỗi lần vào desktop lại xét mới.
+     */
+    private boolean mSubsOfferYielded;
+
+    /** Đã hẹn bung dialog ưu đãi trong lần vào này chưa — tránh hẹn trùng khi onResume nổ liên tục. */
+    private boolean mSubsOfferPosted;
 
     public SearchLauncher() {
         mCallbacks = new SearchLauncherCallbacks(this);
@@ -68,7 +82,11 @@ public class SearchLauncher extends Launcher {
         // Instance đã sống từ trước -> desktop bind xong từ lâu, finishBindingItems sẽ KHÔNG nổ
         // lại. Đánh dấu sẵn sàng rồi tự bung dialog thay vì chờ nó.
         mDesktopReady = true;
+        // Lần vào desktop mới -> xét lại từ đầu việc nhường lượt / hẹn bung dialog ưu đãi sub.
+        mSubsOfferYielded = false;
+        mSubsOfferPosted = false;
         showSetDefaultPromptWhenReady();
+        maybeShowSubsOfferWhenReady();
     }
 
     /**
@@ -87,6 +105,7 @@ public class SearchLauncher extends Launcher {
         super.onResume();
         // showSetDefaultPromptWhenReady() tự đọc cờ persist + tự kiểm tra desktop đã sẵn sàng chưa.
         showSetDefaultPromptWhenReady();
+        maybeShowSubsOfferWhenReady();
     }
 
     /**
@@ -160,6 +179,59 @@ public class SearchLauncher extends Launcher {
         // không nổi lên lúc màn hình còn đang loading).
         mDesktopReady = true;
         showSetDefaultPromptWhenReady();
+        maybeShowSubsOfferWhenReady();
+    }
+
+    /** Tiền tố key prefs: subs_offer_&lt;ddMMyyyy&gt; = true nghĩa là HÔM NAY đã hiện dialog ưu đãi. */
+    private static final String PREF_SUBS_OFFER_PREFIX = "subs_offer_";
+
+    /**
+     * Dialog ưu đãi sub trên desktop: mỗi NGÀY 1 lần, chỉ khi chưa mua.
+     *
+     * Key prefs là CHÍNH ngày hôm nay (ddMMyyyy) chứ không phải cờ + mốc thời gian: sang ngày mới
+     * là key cũ tự hết khớp, không phải so sánh ngày tháng ở đâu cả. Ghi key SAU khi mở được
+     * activity (bài học ở clearPromptSetDefaultFlag: instance chết giữa chừng không được làm mất lượt).
+     *
+     * Nhường lượt cho dialog "Set as default" khi nó cũng tới lượt — hai dialog không chồng nhau,
+     * và KHÔNG ghi key nên lượt hôm nay vẫn còn cho lần vào desktop kế tiếp.
+     */
+    private void maybeShowSubsOfferWhenReady() {
+        if (!mDesktopReady || mSubsOfferYielded || mSubsOfferPosted) {
+            return;
+        }
+        if (Ads.isPremium()) {
+            return; // đã mua: không mời mua nữa
+        }
+        SharedPreferences pref = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        if (pref.getBoolean(subsOfferKeyToday(), false)) {
+            return; // hôm nay đã hiện
+        }
+        if (pref.getBoolean("prompt_set_default_on_desktop", false) && !isDefaultLauncher()) {
+            mSubsOfferYielded = true;
+            return;
+        }
+        mSubsOfferPosted = true;
+        getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent offerIntent = new Intent();
+                offerIntent.setComponent(new ComponentName(getPackageName(),
+                        "com.ezla.oslauncher.beautylauncher.dialog.SubsOfferPromptActivity"));
+                try {
+                    startActivity(offerIntent);
+                    overridePendingTransition(0, 0);
+                    getSharedPreferences(getPackageName(), MODE_PRIVATE)
+                            .edit().putBoolean(subsOfferKeyToday(), true).commit();
+                } catch (Throwable t) {
+                }
+            }
+        }, PROMPT_DELAY_AFTER_BIND_MS);
+    }
+
+    /** Key prefs của ngày hôm nay (ddMMyyyy) — đọc ở đâu cũng ra cùng một key trong cùng ngày. */
+    private static String subsOfferKeyToday() {
+        return PREF_SUBS_OFFER_PREFIX
+                + new SimpleDateFormat("ddMMyyyy", Locale.US).format(new Date());
     }
 
     /**
