@@ -3,6 +3,7 @@ package com.ezla.oslauncher.beautylauncher.Features.subs
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.R
@@ -32,6 +33,12 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
     val adapter by lazy { IapAppIconAdapter(apps) }
 
     override fun initView() {
+        // Vào từ luồng onboarding: back = thoát app (giống màn chọn hình nền), KHÔNG quay lại
+        // màn trước — nếu không user bị kẹt vòng onboarding.
+        if (intent.getBooleanExtra(EXTRA_FROM_ONBOARDING, false)) {
+            onBackPressedDispatcher.addCallback { finishAffinity() }
+        }
+
         binding.apply {
             rcvApps.adapter = adapter
 
@@ -125,6 +132,9 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
 
     // Public để dialog ưu đãi (SubsOfferDialog) dùng lại đúng 2 link này, khỏi chép trùng.
     companion object {
+        /** Extra: màn được mở từ luồng onboarding đầu tiên (back = thoát app, không quay lại). */
+        const val EXTRA_FROM_ONBOARDING = "subs_from_onboarding"
+
         // TODO(url): thay bằng link T&C / Privacy thật của app.
         const val URL_PRIVACY =
             "https://docs.google.com/document/d/1MQhESaXwlgu5Gx9JWXSfXQMGBaaWCJBs-ochf5Cng3Y/edit?tab=t.0"

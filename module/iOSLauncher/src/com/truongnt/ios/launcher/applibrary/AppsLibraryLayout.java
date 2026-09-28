@@ -434,6 +434,18 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         });
     }
 
+    /**
+     * App Library đóng HẲN -> gỡ view ad đang nằm trong ô.
+     *
+     * <p>Không gỡ thì ad của lần trước còn nguyên trong ô: mở lại là thấy nó hiện ra trước, rồi
+     * tới lúc tải ad mới bị xoá để đổ skeleton — nhìn thành "ad -> shimmer -> ad".
+     */
+    public void onAppLibraryFullyClosed() {
+        if (mAppLibraryAdapter != null) {
+            mAppLibraryAdapter.resetNativeAd();
+        }
+    }
+
     public void setSubViewsLayoutParams(){
         int margin = mDeviceProfile.edgeMarginPx * 2;
 

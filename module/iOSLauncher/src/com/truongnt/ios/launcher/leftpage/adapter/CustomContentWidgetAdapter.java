@@ -185,6 +185,18 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         mAdContainer = null;
     }
 
+    /**
+     * Gỡ view ad khỏi container — gọi khi màn trái ĐÓNG HẲN.
+     *
+     * <p>Khác {@link #resetNativeAd()} (cố ý giữ view để không nháy trong lúc mở màn): hàm này
+     * xoá hẳn để lần mở sau ô quảng cáo bắt đầu từ trắng, không hiện lại ad cũ.
+     */
+    public void clearNativeAdView() {
+        if (mAdContainer != null) {
+            mAdContainer.removeAllViews();
+        }
+    }
+
     /** Ép bind lại ô quảng cáo — cần gọi sau {@link #resetNativeAd()} thì ad mới được tải lại. */
     public void notifyAdChanged() {
         if (isAdVisible()) {

@@ -208,9 +208,10 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     }
 
     /**
-     * Lần vào màn MỚI: xoá trạng thái của lần trước để ô quảng cáo được tải lại đúng một lần.
+     * Xoá trạng thái ad của lần trước + gỡ view ad khỏi ô.
      *
-     * <p>Gọi từ {@link AppsLibraryLayout} lúc user mở App Library, KHÔNG gọi trong lúc đang ở màn.
+     * <p>Gọi ở CẢ hai mốc: lúc vào màn (tải lại đúng một lần cho lần vào này) và lúc màn đóng hẳn
+     * (để lần mở sau không thấy lại ad cũ rồi bị thay bằng skeleton — nhìn như nháy hai lần).
      */
     public void resetNativeAd() {
         mAdState = AD_IDLE;

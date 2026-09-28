@@ -172,17 +172,6 @@ public class BaseLauncherApplication extends Application {
     }
 
 
-    /**
-     * Đẩy cấu hình notification hằng ngày từ Remote Config xuống iOSLiteCommon.
-     *
-     * <p>Vì sao tách ở đây: iOSLiteCommon cố ý KHÔNG phụ thuộc Firebase (chỉ :app có
-     * firebase-config). Module common chỉ giữ phần hẹn giờ + bắn noti, còn đọc Remote Config
-     * thì :app đọc rồi đẩy xuống qua DailyNotiScheduler.applyRemoteConfig(). Nhờ vậy đổi mốc
-     * giờ trên console có hiệu lực ở lần mở app kế tiếp, không cần build lại.
-     *
-     * <p>Lưu ý: initRemoteConfig trước đây không được gọi ở đâu — Remote Config chưa từng được
-     * fetch. Đây là chỗ gọi đầu tiên, nên nó cũng là điểm duy nhất kích hoạt fetch.
-     */
     private void setupDailyNotification() {
         RemoteConfigUtils.INSTANCE.initRemoteConfig(new OnCompleteListener() {
             @Override

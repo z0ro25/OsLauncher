@@ -6,44 +6,15 @@ import android.os.Bundle
 import com.truongnt.ios.launcher.Utilities
 import com.ezla.oslauncher.beautylauncher.Base.BaseLauncherApplication
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
+import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 
-class App : BaseLauncherApplication(), ActivityLifecycleCallbacks {
+class App : BaseLauncherApplication() {
     override fun onCreate() {
         super.onCreate()
         Utilities.setScreenWidth(this)
         // Áp Dark/Light đã lưu cho toàn bộ màn app (chỉ module app).
         AppThemeManager.applySavedMode(this)
-    }
 
-    override fun onTerminate() {
-        super.onTerminate()
+        BillingUtils.initBilling(this)
     }
-
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        registerActivityLifecycleCallbacks(this)
-    }
-
-    override fun onActivityStarted(activity: Activity) {
-        
-    }
-
-    override fun onActivityResumed(activity: Activity) {
-    }
-
-    override fun onActivityPaused(activity: Activity) {
-    }
-
-    override fun onActivityStopped(activity: Activity) {
-        
-    }
-
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        
-    }
-
-    override fun onActivityDestroyed(activity: Activity) {
-        
-    }
-
-    fun buildDebug(): Boolean? = false
 }

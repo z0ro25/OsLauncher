@@ -775,6 +775,8 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
                     mSearchViewAdapter.getFilter().filter(null);
                 setDrawingCacheEnabled(false);
                 clearFocus();
+                // Đóng HẲN (hết animation) mới gỡ ad; gỡ sớm hơn thì ô trống trong lúc trượt.
+                clearNativeAdContainer();
             }
 
             @Override
@@ -785,6 +787,19 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         ofPropertyValuesHolder.start();
         if (this.mSearchViewLayoutDelegate != null)
             mSearchViewLayoutDelegate.onSearchViewClosed();
+    }
+
+    /**
+     * Gỡ view ad khỏi ô quảng cáo của màn search.
+     *
+     * <p>Gọi khi màn đã đóng hẳn. Không gỡ thì ad của lần trước còn nằm trong ô: mở lại là thấy
+     * nó hiện ra trước, rồi tới lúc tải ad mới bị xoá để đổ skeleton — nhìn thành "ad -> shimmer -> ad".
+     */
+    private void clearNativeAdContainer() {
+        if (mNativeAdContainer != null) {
+            mNativeAdContainer.removeAllViews();
+        }
+        mNativeAdLoaded = false;
     }
 
     public void showSearchView(){
@@ -1086,6 +1101,10 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         if (mState == SearchViewState.OPENED) {
             return;
         }
+        // startOpen() có HAI nguồn gọi (PageIndicator và SearchPullDetector), nên lần thứ hai có thể
+        // rơi vào lúc đang OPENING. Chỉ lần vào từ trạng thái ĐÓNG mới được reset cờ ad — reset lần
+        // nữa là phát request thứ hai: ad đang hiện bị xoá để chạy lại skeleton.
+        final boolean enteringFromClosed = mState != SearchViewState.OPENING;
         // Nạp dự phòng danh sách app cho lưới Gợi ý (phòng bind bị bỏ lỡ -> lưới rỗng).
         mLauncher.ensureSearchViewApps();
         setVisibility(View.VISIBLE);
@@ -1112,14 +1131,11 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         }
         mHasResult = false;
         // Vào (lại) màn search -> cho ô quảng cáo native tải MỚI đúng MỘT lần cho lần vào này.
-        // Không reset thì mNativeAdRequested chặn vĩnh viễn: ad chỉ tải một lần cho cả vòng đời
-        // view, lần vào sau vẫn dùng lại ad cũ (hoặc trắng nếu lần đầu thất bại).
-        //
-        // KHÔNG reset mNativeAdLoaded: ad cũ còn nằm trong container thì giữ nguyên hiển thị cho
-        // tới khi ad mới được đổ vào (AdsNative tự removeAllViews trước khi đổ) — nhờ vậy không có
-        // quãng trống giữa lúc vào màn và lúc ad mới về.
-        mNativeAdRequested = false;
-        mNativeAdFailed = false;
+        // Không reset thì mNativeAdRequested chặn vĩnh viễn: lần vào sau vẫn dùng lại ad cũ.
+        if (enteringFromClosed) {
+            mNativeAdRequested = false;
+            mNativeAdFailed = false;
+        }
         refreshHistory();
         updateSectionsVisibility(false); // về trạng thái "chưa gõ": lưới hiện, kết quả/dọc ẩn
         enterSearchSoftInputMode();

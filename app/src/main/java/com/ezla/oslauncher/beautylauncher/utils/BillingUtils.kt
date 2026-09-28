@@ -21,8 +21,8 @@ object BillingUtils {
     private const val TAG = "BillingUtils"
 
     // TODO(productId): điền ID thật lấy từ Play Console. Để rỗng thì bỏ qua không query.
-    const val SubsMonth = ""
-    const val SubsYear = ""
+    const val SubsMonth = "miospro_monthly"
+    const val SubsYear = "miospro_yearly"
 
     // Cờ "đang có sub" — kênh duy nhất để các module khác biết user đã mua. Ghi ở saveSubs(),
     // đọc sớm ở isSubsCached() ngay trong Application.onCreate (trước khi BillingClient kịp nối).
@@ -58,8 +58,10 @@ object BillingUtils {
                     when (details?.productId) {
                         SubsMonth -> Monthly = details
                         SubsYear -> Yearly = details
+                        // ID lạ = gõ sai hằng số hoặc Play trả product khác -> giá sẽ không bind.
+                        else -> Log.w(TAG, "productId không khớp hằng số: ${details?.productId}")
                     }
-                    Log.d(TAG, "product: ${details?.productId}")
+                    Log.d(TAG, "product: ${details?.productId} offer=${details?.subscriptionOfferDetails?.size}")
                 }
                 onProductsLoaded?.invoke()
             }

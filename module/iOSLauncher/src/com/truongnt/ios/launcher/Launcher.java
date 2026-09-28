@@ -7547,6 +7547,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onAppsLibraryOpened() {
         this.mAppsLibraryLayout.clearFocus();
         hideKeyboard(mAppsLibraryLayout);
+        // NGHỊCH TÊN: hàm này bắn khi App Library đóng HẲN (xem comment cuối hàm) -> gỡ ad đang
+        // hiển thị, để lần mở sau không thấy lại ad cũ rồi bị thay bằng skeleton.
+        if (mAppsLibraryLayout != null) {
+            mAppsLibraryLayout.onAppLibraryFullyClosed();
+        }
         BouncyRecyclerView bouncyRecyclerView = mAppsLibraryLayout.mSearchResultRV;
 
         if (bouncyRecyclerView != null && bouncyRecyclerView.getVisibility() == View.VISIBLE) {
@@ -7678,6 +7683,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageClosed() {
         hideKeyboard(this.mCustomContentView);
         mCustomContentView.onClosePage();
+        // Màn trái đóng hẳn -> gỡ ad đang hiển thị, lần mở sau không thấy lại ad cũ.
+        mCustomContentView.onLeftPageFullyClosed();
         // Gỡ hẳn frost khi đóng (phòng slide bị cắt ngang không kết ở f=1 -> kẹt mờ).
         if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(0.0f);
         // Khôi phục CỨNG workspace + alpha/scale home sau khi đóng negative page (phòng slide bị cắt

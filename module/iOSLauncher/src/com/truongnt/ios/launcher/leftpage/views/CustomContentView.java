@@ -500,6 +500,20 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         collapseWidgetList();
     }
 
+    /**
+     * Màn trái đóng HẲN -> xoá trạng thái ad và gỡ view ad còn nằm trong ô.
+     *
+     * <p>Phải gỡ view chứ không chỉ reset trạng thái (như {@code resetNativeAd} khi vào màn): để
+     * lần mở sau không thấy ad cũ hiện lên trước rồi bị thay bằng skeleton.
+     */
+    public void onLeftPageFullyClosed() {
+        if (mWidgetListAdapter == null) {
+            return;
+        }
+        mWidgetListAdapter.clearNativeAdView();
+        mWidgetListAdapter.resetNativeAd();
+    }
+
     public void collapseAppsStyle(){
         if (mSlidingUpWidgetsAppStyle == null) return;
         mSlidingUpWidgetsAppStyle.postOnAnimation(

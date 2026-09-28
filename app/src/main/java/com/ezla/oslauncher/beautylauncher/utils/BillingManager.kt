@@ -39,12 +39,18 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingServiceDisconnected() {
                 // Thử kết nối lại nếu bị ngắt kết nối
-                Log.d(TAG, "Billing Service Disconnected")
+                Log.e(TAG, "Billing Service Disconnected")
             }
 
             override fun onBillingSetupFinished(billingResult: BillingResult) {
+                // Phải log CẢ nhánh lỗi: setup fail (app không cài từ Play, chưa có license
+                // tester) thì queryAvailableProducts() không bao giờ chạy -> giá không hiện,
+                // mà trước đây im lặng nên không có manh mối nào để chẩn đoán.
+                Log.d(
+                    TAG,
+                    "onBillingSetupFinished: code=${billingResult.responseCode} msg=${billingResult.debugMessage}"
+                )
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.d(TAG, "Billing Service Connected")
                     listener.onBillingConnection()
                     queryAvailableProducts()
                 }
@@ -77,10 +83,20 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
             .build()
 
         billingClient.queryProductDetailsAsync(params) { billingResult, skuDetailsList ->
+            val details = skuDetailsList?.productDetailsList.orEmpty()
+            Log.d(
+                TAG,
+                "queryProductDetails: code=${billingResult.responseCode} " +
+                        "msg=${billingResult.debugMessage} size=${details.size}"
+            )
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK &&
                 skuDetailsList != null
             ) {
-                listener.onSkuDetailsRetrieved(skuDetailsList.productDetailsList)
+                // OK mà rỗng: ID sai, product chưa active, hoặc sub chưa có base plan.
+                if (details.isEmpty()) {
+                    Log.e(TAG, "Play trả RỖNG cho $productIds — kiểm tra lại trên Play Console")
+                }
+                listener.onSkuDetailsRetrieved(details)
             } else {
                 Log.e(
                     TAG,

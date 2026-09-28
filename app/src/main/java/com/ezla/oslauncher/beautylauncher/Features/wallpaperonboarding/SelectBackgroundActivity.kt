@@ -6,17 +6,22 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
+import com.ezla.oslauncher.beautylauncher.Features.subs.SubsAct
 import com.ezla.oslauncher.beautylauncher.databinding.ActivitySelectBackgroundBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
+import com.truongnt.ios.ioslite.common.ads.Ads
 import com.truongnt.ios.ioslite.common.ads.AdsInterNativeFullCallback
 import com.truongnt.ios.ioslite.common.ads.InterNativeFull
 import com.truongnt.ios.ioslite.common.config.RemoteConfigs
@@ -39,6 +44,32 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
     }
 
     private var currentPos = 3
+
+    /** Đã mời mua sub trong lần onboarding này chưa — chặn mở lặp khi user quay về màn. */
+    private var subsOffered = false
+
+    /**
+     * Cờ trên phải sống qua recreate: màn này không khai configChanges, mà instance bị tạo lại
+     * trong lúc màn subs đang mở thì biến runtime mất giá trị -> quay về là mời mua lần 2.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        subsOffered = savedInstanceState?.getBoolean(KEY_SUBS_OFFERED) == true
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(KEY_SUBS_OFFERED, subsOffered)
+    }
+
+    // Mở màn subs rồi chờ đóng: quay về mới đi tiếp luồng vào launcher.
+    private val subsLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        // Back ở màn subs gọi finishAffinity() -> app đang thoát, không được chạy tiếp luồng.
+        if (isFinishing || isDestroyed) return@registerForActivityResult
+        goToLauncher()
+    }
 
     override fun onResume() {
         super.onResume()
@@ -177,6 +208,18 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
      *   launcher"; KHÔNG đóng app để người dùng còn quay lại được.
      */
     private fun goToLauncher() {
+        Log.d(TAG, "goToLauncher: offered=$subsOffered premium=${Ads.isPremium()} inst=${hashCode()}")
+        // Bước 1: mời mua sub TRƯỚC khi hiện ads/vào launcher, chỉ 1 lần trong luồng onboarding.
+        // Mua xong Ads.isPremium() bật -> isAdsEnabled() false -> nhánh dưới tự bỏ InterNativeFull.
+        if (!subsOffered && !Ads.isPremium()) {
+            subsOffered = true
+            subsLauncher.launch(
+                Intent(this, SubsAct::class.java)
+                    .putExtra(SubsAct.EXTRA_FROM_ONBOARDING, true)
+            )
+            return
+        }
+
         val isDefault = isDefaultLauncher()
         if (RemoteConfigs.isAdsEnabled(RemoteConfigs.INTER_NATIVE_FULL)){
             InterNativeFull.show(this){
@@ -215,6 +258,11 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
     }
 
     companion object {
+        private const val TAG = "SelectBackground"
+
+        /** Cờ "đã mời mua sub" lưu trong savedInstanceState — xem onCreate. */
+        private const val KEY_SUBS_OFFERED = "subs_offered"
+
         /** Key SharePref lưu đường dẫn asset hình nền onboarding đã chọn — màn Hello dùng lại. */
         const val HELLO_BG_ASSET_KEY = "HELLO_BG_ASSET"
 
