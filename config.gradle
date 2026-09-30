@@ -4,7 +4,7 @@ ext {
             // đọc được android.jar API 36 (xem ghi chú ở build.gradle gốc).
             compileSdkVersion: 36,
             applicationId    : "com.ios.ioslite.odm",
-            minSdkVersion    : 26,
+            minSdkVersion    : 24,
             targetSdkVersion : 36,
             // Java 8 -> 17: AGP 8.x yêu cầu JDK 17 để chạy, và desugaring mặc định nhắm Java 17.
             sourceCompatibility : JavaVersion.VERSION_17,

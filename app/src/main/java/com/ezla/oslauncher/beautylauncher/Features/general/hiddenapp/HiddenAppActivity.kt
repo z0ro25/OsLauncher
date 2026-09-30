@@ -18,7 +18,7 @@ class HiddenAppActivity : BaseActivity<ActivityHiddenappBinding>() {
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 
     override fun initView() {

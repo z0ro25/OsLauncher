@@ -6,11 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.truongnt.ios.ioslite.common.ads.AdsInterstitial;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import androidx.fragment.app.FragmentActivity;
 
-import kotlin.Unit;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
 
 /**
  * Trigger interstitial "mở app" cho launcher.
@@ -27,8 +26,8 @@ import kotlin.Unit;
  * rồi vẫn chạy thẳng hành động ngay. Bản cũ chỉ chạy thẳng mà không chuẩn bị gì, nên sẽ
  * không bao giờ có ad để hiện. Nhờ vậy lần mở app thứ hai trở đi mới thực sự có interstitial.
  *
- * <p>Việc ghi nhận policy tần suất ({@code shouldShow} / {@code onShown}) do tầng
- * {@link AdsInterstitial} tự lo — ở đây không gọi lại, tránh đếm hai lần.
+ * <p>Khoảng nghỉ giữa hai lần hiện ad do AdsKit tự lo (fullscreenIntervalMs trong JSON) —
+ * ở đây không đếm lại, tránh tính hai lần.
  *
  * <p><b>Tần suất hiển thị:</b> riêng {@link #openAppWithInterstitial} còn lọc thêm một lớp
  * đếm click của {@link AdClickCounter} — cứ 5 lần bấm mới chen ad một lần. Lớp đếm này nằm
@@ -39,11 +38,17 @@ public final class LauncherAdTrigger {
 
     private static final String TAG = "LauncherAdTrigger";
 
+    // Khoá tách bộ đếm click theo vị trí (SDK eztech không có khái niệm slot).
+    private static final String INTER_SLOT_KEY = "inter_in_app";
+
+    // Placement interstitial của launcher trong JSON (ads/app-placements.json, placements.json).
+    private static final String INTER_PLACEMENT = "inter_launcher";
+
     private LauncherAdTrigger() {
     }
 
     /**
-     * Bọc hành động mở app sau interstitial {@link AdsSlot#INTER_IN_APP}.
+     * Bọc hành động mở app sau interstitial in-app.
      *
      * <p><b>Tần suất:</b> chỉ mỗi lần bấm thứ {@link AdClickCounter#SHOW_EVERY} mới thực sự chen
      * interstitial (xem {@link AdClickCounter}). Các lần bấm còn lại vẫn TẢI TRƯỚC ad nhưng mở
@@ -56,22 +61,21 @@ public final class LauncherAdTrigger {
         if (onContinue == null) {
             return;
         }
-        // Remote Config tắt interstitial in-app -> không tải trước, không chèn ad, mở app
-        // ngay. Đặt TRƯỚC cả nhánh preloadQuietly để không phát request thừa lên AdMob.
-        if (activity == null
-                || !RemoteConfigs.isAdsEnabled(activity, RemoteConfigs.INTER_INAPP)) {
+        // Đã mua bản không quảng cáo -> không tải trước, không chèn ad, mở app ngay. Đặt TRƯỚC
+        // cả nhánh preloadQuietly để không phát request thừa lên AdMob.
+        if (activity == null || AdsSdk.INSTANCE.isAdFree()) {
             onContinue.run();
             return;
         }
         // Chưa tới lượt hiện ad -> tải trước cho lần thứ 5 rồi mở app ngay. Đây là nhánh
         // thường gặp, KHÔNG được chặn người dùng.
         if (activity != null
-                && !AdClickCounter.markClickAndShouldShow(activity, AdsSlot.INTER_IN_APP)) {
+                && !AdClickCounter.markClickAndShouldShow(activity, INTER_SLOT_KEY)) {
             preloadQuietly(activity);
             onContinue.run();
             return;
         }
-        runWithInterstitial(activity, AdsSlot.INTER_IN_APP, onContinue);
+        runWithInterstitial(activity, onContinue);
     }
 
     /**
@@ -109,10 +113,10 @@ public final class LauncherAdTrigger {
      * thừa lên AdMob.
      */
     private static void preloadQuietly(Activity activity) {
-        if (AdsInterstitial.isReady(AdsSlot.INTER_IN_APP)) {
+        if (AppAds.isFullScreenReady(INTER_PLACEMENT)) {
             return;
         }
-        AdsInterstitial.load(activity, AdsSlot.INTER_IN_APP, ignored -> Unit.INSTANCE);
+        AppAds.preloadFullScreen(INTER_PLACEMENT);
     }
 
     /**
@@ -134,11 +138,10 @@ public final class LauncherAdTrigger {
     }
 
     /**
-     * Bọc {@code onContinue} sau interstitial của {@code slot}.
+     * Bọc {@code onContinue} sau interstitial in-app.
      * Xem mô tả class về bất biến "chạy đúng 1 lần" + "no-op an toàn khi chưa có ad".
      */
-    public static void runWithInterstitial(final Activity activity, final AdsSlot slot,
-                                           final Runnable onContinue) {
+    public static void runWithInterstitial(final Activity activity, final Runnable onContinue) {
         if (onContinue == null) {
             return;
         }
@@ -162,23 +165,27 @@ public final class LauncherAdTrigger {
         };
 
         try {
-            if (!AdsInterstitial.isReady(slot)) {
+            if (!AppAds.isFullScreenReady(INTER_PLACEMENT)) {
                 // Chưa có ad sẵn -> KHÔNG được chặn người dùng. Tải trước cho lần sau,
                 // lần này đi thẳng.
-                AdsInterstitial.load(activity, slot, ignored -> Unit.INSTANCE);
+                AppAds.preloadFullScreen(INTER_PLACEMENT);
                 finish.run();
                 return;
             }
 
-            AdsInterstitial.show(activity, slot, () -> {
-                // Ad đóng, ad lỗi, hay chưa có ad để hiện — đều phải mở app.
-                // `() -> Unit` của Kotlin hiện ra Java là Function0<Unit> nên phải trả Unit.INSTANCE.
+            // AdsKit chỉ show từ FragmentActivity (Launcher đã kế thừa CommonFragmentActivity);
+            // nhánh này là chốt cho call-site đưa Activity trần vào.
+            if (!(activity instanceof FragmentActivity)) {
+                Log.w(TAG, "activity không phải FragmentActivity — bỏ interstitial, mở app ngay");
                 finish.run();
-                return Unit.INSTANCE;
-            });
+                return;
+            }
+
+            // finish chạy khi ad đóng, lỗi, hay không có gì để hiện — xem AppAds.showFullScreen.
+            AppAds.showFullScreen((FragmentActivity) activity, INTER_PLACEMENT, finish);
         } catch (Throwable t) {
             // Bất kỳ sự cố nào với ad cũng KHÔNG được chặn hành động của người dùng.
-            Log.e(TAG, "lỗi khi hiển thị interstitial cho slot " + slot, t);
+            Log.e(TAG, "lỗi khi hiển thị interstitial in-app", t);
             finish.run();
         }
     }

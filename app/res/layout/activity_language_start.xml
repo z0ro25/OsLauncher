@@ -75,7 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <include layout="@layout/fsd_ads_shimmer_large" />
 
     </FrameLayout>
 

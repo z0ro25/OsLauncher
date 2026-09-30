@@ -20,9 +20,9 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.util.Util;
 import android.widget.FrameLayout;
 
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -74,6 +74,9 @@ public class OnlineThemeDetailActivity<W> extends BaseDetailActivity<ThemesBean,
     private LinearLayout mGoToSourceDetail;
     private ScrollView mScroolView;
     private FrameLayout mAdView;
+
+    /** Hạn chờ SDK trả native; 15000ms là đúng default của {@code NativeAds.initNativeInline}. */
+    private static final long NATIVE_LOAD_TIMEOUT_MS = 15000L;
     private int mId;
 
     @Override
@@ -105,9 +108,11 @@ public class OnlineThemeDetailActivity<W> extends BaseDetailActivity<ThemesBean,
         mAdView = (FrameLayout) findViewById(R.id.adview);
         // Remote Config tắt native ThemeClub -> không tải trước, giấu luôn ô chứa để màn
         // không chừa khoảng trống.
-        if (RemoteConfigs.isAdsEnabled(this, RemoteConfigs.NATIVE_THEME_CLUB)) {
-            // Tải trước một lần ở đây; setupView() chỉ việc đổ vào container.
-            AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
+        if (!AdsSdk.INSTANCE.isAdFree()) {
+            // Tải trước một lần ở đây cho lần bind sau; alias riêng để không tiêu mất ad đã
+            // tải của vị trí khác trong app.
+            NativeAds.INSTANCE.preloadNativeInline(this, "nt_theme_club",
+                    AdsConfig.INSTANCE.getNative());
         } else {
             mAdView.setVisibility(View.GONE);
         }
@@ -115,8 +120,11 @@ public class OnlineThemeDetailActivity<W> extends BaseDetailActivity<ThemesBean,
 
     @Override
     public void setupView(ThemesBean themesBean) {
-        if (RemoteConfigs.isAdsEnabled(this, RemoteConfigs.NATIVE_THEME_CLUB)) {
-            AdsNative.show(mAdView, AdsSlot.NATIVE_IN_APP, null);
+        if (!AdsSdk.INSTANCE.isAdFree()) {
+            NativeAds.INSTANCE.initNativeInline(this, mAdView, null,
+                    AdsConfig.INSTANCE.getNative(),
+                    com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+                    NATIVE_LOAD_TIMEOUT_MS);
         }
     }
 

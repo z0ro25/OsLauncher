@@ -44,12 +44,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.database.HiddenAppManager;
-import com.truongnt.ios.ioslite.common.ads.AdsError;
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.ExtendedEditText;
@@ -114,6 +111,9 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     RecyclerView mSuggestionVerticalList;    // list gợi ý dọc
     /** Số app hiển thị ở chế độ gợi ý MẶC ĐỊNH (bấm "Xem thêm" -> MAX_SEARCH_ITEM_SIZE). */
     private static final int SUGGESTION_DEFAULT_LIMIT = 4;
+
+    // Placement native màn search trong JSON (ads/app-placements.json, placements.json).
+    private static final String NATIVE_PLACEMENT = "native_search";
 
     // [KEYBOARD + STATUS BAR] THIẾT KẾ THỐNG NHẤT (đã duyệt):
     //   - Ẩn status bar NGAY khi mở search trên CẢ 2 máy, qua Launcher.setStatusBarHiddenForSearch (bên trong
@@ -629,12 +629,9 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         mSuggestionVerticalList = findViewById(R.id.suggestion_list_vertical);
         mNativeAdContainer = findViewById(R.id.search_native_ad_container);
 
-        // Tải trước native cho màn search. FSDAds giữ ad theo alias nên gọi sớm để lúc lưới
-        // gợi ý hiện là có sẵn; AdsNative.preload tự chặn gọi trùng nên không tốn thêm request.
-        // Remote Config tắt native màn search -> không phát request nào.
-        if (mLauncher != null
-                && RemoteConfigs.isAdsEnabled(mLauncher, RemoteConfigs.NATIVE_APP_SEARCH)) {
-            AdsNative.preload(mLauncher, AdsSlot.NATIVE_IN_APP, null);
+        // Tải trước native màn search để lúc lưới gợi ý hiện đã có sẵn; đã mua bản không qc thì bỏ.
+        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
+            AppAds.preloadNative(NATIVE_PLACEMENT);
         }
     }
 
@@ -944,37 +941,29 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
      * (đường tự populate, xem {@code AdsNative.pourOwnLayout}).
      */
     private void showNativeAd() {
-        // Remote Config tắt native màn search -> giấu ô quảng cáo, KHÔNG phát request.
+        // Đã mua bản không quảng cáo -> giấu ô quảng cáo, KHÔNG phát request.
         // Kiểm tra ở đây (chứ không chỉ ở updateSectionsVisibility) để mọi đường vào hàm này
         // đều bị chặn như nhau.
-        if (!RemoteConfigs.isAdsEnabled(
-                mNativeAdContainer.getContext(),
-                RemoteConfigs.NATIVE_APP_SEARCH)) {
+        if (AdsSdk.INSTANCE.isAdFree()) {
             mNativeAdContainer.setVisibility(View.GONE);
             return;
         }
         if (!mNativeAdRequested) {
             mNativeAdRequested = true;
             mNativeAdFailed = false;
-            // Bật ô lên NGAY: AdsNative đã đổ skeleton vào trong đó, ẩn đi thì không thấy hiệu
-            // ứng chờ. Ô này chỉ nằm ở trạng thái "chưa gõ" nên bật ở đây là an toàn.
-            mNativeAdContainer.setVisibility(View.VISIBLE);
-            AdsNative.show(mNativeAdContainer, AdsSlot.NATIVE_IN_APP,com.truongnt.ios.ioslite.common.R.layout.layout_native_search ,new AdsNativeCallback() {
-                @Override
-                public void onLoaded() {
-                    mNativeAdLoaded = true;
-                    // KHÔNG tự bật VISIBLE: ad có thể về đúng lúc người dùng đang gõ. Trạng thái
-                    // ô nhập là thứ quyết định, nên để updateSectionsVisibility bật/tắt lại.
-                    updateSectionsVisibility(mLastHasText);
-                }
-
-                @Override
-                public void onLoadFailed(AdsError error) {
-                    // Không có ad -> giấu hẳn, không chừa khoảng trống giữa gợi ý và phần dưới.
-                    mNativeAdFailed = true;
-                    mNativeAdContainer.setVisibility(View.GONE);
-                }
-            });
+            // AppAds đổ skeleton rồi bật ô lại (SDK tự GONE container lúc gọi). Ô này chỉ ở trạng
+            // thái "chưa gõ" nên bật là an toàn; có kết quả thì updateSectionsVisibility quyết định.
+            AppAds.showNative(mLauncher, NATIVE_PLACEMENT, mNativeAdContainer,
+                    com.truongnt.ios.ioslite.common.R.layout.layout_native_search,
+                    com.truongnt.ios.ioslite.common.R.layout.shimmer_native_search, hasAd -> {
+                        mNativeAdLoaded = hasAd;
+                        mNativeAdFailed = !hasAd;
+                        if (hasAd) {
+                            updateSectionsVisibility(mLastHasText);
+                        } else {
+                            mNativeAdContainer.setVisibility(View.GONE);
+                        }
+                    });
             return;
         }
         // Đã phát request: hàm này chạy lại mỗi lần nội dung ô nhập đổi, mà lúc đó vừa bị ẩn đi

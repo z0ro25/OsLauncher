@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.truongnt.ios.ioslite.common.ads.Ads;
-import com.truongnt.ios.ioslite.common.ads.AdsError;
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import androidx.fragment.app.FragmentActivity;
+
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
+import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
 import com.truongnt.ios.launcher.R;
 import com.truongnt.ios.launcher.bounce.BouncyRecyclerView;
@@ -47,16 +47,18 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     private final CustomContentView mCustomContentView;
     private final ArrayList<WidgetInfo> mWidgetInfoArrayList;
 
-    /** Slot quảng cáo được phép dùng lúc dựng adapter (premium/tắt native/policy chặn -> false). */
+    // Placement native màn trái; khớp với preload ở CustomContentView.
+    public static final String NATIVE_PLACEMENT = "native_left_page";
+
+    /** Vị trí quảng cáo được phép dùng lúc dựng adapter (đã mua bản không qc/tắt native -> false). */
     private final boolean mAdAllowed;
 
     public CustomContentWidgetAdapter(CustomContentView customContentView, ArrayList<WidgetInfo> arrayList) {
         this.mCustomContentView = customContentView;
         this.mWidgetInfoArrayList = arrayList;
-        // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) VÀ cờ Remote Config của màn trái.
-        // Không gộp được vào slot vì App Library và App Search dùng chung NATIVE_IN_APP.
-        this.mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
-                && RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_LEFT_PAGE);
+        // Đã mua bản không quảng cáo -> không chừa chỗ cho ô quảng cáo. Cờ Remote Config theo
+        // vị trí đã bỏ cùng RemoteConfigs; công tắc bật/tắt do SDK lo.
+        this.mAdAllowed = !AdsSdk.INSTANCE.isAdFree();
     }
 
     // ── Trạng thái quảng cáo native trong MỘT lần vào màn ───────────────────────────────
@@ -87,11 +89,34 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     // Thay vào đó quảng cáo chiếm một vị trí HIỂN THỊ riêng, còn chỉ số trong list widget
     // được suy ra qua [widgetIndexFor] — mọi chỗ dùng position đều phải đi qua hàm này.
 
+    // Ad lỗi trong lần vào màn này -> gỡ HẲN item để widget dồn lên (item GONE vẫn ăn margin
+    // của ItemDecoration). Hạ ở resetNativeAd() để lần vào sau chèn lại và thử lại.
+    private boolean mAdFailedThisVisit;
+
     /** Có chèn item quảng cáo không. Cần >= AD_POSITION widget để quảng cáo còn chỗ nằm. */
     private boolean isAdVisible() {
         return mAdAllowed
+                && !mAdFailedThisVisit
                 && mWidgetInfoArrayList != null
                 && mWidgetInfoArrayList.size() >= AD_POSITION;
+    }
+
+    // Gỡ item ad khỏi list. Post trên RecyclerView: callback có thể về lúc nó đang layout.
+    private void removeAdItem() {
+        final RecyclerView rv = mCustomContentView.mListWidgetRV;
+        if (rv == null) {
+            return;
+        }
+        rv.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isAdVisible()) {
+                    return;
+                }
+                mAdFailedThisVisit = true;
+                notifyItemRemoved(AD_POSITION);
+            }
+        });
     }
 
     /** Adapter hiện có chèn item quảng cáo không — để call-site biết cấu trúc list có đổi. */
@@ -144,31 +169,27 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         }
 
         mAdState = AD_LOADING;
-        // Layout riêng cho màn trái. Màn trái chạy trong Launcher (Activity trần) nên SDK không
-        // nhận layout — AdsNative tự inflate layout này rồi tự populate, xem AdsNative.pourOwnLayout.
-        // Ghi rõ R của library vì file này đang import R của module launcher.
-        AdsNative.show(container, AdsSlot.NATIVE_IN_APP,
-                com.truongnt.ios.ioslite.common.R.layout.layout_native_leftpage,
-                new AdsNativeCallback() {
-            @Override
-            public void onLoaded() {
-                mAdState = AD_LOADED;
-                // Callback về bất đồng bộ, holder có thể đã bị tái dùng -> chỉ đổi hiển thị khi
-                // nó vẫn đang gắn cho ô quảng cáo, tránh ẩn/hiện nhầm widget khác.
-                if (post == AD_POSITION) {
-                    holder.itemView.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void onLoadFailed(AdsError error) {
-                mAdState = AD_FAILED;
-                // Không có ad để đổ -> giấu item, không chừa khoảng trống.
-                if (post == AD_POSITION) {
-                    holder.itemView.setVisibility(View.GONE);
-                }
-            }
-        });
+        // AdsKit chỉ show từ FragmentActivity; dò từ context của container vì view trong
+        // RecyclerView giữ ContextThemeWrapper chứ không phải chính Activity.
+        final Activity activity = ActivityUtil.findActivity(container.getContext());
+        if (!(activity instanceof FragmentActivity)) {
+            mAdState = AD_FAILED;
+            removeAdItem();
+            return;
+        }
+
+        // Khung ad luôn hiện ngay với skeleton; có ad thì hiện ad, lỗi thì gỡ hẳn item.
+        holder.itemView.setVisibility(View.VISIBLE);
+        // Ghi rõ R của library vì file này đang import R của module launcher.
+        AppAds.showNative((FragmentActivity) activity, NATIVE_PLACEMENT, container,
+                com.truongnt.ios.ioslite.common.R.layout.layout_native_left_page,
+                com.truongnt.ios.ioslite.common.R.layout.shimmer_native_left_page, hasAd -> {
+                    mAdState = hasAd ? AD_LOADED : AD_FAILED;
+                    if (!hasAd) {
+                        removeAdItem();
+                    }
+                });
     }
 
     /**
@@ -183,6 +204,19 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     public void resetNativeAd() {
         mAdState = AD_IDLE;
         mAdContainer = null;
+    }
+
+    // Lần vào màn mới: nếu lần trước ad lỗi thì chèn lại item để thử lại. Trả true nếu có chèn.
+    public boolean restoreAdItemIfRemoved() {
+        if (!mAdFailedThisVisit) {
+            return false;
+        }
+        mAdFailedThisVisit = false;
+        if (!isAdVisible()) {
+            return false;
+        }
+        notifyItemInserted(AD_POSITION);
+        return true;
     }
 
     /**

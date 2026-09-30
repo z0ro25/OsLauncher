@@ -38,9 +38,9 @@ import com.bumptech.glide.util.Util;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import android.widget.FrameLayout;
 
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -70,6 +70,10 @@ import java.util.ArrayList;
 
 public class SelectionWallpaperDetailsFragment extends Fragment implements View.OnClickListener {
     public static String TAG = "WallpaperDetailsF";
+
+    /** Hạn chờ SDK trả native; 15000ms là đúng default của {@code NativeAds.initNativeInline}. */
+    private static final long NATIVE_LOAD_TIMEOUT_MS = 15000L;
+
     private int CACHE_SIZE = 10;
     Toolbar mToolbar;
     ImageView iVimige;
@@ -198,13 +202,18 @@ public class SelectionWallpaperDetailsFragment extends Fragment implements View.
     protected void fragmentLoadData(View v) {
         FrameLayout adView = (FrameLayout) v.findViewById(R.id.adview);
         // Remote Config tắt native ThemeClub -> không tải, không đổ, giấu luôn ô chứa.
-        if (!RemoteConfigs.isAdsEnabled(getContext(), RemoteConfigs.NATIVE_THEME_CLUB)) {
+        if (AdsSdk.INSTANCE.isAdFree()) {
             adView.setVisibility(View.GONE);
+        } else if (getActivity() != null) {
+            // SDK nhận Activity cho cả hai bước; Fragment có thể chưa gắn Activity nên phải chặn.
+            NativeAds.INSTANCE.preloadNativeInline(getActivity(), "nt_theme_club",
+                    AdsConfig.INSTANCE.getNative());
+            NativeAds.INSTANCE.initNativeInline(getActivity(), adView, null,
+                    AdsConfig.INSTANCE.getNative(),
+                    com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+                    NATIVE_LOAD_TIMEOUT_MS);
         } else {
-            if (getActivity() != null) {
-                AdsNative.preload(getActivity(), AdsSlot.NATIVE_IN_APP, null);
-            }
-            AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
+            adView.setVisibility(View.GONE);
         }
         Log.e(TAG, "load data---------------" + mWallpaper.toString());
         filePath = mWallpaperPresenter.getWallpaperPath();

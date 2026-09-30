@@ -35,9 +35,9 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import android.widget.FrameLayout;
 
 import com.truongnt.ios.ioslite.common.CommonAppCompatActivity;
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.debug.DebugLog;
@@ -352,16 +352,21 @@ public class OnlineWallpaperDetailActivity extends CommonAppCompatActivity imple
         }
     }
 
+    /** Hạn chờ SDK trả native; 15000ms là đúng default của {@code NativeAds.initNativeInline}. */
+    private static final long NATIVE_LOAD_TIMEOUT_MS = 15000L;
+
     private void initAdView() {
         FrameLayout adView = (FrameLayout) findViewById(R.id.adview);
         // Remote Config tắt native ThemeClub -> không tải, không đổ, giấu luôn ô chứa để
         // màn không chừa khoảng trống.
-        if (!RemoteConfigs.isAdsEnabled(this, RemoteConfigs.NATIVE_THEME_CLUB)) {
+        if (AdsSdk.INSTANCE.isAdFree()) {
             adView.setVisibility(View.GONE);
             return;
         }
-        AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, null);
-        AdsNative.show(adView, AdsSlot.NATIVE_IN_APP, null);
+        NativeAds.INSTANCE.preloadNativeInline(this, "nt_theme_club", AdsConfig.INSTANCE.getNative());
+        NativeAds.INSTANCE.initNativeInline(this, adView, null, AdsConfig.INSTANCE.getNative(),
+                com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+                NATIVE_LOAD_TIMEOUT_MS);
     }
 
     @Override

@@ -52,13 +52,5 @@
             </intent-filter>
         </receiver>
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3607148519095421~4302862573" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.flag.NATIVE_AD_DEBUGGER_ENABLED"
-            android:value="false" />
-
     </application>
 </manifest>

@@ -55,6 +55,6 @@ class ChangeAppNameActivity : BaseActivity<ActivityChangeAppNameBinding>() {
         super.onResume()
         // Sau khi quay lại từ màn đổi tên: cập nhật tên hiển thị mới.
         viewModel.refreshLabels()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 }

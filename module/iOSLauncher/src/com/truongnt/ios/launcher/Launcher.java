@@ -76,6 +76,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -90,6 +91,7 @@ import com.truongnt.ios.ioslite.common.LiteAction;
 import com.truongnt.ios.ioslite.common.Partner;
 import com.truongnt.ios.ioslite.common.Router;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
+import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.anim.PropertyHolderUtis;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
@@ -614,6 +616,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     .build());
         }
         Log.i(TAG, "onCreate");
+        // Nút Home mở thẳng launcher, không qua Splash -> tự init AdsKit bằng cache/asset.
+        // Đã init ở Splash rồi thì hàm này no-op.
+        AppAds.initializeOffline(this);
         HiddenAppManager.INSTANCE.initDataBase(this);
         listHiddenApp = (ArrayList<ItemInfo>) HiddenAppManager.INSTANCE.getAllHiddenApp();
         Log.d(TAG, "onCreatexxx: " + listHiddenApp.size());
@@ -1780,15 +1785,24 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return mWorkspace.getPaddingTop();
     }
 
+//    @Override
+//    public Object onRetainNonConfigurationInstance() {
+//        // Flag the loader to stop early before switching
+//        if (mModel.isCurrentCallbacks(this)) {
+//            mModel.stopLoader();
+//        }
+//        //TODO(hyunyoungs): stop the widgets loader when there is a rotation.
+//
+//        return Boolean.TRUE;
+//    }
+
+    @Nullable
     @Override
-    public Object onRetainNonConfigurationInstance() {
-        // Flag the loader to stop early before switching
+    public Object onRetainCustomNonConfigurationInstance() {
         if (mModel.isCurrentCallbacks(this)) {
             mModel.stopLoader();
         }
-        //TODO(hyunyoungs): stop the widgets loader when there is a rotation.
-
-        return Boolean.TRUE;
+        return super.onRetainCustomNonConfigurationInstance();
     }
 
     // We can't hide the IME if it was forced open.  So don't bother

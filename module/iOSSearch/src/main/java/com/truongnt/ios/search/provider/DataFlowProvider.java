@@ -14,10 +14,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.truongnt.ios.ioslite.common.ads.Ads;
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.ioslite.common.util.CommonUtilities;
 import com.amz.ios.http.Internal.Action;
 import com.amz.ios.http.Internal.BaseProvider;
@@ -72,6 +72,17 @@ public class DataFlowProvider extends BaseProvider {
         mAllApps.clear();
     }
 
+    // Chỉ còn vế "đã mua bản không quảng cáo"; bật/tắt theo vị trí giờ do SDK lo.
+    private boolean isNativeAdAllowed() {
+        return !AdsSdk.INSTANCE.isAdFree();
+    }
+
+    // Alias riêng để không tiêu mất ad đã tải của App Library / màn trái (SDK giữ ad theo alias).
+    private void preloadSearchNative(Activity activity) {
+        NativeAds.INSTANCE.preloadNativeInline(activity, "nt_app_search",
+                AdsConfig.INSTANCE.getNative());
+    }
+
     //load recommod app — nay là MỘT ô native ad.
     //
     // FSDAds không có loại "app recommend" và không có API trả nhiều ad trong một lượt như
@@ -88,25 +99,20 @@ public class DataFlowProvider extends BaseProvider {
 
                 // Không có ad -> trả danh sách RỖNG. Không dùng onFalure: UiHandler.onFalure
                 // hiện toast lỗi cho người dùng, mà "không có quảng cáo" không phải là lỗi.
-                // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) và cờ Remote Config của
-                // vị trí App Search. Cờ đó không gộp được vào slot NATIVE_IN_APP vì App Library
-                // và Left Page dùng chung slot này.
-                if (!Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
-                        || !RemoteConfigs.isAdsEnabled(
-                                getContext(), RemoteConfigs.NATIVE_APP_SEARCH)) {
+                if (!isNativeAdAllowed()) {
                     callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
                     return;
                 }
 
-                Activity activity = Ads.findActivity(getContext());
+                Activity activity = ActivityUtil.findActivity(getContext());
                 if (activity == null) {
                     callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
                     return;
                 }
-                AdsNative.preload(activity, AdsSlot.NATIVE_IN_APP, null);
+                preloadSearchNative(activity);
 
                 List<AdCardItemInfo> result = new ArrayList<AdCardItemInfo>();
-                result.add(new AdCardItemInfo(AdsSlot.NATIVE_IN_APP));
+                result.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
                 callBack.onRealSucess(result);
             }
         };
@@ -133,25 +139,19 @@ public class DataFlowProvider extends BaseProvider {
 
                 // Không có ad -> trả danh sách RỖNG. Không dùng onFalure: UiHandler.onFalure
                 // hiện toast lỗi cho người dùng, mà "không có quảng cáo" không phải là lỗi.
-                // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) và cờ Remote Config của
-                // vị trí App Search. Cờ đó không gộp được vào slot NATIVE_IN_APP vì App Library
-                // và Left Page dùng chung slot này.
-                if (!Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
-                        || !RemoteConfigs.isAdsEnabled(
-                                getContext(), RemoteConfigs.NATIVE_APP_SEARCH)) {
+                if (!isNativeAdAllowed()) {
                     callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
                     return;
                 }
 
-                // Tải trước. Container bên trong AdCardItemInfo sẽ được FSDAds tự đổ nội dung
-                // vào khi ad về (nó quan sát theo alias), nên ở đây không phải chờ.
-                Activity activity = Ads.findActivity(getContext());
+                // Tải trước cho lần bind sau. AdCardItemInfo tự tải khi bind nếu chưa kịp có.
+                Activity activity = ActivityUtil.findActivity(getContext());
                 if (activity != null) {
-                    AdsNative.preload(activity, AdsSlot.NATIVE_IN_APP, null);
+                    preloadSearchNative(activity);
                 }
 
                 List<AdCardItemInfo> adCardItemInfos = new ArrayList<AdCardItemInfo>();
-                adCardItemInfos.add(new AdCardItemInfo(AdsSlot.NATIVE_IN_APP));
+                adCardItemInfos.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
                 callBack.onRealSucess(adCardItemInfos);
             }
         };

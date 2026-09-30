@@ -12,21 +12,29 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withResumed
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.manager.Lifecycle
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.subs.SubsAct
 import com.ezla.oslauncher.beautylauncher.databinding.ActivitySelectBackgroundBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
-import com.truongnt.ios.ioslite.common.ads.Ads
-import com.truongnt.ios.ioslite.common.ads.AdsInterNativeFullCallback
-import com.truongnt.ios.ioslite.common.ads.InterNativeFull
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
+import com.ezt.v2.ezt.admobdemo.ads.FullscreenNativeAds
+import com.ezt.v2.ezt.admobdemo.ads.InterAds
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenCallback
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenResult
+import com.ezt.v2.ezt.admobdemo.ads.placement.PlacementFormat
+import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
+import kotlinx.coroutines.launch
 
 class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>() {
 
@@ -48,10 +56,6 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
     /** Đã mời mua sub trong lần onboarding này chưa — chặn mở lặp khi user quay về màn. */
     private var subsOffered = false
 
-    /**
-     * Cờ trên phải sống qua recreate: màn này không khai configChanges, mà instance bị tạo lại
-     * trong lúc màn subs đang mở thì biến runtime mất giá trị -> quay về là mời mua lần 2.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         subsOffered = savedInstanceState?.getBoolean(KEY_SUBS_OFFERED) == true
         super.onCreate(savedInstanceState)
@@ -73,15 +77,15 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 
     override fun initView() {
 
-        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.INTER_NATIVE_FULL)){
-            InterNativeFull.load(this, object : AdsInterNativeFullCallback() {
-
-            })
+        if (!AdsSdk.isAdFree) {
+            lifecycleScope.launch {
+                AppAds.kit.preloadAdFullScreen("start_launcher_Inter")
+            }
         }
 
 
@@ -158,11 +162,6 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
         }
     }
 
-    /**
-     * Set ảnh cho màn hình chính rồi vào THẲNG launcher.
-     * Giải mã + set trên thread nền để không nghẽn UI; dù set thành công hay lỗi vẫn đi tiếp
-     * (khối finally) — không chặn người dùng lại ở màn onboarding.
-     */
     private fun setWallpaperAndStartLauncher(assetPath: String) {
         binding.frLoading.isVisible = true
         // User chủ động chọn hình nền -> từ đây đổi mode không ghi đè ảnh của user.
@@ -197,21 +196,10 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
         }.start()
     }
 
-    /**
-     * Kết thúc onboarding: vào THẲNG launcher (không qua màn Home nữa).
-     *
-     * Dùng lại đúng logic của HomeActivity.goToLauncher() để hai đường vào launcher hành xử giống
-     * nhau:
-     * - ĐÃ là launcher mặc định: mở desktop rồi đóng app (finishAffinity) — không còn gì để làm
-     *   trong app settings.
-     * - CHƯA là default: đặt cờ để desktop hiện màn Hello và nhắc lại dialog "Set as default
-     *   launcher"; KHÔNG đóng app để người dùng còn quay lại được.
-     */
     private fun goToLauncher() {
-        Log.d(TAG, "goToLauncher: offered=$subsOffered premium=${Ads.isPremium()} inst=${hashCode()}")
-        // Bước 1: mời mua sub TRƯỚC khi hiện ads/vào launcher, chỉ 1 lần trong luồng onboarding.
-        // Mua xong Ads.isPremium() bật -> isAdsEnabled() false -> nhánh dưới tự bỏ InterNativeFull.
-        if (!subsOffered && !Ads.isPremium()) {
+        Log.d(TAG, "goToLauncher: offered=$subsOffered premium=${BillingUtils.isSubsCached(this)} inst=${hashCode()}")
+
+        if (!subsOffered && !BillingUtils.isSubsCached(this)) {
             subsOffered = true
             subsLauncher.launch(
                 Intent(this, SubsAct::class.java)
@@ -219,37 +207,8 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
             )
             return
         }
-
-        val isDefault = isDefaultLauncher()
-        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.INTER_NATIVE_FULL)){
-            InterNativeFull.show(this){
-                if (isDefault) {
-                    launchActivity<SearchLauncher> { }
-                    finishAffinity()
-                } else {
-                    SharePrefUtils.putBoolean(this, "hello_pending", true)
-                    SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
-                    launchActivity<SearchLauncher> { }
-                    finishAffinity()
-                }
-            }
-        }else{
-            if (isDefault) {
-                launchActivity<SearchLauncher> { }
-                finishAffinity()
-            } else {
-                SharePrefUtils.putBoolean(this, "hello_pending", true)
-                SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
-                launchActivity<SearchLauncher> { }
-                finishAffinity()
-            }
-        }
     }
 
-    /**
-     * App hiện có đang là launcher mặc định không. Resolve HOME intent rồi so package — đúng ở MỌI
-     * API (RoleManager chỉ có từ Q trở lên).
-     */
     private fun isDefaultLauncher(): Boolean {
         val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
         val res: ResolveInfo? =
@@ -259,17 +218,8 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
 
     companion object {
         private const val TAG = "SelectBackground"
-
-        /** Cờ "đã mời mua sub" lưu trong savedInstanceState — xem onCreate. */
         private const val KEY_SUBS_OFFERED = "subs_offered"
-
-        /** Key SharePref lưu đường dẫn asset hình nền onboarding đã chọn — màn Hello dùng lại. */
         const val HELLO_BG_ASSET_KEY = "HELLO_BG_ASSET"
-
-        /**
-         * Cờ dùng-1-lần: vào launcher khi CHƯA là default -> desktop hiện lại dialog Set default.
-         * Phải TRÙNG tên với hằng cùng tên trong HomeActivity (SearchLauncher đọc chung key này).
-         */
         private const val PREF_PROMPT_SET_DEFAULT_ON_DESKTOP = "prompt_set_default_on_desktop"
     }
 }

@@ -8,12 +8,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.truongnt.ios.ioslite.common.ads.Ads;
-import com.truongnt.ios.ioslite.common.ads.AdsError;
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.BubbleTextView;
 import com.truongnt.ios.launcher.Launcher;
@@ -32,6 +28,9 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
     // Vị trí ô ad (ngay sau header). Chỉ tồn tại khi có ad -> mHasAd.
     private static final int AD_POSITION = 1;
 
+    // Cùng placement với ô ad đầu danh sách App Library (AppLibraryAdapter).
+    private static final String NATIVE_PLACEMENT = "native_app_library";
+
     public String mLabel;
     public ArrayList<AppInfo> mApps = new ArrayList<>();
     public Launcher mLauncher;
@@ -45,26 +44,13 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
 
     public OpenLibraryItemAdapter(Launcher launcher){
         mLauncher = launcher;
-        // Hai vế: Ads.isSlotAllowed (premium/cờ loại/policy) VÀ cờ Remote Config của vị trí
-        // App Library. Cờ đó không gộp được vào slot vì App Search và Left Page dùng chung
-        // slot NATIVE_IN_APP. Tắt -> không chừa chỗ, grid giữ nguyên như trước.
-        mHasAd = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
-                && RemoteConfigs.isAdsEnabled(launcher, RemoteConfigs.NATIVE_APP_LIBRARY);
+        // Đã mua bản không quảng cáo -> không chừa chỗ, grid giữ nguyên như trước. Cờ Remote
+        // Config theo vị trí đã bỏ cùng RemoteConfigs; công tắc bật/tắt do SDK lo.
+        mHasAd = !AdsSdk.INSTANCE.isAdFree();
 
         if (mHasAd) {
-            // Tải trước ngay khi dựng adapter; lúc bind chỉ việc đổ vào container.
-            // onLoaded có thể về sau lúc bind đầu tiên, nên phải bind lại ô ad khi xong.
-            AdsNative.preload(launcher, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
-                @Override
-                public void onLoaded() {
-                    mLauncher.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            notifyItemChanged(AD_POSITION);
-                        }
-                    });
-                }
-            });
+            // Hâm nóng để lúc bind ad đã kịp có; hiện/ẩn ô do kết quả ở bước bind quyết định.
+            AppAds.preloadNative(NATIVE_PLACEMENT);
         }
     }
 
@@ -124,22 +110,13 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
         }
         else if (holder instanceof AdViewHolder){
             final View container = holder.itemView;
-            // Adapter tái dùng view, mà FSDAds đổ nội dung vào container — chỉ đổ khi
+            // Adapter tái dùng view, mà SDK đổ nội dung vào container — chỉ đổ khi
             // container còn trống, tránh nhồi chồng khi bind lại.
             if (container instanceof FrameLayout && ((FrameLayout) container).getChildCount() == 0) {
-                AdsNative.show((FrameLayout) container, AdsSlot.NATIVE_IN_APP, new AdsNativeCallback() {
-
-                    @Override
-                    public void onLoaded() {
-                        container.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onLoadFailed(AdsError error) {
-                        // Chưa kịp có ad -> thu ô lại thay vì để khoảng trống.
-                        container.setVisibility(View.GONE);
-                    }
-                });
+                // Không có ad -> thu ô lại thay vì để khoảng trống.
+                AppAds.showNative(mLauncher, NATIVE_PLACEMENT, (FrameLayout) container,
+                        com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+                        hasAd -> container.setVisibility(hasAd ? View.VISIBLE : View.GONE));
             }
         }
         else if (holder instanceof ItemViewHolder){

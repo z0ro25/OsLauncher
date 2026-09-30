@@ -86,24 +86,4 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <!--
-      Theme cho dialog native full của InterNativeFull.
-
-      Vì sao cần theme riêng: Dialog tạo bằng theme mặc định là cửa sổ NỔI (windowIsFloating=true)
-      -> có margin quanh viền, không bao giờ chiếm trọn màn. `windowIsFloating=false` mới biến nó
-      thành cửa sổ toàn màn hình. Ngoài ra tắt dim nền và bỏ lớp overlay mặc định để nền trắng
-      của layout phủ kín, không lộ viền hệ thống.
-
-      Nền để TRẮNG vì layout native đổ vào trong vẽ chữ bằng @color/black.
-
-      Tham chiếu Theme.AppCompat... giống style PrefSettingsBase ở trên — library đã có
-      appcompat trong dependency nên resolve được.
-    -->
-    <style name="AdsFullScreenDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:backgroundDimEnabled">false</item>
-    </style>
 </resources>

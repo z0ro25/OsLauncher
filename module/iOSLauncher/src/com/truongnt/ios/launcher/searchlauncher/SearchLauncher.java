@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
-import com.truongnt.ios.ioslite.common.ads.Ads;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
 import com.truongnt.ios.launcher.Launcher;
 
 import java.text.SimpleDateFormat;
@@ -199,7 +199,7 @@ public class SearchLauncher extends Launcher {
         if (!mDesktopReady || mSubsOfferYielded || mSubsOfferPosted) {
             return;
         }
-        if (Ads.isPremium()) {
+        if (AdsSdk.INSTANCE.isAdFree()) {
             return; // đã mua: không mời mua nữa
         }
         SharedPreferences pref = getSharedPreferences(getPackageName(), MODE_PRIVATE);

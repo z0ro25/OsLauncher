@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Màn đổi icon chi tiết dựng theo Figma (dark 27-635 / light node tương ứng): header (back glass +
-  title = tên app + link "Reset" góc phải) + card (icon 64dp + tên app + nút xanh "Choose from Gallery").
-
-  Theo scope đã chốt: CHỈ Choose from Gallery + Reset (BỎ phần icon packs Default/Dark/Clear light).
-
-  Scope no side-effects: token onb_* + resource RIÊNG changeicon_card_bg / changeicon_back_bg /
-  changeicon_ic_chevron_back / changeicon_btn_gallery. Giữ id: iv_back, tv_title, tv_reset,
-  iv_app_icon, tv_app_label, btn_gallery.
--->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -125,13 +115,16 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_app_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- Banner đáy màn. SDK tự tìm view theo id nên KHÔNG đặt android:id lên include:
-         đặt vào là đè mất @id/banner_ad, banner sẽ im lặng không hiện. -->
-    <include
-        layout="@layout/fsd_ads_banner"
-        android:layout_width="0dp"
+
+    <FrameLayout
+        android:id="@+id/fr_banner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/ads_banner" />
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

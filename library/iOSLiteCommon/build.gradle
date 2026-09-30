@@ -9,10 +9,10 @@ android {
     defaultConfig {
         buildConfigField "Boolean", "LOG_ENABLE", "true"
 
-        minSdkVersion cfgs.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion cfgs.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
     }
 
     buildFeatures {
@@ -22,12 +22,12 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '11'
     }
 
     sourceSets {
@@ -60,7 +60,7 @@ dependencies {
 
     implementation "androidx.work:work-runtime:2.7.1"
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 
     implementation files('libs/slf4j-api-1.7.6.jar')
 
@@ -77,20 +77,19 @@ dependencies {
 
     api libs['palette-v7']
 
-    //ads
-    implementation 'com.google.android.gms:play-services-ads:24.6.0'
+    //ads — SDK eztech. `api` vì iOSLauncher/iOSSearch/iOSThemeClub gọi thẳng class của SDK.
+    // Nơi khai DUY NHẤT của AAR: khai thêm ở module khác là D8 báo "defined multiple times".
+    api files('libs/eztech-ads-com.ezla.oslauncher.beautylauncher-1.0.8.aar')
+
+    // AAR cục bộ KHÔNG mang metadata dependency, nên các thư viện mà SDK eztech cần phải
+    // khai tường minh. Để `api` vì chữ ký hàm của SDK có kiểu của ads-mobile-sdk, module gọi
+    // vào (iOSLauncher/iOSSearch/iOSThemeClub) cũng phải nạp được kiểu đó mới biên dịch.
+    api 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.4.0'
+    api 'androidx.lifecycle:lifecycle-process:2.9.0'
+    // AppAds (config/) dùng coroutine + Dispatchers.Main; 1.9.0 = đúng bản graph đang resolve.
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+
     implementation("com.facebook.shimmer:shimmer:0.5.0")
-    // fsdads khai kotlin-stdlib 2.0.21 — thấp hơn 2.1.21 của project nên Gradle tự nâng lên
-    // 2.1.21, không cần exclude. (Exclude chỉ cần khi stdlib của lib MỚI HƠN compiler.)
-    implementation 'com.truongnt.fsd:fsdads:1.1.36'
-
-    // adjust-android là dependency RUNTIME-ONLY của fsdads (variant `api` chỉ khai kotlin-stdlib),
-    // nên không nhìn thấy được lúc biên dịch. Khai báo tường minh cùng version 5.7.0 để package
-    // `ads` gọi được Adjust.initSdk() khi có token. KHÔNG làm nặng thêm APK: fsdads vốn bundle sẵn
-    // Adjust ở runtime, đây thuần là để có mặt trên compileClasspath.
-    // LƯU Ý: thư viện này mang quyền com.google.android.gms.permission.AD_ID.
-    implementation 'com.adjust.sdk:adjust-android:5.7.0'
-
 }
 
 /*

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Mẫu native banner theo ảnh: media -> icon/nội dung/nhãn Ad -> CTA hồng toàn chiều rộng.
+    Chọn bằng BannerAdOptions(nativeLayoutResId = R.layout.ads_native_banner_gradient).
+    SDK tự gắn dữ liệu/callback và thu media; giữ nguyên các ID để AAR nhận đúng view.
+    Màu riêng nằm trong values/ads_native_banner.xml; không ảnh hưởng mẫu collapse cũ.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_c24_fff">
+
+    <com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView
+        android:id="@+id/uniform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp">
+
+            <!-- Giữ cả liên kết trên/dưới để media có chiều cao khi parent wrap_content. -->
+            <FrameLayout
+                android:id="@+id/media_card"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H,2.2:1"
+                app:layout_constraintHeight_max="240dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/native_banner_details">
+
+                <com.google.android.libraries.ads.mobile.sdk.nativead.MediaView
+                    android:id="@+id/ad_media"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color.363638" />
+            </FrameLayout>
+
+            <!-- Hàng này và CTA vẫn còn khi media_card bị ẩn; chừa góc cuối cho AdChoices. -->
+            <LinearLayout
+                android:id="@+id/native_banner_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="58dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="0dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/media_card"
+                app:layout_constraintBottom_toTopOf="@id/tvActionBtnTitle">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/icon_card"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/ad_app_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitCenter" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ad_headline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="Sing for peace, hope, and global community" />
+
+                    <TextView
+                        android:id="@+id/ad_body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@color/black50percent"
+                        android:textSize="12sp"
+                        tools:text="Join our movement for peace and global community! Gather your friends and family." />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/adLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_circle_007aff"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="1dp"
+                    android:text="@string/ads_collapse_ad_label"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- CTA do SDK điền và đăng ký click; app chỉ sửa giao diện, không tự gắn onClick. -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/tvActionBtnTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:minHeight="52dp"
+                android:background="@drawable/bg_circle_007aff"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:stateListAnimator="@null"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/native_banner_details"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Sign up" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView>
+
+    <!--
+        Nút của app nằm ngoài NativeAdView, vùng bấm 48dp, dưới góc AdChoices.
+        native_collapse: SDK hiện nút và gắn thao tác thu media.
+        showNativeInline: nút mặc định ẩn vì API inline không có thao tác thu gọn.
+        Chữ/biểu tượng attribution của mạng quảng cáo do SDK cung cấp, không vẽ giả vào XML.
+    -->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/iv_hide"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/ads_collapse_hide_media"
+        android:padding="14dp"
+        android:src="@drawable/ads_collapse_arrow"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        tools:visibility="visible" />
+</FrameLayout>

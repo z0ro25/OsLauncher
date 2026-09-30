@@ -9,7 +9,6 @@ import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryPurchasesParams
-import com.truongnt.ios.ioslite.common.ads.Ads
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -181,11 +180,10 @@ object BillingUtils {
         }
     }
 
-    // Ghi cờ rồi đẩy sang Ads. Phải gọi Ads.setPremium mỗi lần đổi vì FSDAds chốt cờ premium
-    // theo giá trị tại lúc setupConfig, không nhận lambda sống (xem Ads.setPremium).
+    // Chỉ ghi cờ. Không còn phải "đẩy" sang tầng quảng cáo: SDK eztech nhận lambda sống
+    // (AdsHostConfig.isAdFree đọc chính isSubsCached), nên ghi cờ là ad tự tắt.
     private fun saveSubs(context: Context, isSubs: Boolean) {
         SharePrefUtils.putBoolean(context, KEY_PREMIUM_SUBS, isSubs)
-        Ads.setPremium(isSubs, false)
         onSubsChanged?.invoke(isSubs)
     }
 }

@@ -1,5 +1,6 @@
 package com.ezla.oslauncher.beautylauncher.Features.general.changeicon
 
+import ads_mobile_sdk.fa
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.Toast
@@ -10,15 +11,6 @@ import com.ezla.oslauncher.beautylauncher.Features.general.changeicon.data.Chang
 import com.ezla.oslauncher.beautylauncher.extensions.tap
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityChangeIconDetailBinding
 
-/**
- * Màn đổi icon chi tiết: icon lớn + tên app + nút "Choose from Gallery" (mở gallery) + link "Reset".
- *
- * Theo scope đã chốt: CHỈ Choose from Gallery + Reset (KHÔNG có phần icon packs).
- *
- * Chọn ảnh -> [ChangeAppIconRepository.setIconFromGallery] (copy file + broadcast engine, đổi realtime).
- * Reset    -> [ChangeAppIconRepository.resetIcon] (broadcast type 1 -> engine trả icon gốc).
- * Sau mỗi thao tác cập nhật preview icon lớn ngay trên màn.
- */
 class ChangeIconDetailActivity : BaseActivity<ActivityChangeIconDetailBinding>() {
 
     override val setViewBinding: ActivityChangeIconDetailBinding
@@ -38,7 +30,7 @@ class ChangeIconDetailActivity : BaseActivity<ActivityChangeIconDetailBinding>()
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 
     override fun initView() {

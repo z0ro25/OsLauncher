@@ -118,10 +118,10 @@
                 <!-- Quảng cáo native: NGAY DƯỚI lưới gợi ý. Chỉ hiện khi CHƯA gõ (đang ở trạng
                      thái gợi ý); đang gõ / có kết quả thì ẩn — xem
                      SearchViewLayout.updateSectionsVisibility.
-                     Root là FrameLayout vì FSDAds đổ nội dung quảng cáo thẳng vào view này;
+                     Root là FrameLayout vì SDK đổ nội dung quảng cáo thẳng vào view này;
                      descendantFocusability để view con của quảng cáo nhận được click.
                      Background round_rect_qsb = ĐÚNG nền của suggestion_list/history_list cùng
-                     màn; layout FSDAds không có nền riêng nên nền này là nền người dùng thấy. -->
+                     màn; layout SDK đổ vào không có nền riêng nên nền này là nền người dùng thấy. -->
                 <FrameLayout android:id="@+id/search_native_ad_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:background="@drawable/round_rect_qsb" android:visibility="gone" android:descendantFocusability="afterDescendants"/>
                 <!-- List gợi ý DỌC (1 cột, icon trái + tên phải) — hiển thị khi ĐANG GÕ (có/không kết quả). -->
                 <com.truongnt.ios.launcher.searchview.ExpandableHeightRecyclerView android:id="@+id/suggestion_list_vertical" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>

@@ -39,12 +39,18 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    compileOptions {
+        // Tên property trong Groovy DSL là coreLibraryDesugaringEnabled; isCoreLibraryDesugaringEnabled
+        // chỉ đúng ở build.gradle.kts (Kotlin DSL) — dùng sai tên là Gradle báo unknown property.
+        coreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     buildFeatures {
@@ -137,33 +143,33 @@ dependencies {
 
     //multidex
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+//    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-    //adjust — đã gỡ: SDK này kéo quyền Advertising ID (AD_ID) vào app, mà app không dùng
-    //API Adjust nào (chỉ còn hàm setUpAdjust() rỗng, đã xoá). Bỏ luôn installreferrer vì
-    //nó chỉ phục vụ Adjust.
-//    implementation 'com.adjust.sdk:adjust-android:4.38.5'
-//    implementation 'com.android.installreferrer:installreferrer:2.2'
-//    implementation 'com.adjust.sdk:adjust-android-webbridge:4.38.5'
-
-    // 4.3 build bằng Kotlin 1.6/1.7 → tương thích compiler dự án (1.7.10); 5.x cần Kotlin 1.9.
     implementation("com.tbuonomo:dotsindicator:4.3")
 
-    //ads
-//    implementation 'com.google.android.gms:play-services-ads:24.6.0'
-//    implementation 'com.truongnt.fsd:fsdads:1.1.36'
-
-    //billing — bản Java 'billing', KHÔNG dùng 'billing-ktx'.
-    //Lý do ban đầu: billing-ktx 8.0.0 mang metadata Kotlin 2.1.0, mà compiler của dự án khi đó
-    //(1.9.24) chỉ đọc được tối đa 2.0.0 -> "Module was compiled with an incompatible version of
-    //Kotlin". Bản Java thuần không chứa *.kotlin_module nào nên không vướng.
-    //LÝ DO NÀY NAY KHÔNG CÒN ĐÚNG: compiler đã lên 2.1.21 (xem build.gradle gốc, mục
-    //kotlin-gradle-plugin) nên billing-ktx cũng dùng được. Vẫn giữ bản Java vì chưa có lý do
-    //đổi — chuyển sang -ktx chỉ để có thêm extension suspend/Flow, mà dự án chưa dùng tới.
-    //Vẫn là Billing Library 8 -> đúng yêu cầu Google Play (từ 31/08/2026 bắt buộc >= 8).
     implementation 'com.android.billingclient:billing:8.0.0'
 
-    implementation 'com.google.android.ump:user-messaging-platform:3.2.0'
+//    implementation 'com.google.android.ump:user-messaging-platform:3.2.0'
+
+    //desugar — bắt buộc cho AAR eztech-ads, xem compileOptions ở trên.
+
+    // AAR eztech + ads-mobile-sdk nay khai ở :library:iOSLiteCommon (api) — một nơi duy nhất,
+    // vì mọi module đều phải thấy class của SDK. Khai lại ở đây là nạp trùng artifact.
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.9.0")
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.ump:user-messaging-platform:4.0.0")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation("com.airbnb.android:lottie:6.6.2")
+    implementation("com.intuit.sdp:sdp-android:1.1.0")
+    implementation("com.intuit.ssp:ssp-android:1.1.0")
+
+    // Adjust ở :app vì token là cấu hình của app. Mang quyền AD_ID — vốn đã có trong manifest
+    // gộp từ trước (iOSLiteCommon từng khai) nên chuyển chỗ không đổi manifest.
+    implementation 'com.adjust.sdk:adjust-android:5.7.0'
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 
 preBuild {

@@ -5,18 +5,16 @@ import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.home.HomeActivity
-import com.ezla.oslauncher.beautylauncher.Features.languageStart.LanguageStartActivity
 import com.ezla.oslauncher.beautylauncher.Features.permission.PermissionActivity
 import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityIntroBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.model.IntroModel
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
-import com.truongnt.ios.ioslite.common.ads.AdsError
-import com.truongnt.ios.ioslite.common.ads.AdsNative
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback
-import com.truongnt.ios.ioslite.common.ads.AdsSlot
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdPreloadState
+import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -79,9 +77,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
             )
         }
 
-        if (LanguageStartActivity.nativeOnbFull) {
-            listIntro.add(2, IntroModel("native_full"))
-        }
+        listIntro.add(2, IntroModel("native_full"))
 
         binding.viewPager2.adapter = adapter
         binding.dotindicator.attachTo(binding.viewPager2)
@@ -90,23 +86,23 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
             finishAffinity()
         }
 
-        MainScope().launch {
-            delay(300)
-            if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_ONB1)) {
-                AdsNative.show(
-                    binding.frNative,
-                    AdsSlot.NATIVE_ONBOARDING_1,
-                    com.truongnt.ios.ioslite.common.R.layout.layout_native_onb,
-                    object : AdsNativeCallback() {
-                        override fun onLoadFailed(error: AdsError) {
-                            super.onLoadFailed(error)
-                            binding.frNative.isVisible = false
-                        }
-                    })
-            }
-        }
-
         preloadnative()
+    }
+
+    // Gom 1 chỗ vì onb1/onb2/onb3 dùng chung layout, chỉ khác placement key.
+    private fun showIntroNative(adUnitId: String) {
+        AppAds.kit.showNativeInline(
+            this,
+            adUnitId,
+            binding.frNative, R.layout.layout_native_onb
+        ){ state ->
+            binding.viewPager2.isUserInputEnabled = state != AdPreloadState.LOADING
+        }
+    }
+
+    companion object {
+        /** Hạn chờ SDK trả native; 15000ms là đúng default của {@code NativeAds.initNativeInline}. */
+        private const val NATIVE_LOAD_TIMEOUT_MS = 15_000L
     }
 
     override fun viewListener() {
@@ -132,47 +128,20 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
                     binding.frNative.removeAllViews()
                     when (model.position) {
                         "onb1" -> {
-                            if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_ONB1)) {
-                                AdsNative.show(
-                                    binding.frNative,
-                                    AdsSlot.NATIVE_ONBOARDING_1,
-                                    com.truongnt.ios.ioslite.common.R.layout.layout_native_onb,
-                                    object : AdsNativeCallback() {
-                                        override fun onLoadFailed(error: AdsError) {
-                                            super.onLoadFailed(error)
-                                            binding.frNative.isVisible = false
-                                        }
-                                    })
+                            if (!AdsSdk.isAdFree) {
+                                showIntroNative("native_onb1")
                             }
                         }
 
                         "onb2" -> {
-                            if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_ONB2)) {
-                                AdsNative.show(
-                                    binding.frNative,
-                                    AdsSlot.NATIVE_ONBOARDING_2,
-                                    com.truongnt.ios.ioslite.common.R.layout.layout_native_onb,
-                                    object : AdsNativeCallback() {
-                                        override fun onLoadFailed(error: AdsError) {
-                                            super.onLoadFailed(error)
-                                            binding.frNative.isVisible = false
-                                        }
-                                    })
+                            if (!AdsSdk.isAdFree) {
+                                showIntroNative("native_onb2")
                             }
                         }
 
                         "onb3" -> {
-                            if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_ONB3)) {
-                                AdsNative.show(
-                                    binding.frNative,
-                                    AdsSlot.NATIVE_ONBOARDING_3,
-                                    com.truongnt.ios.ioslite.common.R.layout.layout_native_onb,
-                                    object : AdsNativeCallback() {
-                                        override fun onLoadFailed(error: AdsError) {
-                                            super.onLoadFailed(error)
-                                            binding.frNative.isVisible = false
-                                        }
-                                    })
+                            if (!AdsSdk.isAdFree) {
+                                showIntroNative("native_onb3")
                             }
                         }
                     }
@@ -205,11 +174,10 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
     }
 
     fun preloadnative() {
-        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_PERMISSION)) {
-            AdsNative.preload(this, AdsSlot.NATIVE_PERMISSION, object : AdsNativeCallback() {
-
-            })
-
+        if (!AdsSdk.isAdFree) {
+            // Hâm nóng native cho màn Permission kế tiếp. SDK không có callback ở bước này nên
+            // không cần truyền gì thêm; lượt bind thật ở PermissionActivity vẫn tự tải nếu chưa có.
+            AppAds.kit.preloadNativeInline( "native_permission")
         }
     }
 

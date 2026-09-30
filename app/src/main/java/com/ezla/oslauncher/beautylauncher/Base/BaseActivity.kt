@@ -1,5 +1,6 @@
 package com.ezla.oslauncher.beautylauncher.Base
 
+import ads_mobile_sdk.fa
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager.BadTokenException
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,13 +28,14 @@ import com.ezla.oslauncher.beautylauncher.extensions.hideNavigation
 import com.ezla.oslauncher.beautylauncher.extensions.showNav
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
 import com.ezla.oslauncher.beautylauncher.utils.Constant
+import com.ezt.v2.ezt.admobdemo.ads.BannerAds
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.truongnt.ios.ioslite.common.config.AppAds
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.truongnt.ios.ioslite.common.ads.AdsBanner
-import com.truongnt.ios.ioslite.common.ads.AdsSlot
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.rate.LauncherSharePrefUtils
 
@@ -53,13 +56,11 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     //listen to database change here
     abstract fun dataObservable()
 
-    /**
-     * Hiện banner đáy màn nếu Remote Config cho phép. Gọi ở onResume của từng màn — màn nào
-     * không gắn banner thì không gọi. Layout phải include sẵn @layout/fsd_ads_banner.
-     */
-    protected fun showBannerIfEnabled() {
-        if (!RemoteConfigs.isAdsEnabled(this, RemoteConfigs.BANNER_INAPP)) return
-        AdsBanner.show(this, AdsSlot.BANNER_IN_APP, null)
+    // Đổ banner placement "bannerinapp" vào [container] (khối fr_banner bọc @layout/ads_banner).
+    // Màn đã có native inline (Home, Intro, LanguageStart, Permission) cố ý không gọi.
+    protected fun showBannerIfEnabled(container : ViewGroup,isColapse : Boolean) {
+        if (AdsSdk.isAdFree) return
+        AppAds.kit.showBanner(this,"bannerinapp",container, isColapse)
     }
 
     val internetBroadcast = object : BroadcastReceiver() {
@@ -142,25 +143,27 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         }
         registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
+
     fun showActivity(activity: Class<*>, bundle: Bundle?) {
         val intent = Intent(this, activity)
         intent.putExtras(bundle ?: Bundle())
         startActivity(intent)
     }
+
     fun showActivityCustom(activity: Class<*>, bundle: Bundle?) {
         val intent = Intent(this, activity)
         intent.putExtras(bundle ?: Bundle())
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
     }
+
     override fun onResume() {
         super.onResume()
 
-        if (SharePrefUtils.getBoolean(this, Constant.IS_HIDE_NAV,true)){
+        if (SharePrefUtils.getBoolean(this, Constant.IS_HIDE_NAV, true)) {
             window?.hideNavigation()
-        }else window?.showNav()
+        } else window?.showNav()
     }
-
 
 
     fun showDialogExit() {

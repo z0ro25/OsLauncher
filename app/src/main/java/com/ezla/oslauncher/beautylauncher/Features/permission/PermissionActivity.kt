@@ -9,22 +9,15 @@ import android.provider.Settings
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.wallpaperonboarding.SelectBackgroundActivity
+import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityPermissionBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
-import com.truongnt.ios.ioslite.common.R
-import com.truongnt.ios.ioslite.common.ads.AdsError
-import com.truongnt.ios.ioslite.common.ads.AdsNative
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback
-import com.truongnt.ios.ioslite.common.ads.AdsSlot
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
     override val setViewBinding: ActivityPermissionBinding
@@ -44,20 +37,13 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
             finishAffinity()
         }
 
-        MainScope().launch {
-            delay(200)
-            if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_PERMISSION)) {
-                AdsNative.show(
-                    binding.frNative,
-                    AdsSlot.NATIVE_PERMISSION,
-                    R.layout.layout_native_permission,
-                    object : AdsNativeCallback() {
-                        override fun onLoadFailed(error: AdsError) {
-                            super.onLoadFailed(error)
-                            binding.frNative.isVisible = false
-                        }
-                    })
-            }
+        if (!AdsSdk.isAdFree) {
+            AppAds.kit.showNativeInline(
+                this,
+                "native_permission",
+                binding.frNative,
+                R.layout.layout_native_small
+            )
         }
     }
 
@@ -70,8 +56,6 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
             swExternal.isChecked = hasExternal
             swExternal.isEnabled = !hasExternal
 
-            // Notification: máy <13 không có quyền runtime -> coi như đã bật (ON + khóa).
-            // Máy 13+ đọc trạng thái thật; đã cấp -> khóa, chưa -> cho bấm để xin.
             val hasNotification = isNotificationGranted()
             swNotification.isChecked = hasNotification
             swNotification.isEnabled =

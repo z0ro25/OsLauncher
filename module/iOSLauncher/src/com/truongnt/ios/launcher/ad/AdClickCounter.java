@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-
 /**
  * Đếm số lần người dùng bấm vào một hành động "mở app" để quyết định lần bấm nào được chen
  * interstitial vào.
@@ -14,12 +12,12 @@ import com.truongnt.ios.ioslite.common.ads.AdsSlot;
  * bấm 2 lần nữa là tới lượt hiện ad. Đếm trong bộ nhớ (biến static) sẽ bị launcher kill nền
  * xoá sạch, khiến người dùng ít bấm gần như không bao giờ thấy ad.
  *
- * <p>Cố ý KHÔNG cài đặt qua {@code Ads.policy}: policy đó được kiểm tra ngay bên trong
- * {@code AdsInterstitial.load()}, nên nó chặn luôn cả khâu TẢI TRƯỚC — tới lần bấm thứ 5 sẽ
+ * <p>Cố ý KHÔNG cài đặt qua cơ chế delay của SDK: delay đó được kiểm tra ngay bên trong
+ * {@code AdsKit.showAdFullScreen()}, nên nó chặn luôn cả khâu TẢI TRƯỚC — tới lần bấm thứ 5 sẽ
  * không có ad sẵn mà hiện. Ở đây chỉ quyết định lúc NÀO hiện, còn việc tải vẫn diễn ra ở mọi
  * lần bấm (xem {@link LauncherAdTrigger#openAppWithInterstitial}).
  *
- * <p>Bộ đếm tách riêng theo {@link AdsSlot} để sau này thêm slot khác không đụng vào nhau.
+ * <p>Bộ đếm tách riêng theo {@code slotKey} để sau này thêm vị trí khác không đụng vào nhau.
  * Mọi call-site đều ở main thread nên không cần đồng bộ.
  */
 final class AdClickCounter {
@@ -44,19 +42,19 @@ final class AdClickCounter {
      * prefs cùng lắm là trả {@code false} (mở app ngay), tuyệt đối không được làm hỏng hành
      * động mở app của người dùng.
      */
-    static boolean markClickAndShouldShow(Context context, AdsSlot slot) {
-        if (context == null || slot == null) {
+    static boolean markClickAndShouldShow(Context context, String slotKey) {
+        if (context == null || slotKey == null) {
             return false;
         }
         try {
             SharedPreferences prefs = context.getApplicationContext()
                     .getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-            String key = "click_count_" + slot.getAlias();
+            String key = "click_count_" + slotKey;
             int count = prefs.getInt(key, 0) + 1;
             prefs.edit().putInt(key, count).apply();
             return count % SHOW_EVERY == 0;
         } catch (Throwable t) {
-            Log.e(TAG, "không đọc/ghi được bộ đếm click cho slot " + slot, t);
+            Log.e(TAG, "không đọc/ghi được bộ đếm click cho vị trí " + slotKey, t);
             return false;
         }
     }

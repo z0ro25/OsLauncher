@@ -62,7 +62,7 @@
         android:overScrollMode="never"
         android:paddingHorizontal="16dp"
         android:paddingBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fr_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_app_name">
@@ -92,16 +92,16 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="12dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display_medium"
-                        android:text="@string/go_to_launcher"
                         android:includeFontPadding="false"
+                        android:text="@string/go_to_launcher"
                         android:textColor="@color/onb_text_primary"
                         android:textSize="16sp" />
 
@@ -109,8 +109,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:includeFontPadding="false"
                         android:fontFamily="@font/sf_pro_display_regular"
+                        android:includeFontPadding="false"
                         android:text="@string/explore_your_os_interface_on_device"
                         android:textColor="@color/onb_text_secondary"
                         android:textSize="12sp" />
@@ -124,10 +124,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_subs"
-                android:background="@drawable/bg_subs_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_subs_home"
                 android:gravity="center_vertical"
                 android:padding="16dp">
 
@@ -179,12 +179,12 @@
 
             <FrameLayout
                 android:id="@+id/fr_native_home"
-                android:background="@drawable/bg_lang_card"
-                android:layout_marginBottom="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_lang_card">
 
-                <include layout="@layout/shimmer_native_large"/>
+                <include layout="@layout/shimmer_native_large" />
 
             </FrameLayout>
 
@@ -204,15 +204,15 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:includeFontPadding="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display_semibold"
+                        android:includeFontPadding="false"
                         android:text="@string/set_as_default_launcher"
                         android:textColor="@color/onb_text_primary"
                         android:textSize="14sp" />
@@ -221,8 +221,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:includeFontPadding="false"
                         android:fontFamily="@font/sf_pro_display_regular"
+                        android:includeFontPadding="false"
                         android:text="@string/set_default_launcher_card_desc"
                         android:textColor="@color/onb_text_secondary"
                         android:textSize="12sp" />
@@ -296,9 +296,9 @@
 
                 <!-- Homescreen Style -->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/ll_homescreen_style"
-                    style="@style/HomeSettingRow">
+                    style="@style/HomeSettingRow"
+                    android:visibility="gone">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         style="@style/HomeSettingIcon"
@@ -405,9 +405,9 @@
 
                 <!-- Badge Notifications -->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/ll_badge_notifications"
-                    style="@style/HomeSettingRow">
+                    style="@style/HomeSettingRow"
+                    android:visibility="gone">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         style="@style/HomeSettingIcon"
@@ -595,5 +595,16 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/fr_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/ads_banner" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

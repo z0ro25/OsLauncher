@@ -1,20 +1,18 @@
 package com.ezla.oslauncher.beautylauncher.Features.intro
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ItemSlideLayoutBinding
 import com.ezla.oslauncher.beautylauncher.databinding.ViewholderNativeFullOnbBinding
-import com.ezla.oslauncher.beautylauncher.extensions.layoutInflater
 import com.ezla.oslauncher.beautylauncher.model.IntroModel
-import com.truongnt.ios.ioslite.common.R
-import com.truongnt.ios.ioslite.common.ads.AdsNative
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback
-import com.truongnt.ios.ioslite.common.ads.AdsSlot
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds
 
-class IntroAdapter(val context: Context, val introItems: List<IntroModel>) : Adapter<ViewHolder>() {
+class IntroAdapter(val context: AppCompatActivity, val introItems: List<IntroModel>) :
+    Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == 0) IntroViewHolder(
@@ -34,13 +32,16 @@ class IntroAdapter(val context: Context, val introItems: List<IntroModel>) : Ada
         val data = introItems[position]
         if (data.position == "native_full") {
             (holder as NativeFullOnbViewHolder).apply {
-                AdsNative.show(
+                // Adapter nhận Context; SDK cần Activity nên phải dò ra. IntroActivity truyền
+                // chính nó vào nên bình thường luôn ra Activity.
+                NativeAds.showPreloadNativeInline(
+                    context,
+                    "native_onb_full",
                     binding.ntFullContainer,
-                    AdsSlot.NATIVE_ONBOARDING_FULL,
-                    R.layout.layout_native_full,
-                    object : AdsNativeCallback() {
-
-                    })
+                    {},
+                    {},
+                    R.layout.layout_native_onb_full
+                )
             }
 
         } else {

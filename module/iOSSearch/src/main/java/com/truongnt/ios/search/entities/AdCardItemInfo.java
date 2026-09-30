@@ -1,12 +1,13 @@
 package com.truongnt.ios.search.entities;
 
+import android.app.Activity;
 import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.search.config.MSCConfiguration;
 import com.truongnt.ios.search.provider.AdapterItemPresenter;
 import com.truongnt.ios.search.R;
@@ -21,8 +22,11 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
     public static final boolean TEST = true;
     public static final int SHOW_LEVEL = 1;
 
-    /** Vị trí quảng cáo cần hiển thị. Null = không có ad. */
-    public AdsSlot mSlot;
+    /** Ad unit ID cần hiển thị. Null = không có ad. */
+    public String mAdUnitId;
+
+    /** Hạn chờ SDK trả native; 15000ms là đúng default của {@code NativeAds.initNativeInline}. */
+    private static final long NATIVE_LOAD_TIMEOUT_MS = 15000L;
 
     /**
      * Each view should has a viewType to register int recycleView;
@@ -34,9 +38,9 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
         setShowLevel(SHOW_LEVEL);
     }
 
-    public AdCardItemInfo(AdsSlot slot) {
+    public AdCardItemInfo(String adUnitId) {
         this();
-        this.mSlot = slot;
+        this.mAdUnitId = adUnitId;
     }
 
     @Override
@@ -54,16 +58,24 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
     private boolean tempBind(AdViewHolder viewHolder) {
         if (!TEST) return false;
         AdViewHolderTmp viewHolderTmp = (AdViewHolderTmp) viewHolder;
-        // FSDAds tự đổ native vào container. CardView ở đây kế thừa FrameLayout nên dùng được.
+        // SDK tự đổ native vào container. CardView ở đây kế thừa FrameLayout nên dùng được.
         // Chỉ đổ khi container còn trống — RecyclerView tái dùng view nên bind lại sẽ
         // gọi tới đây lần nữa.
-        // Remote Config tắt native màn search -> không đổ ad (card rỗng đã bị UiHandler bỏ
-        // từ trước vì DataFlowProvider không trả về AdCardItemInfo nào).
-        if (mSlot != null
+        // Đã mua bản không quảng cáo -> không đổ ad (card rỗng đã bị UiHandler bỏ từ trước vì
+        // DataFlowProvider không trả về AdCardItemInfo nào).
+        if (mAdUnitId != null
                 && viewHolderTmp.mAdLayout.getChildCount() == 0
-                && RemoteConfigs.isAdsEnabled(
-                        viewHolderTmp.mAdLayout.getContext(), RemoteConfigs.NATIVE_APP_SEARCH)) {
-            AdsNative.show(viewHolderTmp.mAdLayout, mSlot, null);
+                && !AdsSdk.INSTANCE.isAdFree()) {
+            Activity activity = ActivityUtil.findActivity(viewHolderTmp.mAdLayout.getContext());
+            if (activity != null) {
+                NativeAds.INSTANCE.initNativeInline(
+                        activity,
+                        viewHolderTmp.mAdLayout,
+                        null,
+                        mAdUnitId,
+                        com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+                        NATIVE_LOAD_TIMEOUT_MS);
+            }
         }
         return TEST;
     }

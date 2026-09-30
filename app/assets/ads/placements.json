@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "fullscreenIntervalMs": 5000,
+  "revision": "integration-app-1",
+  "placements": [
+    {
+      "key": "splash",
+      "format": "inter",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "return_to_app",
+      "format": "open",
+      "adUnitId": "ca-app-pub-3940256099942544/9257395921",
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "back_file",
+      "format": "inter",
+      "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "convert_native",
+      "format": "native_full",
+      "native": {
+        "count": 1,
+        "adUnitIds": [
+          "ca-app-pub-3940256099942544/2247696110"
+        ],
+        "closeDelayMs": 5000
+      },
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "native_lang1",
+      "format": "native_full",
+      "native": {
+        "count": 1,
+        "adUnitIds": [
+          "ca-app-pub-3940256099942544/2247696110"
+        ],
+        "closeDelayMs": 5000
+      },
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "native_lang2",
+      "format": "native_full",
+      "native": {
+        "count": 1,
+        "adUnitIds": [
+          "ca-app-pub-3940256099942544/2247696110"
+        ],
+        "closeDelayMs": 5000
+      },
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "result_native_pair",
+      "format": "native_full",
+      "native": {
+        "count": 2,
+        "adUnitIds": [
+          "ca-app-pub-3940256099942544/2247696110",
+          "ca-app-pub-3940256099942544/1044960115"
+        ],
+        "closeDelayMs": 5000
+      },
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "back_file_combo",
+      "format": "combo_inter_native",
+      "steps": [
+        {
+          "format": "inter",
+          "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+          "enabled": true,
+          "loadTimeoutMs": 15000
+        },
+        {
+          "format": "native_full",
+          "native": {
+            "count": 1,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/2247696110"
+            ],
+            "closeDelayMs": 5000
+          },
+          "enabled": true,
+          "loadTimeoutMs": 15000
+        }
+      ],
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "convert_combo",
+      "format": "combo_inter_native",
+      "steps": [
+        {
+          "format": "inter",
+          "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+          "enabled": true,
+          "loadTimeoutMs": 15000
+        },
+        {
+          "format": "native_full",
+          "native": {
+            "count": 2,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/2247696110",
+              "ca-app-pub-3940256099942544/1044960115"
+            ],
+            "closeDelayMs": 5000
+          },
+          "enabled": true,
+          "loadTimeoutMs": 15000
+        }
+      ],
+      "enabled": true,
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "combo_inter_only",
+      "format": "combo_inter_native",
+      "enabled": true,
+      "steps": [
+        {
+          "format": "inter",
+          "enabled": true,
+          "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+          "loadTimeoutMs": 15000
+        },
+        {
+          "format": "native_full",
+          "enabled": false,
+          "native": {
+            "count": 1,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/2247696110"
+            ],
+            "closeDelayMs": 5000
+          },
+          "loadTimeoutMs": 15000
+        }
+      ],
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "combo_native_only",
+      "format": "combo_inter_native",
+      "enabled": true,
+      "steps": [
+        {
+          "format": "inter",
+          "enabled": false,
+          "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+          "loadTimeoutMs": 15000
+        },
+        {
+          "format": "native_full",
+          "enabled": true,
+          "native": {
+            "count": 2,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/2247696110",
+              "ca-app-pub-3940256099942544/1044960115"
+            ],
+            "closeDelayMs": 5000
+          },
+          "loadTimeoutMs": 15000
+        }
+      ],
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "combo_off",
+      "format": "combo_inter_native",
+      "enabled": true,
+      "steps": [
+        {
+          "format": "inter",
+          "enabled": false,
+          "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+          "loadTimeoutMs": 15000
+        },
+        {
+          "format": "native_full",
+          "enabled": false,
+          "native": {
+            "count": 1,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/2247696110"
+            ],
+            "closeDelayMs": 5000
+          },
+          "loadTimeoutMs": 15000
+        }
+      ],
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "placement_off",
+      "format": "inter",
+      "enabled": false,
+      "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "main_banner",
+      "format": "banner",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/9214589741",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "bannerinapp",
+      "format": "banner",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/8543314319",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "native_app_library",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/5532183765",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "native_left_page",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/5532183765",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "native_search",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/5532183765",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "inter_launcher",
+      "format": "inter",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/9728403477",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "main_native_small",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/2247696110",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "main_native_large",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/2247696110",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "main_rewarded",
+      "format": "rewarded",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/5224354917",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "convert_rewarded",
+      "format": "rewarded",
+      "enabled": false,
+      "adUnitId": "ca-app-pub-3940256099942544/5224354917",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "native_refresh_pair",
+      "format": "combo_x_native",
+      "enabled": true,
+      "replaceAfterMs": 7000,
+      "loadTimeoutMs": 15000,
+      "steps": [
+        {
+          "format": "native_full",
+          "enabled": true,
+          "native": {
+            "count": 2,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/2247696110",
+              "ca-app-pub-3940256099942544/1044960115"
+            ],
+            "closeDelayMs": 5000
+          }
+        },
+        {
+          "format": "native_full",
+          "enabled": true,
+          "native": {
+            "count": 2,
+            "adUnitIds": [
+              "ca-app-pub-3940256099942544/1044960115",
+              "ca-app-pub-3940256099942544/2247696110"
+            ],
+            "closeDelayMs": 5000
+          }
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "formats": {
+    "open": true,
+    "inter": true,
+    "native_full": true,
+    "combo_inter_native": true,
+    "banner": true,
+    "native": true,
+    "native_collapse": true,
+    "rewarded": true,
+    "combo_x_native": true
+  }
+}

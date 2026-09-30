@@ -179,16 +179,17 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/banner_ad"
+        app:layout_constraintBottom_toTopOf="@id/fr_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    <!-- Banner đáy màn. SDK tự tìm view theo id nên KHÔNG đặt android:id lên include:
-         đặt vào là đè mất @id/banner_ad, banner sẽ im lặng không hiện. -->
-    <include
-        layout="@layout/fsd_ads_banner"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:id="@+id/fr_banner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/ads_banner" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

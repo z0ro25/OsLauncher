@@ -1,14 +1,25 @@
 package com.ezla.oslauncher.beautylauncher.Features.subs
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withResumed
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActSubsBinding
+import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenCallback
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenResult
+import com.truongnt.ios.ioslite.common.config.AppAds
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
+import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,7 +47,9 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
         // Vào từ luồng onboarding: back = thoát app (giống màn chọn hình nền), KHÔNG quay lại
         // màn trước — nếu không user bị kẹt vòng onboarding.
         if (intent.getBooleanExtra(EXTRA_FROM_ONBOARDING, false)) {
-            onBackPressedDispatcher.addCallback { finishAffinity() }
+            onBackPressedDispatcher.addCallback {
+                openLauncher()
+            }
         }
 
         binding.apply {
@@ -59,7 +72,11 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
 
     override fun viewListener() {
         binding.apply {
-            icX.setOnClickListener { finish() }
+            icX.setOnClickListener {
+                if (intent.getBooleanExtra(EXTRA_FROM_ONBOARDING, false)) {
+                    onBackPressedDispatcher.onBackPressed()
+                }else finish()
+            }
 
             viewYear.setOnClickListener {
                 selectedIsYear = true
@@ -129,6 +146,54 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
         BillingUtils.onProductsLoaded = null
         super.onDestroy()
     }
+
+    private val PREF_PROMPT_SET_DEFAULT_ON_DESKTOP = "prompt_set_default_on_desktop"
+
+    fun openLauncher() {
+        var fired = false
+        val continueToLauncher: () -> Unit = {
+            if (!fired) {
+                fired = true
+                val isDefault = isDefaultLauncher()
+                if (isDefault) {
+                    launchActivity<SearchLauncher> { }
+                    finishAffinity()
+                } else {
+                    SharePrefUtils.putBoolean(this, "hello_pending", true)
+                    SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
+                    launchActivity<SearchLauncher> { }
+                    finishAffinity()
+                }
+            }
+        }
+
+        if (AdsSdk.isAdFree) {
+            continueToLauncher()
+            return
+        }
+        lifecycleScope.launch {
+            AppAds.kit.showAdFullScreen(
+                this@SubsAct,
+                "start_launcher_Inter",
+                object : AdFullScreenCallback {
+                    override fun onFinished(result: AdFullScreenResult) {
+                        super.onFinished(result)
+                    }
+                })
+
+            lifecycle.withResumed {
+                continueToLauncher()
+            }
+        }
+    }
+
+    private fun isDefaultLauncher(): Boolean {
+        val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+        val res: ResolveInfo? =
+            packageManager.resolveActivity(home, PackageManager.MATCH_DEFAULT_ONLY)
+        return res?.activityInfo?.packageName == packageName
+    }
+
 
     // Public để dialog ưu đãi (SubsOfferDialog) dùng lại đúng 2 link này, khỏi chép trùng.
     companion object {

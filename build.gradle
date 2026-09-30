@@ -96,6 +96,8 @@ allprojects {
             dirs '../../libs'
         }
 
+        maven { url = uri("$rootDir/libs/maven") }
+
         maven {
             url = uri("https://maven.pkg.github.com/z0ro25/FSD-ADS")
             credentials {

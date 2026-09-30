@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   Item quảng cáo native trên màn trái (negative screen), nằm ngay dưới 2 widget đầu tiên.
 
-  Root BẮT BUỘC là FrameLayout: FSDAds đổ nội dung quảng cáo thẳng vào chính view này
-  (nó không trả View cho mình tự gắn) — xem AdsNative.show(container, slot, callback).
+  Root BẮT BUỘC là FrameLayout: SDK đổ nội dung quảng cáo thẳng vào chính view này
+  (nó không trả View cho mình tự gắn) — xem NativeAds.initNativeInline.
 
-  descendantFocusability="afterDescendants": giống container chuẩn
-  (library/iOSLiteCommon/res/layout/ads_native_container.xml) — để view con của quảng cáo
-  nhận được click dù FrameLayout cha không focusable.
+  descendantFocusability="afterDescendants": để view con của quảng cáo nhận được click dù
+  FrameLayout cha không focusable.
 
   Background dùng ĐÚNG nền của các widget cùng màn (BlurConstraintLayoutWidget gán
-  widget_left_page_background cho widget root). Layout FSDAds không có nền riêng nên nền của
-  container này chính là nền người dùng thấy.
+  widget_left_page_background cho widget root). Layout mà SDK inflate vào không có nền riêng
+  nên nền của container này chính là nền người dùng thấy.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/left_page_native_ad_container"

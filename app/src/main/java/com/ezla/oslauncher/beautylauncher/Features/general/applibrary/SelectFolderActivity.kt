@@ -25,7 +25,7 @@ class SelectFolderActivity : BaseActivity<ActivitySelectFolderBinding>() {
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 
     override fun initView() {

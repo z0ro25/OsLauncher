@@ -1,5 +1,6 @@
 package com.truongnt.ios.launcher.applibrary;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,11 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.truongnt.ios.ioslite.common.ads.Ads;
-import com.truongnt.ios.ioslite.common.ads.AdsError;
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import androidx.fragment.app.FragmentActivity;
+
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
+import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.launcher.R;
 
 import java.util.ArrayList;
@@ -25,6 +25,9 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
 
     /** Vị trí item quảng cáo: đầu danh sách. */
     private static final int AD_POSITION = 0;
+
+    // Placement native của App Library trong JSON (ads/app-placements.json, placements.json).
+    private static final String NATIVE_PLACEMENT = "native_app_library";
 
     // Danh sách đầy đủ (giữ nguyên thứ tự 10 category cố định) — nguồn dữ liệu gốc.
     ArrayList<AppCategory> mCategories;
@@ -84,18 +87,11 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     // category thật, dính vào SortAppsCallable + đếm app). Vì vậy mọi chỗ dùng position đều
     // phải quy về chỉ số category qua [categoryIndexFor].
 
-    /**
-     * Slot quảng cáo có được phép dùng không (tính một lần, sau đó giữ nguyên).
-     *
-     * <p>Có HAI vế: {@link Ads#isSlotAllowed} (premium / cờ loại / policy tần suất) và Remote
-     * Config {@code Native_AppLibrary}. Vế thứ hai không thể gộp vào {@code Ads.canUse} vì ba
-     * vị trí khác nhau (App Library, App Search, Left Page) dùng CHUNG một slot NATIVE_IN_APP —
-     * gác trong slot thì ba công tắc sẽ đè lên nhau.
-     */
+    // Tính một lần rồi giữ nguyên. Chỉ còn vế isAdFree (lambda :app bơm xuống AdsHostConfig);
+    // bật/tắt theo vị trí giờ do SDK lo qua serving controls + enabled của placement.
     private boolean isAdAllowed() {
         if (mAdAllowed == null) {
-            mAdAllowed = Ads.isSlotAllowed(AdsSlot.NATIVE_IN_APP)
-                    && RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_APP_LIBRARY);
+            mAdAllowed = !AdsSdk.INSTANCE.isAdFree();
         }
         return mAdAllowed;
     }
@@ -181,30 +177,29 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
         }
 
         mAdState = AD_LOADING;
-        // Layout riêng cho App Library. App Library chạy trong Launcher (Activity trần) nên SDK
-        // không nhận layout — AdsNative tự inflate layout này rồi tự populate, xem
-        // AdsNative.pourOwnLayout. Ghi rõ R của library vì file này đang import R của module launcher.
-        AdsNative.show(container, AdsSlot.NATIVE_IN_APP,
-                com.truongnt.ios.ioslite.common.R.layout.layout_native_app_library,
-                new AdsNativeCallback() {
-            @Override
-            public void onLoaded() {
-                mAdState = AD_LOADED;
-                // Callback về bất đồng bộ, holder có thể đã bị tái dùng cho item khác -> chỉ đổi
-                // hiển thị khi nó vẫn đang gắn cho ô quảng cáo, tránh ẩn/hiện nhầm item khác.
-                if (post == AD_POSITION) {
-                    holder.itemView.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void onLoadFailed(AdsError error) {
-                mAdState = AD_FAILED;
-                if (post == AD_POSITION) {
-                    holder.itemView.setVisibility(View.GONE);
-                }
+        // AdsKit chỉ show từ FragmentActivity; dò từ context của container vì view trong
+        // RecyclerView giữ ContextThemeWrapper chứ không phải chính Activity.
+        final Activity activity = ActivityUtil.findActivity(container.getContext());
+        if (!(activity instanceof FragmentActivity)) {
+            mAdState = AD_FAILED;
+            if (post == AD_POSITION) {
+                holder.itemView.setVisibility(View.GONE);
             }
-        });
+            return;
+        }
+
+        // Container cao cố định (box 2:1) -> dùng bản Fill để native lấp đầy thay vì wrap_content.
+        // Ghi rõ R của library vì file này đang import R của module launcher.
+        AppAds.showNativeFill((FragmentActivity) activity, NATIVE_PLACEMENT, container,
+                com.truongnt.ios.ioslite.common.R.layout.layout_native_app_libs,
+                com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs, hasAd -> {
+                    mAdState = hasAd ? AD_LOADED : AD_FAILED;
+                    // Holder có thể đã bị tái dùng cho item khác -> chỉ đổi khi vẫn là ô quảng cáo.
+                    if (post == AD_POSITION) {
+                        holder.itemView.setVisibility(hasAd ? View.VISIBLE : View.GONE);
+                    }
+                });
     }
 
     /**

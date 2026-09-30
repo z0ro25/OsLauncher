@@ -13,13 +13,10 @@ import com.ezla.oslauncher.beautylauncher.utils.BillingUtils;
 import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.ezla.oslauncher.beautylauncher.ads.AdjustTracker;
 import com.truongnt.ios.ioslite.common.CommonSdk;
 import com.truongnt.ios.ioslite.common.LiteAction;
-import com.truongnt.ios.ioslite.common.ads.Ads;
-import com.truongnt.ios.ioslite.common.ads.AdsOpen;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
 import com.truongnt.ios.ioslite.common.debug.ExceptionHandler;
 import com.truongnt.ios.ioslite.common.noti.DailyNotiScheduler;
@@ -136,32 +133,12 @@ public class BaseLauncherApplication extends Application {
     }
 
 
-    /**
-     * Khởi tạo hạ tầng quảng cáo.
-     *
-     * <p>Được gọi từ onCreate() của process chính, và cả từ initalizeAfterLauncherLoadCompelte().
-     * Ads.init() tự chặn lần gọi thứ hai nên gọi bao nhiêu lần cũng an toàn.
-     */
+    // Chỉ còn init Adjust: AdsSdk.configure ở App.onCreate(), consent (UMP) ở SplashActivity.
+    // Khoảng nghỉ giữa 2 interstitial giờ là fullscreenIntervalMs ở root JSON placement.
     private void setupAdEnvironment() {
-        // Token Adjust — ĐIỀN VÀO ĐÂY khi có. Để rỗng thì Ads.init() bỏ qua luôn phần
-        // Adjust (chỉ log cảnh báo); hạ tầng quảng cáo vẫn chạy bình thường, chỉ mất
-        // phần revenue tracking qua Adjust.
+        // Token Adjust. Để rỗng thì bỏ qua init Adjust (chỉ log cảnh báo).
         final String adjustToken = "seu0i6ptzxmo";
-
-        // Đọc cờ sub đã lưu TRƯỚC Ads.init(): FSDAds chốt cờ premium theo giá trị tại lúc
-        // setupConfig, nên đẩy premium sau khi init sẽ phải setup lại config. Giá trị đọc ở đây
-        // là cache lần chạy trước; setupBilling() xác thực lại với Google rồi cập nhật.
-        Ads.setPremium(BillingUtils.INSTANCE.isSubsCached(this), false);
-
-        int time = RemoteConfigs.INSTANCE.getRemoteConfigInt(this,RemoteConfigs.INTER_INTERVAL);
-        Ads.init(this, adjustToken, BuildConfig.DEBUG, time * 1000L, new Runnable() {
-            @Override
-            public void run() {
-                // App-open KHÔNG có hàm show(): FSDAds tự đăng ký ActivityLifecycleCallbacks
-                // và tự hiện khi Activity được tạo. Xem AdsOpen.
-//                AdsOpen.setup(mApplication, AdsSlot.APP_OPEN, null);
-            }
-        });
+        AdjustTracker.init(this, adjustToken, BuildConfig.DEBUG);
     }
 
 

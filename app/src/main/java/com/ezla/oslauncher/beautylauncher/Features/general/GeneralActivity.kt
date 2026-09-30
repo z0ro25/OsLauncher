@@ -26,7 +26,7 @@ class GeneralActivity : BaseActivity<ActivityGeneralBinding>() {
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 
     override fun initView() {

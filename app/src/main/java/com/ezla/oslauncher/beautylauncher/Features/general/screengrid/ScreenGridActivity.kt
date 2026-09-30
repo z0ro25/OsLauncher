@@ -28,7 +28,7 @@ class ScreenGridActivity : BaseActivity<ActivityScreenGridBinding>() {
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled()
+        showBannerIfEnabled(binding.frBanner, false)
     }
 
     override fun initView() {

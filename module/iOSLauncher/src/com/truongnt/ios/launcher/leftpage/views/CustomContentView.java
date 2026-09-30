@@ -17,9 +17,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.truongnt.ios.ioslite.common.ads.AdsNative;
-import com.truongnt.ios.ioslite.common.ads.AdsSlot;
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.R;
@@ -236,12 +235,9 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
 
         mWidgetListAdapter = new CustomContentWidgetAdapter(this,mWidgetInfoList);
 
-        // Tải trước native cho màn trái. FSDAds giữ ad theo alias nên gọi sớm để lúc list bind
-        // là đã có sẵn; AdsNative.preload tự chặn gọi trùng nên không tốn thêm request.
-        // Remote Config tắt native màn trái -> không phát request nào.
-        if (mLauncher != null
-                && RemoteConfigs.isAdsEnabled(mLauncher, RemoteConfigs.NATIVE_LEFT_PAGE)) {
-            AdsNative.preload(mLauncher, AdsSlot.NATIVE_IN_APP, null);
+        // Tải trước native màn trái để lúc list bind đã có sẵn; đã mua bản không qc thì bỏ qua.
+        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
+            AppAds.preloadNative(CustomContentWidgetAdapter.NATIVE_PLACEMENT);
         }
 
         WrapStaggeredGridLayoutManager manager = new WrapStaggeredGridLayoutManager(
@@ -285,7 +281,11 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         mListWidgetRV.post(new Runnable() {
             @Override
             public void run() {
-                if (mWidgetListAdapter != null) {
+                if (mWidgetListAdapter == null) {
+                    return;
+                }
+                // Lần trước ad lỗi đã gỡ item -> chèn lại (tự bind) thay vì notifyItemChanged.
+                if (!mWidgetListAdapter.restoreAdItemIfRemoved()) {
                     mWidgetListAdapter.notifyAdChanged();
                 }
             }

@@ -30,14 +30,13 @@ import com.ezla.oslauncher.beautylauncher.databinding.ActivityHomeBinding
 import com.ezla.oslauncher.beautylauncher.dialog.SetDefaultLauncherDialog
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.extensions.tap
+import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
-import com.truongnt.ios.ioslite.common.ads.Ads
-import com.truongnt.ios.ioslite.common.ads.AdsError
-import com.truongnt.ios.ioslite.common.ads.AdsInterstitial
-import com.truongnt.ios.ioslite.common.ads.AdsNative
-import com.truongnt.ios.ioslite.common.ads.AdsNativeCallback
-import com.truongnt.ios.ioslite.common.ads.AdsSlot
-import com.truongnt.ios.ioslite.common.config.RemoteConfigs
+import com.ezt.v2.ezt.admobdemo.ads.InterAds
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
@@ -60,37 +59,35 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         maybeShowSetDefaultDialog()
 
         binding.apply {
-            tvPro.isVisible = Ads.isPremium()
+            tvPro.isVisible = BillingUtils.isSubsCached(this@HomeActivity)
             tvPro.setTypeface(
                 ResourcesCompat.getFont(
                     this@HomeActivity,
-                    if (Ads.isPremium()) R.font.sf_pro_display_bold_italic else R.font.sf_pro_display_bold
+                    if (BillingUtils.isSubsCached(this@HomeActivity)) R.font.sf_pro_display_bold_italic else R.font.sf_pro_display_bold
                 )
             )
 
-            ivPro.isVisible = !Ads.isPremium()
-            llSubs.isVisible = !Ads.isPremium()
+            ivPro.isVisible = !BillingUtils.isSubsCached(this@HomeActivity)
+            llSubs.isVisible = !BillingUtils.isSubsCached(this@HomeActivity)
         }
 
-        if (RemoteConfigs.isAdsEnabled(RemoteConfigs.NATIVE_INAPP)) {
-            AdsNative.preload(this, AdsSlot.NATIVE_IN_APP, object : AdsNativeCallback() {
-                override fun onLoaded() {
-                    super.onLoaded()
-                    AdsNative.show(
-                        binding.frNativeHome,
-                        AdsSlot.NATIVE_IN_APP,
-                        com.truongnt.ios.ioslite.common.R.layout.layout_native_large,
-                        object : AdsNativeCallback() {
+        if (!AdsSdk.isAdFree) {
+            NativeAds.initNativeInline(
+                this,
+                binding.frNativeHome,
+                object : NativeAds.CallBackNativeAds {
+                    override fun onLoaded() {}
 
-                        })
-                }
-
-
-                override fun onLoadFailed(error: AdsError) {
-                    super.onLoadFailed(error)
-                    binding.frNativeHome.isVisible = false
-                }
-            })
+                    override fun onError() {
+                        binding.frNativeHome.isVisible = false
+                    }
+                },
+                // Vị trí native chung của app — chính là AdUnitDefaults.native đã nạp ở
+                // Application, nên lấy qua AdsConfig thay vì lặp lại chuỗi ID.
+                "native_home",
+                R.layout.layout_native_large,
+                15_000L,
+            )
         } else {
             binding.frNativeHome.isVisible = false
         }
@@ -100,6 +97,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         super.onResume()
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
+        if(!AdsSdk.isAdFree){
+            AppAds.kit.showBanner(this,"main_banner",binding.frBanner,true)
+        }
     }
 
     /**
@@ -217,31 +217,23 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun dataObservable() {}
 
-    /**
-     * Bọc hành động của một lần bấm sau interstitial in-app.
-     *
-     * Remote Config tắt quảng cáo ở vị trí này thì chạy thẳng [action] — hành vi của người
-     * dùng không bao giờ bị nuốt.
-     *
-     * Vì sao phải kiểm tra ở ĐÂY chứ không phó mặc cho [AdsInterstitial.show]: show() chỉ tự
-     * chạy [action] khi trong tay KHÔNG có ad nào đã tải trước. Mà splash đã gọi
-     * `AdsInterstitial.load(INTER_IN_APP)` sẵn, nên nếu không chặn từ đầu thì cờ tắt trên
-     * console vẫn sẽ hiện ad đã nằm sẵn trong bộ nhớ.
-     */
+    // Bọc [action] sau interstitial in-app. Bất biến: [action] luôn chạy đúng 1 lần — đã mua
+    // bản không qc hoặc chưa có ad thì chạy ngay, có ad thì chạy khi ad đóng.
     private fun tapWithInterInApp(action: () -> Unit) {
-        if (!RemoteConfigs.isAdsEnabled(this, RemoteConfigs.INTER_INAPP)) {
+        if (AdsSdk.isAdFree) {
             action()
             return
         }
-        AdsInterstitial.show(this, AdsSlot.INTER_IN_APP) { action() }
+
+        if (!InterAds.isCanShowAds()) {
+            InterAds.initInterAds(this) {}
+            action()
+            return
+        }
+
+        InterAds.showAds(this, { action() }, true)
     }
 
-    /**
-     * Mở desktop launcher từ card "Go to launcher".
-     * - Đã là default: vào thẳng desktop và thoát app (chỉ finish app khi đã là default).
-     * - Chưa default: đi qua màn Hello (trải nghiệm bình thường), KHÔNG finish app; đặt cờ để
-     *   khi tới desktop hiện lại dialog "Set as default launcher". [SearchLauncher] đọc 2 cờ này.
-     */
     private fun goToLauncher() {
         if (isDefaultLauncher()) {
             launchActivity<SearchLauncher>()
@@ -268,11 +260,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         selectDefault()
     }
 
-    /**
-     * Hiện dialog "đặt làm app Màn hình chính mặc định" của hệ thống qua [RoleManager.ROLE_HOME].
-     * @return true nếu đã bung được dialog; false khi thiết bị không hỗ trợ hoặc app đã là default
-     *         (khi đó caller tự fallback sang màn cài đặt Home).
-     */
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestHomeRoleDialog(): Boolean {
         val roleManager = getSystemService(ROLE_SERVICE) as? RoleManager ?: return false
@@ -288,9 +275,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     private fun selectDefault() {
-        // Settings.ACTION_HOME_SETTINGS có từ API 24 -> mở thẳng trang chọn "App Màn hình chính
-        // mặc định" của hệ thống trên MỌI máy (kể cả Android 9). Trước đây máy < API 32 rơi vào
-        // ACTION_MAIN+CATEGORY_HOME: gọi từ trong chính launcher chỉ đưa app lên lại -> "không hiện gì".
+
         try {
             startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
         } catch (e: Exception) {
@@ -303,15 +288,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         SharePrefUtils.putBoolean(this, "is_login", false)
     }
 
-    /**
-     * Mở ứng dụng mail để người dùng gửi góp ý.
-     *
-     * Dùng ACTION_SENDTO + data "mailto:" thay cho ACTION_SEND: chỉ những app THẬT SỰ gửi mail mới
-     * nhận intent này, nên danh sách chọn không lẫn Bluetooth/Drive/Zalo... như ACTION_SEND.
-     *
-     * Địa chỉ nhận + tiền tố tiêu đề lấy từ [com.truongnt.ios.ioslite.common.config.SharePrefUtils] (nơi cấu hình chung của app).
-     * Phần thân thư điền sẵn thông tin máy để đội hỗ trợ đỡ phải hỏi lại.
-     */
+
     private fun sendFeedbackMail() {
         val recipients = listOf(SharePrefUtils.email, SharePrefUtils.email1)
             .filter { it.isNotBlank() }

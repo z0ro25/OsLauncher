@@ -16,13 +16,12 @@
   Vì sao thụt lề đặt trong code chứ không phải android:layout_margin: ô category thụt bằng
   setPadding(20px), mà margin trong XML tính bằng dp -> lệch nhau trên màn mật độ cao.
 
-  Container (FrameLayout trong cùng) là view truyền cho AdsNative.show — FSDAds đổ nội dung
-  quảng cáo thẳng vào đó (nó không trả View cho mình tự gắn). Layout FSDAds không có nền riêng
-  nên bg_glass_tile ở đây chính là nền người dùng thấy, khớp với các ô category.
+  Container (FrameLayout trong cùng) là view truyền cho NativeAds.initNativeInline — SDK đổ
+  nội dung quảng cáo thẳng vào đó (nó không trả View cho mình tự gắn), và tự removeAllViews
+  trước khi addView nên không chồng ad khi bind lại.
 
-  descendantFocusability="afterDescendants": giống container chuẩn
-  (library/iOSLiteCommon/res/layout/ads_native_container.xml) — để view con của quảng cáo
-  nhận được click dù FrameLayout cha không focusable.
+  descendantFocusability="afterDescendants": để view con của quảng cáo nhận được click dù
+  FrameLayout cha không focusable.
 -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,7 +46,7 @@
             android:background="@drawable/bg_glass_tile"
             android:descendantFocusability="afterDescendants" />
 
-        <!-- Skeleton trong lúc chờ ad do AdsNative tự đổ vào container (xem AdsNative.pourShimmer)
+        <!-- Skeleton trong lúc chờ ad do SDK tự lo (nó dùng ShimmerFrameLayout nội bộ)
              — KHÔNG khai thêm overlay ở đây, hai chỗ cùng đổ sẽ chồng lên nhau. -->
 
     </FrameLayout>
