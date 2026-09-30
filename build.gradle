@@ -94,6 +94,9 @@ allprojects {
             dirs 'libs'
             dirs '../libs'
             dirs '../../libs'
+            // AAR eztech: library không được dùng files('*.aar'). Đường dẫn tuyệt đối vì 'libs'
+            // tính theo từng module — :app resolve transitive từ iOSLiteCommon sẽ tìm ở app/libs.
+            dirs "$rootDir/library/iOSLiteCommon/libs"
         }
 
         maven { url = uri("$rootDir/libs/maven") }

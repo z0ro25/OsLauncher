@@ -34,7 +34,6 @@ import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
 import com.ezt.v2.ezt.admobdemo.ads.InterAds
 import com.ezt.v2.ezt.admobdemo.ads.NativeAds
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
 import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
@@ -72,22 +71,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         }
 
         if (!AdsSdk.isAdFree) {
-            NativeAds.initNativeInline(
+            AppAds.kit.showNativeInline(
                 this,
-                binding.frNativeHome,
-                object : NativeAds.CallBackNativeAds {
-                    override fun onLoaded() {}
-
-                    override fun onError() {
-                        binding.frNativeHome.isVisible = false
-                    }
-                },
-                // Vị trí native chung của app — chính là AdUnitDefaults.native đã nạp ở
-                // Application, nên lấy qua AdsConfig thay vì lặp lại chuỗi ID.
                 "native_home",
-                R.layout.layout_native_large,
-                15_000L,
+                binding.frNativeHome,
+                R.layout.layout_native_large
             )
+
+
         } else {
             binding.frNativeHome.isVisible = false
         }
@@ -97,8 +88,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         super.onResume()
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
-        if(!AdsSdk.isAdFree){
-            AppAds.kit.showBanner(this,"main_banner",binding.frBanner,true)
+        if (!AdsSdk.isAdFree) {
+            AppAds.kit.showBanner(this, "main_banner", binding.frBanner, true)
         }
     }
 

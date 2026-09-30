@@ -11,7 +11,7 @@
         android:id="@+id/view_pager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/fr_native"
+        app:layout_constraintBottom_toBottomOf="@id/ll_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

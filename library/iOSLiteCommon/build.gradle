@@ -51,10 +51,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
 
-    // Room (Java) — migrate SQLite thủ công sang Room
-    // 2.6.1 -> 2.7.2: BẮT BUỘC khi compiler Kotlin là 2.1.x (xem build.gradle gốc).
-    // room-compiler 2.6.1 dùng kotlinx-metadata-jvm — chỉ đọc được metadata tới 2.0.0 — nên kapt
-    // báo "Provided Metadata instance has version 2.1.0". Từ 2.7.0 Room dùng kotlin-metadata-jvm.
     implementation "androidx.room:room-runtime:2.7.2"
     annotationProcessor "androidx.room:room-compiler:2.7.2"
 
@@ -79,7 +75,7 @@ dependencies {
 
     //ads — SDK eztech. `api` vì iOSLauncher/iOSSearch/iOSThemeClub gọi thẳng class của SDK.
     // Nơi khai DUY NHẤT của AAR: khai thêm ở module khác là D8 báo "defined multiple times".
-    api files('libs/eztech-ads-com.ezla.oslauncher.beautylauncher-1.0.8.aar')
+    api(name: 'eztech-ads-com.ezla.oslauncher.beautylauncher-1.0.8', ext: 'aar')
 
     // AAR cục bộ KHÔNG mang metadata dependency, nên các thư viện mà SDK eztech cần phải
     // khai tường minh. Để `api` vì chữ ký hàm của SDK có kiểu của ads-mobile-sdk, module gọi
@@ -92,30 +88,7 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 }
 
-/*
- * [BẮT BUỘC] Vá lỗi "cannot access ListenableFuture" khi biên dịch DailyNotiWorker.
- *
- * Cơ chế lỗi:
- *   - DailyNotiWorker kế thừa androidx.work.Worker, mà ListenableWorker.getForegroundInfoAsync()
- *     trả về com.google.common.util.concurrent.ListenableFuture -> javac phải nạp được class đó
- *     mới dịch được lớp con.
- *   - 2 thư viện ads ở trên (play-services-ads -> androidx.privacysandbox.ads:ads-adservices-java)
- *     kéo com.google.guava:guava:31.1-android vào graph, nhưng CHỈ ở runtime (guava là dep
- *     'implementation' của ads-adservices-java nên không expose ra compile).
- *   - Guava lại ghim 'listenablefuture' lên bản 9999.0-empty-to-avoid-conflict-with-guava — một jar
- *     RỖNG (0 class), tồn tại chỉ để nhường chỗ cho class thật nằm trong guava. Gradle chọn version
- *     cao nhất nên bản rỗng thắng bản 1.0 -> compileClasspath không còn class nào cả.
- *
- * Cách vá: ép 'listenablefuture' về lại 1.0 — jar 1.0 chứa đúng một class là ListenableFuture.class
- * (bản stub do chính androidx.work khai báo, đủ để javac dịch). KHÔNG thêm thư viện nào mới.
- *
- * CHỈ ép trên classpath BIÊN DỊCH, KHÔNG ép ở runtime: ở runtime guava đã cung cấp class thật rồi,
- * ép ở runtime sẽ khiến APK có 2 bản ListenableFuture -> D8 báo "Type ... is defined multiple times".
- *
- * BẤT BIẾN: nếu sau này bỏ 2 dòng ads ở trên thì lỗi này tự hết (graph không còn guava) và có thể
- * gỡ luôn khối này. Ngược lại, thêm class nào khác kế thừa Worker/ListenableWorker ở :app thì phải
- * áp cách vá tương tự cho :app (compileClasspath của :app cũng đang bị đẩy lên bản rỗng).
- */
+
 configurations.all { cfg ->
     if (cfg.name.endsWith('CompileClasspath')) {
         cfg.resolutionStrategy.force 'com.google.guava:listenablefuture:1.0'

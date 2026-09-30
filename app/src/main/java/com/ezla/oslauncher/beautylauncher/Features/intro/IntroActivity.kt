@@ -77,7 +77,8 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
             )
         }
 
-        listIntro.add(2, IntroModel("native_full"))
+        val ok = AppAds.kit.nativeInlinePreloadStates.value["native_onb_full"] == AdPreloadState.READY
+        if (ok) listIntro.add(2, IntroModel("native_full"))
 
         binding.viewPager2.adapter = adapter
         binding.dotindicator.attachTo(binding.viewPager2)

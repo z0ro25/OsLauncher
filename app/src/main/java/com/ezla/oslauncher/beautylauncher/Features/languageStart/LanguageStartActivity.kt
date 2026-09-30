@@ -90,7 +90,8 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
             AppAds.kit.preloadNativeInline( "native_onb1")
             AppAds.kit.preloadNativeInline("native_onb2")
             AppAds.kit.preloadNativeInline("native_onb3")
-            NativeAds.preloadNativeInline(this,"native_onb_full")
+            AppAds.kit.preloadNativeInline("native_onb_full")
+
         }
     }
 

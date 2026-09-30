@@ -11,16 +11,16 @@
       "loadTimeoutMs": 15000
     },
     {
-      "key": "return_to_app",
-      "format": "open",
-      "adUnitId": "ca-app-pub-3940256099942544/9257395921",
+      "key": "inter_inapp",
+      "format": "inter",
       "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/1033173712",
       "loadTimeoutMs": 15000
     },
     {
-      "key": "back_file",
-      "format": "inter",
-      "adUnitId": "ca-app-pub-3940256099942544/1033173712",
+      "key": "return_to_app",
+      "format": "open",
+      "adUnitId": "ca-app-pub-3940256099942544/9257395921",
       "enabled": true,
       "loadTimeoutMs": 15000
     },
@@ -147,30 +147,7 @@
       "enabled": true,
       "adUnitId": "ca-app-pub-3940256099942544/1033173712",
       "loadTimeoutMs": 15000
-    },
-    {
-      "key": "main_native_large",
-      "format": "native",
-      "enabled": true,
-      "adUnitId": "ca-app-pub-3940256099942544/2247696110",
-      "loadTimeoutMs": 15000,
-      "refreshIntervalMs": 30000
-    },
-    {
-      "key": "main_rewarded",
-      "format": "rewarded",
-      "enabled": true,
-      "adUnitId": "ca-app-pub-3940256099942544/5224354917",
-      "loadTimeoutMs": 15000
-    },
-    {
-      "key": "convert_rewarded",
-      "format": "rewarded",
-      "enabled": false,
-      "adUnitId": "ca-app-pub-3940256099942544/5224354917",
-      "loadTimeoutMs": 15000
     }
-
   ],
   "enabled": true,
   "formats": {
