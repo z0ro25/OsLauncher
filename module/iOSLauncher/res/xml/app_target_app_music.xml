@@ -71,4 +71,8 @@
     <favorite
         launcher:className="cmccwm.mobilemusic.ui.activity.PreSplashActivityMigu"
         launcher:packageName="cmccwm.mobilemusic"/>
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.google.android.apps.youtube.music" />
+    <favorite launcher:packageName="com.heytap.music" />
 </items>

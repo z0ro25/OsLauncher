@@ -115,7 +115,7 @@ dependencies {
     implementation project(':module:iOSLauncher')
     implementation project(':module:iOSSettings')
 //    compile project(':module:IOSWeather')
-    implementation project(':module:iOSThemeClub')
+    implementation project(':module:iOSThemes')
     implementation project(':module:iOSSearch')
 //    compile project(':module:IOSNewsPage')
 //    compile project(':module:IOSDiscovery')

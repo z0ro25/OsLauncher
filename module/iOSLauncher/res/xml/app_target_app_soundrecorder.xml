@@ -13,4 +13,8 @@
     <favorite
         launcher:className="com.sec.android.app.voicenote.main.VNMainActivity"
         launcher:packageName="com.sec.android.app.voicenote" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.google.android.apps.recorder" />
+    <favorite launcher:packageName="com.coloros.soundrecorder" />
 </items>

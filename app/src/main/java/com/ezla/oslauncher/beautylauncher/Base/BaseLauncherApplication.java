@@ -22,7 +22,6 @@ import com.truongnt.ios.ioslite.common.debug.ExceptionHandler;
 import com.truongnt.ios.ioslite.common.noti.DailyNotiScheduler;
 import com.truongnt.ios.ioslite.common.util.ProcessUtil;
 import com.truongnt.ios.launcher.LauncherAppState;
-import com.truongnt.ios.themeclub.ThemeClubApplication;
 
 import java.util.Locale;
 
@@ -75,9 +74,6 @@ public class BaseLauncherApplication extends Application {
             // 天气初始化
 //            mWeatherApplication = new WeatherApplication();
 //            mWeatherApplication.initalize(this);
-
-            // 美化中心初始化
-            ThemeClubApplication.initalize(this);
 
             // 定位服务初始化
             // IOSLocationManager.initalize(this);
@@ -174,7 +170,6 @@ public class BaseLauncherApplication extends Application {
         unRegistReveiver();
         // mWeatherApplication.onTerminate(this);
         //IOSLocationManager.onTerminate();
-        ThemeClubApplication.release(this);
         //NetworkManager.unRegisterNetworkChangeReceiver(this);
     }
 

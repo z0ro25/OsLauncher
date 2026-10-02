@@ -18,4 +18,10 @@
     <favorite
         launcher:className="com.sec.android.gallery3d.app.Gallery"
         launcher:packageName="com.sec.android.gallery3d" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.google.android.apps.photos" />
+    <favorite launcher:packageName="com.miui.gallery" />
+    <favorite launcher:packageName="com.coloros.gallery3d" />
+    <favorite launcher:packageName="com.vivo.gallery" />
 </items>

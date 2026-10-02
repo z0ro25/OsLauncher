@@ -22,7 +22,9 @@ import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
 import com.ezla.oslauncher.beautylauncher.ads.AppAdsRemote
 import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
-import com.truongnt.ios.themeclub.MainActivity
+import com.ezla.oslauncher.themes.features.home.ThemesActivity
+import com.ezla.oslauncher.themes.ThemesEntry
+import com.truongnt.ios.ioslite.common.Router
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -47,9 +49,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         }
         lifecycleScope.launch {
             val kit = AppAds.initialize(applicationContext) { AppAdsRemote.fetchPlacements() }
-            // Giữ đăng ký App Open cũ; ở đây vì library không thấy MainActivity của ThemeClub.
+            // Đăng ký App Open cho trang Themes; ở đây vì library không thấy ThemesActivity.
             // Gọi lại sẽ thay toàn bộ danh sách cũ, nên chỉ đăng ký tại Splash.
-            kit.enableAppOpenOnForeground(setOf(MainActivity::class.java), "return_to_app")
+            kit.enableAppOpenOnForeground(setOf(ThemesActivity::class.java), "return_to_app")
 
             val initialized = suspendCancellableCoroutine<Boolean> { continuation ->
                 AdsSdk.initializeWithConsent(this@SplashActivity) { ready, error ->
@@ -79,7 +81,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun dataObservable() {}
 
     private fun goNext() {
-        if (SharePrefUtils.getBoolean(this, "PERMISSION_SHOWED", false)) {
+        // Mở từ icon Themes trên desktop (Router.startThemesViaSplash): bỏ qua luồng Language/Intro.
+        if (intent?.getBooleanExtra(Router.EXTRA_OPEN_THEMES, false) == true) {
+            ThemesEntry.open(this)
+        } else if (SharePrefUtils.getBoolean(this, "PERMISSION_SHOWED", false)) {
             showActivity(HomeActivity::class.java, null)
         } else {
             val bundle = Bundle()

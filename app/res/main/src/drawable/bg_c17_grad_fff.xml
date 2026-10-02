@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="17dp" />
+    <!-- angle PHẢI là bội số của 45: API < 29 ném XmlPullParserException khi inflate (crash Android 9). -->
     <gradient
-        android:angle="30"
+        android:angle="45"
         android:startColor="#FFFFFF"
         android:type="linear" />
 </shape>

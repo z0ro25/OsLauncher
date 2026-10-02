@@ -3668,7 +3668,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 Router.startWallpaperActivity(this);
                 return true;
             } else if (shortcutClass.equals(Theme.class.getName())) {
-                Router.startThemeClubActivity(this);
+                Router.startThemesViaSplash(this);
                 return true;
             } else if (shortcutClass.equals(BatterySave.class.getName())) {
                 Router.startBatterySaveActivity(this);

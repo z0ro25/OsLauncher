@@ -3,4 +3,7 @@
     <favorite
         launcher:className="com.google.commerce.tapandpay.android.wallet.WalletActivity"
         launcher:packageName="com.google.android.apps.walletnfcrel" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.samsung.android.spay" />
 </items>

@@ -3,4 +3,10 @@
     <favorite
         launcher:className="com.tianqi2345.activity.CoveryActivity"
         launcher:packageName="com.tianqi2345" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.sec.android.daemonapp" />
+    <favorite launcher:packageName="com.miui.weather2" />
+    <favorite launcher:packageName="com.coloros.weather2" />
+    <favorite launcher:packageName="com.vivo.weather" />
 </items>

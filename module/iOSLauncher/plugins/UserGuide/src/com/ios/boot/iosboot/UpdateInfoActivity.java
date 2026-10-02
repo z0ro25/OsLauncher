@@ -60,7 +60,8 @@ public class UpdateInfoActivity extends Activity implements View.OnClickListener
             Intent intent = new Intent();
             intent.putExtra(MINIMALIST_THEME, MINIMALIST_THEME);
             intent.putExtra("themeclubtype", 1);
-            ComponentName componentName = new ComponentName("com.ezla.oslauncher", "com.truongnt.ios.themeclub.MainActivity");
+            // Lấy package runtime: applicationId thật là ...beautylauncher, chuỗi cứng cũ trỏ sai.
+            ComponentName componentName = new ComponentName(getPackageName(), "com.ezla.oslauncher.themes.features.home.ThemesActivity");
             intent.setComponent(componentName);
             startActivity(intent);
             finish();

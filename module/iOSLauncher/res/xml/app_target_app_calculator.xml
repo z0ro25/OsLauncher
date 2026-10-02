@@ -21,4 +21,10 @@
     <favorite
         launcher:className="com.android.bbkcalculator.Calculator"
         launcher:packageName="com.android.bbkcalculator" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.google.android.calculator" />
+    <favorite launcher:packageName="com.miui.calculator" />
+    <favorite launcher:packageName="com.coloros.calculator" />
+    <favorite launcher:packageName="com.oneplus.calculator" />
 </items>

@@ -23,4 +23,11 @@
         launcher:className="com.volio.calendar.MainActivity"
         launcher:packageName="com.nhstudio.icalendar.calendarios.iphonecalendar" />
 
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.google.android.calendar" />
+    <favorite launcher:packageName="com.samsung.android.calendar" />
+    <favorite launcher:packageName="com.android.calendar" />
+    <favorite launcher:packageName="com.coloros.calendar" />
+    <favorite launcher:packageName="com.bbk.calendar" />
 </items>

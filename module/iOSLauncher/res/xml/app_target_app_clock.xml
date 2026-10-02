@@ -49,4 +49,8 @@
     <favorite
         launcher:className="com.nhstudio.alarmioss.MainActivity"
         launcher:packageName="com.nhstudio.alarmioss" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.coloros.alarmclock" />
+    <favorite launcher:packageName="com.oneplus.deskclock" />
 </items>

@@ -32,7 +32,9 @@ public class AppTypeProvider extends ContentProvider implements AppTypeParser.Ap
     // app-type xmls, nhận 6 type mới trên máy đã cài.
     // v6: thêm Google Keep vào app_target_app_note.xml -> app_note giờ resolve được (trước đó
     // không app note nào cài nên type app_note chưa vào DB). Bump để re-parse, insert app_note.
-    private static final int DATABASE_VERSION = 6;
+    // v7: parser nhận mục chỉ-package + package đa hãng (Samsung/Xiaomi/Oppo/Vivo) + 14 type mới
+    // cho icon theme. Bump để re-parse trên máy đã cài.
+    private static final int DATABASE_VERSION = 7;
     public static final String AUTHORITY = "com.truongnt.ios.launcher.apptype";
 
     public static final String TABLE_APP_TYPE = "apptypeitems";
