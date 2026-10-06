@@ -25,6 +25,8 @@ import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.ezla.oslauncher.themes.features.home.ThemesActivity
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.truongnt.ios.ioslite.common.Router
+import com.ezla.oslauncher.themes.Api.AuthRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -47,7 +49,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         onBackPressedDispatcher.addCallback {
 
         }
+        val openThemes = intent?.getBooleanExtra(Router.EXTRA_OPEN_THEMES, false) == true
         lifecycleScope.launch {
+            // Luồng Themes: gọi add-device MỖI lần, chạy song song với init ads/consent.
+            val addDevice = if (openThemes) async { AuthRepository(applicationContext).addDevice() } else null
+
             val kit = AppAds.initialize(applicationContext) { AppAdsRemote.fetchPlacements() }
             // Đăng ký App Open cho trang Themes; ở đây vì library không thấy ThemesActivity.
             // Gọi lại sẽ thay toàn bộ danh sách cũ, nên chỉ đăng ký tại Splash.
@@ -59,6 +65,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                     if (continuation.isActive) continuation.resume(ready)
                 }
             }
+            // Chờ add-device TRƯỚC khi hiện ad splash: chờ sau ad thì đóng ad xong màn đứng trắng.
+            // Lỗi (mất mạng/HTTP) vẫn đi tiếp; thời gian chờ tối đa do timeout OkHttp quyết định.
+            addDevice?.await()?.onFailure { Log.w("AddDevice", "add-device failed", it) }
             if (initialized) {
                 kit.preloadNativeInline("native_lang1")
                 kit.preloadNativeInline("native_lang2")
@@ -73,8 +82,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 finish()
             }
         }
-
-
     }
 
     override fun viewListener() {}

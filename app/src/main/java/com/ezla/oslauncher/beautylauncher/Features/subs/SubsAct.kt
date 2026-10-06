@@ -66,8 +66,15 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
         // Giá có thể chưa tải xong lúc mở màn (query billing là bất đồng bộ) — bind lại khi có.
         BillingUtils.onProductsLoaded = { runOnUiThread { bindPrices() } }
 
-        // Mua/khôi phục thành công thì đóng màn; premium đã được BillingUtils.setPremium lo.
-        BillingUtils.onSubsChanged = { isSubs -> runOnUiThread { if (isSubs) finish() } }
+        // Mua/khôi phục thành công: từ onboarding thì vào thẳng launcher (finish sẽ trả về màn chọn
+        // nền), chỗ khác thì đóng màn. Callback có thể gọi nhiều lần nên chặn bằng isFinishing.
+        BillingUtils.onSubsChanged = { isSubs ->
+            runOnUiThread {
+                if (isSubs && !isFinishing) {
+                    if (intent.getBooleanExtra(EXTRA_FROM_ONBOARDING, false)) openLauncher() else finish()
+                }
+            }
+        }
     }
 
     override fun viewListener() {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application>
+        <!-- Router (iOSLiteCommon) và IOSShortcut (iOSLauncher) mở màn này bằng tên class dạng chuỗi. -->
+        <activity
+            android:name=".features.home.ThemesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.onboarding.ThemesOnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.settings.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.rewards.RewardsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+    </application>
+
+</manifest>

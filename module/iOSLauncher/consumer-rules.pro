@@ -122,11 +122,6 @@
 }
 -dontwarn androidx.constraintlayout.**
 
-# ===== Hidden API (LSPosed) =====
-# Gọi ViewRootImpl.createBackgroundBlurDrawable (@hide) bằng reflection cho dock glass blur.
--keep class org.lsposed.hiddenapibypass.** { *; }
--dontwarn org.lsposed.hiddenapibypass.**
-
 # ===== enum =====
 -keepclassmembers enum * {
     public static **[] values();

@@ -89,7 +89,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
         if (!AdsSdk.isAdFree) {
-            AppAds.kit.showBanner(this, "main_banner", binding.frBanner, true)
+            AppAds.kit.showBanner(this, "main_banner", binding.frBanner)
+        } else {
+            // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
+            binding.frBanner.isVisible = false
         }
     }
 

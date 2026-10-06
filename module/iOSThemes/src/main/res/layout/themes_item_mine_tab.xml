@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvMineTab"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/themes_chip_height"
+    android:layout_marginEnd="6dp"
+    android:fontFamily="@font/themes_quicksand_semibold"
+    android:gravity="center"
+    android:includeFontPadding="false"
+    android:maxLines="1"
+    android:paddingHorizontal="12dp"
+    android:textSize="14sp" />

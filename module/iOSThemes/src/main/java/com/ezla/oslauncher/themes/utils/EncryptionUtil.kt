@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
 import com.ezla.oslauncher.themes.BuildConfig
 import com.google.gson.Gson
 import com.ezla.oslauncher.themes.Models.DeviceData
@@ -39,12 +38,13 @@ object EncryptionUtil {
 
 
 
-    fun encrypt(context: Context): String {
+    fun encrypt(context: Context): String = encryptJson(Gson().toJson(buildDeviceData(context)))
 
+    // JSON payload CHƯA mã hoá, chỉ để log (ApiLog) đối chiếu với server.
+    fun describePayload(context: Context): String = Gson().toJson(buildDeviceData(context))
+
+    private fun buildDeviceData(context: Context): DeviceData {
         val data = DeviceData()
-
-        Log.e("ajkshdfjkhsaf", "encrypt: " + getDeviceID(context))
-
         try {
             data.apply {
                 client_id = getDeviceID(context)
@@ -55,8 +55,7 @@ object EncryptionUtil {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-        return encryptJson(Gson().toJson(data))
+        return data
     }
 
     /** Mã hoá 1 object bất kỳ (JSON) thành chuỗi base64 để đưa vào body `{data:...}`. */

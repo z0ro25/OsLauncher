@@ -142,6 +142,9 @@ public class LauncherModel extends BroadcastReceiver
     static final boolean DEBUG_LOADERS = true;
     private static final boolean DEBUG_RECEIVER = false;
     private static final boolean REMOVE_UNRESTORED_ICONS = true;
+    // Tạm tắt việc tự thêm icon Themes lên desktop; bật lại thì đổi thành true.
+    // Chỉ chặn thêm mới: icon đã có trên desktop vẫn giữ và vẫn mở được.
+    private static final boolean AUTO_ADD_THEMES_SHORTCUT = false;
 
     public static final int LOADER_FLAG_NONE = 0;
     public static final int LOADER_FLAG_CLEAR_WORKSPACE = 1 << 0;
@@ -3869,6 +3872,9 @@ public class LauncherModel extends BroadcastReceiver
         // Chạy trên worker thread (trong LoaderTask). Ưu tiên ô ngay bên phải icon app; ô đó bận
         // thì rơi về addAndBindAddedWorkspaceItems (ô trống đầu tiên). Không xoá được: xem canShowDelIcon().
         private void addThemesShortcutIfMissing(Context context) {
+            if (!AUTO_ADD_THEMES_SHORTCUT) {
+                return;
+            }
             Intent probe = new Intent().setComponent(
                     new ComponentName(context, com.truongnt.ios.launcher.shortcut.Theme.class));
             final ShortcutInfo themes = infoFromIOSShortcutIntent(context, probe);

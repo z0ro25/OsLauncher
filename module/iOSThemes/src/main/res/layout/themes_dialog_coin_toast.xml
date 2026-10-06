@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Toast "+N Coins" (Figma 120x120 bo 16). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:background="@drawable/themes_bg_dialog"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/themes_ic_coin" />
+
+    <TextView
+        android:id="@+id/tvToastCoins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/themes_quicksand_semibold"
+        android:textColor="@color/themes_text_name"
+        android:textSize="14sp"
+        tools:text="+10 Coins" />
+</LinearLayout>

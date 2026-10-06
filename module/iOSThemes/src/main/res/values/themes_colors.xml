@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Màu lấy từ Figma trang Themes (MiOS Launch). -->
+    <color name="themes_bg">#F2F2F7</color>
+    <color name="themes_white">#FFFFFF</color>
+    <color name="themes_primary">#007AFF</color>
+    <color name="themes_pink">#FF76CE</color>
+    <color name="themes_text_title">#151515</color>
+    <color name="themes_text_hint">#A2A0B5</color>
+    <color name="themes_text_coin">#520035</color>
+    <color name="themes_divider">#A2A0B5</color>
+    <color name="themes_card_stroke">#33000000</color>
+    <color name="themes_ad_placeholder">#F1F1F1</color>
+    <color name="themes_onboarding_bg">#FFFFFF</color>
+</resources>

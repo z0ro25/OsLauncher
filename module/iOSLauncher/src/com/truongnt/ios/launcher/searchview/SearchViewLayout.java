@@ -125,7 +125,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     //          edge-to-edge nên không tự co; insets được dispatch tới window).
     //        * Máy cũ (API < 30): window GIỮ NO_LIMITS (full, như edit — để ẩn bar được, không resize, tránh
     //          PAN) + đọc chiều cao bàn phím bằng InputMethodManager.getInputMethodWindowVisibleHeight()
-    //          (hidden API — đã duyệt; dự án đã dùng HiddenApiBypass). Đo trong OnGlobalLayout.
+    //          (hidden API, gọi reflection; lỗi thì đo bằng visible-frame). Đo trong OnGlobalLayout.
     //   - Thanh search cách mép bàn phím một khoảng nhỏ SEARCH_BOTTOM_GAP_DP để không dính liền.
     private static final int SEARCH_BOTTOM_GAP_DP = 6;
     /** Đang giữ ẩn status bar (chỉ hiện lại khi chính search đã ẩn). */

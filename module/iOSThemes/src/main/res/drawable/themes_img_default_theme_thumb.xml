@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thumbnail theme mặc định ở màn Mine — TẠM trỏ ảnh có sẵn. Có ảnh riêng thì xoá file này
+     và đặt ảnh cùng tên (themes_img_default_theme_thumb.png/.jpg) vào drawable-nodpi. -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/theme_preview_op0" />

@@ -207,6 +207,42 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
             )
             return
         }
+        openLauncher()
+    }
+
+    // Cùng logic SubsAct.openLauncher: chưa mua thì hiện inter rồi mới vào launcher.
+    private fun openLauncher() {
+        var fired = false
+        val continueToLauncher: () -> Unit = {
+            if (!fired) {
+                fired = true
+                if (!isDefaultLauncher()) {
+                    SharePrefUtils.putBoolean(this, "hello_pending", true)
+                    SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
+                }
+                launchActivity<SearchLauncher> { }
+                finishAffinity()
+            }
+        }
+
+        if (AdsSdk.isAdFree) {
+            continueToLauncher()
+            return
+        }
+        lifecycleScope.launch {
+            AppAds.kit.showAdFullScreen(
+                this@SelectBackgroundActivity,
+                "start_launcher_Inter",
+                object : AdFullScreenCallback {
+                    override fun onFinished(result: AdFullScreenResult) {
+                        super.onFinished(result)
+                    }
+                })
+
+            lifecycle.withResumed {
+                continueToLauncher()
+            }
+        }
     }
 
     private fun isDefaultLauncher(): Boolean {

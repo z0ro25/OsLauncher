@@ -439,7 +439,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     //    private SearchDropTargetBar mSearchDropTargetBar;
     public DragAppsLibraryLayout mDragAppsLibraryLayout;
     public BlurScreenLayout mSliderBlurBg;
-    // Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật, HiddenApiBypass).
+    // Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật qua compositor).
     public AppLibraryBlurView mAppsLibraryFrostBg;
     // Nền kính mờ frosted RIÊNG cho màn trái (Today/Widget) — cùng cơ chế compositor như App
     // Library nhưng TÁCH instance riêng (Scope no side-effects: KHÔNG dùng chung mSliderBlurBg
@@ -7633,7 +7633,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         float interpolation = initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
         // CHIỀU THỰC TẾ (đo bằng log): App Library MỞ HẲN -> f=0 -> interpolation=1;
         // về HOME -> f=1 -> interpolation=0. Vậy interpolation CHÍNH LÀ cường độ MỞ.
-        // Nền frosted THẬT (blur wallpaper qua HiddenApiBypass): blur mạnh dần khi MỞ.
+        // Nền frosted THẬT (blur wallpaper qua compositor): blur mạnh dần khi MỞ.
         if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(interpolation);
         // KHÔNG co (zoom-out) màn page khi vuốt sang App Library: chỉ mờ dần rồi ẩn (phẳng, không
         // thu nhỏ). Trước đây setScaleX/Y(1.0->0.9) làm page co lại; đã bỏ theo yêu cầu. (Negative
@@ -7734,7 +7734,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageSlide(float f) {
         float f2 = 1.0f - f;
         float interpolation = Launcher.initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
-        // Nền frosted THẬT (blur wallpaper qua HiddenApiBypass) GIỐNG App Library — thay bitmap-blur
+        // Nền frosted THẬT (blur wallpaper qua compositor) GIỐNG App Library — thay bitmap-blur
         // cũ (mSliderBlurBg). interpolation: 0 đóng -> 1 mở hẳn.
         if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(interpolation);
         // KHÔNG co (zoom-out) màn page khi vuốt sang trái: chỉ mờ dần rồi ẩn (phẳng, giống App

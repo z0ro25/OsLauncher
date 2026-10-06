@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 102,
       "versionName": "1.0.2",
-      "outputFile": "MiOS_Launcher_26_v1.0.2_09.30.2026-release.apk"
+      "outputFile": "MiOS_Launcher_26_v1.0.2_10.05.2026-release.apk"
     }
   ],
   "elementType": "File",
@@ -22,14 +22,14 @@
       "minApi": 28,
       "maxApi": 30,
       "baselineProfiles": [
-        "baselineProfiles/1/MiOS_Launcher_26_v1.0.2_09.30.2026-release.dm"
+        "baselineProfiles/1/MiOS_Launcher_26_v1.0.2_10.05.2026-release.dm"
       ]
     },
     {
       "minApi": 31,
       "maxApi": 2147483647,
       "baselineProfiles": [
-        "baselineProfiles/0/MiOS_Launcher_26_v1.0.2_09.30.2026-release.dm"
+        "baselineProfiles/0/MiOS_Launcher_26_v1.0.2_10.05.2026-release.dm"
       ]
     }
   ],

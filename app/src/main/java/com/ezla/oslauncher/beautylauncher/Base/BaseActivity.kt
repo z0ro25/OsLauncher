@@ -59,7 +59,11 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     // Đổ banner placement "bannerinapp" vào [container] (khối fr_banner bọc @layout/ads_banner).
     // Màn đã có native inline (Home, Intro, LanguageStart, Permission) cố ý không gọi.
     protected fun showBannerIfEnabled(container : ViewGroup,isColapse : Boolean) {
-        if (AdsSdk.isAdFree) return
+        // ads_banner của SDK nhúng sẵn shimmer đang hiện; không gọi SDK thì phải tự ẩn khối banner.
+        if (AdsSdk.isAdFree) {
+            container.visibility = View.GONE
+            return
+        }
         AppAds.kit.showBanner(this,"bannerinapp",container, isColapse)
     }
 

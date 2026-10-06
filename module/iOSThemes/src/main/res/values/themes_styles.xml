@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemesTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/themes_primary</item>
+        <item name="colorAccent">@color/themes_primary</item>
+        <item name="android:windowBackground">@color/themes_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Card preview theme: Figma bo 17.78dp. -->
+    <style name="ThemesRoundedImage18">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item>
+    </style>
+
+    <!-- Cha của ThemesText.*: tên có dấu chấm nên AAPT ngầm kế thừa style này, thiếu là lỗi link. -->
+    <style name="ThemesText" />
+
+    <style name="ThemesText.Tab">
+        <item name="android:fontFamily">@font/themes_quicksand_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="ThemesText.Tooltip">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/themes_white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="ThemesText.NavLabel">
+        <item name="android:fontFamily">@font/themes_quicksand_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ preview theme/wallpaper. Tỉ lệ + bo góc đặt từ code: lớn 158:308 bo 18, suggest 102:196 bo 11. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/themes_white"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="158:308"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage18"
+        app:strokeColor="@color/themes_card_stroke"
+        app:strokeWidth="0.5dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

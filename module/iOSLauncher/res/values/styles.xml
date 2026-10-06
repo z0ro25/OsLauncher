@@ -458,4 +458,19 @@
         <item name="voiceHintPrompt">@string/hint_prompt</item>
     </style>
 
+    <!-- Theme của CompositorBlurWindow: setBackgroundBlurRadius chỉ vẽ khi window translucent +
+         floating. Không dim/animation/bóng, không kế thừa windowShowWallpaper của launcher. -->
+    <style name="CompositorBlurWindow" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowElevation">0dp</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
 </resources>

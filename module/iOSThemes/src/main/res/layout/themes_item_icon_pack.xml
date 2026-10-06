@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ icon pack (Figma Mine/Icon): nền trắng bo 12, lưới 3x2 icon 40dp cách 8/10, tên Quicksand 10.
+     imgPackBg chỉ hiện khi pack có ảnh nền (theme mặc định dùng wallpaper mặc định). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/themes_bg_card_white">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgPackBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/ThemesRoundedImage12" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIcons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="noHideDescendants"
+            android:overScrollMode="never"
+            android:padding="12dp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvPackName"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/themes_quicksand_medium"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/themes_text_name"
+        android:textSize="10sp" />
+</LinearLayout>

@@ -27,8 +27,8 @@ import java.lang.reflect.Method;
  * Nền kính blur kiểu iOS 26 cho WIDGET trên workspace — dùng CƠ CHẾ COMPOSITOR y hệt
  * {@link com.truongnt.ios.launcher.DockBlurView} (hotseat): overlay là WINDOW RIÊNG
  * {@code TYPE_APPLICATION_MEDIA} xếp DƯỚI window chính (nội dung widget vẫn nét) nhưng TRÊN
- * wallpaper, nền = {@code ViewRootImpl.createBackgroundBlurDrawable} (@hide, mở khoá bằng
- * HiddenApiBypass) → chỉ mờ wallpaper TRONG bounds + bo góc.
+ * wallpaper, nền = {@code ViewRootImpl.createBackgroundBlurDrawable} (@hide, gọi bằng reflection;
+ * bị chặn thì switchToFallback) → chỉ mờ wallpaper TRONG bounds + bo góc.
  *
  * <p>Vì sao KHÔNG dùng {@link GlassBlurView} cho widget này: GlassBlurView đọc bitmap wallpaper
  * rồi blur — trên máy CHẶN quyền đọc wallpaper (Android 13+) nó rớt về nền phẳng, "không thấy
@@ -48,8 +48,6 @@ public class GlassCompositorBlurView extends View {
     private static final int BACKGROUND_BLUR_RADIUS = 60;
     /** Tint trắng rất nhẹ phủ lên nền glass (vẫn thấy wallpaper mờ xuyên qua). */
     private static final int PANEL_TINT = 0x1AFFFFFF;
-
-    private static boolean sHiddenApiUnlocked;
 
     private final float mCornerRadius;
     private final float mStrokeWidth;
@@ -223,22 +221,10 @@ public class GlassCompositorBlurView extends View {
         return lp;
     }
 
-    /** Mở khoá hidden-API bằng HiddenApiBypass (LSPosed). Gọi 1 lần, im lặng nếu thất bại. */
-    private static void unlockHiddenApi() {
-        if (sHiddenApiUnlocked) return;
-        try {
-            org.lsposed.hiddenapibypass.HiddenApiBypass.addHiddenApiExemptions("L");
-            sHiddenApiUnlocked = true;
-        } catch (Throwable t) {
-            android.util.Log.e(TAG, "unlockHiddenApi fail: " + t);
-        }
-    }
-
     /** BackgroundBlurDrawable của compositor cho window {@code panel} + bán kính/bo góc/tint. */
     private Drawable createBackgroundBlurDrawable(View panel) {
         if (!Settings.isDesktopBlurEnable(getContext())) return null; // tắt blur -> switchToFallback (ảnh nền theme)
         if (Build.VERSION.SDK_INT < 31) return null;
-        unlockHiddenApi();
         try {
             Object vri = View.class.getMethod("getViewRootImpl").invoke(panel);
             if (vri == null) return null;

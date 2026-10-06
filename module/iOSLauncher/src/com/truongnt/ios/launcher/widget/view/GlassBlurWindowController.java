@@ -24,8 +24,8 @@ import java.lang.reflect.Method;
  * để phủ nền kính blur kiểu iOS 26 bằng CƠ CHẾ COMPOSITOR — y hệt
  * {@link com.truongnt.ios.launcher.DockBlurView} và {@link GlassCompositorBlurView}: overlay là WINDOW
  * RIÊNG {@code TYPE_APPLICATION_MEDIA} xếp DƯỚI window chính (nội dung view chủ vẫn nét) nhưng TRÊN
- * wallpaper, nền = {@code ViewRootImpl.createBackgroundBlurDrawable} (@hide, mở khoá bằng
- * HiddenApiBypass) → chỉ mờ wallpaper TRONG bounds + bo góc.
+ * wallpaper, nền = {@code ViewRootImpl.createBackgroundBlurDrawable} (@hide, gọi bằng reflection;
+ * bị chặn thì switchToFallback) → chỉ mờ wallpaper TRONG bounds + bo góc.
  *
  * <p>Vì sao là CONTROLLER (không phải View như {@link GlassCompositorBlurView}): 2 chỗ cần phủ là
  * View đã có sẵn (không thể thay bằng view blur). Controller bám vị trí THẬT của view chủ mỗi frame
@@ -45,8 +45,6 @@ import java.lang.reflect.Method;
 public final class GlassBlurWindowController {
 
     private static final String TAG = "GlassBlurWinCtrl";
-
-    private static boolean sHiddenApiUnlocked;
 
     private final View mTarget;
     /** &lt;0 = pill (r = rect.height()/2 động); &gt;=0 = bo góc cố định (px). */
@@ -263,22 +261,10 @@ public final class GlassBlurWindowController {
         return lp;
     }
 
-    /** Mở khoá hidden-API bằng HiddenApiBypass (LSPosed). Gọi 1 lần, im lặng nếu thất bại. */
-    private static void unlockHiddenApi() {
-        if (sHiddenApiUnlocked) return;
-        try {
-            org.lsposed.hiddenapibypass.HiddenApiBypass.addHiddenApiExemptions("L");
-            sHiddenApiUnlocked = true;
-        } catch (Throwable t) {
-            android.util.Log.e(TAG, "unlockHiddenApi fail: " + t);
-        }
-    }
-
     /** BackgroundBlurDrawable của compositor cho window {@code panel} + bán kính/bo góc/tint. */
     private Drawable createBackgroundBlurDrawable(View panel) {
         if (!Settings.isDesktopBlurEnable(mTarget.getContext())) return null; // tắt blur -> fallback.
         if (Build.VERSION.SDK_INT < 31) return null;
-        unlockHiddenApi();
         try {
             Object vri = View.class.getMethod("getViewRootImpl").invoke(panel);
             if (vri == null) return null;

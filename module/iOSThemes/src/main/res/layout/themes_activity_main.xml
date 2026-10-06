@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themes_bg"
+    android:orientation="vertical">
+
+    <!-- Topbar (Figma 50dp): menu trái, badge xu phải. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/themes_topbar_height"
+        android:paddingHorizontal="@dimen/themes_screen_padding">
+
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="-4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/themes_cd_menu"
+            android:padding="4dp"
+            android:src="@drawable/themes_ic_menu" />
+
+        <LinearLayout
+            android:id="@+id/layoutCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/themes_cd_add_coin"
+                android:elevation="1dp"
+                android:src="@drawable/themes_ic_add_coin" />
+
+            <TextView
+                android:id="@+id/tvCoin"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="-4dp"
+                android:background="@drawable/themes_bg_coin_count"
+                android:fontFamily="@font/themes_quicksand_bold"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingStart="7dp"
+                android:paddingEnd="14dp"
+                android:textColor="@color/themes_text_coin"
+                android:textSize="14sp"
+                tools:text="150" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="-12dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/themes_ic_coin" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Bottom nav (Figma 62dp, 4 tab). -->
+    <LinearLayout
+        android:id="@+id/layoutNav"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/themes_bottom_nav_height"
+        android:background="@color/themes_white"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="8dp">
+
+        <include
+            android:id="@+id/navThemes"
+            layout="@layout/themes_item_nav" />
+
+        <include
+            android:id="@+id/navIcons"
+            layout="@layout/themes_item_nav" />
+
+        <include
+            android:id="@+id/navWallpapers"
+            layout="@layout/themes_item_nav" />
+
+        <include
+            android:id="@+id/navMine"
+            layout="@layout/themes_item_nav" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="themes_topbar_height">50dp</dimen>
+    <dimen name="themes_screen_padding">16dp</dimen>
+    <dimen name="themes_tab_height">32dp</dimen>
+    <dimen name="themes_chip_height">32dp</dimen>
+    <dimen name="themes_chip_radius">16dp</dimen>
+    <dimen name="themes_grid_gap">11dp</dimen>
+    <dimen name="themes_mine_gap">12dp</dimen>
+    <dimen name="themes_bottom_nav_height">62dp</dimen>
+    <dimen name="themes_onboarding_image_height">436dp</dimen>
+    <dimen name="themes_onboarding_ad_height">300dp</dimen>
+</resources>

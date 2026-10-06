@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="themes_onboarding_title_1">1000+ Themes\nupdated every day</string>
+    <string name="themes_onboarding_title_2">1000+ Themes\nupdated every day</string>
+    <string name="themes_onboarding_title_3">Seasonal Themes\nconstantly adding new designs</string>
+    <string name="themes_next">Next</string>
+    <string name="themes_get_started">Get Started</string>
+
+    <string name="themes_tab_featured">Featured</string>
+    <string name="themes_tab_top">Top</string>
+    <string name="themes_nav_themes">Themes</string>
+    <string name="themes_nav_icons">Icons</string>
+    <string name="themes_nav_wallpapers">Wallpapers</string>
+    <string name="themes_nav_mine">Mine</string>
+
+    <string name="themes_cd_menu">Menu</string>
+    <string name="themes_cd_add_coin">Get more coins</string>
+
+    <!-- Danh mục mẫu (tạm) tới khi có API. -->
+    <string name="themes_category_new">New</string>
+    <string name="themes_category_os27">OS 27</string>
+    <string name="themes_category_black">Black</string>
+    <string name="themes_category_cartoon">Cartoon</string>
+    <string name="themes_category_neon">Neon Lights</string>
+    <string name="themes_category_cute">Cute</string>
+    <string name="themes_category_sport">Sport</string>
+    <!-- Màn Mine -->
+    <string name="themes_mine_tab_theme">Theme</string>
+    <string name="themes_mine_tab_wallpapers">Wallpapers</string>
+    <string name="themes_mine_tab_icon">Icon</string>
+    <string name="themes_mine_tab_favorites">Favorites</string>
+    <string name="themes_mine_my_library">My Library</string>
+    <string name="themes_mine_suggest">Suggest</string>
+    <string name="themes_mine_more">more</string>
+    <string name="themes_default_name">Default</string>
+    <!-- Settings / Rate us / Rewards -->
+    <string name="themes_settings_title">Settings</string>
+    <string name="themes_premium_get">Get</string>
+    <string name="themes_premium_title">Premium</string>
+    <string name="themes_premium_desc">Remove Ads &amp; Unlock all items</string>
+    <string name="themes_setting_rate">Rate Us</string>
+    <string name="themes_setting_contact">Contact Us</string>
+    <string name="themes_setting_update">Check app updates</string>
+    <string name="themes_setting_share">Share this app</string>
+    <string name="themes_setting_privacy">Privacy Policy</string>
+    <string name="themes_setting_subscription">Manage subscriptions</string>
+    <string name="themes_rate_title">Do you like Themepack?</string>
+    <string name="themes_rate_subtitle">Rate your experience</string>
+    <string name="themes_rate_hint">The best we can get</string>
+    <string name="themes_rate_now">Rate now</string>
+    <string name="themes_cd_close">Close</string>
+    <string name="themes_cd_back">Back</string>
+    <string name="themes_rewards_title">Rewards</string>
+    <string name="themes_cd_help">Help</string>
+    <string name="themes_rewards_tip_1">Join the game during the week to earn rewards!</string>
+    <string name="themes_rewards_tip_2">Rewards are updated daily at 00:00 and are ready for you to collect.</string>
+    <string name="themes_rewards_tip_3">Note, if you miss a day, your progress will be reset and you need to start collecting bonuses from the beginning.</string>
+    <string name="themes_checkin_title">Daily Check-in</string>
+    <string name="themes_checkin_desc">Earn rewards for check-in</string>
+    <string name="themes_checkin_day">Day %1$d</string>
+    <string name="themes_coin_amount">%1$d coin</string>
+    <string name="themes_rewards_suggest">Suggest</string>
+    <string name="themes_watch_video">Watch the video</string>
+    <string name="themes_coins">coins</string>
+    <string name="themes_checkin_success">Check-in Successful</string>
+    <string name="themes_coins_plus">+%1$d Coins</string>
+    <string name="themes_watch_ads_claim">Watch ads &amp; Claim</string>
+    <string name="themes_congrats">Congratulations!</string>
+    <string name="themes_earned_coins">You have earned %1$d coins</string>
+    <string name="themes_watch_to_earn">Watch a video to earn %1$d coins!</string>
+    <string name="themes_coin_plus">+%1$d</string>
+</resources>

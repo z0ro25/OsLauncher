@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Banner Premium (Figma #BA12FC bo 16). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#BA12FC" />
+    <corners android:radius="16dp" />
+</shape>
