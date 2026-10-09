@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sheet "Successfully Set!" (Figma bg14): báo áp thành công + Go To Home Screen / Explore more. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/themes_bg_sheet_top16"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="20dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgSetPreview"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:background="@color/themes_bg"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage16" />
+
+    <TextView
+        android:id="@+id/tvSuccessTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/themes_quicksand_bold"
+        android:gravity="center"
+        android:text="@string/themes_success_set"
+        android:textColor="@color/themes_text_name"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvSuccessSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/themes_quicksand_medium"
+        android:gravity="center"
+        android:text="@string/themes_wallpaper_ready"
+        android:textColor="@color/themes_text_hint"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:id="@+id/btnGoHome"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/themes_bg_button_blue"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_go_home"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnExplore"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/themes_bg_button_outline"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_explore_more_wallpaper"
+            android:textColor="@color/themes_primary"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

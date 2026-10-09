@@ -63,4 +63,24 @@
     <string name="themes_earned_coins">आपने %1$d सिक्के कमाए</string>
     <string name="themes_watch_to_earn">%1$d सिक्के कमाने के लिए वीडियो देखें!</string>
     <string name="themes_coin_plus">+%1$d</string>
+    <string name="themes_install_title">इंस्टॉल करें</string>
+    <string name="themes_unlock_with">%1$d से अनलॉक करें</string>
+    <string name="themes_choose_where">कहाँ लागू करें चुनें</string>
+    <string name="themes_lock_screen">लॉक स्क्रीन</string>
+    <string name="themes_home_screen">होम स्क्रीन</string>
+    <string name="themes_apply">लागू करें</string>
+    <string name="themes_cd_favorite">पसंदीदा</string>
+    <string name="themes_cd_share">साझा करें</string>
+    <string name="themes_wallpaper_locked">वॉलपेपर लॉक है</string>
+    <string name="themes_price_unlock">इस वॉलपेपर को अनलॉक करने की कीमत:</string>
+    <string name="themes_use_n_coins">%1$d कॉइन उपयोग करें</string>
+    <string name="themes_go_premium">सब कुछ अनलॉक करने के लिए प्रीमियम लें</string>
+    <string name="themes_success_set">सफलतापूर्वक सेट हो गया!</string>
+    <string name="themes_wallpaper_ready">आपका नया वॉलपेपर तैयार है! देखने के लिए होम स्क्रीन पर लौटें</string>
+    <string name="themes_go_home">होम स्क्रीन पर जाएँ</string>
+    <string name="themes_explore_more_wallpaper">और वॉलपेपर देखें</string>
+    <string name="themes_not_enough_coins">पर्याप्त कॉइन नहीं</string>
+    <string name="themes_not_enough_coins_desc">अधिक कॉइन पाएं या असीमित पहुँच के लिए Pro में अपग्रेड करें!</string>
+    <string name="themes_get_coin_free">मुफ़्त कॉइन पाएं</string>
+    <string name="themes_unlock_all_icon">सभी आइकन अनलॉक करें</string>
 </resources>

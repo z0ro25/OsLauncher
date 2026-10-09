@@ -69,4 +69,30 @@
     <string name="themes_earned_coins">You have earned %1$d coins</string>
     <string name="themes_watch_to_earn">Watch a video to earn %1$d coins!</string>
     <string name="themes_coin_plus">+%1$d</string>
+
+    <!-- Màn Install theme (chi tiết + áp dụng). -->
+    <string name="themes_install_title">Install</string>
+    <string name="themes_unlock_with">Unlock with %1$d</string>
+    <string name="themes_choose_where">Choose where to apply</string>
+    <string name="themes_lock_screen">Lock screen</string>
+    <string name="themes_home_screen">Home screen</string>
+
+    <!-- Luồng Wallpaper (chi tiết + dialog). -->
+    <string name="themes_apply">Apply</string>
+    <string name="themes_cd_favorite">Favorite</string>
+    <string name="themes_cd_share">Share</string>
+    <string name="themes_wallpaper_locked">Wallpaper locked</string>
+    <string name="themes_price_unlock">Price to unlock this wallpaper:</string>
+    <string name="themes_use_n_coins">Use %1$d coins</string>
+    <string name="themes_go_premium">Go Premium to unlock all</string>
+    <string name="themes_success_set">Successfully Set!</string>
+    <string name="themes_wallpaper_ready">Your new wallpaper is ready! Return to the home screen to see your new wallpaper</string>
+    <string name="themes_go_home">Go To Home Screen</string>
+    <string name="themes_explore_more_wallpaper">Explore more Wallpaper</string>
+
+    <!-- Dialog "Not Enough Coins" (bg7). -->
+    <string name="themes_not_enough_coins">Not Enough Coins</string>
+    <string name="themes_not_enough_coins_desc">Get more Coins or upgrade to Pro for unlimited access!</string>
+    <string name="themes_get_coin_free">Get Coin Free</string>
+    <string name="themes_unlock_all_icon">Unlock All Icon</string>
 </resources>

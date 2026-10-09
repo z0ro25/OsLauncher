@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sheet "Not Enough Coins" (Figma bg7): báo thiếu xu + Get Coin Free / Unlock All Icon. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/themes_bg_sheet_top16"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/themes_ic_coin" />
+
+    <TextView
+        android:id="@+id/tvNotEnoughTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/themes_quicksand_bold"
+        android:gravity="center"
+        android:text="@string/themes_not_enough_coins"
+        android:textColor="@color/themes_text_name"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvNotEnoughSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/themes_quicksand_medium"
+        android:gravity="center"
+        android:text="@string/themes_not_enough_coins_desc"
+        android:textColor="@color/themes_text_hint"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:id="@+id/btnGetCoin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/themes_bg_button_outline"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_get_coin_free"
+            android:textColor="@color/themes_primary"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_coin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnUnlockAll"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/themes_bg_button_blue"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_unlock_all_icon"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_vip" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trang 2 của preview theme: lưới icon của theme (vuốt ngang để về trang Wallpaper). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/themes_bg_card16_white">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIcons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:padding="12dp" />
+</FrameLayout>

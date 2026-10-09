@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trang 1 của preview theme: ảnh nền lớn (vuốt ngang để sang trang Icons). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgWallpaperPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/themes_white"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage12" />
+</FrameLayout>

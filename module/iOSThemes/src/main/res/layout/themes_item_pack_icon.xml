@@ -12,6 +12,6 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:importantForAccessibility="no"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         app:shapeAppearanceOverlay="@style/ThemesRoundedImage6" />
 </FrameLayout>

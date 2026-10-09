@@ -12,4 +12,6 @@
     <color name="themes_card_stroke">#33000000</color>
     <color name="themes_ad_placeholder">#F1F1F1</color>
     <color name="themes_onboarding_bg">#FFFFFF</color>
+    <!-- Line nền của dải step ở màn Install theme (Figma). -->
+    <color name="themes_step_line">#E5E5EA</color>
 </resources>

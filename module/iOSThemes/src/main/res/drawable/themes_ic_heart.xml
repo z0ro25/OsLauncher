@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icon tim (yêu thích) ở màn wallpaper detail. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,20.5 C12,20.5 3.5,14.6 3.5,8.9 C3.5,6.1 5.9,3.6 8.7,3.6 C10.3,3.6 11.4,4.4 12,5.3 C12.6,4.4 13.7,3.6 15.3,3.6 C18.1,3.6 20.5,6.1 20.5,8.9 C20.5,14.6 12,20.5 12,20.5 Z"
+        android:strokeColor="#212121"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.8" />
+</vector>

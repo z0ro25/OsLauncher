@@ -63,4 +63,24 @@
     <string name="themes_earned_coins">Você ganhou %1$d moedas</string>
     <string name="themes_watch_to_earn">Assista a um vídeo para ganhar %1$d moedas!</string>
     <string name="themes_coin_plus">+%1$d</string>
+    <string name="themes_install_title">Instalar</string>
+    <string name="themes_unlock_with">Desbloquear com %1$d</string>
+    <string name="themes_choose_where">Escolha onde aplicar</string>
+    <string name="themes_lock_screen">Tela de bloqueio</string>
+    <string name="themes_home_screen">Tela inicial</string>
+    <string name="themes_apply">Aplicar</string>
+    <string name="themes_cd_favorite">Favorito</string>
+    <string name="themes_cd_share">Compartilhar</string>
+    <string name="themes_wallpaper_locked">Papel de parede bloqueado</string>
+    <string name="themes_price_unlock">Preço para desbloquear este papel de parede:</string>
+    <string name="themes_use_n_coins">Usar %1$d moedas</string>
+    <string name="themes_go_premium">Seja Premium para desbloquear tudo</string>
+    <string name="themes_success_set">Definido com sucesso!</string>
+    <string name="themes_wallpaper_ready">Seu novo papel de parede está pronto! Volte à tela inicial para vê-lo</string>
+    <string name="themes_go_home">Ir para a tela inicial</string>
+    <string name="themes_explore_more_wallpaper">Explorar mais papéis de parede</string>
+    <string name="themes_not_enough_coins">Moedas insuficientes</string>
+    <string name="themes_not_enough_coins_desc">Obtenha mais moedas ou passe para Pro para acesso ilimitado!</string>
+    <string name="themes_get_coin_free">Obter moedas grátis</string>
+    <string name="themes_unlock_all_icon">Desbloquear todos os ícones</string>
 </resources>

@@ -15,6 +15,12 @@
         <item name="cornerSize">18dp</item>
     </style>
 
+    <!-- Ảnh preview trong dialog "Choose where to apply" (Figma bo 16). -->
+    <style name="ThemesRoundedImage16">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
     <!-- Cha của ThemesText.*: tên có dấu chấm nên AAPT ngầm kế thừa style này, thiếu là lỗi link. -->
     <style name="ThemesText" />
 

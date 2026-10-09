@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sheet "Wallpaper locked" (Figma bg8): giá mở khoá + Use N coins / Go Premium. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/themes_bg_sheet_top16"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="20dp">
+
+    <!-- Số xu hiện có (tạm hardcode). -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_gravity="end"
+        android:background="@drawable/themes_bg_coin_count"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="6dp">
+
+        <TextView
+            android:id="@+id/tvCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/themes_text_coin"
+            android:textSize="13sp"
+            tools:text="150" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_coin" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLockedTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/themes_quicksand_bold"
+        android:gravity="center"
+        android:text="@string/themes_wallpaper_locked"
+        android:textColor="@color/themes_text_name"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_medium"
+            android:text="@string/themes_price_unlock"
+            android:textColor="@color/themes_text_hint"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:textColor="@color/themes_text_coin"
+            android:textSize="13sp"
+            tools:text="50" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_coin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnUseCoins"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/themes_bg_button_blue"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvUseCoins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp"
+            tools:text="Use 50 coins" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_coin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnPremium"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/themes_bg_button_outline"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_go_premium"
+            android:textColor="@color/themes_primary"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_vip" />
+    </LinearLayout>
+</LinearLayout>

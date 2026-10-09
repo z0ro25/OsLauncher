@@ -28,13 +28,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/layoutStep"
-            android:layout_width="0dp"
+        <!-- DotsIndicator: dot active dài 18dp (6 x dotsWidthFactor), dot thường tròn 6dp, có animation. -->
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dotIndicator"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" />
+            app:dotsColor="@color/themes_pink"
+            app:dotsCornerRadius="3dp"
+            app:dotsSize="6dp"
+            app:dotsSpacing="3dp"
+            app:dotsWidthFactor="3"
+            app:selectedDotColor="@color/themes_pink" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tvNext"

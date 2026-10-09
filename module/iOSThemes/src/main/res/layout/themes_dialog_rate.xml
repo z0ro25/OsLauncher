@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="196dp"
             android:importantForAccessibility="no"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/themes_img_rate"
             app:shapeAppearanceOverlay="@style/ThemesRoundedTop16" />
 

@@ -78,14 +78,28 @@
         android:overScrollMode="never"
         android:paddingHorizontal="@dimen/themes_screen_padding" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTheme"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:paddingHorizontal="@dimen/themes_screen_padding"
-        android:paddingTop="20dp"
-        android:paddingBottom="16dp" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTheme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/themes_screen_padding"
+            android:paddingTop="20dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Spinner chờ API; đè lên lưới theme, chip danh mục phía trên vẫn thao tác được. -->
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/themes_primary"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>

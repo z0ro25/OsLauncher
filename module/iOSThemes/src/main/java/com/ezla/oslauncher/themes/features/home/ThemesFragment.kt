@@ -2,6 +2,7 @@ package com.ezla.oslauncher.themes.features.home
 
 import com.ezla.oslauncher.themes.Models.ThemeTab
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.base.BaseFragment
 import com.ezla.oslauncher.themes.data.ThemeRepositoryProvider
 import com.ezla.oslauncher.themes.databinding.ThemesFragmentThemesBinding
+import com.ezla.oslauncher.themes.features.detail.ThemeDetailActivity
 import com.ezla.oslauncher.themes.extensions.makeInVisible
 import com.ezla.oslauncher.themes.extensions.makeVisible
 import kotlinx.coroutines.launch
@@ -27,8 +29,10 @@ class ThemesFragment : BaseFragment<ThemesFragmentThemesBinding>() {
         loadThemes()
     }
 
-    // Chưa nối hành động (View/Download) theo plan.
-    private val themeAdapter = ThemeAdapter { }
+    // Bấm theme -> mở màn Install (chi tiết + áp dụng).
+    private val themeAdapter = ThemeAdapter { theme ->
+        ThemeDetailActivity.start(requireContext(), theme.id)
+    }
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ThemesFragmentThemesBinding.inflate(inflater, container, false)
@@ -53,11 +57,19 @@ class ThemesFragment : BaseFragment<ThemesFragmentThemesBinding>() {
 
     override fun dataObservable() {
         viewLifecycleOwner.lifecycleScope.launch {
+            // Categories + themes đều là API -> giữ loading liền mạch suốt lần tải đầu, không nháy.
+            setLoading(true)
             val categories = repository.getCategories()
             if (categoryId == null) categoryId = categories.firstOrNull()?.id
             categoryAdapter.submit(categories, categoryId)
-            loadThemes()
+            submitThemes()
+            setLoading(false)
         }
+    }
+
+    // Bật/tắt spinner đè lên lưới theme (chip + tab vẫn dùng được).
+    private fun setLoading(loading: Boolean) {
+        binding.pbLoading.visibility = if (loading) View.VISIBLE else View.GONE
     }
 
     private fun selectTab(newTab: ThemeTab) {
@@ -79,11 +91,18 @@ class ThemesFragment : BaseFragment<ThemesFragmentThemesBinding>() {
         }
     }
 
+    // Đổi tab/chip -> tải lại lưới theme (API), có loading riêng.
     private fun loadThemes() {
-        val category = categoryId ?: return
         viewLifecycleOwner.lifecycleScope.launch {
-            themeAdapter.submit(repository.getThemes(tab, category))
+            setLoading(true)
+            submitThemes()
+            setLoading(false)
         }
+    }
+
+    private suspend fun submitThemes() {
+        val category = categoryId ?: return
+        themeAdapter.submit(repository.getThemes(tab, category))
     }
 
     companion object {

@@ -109,6 +109,16 @@ allprojects {
             }
         }
 
+        // SAG SDK (com.mct.libs:sag) — repo GitHub Packages private MCT-LIB/CommonLibrary.
+        // Credential đọc từ gradle.properties global (gprUserMCT/gprKeyMCT), không commit token.
+        maven {
+            url = uri("https://maven.pkg.github.com/MCT-LIB/CommonLibrary")
+            credentials {
+                username = providers.gradleProperty("gprUserMCT").orElse("").get()
+                password = providers.gradleProperty("gprKeyMCT").orElse("").get()
+            }
+        }
+
         // [GỠ] -Xbootclasspath/p: JDK 17 KHÔNG còn hỗ trợ cờ này (bỏ từ JDK 9, thay bằng
         //   --patch-module). Giữ lại sẽ làm javac lỗi ngay. Plugin PowerKey vốn đã bị comment ở
         //   app/build.gradle (compileOnly framework.jar) nên không có gì phụ thuộc cờ này.

@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.base.BaseActivity
+import com.ezla.oslauncher.themes.data.CoinStore
 import com.ezla.oslauncher.themes.databinding.ThemesActivityMainBinding
 import com.ezla.oslauncher.themes.databinding.ThemesItemNavBinding
 import com.ezla.oslauncher.themes.features.mine.MineFragment
@@ -35,15 +36,14 @@ class ThemesActivity : BaseActivity<ThemesActivityMainBinding>() {
             NavTab("icons", binding.navIcons, R.string.themes_nav_icons,
                 R.drawable.themes_ic_nav_icon, R.drawable.themes_ic_nav_icon_selected) { PlaceholderFragment() },
             NavTab("wallpapers", binding.navWallpapers, R.string.themes_nav_wallpapers,
-                R.drawable.themes_ic_nav_wallpaper, R.drawable.themes_ic_nav_wallpaper_selected) { PlaceholderFragment() },
+                R.drawable.themes_ic_nav_wallpaper, R.drawable.themes_ic_nav_wallpaper_selected) { WallpapersFragment() },
             NavTab("mine", binding.navMine, R.string.themes_nav_mine,
                 R.drawable.themes_ic_nav_mine, R.drawable.themes_ic_nav_mine_selected) { MineFragment() }
         )
     }
 
     override fun initView() {
-        // Số xu tạm hardcode theo Figma tới khi có hệ thống xu.
-        binding.tvCoin.text = "150"
+        binding.tvCoin.text = CoinStore.balance(this).toString()
         tabs.forEach { it.view.tvNav.setText(it.label) }
         // Sau recreate (đổi ngôn ngữ...) FragmentManager tự khôi phục; chỉ chọn tab đầu khi mở mới.
         val current = tabs.firstOrNull { supportFragmentManager.findFragmentByTag(it.tag)?.isHidden == false }
@@ -57,6 +57,12 @@ class ThemesActivity : BaseActivity<ThemesActivityMainBinding>() {
     }
 
     override fun dataObservable() {}
+
+    // Màn con (mở theme / wallpaper) có thể đã trừ xu -> cập nhật lại badge khi quay về.
+    override fun onResume() {
+        super.onResume()
+        binding.tvCoin.text = CoinStore.balance(this).toString()
+    }
 
     private fun selectTab(selected: NavTab) {
         tabs.forEach { tab ->

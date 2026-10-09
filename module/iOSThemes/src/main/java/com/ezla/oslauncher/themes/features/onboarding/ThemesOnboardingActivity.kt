@@ -2,15 +2,12 @@ package com.ezla.oslauncher.themes.features.onboarding
 
 import com.ezla.oslauncher.themes.Models.OnboardingPage
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezla.oslauncher.themes.base.BaseActivity
 import com.ezla.oslauncher.themes.databinding.ThemesActivityOnboardingBinding
-import com.ezla.oslauncher.themes.extensions.dpToPx
 import com.ezla.oslauncher.themes.extensions.tap
 import com.ezla.oslauncher.themes.features.home.ThemesActivity
 
@@ -26,7 +23,8 @@ class ThemesOnboardingActivity : BaseActivity<ThemesActivityOnboardingBinding>()
 
     override fun initView() {
         binding.vpOnboarding.adapter = OnboardingAdapter(pages)
-        buildSteps()
+        // DotsIndicator tự animate theo pager; số dot = số trang, không cần tự vẽ.
+        binding.dotIndicator.attachTo(binding.vpOnboarding)
         render(0)
     }
 
@@ -48,23 +46,11 @@ class ThemesOnboardingActivity : BaseActivity<ThemesActivityOnboardingBinding>()
 
     override fun dataObservable() {}
 
-    private fun buildSteps() {
-        binding.layoutStep.removeAllViews()
-        repeat(pages.size) {
-            binding.layoutStep.addView(View(this))
-        }
-    }
-
+    // Chỉ đổi nhãn nút; trạng thái dot do DotsIndicator tự lo.
     private fun render(position: Int) {
-        for (i in 0 until binding.layoutStep.childCount) {
-            val active = i == position
-            val step = binding.layoutStep.getChildAt(i)
-            step.setBackgroundResource(if (active) R.drawable.themes_bg_step_active else R.drawable.themes_bg_step_inactive)
-            step.layoutParams = LinearLayout.LayoutParams(
-                dpToPx(if (active) 18 else 6, this), dpToPx(6, this)
-            ).apply { if (i > 0) marginStart = dpToPx(3, this@ThemesOnboardingActivity) }
-        }
-        binding.tvNext.setText(if (position == pages.lastIndex) R.string.themes_get_started else R.string.themes_next)
+        binding.tvNext.setText(
+            if (position == pages.lastIndex) R.string.themes_get_started else R.string.themes_next
+        )
     }
 
     private fun finishOnboarding() {

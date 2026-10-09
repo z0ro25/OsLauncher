@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn wallpaper detail (Figma bg11): topbar + ảnh nền lớn + hàng [tim][Apply][chia sẻ]. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themes_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/themes_topbar_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/themes_screen_padding">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="-4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/themes_cd_back"
+            android:padding="4dp"
+            android:src="@drawable/themes_ic_back" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:maxLines="1"
+            android:textColor="@color/themes_text_name"
+            android:textSize="16sp"
+            tools:text="Install" />
+
+        <LinearLayout
+            android:id="@+id/layoutCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/themes_cd_add_coin"
+                android:elevation="1dp"
+                android:src="@drawable/themes_ic_add_coin" />
+
+            <TextView
+                android:id="@+id/tvCoin"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="-4dp"
+                android:background="@drawable/themes_bg_coin_count"
+                android:fontFamily="@font/themes_quicksand_bold"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingStart="7dp"
+                android:paddingEnd="14dp"
+                android:textColor="@color/themes_text_coin"
+                android:textSize="14sp"
+                tools:text="150" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="-12dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/themes_ic_coin" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/themes_screen_padding"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgWallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/themes_white"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ThemesRoundedImage12" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/themes_screen_padding">
+
+        <FrameLayout
+            android:id="@+id/btnFavorite"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/themes_bg_circle_white">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/themes_cd_favorite"
+                android:src="@drawable/themes_ic_heart" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/btnApply"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/themes_bg_button_blue"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/themes_quicksand_bold"
+                android:text="@string/themes_apply"
+                android:textColor="@color/themes_white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/btnShare"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/themes_bg_circle_white">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/themes_cd_share"
+                android:src="@drawable/themes_ic_setting_share" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

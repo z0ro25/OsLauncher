@@ -63,4 +63,24 @@
     <string name="themes_earned_coins">%1$d 코인을 받았습니다</string>
     <string name="themes_watch_to_earn">동영상을 보고 %1$d 코인을 받으세요!</string>
     <string name="themes_coin_plus">+%1$d</string>
+    <string name="themes_install_title">설치</string>
+    <string name="themes_unlock_with">%1$d개로 잠금 해제</string>
+    <string name="themes_choose_where">적용할 위치 선택</string>
+    <string name="themes_lock_screen">잠금 화면</string>
+    <string name="themes_home_screen">홈 화면</string>
+    <string name="themes_apply">적용</string>
+    <string name="themes_cd_favorite">즐겨찾기</string>
+    <string name="themes_cd_share">공유</string>
+    <string name="themes_wallpaper_locked">배경화면 잠김</string>
+    <string name="themes_price_unlock">이 배경화면 잠금 해제 가격:</string>
+    <string name="themes_use_n_coins">%1$d코인 사용</string>
+    <string name="themes_go_premium">모두 잠금 해제하려면 프리미엄 가입</string>
+    <string name="themes_success_set">설정 완료!</string>
+    <string name="themes_wallpaper_ready">새 배경화면이 준비되었습니다! 홈 화면으로 돌아가 확인하세요</string>
+    <string name="themes_go_home">홈 화면으로 이동</string>
+    <string name="themes_explore_more_wallpaper">더 많은 배경화면 보기</string>
+    <string name="themes_not_enough_coins">코인 부족</string>
+    <string name="themes_not_enough_coins_desc">더 많은 코인을 얻거나 Pro로 업그레이드해 무제한 이용하세요!</string>
+    <string name="themes_get_coin_free">무료 코인 받기</string>
+    <string name="themes_unlock_all_icon">모든 아이콘 잠금 해제</string>
 </resources>

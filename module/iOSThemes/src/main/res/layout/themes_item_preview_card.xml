@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/themes_white"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         app:layout_constraintDimensionRatio="158:308"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -63,4 +63,24 @@
     <string name="themes_earned_coins">Anda mendapat %1$d koin</string>
     <string name="themes_watch_to_earn">Tonton video untuk mendapat %1$d koin!</string>
     <string name="themes_coin_plus">+%1$d</string>
+    <string name="themes_install_title">Pasang</string>
+    <string name="themes_unlock_with">Buka dengan %1$d</string>
+    <string name="themes_choose_where">Pilih tempat menerapkan</string>
+    <string name="themes_lock_screen">Layar kunci</string>
+    <string name="themes_home_screen">Layar utama</string>
+    <string name="themes_apply">Terapkan</string>
+    <string name="themes_cd_favorite">Favorit</string>
+    <string name="themes_cd_share">Bagikan</string>
+    <string name="themes_wallpaper_locked">Wallpaper terkunci</string>
+    <string name="themes_price_unlock">Harga untuk membuka wallpaper ini:</string>
+    <string name="themes_use_n_coins">Gunakan %1$d koin</string>
+    <string name="themes_go_premium">Jadi Premium untuk buka semua</string>
+    <string name="themes_success_set">Berhasil Diterapkan!</string>
+    <string name="themes_wallpaper_ready">Wallpaper baru Anda siap! Kembali ke layar utama untuk melihatnya</string>
+    <string name="themes_go_home">Ke Layar Utama</string>
+    <string name="themes_explore_more_wallpaper">Jelajahi wallpaper lainnya</string>
+    <string name="themes_not_enough_coins">Koin Tidak Cukup</string>
+    <string name="themes_not_enough_coins_desc">Dapatkan lebih banyak koin atau upgrade ke Pro untuk akses tanpa batas!</string>
+    <string name="themes_get_coin_free">Dapatkan Koin Gratis</string>
+    <string name="themes_unlock_all_icon">Buka Semua Ikon</string>
 </resources>

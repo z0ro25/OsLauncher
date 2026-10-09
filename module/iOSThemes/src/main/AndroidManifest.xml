@@ -28,6 +28,18 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.detail.ThemeDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.detail.WallpaperDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
     </application>
 
 </manifest>

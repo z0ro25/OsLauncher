@@ -63,4 +63,24 @@
     <string name="themes_earned_coins">Has ganado %1$d monedas</string>
     <string name="themes_watch_to_earn">¡Mira un vídeo y gana %1$d monedas!</string>
     <string name="themes_coin_plus">+%1$d</string>
+    <string name="themes_install_title">Instalar</string>
+    <string name="themes_unlock_with">Desbloquear con %1$d</string>
+    <string name="themes_choose_where">Elige dónde aplicar</string>
+    <string name="themes_lock_screen">Pantalla de bloqueo</string>
+    <string name="themes_home_screen">Pantalla de inicio</string>
+    <string name="themes_apply">Aplicar</string>
+    <string name="themes_cd_favorite">Favorito</string>
+    <string name="themes_cd_share">Compartir</string>
+    <string name="themes_wallpaper_locked">Fondo bloqueado</string>
+    <string name="themes_price_unlock">Precio para desbloquear este fondo:</string>
+    <string name="themes_use_n_coins">Usar %1$d monedas</string>
+    <string name="themes_go_premium">Hazte Premium para desbloquear todo</string>
+    <string name="themes_success_set">¡Establecido con éxito!</string>
+    <string name="themes_wallpaper_ready">¡Tu nuevo fondo está listo! Vuelve a la pantalla de inicio para verlo</string>
+    <string name="themes_go_home">Ir a la pantalla de inicio</string>
+    <string name="themes_explore_more_wallpaper">Explorar más fondos</string>
+    <string name="themes_not_enough_coins">Monedas insuficientes</string>
+    <string name="themes_not_enough_coins_desc">¡Consigue más monedas o hazte Pro para acceso ilimitado!</string>
+    <string name="themes_get_coin_free">Consigue monedas gratis</string>
+    <string name="themes_unlock_all_icon">Desbloquear todos los iconos</string>
 </resources>

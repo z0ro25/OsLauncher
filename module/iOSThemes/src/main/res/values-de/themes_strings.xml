@@ -63,4 +63,24 @@
     <string name="themes_earned_coins">Du hast %1$d Münzen verdient</string>
     <string name="themes_watch_to_earn">Sieh ein Video und verdiene %1$d Münzen!</string>
     <string name="themes_coin_plus">+%1$d</string>
+    <string name="themes_install_title">Installieren</string>
+    <string name="themes_unlock_with">Entsperren mit %1$d</string>
+    <string name="themes_choose_where">Anwendungsort wählen</string>
+    <string name="themes_lock_screen">Sperrbildschirm</string>
+    <string name="themes_home_screen">Startbildschirm</string>
+    <string name="themes_apply">Anwenden</string>
+    <string name="themes_cd_favorite">Favorit</string>
+    <string name="themes_cd_share">Teilen</string>
+    <string name="themes_wallpaper_locked">Hintergrund gesperrt</string>
+    <string name="themes_price_unlock">Preis zum Freischalten dieses Hintergrunds:</string>
+    <string name="themes_use_n_coins">%1$d Münzen verwenden</string>
+    <string name="themes_go_premium">Premium holen, um alles freizuschalten</string>
+    <string name="themes_success_set">Erfolgreich festgelegt!</string>
+    <string name="themes_wallpaper_ready">Dein neuer Hintergrund ist fertig! Kehre zum Startbildschirm zurück, um ihn zu sehen</string>
+    <string name="themes_go_home">Zum Startbildschirm</string>
+    <string name="themes_explore_more_wallpaper">Mehr Hintergründe entdecken</string>
+    <string name="themes_not_enough_coins">Nicht genug Münzen</string>
+    <string name="themes_not_enough_coins_desc">Hol dir mehr Münzen oder upgrade auf Pro für unbegrenzten Zugriff!</string>
+    <string name="themes_get_coin_free">Münzen gratis holen</string>
+    <string name="themes_unlock_all_icon">Alle Symbole freischalten</string>
 </resources>
