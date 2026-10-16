@@ -36,8 +36,20 @@
         <item name="android:backgroundDimAmount">0.5</item>
     </style>
 
+    <!-- Material vẽ nền sheet bằng MaterialShapeDrawable (backgroundTint + shapeAppearance), BỎ QUA
+         android:background -> nền trắng vuông che góc bo của layout. Tắt tint để lộ nền của layout. -->
     <style name="ThemesBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="shapeAppearanceOverlay">@style/ThemesSheetShape</item>
+    </style>
+
+    <style name="ThemesSheetShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
     <style name="ThemesRoundedImage6">

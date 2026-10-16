@@ -10,13 +10,19 @@ import com.ezla.oslauncher.themes.databinding.ThemesItemCoinPackBinding
 
 // Gói đầu (Figma): nền gradient vàng-cam + giá chữ trắng; các gói còn lại nền vàng + giá nâu.
 class CoinPackAdapter(
-    private val packs: List<CoinPack>,
+    private var packs: List<CoinPack>,
     private val onClick: (CoinPack) -> Unit
 ) : RecyclerView.Adapter<CoinPackAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(
         ThemesItemCoinPackBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
+
+    // Giá Play tải xong sau khi màn đã dựng -> nạp lại danh sách gói.
+    fun submit(newPacks: List<CoinPack>) {
+        packs = newPacks
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int = packs.size
 

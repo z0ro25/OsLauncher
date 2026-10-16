@@ -1,8 +1,10 @@
 package com.ezla.oslauncher.themes.features.mine
 
+import com.ezla.oslauncher.themes.Models.IconPack
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.MineTab
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +14,9 @@ import com.ezla.oslauncher.themes.base.BaseFragment
 import com.ezla.oslauncher.themes.data.DefaultThemeProvider
 import com.ezla.oslauncher.themes.data.MineRepositoryProvider
 import com.ezla.oslauncher.themes.databinding.ThemesFragmentMineBinding
+import com.ezla.oslauncher.themes.features.detail.IconDetailActivity
+import com.ezla.oslauncher.themes.features.detail.ThemeViewActivity
+import com.ezla.oslauncher.themes.features.detail.WallpaperDetailActivity
 import com.ezla.oslauncher.themes.features.home.GridSpacingDecoration
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -24,13 +29,13 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
     private var tab = MineTab.THEME
     private var loadJob: Job? = null
 
-    // Chưa nối hành động; gắn implementation thật khi có API / logic áp theme.
+    // Bấm thẻ theme / wallpaper / bộ icon xử lý tại chỗ; callback chỉ còn dùng cho nút "more".
     var callback: MineCallback = object : MineCallback {}
 
     private val libraryCards = PreviewCardAdapter(small = false) { onCardClick(it) }
     private val suggestCards = PreviewCardAdapter(small = true) { onCardClick(it) }
-    private val libraryPacks = IconPackAdapter { callback.onIconPackClick(it, tab == MineTab.FAVORITES) }
-    private val suggestPacks = IconPackAdapter { callback.onIconPackClick(it, tab == MineTab.FAVORITES) }
+    private val libraryPacks = IconPackAdapter { onIconPackClick(it) }
+    private val suggestPacks = IconPackAdapter { onIconPackClick(it) }
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ThemesFragmentMineBinding.inflate(inflater, container, false)
@@ -84,6 +89,10 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
     private fun load() {
         loadJob?.cancel()
         val current = tab
+        // Favorites chưa có nguồn gợi ý: ẩn hẳn khối Suggest.
+        val showSuggest = current != MineTab.FAVORITES
+        binding.headerSuggest.root.visibility = if (showSuggest) View.VISIBLE else View.GONE
+        binding.rvSuggest.visibility = if (showSuggest) View.VISIBLE else View.GONE
         loadJob = viewLifecycleOwner.lifecycleScope.launch {
             val ctx = requireContext()
             when (current) {
@@ -97,22 +106,44 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
                 }
                 MineTab.ICON -> {
                     libraryPacks.submit(listOf(DefaultThemeProvider.iconPack(ctx)) + repository.getOwnedIconPacks())
-                    suggestPacks.submit(repository.getSuggestIconPacks())
+                    suggestPacks.submit(repository.getSuggestIconPacks().take(SUGGEST_PACK_COUNT))
                 }
                 MineTab.FAVORITES -> {
                     libraryPacks.submit(repository.getFavorites())
-                    suggestPacks.submit(repository.getSuggestIconPacks())
+                    suggestPacks.submit(emptyList())
                 }
             }
         }
     }
 
+    // Thẻ Default đi chung luồng với theme thường (màn tự dựng dữ liệu mặc định, Apply = khôi phục).
+    private fun onIconPackClick(pack: IconPack) {
+        IconDetailActivity.start(requireContext(), pack.id)
+    }
+
+    // Theme -> màn View theme; Wallpaper -> màn wallpaper detail.
     private fun onCardClick(card: PreviewCard) {
-        if (tab == MineTab.WALLPAPERS) callback.onWallpaperClick(card) else callback.onThemeClick(card)
+        if (tab == MineTab.WALLPAPERS) onWallpaperClick(card) else onThemeClick(card)
+    }
+
+    private fun onThemeClick(card: PreviewCard) {
+        ThemeViewActivity.start(requireContext(), card.id, null)
+    }
+
+    private fun onWallpaperClick(card: PreviewCard) {
+        if (card.isDefault) {
+            WallpaperDetailActivity.startDefault(requireContext(), card.name)
+            return
+        }
+        val url = card.image as? String ?: return
+        WallpaperDetailActivity.start(
+            requireContext(), url, card.name, card.backgroundId, card.coins, card.isUnlocked
+        )
     }
 
     companion object {
         private const val LIBRARY_SPAN = 2
         private const val SUGGEST_CARD_SPAN = 3
+        private const val SUGGEST_PACK_COUNT = 4
     }
 }

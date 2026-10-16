@@ -16,29 +16,43 @@ data class ThemePage(
     @SerializedName("to") val to: Int? = null
 )
 
+// Response GET /api/v1/my-backgrounds: phân trang như ThemePage, item là ThemeBackground.
+data class BackgroundPage(
+    @SerializedName("current_page") val currentPage: Int = 0,
+    @SerializedName("data") val items: List<ThemeBackground> = emptyList(),
+    @SerializedName("next_page_url") val nextPageUrl: String? = null,
+    @SerializedName("per_page") val perPage: Int = 0,
+    @SerializedName("prev_page_url") val prevPageUrl: String? = null
+)
+
 data class ApiTheme(
     @SerializedName("id") val id: Int = 0,
     @SerializedName("category_id") val categoryId: Int = 0,
     @SerializedName("name") val name: String = "",
     @SerializedName("thumbnail") val thumbnail: List<ApiImage> = emptyList(),
+    // Giá mở khoá phần icon của theme (số xu).
+    @SerializedName("icons_coins") val iconsCoins: Int = 0,
     @SerializedName("order") val order: Int = 0,
-    // Giá mở theme (số xu) do server trả; 0 = chưa có server cũ.
-    @SerializedName("coins") val coins: Int = 0,
+    // User đã mở khoá phần icon chưa (server lưu theo device).
+    @SerializedName("is_unlocked") val isUnlocked: Boolean = false,
     @SerializedName("backgrounds") val backgrounds: List<ThemeBackground> = emptyList(),
     @SerializedName("logos") val logos: List<ThemeLogo> = emptyList()
 )
 
 data class ThemeBackground(
     @SerializedName("id") val id: Int = 0,
+    @SerializedName("name") val name: String? = null,
     @SerializedName("theme_id") val themeId: Int = 0,
     @SerializedName("image") val image: List<ApiImage> = emptyList(),
-    @SerializedName("width") val width: Int = 0,
-    @SerializedName("height") val height: Int = 0,
-    @SerializedName("order") val order: Int = 0,
+    @SerializedName("active") val active: Int = 0,
+    // Giá mở khoá nền này (số xu).
+    @SerializedName("coins") val coins: Int = 0,
+    @SerializedName("is_unlocked") val isUnlocked: Boolean = false,
     @SerializedName("created_at") val createdAt: String? = null,
     @SerializedName("updated_at") val updatedAt: String? = null
 )
 
+// package_name là MÃ loại app của server (vd "app_photos"), không phải package Android.
 data class ThemeLogo(
     @SerializedName("id") val id: Int = 0,
     @SerializedName("theme_id") val themeId: Int = 0,

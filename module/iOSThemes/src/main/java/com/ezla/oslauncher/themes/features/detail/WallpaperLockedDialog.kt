@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.ezla.oslauncher.themes.R
-import com.ezla.oslauncher.themes.data.CoinStore
+import com.ezla.oslauncher.themes.features.loadCreditInto
 import com.ezla.oslauncher.themes.databinding.ThemesDialogWallpaperLockedBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -30,9 +30,10 @@ class WallpaperLockedDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvCoin.text = CoinStore.balance(requireContext()).toString()
-        binding.tvPrice.text = PRICE.toString()
-        binding.tvUseCoins.text = getString(R.string.themes_use_n_coins, PRICE)
+        viewLifecycleOwner.loadCreditInto(binding.tvCoin)
+        val price = requireArguments().getInt(ARG_PRICE)
+        binding.tvPrice.text = price.toString()
+        binding.tvUseCoins.text = getString(R.string.themes_use_n_coins, price)
         binding.btnUseCoins.setOnClickListener { result(ACTION_USE_COINS) }
         binding.btnPremium.setOnClickListener { result(ACTION_PREMIUM) }
     }
@@ -52,10 +53,11 @@ class WallpaperLockedDialog : BottomSheetDialogFragment() {
         const val KEY_ACTION = "action"
         const val ACTION_USE_COINS = "use_coins"
         const val ACTION_PREMIUM = "premium"
+        private const val ARG_PRICE = "price"
 
-        // Giá mở khoá tạm hardcode theo Figma tới khi server trả giá cho wallpaper.
-        const val PRICE = 50
-
-        fun newInstance() = WallpaperLockedDialog()
+        // price = coins của background (API); qua arguments để sống sót khi recreate.
+        fun newInstance(price: Int) = WallpaperLockedDialog().apply {
+            arguments = bundleOf(ARG_PRICE to price)
+        }
     }
 }

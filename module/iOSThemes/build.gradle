@@ -52,7 +52,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
     // SAG: ký request hardware-backed (Android Keystore + Key Attestation). AAR tự mang native
     // .so + consumer ProGuard + quyền INTERNET; POM tự khai OkHttp 4.12.0 (sẽ bump transitive).
-    implementation 'com.mct.libs:sag:1.0.0'
+    implementation 'com.mct.libs:sag:1.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
     implementation project(':library:iOSLiteCommon')
     implementation project(':module:iOSLauncher')

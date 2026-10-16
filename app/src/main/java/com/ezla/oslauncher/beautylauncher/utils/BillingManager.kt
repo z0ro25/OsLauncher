@@ -53,6 +53,7 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     listener.onBillingConnection()
                     queryAvailableProducts()
+                    queryInAppProducts()
                 }
             }
         })
@@ -106,6 +107,30 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
         }
     }
 
+    // Gói in-app (gói xu Themes) query riêng: Play không cho trộn SUBS và INAPP trong 1 lần query.
+    private fun queryInAppProducts() {
+        val productIds = BillingUtils.inAppProductIds()
+        if (productIds.isEmpty()) return
+        val products = productIds.map { id ->
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(id)
+                .setProductType(BillingClient.ProductType.INAPP)
+                .build()
+        }
+        val params = QueryProductDetailsParams.newBuilder().setProductList(products).build()
+        billingClient.queryProductDetailsAsync(params) { billingResult, result ->
+            val details = result?.productDetailsList.orEmpty()
+            Log.d(
+                TAG,
+                "queryInApp: code=${billingResult.responseCode} msg=${billingResult.debugMessage} size=${details.size}"
+            )
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                if (details.isEmpty()) Log.e(TAG, "Play trả RỖNG cho in-app $productIds — kiểm tra Play Console")
+                listener.onInAppDetailsRetrieved(details)
+            }
+        }
+    }
+
     // Xử lý kết quả mua hàng
     override fun onPurchasesUpdated(
         billingResult: BillingResult,
@@ -130,6 +155,7 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
         fun onSkuDetailsRetrieved(skuDetailsList: List<ProductDetails?>)
         fun onPurchasesCompleted(purchases: List<Purchase>)
         fun onBillingConnection()
+        fun onInAppDetailsRetrieved(details: List<ProductDetails>) {}
     }
 
     private companion object {

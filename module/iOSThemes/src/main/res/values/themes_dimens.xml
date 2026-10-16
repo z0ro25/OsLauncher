@@ -10,4 +10,20 @@
     <dimen name="themes_bottom_nav_height">62dp</dimen>
     <dimen name="themes_onboarding_image_height">436dp</dimen>
     <dimen name="themes_onboarding_ad_height">300dp</dimen>
+    <!-- Icon app trong preview màn Install: tối đa 56dp, code tự thu theo bề ngang cột/chiều cao hàng. -->
+    <dimen name="themes_install_icon_size">56dp</dimen>
+    <!-- Khe ngang tối thiểu giữa 2 icon trong lưới Install. -->
+    <dimen name="themes_install_icon_gap">10dp</dimen>
+    <!-- Khe dọc giữa 2 hàng icon trong lưới Install (hàng xếp sát từ trên xuống). -->
+    <dimen name="themes_install_row_gap">12dp</dimen>
+    <!-- Chỗ cho tên app dưới icon trong lưới Install (margin 4dp + chữ 8sp). -->
+    <dimen name="themes_install_label_space">18dp</dimen>
+    <!-- Carousel View theme: chiều cao trang; chiều rộng tính trong code theo tỉ lệ ảnh để fitXY không méo. -->
+    <dimen name="themes_view_preview_height">360dp</dimen>
+    <!-- Phần ảnh preview sheet Successfully Set nhô lên khỏi mép sheet (Figma ~44-59dp). -->
+    <dimen name="themes_success_preview_overhang">60dp</dimen>
+    <!-- Lưới icon trên ảnh sheet Successfully Set (biến thể icon): icon 53dp bo 14, khe 13dp (Figma). -->
+    <dimen name="themes_success_icon_size">53dp</dimen>
+    <dimen name="themes_success_icon_gap">13dp</dimen>
+    <dimen name="themes_success_icon_radius">14dp</dimen>
 </resources>

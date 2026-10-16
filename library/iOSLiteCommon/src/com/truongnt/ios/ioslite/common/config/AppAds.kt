@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.MainThread
 import androidx.fragment.app.FragmentActivity
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenInfo
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdPreloadState
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdReward
+import com.ezt.v2.ezt.admobdemo.ads.placement.AdRewardedCallback
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdsConfigSource
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdsConfiguration
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdsKit
@@ -249,6 +252,36 @@ object AppAds {
                 Log.w(TAG, "showAdFullScreen lỗi key=$key", t)
             } finally {
                 onDone.run()
+            }
+        }
+    }
+
+    @JvmStatic
+    fun preloadRewarded(key: String) {
+        if (!hasKit()) return
+        scope.launch { runCatching { kit.preloadRewarded(key) } }
+    }
+
+    // Rewarded qua placement [key]. onDone(true) chỉ khi SDK báo onEarnedReward (xem đủ); đóng sớm,
+    // không có ad hay chưa có kit -> false. onDone chạy đúng 1 lần, trên main.
+    @JvmStatic
+    fun showRewarded(activity: FragmentActivity, key: String, onDone: (earned: Boolean) -> Unit) {
+        if (!hasKit()) {
+            onDone(false)
+            return
+        }
+        scope.launch {
+            var earned = false
+            try {
+                kit.showRewarded(activity, key, object : AdRewardedCallback {
+                    override fun onEarnedReward(info: AdFullScreenInfo, reward: AdReward) {
+                        earned = true
+                    }
+                })
+            } catch (t: Throwable) {
+                Log.w(TAG, "showRewarded lỗi key=$key", t)
+            } finally {
+                onDone(earned)
             }
         }
     }

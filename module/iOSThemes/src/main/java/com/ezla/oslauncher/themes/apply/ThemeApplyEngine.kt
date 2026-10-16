@@ -19,10 +19,6 @@ import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
 
-// Áp theme = tải ảnh (nền + icon) của theme về MỘT folder "theme đang dùng" rồi áp từ file đó:
-// nền qua WallpaperManager, icon đè từng app qua AppOverrideStore, cuối cùng reload desktop.
-// Đổi theme khác: ghi đè file dùng chung + dọn file theme cũ thừa + reset icon các app chỉ có ở
-// theme cũ. CHỈ dùng API public của iOSLauncher — không sửa engine.
 object ThemeApplyEngine {
 
     private const val THEME_DIR = "current_theme"       // folder chứa theme đang dùng
@@ -42,29 +38,72 @@ object ThemeApplyEngine {
         applyLock: Boolean
     ): Boolean = withContext(Dispatchers.IO) {
         val appCtx = context.applicationContext
-        AppOverrideStore.init(appCtx)
-        val pm = appCtx.packageManager
-
-        val themeDir = File(appCtx.filesDir, THEME_DIR).apply { if (!exists()) mkdirs() }
-        val iconsDir = File(themeDir, ICONS_SUBDIR).apply { if (!exists()) mkdirs() }
-
         var applied = false
 
         // 1) Background: tải về folder rồi set nền TỪ FILE (giữ 1 bản background.png của theme).
         val wallpaperUrl = detail.wallpapers.firstOrNull()
         if (wallpaperUrl != null && (applyHome || applyLock)) {
-            applied = saveAndSetWallpaper(appCtx, wallpaperUrl, applyHome, applyLock) || applied
+            applied = saveAndSetWallpaper(appCtx, wallpaperUrl, applyHome, applyLock)
         }
 
-        // 2) Icon: tải về folder/icons rồi trỏ AppOverrideStore vào file; gom component theme mới.
+        // 2) Icon: thay phần icon của "theme đang dùng" (giữ nền).
+        replaceIcons(appCtx, detail) || applied
+    }
+
+    // Đổi riêng ICON (tab Icon ở màn Install): thay phần icon của "theme đang dùng", giữ nền.
+    // Về bộ icon mặc định: reset logo mọi app đã đổi theo theme, xoá icon trong folder, reload
+    // desktop. Giữ nguyên nền. Trả false nếu đang không áp bộ icon nào.
+    suspend fun restoreDefaultIcons(context: Context): Boolean = withContext(Dispatchers.IO) {
+        val appCtx = context.applicationContext
+        AppOverrideStore.init(appCtx)
+        val old = readComponents(appCtx)
+        if (old.isEmpty()) return@withContext false
+        for (flatten in old) AppOverrideStore.resetLogo(flatten)
+        File(File(appCtx.filesDir, THEME_DIR), ICONS_SUBDIR).listFiles()?.forEach { it.delete() }
+        writeComponents(appCtx, emptySet())
+        PreferencesUtil.putString(appCtx, KEY_THEME_ID, "")
+        scheduleReload(old)
+        true
+    }
+
+    // Về nền mặc định của launcher (ảnh drawable [wallpaperRes]) cho Home/Lock; xoá background.png
+    // của "theme đang dùng" vì nền giờ không còn thuộc theme nào.
+    suspend fun restoreDefaultWallpaper(
+        context: Context,
+        wallpaperRes: Int,
+        applyHome: Boolean,
+        applyLock: Boolean
+    ): Boolean = withContext(Dispatchers.IO) {
+        val appCtx = context.applicationContext
+        val bmp = BitmapFactory.decodeResource(appCtx.resources, wallpaperRes) ?: return@withContext false
+        val ok = setWallpaper(appCtx, bmp, applyHome, applyLock)
+        if (ok) File(File(appCtx.filesDir, THEME_DIR), BG_FILE).delete()
+        ok
+    }
+
+    suspend fun applyIcons(context: Context, detail: ThemeDetail): Boolean =
+        withContext(Dispatchers.IO) { replaceIcons(context.applicationContext, detail) }
+
+    // Tải icon về current_theme/icons, trỏ AppOverrideStore vào file, reset icon app chỉ có ở bộ
+    // cũ, dọn file thừa rồi reload desktop. Tải hỏng toàn bộ -> giữ nguyên bộ icon cũ, trả false.
+    private fun replaceIcons(appCtx: Context, detail: ThemeDetail): Boolean {
+        AppOverrideStore.init(appCtx)
+        val pm = appCtx.packageManager
+        val themeDir = File(appCtx.filesDir, THEME_DIR).apply { if (!exists()) mkdirs() }
+        val iconsDir = File(themeDir, ICONS_SUBDIR).apply { if (!exists()) mkdirs() }
+        var applied = false
+
+        // Tải từng logo về folder/icons rồi trỏ AppOverrideStore vào file; gom component bộ mới.
         val newComponents = linkedSetOf<String>()
         val newIconFiles = mutableSetOf<String>()
         for (logo in detail.logos) {
-            val cn = launchComponent(pm, logo.packageName) ?: continue
+            val cn = AppCodeResolver.resolve(appCtx, logo.packageName) ?: continue
             val flatten = cn.flattenToString()
             val name = iconFileName(flatten)
             val file = File(iconsDir, name)
             if (!downloadToFile(logo.imageUrl, file)) continue
+            // Cắt lề trong suốt/bóng thừa để thân icon to gần bằng app khác trên desktop.
+            IconTrimmer.trim(file)
             AppOverrideStore.ensureSeeded(flatten, logo.packageName, appLabel(pm, cn))
             AppOverrideStore.setCurrentLogoPath(flatten, file.absolutePath)
             newComponents.add(flatten)
@@ -72,24 +111,23 @@ object ThemeApplyEngine {
             applied = true
         }
 
-        // Tải hỏng toàn bộ -> giữ nguyên theme cũ, không reset/không đổi trạng thái.
-        if (!applied) return@withContext false
+        // Tải hỏng toàn bộ -> giữ nguyên bộ icon cũ, không reset/không đổi trạng thái.
+        if (!applied) return false
 
-        // 3) Reset icon các app của theme CŨ mà theme MỚI không đổi -> về icon gốc.
+        // Reset icon các app của bộ CŨ mà bộ MỚI không đổi -> về icon gốc.
         val oldComponents = readComponents(appCtx)
         val toReset = oldComponents - newComponents
         for (flatten in toReset) AppOverrideStore.resetLogo(flatten)
 
-        // 4) Dọn file icon thừa của theme cũ trong folder (giữ folder sạch, chỉ còn theme hiện tại).
+        // Dọn file icon thừa của bộ cũ (folder chỉ còn bộ hiện tại).
         iconsDir.listFiles()?.forEach { if (it.name !in newIconFiles) it.delete() }
 
-        // 5) Lưu trạng thái theme đang dùng.
         writeComponents(appCtx, newComponents)
         PreferencesUtil.putString(appCtx, KEY_THEME_ID, detail.id)
 
-        // 6) Reload desktop: evict cache các app vừa đổi + vừa reset để hiện icon đúng.
+        // Reload desktop: evict cache các app vừa đổi + vừa reset để hiện icon đúng.
         scheduleReload(newComponents + toReset)
-        true
+        return true
     }
 
     // Đổi riêng NỀN (luồng Wallpaper): cũng thay vào "theme đang dùng" (ghi đè background.png),
@@ -132,14 +170,6 @@ object ThemeApplyEngine {
         t.printStackTrace()
         false
     }
-
-    // Tên component khởi chạy của app (khoá override), null nếu app không có launcher intent.
-    private fun launchComponent(pm: PackageManager, packageName: String): ComponentName? =
-        try {
-            pm.getLaunchIntentForPackage(packageName)?.component
-        } catch (t: Throwable) {
-            null
-        }
 
     private fun appLabel(pm: PackageManager, cn: ComponentName): String = try {
         pm.getActivityInfo(cn, 0).loadLabel(pm).toString()

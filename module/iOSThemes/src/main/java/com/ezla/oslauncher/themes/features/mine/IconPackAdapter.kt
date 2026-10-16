@@ -24,7 +24,6 @@ class IconPackAdapter(private val onClick: (IconPack) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ThemesItemIconPackBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        // Không cuộn được thì RecyclerView.onTouchEvent trả false -> click rơi về root của thẻ.
         binding.rvIcons.layoutManager = object : GridLayoutManager(parent.context, ICON_SPAN) {
             override fun canScrollVertically() = false
             override fun canScrollHorizontally() = false
@@ -46,6 +45,8 @@ class IconPackAdapter(private val onClick: (IconPack) -> Unit) :
             bg.visibility = View.GONE
         }
         holder.binding.rvIcons.adapter = IconsAdapter(pack.icons.take(MAX_ICONS))
+        // RecyclerView lưới icon luôn nuốt chạm -> nhận click qua lớp phủ viewClick + phần tên.
+        holder.binding.viewClick.setOnClickListener { onClick(pack) }
         holder.binding.root.setOnClickListener { onClick(pack) }
     }
 

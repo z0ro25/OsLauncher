@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn xem tất cả theme của 1 danh mục (Figma "Wallpapers/Anime"): header back + tên danh mục,
+     lưới 3 cột thẻ thumbnail dọc 104x208 bo 10, khe 8dp ngang / 16dp dọc. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themes_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/themes_view_header" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvThemes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/themes_screen_padding"
+            android:paddingTop="12dp"
+            android:paddingBottom="16dp" />
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/themes_primary"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

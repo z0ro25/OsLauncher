@@ -28,6 +28,13 @@
             android:importantForAccessibility="noHideDescendants"
             android:overScrollMode="never"
             android:padding="12dp" />
+
+        <!-- Lớp phủ nhận click: lưới icon (RecyclerView) nuốt chạm nên click không tới thẻ. -->
+        <View
+            android:id="@+id/viewClick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground" />
     </FrameLayout>
 
     <TextView

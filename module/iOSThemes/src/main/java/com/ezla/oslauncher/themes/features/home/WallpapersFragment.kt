@@ -31,8 +31,15 @@ class WallpapersFragment : BaseFragment<ThemesFragmentWallpapersBinding>() {
         loadWallpapers()
     }
 
+    // Đã mở màn chi tiết -> quay về thì tải lại để thẻ lấy is_unlocked mới (vừa mở khoá).
+    private var reloadOnResume = false
+
     private val wallpaperAdapter = PreviewCardAdapter(small = false) { card ->
-        WallpaperDetailActivity.start(requireContext(), card.image.toString(), card.name)
+        reloadOnResume = true
+        WallpaperDetailActivity.start(
+            requireContext(), card.image.toString(), card.name,
+            card.backgroundId, card.coins, card.isUnlocked
+        )
     }
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
@@ -64,6 +71,14 @@ class WallpapersFragment : BaseFragment<ThemesFragmentWallpapersBinding>() {
             categoryAdapter.submit(categories, categoryId)
             submitWallpapers()
             setLoading(false)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (reloadOnResume) {
+            reloadOnResume = false
+            loadWallpapers()
         }
     }
 

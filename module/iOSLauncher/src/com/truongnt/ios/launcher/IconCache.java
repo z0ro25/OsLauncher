@@ -1046,6 +1046,18 @@ public class IconCache {
         if (info != null) {
             entry.title = info.getLabel();
         }
+        // Logo custom của shortcut nội bộ (vd icon "Themes" theo theme đang áp) từ AppOverrideStore.
+        // Không có override -> giữ icon cũ; đặt cuối để đè cả icon lấy từ DB.
+        try {
+            AppOverrideStore.INSTANCE.init(mContext);
+            Bitmap overrideLogo = AppOverrideStore.INSTANCE.getCurrentLogoBitmap(componentName.flattenToString());
+            if (overrideLogo != null) {
+                entry.icon = Utilities.createIconBitmap(
+                        new BitmapDrawable(mContext.getResources(), overrideLogo), mContext);
+            }
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
         return entry;
     }
 

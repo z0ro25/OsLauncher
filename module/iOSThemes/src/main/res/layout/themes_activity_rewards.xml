@@ -104,14 +104,28 @@
                         android:importantForAccessibility="no"
                         android:src="@drawable/themes_ic_video" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:text="@string/themes_watch_video"
-                        android:textColor="@color/themes_text_title"
-                        android:textSize="14sp" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/themes_watch_video"
+                            android:textColor="@color/themes_text_title"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvVideoProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/themes_text_hint"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -155,6 +169,15 @@
                     android:layout_marginTop="12dp"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never" />
+
+                <!-- CHỈ ĐỂ TEST API cộng xu (POST /credits), không theo Figma. Gỡ trước khi release. -->
+                <Button
+                    android:id="@+id/btnTestAddCoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/themes_test_add_coin" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

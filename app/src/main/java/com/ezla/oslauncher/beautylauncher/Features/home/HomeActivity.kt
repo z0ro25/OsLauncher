@@ -77,8 +77,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 binding.frNativeHome,
                 R.layout.layout_native_large
             )
-
-
         } else {
             binding.frNativeHome.isVisible = false
         }

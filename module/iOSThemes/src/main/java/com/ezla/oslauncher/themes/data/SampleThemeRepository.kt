@@ -1,5 +1,7 @@
 package com.ezla.oslauncher.themes.data
 
+import com.ezla.oslauncher.themes.Models.IconSection
+import com.ezla.oslauncher.themes.Models.IconThemeCard
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.ThemeCategory
 import com.ezla.oslauncher.themes.Models.ThemeDetail
@@ -32,11 +34,19 @@ class SampleThemeRepository : ThemeRepository {
 
     // Mẫu không có nền/icon thật -> chi tiết rỗng để màn Install vẫn mở được khi API lỗi.
     override suspend fun getThemeDetail(id: String): ThemeDetail? =
-        ThemeDetail(id = id, name = id, previewUrl = asset("snow.jpg"), coins = 3, wallpapers = emptyList(), logos = emptyList())
+        ThemeDetail(id = id, name = id, previewUrl = asset("snow.jpg"), iconCoins = 3, wallpaperCoins = 3, wallpapers = emptyList(), logos = emptyList())
 
     // Tab Wallpapers: dùng chính ảnh mẫu của theme làm thẻ wallpaper.
     override suspend fun getWallpapers(tab: ThemeTab, categoryId: String): List<PreviewCard> =
         getThemes(tab, categoryId).map { PreviewCard(it.id, it.name, it.previewUrl) }
+
+    // Mẫu không có icon theo theme -> mỗi danh mục 1 section, thẻ chỉ có nền là ảnh mẫu.
+    override suspend fun getIconSections(categories: List<ThemeCategory>): List<IconSection> =
+        categories.map { category ->
+            IconSection(category, getThemes(ThemeTab.FEATURED, category.id).map {
+                IconThemeCard(it.id, it.name, it.previewUrl, emptyList())
+            })
+        }
 
     private fun asset(name: String) = "file:///android_asset/themes_sample/$name"
 }

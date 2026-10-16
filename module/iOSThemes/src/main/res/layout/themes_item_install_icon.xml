@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1 ô app trong preview tab Icon: icon (tối đa 56dp, code tự co theo ô) bo 10 + tên trắng 8sp.
+     Ô hotseat ẩn tên. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgAppIcon"
+        android:layout_width="@dimen/themes_install_icon_size"
+        android:layout_height="@dimen/themes_install_icon_size"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage10" />
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/themes_white"
+        android:textSize="8sp"
+        tools:text="Calendar" />
+</LinearLayout>

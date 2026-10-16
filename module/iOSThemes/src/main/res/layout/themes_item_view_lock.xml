@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trang Lock của carousel View theme: nền theme + ngày giờ như màn khoá (Figma Lock Screen). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgLock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/themes_white"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvLockDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="#66000000"
+            android:shadowRadius="2"
+            android:textColor="@color/themes_white"
+            android:textSize="8sp"
+            tools:text="Apr 1" />
+
+        <TextView
+            android:id="@+id/tvLockTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:shadowColor="#66000000"
+            android:shadowRadius="2"
+            android:textColor="#E6FFFFFF"
+            android:textSize="34sp"
+            tools:text="9:41" />
+    </LinearLayout>
+</FrameLayout>

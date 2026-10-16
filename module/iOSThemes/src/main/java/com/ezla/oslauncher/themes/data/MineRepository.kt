@@ -3,7 +3,7 @@ package com.ezla.oslauncher.themes.data
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.IconPack
 
-// Dữ liệu màn Mine. "Owned" = đồ người dùng đã tải/lưu (chưa có nguồn nên rỗng);
+// Dữ liệu màn Mine. "Owned" = đồ device đã mở khoá (theme/nền lấy từ API);
 // theme mặc định do MineFragment tự thêm lên đầu qua DefaultThemeProvider.
 interface MineRepository {
     suspend fun getOwnedThemes(): List<PreviewCard>
@@ -17,5 +17,5 @@ interface MineRepository {
 }
 
 object MineRepositoryProvider {
-    val repository: MineRepository by lazy { SampleMineRepository() }
+    val repository: MineRepository by lazy { ApiMineRepository() }
 }

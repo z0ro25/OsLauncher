@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ tab Icons (Figma 136x116): khung 136x96 bo 12dp, nền = ảnh background của theme, lưới 3x2
+     icon 32dp (padding 12, khe 8) + tên theme 10sp căn giữa. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="136dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="12dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="136dp"
+        android:layout_height="96dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/themes_white"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ThemesRoundedImage12"
+            app:strokeColor="@color/themes_card_stroke"
+            app:strokeWidth="0.2dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIcons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:importantForAccessibility="noHideDescendants"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
+
+        <!-- Lớp phủ nhận click: lưới icon (RecyclerView) nuốt chạm nên click không tới thẻ. -->
+        <View
+            android:id="@+id/viewClick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/themes_quicksand_medium"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/themes_text_name"
+        android:textSize="10sp"
+        tools:text="Yellow Name" />
+</LinearLayout>

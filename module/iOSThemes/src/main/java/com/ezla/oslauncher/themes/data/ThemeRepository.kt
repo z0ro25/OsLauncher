@@ -1,5 +1,6 @@
 package com.ezla.oslauncher.themes.data
 
+import com.ezla.oslauncher.themes.Models.IconSection
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.ThemeCategory
 import com.ezla.oslauncher.themes.Models.ThemeDetail
@@ -16,6 +17,9 @@ interface ThemeRepository {
 
     // Danh sách wallpaper cho tab Wallpapers — lấy từ backgrounds của theme (mỗi theme 1 thẻ).
     suspend fun getWallpapers(tab: ThemeTab, categoryId: String): List<PreviewCard>
+
+    // Tab Icons: mỗi danh mục 1 section (bỏ danh mục rỗng), thứ tự giữ như [categories].
+    suspend fun getIconSections(categories: List<ThemeCategory>): List<IconSection>
 }
 
 object ThemeRepositoryProvider {

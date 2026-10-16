@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.R
@@ -36,12 +37,12 @@ class ChooseWhereToApplyDialog : BottomSheetDialogFragment() {
         binding.tvChooseTitle.setText(R.string.themes_choose_where)
         binding.tvLock.setText(R.string.themes_lock_screen)
         binding.tvHome.setText(R.string.themes_home_screen)
-        arguments?.getString(ARG_LOCK_PREVIEW)?.let {
-            Glide.with(binding.imgLock).load(it).into(binding.imgLock)
-        }
-        arguments?.getString(ARG_HOME_PREVIEW)?.let {
-            Glide.with(binding.imgHome).load(it).into(binding.imgHome)
-        }
+        // Preview là URL (theme API) hoặc drawable (nền mặc định của launcher).
+        val previewRes = arguments?.getInt(ARG_PREVIEW_RES) ?: 0
+        val lockImage: Any? = arguments?.getString(ARG_LOCK_PREVIEW) ?: previewRes.takeIf { it != 0 }
+        val homeImage: Any? = arguments?.getString(ARG_HOME_PREVIEW) ?: previewRes.takeIf { it != 0 }
+        lockImage?.let { Glide.with(binding.imgLock).load(it).into(binding.imgLock) }
+        homeImage?.let { Glide.with(binding.imgHome).load(it).into(binding.imgHome) }
         render()
 
         binding.layoutLock.setOnClickListener { lock = !lock; render() }
@@ -76,6 +77,7 @@ class ChooseWhereToApplyDialog : BottomSheetDialogFragment() {
 
         private const val ARG_LOCK_PREVIEW = "lock_preview"
         private const val ARG_HOME_PREVIEW = "home_preview"
+        private const val ARG_PREVIEW_RES = "preview_res"
 
         fun newInstance(lockPreview: String?, homePreview: String?): ChooseWhereToApplyDialog =
             ChooseWhereToApplyDialog().apply {
@@ -84,5 +86,9 @@ class ChooseWhereToApplyDialog : BottomSheetDialogFragment() {
                     ARG_HOME_PREVIEW to homePreview
                 )
             }
+
+        // Preview cả 2 ô bằng 1 ảnh drawable (vd nền mặc định của launcher).
+        fun newInstance(@DrawableRes previewRes: Int): ChooseWhereToApplyDialog =
+            ChooseWhereToApplyDialog().apply { arguments = bundleOf(ARG_PREVIEW_RES to previewRes) }
     }
 }

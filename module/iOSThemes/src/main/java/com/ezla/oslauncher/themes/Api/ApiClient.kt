@@ -46,9 +46,24 @@ object ApiClient {
 
         return Retrofit.Builder()
             .baseUrl(sag.baseUrl())
-            .client(sag.okHttpClient())
+            .client(withTokenLog(sag.okHttpClient()))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ThemesApi::class.java)
+    }
+
+    // CHỈ DEBUG: in Bearer token để test API khác (tag ThemesApi). Token chỉ có sau khi SAG ký
+    // nên phải đặt network interceptor ở client của SAG; release không gắn nên không lộ token.
+    private fun withTokenLog(client: OkHttpClient): OkHttpClient {
+        if (!ApiLog.enabled) return client
+        return client.newBuilder()
+            .addNetworkInterceptor { chain ->
+                val request = chain.request()
+                request.header("Authorization")?.let {
+                    ApiLog.d("access_token [${request.method} ${request.url.encodedPath}] $it")
+                }
+                chain.proceed(request)
+            }
+            .build()
     }
 }

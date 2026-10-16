@@ -146,6 +146,13 @@
       "enabled": true,
       "adUnitId": "ca-app-pub-3607148519095421/9728403477",
       "loadTimeoutMs": 15000
+    },
+    {
+      "key": "rewarded_coin",
+      "format": "rewarded",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3940256099942544/5224354917",
+      "loadTimeoutMs": 15000
     }
   ],
   "enabled": true,
