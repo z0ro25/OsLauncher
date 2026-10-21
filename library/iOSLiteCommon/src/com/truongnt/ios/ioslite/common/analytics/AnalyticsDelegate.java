@@ -14,6 +14,26 @@ public class AnalyticsDelegate {
     private AnalyticsDelegate() {
     }
 
+    // Cầu nối Firebase: library không phụ thuộc Firebase nên :app gắn hàm log ở Application.
+    // Chưa gắn (null) thì logClick() bỏ qua, không crash.
+    public interface EventLogger {
+        void log(String event);
+    }
+
+    private static volatile EventLogger sEventLogger;
+
+    public static void setEventLogger(EventLogger logger) {
+        sEventLogger = logger;
+    }
+
+    // Log 1 event click (tên theo quy tắc Firebase: chữ thường, số, '_').
+    public static void logClick(String event) {
+        EventLogger logger = sEventLogger;
+        if (logger != null) {
+            logger.log(event);
+        }
+    }
+
     public static void initalize(Application application) {
 //        sUmAnalytics = new UmAnalytics();
 //        sUmAnalytics.initalize(application);

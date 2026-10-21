@@ -17,13 +17,27 @@ android {
         applicationId "com.ezla.oslauncher.beautylauncher"
         minSdkVersion 26
         targetSdkVersion 36
-        versionCode 106
-        versionName "1.0.6"
+        versionCode 108
+        versionName "1.0.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         def formattedDate = new Date().format('MM.dd.yyyy')
         archivesBaseName = "MiOS_Launcher_26_v${versionName}_${formattedDate}"
+    }
+
+    // Ký release trên CI: keystore + mật khẩu đến từ env (GitHub Secrets), không nằm trong repo.
+    // Máy local không có env -> không gắn signingConfig, giữ cách ký tay qua Android Studio.
+    def ciKeystore = System.getenv("KEYSTORE_FILE")
+    signingConfigs {
+        if (ciKeystore) {
+            ciRelease {
+                storeFile file(ciKeystore)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
@@ -35,6 +49,9 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (ciKeystore) {
+                signingConfig signingConfigs.ciRelease
+            }
         }
     }
 

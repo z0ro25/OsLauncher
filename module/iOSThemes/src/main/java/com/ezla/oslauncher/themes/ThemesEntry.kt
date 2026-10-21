@@ -12,6 +12,21 @@ object ThemesEntry {
 
     private const val KEY_ONBOARDING_DONE = "themes_onboarding_done"
 
+    // Màn Subs nằm ở :app nên module không mở trực tiếp được; :app gắn hàm mở ở Application.
+    var premiumOpener: ((Activity) -> Unit)? = null
+
+    fun openPremium(activity: Activity) {
+        premiumOpener?.invoke(activity)
+    }
+
+    // Dialog Rate dùng chung của :app (RatingDialog + In-App Review); :app gắn ở Application.
+    // onRated chạy khi user đã rate xong (để ẩn dòng Rate).
+    var rateOpener: ((Activity, onRated: () -> Unit) -> Unit)? = null
+
+    fun openRate(activity: Activity, onRated: () -> Unit) {
+        rateOpener?.invoke(activity, onRated)
+    }
+
     fun open(activity: Activity) {
         val target = if (isOnboardingDone(activity)) ThemesActivity::class.java
         else ThemesOnboardingActivity::class.java

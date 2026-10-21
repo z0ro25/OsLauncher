@@ -14,13 +14,6 @@ buildscript {
             url 'https://maven.google.com/'
         }
 
-        maven {
-            url = uri("https://maven.pkg.github.com/z0ro25/FSD-ADS")
-            credentials {
-                username = providers.gradleProperty("GITHUB_USERNAME").orElse("").get()
-                password = providers.gradleProperty("GITHUB_TOKEN").orElse("").get()
-            }
-        }
 
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
@@ -60,13 +53,6 @@ allprojects {
             url 'https://maven.google.com'
         }
 
-        maven {
-            url = uri("https://maven.pkg.github.com/z0ro25/FSD-ADS")
-            credentials {
-                username = providers.gradleProperty("GITHUB_USERNAME").orElse("").get()
-                password = providers.gradleProperty("GITHUB_TOKEN").orElse("").get()
-            }
-        }
 
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
@@ -101,13 +87,6 @@ allprojects {
 
         maven { url = uri("$rootDir/libs/maven") }
 
-        maven {
-            url = uri("https://maven.pkg.github.com/z0ro25/FSD-ADS")
-            credentials {
-                username = providers.gradleProperty("GITHUB_USERNAME").orElse("").get()
-                password = providers.gradleProperty("GITHUB_TOKEN").orElse("").get()
-            }
-        }
 
         // SAG SDK (com.mct.libs:sag) — repo GitHub Packages private MCT-LIB/CommonLibrary.
         // Credential đọc từ gradle.properties global (gprUserMCT/gprKeyMCT), không commit token.
