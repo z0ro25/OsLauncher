@@ -2,6 +2,7 @@ package com.ezla.oslauncher.themes.Api
 
 import android.content.Context
 import com.ezla.oslauncher.themes.BuildConfig
+import com.ezla.oslauncher.themes.test.FileLogger
 import com.mct.sag.SagClient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +19,21 @@ object ApiClient {
     private var api: ThemesApi? = null
 
     fun api(context: Context): ThemesApi =
-        api ?: synchronized(this) { api ?: build(context.applicationContext).also { api = it } }
+        api ?: synchronized(this) { api ?: buildLogged(context.applicationContext).also { api = it } }
+
+    // Bọc build để FileLogger ghi được lỗi khởi tạo SagClient/Retrofit; vẫn ném lại nên hành vi không đổi.
+    private fun buildLogged(appContext: Context): ThemesApi {
+        FileLogger.init(appContext)
+        FileLogger.d(TAG, "build start: baseUrl=$BASE_URL secretLength=${BuildConfig.SAG_BOOTSTRAP_SECRET.length}")
+        return try {
+            build(appContext).also { FileLogger.d(TAG, "build ok") }
+        } catch (e: Throwable) {
+            FileLogger.e(TAG, "build ✘ ${e.message}", e)
+            throw e
+        }
+    }
+
+    private const val TAG = "ApiClient"
 
     private fun build(appContext: Context): ThemesApi {
         ApiLog.init(appContext)
