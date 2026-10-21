@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ô tròn đã chọn: gradient xanh-tím + dấu tích trắng (Figma Radio + Check). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+    <path android:pathData="M10,0A10,10 0,1 1,10 20A10,10 0,1 1,10 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endColor="#7C3AED"
+                android:endX="20"
+                android:endY="20"
+                android:startColor="#3B82F6"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear" />
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M5.5,10.2L8.6,13.2L14.5,7"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

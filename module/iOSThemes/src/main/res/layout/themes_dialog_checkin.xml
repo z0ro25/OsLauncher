@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dialog check-in hằng ngày: thẻ Daily Check-in y như màn Rewards + nút Claim reward. Chừa 40dp
+     phía trên cho rương tràn khỏi thẻ (bên phải); nút X nằm ở khoảng trống đó bên trái. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingHorizontal="@dimen/themes_screen_padding"
+    android:paddingTop="40dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/checkinCard"
+            layout="@layout/themes_view_checkin_card" />
+
+        <TextView
+            android:id="@+id/btnClaim"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/themes_bg_button_blue"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:gravity="center"
+            android:text="@string/themes_claim_reward"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgCheckinClose"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="start|top"
+        android:layout_marginTop="-36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/themes_cd_close"
+        android:padding="4dp"
+        android:src="@drawable/themes_ic_close_circle" />
+</FrameLayout>

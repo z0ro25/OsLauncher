@@ -23,8 +23,6 @@ class App : BaseLauncherApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        TestApi.test(this);
-
         Utilities.setScreenWidth(this)
 
         // Áp Dark/Light đã lưu cho toàn bộ màn app (chỉ module app).

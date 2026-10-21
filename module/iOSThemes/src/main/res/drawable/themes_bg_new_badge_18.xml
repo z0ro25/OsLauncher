@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền nhãn New: bo góc trên-trái (khớp góc thẻ 18dp) + dưới-phải, màu hồng chủ đề Themes. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/themes_pink" />
+    <corners
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="18dp"
+        android:topLeftRadius="18dp"
+        android:topRightRadius="0dp" />
+</shape>

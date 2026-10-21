@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ gói đang chọn (Figma IAP/theme): viền gradient xanh-tím 2.5dp, nền xanh nhạt, bo 20. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="0"
+                android:centerColor="#7C3AED"
+                android:endColor="#3B82F6"
+                android:startColor="#3B82F6" />
+        </shape>
+    </item>
+    <item
+        android:bottom="2.5dp"
+        android:left="2.5dp"
+        android:right="2.5dp"
+        android:top="2.5dp">
+        <shape>
+            <corners android:radius="17.5dp" />
+            <gradient
+                android:angle="270"
+                android:endColor="#E7EEFF"
+                android:startColor="#F3F7FF" />
+        </shape>
+    </item>
+</layer-list>
