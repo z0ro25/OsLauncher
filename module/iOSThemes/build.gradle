@@ -15,6 +15,9 @@ android {
         // deviceBootstrapSecret của SAG (32 byte, md §3). Đọc từ gradle.properties global -> KHÔNG commit.
         buildConfigField "String", "SAG_BOOTSTRAP_SECRET",
                 "\"${providers.gradleProperty('SAG_BOOTSTRAP_SECRET').orElse('').get()}\""
+
+        // Rule R8 phải đi qua consumerProguardFiles mới tới được :app (giống iOSLauncher).
+        consumerProguardFiles 'consumer-rules.pro'
     }
     resourcePrefix 'themes'
 
