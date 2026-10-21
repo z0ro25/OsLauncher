@@ -236,4 +236,14 @@
             android:importantForAccessibility="no"
             android:src="@drawable/themes_ic_coin" />
     </LinearLayout>
+
+    <!-- Banner "bannerinapp" sát đáy (ẩn khi subs). Nội dung phía trên co lại, không bị che. -->
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+
 </LinearLayout>

@@ -3,17 +3,25 @@ package com.ezla.oslauncher.themes.features.detail
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.R
+import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezla.oslauncher.themes.apply.ThemeApplyEngine
 import com.ezla.oslauncher.themes.base.BaseActivity
+import com.ezla.oslauncher.themes.base.ApplyTask
+import com.ezla.oslauncher.themes.base.LoadingOverlay
 import com.ezla.oslauncher.themes.data.CreditRejectedException
 import com.ezla.oslauncher.themes.data.CreditRepository
 import com.ezla.oslauncher.themes.data.DefaultThemeProvider
+import com.ezla.oslauncher.themes.data.SubsRepository
+import com.ezla.oslauncher.themes.data.favorite.FavoriteRepository
+import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.loadCreditInto
+import com.ezla.oslauncher.themes.features.shareAppOnStore
 import com.ezla.oslauncher.themes.databinding.ThemesActivityWallpaperDetailBinding
 import com.ezla.oslauncher.themes.features.rewards.RewardsActivity
 import kotlinx.coroutines.launch
@@ -36,31 +44,51 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
     // Khởi tạo từ is_unlocked server trả; mở khoá thành công thì bật lên (không cần mở lại).
     private var unlocked = false
     private var unlocking = false
+    private val loading by lazy { LoadingOverlay(this) }
+    private var favorite = false
+    private val favoriteKey get() = FavoriteRepository.wallpaperKey(isDefault, backgroundId, imageUrl)
 
     var onPremiumClick: ((String) -> Unit)? = null
 
     override fun initView() {
+        showBannerIfEnabled(binding.frBanner, false)
+        // Đổi nền -> màn bị tạo lại giữa lúc áp: nhận kết quả + hiện lại loading.
+        applyTask.attach(this)
+        if (applyTask.running) loading.show()
         unlocked = intent.getBooleanExtra(EXTRA_UNLOCKED, false)
         binding.tvTitle.setText(R.string.themes_install_title)
         Glide.with(this).load(imageUrl).into(binding.imgWallpaper)
-        refreshCoin()
         listenLocked()
         listenChooseWhere()
         listenNotEnough()
+        loadFavorite()
     }
 
     override fun viewListener() {
         binding.imgBack.setOnClickListener { finish() }
         binding.layoutCoin.setOnClickListener { onPremiumClick?.invoke(imageUrl) }
-        binding.btnFavorite.setOnClickListener { /* Yêu thích: bổ sung sau. */ }
-        binding.btnShare.setOnClickListener { shareWallpaper() }
+        binding.btnFavorite.setOnClickListener { toggleFavorite() }
+        binding.btnShare.setOnClickListener { shareAppOnStore() }
         binding.btnApply.setOnClickListener {
-            if (unlocked) showChooseWhere()
-            else WallpaperLockedDialog.newInstance(price).show(supportFragmentManager, TAG_LOCKED)
+            when {
+                // Đi tới bước áp -> inter (nếu có) trước; mở sheet khoá (dùng xu) thì không inter.
+                unlocked -> ThemesInter.run(this) { if (!isFinishing) showChooseWhere() }
+                // Subs: bỏ sheet "Wallpaper locked", /unlocks (server miễn xu) rồi sang chọn nơi áp.
+                SubsRepository.isSubscribed(this) -> ThemesInter.run(this) { if (!isFinishing) useCoins() }
+                else -> WallpaperLockedDialog.newInstance(price).show(supportFragmentManager, TAG_LOCKED)
+            }
         }
     }
 
     override fun dataObservable() {}
+
+    // Có thể vừa mua subs ở màn Subs rồi quay lại -> ẩn/hiện badge xu theo trạng thái mới.
+    override fun onResume() {
+        super.onResume()
+        val subscribed = SubsRepository.isSubscribed(this)
+        binding.layoutCoin.visibility = if (subscribed) View.GONE else View.VISIBLE
+        if (!subscribed) refreshCoin()
+    }
 
     // bg8 -> Use coins: mở khoá qua /unlocks rồi sang chọn nơi áp; Go Premium: callback IAP.
     private fun listenLocked() {
@@ -69,7 +97,7 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
         ) { _, bundle ->
             when (bundle.getString(WallpaperLockedDialog.KEY_ACTION)) {
                 WallpaperLockedDialog.ACTION_USE_COINS -> useCoins()
-                WallpaperLockedDialog.ACTION_PREMIUM -> onPremiumClick?.invoke(imageUrl)
+                WallpaperLockedDialog.ACTION_PREMIUM -> openPremium()
             }
         }
     }
@@ -101,13 +129,19 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
         }
     }
 
+    // Go Premium / Unlock All -> màn Subs (IAP) của :app qua ThemesEntry; callback cũ vẫn được báo.
+    private fun openPremium() {
+        onPremiumClick?.invoke(imageUrl)
+        ThemesEntry.openPremium(this)
+    }
+
     private fun listenNotEnough() {
         supportFragmentManager.setFragmentResultListener(
             NotEnoughCoinsDialog.REQUEST_KEY, this
         ) { _, bundle ->
             when (bundle.getString(NotEnoughCoinsDialog.KEY_ACTION)) {
                 NotEnoughCoinsDialog.ACTION_GET_COIN -> showActivity(RewardsActivity::class.java, null)
-                NotEnoughCoinsDialog.ACTION_UNLOCK_ALL -> onPremiumClick?.invoke(imageUrl)
+                NotEnoughCoinsDialog.ACTION_UNLOCK_ALL -> openPremium()
             }
         }
     }
@@ -123,18 +157,29 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
         ) { _, bundle ->
             val lock = bundle.getBoolean(ChooseWhereToApplyDialog.KEY_LOCK)
             val home = bundle.getBoolean(ChooseWhereToApplyDialog.KEY_HOME)
-            lifecycleScope.launch {
-                val ok = if (isDefault) {
-                    ThemeApplyEngine.restoreDefaultWallpaper(
-                        this@WallpaperDetailActivity, DefaultThemeProvider.WALLPAPER_RES, home, lock
-                    )
+            if (applyTask.running) return@setFragmentResultListener
+            loading.show()
+            val appCtx = applicationContext
+            val default = isDefault
+            val url = imageUrl
+            applyTask.run({
+                if (default) {
+                    ThemeApplyEngine.restoreDefaultWallpaper(appCtx, DefaultThemeProvider.WALLPAPER_RES, home, lock)
                 } else {
-                    ThemeApplyEngine.applyWallpaper(this@WallpaperDetailActivity, imageUrl, home, lock)
+                    ThemeApplyEngine.applyWallpaper(appCtx, url, home, lock)
                 }
-                if (ok) SuccessfullySetDialog.newInstance(imageUrl)
-                    .show(supportFragmentManager, TAG_SUCCESS)
+            }) { live, ok ->
+                live?.loading?.hide()
+                if (ok) live?.let {
+                    SuccessfullySetDialog.newInstance(url).show(it.supportFragmentManager, TAG_SUCCESS)
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        applyTask.detach(this)
+        super.onDestroy()
     }
 
     private fun showChooseWhere() {
@@ -142,15 +187,33 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
             .show(supportFragmentManager, TAG_CHOOSE)
     }
 
-    private fun shareWallpaper() {
-        val send = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, wallpaperName)
+    private fun loadFavorite() {
+        lifecycleScope.launch {
+            favorite = FavoriteRepository.isWallpaperFavorite(this@WallpaperDetailActivity, favoriteKey)
+            renderFavorite()
         }
-        runCatching { startActivity(Intent.createChooser(send, getString(R.string.themes_cd_share))) }
+    }
+
+    // Thả tim / bỏ tim (local); lưu kèm id + giá để mở lại từ Mine > Favorites.
+    private fun toggleFavorite() {
+        lifecycleScope.launch {
+            favorite = FavoriteRepository.toggleWallpaper(
+                this@WallpaperDetailActivity, favoriteKey, wallpaperName, imageUrl, backgroundId, price
+            )
+            renderFavorite()
+        }
+    }
+
+    private fun renderFavorite() {
+        binding.imgFavorite.setImageResource(
+            if (favorite) R.drawable.themes_ic_heart_filled else R.drawable.themes_ic_heart
+        )
     }
 
     companion object {
+        // Sống ngoài instance: lượt áp phải vượt qua recreate của màn (xem ApplyTask).
+        private val applyTask = ApplyTask<WallpaperDetailActivity>()
+
         private const val EXTRA_URL = "extra_url"
         private const val EXTRA_NAME = "extra_name"
         private const val EXTRA_BACKGROUND_ID = "extra_background_id"

@@ -20,6 +20,7 @@
     <string name="themes_category_neon">Luzes neon</string>
     <string name="themes_category_cute">Fofo</string>
     <string name="themes_category_sport">Esporte</string>
+    <string name="themes_category_all">Todos</string>
     <string name="themes_mine_tab_theme">Tema</string>
     <string name="themes_mine_tab_wallpapers">Papéis de parede</string>
     <string name="themes_mine_tab_icon">Ícone</string>
@@ -27,6 +28,7 @@
     <string name="themes_mine_my_library">Minha biblioteca</string>
     <string name="themes_mine_suggest">Sugestões</string>
     <string name="themes_mine_more">mais</string>
+    <string name="themes_favorite_empty">Ainda não há favoritos</string>
     <string name="themes_default_name">Padrão</string>
     <string name="themes_settings_title">Configurações</string>
     <string name="themes_premium_get">Obtenha</string>
@@ -38,10 +40,6 @@
     <string name="themes_setting_share">Compartilhar o app</string>
     <string name="themes_setting_privacy">Política de privacidade</string>
     <string name="themes_setting_subscription">Gerenciar assinaturas</string>
-    <string name="themes_rate_title">Você gosta do Themepack?</string>
-    <string name="themes_rate_subtitle">Avalie sua experiência</string>
-    <string name="themes_rate_hint">O melhor que podemos ter</string>
-    <string name="themes_rate_now">Avaliar agora</string>
     <string name="themes_cd_close">Fechar</string>
     <string name="themes_cd_back">Voltar</string>
     <string name="themes_rewards_title">Recompensas</string>
@@ -111,4 +109,13 @@
     <string name="themes_reward_progress">Hoje %1$d/%2$d</string>
     <string name="themes_reward_done_today">Você já usou todas as recompensas de hoje</string>
     <string name="themes_reward_no_ad">Nenhum vídeo disponível, tente novamente mais tarde</string>
+    <string name="themes_claim_reward">Resgatar recompensa</string>
+    <string name="themes_test_clear_coin">[TEST] Remover todas as moedas</string>
+    <string name="themes_test_clear_coin_done">Moedas removidas, saldo: %1$d</string>
+    <string name="themes_no_app_to_open">Nenhum app encontrado para abrir</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">Novo</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">Próximo vídeo em %1$s</string>
+    <string name="themes_reward_wait_toast">Aguarde %1$s para ver o próximo vídeo</string>
 </resources>

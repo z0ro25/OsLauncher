@@ -24,4 +24,9 @@
     <color name="onb_arrow">#8E8E93</color>
     <!-- Track switch khi TẮT (màn Appearance) — xám iOS light -->
     <color name="onb_switch_track_off">#E9E9EA</color>
+    <!-- Màn Intro (Figma onb 1.1/2.1/3): nền màn, thẻ chữ đáy, chữ tiêu đề, chấm chưa chọn (#191919 20%) -->
+    <color name="onb_intro_bg">#FFFFFF</color>
+    <color name="onb_intro_card">#FFFFFF</color>
+    <color name="onb_intro_title">#191919</color>
+    <color name="onb_intro_dot">#33191919</color>
 </resources>

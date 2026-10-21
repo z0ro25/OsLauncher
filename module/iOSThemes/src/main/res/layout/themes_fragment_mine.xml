@@ -22,6 +22,17 @@
             android:overScrollMode="never"
             android:paddingHorizontal="@dimen/themes_screen_padding" />
 
+        <!-- Chip con của tab Favorites (Wallpapers / Icon), thay chỗ tiêu đề My Library. -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFavoriteTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/themes_screen_padding"
+            android:visibility="gone" />
+
         <include
             android:id="@+id/headerLibrary"
             layout="@layout/themes_item_section_header"
@@ -38,6 +49,18 @@
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
             android:paddingHorizontal="@dimen/themes_screen_padding" />
+
+        <TextView
+            android:id="@+id/tvFavoriteEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/themes_screen_padding"
+            android:text="@string/themes_favorite_empty"
+            android:textColor="@color/themes_text_hint"
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <include
             android:id="@+id/headerSuggest"

@@ -1,5 +1,7 @@
 package com.ezla.oslauncher.themes.features.rewards
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -10,14 +12,17 @@ import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.data.CoinPacks
 import com.ezla.oslauncher.themes.base.BaseActivity
 import com.ezla.oslauncher.themes.data.CreditRepository
+import com.ezla.oslauncher.themes.data.DailyCheckinStore
 import com.ezla.oslauncher.themes.data.DailyRewardStore
 import com.truongnt.ios.ioslite.common.config.AppAds
 import com.ezla.oslauncher.themes.databinding.ThemesActivityRewardsBinding
 import com.ezla.oslauncher.themes.features.home.GridSpacingDecoration
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 // Màn Rewards / My Coin (Figma "Rewards"). Gói xu = IAP thật (CoinPacks, billing ở :app), mua xong
-// toast "+N Coins". Xem video: rewarded ad, đủ 3 lượt/ngày +5 xu (DailyRewardStore). Check-in chưa nối.
+// toast "+N Coins". Xem video: rewarded ad, mỗi lượt +1 xu, 5 lượt/ngày, cách nhau 5 phút (DailyRewardStore).
+// Check-in: bấm ô hôm nay để nhận (DailyCheckinStore, dùng chung CheckinDialog).
 class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
     override val setViewBinding: ThemesActivityRewardsBinding
         get() = ThemesActivityRewardsBinding.inflate(LayoutInflater.from(this))
@@ -26,8 +31,10 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
 
     // Đang xem ad / đang cộng xu: chặn bấm lặp.
     private var watching = false
+    private var claimingCheckin = false
+    private var checkinAdapter: CheckinAdapter? = null
 
-    private val packAdapter =CoinPackAdapter(CoinPacks.packs()) { buyPack(it) }
+    private val packAdapter = CoinPackAdapter(CoinPacks.packs()) { buyPack(it) }
     private val pricesListener: () -> Unit = { packAdapter.submit(CoinPacks.packs()) }
     private val coinsListener: (Int, Int) -> Unit = { coins, _ ->
         if (!isFinishing && !isDestroyed) CoinToastDialog(this, coins).show()
@@ -40,18 +47,14 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
             contentDescription = getString(R.string.themes_cd_help)
             visibility = View.VISIBLE
         }
-        binding.tvVideoCoin.text = getString(R.string.themes_coin_plus, DailyRewardStore.COINS)
+        binding.tvVideoCoin.text = getString(R.string.themes_coin_plus, DailyRewardStore.COINS_PER_VIEW)
         renderVideoProgress()
         AppAds.preloadRewarded(REWARDED_KEY)
 
-        val days = RewardsSample.days()
-        binding.rvCheckin.layoutManager = noScrollGrid(CHECKIN_SPAN).apply {
-            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int) = if (position == days.lastIndex) 2 else 1
-            }
+        checkinAdapter = CheckinBinder.bindGrid(binding.checkinCard.rvCheckin) { day ->
+            callback.onCheckinDayClick(this, day)
+            if (day.isToday && !day.claimed) claimCheckin()
         }
-        binding.rvCheckin.addItemDecoration(SpanAwareSpacingDecoration(dp(8)))
-        binding.rvCheckin.adapter = CheckinAdapter(days) { callback.onCheckinDayClick(this, it) }
 
         binding.rvPacks.layoutManager = noScrollGrid(PACK_SPAN)
         binding.rvPacks.addItemDecoration(GridSpacingDecoration(PACK_SPAN, dp(15)))
@@ -84,6 +87,26 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
             watchVideo()
         }
         binding.btnTestAddCoin.setOnClickListener { testAddCoin() }
+        binding.btnTestClearCoin.setOnClickListener { testClearCoin() }
+    }
+
+    // CHỈ ĐỂ TEST POST /credits/consume: lấy số dư rồi trừ đúng số đó (về 0). Gỡ cùng btnTestClearCoin.
+    private fun testClearCoin() {
+        binding.btnTestClearCoin.isEnabled = false
+        lifecycleScope.launch {
+            val result = CreditRepository.getCredit().mapCatching { balance ->
+                if (balance <= 0) balance
+                else CreditRepository.consumeCredit(balance, TEST_TYPE).getOrThrow()
+            }
+            result
+                .onSuccess {
+                    Toast.makeText(this@RewardsActivity, getString(R.string.themes_test_clear_coin_done, it), Toast.LENGTH_SHORT).show()
+                }
+                .onFailure {
+                    Toast.makeText(this@RewardsActivity, R.string.themes_network_error, Toast.LENGTH_SHORT).show()
+                }
+            binding.btnTestClearCoin.isEnabled = true
+        }
     }
 
     // CHỈ ĐỂ TEST POST /credits: mỗi lần bấm cộng TEST_COINS; khoá nút tới khi có kết quả
@@ -104,15 +127,44 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
 
     override fun dataObservable() {}
 
-    // Xem video hằng ngày: mỗi lượt xem đủ ghi 1 lần; đủ VIEWS_PER_DAY thì cộng COINS xu (1 lần/ngày).
+    // Bấm ô hôm nay: nhận xu check-in (cùng luồng nút Claim ở dialog), xong làm mờ ô.
+    private fun claimCheckin() {
+        if (claimingCheckin) return
+        claimingCheckin = true
+        lifecycleScope.launch {
+            val result = CheckinBinder.claimToday(this@RewardsActivity)
+            claimingCheckin = false
+            if (result == null || isFinishing || isDestroyed) return@launch
+            checkinAdapter?.submit(DailyCheckinStore.days(this@RewardsActivity))
+            RewardDialog(this@RewardsActivity, RewardDialog.Type.CHECKIN, result.first).show()
+        }
+    }
+
+    // Mở lại màn sau khi đã nhận ở dialog / sang ngày mới -> làm mới trạng thái 7 ô.
+    // Kèm xử lý giao dịch xu bị kẹt trước khi user bấm mua (kẹt thì Play chặn mua lại).
+    override fun onResume() {
+        super.onResume()
+        screenResumed = true
+        renderVideoProgress()
+        checkinAdapter?.submit(DailyCheckinStore.days(this))
+        CoinPacks.syncPending()
+    }
+
+    // Xem video: mỗi lượt được thưởng +COINS_PER_VIEW xu ngay, tối đa VIEWS_PER_DAY lượt/ngày,
+    // 2 lượt cách nhau COOLDOWN_MS. Còn nợ thưởng (lỗi mạng) thì bấm là cộng bù, không xem lại.
     private fun watchVideo() {
         if (watching) return
         if (DailyRewardStore.isRewardPending(this)) {
-            claimDailyReward()
+            claimPendingReward()
             return
         }
-        if (!DailyRewardStore.canWatch(this)) {
+        if (DailyRewardStore.views(this) >= DailyRewardStore.VIEWS_PER_DAY) {
             Toast.makeText(this, R.string.themes_reward_done_today, Toast.LENGTH_SHORT).show()
+            return
+        }
+        val left = DailyRewardStore.cooldownLeftMs(this)
+        if (left > 0L) {
+            Toast.makeText(this, getString(R.string.themes_reward_wait_toast, formatMmSs(left)), Toast.LENGTH_SHORT).show()
             return
         }
         watching = true
@@ -125,18 +177,22 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
             }
             DailyRewardStore.addView(this)
             renderVideoProgress()
-            if (DailyRewardStore.isRewardPending(this)) claimDailyReward() else AppAds.preloadRewarded(REWARDED_KEY)
+            claimPendingReward()
+            AppAds.preloadRewarded(REWARDED_KEY)
         }
     }
 
-    // Cộng xu lên server; chỉ đánh dấu đã nhận khi OK, lỗi thì bấm lại để cộng (không phải xem lại).
-    private fun claimDailyReward() {
+    // Cộng toàn bộ lượt còn nợ trong 1 lần gọi; chỉ trừ nợ khi server OK, lỗi thì lần bấm sau cộng lại.
+    private fun claimPendingReward() {
+        val count = DailyRewardStore.pending(this)
+        if (count <= 0) return
+        val coins = count * DailyRewardStore.COINS_PER_VIEW
         watching = true
         lifecycleScope.launch {
-            CreditRepository.addCredit(DailyRewardStore.COINS, DailyRewardStore.CREDIT_TYPE)
+            CreditRepository.addCredit(coins, DailyRewardStore.CREDIT_TYPE)
                 .onSuccess {
-                    DailyRewardStore.markClaimed(this@RewardsActivity)
-                    CoinToastDialog(this@RewardsActivity, DailyRewardStore.COINS).show()
+                    DailyRewardStore.markClaimed(this@RewardsActivity, count)
+                    if (!isFinishing && !isDestroyed) CoinToastDialog(this@RewardsActivity, coins).show()
                 }
                 .onFailure {
                     Toast.makeText(this@RewardsActivity, R.string.themes_network_error, Toast.LENGTH_SHORT).show()
@@ -146,13 +202,40 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
         }
     }
 
-    // "Hôm nay x/3"; đã nhận thưởng hôm nay thì làm mờ hàng (sang ngày mới tự mở lại).
+    // Dòng phụ: đang chờ -> "Next video in mm:ss" (đếm từng giây), không thì "Today x/5".
+    // Hết lượt hôm nay (và không nợ thưởng) thì làm mờ hàng; sang ngày mới tự mở lại.
     private fun renderVideoProgress() {
-        binding.tvVideoProgress.text = getString(
-            R.string.themes_reward_progress, DailyRewardStore.views(this), DailyRewardStore.VIEWS_PER_DAY
-        )
-        binding.layoutWatchVideo.alpha = if (DailyRewardStore.isClaimed(this)) DONE_ALPHA else 1f
+        cooldownHandler.removeCallbacks(cooldownTick)
+        val views = DailyRewardStore.views(this)
+        val left = DailyRewardStore.cooldownLeftMs(this)
+        val waiting = left > 0L && views < DailyRewardStore.VIEWS_PER_DAY && !DailyRewardStore.isRewardPending(this)
+        binding.tvVideoProgress.text = if (waiting) {
+            getString(R.string.themes_reward_cooldown, formatMmSs(left))
+        } else {
+            getString(R.string.themes_reward_progress, views, DailyRewardStore.VIEWS_PER_DAY)
+        }
+        binding.layoutWatchVideo.alpha =
+            if (waiting || DailyRewardStore.isDoneToday(this)) DONE_ALPHA else 1f
+        // Chỉ chạy đồng hồ khi màn đang hiện (dừng ở onPause), tránh tick nền vô ích.
+        if (waiting && screenResumed) cooldownHandler.postDelayed(cooldownTick, TICK_MS)
     }
+
+    private val cooldownHandler = Handler(Looper.getMainLooper())
+    private val cooldownTick = Runnable { renderVideoProgress() }
+    private var screenResumed = false
+
+    override fun onPause() {
+        screenResumed = false
+        cooldownHandler.removeCallbacks(cooldownTick)
+        super.onPause()
+    }
+
+    // Làm tròn lên giây để không hiện 00:00 khi vẫn còn chờ vài trăm ms.
+    private fun formatMmSs(ms: Long): String {
+        val total = (ms + 999) / 1000
+        return String.format(Locale.US, "%02d:%02d", total / 60, total % 60)
+    }
+
 
     private fun toggleTooltip() {
         binding.layoutTooltip.visibility =
@@ -166,12 +249,12 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
 
     companion object {
-        private const val CHECKIN_SPAN = 4
         private const val PACK_SPAN = 3
         private const val TEST_COINS = 50
         private const val TEST_TYPE = "view_ads"
         // Placement rewarded trong app/assets/ads/*placements.json.
         private const val REWARDED_KEY = "rewarded_coin"
         private const val DONE_ALPHA = 0.5f
+        private const val TICK_MS = 1000L
     }
 }

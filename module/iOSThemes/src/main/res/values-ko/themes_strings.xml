@@ -20,6 +20,7 @@
     <string name="themes_category_neon">네온</string>
     <string name="themes_category_cute">귀여움</string>
     <string name="themes_category_sport">스포츠</string>
+    <string name="themes_category_all">전체</string>
     <string name="themes_mine_tab_theme">테마</string>
     <string name="themes_mine_tab_wallpapers">배경화면</string>
     <string name="themes_mine_tab_icon">아이콘</string>
@@ -27,6 +28,7 @@
     <string name="themes_mine_my_library">내 라이브러리</string>
     <string name="themes_mine_suggest">추천</string>
     <string name="themes_mine_more">더보기</string>
+    <string name="themes_favorite_empty">아직 즐겨찾기가 없습니다</string>
     <string name="themes_default_name">기본</string>
     <string name="themes_settings_title">설정</string>
     <string name="themes_premium_get">받기</string>
@@ -38,10 +40,6 @@
     <string name="themes_setting_share">앱 공유</string>
     <string name="themes_setting_privacy">개인정보처리방침</string>
     <string name="themes_setting_subscription">구독 관리</string>
-    <string name="themes_rate_title">Themepack이 마음에 드시나요?</string>
-    <string name="themes_rate_subtitle">경험을 평가해 주세요</string>
-    <string name="themes_rate_hint">최고의 평가</string>
-    <string name="themes_rate_now">지금 평가</string>
     <string name="themes_cd_close">닫기</string>
     <string name="themes_cd_back">뒤로</string>
     <string name="themes_rewards_title">리워드</string>
@@ -73,7 +71,7 @@
     <string name="themes_cd_share">공유</string>
     <string name="themes_wallpaper_locked">배경화면 잠김</string>
     <string name="themes_price_unlock">이 배경화면 잠금 해제 가격:</string>
-    <string name="themes_use_n_coins">%1$d코인 사용</string>
+    <string name="themes_use_n_coins">%1$d 코인 사용</string>
     <string name="themes_go_premium">모두 잠금 해제하려면 프리미엄 가입</string>
     <string name="themes_success_set">설정 완료!</string>
     <string name="themes_wallpaper_ready">새 배경화면이 준비되었습니다! 홈 화면으로 돌아가 확인하세요</string>
@@ -111,4 +109,13 @@
     <string name="themes_reward_progress">오늘 %1$d/%2$d</string>
     <string name="themes_reward_done_today">오늘의 보상을 모두 사용했습니다</string>
     <string name="themes_reward_no_ad">시청 가능한 동영상이 없습니다. 나중에 다시 시도해 주세요</string>
+    <string name="themes_claim_reward">보상 받기</string>
+    <string name="themes_test_clear_coin">[TEST] 코인 모두 제거</string>
+    <string name="themes_test_clear_coin_done">코인 제거됨, 잔액: %1$d</string>
+    <string name="themes_no_app_to_open">열 수 있는 앱이 없습니다</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">신규</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">다음 영상까지 %1$s</string>
+    <string name="themes_reward_wait_toast">다음 영상을 보려면 %1$s 기다려 주세요</string>
 </resources>

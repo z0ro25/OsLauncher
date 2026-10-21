@@ -89,7 +89,6 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
         if (!AdsSdk.isAdFree) {
             AppAds.kit.preloadNativeInline( "native_onb1")
             AppAds.kit.preloadNativeInline("native_onb2")
-            AppAds.kit.preloadNativeInline("native_onb3")
             AppAds.kit.preloadNativeInline("native_onb_full")
 
         }

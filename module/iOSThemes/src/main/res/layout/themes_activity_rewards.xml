@@ -30,53 +30,9 @@
                 android:paddingBottom="16dp">
 
                 <!-- Daily Check-in: rương vàng tràn lên trên thẻ như Figma. -->
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipChildren="false">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/themes_bg_checkin_card"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="@font/themes_quicksand_bold"
-                            android:text="@string/themes_checkin_title"
-                            android:textColor="@color/themes_text_dark"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:fontFamily="@font/themes_quicksand_medium"
-                            android:text="@string/themes_checkin_desc"
-                            android:textColor="#7F7B87"
-                            android:textSize="12sp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvCheckin"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:nestedScrollingEnabled="false"
-                            android:overScrollMode="never" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="173dp"
-                        android:layout_height="124dp"
-                        android:layout_gravity="end|top"
-                        android:layout_marginTop="-37dp"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/themes_img_chest" />
-                </FrameLayout>
+                <include
+                    android:id="@+id/checkinCard"
+                    layout="@layout/themes_view_checkin_card" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -176,8 +132,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     android:text="@string/themes_test_add_coin" />
+
+                <!-- CHỈ ĐỂ TEST API trừ xu (POST /credits/consume): trừ hết số dư. Gỡ cùng nút trên. -->
+                <Button
+                    android:id="@+id/btnTestClearCoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/themes_test_clear_coin" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

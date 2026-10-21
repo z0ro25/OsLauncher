@@ -38,6 +38,7 @@ class ThemeViewActivity : BaseActivity<ThemesActivityThemeViewBinding>() {
     private val categoryId get() = intent.getStringExtra(EXTRA_CATEGORY_ID)
 
     override fun initView() {
+        showBannerIfEnabled(binding.frBanner, false)
         binding.pagerPreview.adapter = pagerAdapter
         // Giữ sẵn cả 3 trang + tắt overscroll/hoạt ảnh item để vuốt không giật khi Glide nạp ảnh.
         binding.pagerPreview.offscreenPageLimit = 2
@@ -67,6 +68,7 @@ class ThemeViewActivity : BaseActivity<ThemesActivityThemeViewBinding>() {
     override fun dataObservable() {
         lifecycleScope.launch {
             val detail = DefaultThemeProvider.loadDetail(this@ThemeViewActivity, repository, themeId)
+            binding.tvThemeName.text = detail?.name.orEmpty()
             pagerAdapter.submit(
                 background = detail?.wallpapers?.firstOrNull() ?: detail?.previewUrl,
                 thumbnail = detail?.previewUrl

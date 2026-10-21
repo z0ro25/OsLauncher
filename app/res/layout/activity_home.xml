@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="35dp"
     android:background="@color/onb_bg"
     android:fitsSystemWindows="true">
 
@@ -250,13 +251,31 @@
                     android:src="@drawable/img_card_select_launcher" />
             </LinearLayout>
 
-            <!-- ===================== Card chính (12 mục) ===================== -->
+            <!-- ===================== Card chính (13 mục) ===================== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_lang_card"
                 android:orientation="vertical">
 
+
+                <!-- Themes: icon = icon mặc định của Themes trên desktop (lite_rom_themes của iOSLauncher). -->
+                <LinearLayout
+                    android:id="@+id/ll_themes"
+                    style="@style/HomeSettingRow">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/lite_rom_themes" />
+
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/home_themes" />
+
+                    <ImageView style="@style/HomeSettingArrow" />
+                </LinearLayout>
+
+                <View style="@style/HomeSettingDivider" />
 
                 <!-- General -->
                 <LinearLayout

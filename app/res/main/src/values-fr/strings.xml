@@ -84,6 +84,7 @@
     <string name="next">Suivant</string>
     <string name="language">Langue</string>
     <string name="general">Général</string>
+    <string name="home_themes">Thèmes</string>
 
     <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
     <string name="app_function_settings">Paramètres des fonctions de l\'application</string>
@@ -149,7 +150,7 @@
     <string name="there_is_no_internet_connection">Pas de connexion internet ! Veuillez vérifier votre connexion internet !</string>
     <string name="title1">Vivez IOS 26 avec un look futuriste</string>
     <string name="title2">Thème clair et sombre pris en charge</string>
-    <string name="title3">Toutes vos applications bien organisées dans la Bibliothèque d\'applications</string>
+    <string name="title3">Liberté de choisir des thèmes beaux et uniques</string>
     <string name="try_again">Réessayer</string>
 
     <!-- Nhãn thể loại cố định App Library (hiển thị) -->
@@ -197,4 +198,16 @@
     <string name="subs_offer_no_charge_today">Annulez à tout moment. Aucun frais aujourd\'hui.</string>
     <string name="subs_offer_subscribe">S\'ABONNER</string>
     <string name="subs_offer_close">Fermer</string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_start_premium">Passez au premium !</string>
+    <string name="subs_feature_themes">Plus de 1000 thèmes premium</string>
+    <string name="subs_feature_wallpapers">Plus de 1000 fonds d\'écran</string>
+    <string name="subs_feature_icons">Débloquez tous les packs d\'icônes</string>
+    <string name="subs_feature_ad_free">Sans publicité</string>
+    <string name="subs_best_value">MEILLEURE OFFRE</string>
+    <string name="subs_billed_monthly">Facturé chaque mois</string>
+    <string name="subs_per_month_approx">≈ %1$s / mois</string>
+    <string name="subs_free_trial_days">Essai gratuit de %1$d jours</string>
+    <string name="subs_then_per_year">Puis %1$s/an • Résiliable à tout moment</string>
+    <string name="subs_then_per_month">Puis %1$s/mois • Résiliable à tout moment</string>
 </resources>

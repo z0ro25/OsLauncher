@@ -1,7 +1,9 @@
 package com.ezla.oslauncher.beautylauncher.Features.intro
 
+import android.graphics.Matrix
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -20,7 +22,12 @@ class IntroAdapter(val context: AppCompatActivity, val introItems: List<IntroMod
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ).also { b ->
+                // Gắn 1 lần lúc tạo holder (không ở onBind) để listener không chồng lên khi tái sử dụng.
+                b.imLogoSlide.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
+                    fitWidthBottom(v as ImageView)
+                }
+            }
         ) else NativeFullOnbViewHolder(
             ViewholderNativeFullOnbBinding.inflate(context.layoutInflater, parent, false)
         )
@@ -47,9 +54,25 @@ class IntroAdapter(val context: AppCompatActivity, val introItems: List<IntroMod
             val viewholder = holder as IntroViewHolder
             viewholder.binding.apply {
                 data.bmID?.let { imLogoSlide.setImageResource(it) }
+                fitWidthBottom(imLogoSlide)
             }
         }
 
+    }
+
+    // Phủ kín view (như centerCrop) nhưng neo ĐÁY: phần dư chỉ cắt ở trên, nội dung đáy ảnh luôn hiện đủ.
+    private fun fitWidthBottom(iv: ImageView) {
+        val d = iv.drawable ?: return
+        val vw = iv.width.toFloat()
+        val vh = iv.height.toFloat()
+        val dw = d.intrinsicWidth.toFloat()
+        val dh = d.intrinsicHeight.toFloat()
+        if (vw <= 0f || vh <= 0f || dw <= 0f || dh <= 0f) return
+        val scale = maxOf(vw / dw, vh / dh)
+        iv.imageMatrix = Matrix().apply {
+            setScale(scale, scale)
+            postTranslate((vw - dw * scale) / 2f, vh - dh * scale)
+        }
     }
 
     override fun getItemViewType(position: Int): Int =

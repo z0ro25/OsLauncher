@@ -29,7 +29,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-class SplashActivity : BaseActivity<ActivitySplashBinding>() {
+// open: ThemesSplashActivity kế thừa nguyên luồng này, chỉ khác task (xem class đó).
+open class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override val setViewBinding: ActivitySplashBinding
         get() = ActivitySplashBinding.inflate(layoutInflater)
 

@@ -11,13 +11,29 @@
         android:layout_height="0dp"
         android:background="@color/themes_white"
         android:importantForAccessibility="no"
-        android:scaleType="fitXY"
-        app:layout_constraintDimensionRatio="158:304"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="320:690"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ThemesRoundedImage18"
         app:strokeColor="@color/themes_card_stroke"
         app:strokeWidth="0.5dp" />
+
+
+    <ProgressBar
+        android:id="@+id/pbImage"
+        style="@style/ThemesCardLoading"
+        app:layout_constraintBottom_toBottomOf="@id/imgPreview"
+        app:layout_constraintEnd_toEndOf="@id/imgPreview"
+        app:layout_constraintStart_toStartOf="@id/imgPreview"
+        app:layout_constraintTop_toTopOf="@id/imgPreview" />
+
+    <TextView
+        android:id="@+id/tvNew"
+        style="@style/ThemesNewBadge"
+        android:background="@drawable/themes_bg_new_badge_18"
+        app:layout_constraintStart_toStartOf="@id/imgPreview"
+        app:layout_constraintTop_toTopOf="@id/imgPreview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

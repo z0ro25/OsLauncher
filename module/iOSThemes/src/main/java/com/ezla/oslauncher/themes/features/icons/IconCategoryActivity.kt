@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.Models.ThemeCategory
 import com.ezla.oslauncher.themes.Models.ThemeItem
 import com.ezla.oslauncher.themes.Models.ThemeTab
 import com.ezla.oslauncher.themes.base.BaseActivity
+import com.ezla.oslauncher.themes.data.DefaultThemeProvider
 import com.ezla.oslauncher.themes.data.ThemeRepositoryProvider
+import com.ezla.oslauncher.themes.features.loadCardImage
 import com.ezla.oslauncher.themes.databinding.ThemesActivityIconCategoryBinding
 import com.ezla.oslauncher.themes.databinding.ThemesItemCategoryThemeBinding
 import com.ezla.oslauncher.themes.features.detail.ThemeViewActivity
@@ -89,10 +90,25 @@ private class CategoryThemeAdapter(private val onClick: (ThemeItem) -> Unit) :
 
     override fun getItemCount(): Int = items.size
 
+    // Ảnh tải lỗi -> gỡ thẻ. Tìm theo đúng object (không theo vị trí) vì list có thể đã đổi.
+    private fun removeItem(item: ThemeItem) {
+        val index = items.indexOfFirst { it === item }
+        if (index < 0) return
+        items.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val item = items[position]
-        Glide.with(holder.binding.imgThumb).load(item.previewUrl).into(holder.binding.imgThumb)
+        holder.binding.pbImage.visibility = View.VISIBLE
+        holder.binding.imgThumb.loadCardImage(item.previewUrl) { ok ->
+            // Holder đã bị tái dùng cho thẻ khác thì không đụng vòng quay của thẻ mới.
+            if (items.getOrNull(holder.bindingAdapterPosition) === item) holder.binding.pbImage.visibility = View.GONE
+            if (!ok) removeItem(item)
+        }
         holder.binding.imgThumb.contentDescription = item.name
+        holder.binding.tvNew.visibility =
+            if (item.isUnlocked || DefaultThemeProvider.isDefault(item.id)) View.GONE else View.VISIBLE
         holder.binding.root.setOnClickListener { onClick(item) }
     }
 

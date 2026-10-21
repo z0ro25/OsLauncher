@@ -6,39 +6,54 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-// Thưởng xem video hằng ngày: xem đủ VIEWS_PER_DAY rewarded thì +COINS xu (1 lần/ngày).
-// Key prefs chính là ngày ddMMyyyy -> sang ngày mới tự reset, không cần so ngày hay dọn key cũ.
+// Thưởng xem video: tối đa VIEWS_PER_DAY lượt/ngày, mỗi lượt +COINS_PER_VIEW xu, 2 lượt cách nhau
+// COOLDOWN_MS (tính từ lúc được thưởng). Key lượt xem/nợ theo ngày ddMMyyyy -> sang ngày tự reset.
 object DailyRewardStore {
 
-    const val VIEWS_PER_DAY = 3
-    const val COINS = 5
+    const val VIEWS_PER_DAY = 5
+    const val COINS_PER_VIEW = 1
+    const val COOLDOWN_MS = 5 * 60_000L
     const val CREDIT_TYPE = "view_ads"
 
     private const val KEY_VIEWS = "themes_reward_views_"
-    private const val KEY_CLAIMED = "themes_reward_claimed_"
+    // Số lượt đã xem nhưng cộng xu lỗi (mạng): bấm lại thì cộng bù, không bắt xem lại.
+    private const val KEY_PENDING = "themes_reward_pending_"
+    // Mốc được thưởng gần nhất (ms); không theo ngày để chờ 5 phút vẫn đúng lúc qua 00:00.
+    private const val KEY_LAST_REWARD_AT = "themes_reward_last_at"
 
     fun views(context: Context): Int =
         PreferencesUtil.getInt(context, KEY_VIEWS + today(), 0).coerceAtMost(VIEWS_PER_DAY)
 
-    fun isClaimed(context: Context): Boolean =
-        PreferencesUtil.getBoolean(context, KEY_CLAIMED + today(), false)
+    fun pending(context: Context): Int =
+        PreferencesUtil.getInt(context, KEY_PENDING + today(), 0).coerceAtLeast(0)
 
-    // Đủ lượt xem nhưng cộng xu lỗi (mạng) -> còn nợ thưởng, bấm lại để cộng, không bắt xem thêm.
-    fun isRewardPending(context: Context) = views(context) >= VIEWS_PER_DAY && !isClaimed(context)
+    fun isRewardPending(context: Context) = pending(context) > 0
 
-    fun canWatch(context: Context) = views(context) < VIEWS_PER_DAY
+    // Đã dùng hết lượt hôm nay và không còn nợ thưởng.
+    fun isDoneToday(context: Context) = views(context) >= VIEWS_PER_DAY && !isRewardPending(context)
 
-    // Ghi 1 lượt xem đủ (SDK báo onEarnedReward); trả số lượt hôm nay sau khi ghi.
-    fun addView(context: Context): Int {
-        val key = KEY_VIEWS + today()
-        val next = (PreferencesUtil.getInt(context, key, 0) + 1).coerceAtMost(VIEWS_PER_DAY)
-        PreferencesUtil.putInt(context, key, next)
-        return next
+    fun canWatch(context: Context) = views(context) < VIEWS_PER_DAY && cooldownLeftMs(context) == 0L
+
+    fun cooldownLeftMs(context: Context): Long {
+        val last = PreferencesUtil.getLong(context, KEY_LAST_REWARD_AT, 0L)
+        if (last <= 0L) return 0L
+        val elapsed = System.currentTimeMillis() - last
+        // Đồng hồ máy bị chỉnh lùi (elapsed âm) -> không khoá người dùng.
+        return if (elapsed < 0) 0L else (COOLDOWN_MS - elapsed).coerceAtLeast(0L)
     }
 
-    // Chỉ ghi sau khi server cộng xu OK, để lỗi thì còn cộng lại được.
-    fun markClaimed(context: Context) {
-        PreferencesUtil.putBoolean(context, KEY_CLAIMED + today(), true)
+    // Ghi 1 lượt xem đủ (SDK báo onEarnedReward): +1 lượt, +1 nợ thưởng, bắt đầu tính 5 phút.
+    fun addView(context: Context) {
+        val day = today()
+        val next = (PreferencesUtil.getInt(context, KEY_VIEWS + day, 0) + 1).coerceAtMost(VIEWS_PER_DAY)
+        PreferencesUtil.putInt(context, KEY_VIEWS + day, next)
+        PreferencesUtil.putInt(context, KEY_PENDING + day, pending(context) + 1)
+        PreferencesUtil.putLong(context, KEY_LAST_REWARD_AT, System.currentTimeMillis())
+    }
+
+    // Chỉ gọi sau khi server cộng xu OK cho [count] lượt nợ.
+    fun markClaimed(context: Context, count: Int) {
+        PreferencesUtil.putInt(context, KEY_PENDING + today(), (pending(context) - count).coerceAtLeast(0))
     }
 
     private fun today(): String = SimpleDateFormat("ddMMyyyy", Locale.US).format(Date())

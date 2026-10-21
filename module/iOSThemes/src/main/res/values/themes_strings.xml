@@ -24,6 +24,7 @@
     <string name="themes_category_neon">Neon Lights</string>
     <string name="themes_category_cute">Cute</string>
     <string name="themes_category_sport">Sport</string>
+    <string name="themes_category_all">All</string>
     <!-- Màn Mine -->
     <string name="themes_mine_tab_theme">Theme</string>
     <string name="themes_mine_tab_wallpapers">Wallpapers</string>
@@ -32,6 +33,7 @@
     <string name="themes_mine_my_library">My Library</string>
     <string name="themes_mine_suggest">Suggest</string>
     <string name="themes_mine_more">more</string>
+    <string name="themes_favorite_empty">No favorites yet</string>
     <string name="themes_default_name">Default</string>
     <!-- Settings / Rate us / Rewards -->
     <string name="themes_settings_title">Settings</string>
@@ -44,10 +46,6 @@
     <string name="themes_setting_share">Share this app</string>
     <string name="themes_setting_privacy">Privacy Policy</string>
     <string name="themes_setting_subscription">Manage subscriptions</string>
-    <string name="themes_rate_title">Do you like Themepack?</string>
-    <string name="themes_rate_subtitle">Rate your experience</string>
-    <string name="themes_rate_hint">The best we can get</string>
-    <string name="themes_rate_now">Rate now</string>
     <string name="themes_cd_close">Close</string>
     <string name="themes_cd_back">Back</string>
     <string name="themes_rewards_title">Rewards</string>
@@ -58,7 +56,7 @@
     <string name="themes_checkin_title">Daily Check-in</string>
     <string name="themes_checkin_desc">Earn rewards for check-in</string>
     <string name="themes_checkin_day">Day %1$d</string>
-    <string name="themes_coin_amount">%1$d coin</string>
+    <string name="themes_coin_amount">%1$d coins</string>
     <string name="themes_rewards_suggest">Suggest</string>
     <string name="themes_watch_video">Watch the video</string>
     <string name="themes_coins">coins</string>
@@ -88,13 +86,13 @@
     <string name="themes_success_set">Successfully Set!</string>
     <string name="themes_wallpaper_ready">Your new wallpaper is ready! Return to the home screen to see your new wallpaper</string>
     <string name="themes_go_home">Go To Home Screen</string>
-    <string name="themes_explore_more_wallpaper">Explore more Wallpaper</string>
+    <string name="themes_explore_more_wallpaper">Explore more wallpapers</string>
 
     <!-- Dialog "Not Enough Coins" (bg7). -->
     <string name="themes_not_enough_coins">Not Enough Coins</string>
     <string name="themes_not_enough_coins_desc">Get more Coins or upgrade to Pro for unlimited access!</string>
-    <string name="themes_get_coin_free">Get Coin Free</string>
-    <string name="themes_unlock_all_icon">Unlock All Icon</string>
+    <string name="themes_get_coin_free">Get Free Coins</string>
+    <string name="themes_unlock_all_icon">Unlock All Icons</string>
     <string name="themes_tab_icon">Icon</string>
     <string name="themes_tab_wallpaper">Wallpaper</string>
     <string name="themes_apply_all">Apply All</string>
@@ -114,7 +112,7 @@
     <string name="themes_cancel">Cancel</string>
     <string name="themes_restore_default_done">Default icons restored</string>
     <string name="themes_restore_default_already">Default icons are already in use</string>
-    <string name="themes_icon_ready">Your new icon is ready! Return to the home screen to see your new icon</string>
+    <string name="themes_icon_ready">Your new icons are ready! Return to the home screen to see your new icons</string>
     <string name="themes_restore_theme_title">Restore default theme?</string>
     <string name="themes_restore_theme_message">Icons and wallpaper will be reset to the launcher defaults.</string>
     <string name="themes_restore_theme_done">Default theme restored</string>
@@ -123,4 +121,13 @@
     <string name="themes_reward_progress">Today %1$d/%2$d</string>
     <string name="themes_reward_done_today">You have used all rewards today</string>
     <string name="themes_reward_no_ad">No video available, please try again later</string>
+    <string name="themes_claim_reward">Claim reward</string>
+    <string name="themes_test_clear_coin">[TEST] Remove all coins</string>
+    <string name="themes_test_clear_coin_done">Coins removed, balance: %1$d</string>
+    <string name="themes_no_app_to_open">No app found to open this</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">New</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">Next video in %1$s</string>
+    <string name="themes_reward_wait_toast">Please wait %1$s to watch the next video</string>
 </resources>

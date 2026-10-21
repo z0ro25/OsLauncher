@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import com.ezla.oslauncher.themes.Models.Credit
+import com.ezla.oslauncher.themes.Models.SubsModel
 import com.ezla.oslauncher.themes.Models.Unlock
 import com.google.gson.Gson
 import java.security.SecureRandom
@@ -62,6 +63,9 @@ object EncryptionUtil {
         encodeBase64(encryptBytes(Gson().toJson(model).toByteArray()))
 
     fun encryptUnlock(model: Unlock): String =
+        encodeBase64(encryptBytes(Gson().toJson(model).toByteArray()))
+
+    fun encryptSubs(model: SubsModel): String =
         encodeBase64(encryptBytes(Gson().toJson(model).toByteArray()))
 
     @Throws(Exception::class)

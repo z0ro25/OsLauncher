@@ -58,4 +58,26 @@
         <item name="android:textSize">12sp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+
+    <!-- Nhãn New góc trên-trái thẻ theme/icon/nền (chưa unlock). Nền đặt theo thẻ: themes_bg_new_badge_*. -->
+    <style name="ThemesNewBadge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:fontFamily">@font/themes_quicksand_bold</item>
+        <item name="android:textColor">@color/themes_white</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:text">@string/themes_badge_new</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- Vòng quay nhỏ giữa thẻ khi đang tải ảnh từ API; adapter tắt khi ảnh xong. -->
+    <style name="ThemesCardLoading">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:indeterminateTint">@color/themes_primary</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

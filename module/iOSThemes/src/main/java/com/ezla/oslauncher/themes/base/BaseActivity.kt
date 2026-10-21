@@ -14,6 +14,8 @@ import androidx.viewbinding.ViewBinding
 import com.ezla.oslauncher.themes.extensions.hideNavigation
 import com.ezla.oslauncher.themes.extensions.showNav
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
 import com.truongnt.ios.ioslite.common.IosLocale
 import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
@@ -37,10 +39,17 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         super.attachBaseContext(IosLocale.wrapLocale(newBase))
     }
 
-    // Đổ banner placement "bannerinapp" vào [container], giống BaseActivity của :app.
+    // Đổ banner placement BANNER_PLACEMENT vào [container] (khối frBanner bọc @layout/ads_banner),
+    // giống BaseActivity của :app. ads_banner nhúng sẵn shimmer -> subs / chưa có kit thì tự ẩn khối.
     protected fun showBannerIfEnabled(container: ViewGroup, isColapse: Boolean) {
-        if (AdsSdk.isAdFree) return
-        AppAds.kit.showBanner(this, "bannerinapp", container, isColapse)
+        if (AdsSdk.isAdFree || !AppAds.hasKit()) {
+            container.visibility = View.GONE
+            return
+        }
+        AppAds.kit.showBanner(
+            this, BANNER_PLACEMENT, container,
+            BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,5 +111,7 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
 
     companion object {
         private const val IS_HIDE_NAV = "IS_HIDE_NAV"
+        // Banner riêng của module Themes (bn_theme), tách khỏi "bannerinapp" của :app.
+        private const val BANNER_PLACEMENT = "banner_themes"
     }
 }

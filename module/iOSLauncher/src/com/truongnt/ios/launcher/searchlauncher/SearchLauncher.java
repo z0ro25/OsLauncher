@@ -165,6 +165,8 @@ public class SearchLauncher extends Launcher {
                     // Mở được rồi mới hạ cờ -> instance bị huỷ giữa chừng không làm mất lượt nhắc.
                     clearPromptSetDefaultFlag();
                     mPromptSetDefaultOnDesktop = false;
+                    getSharedPreferences(getPackageName(), MODE_PRIVATE).edit()
+                            .putBoolean(PREF_SUBS_OFFER_SKIP_AFTER_SET_DEFAULT, true).commit();
                 } catch (Throwable t) {
                 }
             }
@@ -210,6 +212,14 @@ public class SearchLauncher extends Launcher {
             mSubsOfferYielded = true;
             return;
         }
+        // Vừa set default xong thì hệ thống dựng lại launcher <1s sau -> dialog nháy rồi mất.
+        // Bỏ lượt desktop này (hạ cờ), để lượt của desktop kế tiếp (instance mới) hiện.
+        if (pref.getBoolean(PREF_SUBS_OFFER_SKIP_AFTER_SET_DEFAULT, false)) {
+            pref.edit().putBoolean(PREF_SUBS_OFFER_SKIP_AFTER_SET_DEFAULT, false).commit();
+            if (isDefaultLauncher()) {
+                return;
+            }
+        }
         mSubsOfferPosted = true;
         getWindow().getDecorView().postDelayed(new Runnable() {
             @Override
@@ -218,15 +228,18 @@ public class SearchLauncher extends Launcher {
                 offerIntent.setComponent(new ComponentName(getPackageName(),
                         "com.ezla.oslauncher.beautylauncher.dialog.SubsOfferPromptActivity"));
                 try {
+                    // Không ghi key "hôm nay đã hiện" ở đây: SubsOfferPromptActivity ghi khi user
+                    // đóng dialog, để launcher bị dựng lại giữa chừng không làm mất lượt.
                     startActivity(offerIntent);
                     overridePendingTransition(0, 0);
-                    getSharedPreferences(getPackageName(), MODE_PRIVATE)
-                            .edit().putBoolean(subsOfferKeyToday(), true).commit();
                 } catch (Throwable t) {
                 }
             }
         }, PROMPT_DELAY_AFTER_BIND_MS);
     }
+
+    /** Bật khi vừa mở dialog Set default; lượt desktop kế tiếp đọc rồi hạ (xem maybeShowSubsOffer). */
+    private static final String PREF_SUBS_OFFER_SKIP_AFTER_SET_DEFAULT = "subs_offer_skip_after_set_default";
 
     /** Key prefs của ngày hôm nay (ddMMyyyy) — đọc ở đâu cũng ra cùng một key trong cùng ngày. */
     private static String subsOfferKeyToday() {

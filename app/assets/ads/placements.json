@@ -17,6 +17,13 @@
       "loadTimeoutMs": 15000
     },
     {
+      "key": "inter_themes",
+      "format": "inter",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/3091472192",
+      "loadTimeoutMs": 15000
+    },
+    {
       "key": "return_to_app",
       "format": "open",
       "adUnitId": "ca-app-pub-3607148519095421/4627768380",
@@ -72,6 +79,30 @@
       "refreshIntervalMs": 30000
     },
     {
+      "key": "native_themes_onb1",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/8946434103",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "native_themes_onb2",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/5943409971",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
+      "key": "native_themes_onb3",
+      "format": "native",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/4644052000",
+      "loadTimeoutMs": 15000,
+      "refreshIntervalMs": 30000
+    },
+    {
       "key": "native_permission",
       "format": "native",
       "enabled": true,
@@ -107,6 +138,13 @@
       "format": "banner",
       "enabled": true,
       "adUnitId": "ca-app-pub-3607148519095421/5940850059",
+      "loadTimeoutMs": 15000
+    },
+    {
+      "key": "banner_themes",
+      "format": "banner",
+      "enabled": true,
+      "adUnitId": "ca-app-pub-3607148519095421/3574512913",
       "loadTimeoutMs": 15000
     },
     {
@@ -151,7 +189,7 @@
       "key": "rewarded_coin",
       "format": "rewarded",
       "enabled": true,
-      "adUnitId": "ca-app-pub-3940256099942544/5224354917",
+      "adUnitId": "ca-app-pub-3607148519095421/5023325954",
       "loadTimeoutMs": 15000
     }
   ],

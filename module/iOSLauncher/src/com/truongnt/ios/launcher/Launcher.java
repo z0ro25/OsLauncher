@@ -3534,6 +3534,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         } else if (tag instanceof AppInfo) {
             AnalyticsDelegate.onAllAppsEvent(this, UMEventConstants.ALLAPPS_PERAPP_CLICK);
+            // App Library mở app qua nhánh này (không qua onClickAppShortcut) -> log riêng ở đây.
+            logLauncherIconClick(((AppInfo) tag).intent);
             startAppShortcutOrInfoActivity(v);
         } else if (tag instanceof LauncherAppWidgetInfo) {
             if (v instanceof PendingAppWidgetHostView) {
@@ -3634,6 +3636,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         final Intent intent = shortcut.intent;
 
+        logLauncherIconClick(intent);
+
         // Check for special shortcuts
         if (handlerIOSShortcutClick(intent)) {
             return;
@@ -3658,6 +3662,24 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
 
+    // Tracking Firebase khi bấm icon trên desktop: icon Themes -> click_themes, icon app MiOS
+    // (launch activity của chính package) -> click_launcher. So theo component nên đổi applicationId vẫn đúng.
+    private void logLauncherIconClick(Intent intent) {
+        ComponentName cn = intent != null ? intent.getComponent() : null;
+        if (cn == null || !getPackageName().equals(cn.getPackageName())) return;
+        if (Theme.class.getName().equals(cn.getClassName())) {
+            AnalyticsDelegate.logClick(EVENT_CLICK_THEMES);
+            return;
+        }
+        Intent launch = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        if (launch != null && cn.equals(launch.getComponent())) {
+            AnalyticsDelegate.logClick(EVENT_CLICK_LAUNCHER);
+        }
+    }
+
+    private static final String EVENT_CLICK_THEMES = "click_themes";
+    private static final String EVENT_CLICK_LAUNCHER = "click_launcher";
+
     private boolean handlerIOSShortcutClick(Intent intent) {
         if (intent.getComponent() != null && intent.getComponent().getPackageName().equals(getPackageName())) {
             final String shortcutClass = intent.getComponent().getClassName();
@@ -3668,7 +3690,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 Router.startWallpaperActivity(this);
                 return true;
             } else if (shortcutClass.equals(Theme.class.getName())) {
-                Router.startThemesViaSplash(this);
+                Router.startThemesInOwnTask(this);
                 return true;
             } else if (shortcutClass.equals(BatterySave.class.getName())) {
                 Router.startBatterySaveActivity(this);
@@ -6109,6 +6131,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             if (!removedComponents.isEmpty()) {
                 mWorkspace.removeItemsByComponentName(removedComponents, user);
             }
+            // reason == 0: app gỡ cài đặt thật (cập nhật app đi nhánh replacing, không vào đây)
+            // -> page chỉ còn icon đó thì xoá luôn page.
+            mWorkspace.stripEmptyScreens(false);
             // Notify the drag controller
             mDragController.onAppsRemoved(packageNames, removedComponents);
 
@@ -7407,7 +7432,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 getHotseat().removeShortcut(shortcutInfo);
             }
         } else if (mWorkspace != null) {
-            mWorkspace.removeShortcutInfoInPage(shortcutInfo);
+            // Gỡ item cuối của page thì page đó tự xoá, giống xoá widget (removeWorkspaceOrFolderItem).
+            if (mWorkspace.removeShortcutInfoInPage(shortcutInfo)) {
+                mWorkspace.stripEmptyScreens(false);
+            }
         }
     }
 

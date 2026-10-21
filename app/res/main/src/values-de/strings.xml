@@ -84,6 +84,7 @@
     <string name="next">Nächste</string>
     <string name="language">Sprache</string>
     <string name="general">Allgemein</string>
+    <string name="home_themes">Designs</string>
 
     <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
     <string name="app_function_settings">Einstellungen für App-Funktionen</string>
@@ -149,7 +150,7 @@
     <string name="there_is_no_internet_connection">Keine Internetverbindung! Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="title1">Erleben Sie IOS 26 mit einem futuristischen Design</string>
     <string name="title2">Hell- und Dunkelmodus unterstützt</string>
-    <string name="title3">Alle Ihre Apps sind übersichtlich in der App-Bibliothek angeordnet</string>
+    <string name="title3">Freiheit, schöne und einzigartige Themes zu wählen</string>
     <string name="try_again">Erneut versuchen</string>
 
     <!-- Nhãn thể loại cố định App Library (hiển thị) -->
@@ -197,4 +198,16 @@
     <string name="subs_offer_no_charge_today">Jederzeit kündbar. Heute keine Kosten.</string>
     <string name="subs_offer_subscribe">JETZT ABONNIEREN</string>
     <string name="subs_offer_close">Schließen</string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_start_premium">Starte Premium!</string>
+    <string name="subs_feature_themes">1000+ Premium-Designs</string>
+    <string name="subs_feature_wallpapers">1000+ Hintergründe</string>
+    <string name="subs_feature_icons">Alle Symbolpakete freischalten</string>
+    <string name="subs_feature_ad_free">Werbefreie Nutzung</string>
+    <string name="subs_best_value">BESTER WERT</string>
+    <string name="subs_billed_monthly">Monatliche Abrechnung</string>
+    <string name="subs_per_month_approx">≈ %1$s / Monat</string>
+    <string name="subs_free_trial_days">%1$d Tage gratis testen</string>
+    <string name="subs_then_per_year">Danach %1$s/Jahr • Jederzeit kündbar</string>
+    <string name="subs_then_per_month">Danach %1$s/Monat • Jederzeit kündbar</string>
 </resources>

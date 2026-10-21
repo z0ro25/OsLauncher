@@ -8,16 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.databinding.ThemesItemMineTabBinding
 
+// [tabs] mặc định = 4 tab chính; chip con của Favorites truyền riêng (Wallpapers / Icon).
+// [fillWidth]: chip lấp đầy ô lưới (khoảng cách do decoration lo) thay vì ôm chữ + marginEnd.
 class MineTabAdapter(
     private var selected: MineTab,
+    private val tabs: List<MineTab> = MineTab.values().toList(),
+    private val fillWidth: Boolean = false,
     private val onSelect: (MineTab) -> Unit
 ) : RecyclerView.Adapter<MineTabAdapter.Holder>() {
 
-    private val tabs = MineTab.values().toList()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(
-        ThemesItemMineTabBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        val binding = ThemesItemMineTabBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        if (fillWidth) {
+            (binding.root.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                width = ViewGroup.LayoutParams.MATCH_PARENT
+                marginEnd = 0
+            }
+        }
+        return Holder(binding)
+    }
 
     override fun getItemCount(): Int = tabs.size
 

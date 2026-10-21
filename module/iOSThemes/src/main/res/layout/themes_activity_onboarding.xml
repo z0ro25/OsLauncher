@@ -57,12 +57,14 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Vùng native ad (Figma 300dp). Chưa gọi placement nào, để trống. -->
+    <!-- Native onb mỗi trang (Figma 300dp). Mặc định GONE: chỉ hiện khi đang chờ/có ad, nên
+         ad-free hoặc ad lỗi thì pager tự giãn xuống. -->
     <FrameLayout
         android:id="@+id/frAds"
         android:layout_width="0dp"
         android:layout_height="@dimen/themes_onboarding_ad_height"
         android:background="@color/themes_ad_placeholder"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -158,6 +158,19 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         return generic;
     }
 
+    // Mở MÀN CHÍNH app thư viện, không VIEW một URI: buildOpenGalleryIntent VIEW cả bảng
+    // MediaStore nên Samsung Gallery (khi được chọn làm mặc định) báo lỗi không hiển thị được ảnh.
+    private static Intent buildOpenGalleryAppIntent(Context context) {
+        Intent gallery = Intent.makeMainSelectorActivity(
+                Intent.ACTION_MAIN, Intent.CATEGORY_APP_GALLERY);
+        gallery.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (gallery.resolveActivity(context.getPackageManager()) != null) {
+            return gallery;
+        }
+        // Máy không có app nào khai CATEGORY_APP_GALLERY -> giữ chuỗi fallback cũ.
+        return buildOpenGalleryIntent(context);
+    }
+
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId){
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.picture_app_widget_provider);
 
@@ -214,7 +227,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         // được hộp xin quyền bình thường.
         try {
             Intent intent = hasPhotoPermission(context)
-                    ? buildOpenGalleryIntent(context)
+                    ? buildOpenGalleryAppIntent(context)
                     : buildAppSettingsIntent(context);
             rv.setOnClickPendingIntent(R.id.widget_picture_layout,
                     PendingIntent.getActivity(context, appWidgetId, intent,
@@ -389,7 +402,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
                     if (!hasPhotoPermission(context)) {
                         requestPhotoPermission(context);
                     } else {
-                        context.startActivity(buildOpenGalleryIntent(context));
+                        context.startActivity(buildOpenGalleryAppIntent(context));
                     }
                 } catch (Throwable ignored) {
                 }

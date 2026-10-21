@@ -7,19 +7,20 @@ import com.ezla.oslauncher.themes.Models.ThemeCategory
 import com.ezla.oslauncher.themes.Models.ThemeDetail
 import com.ezla.oslauncher.themes.Models.ThemeItem
 import com.ezla.oslauncher.themes.Models.ThemeTab
+import com.ezla.oslauncher.themes.Models.WallpaperPage
 import com.ezla.oslauncher.themes.R
 
 // Dữ liệu mẫu lấy từ Figma (ảnh ở assets/themes_sample) để dựng UI trước khi có API.
 class SampleThemeRepository : ThemeRepository {
 
     override suspend fun getCategories(): List<ThemeCategory> = listOf(
-        ThemeCategory("new", R.drawable.themes_ic_chip_new, R.string.themes_category_new),
-        ThemeCategory("os27", R.drawable.themes_ic_chip_os27, R.string.themes_category_os27),
-        ThemeCategory("black", R.drawable.themes_ic_chip_black, R.string.themes_category_black),
-        ThemeCategory("cartoon", R.drawable.themes_ic_chip_cartoon, R.string.themes_category_cartoon),
-        ThemeCategory("neon", R.drawable.themes_ic_chip_neon, R.string.themes_category_neon),
-        ThemeCategory("cute", R.drawable.themes_ic_chip_cute, R.string.themes_category_cute),
-        ThemeCategory("sport", R.drawable.themes_ic_chip_sport, R.string.themes_category_sport)
+        ThemeCategory("new", titleRes = R.string.themes_category_new),
+        ThemeCategory("os27", titleRes = R.string.themes_category_os27),
+        ThemeCategory("black", titleRes = R.string.themes_category_black),
+        ThemeCategory("cartoon", titleRes = R.string.themes_category_cartoon),
+        ThemeCategory("neon", titleRes = R.string.themes_category_neon),
+        ThemeCategory("cute", titleRes = R.string.themes_category_cute),
+        ThemeCategory("sport", titleRes = R.string.themes_category_sport)
     )
 
     override suspend fun getThemes(tab: ThemeTab, categoryId: String): List<ThemeItem> {
@@ -39,6 +40,10 @@ class SampleThemeRepository : ThemeRepository {
     // Tab Wallpapers: dùng chính ảnh mẫu của theme làm thẻ wallpaper.
     override suspend fun getWallpapers(tab: ThemeTab, categoryId: String): List<PreviewCard> =
         getThemes(tab, categoryId).map { PreviewCard(it.id, it.name, it.previewUrl) }
+
+    // Mẫu chỉ có 1 trang.
+    override suspend fun getAllWallpapers(page: Int): WallpaperPage? =
+        WallpaperPage(if (page == 1) getWallpapers(ThemeTab.FEATURED, "") else emptyList(), hasMore = false)
 
     // Mẫu không có icon theo theme -> mỗi danh mục 1 section, thẻ chỉ có nền là ảnh mẫu.
     override suspend fun getIconSections(categories: List<ThemeCategory>): List<IconSection> =

@@ -29,6 +29,11 @@
             android:overScrollMode="never"
             android:padding="12dp" />
 
+        <ProgressBar
+            android:id="@+id/pbImage"
+            style="@style/ThemesCardLoading"
+            android:layout_gravity="center" />
+
         <!-- Lớp phủ nhận click: lưới icon (RecyclerView) nuốt chạm nên click không tới thẻ. -->
         <View
             android:id="@+id/viewClick"

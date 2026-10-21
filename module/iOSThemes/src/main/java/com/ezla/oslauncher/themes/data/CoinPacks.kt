@@ -39,6 +39,8 @@ object CoinPacks {
         fun price(productId: String): String?
         // false = chưa có thông tin gói từ Play (chưa nối được / ID chưa active).
         fun launchPurchase(activity: Activity, productId: String): Boolean
+        // Xử lý giao dịch xu đã trả tiền nhưng chưa cộng/consume (kẹt thì Play chặn mua lại gói đó).
+        fun syncPending() {}
     }
 
     var store: Store? = null
@@ -61,6 +63,10 @@ object CoinPacks {
 
     fun launchPurchase(activity: Activity, productId: String): Boolean =
         store?.launchPurchase(activity, productId) ?: false
+
+    fun syncPending() {
+        store?.syncPending()
+    }
 
     // Cộng xu cho 1 giao dịch (coins x quantity) qua POST /credits; [done] chạy trên main.
     // Bên gọi chỉ consume giao dịch khi kết quả thành công, để lỗi thì lần sau cộng lại được.

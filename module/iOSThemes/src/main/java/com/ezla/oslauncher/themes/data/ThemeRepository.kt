@@ -6,6 +6,7 @@ import com.ezla.oslauncher.themes.Models.ThemeCategory
 import com.ezla.oslauncher.themes.Models.ThemeDetail
 import com.ezla.oslauncher.themes.Models.ThemeItem
 import com.ezla.oslauncher.themes.Models.ThemeTab
+import com.ezla.oslauncher.themes.Models.WallpaperPage
 
 // Nguồn dữ liệu theme. UI chỉ đọc qua ThemeRepositoryProvider nên đổi nguồn không phải sửa fragment.
 interface ThemeRepository {
@@ -15,8 +16,11 @@ interface ThemeRepository {
     // Chi tiết 1 theme (nền + icon để áp dụng); null khi không lấy được.
     suspend fun getThemeDetail(id: String): ThemeDetail?
 
-    // Danh sách wallpaper cho tab Wallpapers — lấy từ backgrounds của theme (mỗi theme 1 thẻ).
+    // Chip danh mục tab Wallpapers: theme của danh mục (/themes) -> /backgrounds theo từng theme_id.
     suspend fun getWallpapers(tab: ThemeTab, categoryId: String): List<PreviewCard>
+
+    // Chip "All" tab Wallpapers: /backgrounds phân trang (page từ 1). null = lỗi mạng ở trang > 1.
+    suspend fun getAllWallpapers(page: Int): WallpaperPage?
 
     // Tab Icons: mỗi danh mục 1 section (bỏ danh mục rỗng), thứ tự giữ như [categories].
     suspend fun getIconSections(categories: List<ThemeCategory>): List<IconSection>

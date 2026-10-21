@@ -11,12 +11,17 @@ import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.Models.ThemeDetail
 import com.ezla.oslauncher.themes.R
+import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezla.oslauncher.themes.apply.ThemeApplyEngine
 import com.ezla.oslauncher.themes.base.BaseActivity
+import com.ezla.oslauncher.themes.base.ApplyTask
+import com.ezla.oslauncher.themes.base.LoadingOverlay
+import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.loadCreditInto
 import com.ezla.oslauncher.themes.data.CreditRejectedException
 import com.ezla.oslauncher.themes.data.CreditRepository
 import com.ezla.oslauncher.themes.data.DefaultThemeProvider
+import com.ezla.oslauncher.themes.data.SubsRepository
 import com.ezla.oslauncher.themes.data.ThemeRepositoryProvider
 import com.ezla.oslauncher.themes.databinding.ThemesActivityThemeDetailBinding
 import com.ezla.oslauncher.themes.features.home.ThemesActivity
@@ -24,9 +29,8 @@ import com.ezla.oslauncher.themes.features.rewards.RewardsActivity
 import kotlinx.coroutines.launch
 
 // Màn Install theme (Figma Install/*): tab Icon = nền + lưới app vuốt + dock, tab Wallpaper = chỉ nền.
-// Nút dưới: Unlock (API /unlocks, server trừ xu) rồi Apply Icons / Apply Wallpaper; mở đủ 2 phần thì
-// header đổi badge xu thành "Apply All" (sheet Apply Theme). Áp xong: toast + về Main.
-// Trạng thái mở khoá lấy từ is_unlocked của server.
+// Unlock (/unlocks, trạng thái từ is_unlocked) rồi Apply; mở đủ 2 phần -> header "Apply All".
+// Subs: ẩn xu, luôn Apply / Apply All, phần chưa sở hữu tự /unlocks rồi áp. Áp xong: toast + về Main.
 class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
 
     override val setViewBinding: ThemesActivityThemeDetailBinding
@@ -39,8 +43,9 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     private var tab = Tab.ICON
     private var iconUnlocked = false
     private var wallpaperUnlocked = false
-    private var applying = false
+    private val loading by lazy { LoadingOverlay(this) }
     private var unlocking = false
+    private var subscribed = false
 
     // Màn IAP bổ sung sau: callback cho "Unlock All Icon" ở sheet Not Enough Coins.
     var onPremiumClick: ((ThemeDetail?) -> Unit)? = null
@@ -48,6 +53,10 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     private val themeId get() = intent.getStringExtra(EXTRA_THEME_ID).orEmpty()
 
     override fun initView() {
+        showBannerIfEnabled(binding.frBanner, false)
+        // Màn tạo lại giữa lúc áp (đổi nền -> recreate): nhận kết quả + hiện lại loading.
+        applyTask.attach(this)
+        if (applyTask.running) loading.show()
         listenNotEnough()
         listenChooseWhere()
         listenApplyTheme()
@@ -61,7 +70,10 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         binding.tabIcon.setOnClickListener { selectTab(Tab.ICON) }
         binding.tabWallpaper.setOnClickListener { selectTab(Tab.WALLPAPER) }
         binding.btnTabAction.setOnClickListener { onTabAction() }
-        binding.btnApplyTheme.setOnClickListener { showApplyTheme() }
+        // Apply All -> inter (nếu có) rồi mới mở sheet Apply Theme.
+        binding.btnApplyTheme.setOnClickListener {
+            ThemesInter.run(this) { if (!isFinishing) showApplyTheme() }
+        }
         binding.layoutCoin.setOnClickListener { showActivity(RewardsActivity::class.java, null) }
     }
 
@@ -69,7 +81,10 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
 
     override fun onResume() {
         super.onResume()
-        loadCreditInto(binding.tvCoin)
+        // Có thể vừa mua subs ở màn Subs rồi quay lại -> đọc lại trạng thái mỗi lần.
+        subscribed = SubsRepository.isSubscribed(this)
+        if (!subscribed) loadCreditInto(binding.tvCoin)
+        renderActions()
     }
 
     private fun loadDetail() {
@@ -112,8 +127,9 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     }
 
     // Nút dưới theo tab; header: badge xu khi chưa mở đủ, "Apply All" khi đã mở cả 2.
+    // Subs: không hiện giá xu, nút luôn là Apply; header luôn "Apply All", ẩn badge xu.
     private fun renderActions() {
-        if (isUnlocked(tab)) {
+        if (isUnlocked(tab) || subscribed) {
             binding.tvTabAction.setText(
                 if (tab == Tab.ICON) R.string.themes_apply_icons else R.string.themes_apply_wallpaper
             )
@@ -122,17 +138,26 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
             binding.tvTabAction.text = getString(R.string.themes_unlock_with, priceOf(tab))
             binding.imgTabActionCoin.visibility = View.VISIBLE
         }
-        val all = iconUnlocked && wallpaperUnlocked
+        val all = (iconUnlocked && wallpaperUnlocked) || subscribed
         binding.btnApplyTheme.visibility = if (all) View.VISIBLE else View.GONE
         binding.layoutCoin.visibility = if (all) View.GONE else View.VISIBLE
     }
 
     private fun onTabAction() {
         val d = detail ?: return
-        if (!isUnlocked(tab)) {
+        if (!isUnlocked(tab) && !subscribed) {
+            // Nút đang là "Unlock with N": chỉ mở khoá, không inter.
             unlock(tab)
             return
         }
+        // Nút đang là Apply -> inter (nếu có) rồi áp; subs còn phần chưa sở hữu thì /unlocks trước.
+        ThemesInter.run(this) {
+            if (isFinishing) return@run
+            if (isUnlocked(tab)) applyTab(d) else unlock(tab) { applyTab(d) }
+        }
+    }
+
+    private fun applyTab(d: ThemeDetail) {
         when (tab) {
             Tab.ICON -> runApply { applyIcons(d) }
             Tab.WALLPAPER -> chooseWhere(d)
@@ -141,7 +166,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
 
     // Mở khoá qua /unlocks (server trừ xu, trả số dư mới). Server từ chối (thiếu xu) -> Not Enough
     // Coins; lỗi mạng -> toast. Chặn bấm lặp để không gửi 2 lần.
-    private fun unlock(target: Tab) {
+    private fun unlock(target: Tab, onUnlocked: (() -> Unit)? = null) {
         val d = detail ?: return
         if (unlocking) return
         val (type, id) = when (target) {
@@ -154,7 +179,10 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         }
         unlocking = true
         lifecycleScope.launch {
-            CreditRepository.unlock(type, id)
+            val result = CreditRepository.unlock(type, id)
+            // Hạ cờ TRƯỚC onUnlocked: bước kế (mở tiếp phần còn lại / áp) có thể gọi lại unlock().
+            unlocking = false
+            result
                 .onSuccess { credit ->
                     when (target) {
                         Tab.ICON -> iconUnlocked = true
@@ -162,6 +190,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
                     }
                     binding.tvCoin.text = credit.toString()
                     renderActions()
+                    onUnlocked?.invoke()
                 }
                 .onFailure { error ->
                     if (error is CreditRejectedException) {
@@ -170,7 +199,6 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
                         Toast.makeText(this@ThemeDetailActivity, R.string.themes_network_error, Toast.LENGTH_SHORT).show()
                     }
                 }
-            unlocking = false
         }
     }
 
@@ -216,10 +244,22 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     private fun listenApplyTheme() {
         supportFragmentManager.setFragmentResultListener(ApplyThemeDialog.REQUEST_KEY, this) { _, _ ->
             val d = detail ?: return@setFragmentResultListener
-            runApply {
-                if (isDefault(d)) applyIcons(d) && applyWallpaper(d, "", home = true, lock = true)
-                else ThemeApplyEngine.applyTheme(this, d, applyHome = true, applyLock = true)
+            // Subs bấm Apply All khi còn phần chưa sở hữu: mở khoá lần lượt icon rồi nền, đủ mới áp.
+            when {
+                !subscribed || isDefault(d) -> applyAll(d)
+                !iconUnlocked -> unlock(Tab.ICON) {
+                    if (wallpaperUnlocked) applyAll(d) else unlock(Tab.WALLPAPER) { applyAll(d) }
+                }
+                !wallpaperUnlocked -> unlock(Tab.WALLPAPER) { applyAll(d) }
+                else -> applyAll(d)
             }
+        }
+    }
+
+    private fun applyAll(d: ThemeDetail) {
+        runApply {
+            if (isDefault(d)) applyIcons(d) && applyWallpaper(d, "", home = true, lock = true)
+            else ThemeApplyEngine.applyTheme(this, d, applyHome = true, applyLock = true)
         }
     }
 
@@ -237,19 +277,22 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         else ThemeApplyEngine.applyWallpaper(this, url, home, lock)
 
     // Chạy 1 lần áp (chặn bấm lặp); thành công -> toast + về Main, lỗi -> toast lỗi, ở lại màn.
+    // Qua ApplyTask: đổi nền làm màn bị tạo lại, kết quả phải về instance đang sống.
     private fun runApply(block: suspend () -> Boolean) {
-        if (applying) return
-        applying = true
-        lifecycleScope.launch {
-            val ok = block()
-            applying = false
-            if (ok) {
-                Toast.makeText(this@ThemeDetailActivity, R.string.themes_apply_success, Toast.LENGTH_SHORT).show()
-                backToMain()
-            } else {
-                Toast.makeText(this@ThemeDetailActivity, R.string.themes_apply_failed, Toast.LENGTH_SHORT).show()
-            }
+        if (applyTask.running) return
+        loading.show()
+        val appCtx = applicationContext
+        applyTask.run(block) { live, ok ->
+            live?.loading?.hide()
+            val msg = if (ok) R.string.themes_apply_success else R.string.themes_apply_failed
+            Toast.makeText(live ?: appCtx, msg, Toast.LENGTH_SHORT).show()
+            if (ok) live?.backToMain()
         }
+    }
+
+    override fun onDestroy() {
+        applyTask.detach(this)
+        super.onDestroy()
     }
 
     // Về Main: CLEAR_TOP gỡ View theme + Install khỏi stack, SINGLE_TOP giữ instance Main đang có.
@@ -261,18 +304,27 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         finish()
     }
 
+    // Unlock All Icon -> màn Subs (IAP) của :app qua ThemesEntry; callback cũ vẫn được báo.
+    private fun openPremium(d: ThemeDetail?) {
+        onPremiumClick?.invoke(d)
+        ThemesEntry.openPremium(this)
+    }
+
     private fun listenNotEnough() {
         supportFragmentManager.setFragmentResultListener(
             NotEnoughCoinsDialog.REQUEST_KEY, this
         ) { _, bundle ->
             when (bundle.getString(NotEnoughCoinsDialog.KEY_ACTION)) {
                 NotEnoughCoinsDialog.ACTION_GET_COIN -> showActivity(RewardsActivity::class.java, null)
-                NotEnoughCoinsDialog.ACTION_UNLOCK_ALL -> onPremiumClick?.invoke(detail)
+                NotEnoughCoinsDialog.ACTION_UNLOCK_ALL -> openPremium(detail)
             }
         }
     }
 
     companion object {
+        // Sống ngoài instance: lượt áp phải vượt qua recreate của màn (xem ApplyTask).
+        private val applyTask = ApplyTask<ThemeDetailActivity>()
+
         private const val EXTRA_THEME_ID = "extra_theme_id"
         private const val TAG_NOT_ENOUGH = "not_enough_coins"
         private const val TAG_CHOOSE = "choose_where_apply"

@@ -30,52 +30,14 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
     override fun initView() {
         SharePrefUtils.putBoolean(this, "IS_FIRST_TIME", false)
         listIntro.clear()
-        // Dùng isDark() (không phải getMode()) để ảnh khớp nền onb_bg dưới mọi policy (MANUAL/AUTO/SYSTEM).
-        if (AppThemeManager.isDark(this)) {
-            // Dark: ảnh nền đen (img_onbN)
-            listIntro = arrayListOf(
-                IntroModel(
-                    "onb1",
-                    getString(R.string.title1),
-                    getString(R.string.message1),
-                    R.drawable.img_onb1
-                ),
-                IntroModel(
-                    "onb2",
-                    getString(R.string.title2),
-                    getString(R.string.message2),
-                    R.drawable.img_onb2
-                ),
-                IntroModel(
-                    "onb3",
-                    getString(R.string.title3),
-                    getString(R.string.message3),
-                    R.drawable.img_onb3
-                )
-            )
-        } else {
-            // Light: ảnh nền trắng (img_onbN_light)
-            listIntro = arrayListOf(
-                IntroModel(
-                    "onb1",
-                    getString(R.string.title1),
-                    getString(R.string.message1),
-                    R.drawable.img_onb1_light
-                ),
-                IntroModel(
-                    "onb2",
-                    getString(R.string.title2),
-                    getString(R.string.message2),
-                    R.drawable.img_onb2_light
-                ),
-                IntroModel(
-                    "onb3",
-                    getString(R.string.title3),
-                    getString(R.string.message3),
-                    R.drawable.img_onb3_light
-                )
-            )
-        }
+        // Dùng isDark() (không phải getMode()) để ảnh khớp nền onb_intro_bg dưới mọi policy (MANUAL/AUTO/SYSTEM).
+        // Bản "_ad" thấp hơn (Figma onb 1/2/18/19) chừa chỗ cho native ở đáy; chỉ đọc isAdFree, không đụng logic ads.
+        val images = introImages(AppThemeManager.isDark(this), !AdsSdk.isAdFree)
+        listIntro = arrayListOf(
+            IntroModel("onb1", getString(R.string.title1), getString(R.string.message1), images[0]),
+            IntroModel("onb2", getString(R.string.title2), getString(R.string.message2), images[1]),
+            IntroModel("onb3", getString(R.string.title3), getString(R.string.message3), images[2])
+        )
 
         val ok = AppAds.kit.nativeInlinePreloadStates.value["native_onb_full"] == AdPreloadState.READY
         if (ok) listIntro.add(2, IntroModel("native_full"))
@@ -88,6 +50,14 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
         }
 
         preloadnative()
+    }
+
+    // Trang 3 luôn dùng ảnh đầy đủ vì native onb3 đang tạm ẩn; bật lại thì đổi về img_intro_3_ad_*.
+    private fun introImages(dark: Boolean, withAd: Boolean): List<Int> = when {
+        dark && withAd -> listOf(R.drawable.img_intro_1_ad_dark, R.drawable.img_intro_2_ad_dark, R.drawable.img_intro_3_dark)
+        dark -> listOf(R.drawable.img_intro_1_dark, R.drawable.img_intro_2_dark, R.drawable.img_intro_3_dark)
+        withAd -> listOf(R.drawable.img_intro_1_ad_light, R.drawable.img_intro_2_ad_light, R.drawable.img_intro_3_light)
+        else -> listOf(R.drawable.img_intro_1_light, R.drawable.img_intro_2_light, R.drawable.img_intro_3_light)
     }
 
     // Gom 1 chỗ vì onb1/onb2/onb3 dùng chung layout, chỉ khác placement key.
@@ -122,8 +92,8 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
                     binding.llContent.isVisible = true
                     binding.tvTitle.text = listIntro[position].title
                     binding.tvContinue.text =
-                        if (position == listIntro.size - 1) getString(R.string.continue_) else getString(
-                            R.string.next
+                        if (position == listIntro.size - 1) getString(R.string.complete) else getString(
+                            R.string.continue_
                         )
                     binding.frNative.isVisible = true
                     binding.frNative.removeAllViews()
@@ -141,9 +111,12 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
                         }
 
                         "onb3" -> {
-                            if (!AdsSdk.isAdFree) {
-                                showIntroNative("native_onb3")
-                            }
+                            // Tạm ẩn native onb3 cho khớp Figma (onb 3 không có native); bật lại thì bỏ 2 dòng dưới.
+                            binding.frNative.isVisible = false
+                            binding.viewPager2.isUserInputEnabled = true
+                            // if (!AdsSdk.isAdFree) {
+                            //     showIntroNative("native_onb3")
+                            // }
                         }
                     }
                 }

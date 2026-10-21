@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="35dp"
     android:background="@color/lang_bg">
 
     <!-- Header: back tròn themed + tiêu đề Language. Không còn nút done (áp locale khi back). -->

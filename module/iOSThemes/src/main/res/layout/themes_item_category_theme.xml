@@ -21,4 +21,20 @@
         app:strokeColor="@color/themes_text_hint"
         app:strokeWidth="0.5dp" />
 
+
+    <ProgressBar
+        android:id="@+id/pbImage"
+        style="@style/ThemesCardLoading"
+        app:layout_constraintBottom_toBottomOf="@id/imgThumb"
+        app:layout_constraintEnd_toEndOf="@id/imgThumb"
+        app:layout_constraintStart_toStartOf="@id/imgThumb"
+        app:layout_constraintTop_toTopOf="@id/imgThumb" />
+
+    <TextView
+        android:id="@+id/tvNew"
+        style="@style/ThemesNewBadge"
+        android:background="@drawable/themes_bg_new_badge_10"
+        app:layout_constraintStart_toStartOf="@id/imgThumb"
+        app:layout_constraintTop_toTopOf="@id/imgThumb" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -92,6 +92,20 @@ public class Router {
         CommonUtilities.startActivitySafely(context, intent);
     }
 
+    // Như startThemesViaSplash nhưng vào ThemesSplashActivity (:app) có taskAffinity riêng, để
+    // Themes không nằm chung task với MiOS. Không resolve được thì rơi về hàm cũ.
+    public static void startThemesInOwnTask(Context context) {
+        Intent intent = new Intent(context.getPackageName() + ".action.THEMES_SPLASH");
+        intent.setPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(EXTRA_OPEN_THEMES, true);
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            startThemesViaSplash(context);
+            return;
+        }
+        CommonUtilities.startActivitySafely(context, intent);
+    }
+
     /**
      * 美华中心主题页面
      */

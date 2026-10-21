@@ -29,6 +29,8 @@ import com.ezla.oslauncher.beautylauncher.extensions.showNav
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
 import com.ezla.oslauncher.beautylauncher.utils.Constant
 import com.ezt.v2.ezt.admobdemo.ads.BannerAds
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
 import com.truongnt.ios.ioslite.common.config.AppAds
@@ -64,7 +66,11 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
             container.visibility = View.GONE
             return
         }
-        AppAds.kit.showBanner(this,"bannerinapp",container, isColapse)
+        // STANDARD = AdSize.BANNER 320x50 cố định; mặc định SDK là LARGE_ADAPTIVE (cao theo bề ngang).
+        AppAds.kit.showBanner(
+            this, "bannerinapp", container,
+            BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
+        )
     }
 
     val internetBroadcast = object : BroadcastReceiver() {
@@ -112,7 +118,6 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
             // Pad the top by the status bar height so it never overlaps the content. The bottom
             // draws edge-to-edge behind the navigation bar, only padding for the keyboard when visible.
             view.updatePadding(
-                top = bars.top,
                 bottom = imeBottom
             )
 
@@ -188,7 +193,8 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     }
 
 
-    fun showRateDialog(isFinish: Boolean, reateSuccess: (() -> Unit)) {
+    // Trả về dialog để màn gọi gắn thêm xử lý (Home ẩn banner khi sheet mở); màn cũ bỏ qua giá trị trả về.
+    fun showRateDialog(isFinish: Boolean, reateSuccess: (() -> Unit)): RatingDialog {
         val ratingDialog =
             RatingDialog(
                 this
@@ -258,6 +264,7 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         } catch (e: BadTokenException) {
             e.printStackTrace()
         }
+        return ratingDialog
     }
 
 

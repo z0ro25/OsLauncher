@@ -140,6 +140,10 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
             listener.onPurchasesCompleted(purchases)
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             Log.d(TAG, "Purchase Canceled")
+        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+            // Gói in-app còn giao dịch cũ chưa consume (cộng xu/consume lỗi lần trước) -> xử lý ngay.
+            Log.d(TAG, "Item already owned: ${billingResult.debugMessage}")
+            listener.onItemAlreadyOwned()
         } else {
             Log.d(TAG, "Error: ${billingResult.debugMessage}")
         }
@@ -156,6 +160,7 @@ class BillingManager(context: Context, private val listener: PurchaseListener) :
         fun onPurchasesCompleted(purchases: List<Purchase>)
         fun onBillingConnection()
         fun onInAppDetailsRetrieved(details: List<ProductDetails>) {}
+        fun onItemAlreadyOwned() {}
     }
 
     private companion object {

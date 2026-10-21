@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/themes_bg"
@@ -22,70 +23,99 @@
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/themes_screen_padding"
-            android:paddingTop="30dp"
+            android:paddingTop="50dp"
             android:paddingBottom="16dp">
 
-            <!-- Banner Premium: chữ trái, 2 hộp quà phải (hộp to tràn lên trên như Figma). -->
+            <!-- Banner Premium (Figma Settings/Banner 328x100 bo 16): nền tím có vệt màu mờ + sao,
+                 chữ trái, 2 hộp quà bên phải. paddingTop 50 = phần hộp to tràn lên (-50) -> không bị cắt. -->
             <FrameLayout
                 android:id="@+id/layoutPremium"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:clipChildren="false">
 
-                <View
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/themes_bg_premium" />
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/themes_bg_premium_glow"
+                    app:shapeAppearanceOverlay="@style/ThemesRoundedImage16" />
 
+                <!-- Chữ: lề trái 16, trên 18; dòng 20 / 32 / 16 như Figma. -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
                         android:text="@string/themes_premium_get"
                         android:textColor="@color/themes_white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="@string/themes_premium_title"
-                        android:textColor="@color/themes_white"
-                        android:textSize="24sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:text="@string/themes_premium_title"
+                            android:textColor="@color/themes_white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="19dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="-6dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/themes_ic_premium_sparkle_small" />
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="16dp"
                         android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
                         android:text="@string/themes_premium_desc"
                         android:textColor="@color/themes_white"
                         android:textSize="12sp" />
                 </LinearLayout>
 
+                <!-- Ảnh hộp quà đã xoay sẵn (export từ Figma) -> KHÔNG set rotation, chỉ đặt đúng khung bao:
+                     to 142x136 tại (160,-50), nhỏ 84x84 tại (241,26) tính từ góc trái-trên banner 328x100. -->
                 <ImageView
-                    android:layout_width="82dp"
-                    android:layout_height="78dp"
+                    android:layout_width="142dp"
+                    android:layout_height="136dp"
                     android:layout_gravity="end|top"
-                    android:layout_marginTop="-30dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="-50dp"
+                    android:layout_marginEnd="26dp"
                     android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/themes_img_gift_open" />
 
                 <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="-6dp"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:layout_gravity="end|top"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="3dp"
                     android:importantForAccessibility="no"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/themes_img_gift_small" />
             </FrameLayout>
 

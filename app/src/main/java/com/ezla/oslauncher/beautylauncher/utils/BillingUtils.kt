@@ -11,6 +11,7 @@ import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.QueryPurchasesParams
 import com.ezla.oslauncher.themes.data.CoinPacks
+import com.ezla.oslauncher.themes.data.SubsRepository
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -85,6 +86,11 @@ object BillingUtils {
                 details.forEach { coinPackDetails[it.productId] = it }
                 CoinPacks.notifyPricesLoaded()
             }
+
+            // Mua lại gói còn kẹt giao dịch cũ: cộng xu (nếu chưa) + consume để lần bấm sau mua được.
+            override fun onItemAlreadyOwned() {
+                retryPendingCoinPurchases(appContext)
+            }
         })
         CoinPacks.store = object : CoinPacks.Store {
             override fun price(productId: String): String? =
@@ -93,6 +99,10 @@ object BillingUtils {
             override fun launchPurchase(activity: Activity, productId: String): Boolean {
                 val details = coinPackDetails[productId] ?: return false
                 return launchPurchaseInApp(activity, details)
+            }
+
+            override fun syncPending() {
+                retryPendingCoinPurchases(appContext)
             }
         }
     }
@@ -160,6 +170,8 @@ object BillingUtils {
 
     // Giao dịch xu đã trả tiền nhưng chưa consume (app chết / mạng lỗi lúc cộng xu): xử lý lại.
     private fun retryPendingCoinPurchases(context: Context) {
+        // Chưa nối Play thì bỏ qua: onBillingConnection sẽ gọi lại khi nối xong.
+        if (billing?.billingClient?.isReady != true) return
         val params = QueryPurchasesParams.newBuilder()
             .setProductType(BillingClient.ProductType.INAPP)
             .build()
@@ -242,6 +254,34 @@ object BillingUtils {
         }.format(amount)
     }
 
+    // Số ngày dùng thử của gói: phase giá 0 (free trial) có billingPeriod dạng P3D / P1W.
+    // Không có offer dùng thử -> null (màn Subs ẩn nhãn trial).
+    fun freeTrialDays(details: ProductDetails?): Int? {
+        val phase = details?.subscriptionOfferDetails?.firstOrNull()
+            ?.pricingPhases?.pricingPhaseList?.firstOrNull { it.priceAmountMicros == 0L } ?: return null
+        val m = Regex("""P(?:(\d+)W)?(?:(\d+)D)?""").matchEntire(phase.billingPeriod) ?: return null
+        val days = (m.groupValues[1].toIntOrNull() ?: 0) * 7 + (m.groupValues[2].toIntOrNull() ?: 0)
+        return days.takeIf { it > 0 }
+    }
+
+    // Giá gói năm chia 12, format theo currency của Play (dòng "≈ X / month" ở thẻ Yearly).
+    fun formattedMonthlyFromYearly(details: ProductDetails?): String? {
+        val phases = details?.subscriptionOfferDetails?.firstOrNull()
+            ?.pricingPhases?.pricingPhaseList ?: return null
+        val phase = phases.lastOrNull { it.priceAmountMicros > 0 } ?: return null
+        val currency = try {
+            Currency.getInstance(phase.priceCurrencyCode)
+        } catch (e: IllegalArgumentException) {
+            return null
+        }
+        val amount = BigDecimal.valueOf(phase.priceAmountMicros)
+            .divide(BigDecimal.valueOf(12_000_000), currency.defaultFractionDigits.coerceAtLeast(0), java.math.RoundingMode.HALF_UP)
+        return NumberFormat.getCurrencyInstance(Locale.getDefault()).apply {
+            this.currency = currency
+            maximumFractionDigits = currency.defaultFractionDigits.coerceAtLeast(0)
+        }.format(amount)
+    }
+
     /** Mở luồng mua sub. Gọi từ màn paywall khi user bấm mua. */
     fun launchPurchaseSubs(activity: Activity, productDetails: ProductDetails) {
         val offerToken = productDetails.subscriptionOfferDetails?.firstOrNull()?.offerToken
@@ -290,6 +330,8 @@ object BillingUtils {
     // (AdsHostConfig.isAdFree đọc chính isSubsCached), nên ghi cờ là ad tự tắt.
     private fun saveSubs(context: Context, isSubs: Boolean) {
         SharePrefUtils.putBoolean(context, KEY_PREMIUM_SUBS, isSubs)
+        // Module Themes: ẩn logic xu khi subs; có gói thì gửi POST /device/sub is_sub=1 (1 lần).
+        SubsRepository.onSubsState(context, isSubs)
         onSubsChanged?.invoke(isSubs)
     }
 }

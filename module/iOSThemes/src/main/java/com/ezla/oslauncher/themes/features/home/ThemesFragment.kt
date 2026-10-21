@@ -10,6 +10,7 @@ import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.base.BaseFragment
 import com.ezla.oslauncher.themes.data.ThemeRepositoryProvider
 import com.ezla.oslauncher.themes.databinding.ThemesFragmentThemesBinding
+import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.detail.ThemeViewActivity
 import kotlinx.coroutines.launch
 
@@ -25,9 +26,11 @@ class ThemesFragment : BaseFragment<ThemesFragmentThemesBinding>() {
         loadThemes()
     }
 
-    // Bấm theme -> màn View theme (xem trước rồi mới Install).
+    // Bấm theme -> inter (nếu có) rồi màn View theme (xem trước rồi mới Install).
     private val themeAdapter = ThemeAdapter { theme ->
-        ThemeViewActivity.start(requireContext(), theme.id, categoryId)
+        ThemesInter.run(activity) {
+            if (isAdded) ThemeViewActivity.start(requireContext(), theme.id, categoryId)
+        }
     }
 
     private val placeholderAdapter = ThemePlaceholderAdapter(PLACEHOLDER_COUNT)

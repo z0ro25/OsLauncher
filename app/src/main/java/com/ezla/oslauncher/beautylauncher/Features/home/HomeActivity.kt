@@ -1,5 +1,6 @@
 package com.ezla.oslauncher.beautylauncher.Features.home
 
+import android.app.Dialog
 import android.app.role.RoleManager
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -32,9 +33,11 @@ import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.extensions.tap
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
+import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezt.v2.ezt.admobdemo.ads.InterAds
-import com.ezt.v2.ezt.admobdemo.ads.NativeAds
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
 import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
@@ -87,11 +90,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
         if (!AdsSdk.isAdFree) {
-            AppAds.kit.showBanner(this, "main_banner", binding.frBanner)
+            AppAds.kit.showBanner(
+                this,
+                "main_banner",
+                binding.frBanner,
+                BannerAdOptions(collapsible = false, bannerSize = BannerSize.STANDARD)
+            )
         } else {
             // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
             binding.frBanner.isVisible = false
         }
+        // Quay lại từ In-App Review khi sheet Rate còn mở: showBanner có thể hiện lại banner dưới sheet.
+        if (rateDialog?.isShowing == true) binding.frBanner.visibility = View.INVISIBLE
     }
 
     /**
@@ -146,7 +156,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             tapWithInterInApp { selectDefaultLauncher() }
         }
 
-        // ===== Card chính (12 mục) =====
+        // ===== Card chính (13 mục) =====
+        // Themes: cùng lối vào với icon Themes trên desktop (lần đầu qua onboarding của Themes).
+        binding.llThemes.tap {
+            tapWithInterInApp { ThemesEntry.open(this) }
+        }
         binding.llGeneral.tap {
             tapWithInterInApp { launchActivity<GeneralActivity>() }
         }
@@ -192,11 +206,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         binding.llWeather.tap { /* TODO: chưa có màn Weather */ }
 
         // ===== Other =====
-        binding.llRate.tap {
-            showRateDialog(false) {
-
-            }
-        }
+        binding.llRate.tap { showRateHidingBanner() }
         binding.llMail.tap { sendFeedbackMail() }
         binding.llPrivacy.tap {
             val browserIntent = Intent(
@@ -208,6 +218,23 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     override fun dataObservable() {}
+
+    private var rateDialog: Dialog? = null
+
+    // Sheet Rate bám đáy sẽ đè lên banner -> ẩn banner (INVISIBLE, giữ layout) khi sheet mở,
+    // đóng thì trả đúng visibility cũ (SDK có thể đã tự GONE khi ad lỗi).
+    private fun showRateHidingBanner() {
+        val banner = binding.frBanner
+        val prevVisibility = banner.visibility
+        val dialog = showRateDialog(false) {}
+        if (!dialog.isShowing) return
+        rateDialog = dialog
+        banner.visibility = View.INVISIBLE
+        dialog.setOnDismissListener {
+            rateDialog = null
+            banner.visibility = prevVisibility
+        }
+    }
 
     // Bọc [action] sau interstitial in-app. Bất biến: [action] luôn chạy đúng 1 lần — đã mua
     // bản không qc hoặc chưa có ad thì chạy ngay, có ad thì chạy khi ad đóng.

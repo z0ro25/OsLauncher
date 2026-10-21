@@ -1,7 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+// Room (danh sách yêu thích local) cần kapt; cùng cách iOSLauncher đang dùng.
+apply plugin: 'kotlin-kapt'
 
 android {
+    // com.ezla.oslauncher.beautylauncher
     namespace "com.ezla.oslauncher.themes"
     compileSdkVersion cfgs.compileSdkVersion
 
@@ -54,6 +57,9 @@ dependencies {
     // .so + consumer ProGuard + quyền INTERNET; POM tự khai OkHttp 4.12.0 (sẽ bump transitive).
     implementation 'com.mct.libs:sag:1.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+    // Yêu thích (local). Room >= 2.7.2 vì compiler Kotlin 2.1.x (xem iOSLauncher/build.gradle).
+    implementation "androidx.room:room-runtime:2.7.2"
+    kapt "androidx.room:room-compiler:2.7.2"
     implementation project(':library:iOSLiteCommon')
     implementation project(':module:iOSLauncher')
     // Ảnh theme mặc định (preview, wallpaper, icon) cho màn Mine.

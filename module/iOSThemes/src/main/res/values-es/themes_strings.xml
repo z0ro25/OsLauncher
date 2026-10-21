@@ -20,6 +20,7 @@
     <string name="themes_category_neon">Luces de neón</string>
     <string name="themes_category_cute">Lindo</string>
     <string name="themes_category_sport">Deporte</string>
+    <string name="themes_category_all">Todos</string>
     <string name="themes_mine_tab_theme">Tema</string>
     <string name="themes_mine_tab_wallpapers">Fondos</string>
     <string name="themes_mine_tab_icon">Icono</string>
@@ -27,6 +28,7 @@
     <string name="themes_mine_my_library">Mi biblioteca</string>
     <string name="themes_mine_suggest">Sugerencias</string>
     <string name="themes_mine_more">más</string>
+    <string name="themes_favorite_empty">Aún no hay favoritos</string>
     <string name="themes_default_name">Predeterminado</string>
     <string name="themes_settings_title">Ajustes</string>
     <string name="themes_premium_get">Obtén</string>
@@ -38,10 +40,6 @@
     <string name="themes_setting_share">Compartir la app</string>
     <string name="themes_setting_privacy">Política de privacidad</string>
     <string name="themes_setting_subscription">Gestionar suscripciones</string>
-    <string name="themes_rate_title">¿Te gusta Themepack?</string>
-    <string name="themes_rate_subtitle">Valora tu experiencia</string>
-    <string name="themes_rate_hint">Lo mejor que podemos obtener</string>
-    <string name="themes_rate_now">Valorar ahora</string>
     <string name="themes_cd_close">Cerrar</string>
     <string name="themes_cd_back">Atrás</string>
     <string name="themes_rewards_title">Recompensas</string>
@@ -110,5 +108,14 @@
     <string name="themes_store_unavailable">La tienda no está lista, inténtalo más tarde</string>
     <string name="themes_reward_progress">Hoy %1$d/%2$d</string>
     <string name="themes_reward_done_today">Ya usaste todas las recompensas de hoy</string>
-    <string name="themes_reward_no_ad">No hay video disponible, inténtalo más tarde</string>
+    <string name="themes_reward_no_ad">No hay vídeo disponible, inténtalo más tarde</string>
+    <string name="themes_claim_reward">Reclamar recompensa</string>
+    <string name="themes_test_clear_coin">[TEST] Quitar todas las monedas</string>
+    <string name="themes_test_clear_coin_done">Monedas quitadas, saldo: %1$d</string>
+    <string name="themes_no_app_to_open">No se encontró ninguna app para abrirlo</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">Nuevo</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">Siguiente video en %1$s</string>
+    <string name="themes_reward_wait_toast">Espera %1$s para ver el siguiente video</string>
 </resources>

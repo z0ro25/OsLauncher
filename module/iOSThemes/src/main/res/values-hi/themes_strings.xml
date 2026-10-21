@@ -20,6 +20,7 @@
     <string name="themes_category_neon">नियॉन लाइट</string>
     <string name="themes_category_cute">प्यारा</string>
     <string name="themes_category_sport">खेल</string>
+    <string name="themes_category_all">सभी</string>
     <string name="themes_mine_tab_theme">थीम</string>
     <string name="themes_mine_tab_wallpapers">वॉलपेपर</string>
     <string name="themes_mine_tab_icon">आइकन</string>
@@ -27,6 +28,7 @@
     <string name="themes_mine_my_library">मेरी लाइब्रेरी</string>
     <string name="themes_mine_suggest">सुझाव</string>
     <string name="themes_mine_more">और</string>
+    <string name="themes_favorite_empty">अभी तक कोई पसंदीदा नहीं</string>
     <string name="themes_default_name">डिफ़ॉल्ट</string>
     <string name="themes_settings_title">सेटिंग्स</string>
     <string name="themes_premium_get">पाएँ</string>
@@ -38,10 +40,6 @@
     <string name="themes_setting_share">ऐप शेयर करें</string>
     <string name="themes_setting_privacy">गोपनीयता नीति</string>
     <string name="themes_setting_subscription">सदस्यता प्रबंधित करें</string>
-    <string name="themes_rate_title">क्या आपको Themepack पसंद है?</string>
-    <string name="themes_rate_subtitle">अपने अनुभव को रेट करें</string>
-    <string name="themes_rate_hint">हमें मिलने वाला सबसे अच्छा</string>
-    <string name="themes_rate_now">अभी रेट करें</string>
     <string name="themes_cd_close">बंद करें</string>
     <string name="themes_cd_back">वापस</string>
     <string name="themes_rewards_title">इनाम</string>
@@ -73,15 +71,15 @@
     <string name="themes_cd_share">साझा करें</string>
     <string name="themes_wallpaper_locked">वॉलपेपर लॉक है</string>
     <string name="themes_price_unlock">इस वॉलपेपर को अनलॉक करने की कीमत:</string>
-    <string name="themes_use_n_coins">%1$d कॉइन उपयोग करें</string>
+    <string name="themes_use_n_coins">%1$d सिक्के उपयोग करें</string>
     <string name="themes_go_premium">सब कुछ अनलॉक करने के लिए प्रीमियम लें</string>
     <string name="themes_success_set">सफलतापूर्वक सेट हो गया!</string>
     <string name="themes_wallpaper_ready">आपका नया वॉलपेपर तैयार है! देखने के लिए होम स्क्रीन पर लौटें</string>
     <string name="themes_go_home">होम स्क्रीन पर जाएँ</string>
     <string name="themes_explore_more_wallpaper">और वॉलपेपर देखें</string>
-    <string name="themes_not_enough_coins">पर्याप्त कॉइन नहीं</string>
-    <string name="themes_not_enough_coins_desc">अधिक कॉइन पाएं या असीमित पहुँच के लिए Pro में अपग्रेड करें!</string>
-    <string name="themes_get_coin_free">मुफ़्त कॉइन पाएं</string>
+    <string name="themes_not_enough_coins">पर्याप्त सिक्के नहीं</string>
+    <string name="themes_not_enough_coins_desc">अधिक सिक्के पाएँ या असीमित पहुँच के लिए Pro में अपग्रेड करें!</string>
+    <string name="themes_get_coin_free">मुफ़्त सिक्के पाएँ</string>
     <string name="themes_unlock_all_icon">सभी आइकन अनलॉक करें</string>
     <string name="themes_tab_icon">आइकन</string>
     <string name="themes_tab_wallpaper">वॉलपेपर</string>
@@ -109,6 +107,15 @@
     <string name="themes_restore_wallpaper_done">डिफ़ॉल्ट वॉलपेपर वापस आ गया</string>
     <string name="themes_store_unavailable">स्टोर तैयार नहीं है, कृपया बाद में फिर से प्रयास करें</string>
     <string name="themes_reward_progress">आज %1$d/%2$d</string>
-    <string name="themes_reward_done_today">आज के सभी रिवॉर्ड इस्तेमाल हो चुके हैं</string>
+    <string name="themes_reward_done_today">आज के सभी इनाम इस्तेमाल हो चुके हैं</string>
     <string name="themes_reward_no_ad">कोई वीडियो उपलब्ध नहीं है, कृपया बाद में प्रयास करें</string>
+    <string name="themes_claim_reward">इनाम प्राप्त करें</string>
+    <string name="themes_test_clear_coin">[TEST] सभी सिक्के हटाएँ</string>
+    <string name="themes_test_clear_coin_done">सिक्के हटाए गए, बैलेंस: %1$d</string>
+    <string name="themes_no_app_to_open">इसे खोलने के लिए कोई ऐप नहीं मिला</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">नया</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">अगला वीडियो %1$s में</string>
+    <string name="themes_reward_wait_toast">अगला वीडियो देखने के लिए %1$s प्रतीक्षा करें</string>
 </resources>

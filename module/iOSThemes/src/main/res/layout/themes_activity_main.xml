@@ -95,4 +95,13 @@
             layout="@layout/themes_item_nav" />
     </LinearLayout>
 
+    <!-- Banner "bannerinapp" sát đáy, dưới bottom nav (ẩn khi subs). -->
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+
 </LinearLayout>

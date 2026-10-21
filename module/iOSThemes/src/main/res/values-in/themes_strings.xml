@@ -20,6 +20,7 @@
     <string name="themes_category_neon">Lampu Neon</string>
     <string name="themes_category_cute">Imut</string>
     <string name="themes_category_sport">Olahraga</string>
+    <string name="themes_category_all">Semua</string>
     <string name="themes_mine_tab_theme">Tema</string>
     <string name="themes_mine_tab_wallpapers">Wallpaper</string>
     <string name="themes_mine_tab_icon">Ikon</string>
@@ -27,6 +28,7 @@
     <string name="themes_mine_my_library">Pustaka Saya</string>
     <string name="themes_mine_suggest">Saran</string>
     <string name="themes_mine_more">lainnya</string>
+    <string name="themes_favorite_empty">Belum ada favorit</string>
     <string name="themes_default_name">Bawaan</string>
     <string name="themes_settings_title">Pengaturan</string>
     <string name="themes_premium_get">Dapatkan</string>
@@ -38,10 +40,6 @@
     <string name="themes_setting_share">Bagikan aplikasi</string>
     <string name="themes_setting_privacy">Kebijakan privasi</string>
     <string name="themes_setting_subscription">Kelola langganan</string>
-    <string name="themes_rate_title">Suka Themepack?</string>
-    <string name="themes_rate_subtitle">Nilai pengalaman Anda</string>
-    <string name="themes_rate_hint">Yang terbaik yang bisa kami dapat</string>
-    <string name="themes_rate_now">Nilai sekarang</string>
     <string name="themes_cd_close">Tutup</string>
     <string name="themes_cd_back">Kembali</string>
     <string name="themes_rewards_title">Hadiah</string>
@@ -111,4 +109,13 @@
     <string name="themes_reward_progress">Hari ini %1$d/%2$d</string>
     <string name="themes_reward_done_today">Semua hadiah hari ini sudah digunakan</string>
     <string name="themes_reward_no_ad">Video tidak tersedia, coba lagi nanti</string>
+    <string name="themes_claim_reward">Klaim hadiah</string>
+    <string name="themes_test_clear_coin">[TEST] Hapus semua koin</string>
+    <string name="themes_test_clear_coin_done">Koin dihapus, saldo: %1$d</string>
+    <string name="themes_no_app_to_open">Tidak ada aplikasi untuk membukanya</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">Baru</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">Video berikutnya dalam %1$s</string>
+    <string name="themes_reward_wait_toast">Tunggu %1$s untuk menonton video berikutnya</string>
 </resources>

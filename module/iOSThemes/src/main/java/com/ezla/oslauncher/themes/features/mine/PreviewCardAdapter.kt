@@ -2,17 +2,20 @@ package com.ezla.oslauncher.themes.features.mine
 
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.R
+import com.ezla.oslauncher.themes.features.loadCardImage
 import com.ezla.oslauncher.themes.databinding.ThemesItemPreviewCardBinding
 import com.google.android.material.shape.ShapeAppearanceModel
 
 // Thẻ preview theme/wallpaper; [small] = thẻ hàng Suggest (102:196, bo 11) thay vì thẻ lớn.
+// [showNewBadge]: chỉ tab Wallpapers bật nhãn New; Mine/Suggest dùng chung adapter nên mặc định tắt.
 class PreviewCardAdapter(
     private val small: Boolean,
+    private val showNewBadge: Boolean = false,
     private val onClick: (PreviewCard) -> Unit
 ) : RecyclerView.Adapter<PreviewCardAdapter.Holder>() {
 
@@ -22,6 +25,14 @@ class PreviewCardAdapter(
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
+    }
+
+    // Loadmore (chip All tab Wallpapers): nối vào cuối, giữ vị trí cuộn và các thẻ đã bind.
+    fun append(list: List<PreviewCard>) {
+        if (list.isEmpty()) return
+        val start = items.size
+        items.addAll(list)
+        notifyItemRangeInserted(start, list.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -37,10 +48,25 @@ class PreviewCardAdapter(
 
     override fun getItemCount(): Int = items.size
 
+    // Ảnh tải lỗi -> gỡ thẻ. Tìm theo đúng object (không theo vị trí) vì list có thể đã đổi.
+    private fun removeItem(item: PreviewCard) {
+        val index = items.indexOfFirst { it === item }
+        if (index < 0) return
+        items.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val item = items[position]
-        Glide.with(holder.binding.imgCard).load(item.image).into(holder.binding.imgCard)
+        holder.binding.pbImage.visibility = View.VISIBLE
+        holder.binding.imgCard.loadCardImage(item.image) { ok ->
+            // Holder đã bị tái dùng cho thẻ khác thì không đụng vòng quay của thẻ mới.
+            if (items.getOrNull(holder.bindingAdapterPosition) === item) holder.binding.pbImage.visibility = View.GONE
+            if (!ok) removeItem(item)
+        }
         holder.binding.imgCard.contentDescription = item.name
+        holder.binding.tvNew.visibility =
+            if (showNewBadge && !item.isUnlocked && !item.isDefault) View.VISIBLE else View.GONE
         holder.binding.root.setOnClickListener { onClick(item) }
     }
 

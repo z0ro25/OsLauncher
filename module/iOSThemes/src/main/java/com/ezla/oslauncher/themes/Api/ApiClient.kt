@@ -22,20 +22,19 @@ object ApiClient {
 
     private fun build(appContext: Context): ThemesApi {
         ApiLog.init(appContext)
+        // Chỉ ghi độ dài secret (không ghi giá trị) để biết bản release có được nhúng secret không.
+        ApiLog.d("ApiClient build: baseUrl=$BASE_URL secretLength=${BuildConfig.SAG_BOOTSTRAP_SECRET.length}")
 
         // Base client CHỈ chứa application interceptor (md §6 cho phép; network interceptor bị cấm
         // vì đọc được JWT/signature).
         val baseClient = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            .apply {
-                if (ApiLog.enabled) {
-                    addInterceptor(
-                        HttpLoggingInterceptor { ApiLog.d(it) }
-                            .setLevel(HttpLoggingInterceptor.Level.BODY)
-                    )
-                }
-            }
+            // Gắn ở MỌI bản: ApiLog.d tự quyết logcat (chỉ debug) + luôn ghi file Download để đọc lỗi release.
+            .addInterceptor(
+                HttpLoggingInterceptor { ApiLog.d(it) }
+                    .setLevel(HttpLoggingInterceptor.Level.BODY)
+            )
             .build()
 
         // SagClient dùng chung: ở request đầu tự tạo device session + Key Attestation + ký (Bearer JWT,

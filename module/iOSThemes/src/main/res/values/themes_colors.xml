@@ -10,6 +10,8 @@
     <color name="themes_text_coin">#520035</color>
     <color name="themes_divider">#A2A0B5</color>
     <color name="themes_card_stroke">#33000000</color>
+    <!-- Nền mờ loading full màn lúc áp theme; cùng giá trị fr_loading của :app. -->
+    <color name="themes_loading_scrim">#66000000</color>
     <color name="themes_ad_placeholder">#F1F1F1</color>
     <color name="themes_onboarding_bg">#FFFFFF</color>
     <!-- Line nền của dải step ở màn Install theme (Figma). -->

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.os.Build
+import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
@@ -31,18 +33,6 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
     // Gói đang chọn — quyết định Continue mua Yearly hay Monthly. Mặc định Yearly theo layout.
     private var selectedIsYear = true
 
-    private val apps: ArrayList<IapAppIcon> =
-        arrayListOf(
-            IapAppIcon(com.truongnt.ios.launcher.R.drawable.ic_app_gmail, "Mail"),
-            IapAppIcon(com.truongnt.ios.launcher.R.drawable.ic_app_gmeet, "FaceTime"),
-            IapAppIcon(com.truongnt.ios.launcher.R.drawable.ic_app_gallery, "Photo"),
-            IapAppIcon(com.truongnt.ios.launcher.R.drawable.ic_app_maps, "Map"),
-            IapAppIcon(com.truongnt.ios.launcher.R.drawable.ic_app_camera, "Camera"),
-            IapAppIcon(com.ezla.oslauncher.beautylauncher.R.drawable.img_weather, "Weather"),
-            IapAppIcon(com.ezla.oslauncher.beautylauncher.R.drawable.img_contact, "Contact"),
-        )
-    val adapter by lazy { IapAppIconAdapter(apps) }
-
     override fun initView() {
         // Vào từ luồng onboarding: back = thoát app (giống màn chọn hình nền), KHÔNG quay lại
         // màn trước — nếu không user bị kẹt vòng onboarding.
@@ -53,14 +43,14 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
         }
 
         binding.apply {
-            rcvApps.adapter = adapter
-
             MainScope().launch {
                 delay(3000)
                 icX.isVisible = true
             }
         }
 
+        binding.root.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> binding.root.post { placeContent() } }
+        renderPlans()
         bindPrices()
 
         // Giá có thể chưa tải xong lúc mở màn (query billing là bất đồng bộ) — bind lại khi có.
@@ -87,20 +77,12 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
 
             viewYear.setOnClickListener {
                 selectedIsYear = true
-                viewYear.setBackgroundResource(R.drawable.bg_iap_card_selected)
-                icDotYear.setImageResource(R.drawable.ic_subs__pack_dot_select)
-
-                viewMonth.setBackgroundResource(R.drawable.bg_c24_fff)
-                icDotMonth.setImageResource(R.drawable.ic_subs__pack_dot)
+                renderPlans()
             }
 
             viewMonth.setOnClickListener {
                 selectedIsYear = false
-                viewMonth.setBackgroundResource(R.drawable.bg_iap_card_selected)
-                icDotMonth.setImageResource(R.drawable.ic_subs__pack_dot_select)
-
-                viewYear.setBackgroundResource(R.drawable.bg_c24_fff)
-                icDotYear.setImageResource(R.drawable.ic_subs__pack_dot)
+                renderPlans()
             }
 
             btnContinue.setOnClickListener {
@@ -129,10 +111,102 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
 
     override fun dataObservable() {}
 
-    // Đổ giá từ ProductDetails; chưa có giá thật thì GIỮ NGUYÊN placeholder trong layout.
+    // Figma có 2 frame (chọn Yearly / chọn Monthly): thẻ chọn cao 168dp, nền + viền gradient, radio tích,
+    // giá gradient, trial xanh, bóng xanh; thẻ kia 150dp nền trắng, giá đặc, trial xám, bóng nhạt.
+    private fun renderPlans() {
+        binding.apply {
+            renderPlan(viewYear, icDotYear, tvYearPrices, tvYearTrial, selectedIsYear, YEAR_PRICE_UNSELECTED_SP, YEAR_PRICE_SOLID)
+            renderPlan(viewMonth, icDotMonth, tvMonthPrices, tvMonthTrial, !selectedIsYear, MONTH_PRICE_UNSELECTED_SP, MONTH_PRICE_SOLID)
+        }
+        bindThenPrice()
+    }
+
+    private fun renderPlan(
+        card: View,
+        radio: android.widget.ImageView,
+        price: android.widget.TextView,
+        trial: android.widget.TextView,
+        selected: Boolean,
+        unselectedPriceSp: Float,
+        unselectedPriceColor: Int
+    ) {
+        val density = resources.displayMetrics.density
+        card.layoutParams = card.layoutParams.apply {
+            height = ((if (selected) CARD_SELECTED_DP else CARD_NORMAL_DP) * density).toInt()
+        }
+        card.setBackgroundResource(if (selected) R.drawable.bg_iap_plan_selected else R.drawable.bg_iap_plan_normal)
+        card.elevation = (if (selected) 8f else 2f) * density
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val shadow = if (selected) SHADOW_SELECTED else SHADOW_NORMAL
+            card.outlineSpotShadowColor = shadow
+            card.outlineAmbientShadowColor = shadow
+        }
+        radio.setImageResource(if (selected) R.drawable.ic_iap_radio_on else R.drawable.ic_iap_radio_off)
+
+        price.textSize = if (selected) PRICE_SELECTED_SP else unselectedPriceSp
+        price.setTextColor(if (selected) PRICE_GRADIENT_START else unselectedPriceColor)
+        if (selected) price.post { applyPriceGradient(price) } else price.paint.shader = null
+        price.invalidate()
+
+        trial.setBackgroundResource(if (selected) R.drawable.bg_iap_trial_selected else R.drawable.bg_iap_trial_normal)
+        trial.setTextColor(if (selected) TRIAL_TEXT_SELECTED else TRIAL_TEXT_NORMAL)
+    }
+
+    // Đổ giá / trial từ ProductDetails; chưa có giá thật thì để trống, trial thì ẩn.
     private fun bindPrices() {
-        BillingUtils.formattedPrice(BillingUtils.Yearly)?.let { binding.tvYearPrices.text = it }
-        BillingUtils.formattedPrice(BillingUtils.Monthly)?.let { binding.tvMonthPrices.text = it }
+        binding.apply {
+            tvYearPrices.text = yearPrice()
+            tvMonthPrices.text = monthPrice()
+            tvYearPerMonth.text = getString(
+                R.string.subs_per_month_approx,
+                BillingUtils.formattedMonthlyFromYearly(BillingUtils.Yearly)
+                    ?: getString(R.string.subs_price_year_monthly_fallback)
+            )
+            bindTrial(tvYearTrial, BillingUtils.freeTrialDays(BillingUtils.Yearly))
+            bindTrial(tvMonthTrial, BillingUtils.freeTrialDays(BillingUtils.Monthly))
+        }
+        // Giá đổi độ dài -> vẽ lại gradient cho thẻ đang chọn.
+        renderPlans()
+    }
+
+    private fun bindTrial(view: android.widget.TextView, days: Int?) {
+        view.isVisible = days != null
+        if (days != null) view.text = getString(R.string.subs_free_trial_days, days)
+    }
+
+    // Màn cao: giãn khoảng giữa gói và Continue để tiêu đề nằm ngay dưới hero như Figma. Màn ngắn:
+    // khoảng giãn = 0, cụm nội dung (neo đáy) tự đè lên đáy hero. Hero không thu nhỏ / không cắt.
+    private fun placeContent() {
+        val root = binding.root
+        val hero = binding.imgHero
+        if (root.height == 0 || hero.height == 0) return
+        val bottomBlock = binding.layoutBottom.height - binding.spaceGap.height
+        val free = root.height - root.paddingTop - root.paddingBottom - hero.height - bottomBlock
+        val gap = free.coerceAtLeast(0)
+        if (binding.spaceGap.layoutParams.height != gap) {
+            binding.spaceGap.layoutParams = binding.spaceGap.layoutParams.apply { height = gap }
+        }
+    }
+
+    // Giá Play (đúng tiền tệ của máy); Play chưa trả ProductDetails thì dùng giá Figma để màn không trống.
+    private fun yearPrice() = BillingUtils.formattedPrice(BillingUtils.Yearly) ?: getString(R.string.subs_price_year_fallback)
+
+    private fun monthPrice() = BillingUtils.formattedPrice(BillingUtils.Monthly) ?: getString(R.string.subs_price_month_fallback)
+
+    // "Then {giá}/year (month) • Cancel anytime" theo gói đang chọn.
+    private fun bindThenPrice() {
+        binding.tvThenPrice.text =
+            if (selectedIsYear) getString(R.string.subs_then_per_year, yearPrice())
+            else getString(R.string.subs_then_per_month, monthPrice())
+    }
+
+    private fun applyPriceGradient(tv: android.widget.TextView) {
+        val width = tv.paint.measureText(tv.text.toString())
+        if (width <= 0f) return
+        tv.paint.shader = android.graphics.LinearGradient(
+            0f, 0f, width, 0f, PRICE_GRADIENT_START, PRICE_GRADIENT_END, android.graphics.Shader.TileMode.CLAMP
+        )
+        tv.invalidate()
     }
 
     private fun openWeb(url: String) {
@@ -206,6 +280,21 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
     companion object {
         /** Extra: màn được mở từ luồng onboarding đầu tiên (back = thoát app, không quay lại). */
         const val EXTRA_FROM_ONBOARDING = "subs_from_onboarding"
+
+        private val PRICE_GRADIENT_START = android.graphics.Color.parseColor("#2563EB")
+        private val PRICE_GRADIENT_END = android.graphics.Color.parseColor("#7C3AED")
+        // Giá thẻ không chọn: Yearly #151515 / 24sp, Monthly #1F2937 / 21sp (2 frame Figma).
+        private val YEAR_PRICE_SOLID = android.graphics.Color.parseColor("#151515")
+        private val MONTH_PRICE_SOLID = android.graphics.Color.parseColor("#1F2937")
+        private val TRIAL_TEXT_SELECTED = android.graphics.Color.parseColor("#15803D")
+        private val TRIAL_TEXT_NORMAL = android.graphics.Color.parseColor("#475569")
+        private val SHADOW_SELECTED = android.graphics.Color.parseColor("#3B6CF6")
+        private val SHADOW_NORMAL = android.graphics.Color.parseColor("#1E2B4A")
+        private const val CARD_SELECTED_DP = 168
+        private const val CARD_NORMAL_DP = 150
+        private const val PRICE_SELECTED_SP = 24f
+        private const val YEAR_PRICE_UNSELECTED_SP = 24f
+        private const val MONTH_PRICE_UNSELECTED_SP = 21f
 
         // TODO(url): thay bằng link T&C / Privacy thật của app.
         const val URL_PRIVACY =

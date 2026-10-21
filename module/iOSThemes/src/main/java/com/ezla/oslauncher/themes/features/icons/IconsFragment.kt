@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ezla.oslauncher.themes.base.BaseFragment
 import com.ezla.oslauncher.themes.data.ThemeRepositoryProvider
 import com.ezla.oslauncher.themes.databinding.ThemesFragmentIconsBinding
+import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.detail.IconDetailActivity
 import com.ezla.oslauncher.themes.features.home.CategoryAdapter
 import kotlinx.coroutines.launch
@@ -27,7 +28,11 @@ class IconsFragment : BaseFragment<ThemesFragmentIconsBinding>() {
 
     private val sectionAdapter = IconSectionAdapter(
         onMore = { category -> IconCategoryActivity.start(requireContext(), category) },
-        onCard = { card -> IconDetailActivity.start(requireContext(), card.id) }
+        onCard = { card ->
+            ThemesInter.run(activity) {
+                if (isAdded) IconDetailActivity.start(requireContext(), card.id)
+            }
+        }
     )
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =

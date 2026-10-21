@@ -39,6 +39,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground" />
+
+        <ProgressBar
+            android:id="@+id/pbImage"
+            style="@style/ThemesCardLoading"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tvNew"
+            style="@style/ThemesNewBadge"
+            android:layout_gravity="top|start"
+            android:background="@drawable/themes_bg_new_badge_12" />
     </FrameLayout>
 
     <TextView

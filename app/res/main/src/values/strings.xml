@@ -108,6 +108,7 @@
     <string name="theme_default_name">Default</string>
     <string name="language">Language</string>
     <string name="general">General</string>
+    <string name="home_themes">Themes</string>
     <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->
     <string name="general_options">Options</string>
     <string name="auto_arrange_home_screen">Auto Arrange Home Screen</string>
@@ -175,7 +176,7 @@
     
     <string name="title1">Experience IOS 26 with a futuristic look</string>
     <string name="title2">Light &amp; Dark theme Supported</string>
-    <string name="title3">All your apps arranged neatly in App Library</string>
+    <string name="title3">Freedom to choose\nbeautiful and unique themes</string>
     <string name="t_c"><u><![CDATA[T&C]]></u></string>
     <string name="cancel_anytime">Cancel anytime</string>
     <string name="renew_per_month_cancel_anytime">Renew per month. Cancel anytime</string>
@@ -225,4 +226,21 @@
     <string name="subs_offer_no_charge_today">Cancel anytime. No charge today.</string>
     <string name="subs_offer_subscribe">SUBSCRIBE NOW</string>
     <string name="subs_offer_close">Close</string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_app_name" translatable="false">MiOS Launcher</string>
+    <!-- Giá dự phòng (theo Figma) khi Play chưa trả ProductDetails; có giá Play thì SubsAct ghi đè. -->
+    <string name="subs_price_year_fallback" translatable="false">1.600.000₫</string>
+    <string name="subs_price_month_fallback" translatable="false">320.000₫</string>
+    <string name="subs_price_year_monthly_fallback" translatable="false">133.000₫</string>
+    <string name="subs_start_premium">Start premium plan!</string>
+    <string name="subs_feature_themes">1000+ Premium Themes</string>
+    <string name="subs_feature_wallpapers">1000+ Wallpapers</string>
+    <string name="subs_feature_icons">Unlock All Icon packs</string>
+    <string name="subs_feature_ad_free">Ad-free experience</string>
+    <string name="subs_best_value">BEST VALUE</string>
+    <string name="subs_billed_monthly">Billed monthly</string>
+    <string name="subs_per_month_approx">≈ %1$s / month</string>
+    <string name="subs_free_trial_days">%1$d-day free trial</string>
+    <string name="subs_then_per_year">Then %1$s/year • Cancel anytime</string>
+    <string name="subs_then_per_month">Then %1$s/month • Cancel anytime</string>
 </resources>

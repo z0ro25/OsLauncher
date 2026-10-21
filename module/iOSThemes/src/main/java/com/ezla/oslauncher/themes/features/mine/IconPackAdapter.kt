@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ezla.oslauncher.themes.features.CardImageTracker
+import com.ezla.oslauncher.themes.features.loadCardImage
 import com.ezla.oslauncher.themes.databinding.ThemesItemIconPackBinding
 import com.ezla.oslauncher.themes.databinding.ThemesItemPackIconBinding
 
@@ -36,23 +38,45 @@ class IconPackAdapter(private val onClick: (IconPack) -> Unit) :
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val pack = items[position]
         holder.binding.tvPackName.text = pack.name
+        holder.bound = pack
+        val icons = pack.icons.take(MAX_ICONS)
+        // Vòng quay tắt khi nền + mọi icon đã tải xong; một ảnh lỗi -> gỡ cả thẻ.
+        val tracker = CardImageTracker(icons.size + if (pack.background != null) 1 else 0) { ok ->
+            if (holder.bound !== pack) return@CardImageTracker
+            holder.binding.pbImage.visibility = View.GONE
+            if (!ok) removeItem(pack)
+        }
+        holder.binding.pbImage.visibility = if (tracker.done) View.GONE else View.VISIBLE
         val bg = holder.binding.imgPackBg
         if (pack.background != null) {
             bg.visibility = View.VISIBLE
-            Glide.with(bg).load(pack.background).into(bg)
+            bg.loadCardImage(pack.background, tracker::report)
         } else {
             Glide.with(bg).clear(bg)
             bg.visibility = View.GONE
         }
-        holder.binding.rvIcons.adapter = IconsAdapter(pack.icons.take(MAX_ICONS))
+        holder.binding.rvIcons.adapter = IconsAdapter(icons, tracker::report)
         // RecyclerView lưới icon luôn nuốt chạm -> nhận click qua lớp phủ viewClick + phần tên.
         holder.binding.viewClick.setOnClickListener { onClick(pack) }
         holder.binding.root.setOnClickListener { onClick(pack) }
     }
 
-    class Holder(val binding: ThemesItemIconPackBinding) : RecyclerView.ViewHolder(binding.root)
+    // Ảnh tải lỗi -> gỡ thẻ. Tìm theo đúng object (không theo vị trí) vì list có thể đã đổi.
+    private fun removeItem(pack: IconPack) {
+        val index = items.indexOfFirst { it === pack }
+        if (index < 0) return
+        items.removeAt(index)
+        notifyItemRemoved(index)
+    }
 
-    private class IconsAdapter(private val icons: List<Any>) :
+    class Holder(val binding: ThemesItemIconPackBinding) : RecyclerView.ViewHolder(binding.root) {
+        var bound: IconPack? = null
+    }
+
+    private class IconsAdapter(
+        private val icons: List<Any>,
+        private val onResult: (Boolean) -> Unit
+    ) :
         RecyclerView.Adapter<IconsAdapter.IconHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = IconHolder(
@@ -62,7 +86,7 @@ class IconPackAdapter(private val onClick: (IconPack) -> Unit) :
         override fun getItemCount(): Int = icons.size
 
         override fun onBindViewHolder(holder: IconHolder, position: Int) {
-            Glide.with(holder.binding.imgIcon).load(icons[position]).into(holder.binding.imgIcon)
+            holder.binding.imgIcon.loadCardImage(icons[position], onResult)
         }
 
         class IconHolder(val binding: ThemesItemPackIconBinding) : RecyclerView.ViewHolder(binding.root)

@@ -3,6 +3,8 @@ package com.ezla.oslauncher.themes.features.rewards
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import com.ezla.oslauncher.themes.R
@@ -39,5 +41,24 @@ class RewardDialog(
             dismiss()
             onWatchClaim()
         }
+
+        // Check-in chỉ báo thành công rồi tự ẩn: không nút đóng, không mời xem ads (đó là của AFTER_ADS).
+        if (checkin) {
+            binding.imgRewardClose.visibility = View.GONE
+            binding.btnWatchClaim.visibility = View.GONE
+            handler.postDelayed({ if (isShowing) dismiss() }, CHECKIN_AUTO_DISMISS_MS)
+        }
+    }
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    override fun onStop() {
+        handler.removeCallbacksAndMessages(null)
+        super.onStop()
+    }
+
+    private companion object {
+        // Cùng thời lượng CoinToastDialog (toast "+N Coins").
+        const val CHECKIN_AUTO_DISMISS_MS = 1500L
     }
 }

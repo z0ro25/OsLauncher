@@ -7,6 +7,8 @@
     <dimen name="themes_chip_radius">16dp</dimen>
     <dimen name="themes_grid_gap">11dp</dimen>
     <dimen name="themes_mine_gap">12dp</dimen>
+    <!-- Khoảng cách 2 chip con Favorites: bằng marginEnd của chip tab chính. -->
+    <dimen name="themes_mine_chip_gap">6dp</dimen>
     <dimen name="themes_bottom_nav_height">62dp</dimen>
     <dimen name="themes_onboarding_image_height">436dp</dimen>
     <dimen name="themes_onboarding_ad_height">300dp</dimen>

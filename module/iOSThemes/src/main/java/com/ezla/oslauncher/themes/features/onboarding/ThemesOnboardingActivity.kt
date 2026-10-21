@@ -2,6 +2,9 @@ package com.ezla.oslauncher.themes.features.onboarding
 
 import com.ezla.oslauncher.themes.Models.OnboardingPage
 import android.view.LayoutInflater
+import android.view.View
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.truongnt.ios.ioslite.common.config.AppAds
 import androidx.activity.addCallback
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.themes.R
@@ -46,11 +49,31 @@ class ThemesOnboardingActivity : BaseActivity<ThemesActivityOnboardingBinding>()
 
     override fun dataObservable() {}
 
-    // Chỉ đổi nhãn nút; trạng thái dot do DotsIndicator tự lo.
+    // Chỉ đổi nhãn nút + native của trang; trạng thái dot do DotsIndicator tự lo.
     private fun render(position: Int) {
         binding.tvNext.setText(
             if (position == pages.lastIndex) R.string.themes_get_started else R.string.themes_next
         )
+        showPageNative(position)
+    }
+
+    // Key riêng của Themes (tách báo cáo), tạm trỏ ad unit của native_onb1/2/3 trong placements JSON.
+    private val nativeKeys = listOf("native_themes_onb1", "native_themes_onb2", "native_themes_onb3")
+
+    // Ad-free / chưa có kit / ad lỗi -> ẩn frAds. Ad về muộn của trang cũ thì bỏ qua.
+    private fun showPageNative(position: Int) {
+        val container = binding.frAds
+        container.removeAllViews()
+        val key = nativeKeys.getOrNull(position)
+        if (key == null || AdsSdk.isAdFree || !AppAds.hasKit()) {
+            container.visibility = View.GONE
+            return
+        }
+        container.visibility = View.VISIBLE
+        AppAds.showNativeFill(this, key, container, R.layout.themes_layout_native_onb,
+            com.truongnt.ios.ioslite.common.R.layout.shimmer_native_large) { hasAd ->
+            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.GONE
+        }
     }
 
     private fun finishOnboarding() {

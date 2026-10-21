@@ -133,6 +133,7 @@
             android:background="@drawable/themes_bg_circle_white">
 
             <ImageView
+                android:id="@+id/imgFavorite"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_gravity="center"
@@ -183,4 +184,14 @@
                 android:src="@drawable/themes_ic_setting_share" />
         </FrameLayout>
     </LinearLayout>
+
+    <!-- Banner "bannerinapp" sát đáy (ẩn khi subs). Nội dung phía trên co lại, không bị che. -->
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+
 </LinearLayout>

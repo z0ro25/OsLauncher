@@ -20,6 +20,7 @@
     <string name="themes_category_neon">Neonlichter</string>
     <string name="themes_category_cute">Niedlich</string>
     <string name="themes_category_sport">Sport</string>
+    <string name="themes_category_all">Alle</string>
     <string name="themes_mine_tab_theme">Design</string>
     <string name="themes_mine_tab_wallpapers">Hintergründe</string>
     <string name="themes_mine_tab_icon">Symbol</string>
@@ -27,6 +28,7 @@
     <string name="themes_mine_my_library">Meine Bibliothek</string>
     <string name="themes_mine_suggest">Vorschläge</string>
     <string name="themes_mine_more">mehr</string>
+    <string name="themes_favorite_empty">Noch keine Favoriten</string>
     <string name="themes_default_name">Standard</string>
     <string name="themes_settings_title">Einstellungen</string>
     <string name="themes_premium_get">Hol dir</string>
@@ -38,10 +40,6 @@
     <string name="themes_setting_share">App teilen</string>
     <string name="themes_setting_privacy">Datenschutz</string>
     <string name="themes_setting_subscription">Abos verwalten</string>
-    <string name="themes_rate_title">Gefällt dir Themepack?</string>
-    <string name="themes_rate_subtitle">Bewerte deine Erfahrung</string>
-    <string name="themes_rate_hint">Das Beste, was wir bekommen können</string>
-    <string name="themes_rate_now">Jetzt bewerten</string>
     <string name="themes_cd_close">Schließen</string>
     <string name="themes_cd_back">Zurück</string>
     <string name="themes_rewards_title">Belohnungen</string>
@@ -111,4 +109,13 @@
     <string name="themes_reward_progress">Heute %1$d/%2$d</string>
     <string name="themes_reward_done_today">Alle Belohnungen für heute verbraucht</string>
     <string name="themes_reward_no_ad">Kein Video verfügbar, bitte später erneut versuchen</string>
+    <string name="themes_claim_reward">Belohnung abholen</string>
+    <string name="themes_test_clear_coin">[TEST] Alle Münzen entfernen</string>
+    <string name="themes_test_clear_coin_done">Münzen entfernt, Guthaben: %1$d</string>
+    <string name="themes_no_app_to_open">Keine App zum Öffnen gefunden</string>
+    <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
+    <string name="themes_badge_new">Neu</string>
+    <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
+    <string name="themes_reward_cooldown">Nächstes Video in %1$s</string>
+    <string name="themes_reward_wait_toast">Bitte warte %1$s bis zum nächsten Video</string>
 </resources>

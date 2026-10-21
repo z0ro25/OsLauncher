@@ -36,6 +36,21 @@
             </intent-filter>
         </activity>
 
+        <!-- Splash của icon Themes: affinity riêng -> task + thẻ Đa nhiệm riêng, không đè task MiOS.
+             Router (iOSLiteCommon) không thấy class này nên mở bằng action THEMES_SPLASH. -->
+        <activity
+            android:name=".Features.splash.ThemesSplashActivity"
+            android:exported="false"
+            android:icon="@drawable/lite_rom_themes"
+            android:label="@string/themes_shortcut_label"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.themes">
+            <intent-filter>
+                <action android:name="${applicationId}.action.THEMES_SPLASH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".Features.no_internet.NoInternetActivity"
             android:exported="true"

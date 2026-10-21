@@ -1,80 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Màn View theme (Figma View theme): nút đóng, carousel Home | Lock | Home, Suggest 3 cột, Install. -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Màn View theme (Figma View theme): nút đóng, carousel Home | Lock | Home, Suggest 3 cột, Install.
+     Root dọc: khối cuộn + nút Install (chồng) chiếm phần còn lại, banner sát đáy bên dưới. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/themes_bg">
+    android:background="@color/themes_bg"
+    android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="96dp">
-
-            <ImageView
-                android:id="@+id/imgClose"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="@dimen/themes_screen_padding"
-                android:contentDescription="@string/themes_cd_close"
-                android:src="@drawable/themes_ic_close_white" />
-
-            <!-- Carousel: background | lock | thumbnail; trang giữa to, 2 bên thu nhỏ và lấp ló.
-                 Padding ngang đặt trong code để bề ngang trang khớp tỉ lệ ảnh. -->
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/pagerPreview"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/themes_view_preview_height"
-                android:layout_marginTop="32dp"
-                android:clipChildren="false"
-                android:clipToPadding="false" />
-
-            <TextView
-                android:id="@+id/tvSuggest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/themes_screen_padding"
-                android:layout_marginTop="22dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/themes_mine_suggest"
-                android:textColor="@color/themes_text_dark"
-                android:textSize="14sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSuggest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:paddingHorizontal="@dimen/themes_screen_padding" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- Nút Install cố định đáy, nền cùng màu màn để che lưới Suggest cuộn bên dưới. -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:layout_gravity="bottom"
-        android:background="@color/themes_bg"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="18dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/btnInstall"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/themes_bg_button_blue_pill"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="@string/themes_install_title"
-            android:textColor="@color/themes_white"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="96dp">
+
+                <!-- Nút X + tên theme bên cạnh (kiểu chữ theo themes_view_header). -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/themes_screen_padding">
+
+                    <ImageView
+                        android:id="@+id/imgClose"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@string/themes_cd_close"
+                        android:src="@drawable/themes_ic_close_white" />
+
+                    <TextView
+                        android:id="@+id/tvThemeName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/themes_quicksand_semibold"
+                        android:maxLines="1"
+                        android:textColor="@color/themes_text_name"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Carousel: background | lock | thumbnail; trang giữa to, 2 bên thu nhỏ và lấp ló.
+                     Padding ngang đặt trong code để bề ngang trang khớp tỉ lệ ảnh. -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pagerPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/themes_view_preview_height"
+                    android:layout_marginTop="32dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false" />
+
+                <TextView
+                    android:id="@+id/tvSuggest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/themes_screen_padding"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/themes_mine_suggest"
+                    android:textColor="@color/themes_text_dark"
+                    android:textSize="14sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSuggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/themes_screen_padding" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Nút Install cố định đáy, nền cùng màu màn để che lưới Suggest cuộn bên dưới. -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_gravity="bottom"
+            android:background="@color/themes_bg"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="18dp">
+
+            <TextView
+                android:id="@+id/btnInstall"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/themes_bg_button_blue_pill"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/themes_install_title"
+                android:textColor="@color/themes_white"
+                android:textSize="16sp" />
+        </FrameLayout>
     </FrameLayout>
-</FrameLayout>
+
+    <!-- Banner "bannerinapp" sát đáy (ẩn khi subs). Nội dung phía trên co lại, không bị che. -->
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+</LinearLayout>
