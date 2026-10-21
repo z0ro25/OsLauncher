@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Dialog ưu đãi sub (bottom sheet theo mockup): grabber -> header -> "50%" -> SALE OFF ->
+  badge -> giá -> đếm ngược 5 phút -> nút Subscribe -> T&C/Privacy.
+  Nền luôn sáng (không có bản values-night) — bám đúng mockup, giống màn SubsAct.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_subs_offer_sheet"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingBottom="24dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_subs_offer_grabber" />
+
+    <!-- Header: vòng tròn chứa icon kim cương + tiêu đề, nút X nằm cuối dòng. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/img_pro"
+            android:contentDescription="@null"
+            android:padding="9dp"
+            android:src="@drawable/ic_subs_offer_diamond" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/subs_offer_title"
+            android:textColor="@color/subs_offer_text"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:contentDescription="@string/subs_offer_close"
+            android:src="@drawable/ic_x_round" />
+    </LinearLayout>
+
+    <!-- "50%": màu gradient set bằng shader trong SubsOfferDialog (XML không tô gradient được chữ). -->
+    <TextView
+        android:id="@+id/tv_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:includeFontPadding="false"
+        android:text="@string/subs_offer_percent"
+        android:textColor="@color/subs_offer_blue"
+        android:textSize="88sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_subs_offer_bolt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:includeFontPadding="false"
+            android:text="@string/subs_offer_sale_off"
+            android:textColor="@color/subs_offer_blue"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_subs_offer_bolt" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_subs_offer_badge"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="@string/subs_offer_limited"
+        android:textColor="@color/subs_offer_text"
+        android:textSize="14sp" />
+
+    <!--
+      Giá: số nằm trong layout là PLACEHOLDER theo mockup, giữ nguyên khi Play Billing chưa trả giá
+      (productId còn rỗng). Có giá thật thì SubsOfferDialog bind đè — cùng cách act_subs.xml làm.
+    -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_original_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_medium"
+            android:includeFontPadding="false"
+            android:text="₫3.000.000"
+            android:textColor="@color/subs_offer_text_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:includeFontPadding="false"
+            android:text="@string/subs_offer_only"
+            android:textColor="@color/subs_offer_text"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_sale_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:includeFontPadding="false"
+            android:text="₫1.600.000"
+            android:textColor="@color/subs_offer_blue"
+            android:textSize="19sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:includeFontPadding="false"
+            android:text="@string/subs_offer_per_year"
+            android:textColor="@color/subs_offer_text"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <!-- Đếm ngược 5:00 — chạy thật và hết giờ thì dialog tự đóng (xem SubsOfferDialog). -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_minute"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="@drawable/bg_subs_offer_timer"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="05"
+            android:textColor="@color/subs_offer_blue"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:includeFontPadding="false"
+            android:text=":"
+            android:textColor="@color/subs_offer_text_grey"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tv_second"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="@drawable/bg_subs_offer_timer"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="00"
+            android:textColor="@color/subs_offer_blue"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_subs_offer_shield" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:includeFontPadding="false"
+            android:text="@string/subs_offer_no_charge_today"
+            android:textColor="@color/subs_offer_text"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_subscribe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_subs_offer_subscribe"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingVertical="17dp"
+        android:text="@string/subs_offer_subscribe"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp">
+
+        <TextView
+            android:id="@+id/tv_tc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:text="@string/t_c"
+            android:textColor="@color/color.363638"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:text="@string/privacy_policy_u"
+            android:textColor="@color/color.363638"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</LinearLayout>

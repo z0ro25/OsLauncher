@@ -14,6 +14,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="35dp"
     android:background="@color/onb_bg"
     android:fitsSystemWindows="true">
 
@@ -131,10 +132,19 @@
         android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
         android:src="@drawable/screengrid_preview_4x4"
-        app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintBottom_toTopOf="@id/fr_banner"
         app:layout_constraintDimensionRatio="W,580:1141"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_segmented" />
-
+    <FrameLayout
+        android:id="@+id/fr_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/ads_banner" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

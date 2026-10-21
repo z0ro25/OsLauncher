@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dialog "Choose where to apply" (Figma bg9): chọn Lock/Home screen rồi Next. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/themes_bg_sheet_top16"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/tvChooseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/themes_quicksand_bold"
+        android:textColor="@color/themes_text_name"
+        android:textSize="18sp"
+        tools:text="Choose where to apply" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layoutLock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgLock"
+                android:layout_width="150dp"
+                android:layout_height="260dp"
+                android:background="@color/themes_bg"
+                android:contentDescription="@string/themes_lock_screen"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ThemesRoundedImage16" />
+
+            <TextView
+                android:id="@+id/tvLock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/themes_quicksand_medium"
+                android:textColor="@color/themes_text_name"
+                android:textSize="13sp"
+                tools:text="Lock screen" />
+
+            <ImageView
+                android:id="@+id/imgLockCheck"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/themes_ic_check_on" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgHome"
+                android:layout_width="150dp"
+                android:layout_height="260dp"
+                android:background="@color/themes_bg"
+                android:contentDescription="@string/themes_home_screen"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ThemesRoundedImage16" />
+
+            <TextView
+                android:id="@+id/tvHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/themes_quicksand_medium"
+                android:textColor="@color/themes_text_name"
+                android:textSize="13sp"
+                tools:text="Home screen" />
+
+            <ImageView
+                android:id="@+id/imgHomeCheck"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/themes_ic_check_on" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/themes_bg_button_blue"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_next"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

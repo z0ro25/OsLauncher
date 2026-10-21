@@ -7,21 +7,32 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 
+import com.ezla.oslauncher.beautylauncher.BuildConfig;
+import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil;
+import com.ezla.oslauncher.beautylauncher.utils.BillingUtils;
+import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.ezla.oslauncher.beautylauncher.ads.AdjustTracker;
 import com.truongnt.ios.ioslite.common.CommonSdk;
 import com.truongnt.ios.ioslite.common.LiteAction;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
 import com.truongnt.ios.ioslite.common.debug.ExceptionHandler;
+import com.truongnt.ios.ioslite.common.noti.DailyNotiScheduler;
 import com.truongnt.ios.ioslite.common.util.ProcessUtil;
 import com.truongnt.ios.launcher.LauncherAppState;
-import com.truongnt.ios.themeclub.ThemeClubApplication;
-import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil;
 
 import java.util.Locale;
 
 public class BaseLauncherApplication extends Application {
     private static final String TAG = "BaseLauncherApplication";
     private static final String KEY_EX_CATCHER = "ios_ex_catcher";
+
+    // Key Remote Config cho notification hằng ngày — khai báo giá trị mặc định ở
+    // res/xml/remote_config_defaults.xml, đọc ở setupDailyNotification().
+    private static final String KEY_DAILY_NOTI_ENABLED = "daily_noti_enabled";
+    private static final String KEY_DAILY_NOTI_TIME = "daily_noti_time";
     protected Application mApplication;
     //private WeatherApplication mWeatherApplication;
 
@@ -64,11 +75,8 @@ public class BaseLauncherApplication extends Application {
 //            mWeatherApplication = new WeatherApplication();
 //            mWeatherApplication.initalize(this);
 
-            // 美化中心初始化
-            ThemeClubApplication.initalize(this);
-
             // 定位服务初始化
-           // IOSLocationManager.initalize(this);
+            // IOSLocationManager.initalize(this);
 
             //负一平初始化
 //            ThirdPartAdManager.initNewsSDKAndAd(this);
@@ -82,6 +90,12 @@ public class BaseLauncherApplication extends Application {
             // Khởi tạo môi trường quảng cáo (broadcast ACTION_LAUNCHER_LOAD_COMPLETE
             // đang tắt nên gọi thẳng ở đây thay vì chờ initalizeAfterLauncherLoadCompelte).
             setupAdEnvironment();
+
+            // Billing — xác thực trạng thái sub rồi cập nhật cờ + Ads.setPremium.
+            setupBilling();
+
+            // Notification hằng ngày — mốc giờ lấy từ Remote Config.
+            setupDailyNotification();
 
             DebugUtil.debugLaunch(TAG, "main process init complete");
         }
@@ -107,7 +121,7 @@ public class BaseLauncherApplication extends Application {
         IntentFilter filter = new IntentFilter();
         //  桌面加载完成通知
         filter.addAction(LiteAction.ACTION_LAUNCHER_LOAD_COMPLETE);
-        registerReceiver(mReceiver, filter,RECEIVER_EXPORTED);
+        registerReceiver(mReceiver, filter, RECEIVER_EXPORTED);
     }
 
     private void unRegistReveiver() {
@@ -115,21 +129,38 @@ public class BaseLauncherApplication extends Application {
     }
 
 
-    /**
-     * 广告环境建立
-     */
+    // Chỉ còn init Adjust: AdsSdk.configure ở App.onCreate(), consent (UMP) ở SplashActivity.
+    // Khoảng nghỉ giữa 2 interstitial giờ là fullscreenIntervalMs ở root JSON placement.
     private void setupAdEnvironment() {
-        // Registry ad đã được khởi tạo ở CommonSdk.initalize() (cả 2 process).
-        // Đây là điểm gắn SDK ad thật sau này — chỉ cần tiêm 1 lớp con IOSAdManager
-        // (native + fullscreen) là mọi slot/điểm hiện có tự hoạt động:
-        //
-        //     IOSAdManager.setInstance(new AdMobAdManager(mApplication));
-        //     IOSAdManager.getInstance(mApplication).init();
-        //
-        // Có thể set thêm policy hiển thị:
-        //     IOSAdManager.getInstance(mApplication).setDiaplayHelper(adController);
-        //
-        // Hiện chưa có SDK -> giữ DefaultAdManager no-op, không hiển thị gì.
+        // Token Adjust. Để rỗng thì bỏ qua init Adjust (chỉ log cảnh báo).
+        final String adjustToken = "seu0i6ptzxmo";
+        AdjustTracker.init(this, adjustToken, BuildConfig.DEBUG);
+    }
+
+
+    // Xác thực trạng thái sub với Google Play. Cờ sub + Ads.setPremium do BillingUtils tự cập
+    // nhật khi có kết quả (bất đồng bộ), nên lần chạy này vẫn dùng cờ đã lưu.
+    private void setupBilling() {
+        BillingUtils.INSTANCE.initBilling(this);
+    }
+
+
+    private void setupDailyNotification() {
+        RemoteConfigUtils.INSTANCE.initRemoteConfig(new OnCompleteListener() {
+            @Override
+            public void onComplete(Task task) {
+                boolean enabled = false;
+                String time = null;
+                try {
+                    enabled = RemoteConfigUtils.INSTANCE.getRemoteConfigBoolean(mApplication,KEY_DAILY_NOTI_ENABLED);
+                    time = RemoteConfigUtils.INSTANCE.getRemoteConfigString(mApplication,KEY_DAILY_NOTI_TIME);
+                } catch (Exception e) {
+
+                    DebugUtil.debugLaunch(TAG, "đọc Remote Config notification lỗi: " + e.getMessage());
+                }
+                DailyNotiScheduler.applyRemoteConfig(enabled, time);
+            }
+        });
     }
 
 
@@ -139,7 +170,6 @@ public class BaseLauncherApplication extends Application {
         unRegistReveiver();
         // mWeatherApplication.onTerminate(this);
         //IOSLocationManager.onTerminate();
-        ThemeClubApplication.release(this);
         //NetworkManager.unRegisterNetworkChangeReceiver(this);
     }
 

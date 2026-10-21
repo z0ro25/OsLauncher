@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ô ngày check-in (Figma 70x72 bo 16). Ngày 7 chiếm 2 cột, có túi tiền bên phải. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutDay"
+    android:layout_width="match_parent"
+    android:layout_height="72dp">
+
+    <LinearLayout
+        android:id="@+id/layoutDayContent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp">
+
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:textColor="@color/themes_text_hint"
+            android:textSize="12sp"
+            tools:text="Day 1" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginVertical="2dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_coin" />
+
+        <TextView
+            android:id="@+id/tvDayCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:textColor="@color/themes_text_title"
+            android:textSize="12sp"
+            tools:text="5 coin" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgPurse"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="4dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/themes_img_purse"
+        android:visibility="gone" />
+</FrameLayout>

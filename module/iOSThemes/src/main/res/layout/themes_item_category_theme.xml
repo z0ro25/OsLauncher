@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ thumbnail theme ở màn xem tất cả (Figma 104x208 bo 10, viền #A2A0B5 0.5dp). Rộng lấp cột.
+     paddingBottom 8 + khe 8 của GridSpacingDecoration = khe dọc 16 như Figma. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgThumb"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/themes_white"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="104:208"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage10"
+        app:strokeColor="@color/themes_text_hint"
+        app:strokeWidth="0.5dp" />
+
+
+    <ProgressBar
+        android:id="@+id/pbImage"
+        style="@style/ThemesCardLoading"
+        app:layout_constraintBottom_toBottomOf="@id/imgThumb"
+        app:layout_constraintEnd_toEndOf="@id/imgThumb"
+        app:layout_constraintStart_toStartOf="@id/imgThumb"
+        app:layout_constraintTop_toTopOf="@id/imgThumb" />
+
+    <TextView
+        android:id="@+id/tvNew"
+        style="@style/ThemesNewBadge"
+        android:background="@drawable/themes_bg_new_badge_10"
+        app:layout_constraintStart_toStartOf="@id/imgThumb"
+        app:layout_constraintTop_toTopOf="@id/imgThumb" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

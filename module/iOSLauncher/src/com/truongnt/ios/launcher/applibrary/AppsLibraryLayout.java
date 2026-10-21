@@ -293,7 +293,24 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
     }
 
     void setUpAdapter(){
-        mTotalLibraryRV.setLayoutManager(new GridLayoutManager(this.getContext(),2));
+        GridLayoutManager libraryLayoutManager = new GridLayoutManager(this.getContext(), 2);
+        // Item quảng cáo native ở đầu danh sách phải chiếm TRỌN 2 cột.
+        //
+        // KHÔNG dùng GridLayoutManager.LayoutParams.setFullSpan() ở adapter: GridLayoutManager
+        // lấy span size từ SpanSizeLookup này, nên setFullSpan bị bỏ qua và quảng cáo chỉ rộng
+        // 1 cột. Mọi item khác giữ nguyên 1 cột như cũ.
+        libraryLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (mAppLibraryAdapter != null
+                        && mAppLibraryAdapter.getItemViewType(position)
+                            == AppLibraryAdapter.TYPE_NATIVE_AD) {
+                    return libraryLayoutManager.getSpanCount();
+                }
+                return 1;
+            }
+        });
+        mTotalLibraryRV.setLayoutManager(libraryLayoutManager);
         mTotalLibraryRV.setAdapter(null);
         mSearchResultRV.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
@@ -389,6 +406,48 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         // Khôi phục hiển thị danh sách category (phòng khi transition search để lại alpha=0).
         mTotalLibraryRV.setVisibility(View.VISIBLE);
         mTotalLibraryRV.setAlpha(1.0f);
+    }
+
+    /**
+     * User vừa vào (lại) màn App Library -> cho ô quảng cáo native tải MỘT lần cho lần vào này.
+     *
+     * <p>Trong lúc đang ở màn thì không tải lại nữa (xem {@link AppLibraryAdapter#bindNativeAd}):
+     * bind lại liên tục mà cứ gọi {@code AdsNative.show} là quảng cáo nháy, vì mỗi lần gọi là một
+     * request mới và FSDAds đổ thêm một lớp view vào container cũ.
+     *
+     * <p>Không tải ngay ở đây mà chỉ xoá trạng thái rồi ép bind lại ô ad. {@code post()} để chắc
+     * chắn không rơi vào lúc RecyclerView đang tính layout — {@code notifyItemChanged} lúc đó sẽ
+     * ném IllegalStateException.
+     */
+    public void onEnteredAppLibrary() {
+        if (mAppLibraryAdapter == null || mTotalLibraryRV == null) {
+            return;
+        }
+        mAppLibraryAdapter.resetNativeAd();
+        mTotalLibraryRV.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mAppLibraryAdapter == null) {
+                    return;
+                }
+                // Lần trước ad lỗi đã bị gỡ khỏi list -> chèn lại (insert tự bind) để thử lần này.
+                if (!mAppLibraryAdapter.restoreAdItemIfRemoved()) {
+                    mAppLibraryAdapter.notifyAdChanged();
+                }
+            }
+        });
+    }
+
+    /**
+     * App Library đóng HẲN -> gỡ view ad đang nằm trong ô.
+     *
+     * <p>Không gỡ thì ad của lần trước còn nguyên trong ô: mở lại là thấy nó hiện ra trước, rồi
+     * tới lúc tải ad mới bị xoá để đổ skeleton — nhìn thành "ad -> shimmer -> ad".
+     */
+    public void onAppLibraryFullyClosed() {
+        if (mAppLibraryAdapter != null) {
+            mAppLibraryAdapter.resetNativeAd();
+        }
     }
 
     public void setSubViewsLayoutParams(){

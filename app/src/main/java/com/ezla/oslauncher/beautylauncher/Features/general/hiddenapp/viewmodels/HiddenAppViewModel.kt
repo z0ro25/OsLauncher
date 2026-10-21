@@ -2,7 +2,7 @@ package com.ezla.oslauncher.beautylauncher.Features.general.hiddenapp.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ezt.ios.database.HiddenAppManager
+import com.truongnt.ios.database.HiddenAppManager
 import com.truongnt.ios.launcher.ItemInfo
 
 class HiddenAppViewModel : ViewModel() {

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dock (hotseat) trong preview tab Icon: trắng 22%, bo 25 (Figma Dock 249x72). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#38FFFFFF" />
+    <corners android:radius="25dp" />
+</shape>

@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.truongnt.ios.launcher.R;
+import com.truongnt.ios.launcher.ad.LauncherAdTrigger;
 import com.truongnt.ios.launcher.widget.widgetprovider.CalendarEventsRepo;
 
 import java.util.ArrayList;
@@ -154,7 +155,15 @@ public class CalendarUpNextView extends View implements View.OnClickListener {
         if (!mHasPermission) {
             requestCalendarPermission();
         } else {
-            openCalendarApp();
+            Activity act = findActivity(getContext());
+            // Việc hiện ad (kèm lọc tần suất) do LauncherAdTrigger quyết định — không show lồng
+            // thêm ở đây, vì lớp bọc đó chạy cả ở những lần bấm chưa tới lượt và sẽ phá bộ đếm.
+            LauncherAdTrigger.openAppWithInterstitial(act, new Runnable() {
+                @Override
+                public void run() {
+                    openCalendarApp();
+                }
+            });
         }
     }
 

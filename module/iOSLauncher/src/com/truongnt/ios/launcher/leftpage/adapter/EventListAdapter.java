@@ -89,8 +89,10 @@ public class EventListAdapter extends RecyclerView.Adapter {
                                 intent.setData(buildUpon.build());
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 // Click Event (widget lịch có sẵn) mở app -> gate interstitial trước.
+                                // KHÔNG tự show ad ở đây nữa: việc hiện ad (kèm lọc tần suất) đã do
+                                // LauncherAdTrigger quyết định, show lồng thêm sẽ phá bộ đếm click.
                                 final Intent launchIntent = intent;
-                                com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, new Runnable() {
+                                com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(mLauncher, launchIntent, new Runnable() {
                                     @Override
                                     public void run() {
                                         try {

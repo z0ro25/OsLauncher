@@ -51,4 +51,10 @@
     <favorite
         launcher:className="com.oppo.filemanager.Main"
         launcher:packageName="com.oppo.filemanager" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.google.android.apps.nbu.files" />
+    <favorite launcher:packageName="com.mi.android.globalFileexplorer" />
+    <favorite launcher:packageName="com.coloros.filemanager" />
+    <favorite launcher:packageName="com.oneplus.filemanager" />
 </items>

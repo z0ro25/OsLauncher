@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sheet "Successfully Set!" (Figma Unlock icon|background/Successfully Set): sheet #F2F2F7 bo 20,
+     ảnh preview nghiêng 6° NHÔ lên trên mép sheet (vùng trong suốt phía trên), nét xanh, 2 nút pill. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/themes_success_preview_overhang"
+        android:background="@drawable/themes_bg_sheet_top16_gray"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="132dp"
+        android:paddingBottom="18dp">
+
+        <TextView
+            android:id="@+id/tvSuccessTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:gravity="center"
+            android:text="@string/themes_success_set"
+            android:textColor="@color/themes_text_name"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvSuccessSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:gravity="center"
+            android:text="@string/themes_wallpaper_ready"
+            android:textColor="@color/themes_text_name"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnGoHome"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/themes_bg_button_blue_pill"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/themes_go_home"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btnExplore"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/themes_bg_button_outline_pill"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/themes_explore_more_wallpaper"
+            android:textColor="@color/themes_primary"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Ảnh preview (Figma 225x159 bo 20, xoay 6°) + nét gạch xanh vẽ ĐÈ lên, cắt ngang ảnh. -->
+    <FrameLayout
+        android:layout_width="272dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clipChildren="false">
+
+        <!-- Ảnh nền + (biến thể icon) lưới 3x2 icon 53dp phủ lên, xoay chung 6° như Figma. -->
+        <FrameLayout
+            android:layout_width="225dp"
+            android:layout_height="159dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:rotation="6">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgSetPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/themes_white"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ThemesRoundedImage20" />
+
+            <GridLayout
+                android:id="@+id/gridSetIcons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="3"
+                android:importantForAccessibility="noHideDescendants"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- Nét gạch + phần dưới tô màu nền sheet: che đoạn ảnh thò xuống dưới nét (đáy 189dp,
+             vẫn trên tiêu đề ở 192dp). -->
+        <ImageView
+            android:layout_width="272dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="130dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_success_squiggle" />
+    </FrameLayout>
+</FrameLayout>

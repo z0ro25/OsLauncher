@@ -9,6 +9,8 @@
         android:name="com.truongnt.ios.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST"
         android:protectionLevel="signatureOrSystem" />
 
+    <!-- Launcher gỡ app bằng ACTION_DELETE; trước khai nhờ ở iOSThemeClub (đã xoá). -->
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -328,6 +330,15 @@
             android:icon="@drawable/lite_rom_all_apps"
             android:label="@string/all_apps_button_label"
             android:resizeableActivity="false"></activity>
+
+        <!-- Marker icon "Themes" trên desktop: phải khai để resolveActivity() ra label/icon;
+             không bao giờ chạy thật vì Launcher.handlerIOSShortcutClick chặn click trước. -->
+        <activity
+            android:name="com.truongnt.ios.launcher.shortcut.Theme"
+            android:exported="true"
+            android:icon="@drawable/lite_rom_themes"
+            android:label="@string/themes_shortcut_label"
+            android:resizeableActivity="false" />
 
 
         <!--     ***********************    User Guide   ******************************  -->

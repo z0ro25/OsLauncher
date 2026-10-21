@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma: gradient trắng 0% -> 100% tại 67% chiều cao, phủ đáy ảnh onboarding. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:centerColor="#FFFFFFFF"
+        android:centerY="0.67"
+        android:endColor="#FFFFFFFF"
+        android:startColor="#00FFFFFF" />
+</shape>

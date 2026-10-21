@@ -49,4 +49,8 @@
     <favorite
         launcher:className="com.qihoo.browser.activity.SplashActivity"
         launcher:packageName="com.qihoo.browser" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.mi.globalbrowser" />
+    <favorite launcher:packageName="com.heytap.browser" />
 </items>

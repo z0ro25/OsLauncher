@@ -2,7 +2,7 @@ package com.ezla.oslauncher.beautylauncher.theme.pack
 
 import android.content.Context
 import com.ezla.oslauncher.beautylauncher.R
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 /**
  * Nơi ĐĂNG KÝ tất cả gói theme + nhớ theme đang chọn. Mục đích: sau này thêm tính năng đổi theme chỉ

@@ -77,6 +77,8 @@
 
     <!-- All applications label -->
     <string name="all_apps_button_label">Apps</string>
+    <!-- Tên riêng của icon Themes trên desktop, giữ nguyên mọi ngôn ngữ (tạm thời). -->
+    <string name="themes_shortcut_label" translatable="false">MiOS Launcher Themes</string>
     <!-- Label for button in all applications label to go back home (to the workspace / desktop)
          for accessibilty (spoken when the button gets focus). -->
     <string name="all_apps_home_button_label">Home</string>

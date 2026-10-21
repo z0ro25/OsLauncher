@@ -11,4 +11,6 @@
     <string name="discovery_data_warn_tips">是否在数据流量下继续下载？</string>
     <string name="discovery_sure">确认</string>
     <string name="discovery_cancel">取消</string>
+
+    <string name="ads_native_full_close">关闭</string>
 </resources>

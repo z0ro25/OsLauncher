@@ -98,6 +98,7 @@
     <string name="next">다음</string>
     <string name="language">언어</string>
     <string name="general">일반</string>
+    <string name="home_themes">테마</string>
     <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->
     <string name="general_options">옵션</string>
     <string name="auto_arrange_home_screen">홈 화면 자동 정렬</string>
@@ -165,7 +166,7 @@
 
     <string name="title1">미래지향적인 룩의 IOS 26을 경험하세요</string>
     <string name="title2">라이트 &amp; 다크 테마 지원</string>
-    <string name="title3">모든 앱이 앱 라이브러리에 깔끔하게 정리됩니다</string>
+    <string name="title3">아름답고 독특한 테마를 자유롭게 선택하세요</string>
 
     <!-- Nhãn category cố định (hiển thị) + id song song bất biến (khóa lưu, không dịch) -->
     <string-array name="applib_fixed_categories">
@@ -195,4 +196,43 @@
     <string name="select_bg_start_launcher">런처 시작</string>
     <string name="select_bg_set">배경화면으로 설정</string>
     <string name="theme_default_name">기본</string>
+
+    <!-- Màn Subs (IAP) -->
+    <string name="yearly">연간</string>
+    <string name="monthly">월간</string>
+    <string name="renew_per_year_cancel_anytime">매년 갱신. 언제든지 취소 가능</string>
+    <string name="renew_per_month_cancel_anytime">매월 갱신. 언제든지 취소 가능</string>
+    <string name="cancel_anytime">언제든지 취소 가능</string>
+    <string name="restore">복원</string>
+    <string name="enjoy_an">즐기세요</string>
+    <string name="ad_free">광고 없는</string>
+    <string name="experience">경험</string>
+    <string name="remove_ads_subtitle">런처 MiOS와 모든 내부 앱의 광고를 제거하세요</string>
+    <string name="t_c"><u>이용약관</u></string>
+    <string name="privacy_policy_u"><u>개인정보 처리방침</u></string>
+    <string name="subs_product_not_ready">상품이 준비되지 않았습니다. 다시 시도해 주세요</string>
+    <string name="subs_restore_success">구독이 복원되었습니다</string>
+    <string name="subs_restore_none">구독을 찾을 수 없습니다</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">광고 없는 경험을 즐기세요</string>
+    <string name="subs_offer_sale_off">할인</string>
+    <string name="subs_offer_limited">한정 혜택</string>
+    <string name="subs_offer_only">단</string>
+    <string name="subs_offer_per_year">/년</string>
+    <string name="subs_offer_no_charge_today">언제든지 취소 가능. 오늘 결제 없음.</string>
+    <string name="subs_offer_subscribe">지금 구독하기</string>
+    <string name="subs_offer_close">닫기</string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_start_premium">프리미엄 플랜을 시작하세요!</string>
+    <string name="subs_feature_themes">1000개 이상의 프리미엄 테마</string>
+    <string name="subs_feature_wallpapers">1000개 이상의 배경화면</string>
+    <string name="subs_feature_icons">모든 아이콘 팩 잠금 해제</string>
+    <string name="subs_feature_ad_free">광고 없는 경험</string>
+    <string name="subs_best_value">최고 혜택</string>
+    <string name="subs_billed_monthly">매월 결제</string>
+    <string name="subs_per_month_approx">≈ %1$s / 월</string>
+    <string name="subs_free_trial_days">%1$d일 무료 체험</string>
+    <string name="subs_then_per_year">이후 %1$s/년 • 언제든지 해지</string>
+    <string name="subs_then_per_month">이후 %1$s/월 • 언제든지 해지</string>
 </resources>

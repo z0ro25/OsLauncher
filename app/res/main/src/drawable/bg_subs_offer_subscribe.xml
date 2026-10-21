@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút SUBSCRIBE NOW: viên thuốc xanh, bo tròn hoàn toàn theo mockup. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/subs_offer_button" />
+    <corners android:radius="100dp" />
+</shape>

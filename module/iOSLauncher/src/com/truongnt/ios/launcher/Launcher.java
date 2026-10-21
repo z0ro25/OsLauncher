@@ -76,6 +76,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -83,13 +84,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.ezt.ios.blurkit.BlurKit;
-import com.ezt.ios.database.HiddenAppManager;
+import com.truongnt.ios.database.HiddenAppManager;
 import com.ezt.ios.gpuimage.GausianBlur;
 import com.truongnt.ios.ioslite.common.ContextHelper;
 import com.truongnt.ios.ioslite.common.LiteAction;
 import com.truongnt.ios.ioslite.common.Partner;
 import com.truongnt.ios.ioslite.common.Router;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
+import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.anim.PropertyHolderUtis;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
@@ -126,6 +128,7 @@ import com.truongnt.ios.launcher.compat.LauncherAppsCompatVO;
 import com.truongnt.ios.launcher.compat.UserHandleCompat;
 import com.truongnt.ios.launcher.compat.UserManagerCompat;
 import com.truongnt.ios.launcher.config.GestureEventModel;
+import com.truongnt.ios.launcher.config.GridConfig;
 import com.truongnt.ios.launcher.config.LauncherSettingActivity;
 import com.truongnt.ios.launcher.config.Settings;
 import com.truongnt.ios.launcher.dialog.CommonDialog;
@@ -310,6 +313,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * chờ hết TTL 30 phút mới gọi API.
      */
     private boolean mHadLocationPermission;
+    // Đã ensureReady App Library cho lượt vuốt mở hiện tại chưa (reset khi về hẳn Home).
+    private boolean mAppLibraryPrepared;
 
     public boolean showingFloatingMenu = false;
 
@@ -437,7 +442,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     //    private SearchDropTargetBar mSearchDropTargetBar;
     public DragAppsLibraryLayout mDragAppsLibraryLayout;
     public BlurScreenLayout mSliderBlurBg;
-    // Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật, HiddenApiBypass).
+    // Nền kính mờ frosted RIÊNG cho App Library (blur hình nền thật qua compositor).
     public AppLibraryBlurView mAppsLibraryFrostBg;
     // Nền kính mờ frosted RIÊNG cho màn trái (Today/Widget) — cùng cơ chế compositor như App
     // Library nhưng TÁCH instance riêng (Scope no side-effects: KHÔNG dùng chung mSliderBlurBg
@@ -614,6 +619,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                     .build());
         }
         Log.i(TAG, "onCreate");
+        // Nút Home mở thẳng launcher, không qua Splash -> tự init AdsKit bằng cache/asset.
+        // Đã init ở Splash rồi thì hàm này no-op.
+        AppAds.initializeOffline(this);
         HiddenAppManager.INSTANCE.initDataBase(this);
         listHiddenApp = (ArrayList<ItemInfo>) HiddenAppManager.INSTANCE.getAllHiddenApp();
         Log.d(TAG, "onCreatexxx: " + listHiddenApp.size());
@@ -647,9 +655,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("UPDATE_UNHIDDENAPP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(updateHiddenAppBroadcast, intentFilter, RECEIVER_EXPORTED);
-        } else registerReceiver(updateHiddenAppBroadcast, intentFilter);
+        // API 34+ thiếu cờ export là SecurityException; ContextCompat tự lo cờ cho mọi API.
+        // Giữ EXPORTED như cũ vì HiddenAppManager gửi broadcast ngầm (không setPackage).
+        ContextCompat.registerReceiver(this, updateHiddenAppBroadcast, intentFilter, ContextCompat.RECEIVER_EXPORTED);
 
         LauncherSharePrefUtils.increaseCountOpenApp(this);
     }
@@ -1345,6 +1353,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SEARCH_ACTIVITY_REQUEST_CODE) {
             hideBlurBg();
@@ -1683,6 +1692,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                         (System.currentTimeMillis() - startTimeCallbacks));
             }
         }
+        // Lượt reload do đổi grid có thể bị mất (bị clear ở nhánh mOnResumeNeedsLoad phía trên, hoặc
+        // Launcher chưa đăng ký nghe lúc đổi) -> profile còn grid cũ. Lệch với pref thì dựng lại ngay.
+        if (isDesktopGridStale()) {
+            reloadLauncher(true/*resetDesktop*/);
+        }
         if (mOnResumeCallbacks.size() > 0) {
             for (int i = 0; i < mOnResumeCallbacks.size(); i++) {
                 mOnResumeCallbacks.get(i).run();
@@ -1780,15 +1794,24 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return mWorkspace.getPaddingTop();
     }
 
+//    @Override
+//    public Object onRetainNonConfigurationInstance() {
+//        // Flag the loader to stop early before switching
+//        if (mModel.isCurrentCallbacks(this)) {
+//            mModel.stopLoader();
+//        }
+//        //TODO(hyunyoungs): stop the widgets loader when there is a rotation.
+//
+//        return Boolean.TRUE;
+//    }
+
+    @Nullable
     @Override
-    public Object onRetainNonConfigurationInstance() {
-        // Flag the loader to stop early before switching
+    public Object onRetainCustomNonConfigurationInstance() {
         if (mModel.isCurrentCallbacks(this)) {
             mModel.stopLoader();
         }
-        //TODO(hyunyoungs): stop the widgets loader when there is a rotation.
-
-        return Boolean.TRUE;
+        return super.onRetainCustomNonConfigurationInstance();
     }
 
     // We can't hide the IME if it was forced open.  So don't bother
@@ -1853,6 +1876,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
             // Post a Runnable with some delay - currently set to 300 ms
             collapseNotificationHandler.post(new Runnable() {
+                // "statusbar" là service ẩn nên lint không nhận; null đã được chặn bên dưới.
+                @SuppressLint("WrongConstant")
                 @Override
                 public void run() {
 
@@ -2281,6 +2306,15 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mIconCache.flush();
     }
 
+
+    // Grid user chọn ở Screen Grid khác số hàng/cột của profile đang chạy. Chưa chọn thì không so.
+    private boolean isDesktopGridStale() {
+        if (!Settings.hasDesktopGrid(this)) return false;
+        GridConfig.GridInfo want = GridConfig.PRE_DESKTOP_GRID.get(Settings.getDesktopGrid(this));
+        InvariantDeviceProfile inv = LauncherAppState.getInstance().getInvariantDeviceProfile();
+        if (want == null || inv == null || want.rows <= 0 || want.columns <= 0) return false;
+        return inv.numRows != want.rows || inv.numColumns != want.columns;
+    }
 
     Runnable mReloadLauncherRunnable = new Runnable() {
         @Override
@@ -3295,6 +3329,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
 
+    // dispatchKeyEvent bị @RestrictTo trong androidx.core; override + gọi super vẫn hợp lệ lúc chạy.
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -3317,6 +3353,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return super.dispatchKeyEvent(event);
     }
 
+    // Cố ý không gọi super: Launcher là màn Home, super sẽ finish() Launcher.
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 
@@ -3520,6 +3558,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             }
         } else if (tag instanceof AppInfo) {
             AnalyticsDelegate.onAllAppsEvent(this, UMEventConstants.ALLAPPS_PERAPP_CLICK);
+            // App Library mở app qua nhánh này (không qua onClickAppShortcut) -> log riêng ở đây.
+            logLauncherIconClick(((AppInfo) tag).intent);
             startAppShortcutOrInfoActivity(v);
         } else if (tag instanceof LauncherAppWidgetInfo) {
             if (v instanceof PendingAppWidgetHostView) {
@@ -3620,6 +3660,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         final Intent intent = shortcut.intent;
 
+        logLauncherIconClick(intent);
+
         // Check for special shortcuts
         if (handlerIOSShortcutClick(intent)) {
             return;
@@ -3644,6 +3686,24 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
 
+    // Tracking Firebase khi bấm icon trên desktop: icon Themes -> click_themes, icon app MiOS
+    // (launch activity của chính package) -> click_launcher. So theo component nên đổi applicationId vẫn đúng.
+    private void logLauncherIconClick(Intent intent) {
+        ComponentName cn = intent != null ? intent.getComponent() : null;
+        if (cn == null || !getPackageName().equals(cn.getPackageName())) return;
+        if (Theme.class.getName().equals(cn.getClassName())) {
+            AnalyticsDelegate.logClick(EVENT_CLICK_THEMES);
+            return;
+        }
+        Intent launch = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        if (launch != null && cn.equals(launch.getComponent())) {
+            AnalyticsDelegate.logClick(EVENT_CLICK_LAUNCHER);
+        }
+    }
+
+    private static final String EVENT_CLICK_THEMES = "click_themes";
+    private static final String EVENT_CLICK_LAUNCHER = "click_launcher";
+
     private boolean handlerIOSShortcutClick(Intent intent) {
         if (intent.getComponent() != null && intent.getComponent().getPackageName().equals(getPackageName())) {
             final String shortcutClass = intent.getComponent().getClassName();
@@ -3654,7 +3714,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 Router.startWallpaperActivity(this);
                 return true;
             } else if (shortcutClass.equals(Theme.class.getName())) {
-                Router.startThemeClubActivity(this);
+                Router.startThemesInOwnTask(this);
                 return true;
             } else if (shortcutClass.equals(BatterySave.class.getName())) {
                 Router.startBatterySaveActivity(this);
@@ -3812,11 +3872,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         // Interstitial "mở app": có ad thì show trước, đóng ad xong mới mở app; chưa có ad
         // thì mở app ngay (hành vi cũ không đổi). Điểm này bao cả icon home/dock lẫn App Library.
+        // Truyền launchIntent để tầng trigger bỏ qua khi app mở ra chính là launcher này.
         final View clickedView = v;
         final Object launchTag = tag;
         final Intent launchIntent = intent;
         final ShortcutInfo launchShortcut = shortcut;
-        com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(this, new Runnable() {
+        com.truongnt.ios.launcher.ad.LauncherAdTrigger.openAppWithInterstitial(this, launchIntent, new Runnable() {
             @Override
             public void run() {
                 startActivitySafely(clickedView, launchIntent, launchTag);
@@ -6094,6 +6155,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             if (!removedComponents.isEmpty()) {
                 mWorkspace.removeItemsByComponentName(removedComponents, user);
             }
+            // reason == 0: app gỡ cài đặt thật (cập nhật app đi nhánh replacing, không vào đây)
+            // -> page chỉ còn icon đó thì xoá luôn page.
+            mWorkspace.stripEmptyScreens(false);
             // Notify the drag controller
             mDragController.onAppsRemoved(packageNames, removedComponents);
 
@@ -7392,7 +7456,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 getHotseat().removeShortcut(shortcutInfo);
             }
         } else if (mWorkspace != null) {
-            mWorkspace.removeShortcutInfoInPage(shortcutInfo);
+            // Gỡ item cuối của page thì page đó tự xoá, giống xoá widget (removeWorkspaceOrFolderItem).
+            if (mWorkspace.removeShortcutInfoInPage(shortcutInfo)) {
+                mWorkspace.stripEmptyScreens(false);
+            }
         }
     }
 
@@ -7532,6 +7599,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Ghim luôn trạng thái ẩn của kính dock, phòng chuỗi onAppsLibrarySlide bị cắt ngang trước
         // khi tới mốc cuối (fling nhanh).
         setWorkspaceGlassHidden(true);
+
+        // Mở App Library -> cho ô quảng cáo native tải MỘT lần cho lần vào này. Trong lúc ở màn
+        // không tải lại nữa, nếu không ad sẽ nháy liên tục (mỗi lần bind lại là một request mới).
+        // Xem AppLibraryAdapter.bindNativeAd / AppsLibraryLayout.onEnteredAppLibrary.
+        if (mAppsLibraryLayout != null) {
+            mAppsLibraryLayout.onEnteredAppLibrary();
+        }
     }
 
     //todo app library
@@ -7539,6 +7613,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onAppsLibraryOpened() {
         this.mAppsLibraryLayout.clearFocus();
         hideKeyboard(mAppsLibraryLayout);
+        // NGHỊCH TÊN: hàm này bắn khi App Library đóng HẲN (xem comment cuối hàm) -> gỡ ad đang
+        // hiển thị, để lần mở sau không thấy lại ad cũ rồi bị thay bằng skeleton.
+        if (mAppsLibraryLayout != null) {
+            mAppsLibraryLayout.onAppLibraryFullyClosed();
+        }
         BouncyRecyclerView bouncyRecyclerView = mAppsLibraryLayout.mSearchResultRV;
 
         if (bouncyRecyclerView != null && bouncyRecyclerView.getVisibility() == View.VISIBLE) {
@@ -7551,15 +7630,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // đúng activity đang sống. Do vòng đời loader của Launcher3, callback có thể post vào
         // activity cũ đã chết -> allApp còn null dù model ĐÃ nạp xong app. Khi đó đọc thẳng từ
         // nguồn sự thật của model (mBgAllAppsList.data qua getAllAppInfo) để không bao giờ trống.
-        ArrayList<AppInfo> appsForLibrary = allApp;
-        if ((appsForLibrary == null || appsForLibrary.isEmpty()) && mModel != null) {
-            java.util.List<AppInfo> fromModel = mModel.getAllAppInfo();
-            if (fromModel != null && !fromModel.isEmpty()) {
-                appsForLibrary = new ArrayList<>(fromModel);
-                allApp = appsForLibrary;
-            }
-        }
-        this.mAppsLibraryLayout.ensureReady(appsForLibrary);
+        this.mAppsLibraryLayout.ensureReady(appsForLibrary());
         // NGHỊCH TÊN (đo bằng log): callback này bắn khi VỀ HOME (f=1, App Library đóng hẳn).
         // -> gỡ hẳn frost + khôi phục workspace + reset alpha/scale DragLayer về trạng thái nghỉ
         //    (fix fling bị cắt ngang làm kẹt alpha/scale -> mất sạch app + dock).
@@ -7600,13 +7671,34 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         setWorkspaceGlassHidden(false);
     }
 
+    // allApp có thể null dù model đã nạp xong (callback bind rơi vào activity cũ) -> đọc từ model.
+    private ArrayList<AppInfo> appsForLibrary() {
+        ArrayList<AppInfo> apps = allApp;
+        if ((apps == null || apps.isEmpty()) && mModel != null) {
+            java.util.List<AppInfo> fromModel = mModel.getAllAppInfo();
+            if (fromModel != null && !fromModel.isEmpty()) {
+                apps = new ArrayList<>(fromModel);
+                allApp = apps;
+            }
+        }
+        return apps;
+    }
+
     @Override
     public void onAppsLibrarySlide(float f) {
         float f2 = 1.0f - f;
         float interpolation = initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
+        // ensureReady trước chỉ chạy lúc VỀ HOME -> app đổi/bind lỡ sau đó thì lần mở kế thấy trống.
+        // Chạy thêm ở frame ĐẦU của mỗi lần mở để danh sách có sẵn trước khi lộ ra.
+        if (interpolation > 0f && !mAppLibraryPrepared) {
+            mAppLibraryPrepared = true;
+            if (mAppsLibraryLayout != null) mAppsLibraryLayout.ensureReady(appsForLibrary());
+        } else if (interpolation == 0f) {
+            mAppLibraryPrepared = false;
+        }
         // CHIỀU THỰC TẾ (đo bằng log): App Library MỞ HẲN -> f=0 -> interpolation=1;
         // về HOME -> f=1 -> interpolation=0. Vậy interpolation CHÍNH LÀ cường độ MỞ.
-        // Nền frosted THẬT (blur wallpaper qua HiddenApiBypass): blur mạnh dần khi MỞ.
+        // Nền frosted THẬT (blur wallpaper qua compositor): blur mạnh dần khi MỞ.
         if (mAppsLibraryFrostBg != null) mAppsLibraryFrostBg.setBlurFraction(interpolation);
         // KHÔNG co (zoom-out) màn page khi vuốt sang App Library: chỉ mờ dần rồi ẩn (phẳng, không
         // thu nhỏ). Trước đây setScaleX/Y(1.0->0.9) làm page co lại; đã bỏ theo yêu cầu. (Negative
@@ -7670,6 +7762,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onLeftPageClosed() {
         hideKeyboard(this.mCustomContentView);
         mCustomContentView.onClosePage();
+        // Màn trái đóng hẳn -> gỡ ad đang hiển thị, lần mở sau không thấy lại ad cũ.
+        mCustomContentView.onLeftPageFullyClosed();
         // Gỡ hẳn frost khi đóng (phòng slide bị cắt ngang không kết ở f=1 -> kẹt mờ).
         if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(0.0f);
         // Khôi phục CỨNG workspace + alpha/scale home sau khi đóng negative page (phòng slide bị cắt
@@ -7692,13 +7786,20 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Ghim ẩn kính dock khi đã mở hẳn (window riêng, không theo alpha home). Đối xứng với
         // onAppsLibraryClosed; resetHomeTransform ở onLeftPageClosed sẽ hiện lại.
         setWorkspaceGlassHidden(true);
+
+        // Mở màn trái -> cho ô quảng cáo native tải MỘT lần cho lần vào này. Trong lúc ở màn
+        // không tải lại nữa, nếu không ad sẽ nháy liên tục (mỗi lần bind lại là một request mới).
+        // Xem CustomContentWidgetAdapter.bindNativeAd / CustomContentView.onEnteredLeftPage.
+        if (mCustomContentView != null) {
+            mCustomContentView.onEnteredLeftPage();
+        }
     }
 
     @Override
     public void onLeftPageSlide(float f) {
         float f2 = 1.0f - f;
         float interpolation = Launcher.initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
-        // Nền frosted THẬT (blur wallpaper qua HiddenApiBypass) GIỐNG App Library — thay bitmap-blur
+        // Nền frosted THẬT (blur wallpaper qua compositor) GIỐNG App Library — thay bitmap-blur
         // cũ (mSliderBlurBg). interpolation: 0 đóng -> 1 mở hẳn.
         if (mLeftPageFrostBg != null) mLeftPageFrostBg.setBlurFraction(interpolation);
         // KHÔNG co (zoom-out) màn page khi vuốt sang trái: chỉ mờ dần rồi ẩn (phẳng, giống App

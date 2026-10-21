@@ -89,4 +89,6 @@
     <color name="ios_gray1">#1A000000</color>
     <color name="ios_gray2">#34000000</color>
     <color name="ios_gray3">#61000000</color>
+
+    <color name="color.007AFF">#007AFF</color>
 </resources>

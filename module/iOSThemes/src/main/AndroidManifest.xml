@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
+    <application>
+        <!-- Router (iOSLiteCommon) và IOSShortcut (iOSLauncher) mở màn này bằng tên class dạng chuỗi. -->
+        <activity
+            android:name=".features.home.ThemesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.onboarding.ThemesOnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.settings.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.rewards.RewardsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.detail.ThemeViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.detail.ThemeDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <!-- Xem + mở khoá + áp 1 bộ icon (Figma "Unlock icon"), mở từ tab Icons và Mine. -->
+        <activity
+            android:name=".features.detail.IconDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <activity
+            android:name=".features.detail.WallpaperDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <!-- Xem tất cả bộ icon của 1 danh mục (nút ">" ở tab Icons). -->
+        <activity
+            android:name=".features.icons.IconCategoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <!-- Xem tất cả My Library / Suggest theo tab (nút "more" ở Mine). -->
+        <activity
+            android:name=".features.mine.MineMoreActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+    </application>
+
+</manifest>

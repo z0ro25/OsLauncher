@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thanh grabber trên đỉnh sheet — dấu hiệu sheet kéo được (như dialog Rate App). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/subs_offer_grabber" />
+    <corners android:radius="100dp" />
+</shape>

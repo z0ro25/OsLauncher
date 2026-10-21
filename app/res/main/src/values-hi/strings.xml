@@ -84,6 +84,7 @@
     <string name="next">अगला</string>
     <string name="language">भाषा</string>
     <string name="general">सामान्य</string>
+    <string name="home_themes">थीम</string>
 
     <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
     <string name="app_function_settings">ऐप फ़ंक्शन सेटिंग्स</string>
@@ -149,7 +150,7 @@
     <string name="there_is_no_internet_connection">कोई इंटरनेट कनेक्शन नहीं है! कृपया अपना इंटरनेट कनेक्शन जांचें!</string>
     <string name="title1">भविष्यवादी रूप के साथ IOS 26 का अनुभव करें</string>
     <string name="title2">लाइट और डार्क थीम समर्थित</string>
-    <string name="title3">आपके सभी ऐप्स ऐप लाइब्रेरी में बड़े करीने से व्यवस्थित हैं</string>
+    <string name="title3">सुंदर और अनोखी थीम चुनने की आज़ादी</string>
     <string name="try_again">पुनः प्रयास करें</string>
 
     <!-- Nhãn thể loại cố định App Library (hiển thị) -->
@@ -170,4 +171,43 @@
     <string name="select_bg_start_launcher">लॉन्चर शुरू करें</string>
     <string name="select_bg_set">वॉलपेपर सेट करें</string>
     <string name="theme_default_name">डिफ़ॉल्ट</string>
+
+    <!-- Màn Subs (IAP) -->
+    <string name="yearly">वार्षिक</string>
+    <string name="monthly">मासिक</string>
+    <string name="renew_per_year_cancel_anytime">हर साल नवीनीकरण। कभी भी रद्द करें</string>
+    <string name="renew_per_month_cancel_anytime">हर महीने नवीनीकरण। कभी भी रद्द करें</string>
+    <string name="cancel_anytime">कभी भी रद्द करें</string>
+    <string name="restore">पुनर्स्थापित करें</string>
+    <string name="enjoy_an">आनंद लें</string>
+    <string name="ad_free">विज्ञापन-मुक्त</string>
+    <string name="experience">अनुभव</string>
+    <string name="remove_ads_subtitle">लॉन्चर MiOS और उसके सभी आंतरिक ऐप्स के विज्ञापन हटाएं</string>
+    <string name="t_c"><u>नियम व शर्तें</u></string>
+    <string name="privacy_policy_u"><u>गोपनीयता नीति</u></string>
+    <string name="subs_product_not_ready">उत्पाद तैयार नहीं है, कृपया पुनः प्रयास करें</string>
+    <string name="subs_restore_success">सदस्यता पुनर्स्थापित की गई</string>
+    <string name="subs_restore_none">कोई सदस्यता नहीं मिली</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">विज्ञापन-मुक्त अनुभव का आनंद लें</string>
+    <string name="subs_offer_sale_off">सेल ऑफ</string>
+    <string name="subs_offer_limited">सीमित ऑफर</string>
+    <string name="subs_offer_only">केवल</string>
+    <string name="subs_offer_per_year">/वर्ष</string>
+    <string name="subs_offer_no_charge_today">कभी भी रद्द करें। आज कोई शुल्क नहीं।</string>
+    <string name="subs_offer_subscribe">अभी सब्सक्राइब करें</string>
+    <string name="subs_offer_close">बंद करें</string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_start_premium">प्रीमियम प्लान शुरू करें!</string>
+    <string name="subs_feature_themes">1000+ प्रीमियम थीम</string>
+    <string name="subs_feature_wallpapers">1000+ वॉलपेपर</string>
+    <string name="subs_feature_icons">सभी आइकन पैक अनलॉक करें</string>
+    <string name="subs_feature_ad_free">विज्ञापन-मुक्त अनुभव</string>
+    <string name="subs_best_value">सबसे बढ़िया</string>
+    <string name="subs_billed_monthly">मासिक बिलिंग</string>
+    <string name="subs_per_month_approx">≈ %1$s / माह</string>
+    <string name="subs_free_trial_days">%1$d-दिन का मुफ़्त ट्रायल</string>
+    <string name="subs_then_per_year">फिर %1$s/वर्ष • कभी भी रद्द करें</string>
+    <string name="subs_then_per_month">फिर %1$s/माह • कभी भी रद्द करें</string>
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icon kim cương (Premium) ở nút "Go Premium to unlock all". -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M12,2.5 L18.5,8 L12,21.5 L5.5,8 Z" />
+    <path
+        android:fillColor="#81D4FA"
+        android:pathData="M5.5,8 L18.5,8 L12,21.5 Z" />
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M12,2.5 L18.5,8 L5.5,8 Z" />
+</vector>

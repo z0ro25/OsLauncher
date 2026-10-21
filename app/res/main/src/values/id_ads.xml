@@ -2,4 +2,5 @@
 <resources>
     <string name="facebook_app_id" translatable="false"></string>
     <string name="token_facebook" translatable="false"></string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-3607148519095421~4302862573</string>
 </resources>

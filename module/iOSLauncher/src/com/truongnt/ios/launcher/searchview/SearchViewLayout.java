@@ -30,6 +30,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -43,7 +44,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ezt.ios.database.HiddenAppManager;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.AppAds;
+import com.truongnt.ios.database.HiddenAppManager;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.ExtendedEditText;
@@ -92,10 +95,25 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
 
     // Khung KẾT QUẢ app khớp + list GỢI Ý DỌC (khi đang gõ).
     View mResultAppBox;                      // wrapper "Kết quả" (title + list)
+    FrameLayout mNativeAdContainer;          // quảng cáo native ngay dưới lưới gợi ý
+    boolean mNativeAdRequested;              // đã phát request ad cho lần vào màn này chưa
+    boolean mNativeAdLoaded;                 // FSDAds đã đổ được ad vào ô chưa
+    /**
+     * Request ad thất bại -> ô quảng cáo phải ẩn hẳn cho tới lần vào màn sau.
+     *
+     * <p>Cần cờ riêng (không dùng {@code !mNativeAdLoaded}) vì lúc ĐANG CHỜ ad — kể cả 1 giây giữ
+     * skeleton của AdsNative — {@code mNativeAdLoaded} vẫn false nhưng ô quảng cáo PHẢI hiện, nếu
+     * không skeleton bị ẩn đi rồi hiện lại = nháy.
+     */
+    boolean mNativeAdFailed;
+    boolean mLastHasText;                    // ô nhập có chữ ở lần updateSectionsVisibility gần nhất
     RecyclerView mResultAppList;             // list kết quả app khớp (dọc)
     RecyclerView mSuggestionVerticalList;    // list gợi ý dọc
     /** Số app hiển thị ở chế độ gợi ý MẶC ĐỊNH (bấm "Xem thêm" -> MAX_SEARCH_ITEM_SIZE). */
     private static final int SUGGESTION_DEFAULT_LIMIT = 4;
+
+    // Placement native màn search trong JSON (ads/app-placements.json, placements.json).
+    private static final String NATIVE_PLACEMENT = "native_search";
 
     // [KEYBOARD + STATUS BAR] THIẾT KẾ THỐNG NHẤT (đã duyệt):
     //   - Ẩn status bar NGAY khi mở search trên CẢ 2 máy, qua Launcher.setStatusBarHiddenForSearch (bên trong
@@ -107,7 +125,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     //          edge-to-edge nên không tự co; insets được dispatch tới window).
     //        * Máy cũ (API < 30): window GIỮ NO_LIMITS (full, như edit — để ẩn bar được, không resize, tránh
     //          PAN) + đọc chiều cao bàn phím bằng InputMethodManager.getInputMethodWindowVisibleHeight()
-    //          (hidden API — đã duyệt; dự án đã dùng HiddenApiBypass). Đo trong OnGlobalLayout.
+    //          (hidden API, gọi reflection; lỗi thì đo bằng visible-frame). Đo trong OnGlobalLayout.
     //   - Thanh search cách mép bàn phím một khoảng nhỏ SEARCH_BOTTOM_GAP_DP để không dính liền.
     private static final int SEARCH_BOTTOM_GAP_DP = 6;
     /** Đang giữ ẩn status bar (chỉ hiện lại khi chính search đã ẩn). */
@@ -609,6 +627,12 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         mResultAppBox = findViewById(R.id.result_app_box);
         mResultAppList = findViewById(R.id.result_app_list);
         mSuggestionVerticalList = findViewById(R.id.suggestion_list_vertical);
+        mNativeAdContainer = findViewById(R.id.search_native_ad_container);
+
+        // Tải trước native màn search để lúc lưới gợi ý hiện đã có sẵn; đã mua bản không qc thì bỏ.
+        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
+            AppAds.preloadNative(NATIVE_PLACEMENT);
+        }
     }
 
     void setListeners(){
@@ -748,6 +772,8 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
                     mSearchViewAdapter.getFilter().filter(null);
                 setDrawingCacheEnabled(false);
                 clearFocus();
+                // Đóng HẲN (hết animation) mới gỡ ad; gỡ sớm hơn thì ô trống trong lúc trượt.
+                clearNativeAdContainer();
             }
 
             @Override
@@ -758,6 +784,19 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         ofPropertyValuesHolder.start();
         if (this.mSearchViewLayoutDelegate != null)
             mSearchViewLayoutDelegate.onSearchViewClosed();
+    }
+
+    /**
+     * Gỡ view ad khỏi ô quảng cáo của màn search.
+     *
+     * <p>Gọi khi màn đã đóng hẳn. Không gỡ thì ad của lần trước còn nằm trong ô: mở lại là thấy
+     * nó hiện ra trước, rồi tới lúc tải ad mới bị xoá để đổ skeleton — nhìn thành "ad -> shimmer -> ad".
+     */
+    private void clearNativeAdContainer() {
+        if (mNativeAdContainer != null) {
+            mNativeAdContainer.removeAllViews();
+        }
+        mNativeAdLoaded = false;
     }
 
     public void showSearchView(){
@@ -856,6 +895,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
      * Lịch sử chỉ khi rỗng & có data; web/store/maps chỉ khi có text.
      */
     private void updateSectionsVisibility(boolean hasText) {
+        mLastHasText = hasText;
         boolean hasResult = mHasResult && hasText;
         // Header "Gợi ý"/"Xem thêm" luôn hiển thị (áp cho lưới lẫn gợi ý dọc).
         if (mSuggestionText != null) mSuggestionText.setVisibility(View.VISIBLE);
@@ -878,6 +918,58 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         if (mSuggestionVerticalList != null) {
             mSuggestionVerticalList.setVisibility(hasText ? View.VISIBLE : View.GONE);
         }
+        // Quảng cáo native nằm NGAY DƯỚI lưới gợi ý nên chỉ thuộc trạng thái gợi ý (chưa gõ).
+        // Đang gõ — dù có kết quả hay không — thì nội dung là kết quả/gợi ý dọc, ẩn quảng cáo đi.
+        if (mNativeAdContainer != null) {
+            if (hasText) {
+                mNativeAdContainer.setVisibility(View.GONE);
+            } else {
+                showNativeAd();
+            }
+        }
+    }
+
+    /**
+     * Đổ quảng cáo native vào ô ngay dưới lưới gợi ý.
+     *
+     * <p>Chỉ gọi {@code AdsNative.show} MỘT lần cho MỘT lần vào màn: hàm này nằm trong
+     * {@code updateSectionsVisibility} — chỗ chạy mỗi lần nội dung ô nhập đổi — nên không chặn
+     * sẽ ném request liên tục mỗi lần gõ phím. {@code mNativeAdRequested} được hạ ở
+     * {@link #startOpen()} để lần vào màn sau ad được tải mới.
+     *
+     * <p>Skeleton trong lúc chờ + 1 giây giữ skeleton sau khi ad xong do {@code AdsNative} lo
+     * (đường tự populate, xem {@code AdsNative.pourOwnLayout}).
+     */
+    private void showNativeAd() {
+        // Đã mua bản không quảng cáo -> giấu ô quảng cáo, KHÔNG phát request.
+        // Kiểm tra ở đây (chứ không chỉ ở updateSectionsVisibility) để mọi đường vào hàm này
+        // đều bị chặn như nhau.
+        if (AdsSdk.INSTANCE.isAdFree()) {
+            mNativeAdContainer.setVisibility(View.GONE);
+            return;
+        }
+        if (!mNativeAdRequested) {
+            mNativeAdRequested = true;
+            mNativeAdFailed = false;
+            // AppAds đổ skeleton rồi bật ô lại (SDK tự GONE container lúc gọi). Ô này chỉ ở trạng
+            // thái "chưa gõ" nên bật là an toàn; có kết quả thì updateSectionsVisibility quyết định.
+            AppAds.showNative(mLauncher, NATIVE_PLACEMENT, mNativeAdContainer,
+                    com.truongnt.ios.ioslite.common.R.layout.layout_native_search,
+                    com.truongnt.ios.ioslite.common.R.layout.shimmer_native_search, hasAd -> {
+                        mNativeAdLoaded = hasAd;
+                        mNativeAdFailed = !hasAd;
+                        if (hasAd) {
+                            updateSectionsVisibility(mLastHasText);
+                        } else {
+                            mNativeAdContainer.setVisibility(View.GONE);
+                        }
+                    });
+            return;
+        }
+        // Đã phát request: hàm này chạy lại mỗi lần nội dung ô nhập đổi, mà lúc đó vừa bị ẩn đi
+        // (đang gõ) — phải tự bật lại, không thì xoá chữ xong quảng cáo biến mất luôn dù ad vẫn còn.
+        // Chỉ ẩn khi request THẤT BẠI; đang chờ (kể cả 1s giữ skeleton) thì phải hiện.
+        mNativeAdContainer.setVisibility(mNativeAdFailed ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -998,6 +1090,10 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         if (mState == SearchViewState.OPENED) {
             return;
         }
+        // startOpen() có HAI nguồn gọi (PageIndicator và SearchPullDetector), nên lần thứ hai có thể
+        // rơi vào lúc đang OPENING. Chỉ lần vào từ trạng thái ĐÓNG mới được reset cờ ad — reset lần
+        // nữa là phát request thứ hai: ad đang hiện bị xoá để chạy lại skeleton.
+        final boolean enteringFromClosed = mState != SearchViewState.OPENING;
         // Nạp dự phòng danh sách app cho lưới Gợi ý (phòng bind bị bỏ lỡ -> lưới rỗng).
         mLauncher.ensureSearchViewApps();
         setVisibility(View.VISIBLE);
@@ -1023,6 +1119,12 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
             mActionShowMore.setText(mLauncher.getString(R.string.search_show_more));
         }
         mHasResult = false;
+        // Vào (lại) màn search -> cho ô quảng cáo native tải MỚI đúng MỘT lần cho lần vào này.
+        // Không reset thì mNativeAdRequested chặn vĩnh viễn: lần vào sau vẫn dùng lại ad cũ.
+        if (enteringFromClosed) {
+            mNativeAdRequested = false;
+            mNativeAdFailed = false;
+        }
         refreshHistory();
         updateSectionsVisibility(false); // về trạng thái "chưa gõ": lưới hiện, kết quả/dọc ẩn
         enterSearchSoftInputMode();

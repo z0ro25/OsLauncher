@@ -13,7 +13,8 @@ public class Router {
     private static final String TAG = "Router";
 
     // 美华中心
-    private static final String ACTIVITY_THEMECLUB = "com.truongnt.ios.themeclub.MainActivity";
+    // Trang Themes ở :module:iOSThemes (thay ThemeClub cũ); library không thấy class nên trỏ bằng chuỗi.
+    private static final String ACTIVITY_THEMECLUB = "com.ezla.oslauncher.themes.features.home.ThemesActivity";
     private static final String THEMECLUB_ACTION = "ios.intent.action.ThemeClubActivity";
     private static final String EXTRA_KEY_THEMECLUB = "themeclubtype";
     public static final int EXTRA_VALUE_WALLPAPER = 0;
@@ -70,6 +71,39 @@ public class Router {
      */
     public static void startMineActivity(Context context) {
         startThemeClubActivity(context, EXTRA_VALUE_MINE);
+    }
+
+    // Extra Splash (:app) đọc để điều hướng sang module iOSThemes thay vì luồng thường của app.
+    public static final String EXTRA_OPEN_THEMES = "open_themes";
+
+    // Icon "Themes" trên desktop: đi qua Splash của :app (ads splash) rồi mới vào Themes.
+    // Lấy Splash từ launch intent của package vì library không thấy class của :app.
+    public static void startThemesViaSplash(Context context) {
+        Intent launch = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        if (launch == null || launch.getComponent() == null) {
+            startThemeClubActivity(context);
+            return;
+        }
+        // Không gắn category LAUNCHER: Splash sẽ finish() ngay nếu thấy MAIN+LAUNCHER mà không phải task root.
+        Intent intent = new Intent();
+        intent.setComponent(launch.getComponent());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(EXTRA_OPEN_THEMES, true);
+        CommonUtilities.startActivitySafely(context, intent);
+    }
+
+    // Như startThemesViaSplash nhưng vào ThemesSplashActivity (:app) có taskAffinity riêng, để
+    // Themes không nằm chung task với MiOS. Không resolve được thì rơi về hàm cũ.
+    public static void startThemesInOwnTask(Context context) {
+        Intent intent = new Intent(context.getPackageName() + ".action.THEMES_SPLASH");
+        intent.setPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(EXTRA_OPEN_THEMES, true);
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            startThemesViaSplash(context);
+            return;
+        }
+        CommonUtilities.startActivitySafely(context, intent);
     }
 
     /**

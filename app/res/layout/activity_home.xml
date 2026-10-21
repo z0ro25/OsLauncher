@@ -4,34 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="35dp"
     android:background="@color/onb_bg"
     android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <LinearLayout
+        android:id="@+id/ll_app_name"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/sf_pro_display_bold"
-        android:text="@string/app_name_launcher"
-        android:textColor="@color/onb_text_primary"
-        android:textSize="28sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:includeFontPadding="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:text="@string/app_name"
+            android:textColor="@color/onb_text_primary"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_pro"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            android:fontFamily="@font/sf_pro_display_bold_italic"
+            android:textColor="#E6B300"
+            android:textSize="24sp"
+            android:textAllCaps="true"
+            android:text="Pro"
+            android:layout_marginStart="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iv_pro"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/img_pro"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ll_app_name" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:paddingHorizontal="16dp"
         android:paddingBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fr_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+        app:layout_constraintTop_toBottomOf="@+id/ll_app_name">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,16 +93,16 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="12dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display_medium"
-                        android:text="@string/go_to_launcher"
                         android:includeFontPadding="false"
+                        android:text="@string/go_to_launcher"
                         android:textColor="@color/onb_text_primary"
                         android:textSize="16sp" />
 
@@ -75,8 +110,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:includeFontPadding="false"
                         android:fontFamily="@font/sf_pro_display_regular"
+                        android:includeFontPadding="false"
                         android:text="@string/explore_your_os_interface_on_device"
                         android:textColor="@color/onb_text_secondary"
                         android:textSize="12sp" />
@@ -87,6 +122,72 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_home_arrow_right" />
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_subs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_subs_home"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_display_semibold"
+                        android:includeFontPadding="false"
+                        android:text="Experience the app without ads"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/sf_pro_display_regular"
+                        android:includeFontPadding="false"
+                        android:text="Enjoy all features smoothly and \nwithout interruption"
+                        android:textColor="@color/white70percent"
+                        android:textSize="12sp" />
+
+                    <!-- Nút pill "Set default" (194x30 theo Figma) — bấm để mở chọn launcher mặc định -->
+                    <TextView
+                        android:id="@+id/btn_upgrade"
+                        android:layout_width="180dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/home_btn_set_default"
+                        android:fontFamily="@font/sf_pro_display_semibold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="Upgrade now"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/fr_native_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_lang_card">
+
+                <include layout="@layout/shimmer_native_large" />
+
+            </FrameLayout>
 
             <!-- ===================== Set as default launcher (Figma 246-6116) — nút "Set default" xanh mở dialog chọn launcher mặc định ===================== -->
             <LinearLayout
@@ -104,15 +205,15 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:includeFontPadding="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_pro_display_semibold"
+                        android:includeFontPadding="false"
                         android:text="@string/set_as_default_launcher"
                         android:textColor="@color/onb_text_primary"
                         android:textSize="14sp" />
@@ -121,8 +222,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:includeFontPadding="false"
                         android:fontFamily="@font/sf_pro_display_regular"
+                        android:includeFontPadding="false"
                         android:text="@string/set_default_launcher_card_desc"
                         android:textColor="@color/onb_text_secondary"
                         android:textSize="12sp" />
@@ -150,13 +251,31 @@
                     android:src="@drawable/img_card_select_launcher" />
             </LinearLayout>
 
-            <!-- ===================== Card chính (12 mục) ===================== -->
+            <!-- ===================== Card chính (13 mục) ===================== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_lang_card"
                 android:orientation="vertical">
 
+
+                <!-- Themes: icon = icon mặc định của Themes trên desktop (lite_rom_themes của iOSLauncher). -->
+                <LinearLayout
+                    android:id="@+id/ll_themes"
+                    style="@style/HomeSettingRow">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/lite_rom_themes" />
+
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/home_themes" />
+
+                    <ImageView style="@style/HomeSettingArrow" />
+                </LinearLayout>
+
+                <View style="@style/HomeSettingDivider" />
 
                 <!-- General -->
                 <LinearLayout
@@ -196,9 +315,9 @@
 
                 <!-- Homescreen Style -->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/ll_homescreen_style"
-                    style="@style/HomeSettingRow">
+                    style="@style/HomeSettingRow"
+                    android:visibility="gone">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         style="@style/HomeSettingIcon"
@@ -305,9 +424,9 @@
 
                 <!-- Badge Notifications -->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/ll_badge_notifications"
-                    style="@style/HomeSettingRow">
+                    style="@style/HomeSettingRow"
+                    android:visibility="gone">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         style="@style/HomeSettingIcon"
@@ -495,5 +614,16 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/fr_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/ads_banner" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

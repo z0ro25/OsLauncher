@@ -58,7 +58,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.ezt.ios.database.HiddenAppManager;
+import com.truongnt.ios.database.HiddenAppManager;
 import com.truongnt.ios.ioslite.common.Partner;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
 import com.truongnt.ios.ioslite.common.launcher.Insettable;
@@ -1024,7 +1024,9 @@ public class Workspace extends PagedView
         for (int i = 0; i < total; i++) {
             long id = mWorkspaceScreens.keyAt(i);
             CellLayout cl = mWorkspaceScreens.valueAt(i);
-            if (cl.getShortcutsAndWidgets().getChildCount() == 0) {
+            // Page đang chờ nhận item (drop widget từ khay: DragController.endDrag strip TRƯỚC khi
+            // widget được thêm sau animation) không phải page rỗng -> không xoá, kẻo widget mất.
+            if (cl.getShortcutsAndWidgets().getChildCount() == 0 && !cl.isDropPending()) {
                     removeScreens.add(id);
             }
         }
@@ -1070,7 +1072,9 @@ public class Workspace extends PagedView
 
         mDefaultPage = mOriginalDefaultPage;
         if (pageShift >= 0) {
-            setCurrentPage(currentPage - pageShift);
+            // Xoá chính page cuối đang xem thì index vượt số page -> setCurrentPage bỏ qua âm thầm,
+            // workspace kẹt ở page đã mất (đơ, vuốt delay). Kẹp về page cuối còn lại.
+            setCurrentPage(Math.max(0, Math.min(currentPage - pageShift, getChildCount() - 1)));
         }
     }
 
@@ -4300,12 +4304,20 @@ public class Workspace extends PagedView
 
                     // When dragging and dropping from customization tray, we deal with creating
                     // widgets/shortcuts/folders in a slightly different way
-                    mLauncher.addPendingItem(pendingInfo, container, screenId, mTargetCell,
-                            item.spanX, item.spanY);
+                    try {
+                        mLauncher.addPendingItem(pendingInfo, container, screenId, mTargetCell,
+                                item.spanX, item.spanY);
+                    } finally {
+                        // Item đã vào page (hoặc sang luồng config tự lo) -> nhả cờ giữ page.
+                        cellLayout.setDropPending(false);
+                    }
 
                     mLauncher.cancelShakingAnimation();
                 }
             };
+            // onDragEnd chạy TRƯỚC runnable trên: page vừa commit còn rỗng sẽ bị đổi lại thành
+            // EXTRA_EMPTY -> screenId mất, widget thả vào trang mới biến mất. Cờ này chặn việc đó.
+            cellLayout.setDropPending(true);
             boolean isWidget = pendingInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET
                     || pendingInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_IOS_APPWIDGET;
 

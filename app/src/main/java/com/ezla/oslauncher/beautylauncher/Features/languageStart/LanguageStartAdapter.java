@@ -72,6 +72,8 @@ public class LanguageStartAdapter extends RecyclerView.Adapter<LanguageStartAdap
             Glide.with(context).load(R.drawable.ic_china).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("hi")) {
             Glide.with(context).load(R.drawable.ic_hi).circleCrop().into(holder.icLang);
+        } else if (languageModel.getCode().equals("ko")) {
+            Glide.with(context).load(R.drawable.ic_kor).circleCrop().into(holder.icLang);
         } else if (languageModel.getCode().equals("in")) {
             Glide.with(context).load(R.drawable.ic_indo).circleCrop().into(holder.icLang);
         }

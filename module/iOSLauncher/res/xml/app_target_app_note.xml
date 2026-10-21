@@ -27,4 +27,9 @@
     <favorite
         launcher:className="com.android.notes.Notes"
         launcher:packageName="com.android.notes" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.samsung.android.app.notes" />
+    <favorite launcher:packageName="com.miui.notes" />
+    <favorite launcher:packageName="com.coloros.note" />
 </items>

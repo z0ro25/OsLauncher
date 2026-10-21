@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn Install theme (Figma Install/icon + Install/Wallpapers): header + nút Apply cả theme,
+     2 tab Icon/Wallpaper (chỉ đổi bằng bấm), khung preview 270x536, nút Unlock/Apply theo tab. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themes_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/themes_screen_padding">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="-4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/themes_cd_back"
+            android:padding="4dp"
+            android:src="@drawable/themes_ic_back" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:maxLines="1"
+            android:text="@string/themes_install_title"
+            android:textColor="@color/themes_text_name"
+            android:textSize="16sp" />
+
+        <!-- Badge xu (chưa mở đủ 2 phần) / nút Apply All hồng (đã mở cả Icon lẫn Wallpaper). -->
+        <LinearLayout
+            android:id="@+id/layoutCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/themes_cd_add_coin"
+                android:elevation="1dp"
+                android:src="@drawable/themes_ic_add_coin" />
+
+            <TextView
+                android:id="@+id/tvCoin"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="-4dp"
+                android:background="@drawable/themes_bg_coin_count"
+                android:fontFamily="@font/themes_quicksand_bold"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingStart="7dp"
+                android:paddingEnd="14dp"
+                android:textColor="@color/themes_text_coin"
+                android:textSize="14sp"
+                tools:text="150" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="-12dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/themes_ic_coin" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnApplyTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@drawable/themes_bg_button_pink"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:text="@string/themes_apply_all"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Tab Icon / Wallpapers: gạch chân xanh 1.5dp cho tab chọn, line xám 0.5dp dưới cả hàng. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/themes_tab_height"
+        android:layout_marginTop="4dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="@color/themes_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/tabIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/tvTabIcon"
+                    style="@style/ThemesText.Tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/themes_tab_icon" />
+
+                <View
+                    android:id="@+id/lineIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/themes_primary" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/tabWallpaper"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/tvTabWallpaper"
+                    style="@style/ThemesText.Tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/themes_tab_wallpaper" />
+
+                <View
+                    android:id="@+id/lineWallpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/themes_primary"
+                    android:visibility="invisible" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Khung preview Figma 270x536 bo 30; co theo chiều cao còn lại, giữ tỉ lệ. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="28dp"
+        android:paddingBottom="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgPreviewBg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/themes_white"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="270:536"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ThemesRoundedImage30" />
+
+        <!-- Tab Icon: lưới app theo trang (vuốt ngang) + dock cố định ở đáy, đè lên nền. -->
+        <FrameLayout
+            android:id="@+id/layoutIconPreview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/imgPreviewBg"
+            app:layout_constraintEnd_toEndOf="@id/imgPreviewBg"
+            app:layout_constraintStart_toStartOf="@id/imgPreviewBg"
+            app:layout_constraintTop_toTopOf="@id/imgPreviewBg">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pagerIcons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/layoutDock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/themes_bg_dock"
+                android:orientation="horizontal"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="12dp" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Unlock with N (chưa mở tab) / Apply Icons | Apply Wallpaper (đã mở: chỉ áp phần của tab). -->
+    <LinearLayout
+        android:id="@+id/btnTabAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="@dimen/themes_screen_padding"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/themes_bg_button_blue_pill"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTabAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp"
+            tools:text="Unlock with 5" />
+
+        <ImageView
+            android:id="@+id/imgTabActionCoin"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/themes_ic_coin" />
+    </LinearLayout>
+
+    <!-- Banner "bannerinapp" sát đáy (ẩn khi subs). Nội dung phía trên co lại, không bị che. -->
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+
+</LinearLayout>

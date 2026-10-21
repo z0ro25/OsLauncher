@@ -36,6 +36,21 @@
             </intent-filter>
         </activity>
 
+        <!-- Splash của icon Themes: affinity riêng -> task + thẻ Đa nhiệm riêng, không đè task MiOS.
+             Router (iOSLiteCommon) không thấy class này nên mở bằng action THEMES_SPLASH. -->
+        <activity
+            android:name=".Features.splash.ThemesSplashActivity"
+            android:exported="false"
+            android:icon="@drawable/lite_rom_themes"
+            android:label="@string/themes_shortcut_label"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.themes">
+            <intent-filter>
+                <action android:name="${applicationId}.action.THEMES_SPLASH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".Features.no_internet.NoInternetActivity"
             android:exported="true"
@@ -88,6 +103,15 @@
 
         <activity
             android:name=".dialog.SetDefaultLauncherPromptActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.truongnt.ios.launcher.Launcher"
+            android:theme="@style/TransparentActivity" />
+
+        <activity
+            android:name=".dialog.SubsOfferPromptActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleTop"
@@ -173,6 +197,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
+        <activity
+            android:name=".Features.subs.SubsAct"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
 
 
         <service
@@ -192,14 +222,13 @@
             android:name=".theme.ThemeAutoReceiver"
             android:exported="false" />
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
 
-<!--        <meta-data-->
-<!--            android:name="com.facebook.sdk.ApplicationId"-->
-<!--            android:value="@string/facebook_app_id" />-->
-
-<!--        <meta-data-->
-<!--            android:name="com.facebook.sdk.ClientToken"-->
-<!--            android:value="@string/token_facebook" />-->
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.NATIVE_AD_DEBUGGER_ENABLED"
+            android:value="false" />
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="35dp"
     android:background="@color/lang_bg">
 
     <!-- Header: back tròn themed + tiêu đề Language. Không còn nút done (áp locale khi back). -->
@@ -67,5 +68,14 @@
             android:overScrollMode="never"
             tools:listitem="@layout/item_language" />
     </FrameLayout>
-
+    <FrameLayout
+        android:id="@+id/fr_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <include
+            layout="@layout/ads_banner" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

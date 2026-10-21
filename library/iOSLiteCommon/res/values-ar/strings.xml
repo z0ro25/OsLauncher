@@ -3,4 +3,6 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="settings_error_text">بسبب قيود النظام لايمكن الاستخدام!</string>
     <string name="settings_sim_error_text">لا توجد بطاقة SIM!</string>
+
+    <string name="ads_native_full_close">إغلاق</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bộ màu riêng cho dialog ưu đãi sub. Dialog luôn nền sáng (không có bản values-night) đúng mockup. -->
+<resources>
+    <color name="subs_offer_text">#1A1A1A</color>
+    <color name="subs_offer_text_grey">#9A9A9A</color>
+    <color name="subs_offer_blue">#0A5BFF</color>
+    <color name="subs_offer_gradient_start">#0A2BFF</color>
+    <color name="subs_offer_gradient_end">#12C8FF</color>
+    <color name="subs_offer_yellow">#FFCE3A</color>
+    <color name="subs_offer_timer_bg">#EAF3FF</color>
+    <color name="subs_offer_timer_stroke">#7FC0F5</color>
+    <color name="subs_offer_icon_circle">#E7F1FF</color>
+    <color name="subs_offer_grabber">#D9D9DE</color>
+    <color name="subs_offer_button">#0A6CFF</color>
+</resources>

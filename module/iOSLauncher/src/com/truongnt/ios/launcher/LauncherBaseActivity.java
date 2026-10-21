@@ -1,13 +1,15 @@
 package com.truongnt.ios.launcher;
 
 import android.os.Bundle;
-import com.truongnt.ios.ioslite.common.CommonActivity;
+import com.truongnt.ios.ioslite.common.CommonFragmentActivity;
 import com.truongnt.ios.launcher.dynamicui.WallpaperColorInfo;
 import com.truongnt.ios.launcher.util.SystemUiController;
 
 import static com.truongnt.ios.launcher.util.SystemUiController.UI_STATE_OVERVIEW;
 
-public class LauncherBaseActivity extends CommonActivity implements WallpaperColorInfo.OnChangeListener {
+// Kế thừa CommonFragmentActivity vì SDK eztech chỉ show inter/native từ FragmentActivity.
+// Cố ý không đổi CommonActivity: DynamicVirtualEntry/SettingsActivity cũng dùng nó.
+public class LauncherBaseActivity extends CommonFragmentActivity implements WallpaperColorInfo.OnChangeListener {
 
     private static final int ACTIVITY_STATE_STARTED = 1 << 0;
     private static final int ACTIVITY_STATE_RESUMED = 1 << 1;

@@ -84,6 +84,7 @@
     <string name="next">Berikutnya</string>
     <string name="language">Bahasa</string>
     <string name="general">Umum</string>
+    <string name="home_themes">Tema</string>
     <!-- Màn Chọn hình nền (onboarding) -->
     <string name="select_bg_title">Pilih wallpaper</string>
     <string name="select_bg_desc">Pilih wallpaper yang Anda sukai untuk layar utama peluncur baru Anda.</string>
@@ -91,4 +92,33 @@
     <string name="select_bg_start_launcher">Mulai launcher</string>
     <string name="select_bg_set">Jadikan wallpaper</string>
     <string name="theme_default_name">Default</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_title">Nikmati Pengalaman Tanpa Iklan</string>
+    <string name="subs_offer_sale_off">DISKON</string>
+    <string name="subs_offer_limited">Penawaran terbatas</string>
+    <string name="subs_offer_only">HANYA</string>
+    <string name="subs_offer_per_year">/tahun</string>
+    <string name="subs_offer_no_charge_today">Batalkan kapan saja. Tanpa biaya hari ini.</string>
+    <string name="subs_offer_subscribe">BERLANGGANAN SEKARANG</string>
+    <string name="subs_offer_close">Tutup</string>
+    <!-- 2 nhãn dialog ưu đãi dùng chung với màn Subs: bản in trước đây chưa có nên rơi về tiếng Anh. -->
+    <string name="t_c"><u><![CDATA[S&K]]></u></string>
+    <string name="privacy_policy_u"><u>Kebijakan privasi</u></string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_start_premium">Mulai paket premium!</string>
+    <string name="subs_feature_themes">1000+ Tema Premium</string>
+    <string name="subs_feature_wallpapers">1000+ Wallpaper</string>
+    <string name="subs_feature_icons">Buka semua paket ikon</string>
+    <string name="subs_feature_ad_free">Pengalaman tanpa iklan</string>
+    <string name="subs_best_value">PALING HEMAT</string>
+    <string name="subs_billed_monthly">Ditagih bulanan</string>
+    <string name="subs_per_month_approx">≈ %1$s / bulan</string>
+    <string name="subs_free_trial_days">Uji coba gratis %1$d hari</string>
+    <string name="subs_then_per_year">Lalu %1$s/tahun • Batalkan kapan saja</string>
+    <string name="subs_then_per_month">Lalu %1$s/bulan • Batalkan kapan saja</string>
+    <string name="title1">Rasakan iOS 26 dengan tampilan futuristik</string>
+    <string name="title2">Mendukung tema Terang &amp; Gelap</string>
+    <string name="title3">Bebas memilih tema yang indah dan unik</string>
+    <string name="complete">Selesai</string>
 </resources>

@@ -108,6 +108,7 @@
     <string name="theme_default_name">Default</string>
     <string name="language">Language</string>
     <string name="general">General</string>
+    <string name="home_themes">Themes</string>
     <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->
     <string name="general_options">Options</string>
     <string name="auto_arrange_home_screen">Auto Arrange Home Screen</string>
@@ -175,8 +176,14 @@
     
     <string name="title1">Experience IOS 26 with a futuristic look</string>
     <string name="title2">Light &amp; Dark theme Supported</string>
-    <string name="title3">All your apps arranged neatly in App Library</string>
-
+    <string name="title3">Freedom to choose\nbeautiful and unique themes</string>
+    <string name="t_c"><u><![CDATA[T&C]]></u></string>
+    <string name="cancel_anytime">Cancel anytime</string>
+    <string name="renew_per_month_cancel_anytime">Renew per month. Cancel anytime</string>
+    <string name="monthly">Monthly</string>
+    <string name="renew_per_year_cancel_anytime">Renew per Year. Cancel anytime</string>
+    <string name="yearly">Yearly</string>
+    <string name="privacy_policy_u"><u>Privacy policy</u></string>
     <!-- Nhãn category cố định (hiển thị) + id song song bất biến (khóa lưu, không dịch) -->
     <string-array name="applib_fixed_categories">
         <item>Games</item>
@@ -198,4 +205,42 @@
         <item>cat_maps</item>
         <item>cat_productivity</item>
     </string-array>
+
+    <!-- Màn Subs (IAP) -->
+    <string name="restore">Restore</string>
+    <string name="enjoy_an">Enjoy An</string>
+    <string name="ad_free">Ad-Free</string>
+    <string name="experience">Experience</string>
+    <string name="remove_ads_subtitle">remove ads of launcher MiOS and all of its internal apps</string>
+    <string name="subs_product_not_ready">Product not ready, please try again</string>
+    <string name="subs_restore_success">Subscription restored</string>
+    <string name="subs_restore_none">No subscription found</string>
+
+    <!-- Dialog ưu đãi sub (hiện 1 lần/ngày trên desktop launcher) -->
+    <string name="subs_offer_percent" translatable="false">50%</string>
+    <string name="subs_offer_title">Enjoy An Ad-Free Experience</string>
+    <string name="subs_offer_sale_off">SALE OFF</string>
+    <string name="subs_offer_limited">Limited offer</string>
+    <string name="subs_offer_only">ONLY</string>
+    <string name="subs_offer_per_year">/year</string>
+    <string name="subs_offer_no_charge_today">Cancel anytime. No charge today.</string>
+    <string name="subs_offer_subscribe">SUBSCRIBE NOW</string>
+    <string name="subs_offer_close">Close</string>
+    <!-- Màn Subs mới (Figma IAP/theme) -->
+    <string name="subs_app_name" translatable="false">MiOS Launcher</string>
+    <!-- Giá dự phòng (theo Figma) khi Play chưa trả ProductDetails; có giá Play thì SubsAct ghi đè. -->
+    <string name="subs_price_year_fallback" translatable="false">1.600.000₫</string>
+    <string name="subs_price_month_fallback" translatable="false">320.000₫</string>
+    <string name="subs_price_year_monthly_fallback" translatable="false">133.000₫</string>
+    <string name="subs_start_premium">Start premium plan!</string>
+    <string name="subs_feature_themes">1000+ Premium Themes</string>
+    <string name="subs_feature_wallpapers">1000+ Wallpapers</string>
+    <string name="subs_feature_icons">Unlock All Icon packs</string>
+    <string name="subs_feature_ad_free">Ad-free experience</string>
+    <string name="subs_best_value">BEST VALUE</string>
+    <string name="subs_billed_monthly">Billed monthly</string>
+    <string name="subs_per_month_approx">≈ %1$s / month</string>
+    <string name="subs_free_trial_days">%1$d-day free trial</string>
+    <string name="subs_then_per_year">Then %1$s/year • Cancel anytime</string>
+    <string name="subs_then_per_month">Then %1$s/month • Cancel anytime</string>
 </resources>

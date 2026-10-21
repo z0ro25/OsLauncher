@@ -71,6 +71,22 @@ public class AppTypeParser {
     public static final String APP_TYPE_GTV = "app_gtv";           // Google TV -> TV
     public static final String APP_TYPE_GWALLET = "app_gwallet";   // Google Wallet -> Wallet
     public static final String APP_TYPE_GMEET = "app_gmeet";       // Google Meet -> FaceTime
+
+    // Icon theme (Figma "Theme Icons/*") chưa có type: map theo package đa hãng, icon = ic_<type>.
+    public static final String APP_TYPE_GBOOKS = "app_gbooks";       // Books
+    public static final String APP_TYPE_FITNESS = "app_fitness";     // Fitness
+    public static final String APP_TYPE_HEALTH = "app_health";       // Health
+    public static final String APP_TYPE_FIND_MY = "app_findmy";      // Find My
+    public static final String APP_TYPE_HOME = "app_home";           // Home
+    public static final String APP_TYPE_REMINDERS = "app_reminders"; // Reminders
+    public static final String APP_TYPE_TIPS = "app_tips";           // Tips
+    public static final String APP_TYPE_TRANSLATE = "app_translate"; // Translate
+    public static final String APP_TYPE_GAMES = "app_games";         // Games
+    public static final String APP_TYPE_WATCH = "app_watch";         // Watch
+    public static final String APP_TYPE_PAGES = "app_pages";         // Pages
+    public static final String APP_TYPE_NUMBERS = "app_numbers";     // Numbers
+    public static final String APP_TYPE_KEYNOTE = "app_keynote";     // Keynote
+    public static final String APP_TYPE_SHORTCUTS = "app_shortcuts"; // Shortcuts
 //    private static final String APP_TYPE_DOWNLOAD = "app_download";
     //    public static final String APP_TYPE_TORCH = "app_torch";
 
@@ -132,6 +148,21 @@ public class AppTypeParser {
         PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GTV);
         PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GWALLET);
         PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GMEET);
+
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GBOOKS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_FITNESS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_HEALTH);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_FIND_MY);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_HOME);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_REMINDERS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_TIPS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_TRANSLATE);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_GAMES);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_WATCH);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_PAGES);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_NUMBERS);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_KEYNOTE);
+        PRE_SYSTEM_APP_TYPES.add(APP_TYPE_SHORTCUTS);
 
         // third app types
         PRE_THIRD_APP_TYPES = new HashSet<>();
@@ -228,6 +259,11 @@ public class AppTypeParser {
         final String uri = getAttributeValue(parser, ATTR_URI);
 
         ComponentName cn = null;
+        boolean fromUri = false;
+        if (!TextUtils.isEmpty(packageName) && TextUtils.isEmpty(className)) {
+            // Mục chỉ có package (không ghi class: tên class đổi theo bản app) -> lấy activity launcher.
+            return findSingleLauncherComp(packageName);
+        }
         if (!TextUtils.isEmpty(packageName) && !TextUtils.isEmpty(className)) {
             try {
 
@@ -246,12 +282,32 @@ public class AppTypeParser {
             }
         } else if (!TextUtils.isEmpty(uri)) {
             cn = invalidPackageOrClass(uri, mPackgeManager);
+            fromUri = true;
         }
 
         if (!isLauncherComp(cn)) {
-            cn = null;
+            // Intent hay trả activity xử lý (vd. HandleApiCalls của Clock) chứ không phải activity
+            // launcher -> lùi về activity launcher của cùng package. Mục có className giữ nguyên luật cũ.
+            cn = (fromUri && cn != null) ? findSingleLauncherComp(cn.getPackageName()) : null;
         }
         return cn;
+    }
+
+    // Activity launcher DUY NHẤT của package; package có >1 (vd. com.android.contacts chứa cả
+    // Phone lẫn Contacts) thì trả null để không gán nhầm icon.
+    private ComponentName findSingleLauncherComp(String packageName) {
+        ComponentName found = null;
+        for (ComponentName comp : mAllLauncherCompList) {
+            // Danh sách gộp mọi profile (work profile lặp lại cùng component) -> bỏ qua bản trùng.
+            if (packageName.equals(comp.getPackageName()) && !comp.equals(found)) {
+                if (found != null) {
+                    Log.w(TAG, "skip ambiguous package (many launcher activities): " + packageName);
+                    return null;
+                }
+                found = comp;
+            }
+        }
+        return found;
     }
 
 

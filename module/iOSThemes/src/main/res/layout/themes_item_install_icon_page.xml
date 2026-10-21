@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1 trang lưới app trong preview tab Icon (4 cột). Đệm dưới chừa chỗ cho dock (icon 56dp). -->
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rvPageIcons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:nestedScrollingEnabled="false"
+    android:overScrollMode="never"
+    android:paddingHorizontal="6dp"
+    android:paddingTop="44dp"
+    android:paddingBottom="100dp" />

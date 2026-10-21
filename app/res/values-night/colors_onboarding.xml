@@ -14,4 +14,9 @@
     <color name="onb_text_secondary">#8E8E93</color>
     <color name="onb_arrow">#8E8E93</color>
     <color name="onb_switch_track_off">#39393D</color>
+    <!-- Màn Intro dark (Figma onb ... / Dark); chấm chưa chọn = trắng 25% x opacity 20% -->
+    <color name="onb_intro_bg">#0D0F1F</color>
+    <color name="onb_intro_card">#14172B</color>
+    <color name="onb_intro_title">#F4F5FF</color>
+    <color name="onb_intro_dot">#0DFFFFFF</color>
 </resources>

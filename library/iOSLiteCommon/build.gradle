@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
 //
@@ -8,10 +9,10 @@ android {
     defaultConfig {
         buildConfigField "Boolean", "LOG_ENABLE", "true"
 
-        minSdkVersion cfgs.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion cfgs.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
     }
 
     buildFeatures {
@@ -20,12 +21,22 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 
+    kotlinOptions {
+        jvmTarget = '11'
+    }
 
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src', "Volley/src"]
+            // Package `ads` viết bằng Kotlin nhưng nằm chung cây `src` với phần Java.
+            // Mặc định của kotlin-android là src/main/java + src/main/kotlin nên không thấy file.
+            kotlin.srcDirs = ['src', "Volley/src"]
             resources.srcDirs = ['src']
             aidl.srcDirs = ['src']
             res.srcDirs = ['res']
@@ -37,15 +48,16 @@ android {
 
 dependencies {
     api files('libs/launcher_client.jar')
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
 
-    // Room (Java) — migrate SQLite thủ công sang Room
-    implementation "androidx.room:room-runtime:2.6.1"
-    annotationProcessor "androidx.room:room-compiler:2.6.1"
+    implementation "androidx.room:room-runtime:2.7.2"
+    annotationProcessor "androidx.room:room-compiler:2.7.2"
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    // Đã gỡ utdid4all-1.0.4.jar: SDK định danh thiết bị của Alibaba, chứa PhoneInfoUtils
-    // đọc IMEI/IMSI (getDeviceId/getSubscriberId). Không có chỗ nào trong dự án gọi tới nó
-    // nên gỡ hẳn để APK không còn thư viện thu thập định danh thiết bị.
+    implementation "androidx.work:work-runtime:2.7.1"
+
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+
     implementation files('libs/slf4j-api-1.7.6.jar')
 
     // Retrofit
@@ -56,24 +68,29 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
-//    compile(libs['droi-bass-core']) {
-//        changing = true
-//    }
-//
-//    compile(libs['droi-bass-analytics']) {
-//        changing = true
-//    }
-//    compile libs['okhttp-urlconnection']
-//    compile libs['okhttp']
     api libs['gson']
     implementation libs['support-v4']
-//    implementation libs['recyclerview-v7']
-//    api libs['appcompat-v7']
-//    api libs['cardview-v7']
-    api libs['palette-v7']
-//    compile libs['umeng']
-//    compile libs['glide']
-//    compile libs['okhttp-urlconnection']
-//    compile libs['okhttp']
 
+    api libs['palette-v7']
+
+    //ads — SDK eztech. `api` vì iOSLauncher/iOSSearch/iOSThemeClub gọi thẳng class của SDK.
+    // Nơi khai DUY NHẤT của AAR: khai thêm ở module khác là D8 báo "defined multiple times".
+    api(name: 'eztech-ads-com.ezla.oslauncher.beautylauncher-1.0.8', ext: 'aar')
+
+    // AAR cục bộ KHÔNG mang metadata dependency, nên các thư viện mà SDK eztech cần phải
+    // khai tường minh. Để `api` vì chữ ký hàm của SDK có kiểu của ads-mobile-sdk, module gọi
+    // vào (iOSLauncher/iOSSearch/iOSThemeClub) cũng phải nạp được kiểu đó mới biên dịch.
+    api 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.4.0'
+    api 'androidx.lifecycle:lifecycle-process:2.9.0'
+    // AppAds (config/) dùng coroutine + Dispatchers.Main; 1.9.0 = đúng bản graph đang resolve.
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+}
+
+
+configurations.all { cfg ->
+    if (cfg.name.endsWith('CompileClasspath')) {
+        cfg.resolutionStrategy.force 'com.google.guava:listenablefuture:1.0'
+    }
 }

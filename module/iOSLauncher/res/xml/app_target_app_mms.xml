@@ -44,4 +44,7 @@
     <favorite
         launcher:className="com.android.contacts.activities.MessageActivity"
         launcher:packageName="com.lewa.PIM" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.samsung.android.messaging" />
 </items>

@@ -142,6 +142,9 @@ public class LauncherModel extends BroadcastReceiver
     static final boolean DEBUG_LOADERS = true;
     private static final boolean DEBUG_RECEIVER = false;
     private static final boolean REMOVE_UNRESTORED_ICONS = true;
+    // Bật tự thêm icon Themes lên desktop; tắt thì đổi thành false.
+    // Chỉ chặn thêm mới: icon đã có trên desktop vẫn giữ và vẫn mở được.
+    private static final boolean AUTO_ADD_THEMES_SHORTCUT = true;
 
     public static final int LOADER_FLAG_NONE = 0;
     public static final int LOADER_FLAG_CLEAR_WORKSPACE = 1 << 0;
@@ -3856,10 +3859,110 @@ public class LauncherModel extends BroadcastReceiver
                 addAndBindAddedWorkspaceItems(context, homeList);
             }
 
+            // Icon "Themes" (module iOSThemes) đặt NGAY SAU icon app: cùng worker thread nên chạy
+            // sau khi icon app đã ghi DB -> tìm được ô kế bên. Có trên desktop rồi thì bỏ qua.
+            addThemesShortcutIfMissing(context);
+
             if (!added.isEmpty()) {
                 boolean prompt = !mInitWorkspace;
                 addAndBindAddedWorkspaceItems(context, added, true, prompt);
             }
+        }
+
+        // Chạy trên worker thread (trong LoaderTask). Ưu tiên ô ngay bên phải icon app; ô đó bận
+        // thì rơi về addAndBindAddedWorkspaceItems (ô trống đầu tiên). Không xoá được: xem canShowDelIcon().
+        private void addThemesShortcutIfMissing(Context context) {
+            if (!AUTO_ADD_THEMES_SHORTCUT) {
+                return;
+            }
+            Intent probe = new Intent().setComponent(
+                    new ComponentName(context, com.truongnt.ios.launcher.shortcut.Theme.class));
+            final ShortcutInfo themes = infoFromIOSShortcutIntent(context, probe);
+            if (themes == null || shortcutExists(context, themes.intent, themes.user)
+                    || themeShortcutExists(probe.getComponent())) {
+                return;
+            }
+            themes.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+
+            ItemInfo homeItem = null;
+            ArrayList<ItemInfo> sameScreen = new ArrayList<ItemInfo>();
+            final String homePkg = context.getPackageName();
+            synchronized (sBgLock) {
+                for (ItemInfo info : sBgItemsIdMap) {
+                    ComponentName cn = info.getTargetComponent();
+                    if (info.container == LauncherSettings.Favorites.CONTAINER_DESKTOP
+                            && info.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION
+                            && cn != null && homePkg.equals(cn.getPackageName())) {
+                        homeItem = info;
+                        break;
+                    }
+                }
+                if (homeItem != null) {
+                    for (ItemInfo info : sBgItemsIdMap) {
+                        if (info.container == LauncherSettings.Favorites.CONTAINER_DESKTOP
+                                && info.screenId == homeItem.screenId) {
+                            sameScreen.add(info);
+                        }
+                    }
+                }
+            }
+
+            int[] cell = homeItem == null ? null : findCellRightOf(homeItem, sameScreen);
+            if (cell == null) {
+                ArrayList<ItemInfo> list = new ArrayList<ItemInfo>(1);
+                list.add(themes);
+                addAndBindAddedWorkspaceItems(context, list);
+                return;
+            }
+
+            addItemToDatabase(context, themes, LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                    homeItem.screenId, cell[0], cell[1]);
+            final Callbacks callbacks = getCallback();
+            runOnMainThread(new Runnable() {
+                public void run() {
+                    Callbacks cb = getCallback();
+                    if (callbacks == cb && cb != null) {
+                        ArrayList<ItemInfo> animated = new ArrayList<ItemInfo>(1);
+                        animated.add(themes);
+                        cb.bindAppsAdded(new ArrayList<Long>(), new ArrayList<ItemInfo>(),
+                                animated, null);
+                    }
+                }
+            });
+        }
+
+        // Chống trùng theo COMPONENT (không so intent): intent lưu trong DB có thể khác cờ so với
+        // intent dò, khiến shortcutExists() trượt và icon Themes bị thêm lại mỗi lần load.
+        // Tách riêng, KHÔNG sửa shortcutExists() vì hàm đó dùng chung ở nhiều luồng khác.
+        private boolean themeShortcutExists(ComponentName target) {
+            if (target == null) {
+                return false;
+            }
+            synchronized (sBgLock) {
+                for (ItemInfo item : sBgItemsIdMap) {
+                    if (target.equals(item.getTargetComponent())) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Ô (cellX + 1, cellY) của [anchor] nếu nằm trong lưới và còn trống, ngược lại null.
+        private int[] findCellRightOf(ItemInfo anchor, ArrayList<ItemInfo> screenItems) {
+            InvariantDeviceProfile profile = LauncherAppState.getInstance().getInvariantDeviceProfile();
+            int x = anchor.cellX + anchor.spanX;
+            int y = anchor.cellY;
+            if (x >= profile.numColumns || y >= profile.numRows) {
+                return null;
+            }
+            for (ItemInfo r : screenItems) {
+                if (x >= r.cellX && x < r.cellX + r.spanX
+                        && y >= r.cellY && y < r.cellY + r.spanY) {
+                    return null;
+                }
+            }
+            return new int[]{x, y};
         }
 
         private void loadDeepShortcuts() {

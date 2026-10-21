@@ -1,6 +1,7 @@
 package com.truongnt.ios.search.provider;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -12,17 +13,11 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.View;
 
-import com.truongnt.ios.ioslite.common.AsyncHandler;
-import com.truongnt.ios.ioslite.common.ad.IOSAdConfig;
-import com.truongnt.ios.ioslite.common.ad.IOSAdError;
-import com.truongnt.ios.ioslite.common.ad.IOSAdManager;
-import com.truongnt.ios.ioslite.common.ad.IOSAppAd;
-import com.truongnt.ios.ioslite.common.ad.IOSAppAdListener;
-import com.truongnt.ios.ioslite.common.ad.IOSNAdResponse;
-import com.truongnt.ios.ioslite.common.ad.IOSNativeAd;
-import com.truongnt.ios.ioslite.common.ad.IOSNativeAdListener;
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.ioslite.common.util.CommonUtilities;
 import com.amz.ios.http.Internal.Action;
 import com.amz.ios.http.Internal.BaseProvider;
@@ -63,11 +58,6 @@ public class DataFlowProvider extends BaseProvider {
 
     private SparseArray<String> mEventIdList;
     private final String SYSTEM_PATH = "system";
-    private IOSAppAd mAppAd;
-    private IOSNativeAd mNativiAd;
-    private final int REQUEST_APP_COUNT = 8;
-    private IOSAppAdListener mRecommendAppListener;
-    private IOSNativeAdListener mNativiAdListener;
 
     public DataFlowProvider(Context context) {
         super(context);
@@ -80,70 +70,53 @@ public class DataFlowProvider extends BaseProvider {
         mTaskRef.clear();
         mTaskRef = null;
         mAllApps.clear();
-        if (mAppAd != null) {
-            mAppAd.destory();
-        }
-        mRecommendAppListener = null;
-        if (mNativiAd != null) {
-            mNativiAd.destory();
-        }
-        mNativiAdListener = null;
     }
 
-    //load recommod app
+    // Chỉ còn vế "đã mua bản không quảng cáo"; bật/tắt theo vị trí giờ do SDK lo.
+    private boolean isNativeAdAllowed() {
+        return !AdsSdk.INSTANCE.isAdFree();
+    }
+
+    // Alias riêng để không tiêu mất ad đã tải của App Library / màn trái (SDK giữ ad theo alias).
+    private void preloadSearchNative(Activity activity) {
+        NativeAds.INSTANCE.preloadNativeInline(activity, "nt_app_search",
+                AdsConfig.INSTANCE.getNative());
+    }
+
+    //load recommod app — nay là MỘT ô native ad.
+    //
+    // FSDAds không có loại "app recommend" và không có API trả nhiều ad trong một lượt như
+    // IOSAppAd cũ, nên không thể tái tạo lưới 8 card. Trả về AdCardItemInfo — vốn KHÔNG phải
+    // group item — để UiHandler xếp nó thành một hàng riêng, đúng cỡ cho native ad, thay vì
+    // nhét vào lưới ô nhỏ của AppCardInfo.
     public Action loadRecommondApp() {
-        // 获取应用广告对象
-        if (mAppAd == null) {
-            mAppAd = IOSAdManager.getInstance(getContext()).getAppAd(IOSAdConfig.ID_APP_RECOMMEND_NEWSPAGE);
-        }
         String name = "loadRecommondApp";
         final String taskName = checkAndgetRefName(name);
-        Action recommonAppAction = new Action<List<AppCardInfo>>(this, taskName) {
+        Action recommonAppAction = new Action<List<AdCardItemInfo>>(this, taskName) {
             @Override
-            public void work(final CancelableCallBack<List<AppCardInfo>> callBack) {
-                if (mRecommendAppListener == null) {
-                    mRecommendAppListener = new IOSAppAdListener() {
-                        @Override
-                        public void onError(IOSAdError error) {
-                            callBack.onFalure("fail to fetch apps :" + error, 0);
-                        }
+            public void work(final CancelableCallBack<List<AdCardItemInfo>> callBack) {
+                if (callBack == null) return;
 
-                        @Override
-                        public void onAdLoaded(List<? extends IOSNAdResponse> responses) {
-                            if (responses != null && responses.size() != 0) {
-                                if (responses.size() < 8) {
-                                    mAppAd.load(REQUEST_APP_COUNT);
-                                } else {
-                                    List<View> adViewList = new ArrayList<View>();
-                                    adViewList.clear();
-                                    for (int i = 0; i < responses.size(); i++) {
-                                        adViewList.add(responses.get(i).getAdContentView());
-                                    }
-                                    callBack.onRealSucess(adapteToAppCardInfo(adViewList));
-                                }
-
-                            }
-                        }
-                    };
+                // Không có ad -> trả danh sách RỖNG. Không dùng onFalure: UiHandler.onFalure
+                // hiện toast lỗi cho người dùng, mà "không có quảng cáo" không phải là lỗi.
+                if (!isNativeAdAllowed()) {
+                    callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
+                    return;
                 }
 
-                if (mAppAd != null) {
-                    mAppAd.setAppAdListener(mRecommendAppListener);
-                    mAppAd.load(REQUEST_APP_COUNT);
+                Activity activity = ActivityUtil.findActivity(getContext());
+                if (activity == null) {
+                    callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
+                    return;
                 }
+                preloadSearchNative(activity);
+
+                List<AdCardItemInfo> result = new ArrayList<AdCardItemInfo>();
+                result.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
+                callBack.onRealSucess(result);
             }
         };
         return recommonAppAction;
-    }
-
-    private List<AppCardInfo> adapteToAppCardInfo(List<View> adViews) {
-        List<AppCardInfo> appCardsInfo = new ArrayList<>();
-        for (int i = 0; i < adViews.size(); i++) {
-            AppCardInfo app = new AppCardInfo();
-            app.adView = adViews.get(i);
-            appCardsInfo.add(app);
-        }
-        return appCardsInfo;
     }
 
     private String checkAndgetRefName(String name) {
@@ -157,48 +130,29 @@ public class DataFlowProvider extends BaseProvider {
 
     //load ad
     public Action loadAd() {
-        if (mNativiAd == null) {
-            mNativiAd = IOSAdManager.getInstance(getContext()).getNativeAd(IOSAdConfig.ID_SEARCH);
-        }
         String name = "loadAd";
         final String taskName = checkAndgetRefName(name);
         final Action<List<AdCardItemInfo>> adItemInfoAction = new Action<List<AdCardItemInfo>>(this, taskName) {
             @Override
             protected void work(final CancelableCallBack<List<AdCardItemInfo>> callBack) {
                 if (callBack == null) return;
-                if (mNativiAdListener == null) {
-                    mNativiAdListener = new IOSNativeAdListener() {
-                        @Override
-                        public void onError(IOSAdError error) {
 
-                        }
-
-                        @Override
-                        public void onAdLoaded(IOSNAdResponse response) {
-                            if (response == null && response.getAdContentView() == null) {
-                                callBack.onFalure("", 0);
-                            }
-                            AdCardItemInfo itemInfo = new AdCardItemInfo(response.getAdContentView());
-                            List<AdCardItemInfo> adCardItemInfos = new ArrayList<AdCardItemInfo>();
-                            adCardItemInfos.add(itemInfo);
-                            callBack.onRealSucess(adCardItemInfos);
-                        }
-
-                        @Override
-                        public void onClick() {
-
-                        }
-                    };
+                // Không có ad -> trả danh sách RỖNG. Không dùng onFalure: UiHandler.onFalure
+                // hiện toast lỗi cho người dùng, mà "không có quảng cáo" không phải là lỗi.
+                if (!isNativeAdAllowed()) {
+                    callBack.onRealSucess(new ArrayList<AdCardItemInfo>());
+                    return;
                 }
-                if (mNativiAd != null) {
-                    mNativiAd.setNativeAdListener(mNativiAdListener);
-                    AsyncHandler.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mNativiAd.load();
-                        }
-                    });
+
+                // Tải trước cho lần bind sau. AdCardItemInfo tự tải khi bind nếu chưa kịp có.
+                Activity activity = ActivityUtil.findActivity(getContext());
+                if (activity != null) {
+                    preloadSearchNative(activity);
                 }
+
+                List<AdCardItemInfo> adCardItemInfos = new ArrayList<AdCardItemInfo>();
+                adCardItemInfos.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
+                callBack.onRealSucess(adCardItemInfos);
             }
         };
         holdAction(adItemInfoAction);

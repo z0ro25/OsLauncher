@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sheet "Apply Theme" (Figma Install/Apply Theme): preview Lock + Home, Apply Now, nút đóng. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/themes_bg_sheet_top16_gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:text="@string/themes_apply_theme_title"
+            android:textColor="@color/themes_text_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:gravity="center"
+            android:text="@string/themes_apply_theme_desc"
+            android:textColor="@color/themes_text_hint"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgApplyLock"
+                android:layout_width="93dp"
+                android:layout_height="180dp"
+                android:background="@color/themes_white"
+                android:contentDescription="@string/themes_lock_screen"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ThemesRoundedImage10" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgApplyHome"
+                android:layout_width="93dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="42dp"
+                android:background="@color/themes_white"
+                android:contentDescription="@string/themes_home_screen"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ThemesRoundedImage10" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnApplyNow"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/themes_bg_button_blue_pill"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/themes_apply_now"
+            android:textColor="@color/themes_white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgApplyClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/themes_cd_close"
+        android:src="@drawable/themes_ic_close_circle" />
+</FrameLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nét gạch xanh dưới ảnh preview ở sheet "Successfully Set!" (Figma, 272 rộng). Phần DƯỚI nét tô
+     màu nền sheet (#F2F2F7) để che đoạn ảnh thò xuống dưới, như ảnh bị nét cắt ngang. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="272dp"
+    android:height="54dp"
+    android:viewportWidth="272"
+    android:viewportHeight="54">
+    <path
+        android:fillColor="#F2F2F7"
+        android:pathData="M0,28.7493L7.001,28.7493C7.001,28.7493 18.5063,30.9117 30.9389,41.5358C43.3716,52.1598 70.996,23.6891 81.9394,23.6891C88.9597,23.6891 86.9641,35.919 97.0125,37.0339C107.061,38.1487 145.539,12.4745 152.358,16.8394C159.177,21.2042 159.774,25.9948 165.428,31.2735C171.082,36.5522 264.409,7.1187 264.409,7.1187L272,7.1187L272,54L0,54Z" />
+    <path
+        android:pathData="M7.001,28.8657C7.001,28.8657 18.5063,31.0282 30.9389,41.6522C43.3716,52.2763 70.996,23.8056 81.9394,23.8056C88.9597,23.8056 86.9641,36.0355 97.0125,37.1504C107.061,38.2652 145.539,12.591 152.358,16.9559C159.177,21.3207 160.933,26.9748 166.586,32.2535C172.24,37.5321 264.409,7.002 264.409,7.002"
+        android:strokeWidth="14"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M7.001,28.7493C7.001,28.7493 18.5063,30.9117 30.9389,41.5358C43.3716,52.1598 70.996,23.6891 81.9394,23.6891C88.9597,23.6891 86.9641,35.919 97.0125,37.0339C107.061,38.1487 145.539,12.4745 152.358,16.8394C159.177,21.2042 159.774,25.9948 165.428,31.2735C171.082,36.5522 264.409,7.1187 264.409,7.1187"
+        android:strokeWidth="8"
+        android:strokeColor="#007AFF"
+        android:strokeLineCap="round" />
+</vector>

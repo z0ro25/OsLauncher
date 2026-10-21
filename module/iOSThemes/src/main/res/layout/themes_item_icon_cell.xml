@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1 icon trong thẻ tab Icons: 32dp, khe 8dp (margin 4dp mỗi phía). Ảnh logo đã tạo hình sẵn. -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imgIcon"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:layout_margin="4dp"
+    android:importantForAccessibility="no"
+    android:scaleType="fitCenter" />

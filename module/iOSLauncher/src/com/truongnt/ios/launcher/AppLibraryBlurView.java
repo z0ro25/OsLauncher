@@ -24,8 +24,8 @@ import java.lang.reflect.Method;
  * <ul>
  *   <li>Overlay là WINDOW RIÊNG {@code TYPE_APPLICATION_MEDIA} — compositor xếp DƯỚI window chính
  *       (App Library + icon vẫn nét) nhưng TRÊN wallpaper → chỉ wallpaper bị mờ.</li>
- *   <li>{@code ViewRootImpl.createBackgroundBlurDrawable} (@hide) mở khoá bằng HiddenApiBypass; đặt
- *       làm background → hệ thống blur nền TRONG bounds (đây là full-screen nên phủ cả màn).</li>
+ *   <li>{@code ViewRootImpl.createBackgroundBlurDrawable} (@hide) gọi bằng reflection; đặt làm
+ *       background → hệ thống blur nền TRONG bounds (full-screen). Máy chặn hidden-API thì chỉ còn tint.</li>
  * </ul>
  * Không bo góc, không viền (khác dock): App Library chiếm trọn màn.
  *
@@ -40,8 +40,6 @@ public class AppLibraryBlurView extends View {
     private static final int MAX_BLUR_RADIUS = 100;
     /** Alpha tint TRẮNG tối đa khi mở hẳn — khớp tone kính dock ({@code PANEL_TINT = 0x1AFFFFFF}). */
     private static final int MAX_TINT_ALPHA = 0x1A; // 26/255 ~10% trắng, giống hotseat
-
-    private static boolean sHiddenApiUnlocked;
 
     private final int[] mLoc = new int[2];
     private final Rect mLastRect = new Rect();
@@ -146,21 +144,6 @@ public class AppLibraryBlurView extends View {
     }
 
     /**
-     * Mở khoá hidden-API bằng HiddenApiBypass (LSPosed) — kỹ thuật native, cho phép gọi
-     * ViewRootImpl.createBackgroundBlurDrawable (@hide) trên máy stock. Gọi 1 lần, im lặng nếu
-     * thất bại (fallback: panel còn tint tối, không blur).
-     */
-    private static void unlockHiddenApi() {
-        if (sHiddenApiUnlocked) return;
-        try {
-            org.lsposed.hiddenapibypass.HiddenApiBypass.addHiddenApiExemptions("L");
-            sHiddenApiUnlocked = true;
-        } catch (Throwable t) {
-            android.util.Log.e(TAG, "unlockHiddenApi fail: " + t);
-        }
-    }
-
-    /**
      * Tạo BackgroundBlurDrawable của compositor cho window {@code panel}. Đặt làm background → hệ
      * thống blur nền phía sau window (chỉ wallpaper vì panel là MEDIA sub-window) trong bounds
      * full-screen. Trả null nếu không hỗ trợ.
@@ -168,7 +151,6 @@ public class AppLibraryBlurView extends View {
     private Drawable createBackgroundBlurDrawable(View panel) {
         if (!Settings.isDesktopBlurEnable(getContext())) return null; // tắt blur -> fallback scrim (không blur)
         if (Build.VERSION.SDK_INT < 31) return null;
-        unlockHiddenApi();
         try {
             Object vri = View.class.getMethod("getViewRootImpl").invoke(panel);
             if (vri == null) return null;

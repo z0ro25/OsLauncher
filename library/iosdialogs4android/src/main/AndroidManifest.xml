@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
+        <!-- Tên phải khớp đúng package của IOSDialogView.java; khai sai thì IOSDialog.show() crash
+             ActivityNotFoundException (vd dialog xoá widget trên desktop). -->
         <activity
             android:exported="true"
-            android:name="com.ezt.varunjohn1990.iosdialogs4android.com.truongnt.varunjohn1990.iosdialogs4android.IOSDialogView"
+            android:name="com.truongnt.varunjohn1990.iosdialogs4android.IOSDialogView"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeIosDialog"></activity>
     </application>

@@ -16,9 +16,8 @@ import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 
 import com.truongnt.ios.launcher.config.Settings;
+import com.truongnt.ios.launcher.widget.view.CompositorBlurWindow;
 import com.github.mmin18.widget.RealtimeBlurView;
-
-import java.lang.reflect.Method;
 
 /**
  * Khung kính blur cho thanh dock (hotseat) — hiệu ứng glass kiểu iOS 26.
@@ -43,10 +42,9 @@ import java.lang.reflect.Method;
  * <ol>
  *   <li>Overlay là WINDOW RIÊNG {@code TYPE_APPLICATION_MEDIA} — compositor xếp DƯỚI window chính
  *       chứa icon (icon vẫn nét) nhưng TRÊN wallpaper (chỉ wallpaper trong khung bị mờ).</li>
- *   <li>{@code createBackgroundBlurDrawable} là API @hide → máy stock chặn reflection. Mở khoá bằng
- *       {@code VMRuntime.setHiddenApiExemptions("L")} (kỹ thuật FreeReflection) 1 lần lúc init.</li>
- *   <li>Drawable trả về set {@code setBlurRadius}/{@code setCornerRadius}/{@code setColor} rồi làm
- *       background cho panel → hệ thống blur nền trong bounds bo góc. Viền vẽ đè lên trên.</li>
+ *   <li>Android 12+: window là {@link CompositorBlurWindow} — API public
+ *       {@code Window.setBackgroundBlurRadius}, cùng cơ chế với createBackgroundBlurDrawable cũ.</li>
+ *   <li>Máy không dùng được compositor blur: window là {@code BlurPanel}, nền blur bitmap wallpaper.</li>
  * </ol>
  *
  * <p>View này chỉ là "anchor" trong hotseat: Hotseat.positionDockGlass() gán size/vị trí; ta bám vị
@@ -60,8 +58,6 @@ public class DockBlurView extends RealtimeBlurView {
     /** Tint trắng rất nhẹ phủ lên nền glass (vẫn thấy wallpaper mờ xuyên qua). */
     private static final int PANEL_TINT = 0x1AFFFFFF;
 
-    private static boolean sHiddenApiUnlocked;
-
     private final float mCornerRadius;
     private final float mStrokeWidth;
     private final int mStrokeColor;
@@ -73,6 +69,10 @@ public class DockBlurView extends RealtimeBlurView {
     private BlurPanel mPanel;
     private WindowManager.LayoutParams mPanelLp;
     private boolean mAdded;
+    /** Window kính compositor (Android 12+); null/không hiện thì dùng mPanel blur bitmap. */
+    private CompositorBlurWindow mCompositor;
+    /** show() của compositor từng lỗi (ROM lạ) -> dùng hẳn BlurPanel, không thử lại mỗi frame. */
+    private boolean mCompositorFailed;
 
     public DockBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -121,6 +121,15 @@ public class DockBlurView extends RealtimeBlurView {
 
         getLocationOnScreen(mLoc);
         final Rect rect = new Rect(mLoc[0], mLoc[1], mLoc[0] + w, mLoc[1] + h);
+        // Đổi đường giữa chừng (bật/tắt blur, tiết kiệm pin) thì gỡ window của đường kia, kẻo 2 lớp chồng.
+        if (useCompositor() && syncCompositor(rect)) {
+            removeBitmapPanel();
+            return;
+        }
+        if (mCompositor != null && mCompositor.isShowing()) {
+            mCompositor.dismiss();
+            mLastRect.setEmpty();
+        }
         if (mAdded && rect.equals(mLastRect)) return;
         mLastRect.set(rect);
 
@@ -139,8 +148,7 @@ public class DockBlurView extends RealtimeBlurView {
                 mAdded = true;
             } else {
                 mWm.updateViewLayout(mPanel, mPanelLp);
-                // Đường bitmap-blur crop wallpaper theo vị trí anchor, mà vị trí vừa đổi -> phải vẽ
-                // lại. Compositor blur tự cập nhật nên lệnh này thừa với nó, nhưng vô hại.
+                // Đường bitmap-blur crop wallpaper theo vị trí anchor, mà vị trí vừa đổi -> phải vẽ lại.
                 mPanel.invalidate();
             }
         } catch (Throwable t) {
@@ -148,11 +156,42 @@ public class DockBlurView extends RealtimeBlurView {
         }
     }
 
-    private void removePanel() {
+    private boolean useCompositor() {
+        return !mCompositorFailed && Settings.isDesktopBlurEnable(getContext())
+                && isCompositorBlurUsable();
+    }
+
+    // Hiện/dời window compositor tới [rect]. false = không dựng được -> caller rơi về BlurPanel.
+    private boolean syncCompositor(Rect rect) {
+        if (mCompositor == null) {
+            mCompositor = new CompositorBlurWindow(getContext(), BACKGROUND_BLUR_RADIUS,
+                    mCornerRadius, PANEL_TINT, mStrokeWidth, mStrokeColor);
+        }
+        if (mCompositor.isShowing()) {
+            if (!rect.equals(mLastRect)) {
+                mLastRect.set(rect);
+                mCompositor.update(rect);
+            }
+            return true;
+        }
+        if (!mCompositor.show(getWindowToken(), rect)) {
+            mCompositorFailed = true;
+            return false;
+        }
+        mLastRect.set(rect);
+        return true;
+    }
+
+    private void removeBitmapPanel() {
         if (mAdded && mPanel != null && mWm != null) {
             try { mWm.removeViewImmediate(mPanel); } catch (Throwable ignore) {}
         }
         mAdded = false;
+    }
+
+    private void removePanel() {
+        removeBitmapPanel();
+        if (mCompositor != null) mCompositor.dismiss();
         mLastRect.setEmpty();
     }
 
@@ -169,56 +208,10 @@ public class DockBlurView extends RealtimeBlurView {
         return lp;
     }
 
-    /**
-     * Mở khoá hidden-API bằng HiddenApiBypass (LSPosed) — kỹ thuật native, mạnh hơn
-     * VMRuntime.setHiddenApiExemptions (đã bị Android 12+ vá). Cho phép sau đó gọi
-     * ViewRootImpl.createBackgroundBlurDrawable (@hide) trên máy stock. Gọi 1 lần, im lặng nếu thất
-     * bại (fallback: panel còn tint + viền).
-     */
-    private static void unlockHiddenApi() {
-        if (sHiddenApiUnlocked) return;
-        try {
-            org.lsposed.hiddenapibypass.HiddenApiBypass.addHiddenApiExemptions("L");
-            sHiddenApiUnlocked = true;
-        } catch (Throwable t) {
-            android.util.Log.e(TAG, "unlockHiddenApi fail: " + t);
-        }
-    }
-
-    /**
-     * Tạo BackgroundBlurDrawable của compositor cho window của {@code panel} rồi cấu hình bán kính,
-     * bo góc, tint. Drawable này khi làm background sẽ khiến hệ thống blur nền phía sau window (chỉ
-     * wallpaper vì panel là MEDIA sub-window) trong bounds + bo góc. Trả null nếu không hỗ trợ.
-     */
+    // Nền BlurPanel — chỉ dùng khi không có compositor (xem useCompositor): blur bitmap wallpaper.
+    // Tắt blur trong Settings thì không nền (chỉ còn viền), giữ hành vi cũ.
     private Drawable createBackgroundBlurDrawable(View panel) {
-        if (!Settings.isDesktopBlurEnable(getContext())) return null; // tắt blur -> panel fallback (không blur)
-        if (!isCompositorBlurUsable()) {
-            // Máy không dùng được blur của compositor -> blur bằng BITMAP wallpaper.
-            // Xem giải thích ở isCompositorBlurUsable() và createBitmapBlurDrawable().
-            return createBitmapBlurDrawable();
-        }
-        unlockHiddenApi();
-        try {
-            Object vri = View.class.getMethod("getViewRootImpl").invoke(panel);
-            if (vri != null) {
-                Method create = vri.getClass().getDeclaredMethod("createBackgroundBlurDrawable");
-                create.setAccessible(true);
-                Drawable dr = (Drawable) create.invoke(vri);
-                if (dr != null) {
-                    dr.getClass().getMethod("setBlurRadius", int.class)
-                            .invoke(dr, BACKGROUND_BLUR_RADIUS);
-                    dr.getClass().getMethod("setCornerRadius", float.class)
-                            .invoke(dr, mCornerRadius);
-                    dr.getClass().getMethod("setColor", int.class)
-                            .invoke(dr, PANEL_TINT);
-                    return dr;
-                }
-            }
-        } catch (Throwable t) {
-            android.util.Log.e(TAG, "createBackgroundBlurDrawable fail: " + t);
-        }
-        // Reflection trượt (ROM vá hidden-API, đổi tên method...) -> vẫn còn đường bitmap.
-        // Trước đây trả null ở đây = dock phẳng không blur.
+        if (!Settings.isDesktopBlurEnable(getContext())) return null;
         return createBitmapBlurDrawable();
     }
 

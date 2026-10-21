@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gói xu (Figma 98x108 bo 14, ô trong #FFFCEB 90x72 bo 10, giá ở dưới). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutPack"
+    android:layout_width="match_parent"
+    android:layout_height="108dp"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/themes_bg_pack_inner"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:id="@+id/tvPackCoins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_bold"
+            android:includeFontPadding="false"
+            android:textColor="#392804"
+            android:textSize="12sp"
+            tools:text="500" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/themes_coins"
+            android:textColor="#392804"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/imgPackCoins"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginVertical="2dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPackPrice"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/themes_quicksand_bold"
+        android:gravity="center"
+        android:textSize="16sp"
+        tools:text="$1.99" />
+</LinearLayout>

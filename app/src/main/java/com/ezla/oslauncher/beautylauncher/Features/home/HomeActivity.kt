@@ -1,5 +1,6 @@
 package com.ezla.oslauncher.beautylauncher.Features.home
 
+import android.app.Dialog
 import android.app.role.RoleManager
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +13,8 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.appearance.AppearanceActivity
 import com.ezla.oslauncher.beautylauncher.Features.general.GeneralActivity
@@ -22,13 +25,21 @@ import com.ezla.oslauncher.beautylauncher.Features.general.renameapp.ChangeAppNa
 import com.ezla.oslauncher.beautylauncher.Features.general.screengrid.ScreenGridActivity
 import com.ezla.oslauncher.beautylauncher.Features.general.transitionpage.PageTransitionActivity
 import com.ezla.oslauncher.beautylauncher.Features.lang.LanguageSettingActivity
+import com.ezla.oslauncher.beautylauncher.Features.subs.SubsAct
 import com.ezla.oslauncher.beautylauncher.R
+import com.ezla.oslauncher.beautylauncher.databinding.ActivityHomeBinding
 import com.ezla.oslauncher.beautylauncher.dialog.SetDefaultLauncherDialog
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.extensions.tap
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
+import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
-import com.ezla.oslauncher.beautylauncher.databinding.ActivityHomeBinding
+import com.ezla.oslauncher.themes.ThemesEntry
+import com.ezt.v2.ezt.admobdemo.ads.InterAds
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
+import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
+import com.truongnt.ios.ioslite.common.config.AppAds
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
 
@@ -48,12 +59,49 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         applyDefaultLauncherState()
 
         maybeShowSetDefaultDialog()
+
+        binding.apply {
+            tvPro.isVisible = BillingUtils.isSubsCached(this@HomeActivity)
+            tvPro.setTypeface(
+                ResourcesCompat.getFont(
+                    this@HomeActivity,
+                    if (BillingUtils.isSubsCached(this@HomeActivity)) R.font.sf_pro_display_bold_italic else R.font.sf_pro_display_bold
+                )
+            )
+
+            ivPro.isVisible = !BillingUtils.isSubsCached(this@HomeActivity)
+            llSubs.isVisible = !BillingUtils.isSubsCached(this@HomeActivity)
+        }
+
+        if (!AdsSdk.isAdFree) {
+            AppAds.kit.showNativeInline(
+                this,
+                "native_home",
+                binding.frNativeHome,
+                R.layout.layout_native_large
+            )
+        } else {
+            binding.frNativeHome.isVisible = false
+        }
     }
 
     override fun onResume() {
         super.onResume()
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
+        if (!AdsSdk.isAdFree) {
+            AppAds.kit.showBanner(
+                this,
+                "main_banner",
+                binding.frBanner,
+                BannerAdOptions(collapsible = false, bannerSize = BannerSize.STANDARD)
+            )
+        } else {
+            // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
+            binding.frBanner.isVisible = false
+        }
+        // Quay lại từ In-App Review khi sheet Rate còn mở: showBanner có thể hiện lại banner dưới sheet.
+        if (rateDialog?.isShowing == true) binding.frBanner.visibility = View.INVISIBLE
     }
 
     /**
@@ -97,35 +145,68 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // ===== 2 card đầu màn =====
         // Go to launcher: đã là default -> vào thẳng desktop + thoát app; chưa default -> xem trải
         // nghiệm bình thường (qua màn Hello) và nhắc lại dialog Set default ngay khi tới desktop.
-        binding.llGoToLauncher.tap { goToLauncher() }
+        binding.llGoToLauncher.tap {
+            tapWithInterInApp { goToLauncher() }
+        }
         // Set as default launcher: bấm cả card hoặc nút "Set default" đều mở chọn launcher mặc định.
-        binding.llSetDefaultCard.tap { selectDefaultLauncher() }
-        binding.btnSetDefault.tap { selectDefaultLauncher() }
+        binding.llSetDefaultCard.tap {
+            tapWithInterInApp { selectDefaultLauncher() }
+        }
+        binding.btnSetDefault.tap {
+            tapWithInterInApp { selectDefaultLauncher() }
+        }
 
-        // ===== Card chính (12 mục) =====
-        binding.llGeneral.tap { launchActivity<GeneralActivity>() }
-        binding.llChangeAppIcon.tap { launchActivity<ChangeAppIconActivity>() }
+        // ===== Card chính (13 mục) =====
+        // Themes: cùng lối vào với icon Themes trên desktop (lần đầu qua onboarding của Themes).
+        binding.llThemes.tap {
+            tapWithInterInApp { ThemesEntry.open(this) }
+        }
+        binding.llGeneral.tap {
+            tapWithInterInApp { launchActivity<GeneralActivity>() }
+        }
+        binding.llChangeAppIcon.tap {
+            tapWithInterInApp { launchActivity<ChangeAppIconActivity>() }
+        }
         binding.llHomescreenStyle.tap { /* TODO: chưa có màn Homescreen Style */ }
-        binding.llScreenGrid.tap { launchActivity<ScreenGridActivity>() }
-        binding.llHiddenApps.tap { launchActivity<HiddenAppActivity>() }
-        binding.llPageTransition.tap { launchActivity<PageTransitionActivity>() }
-        binding.llAppLibrary.tap { launchActivity<AppLibraryActivity>() }
-        binding.llChangeAppName.tap { launchActivity<ChangeAppNameActivity>() }
+        binding.llScreenGrid.tap {
+            tapWithInterInApp { launchActivity<ScreenGridActivity>() }
+        }
+        binding.llHiddenApps.tap {
+            tapWithInterInApp { launchActivity<HiddenAppActivity>() }
+        }
+        binding.llPageTransition.tap {
+            tapWithInterInApp { launchActivity<PageTransitionActivity>() }
+        }
+        binding.llAppLibrary.tap {
+            tapWithInterInApp { launchActivity<AppLibraryActivity>() }
+        }
+        binding.llChangeAppName.tap {
+            tapWithInterInApp { launchActivity<ChangeAppNameActivity>() }
+        }
         binding.llBadgeNotifications.tap { /* TODO: chưa có màn Badge Notifications */ }
-        binding.llLanguage.tap { launchActivity<LanguageSettingActivity>() }
-        binding.llAppearance.tap { launchActivity<AppearanceActivity>() }
-        binding.llSelectDefault.tap { selectDefaultLauncher() }
+        binding.llLanguage.tap {
+            tapWithInterInApp { launchActivity<LanguageSettingActivity>() }
+        }
+        binding.llAppearance.tap {
+            tapWithInterInApp { launchActivity<AppearanceActivity>() }
+        }
+        binding.llSelectDefault.tap {
+            selectDefaultLauncher()
+        }
 
+        binding.btnUpgrade.setOnClickListener {
+            launchActivity<SubsAct>()
+        }
+
+        binding.ivPro.setOnClickListener {
+            launchActivity<SubsAct>()
+        }
         // ===== App Function Settings =====
         binding.llLauncherAi.tap { /* TODO: chưa có màn Launcher AI */ }
         binding.llWeather.tap { /* TODO: chưa có màn Weather */ }
 
         // ===== Other =====
-        binding.llRate.tap {
-            showRateDialog(false) {
-
-            }
-        }
+        binding.llRate.tap { showRateHidingBanner() }
         binding.llMail.tap { sendFeedbackMail() }
         binding.llPrivacy.tap {
             val browserIntent = Intent(
@@ -138,12 +219,40 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun dataObservable() {}
 
-    /**
-     * Mở desktop launcher từ card "Go to launcher".
-     * - Đã là default: vào thẳng desktop và thoát app (chỉ finish app khi đã là default).
-     * - Chưa default: đi qua màn Hello (trải nghiệm bình thường), KHÔNG finish app; đặt cờ để
-     *   khi tới desktop hiện lại dialog "Set as default launcher". [SearchLauncher] đọc 2 cờ này.
-     */
+    private var rateDialog: Dialog? = null
+
+    // Sheet Rate bám đáy sẽ đè lên banner -> ẩn banner (INVISIBLE, giữ layout) khi sheet mở,
+    // đóng thì trả đúng visibility cũ (SDK có thể đã tự GONE khi ad lỗi).
+    private fun showRateHidingBanner() {
+        val banner = binding.frBanner
+        val prevVisibility = banner.visibility
+        val dialog = showRateDialog(false) {}
+        if (!dialog.isShowing) return
+        rateDialog = dialog
+        banner.visibility = View.INVISIBLE
+        dialog.setOnDismissListener {
+            rateDialog = null
+            banner.visibility = prevVisibility
+        }
+    }
+
+    // Bọc [action] sau interstitial in-app. Bất biến: [action] luôn chạy đúng 1 lần — đã mua
+    // bản không qc hoặc chưa có ad thì chạy ngay, có ad thì chạy khi ad đóng.
+    private fun tapWithInterInApp(action: () -> Unit) {
+        if (AdsSdk.isAdFree) {
+            action()
+            return
+        }
+
+        if (!InterAds.isCanShowAds()) {
+            InterAds.initInterAds(this) {}
+            action()
+            return
+        }
+
+        InterAds.showAds(this, { action() }, true)
+    }
+
     private fun goToLauncher() {
         if (isDefaultLauncher()) {
             launchActivity<SearchLauncher>()
@@ -170,11 +279,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         selectDefault()
     }
 
-    /**
-     * Hiện dialog "đặt làm app Màn hình chính mặc định" của hệ thống qua [RoleManager.ROLE_HOME].
-     * @return true nếu đã bung được dialog; false khi thiết bị không hỗ trợ hoặc app đã là default
-     *         (khi đó caller tự fallback sang màn cài đặt Home).
-     */
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestHomeRoleDialog(): Boolean {
         val roleManager = getSystemService(ROLE_SERVICE) as? RoleManager ?: return false
@@ -190,9 +294,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     }
 
     private fun selectDefault() {
-        // Settings.ACTION_HOME_SETTINGS có từ API 24 -> mở thẳng trang chọn "App Màn hình chính
-        // mặc định" của hệ thống trên MỌI máy (kể cả Android 9). Trước đây máy < API 32 rơi vào
-        // ACTION_MAIN+CATEGORY_HOME: gọi từ trong chính launcher chỉ đưa app lên lại -> "không hiện gì".
+
         try {
             startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
         } catch (e: Exception) {
@@ -205,15 +307,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         SharePrefUtils.putBoolean(this, "is_login", false)
     }
 
-    /**
-     * Mở ứng dụng mail để người dùng gửi góp ý.
-     *
-     * Dùng ACTION_SENDTO + data "mailto:" thay cho ACTION_SEND: chỉ những app THẬT SỰ gửi mail mới
-     * nhận intent này, nên danh sách chọn không lẫn Bluetooth/Drive/Zalo... như ACTION_SEND.
-     *
-     * Địa chỉ nhận + tiền tố tiêu đề lấy từ [SharePrefUtils] (nơi cấu hình chung của app).
-     * Phần thân thư điền sẵn thông tin máy để đội hỗ trợ đỡ phải hỏi lại.
-     */
+
     private fun sendFeedbackMail() {
         val recipients = listOf(SharePrefUtils.email, SharePrefUtils.email1)
             .filter { it.isNotBlank() }
@@ -222,7 +316,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         val subject = "${SharePrefUtils.subject}${getString(R.string.app_name)}"
         val body = buildString {
             append("\n\n---\n")
-            append("Model: ").append(Build.MANUFACTURER).append(' ').append(Build.MODEL).append('\n')
+            append("Model: ").append(Build.MANUFACTURER).append(' ').append(Build.MODEL)
+                .append('\n')
             append("Android: ").append(Build.VERSION.RELEASE)
                 .append(" (API ").append(Build.VERSION.SDK_INT).append(")\n")
             append("App version: ").append(readAppVersion())

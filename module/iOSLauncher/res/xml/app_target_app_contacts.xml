@@ -25,4 +25,7 @@
     <favorite
         launcher:className="com.lenovo.ideafriend.alias.PeopleActivity"
         launcher:packageName="com.lenovo.ideafriend" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.samsung.android.app.contacts" />
 </items>

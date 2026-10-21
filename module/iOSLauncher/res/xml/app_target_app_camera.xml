@@ -80,4 +80,8 @@
     <favorite
         launcher:className="com.android.camera.CameraLauncher"
         launcher:packageName="com.google.android.GoogleCamera" />
+
+    <!-- Chỉ package (không className): parser lấy activity launcher duy nhất của package. -->
+    <favorite launcher:packageName="com.oplus.camera" />
+    <favorite launcher:packageName="com.oneplus.camera" />
 </items>

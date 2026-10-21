@@ -1,15 +1,23 @@
 package com.ezla.oslauncher.beautylauncher.Features.languageStart
 
+//import com.ezla.oslauncher.beautylauncher.launchActivity
 import android.view.LayoutInflater
 import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
-import com.ezla.oslauncher.beautylauncher.model.LanguageModel
-//import com.ezla.oslauncher.beautylauncher.launchActivity
 import com.ezla.oslauncher.beautylauncher.Features.intro.IntroActivity
-import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
-import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
+import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityLanguageStartBinding
+import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
+import com.ezla.oslauncher.beautylauncher.model.LanguageModel
+import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
+import com.ezt.v2.ezt.admobdemo.ads.NativeAds
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.truongnt.ios.ioslite.common.config.AppAds
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 
@@ -21,17 +29,42 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
     override val setViewBinding: ActivityLanguageStartBinding
         get() = ActivityLanguageStartBinding.inflate(LayoutInflater.from(this))
 
+
+    companion object {
+        var nativeOnbFull = true
+    }
+
     override fun initView() {
         initData()
         val linearLayoutManager = LinearLayoutManager(this)
-        val languageAdapter = LanguageStartAdapter(listLanguage, { code -> codeLang = code }, this)
+        val languageAdapter = LanguageStartAdapter(listLanguage, { code ->
 
-        languageAdapter.setCheck(codeLang)
+            MainScope().launch {
+                delay(2000)
+
+                binding.frNative.removeAllViews()
+                // Remote Config tắt native ở vị trí này -> không hiện ad, giấu luôn ô chứa để
+                // không chừa khoảng trống. Vẫn phải chạy tiếp phần hiện nút Done bên dưới.
+                AppAds.kit.showNativeInline(
+                    this@LanguageStartActivity, "native_lang2", binding.frNative,
+                    R.layout.layout_native_lang2
+                )
+
+
+                if (!binding.ivDone.isVisible) {
+                    binding.ivDone.isVisible = true
+                }
+            }
+
+            codeLang = code
+        }, this)
+
+//        languageAdapter.setCheck(codeLang)
 
         binding.recyclerView.layoutManager = linearLayoutManager
         binding.recyclerView.adapter = languageAdapter
 
-        languageAdapter.setCheck(codeLang)
+//        languageAdapter.setCheck(codeLang)
 
         binding.ivDone.setOnClickListener { v ->
             LanguageUtil.saveLocale(baseContext, codeLang)
@@ -41,15 +74,29 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
         onBackPressedDispatcher.addCallback {
             finishAffinity()
         }
+
+        AppAds.kit.showNativeInline(
+            this@LanguageStartActivity,
+            "native_lang1",
+            binding.frNative,
+            R.layout.layout_native_lang1
+        )
+
+        preloadAds()
     }
 
-    override fun viewListener() {
+    private fun preloadAds() {
+        if (!AdsSdk.isAdFree) {
+            AppAds.kit.preloadNativeInline( "native_onb1")
+            AppAds.kit.preloadNativeInline("native_onb2")
+            AppAds.kit.preloadNativeInline("native_onb_full")
 
+        }
     }
 
-    override fun dataObservable() {
+    override fun viewListener() {}
 
-    }
+    override fun dataObservable() {}
 
     private fun initData() {
         listLanguage = arrayListOf()

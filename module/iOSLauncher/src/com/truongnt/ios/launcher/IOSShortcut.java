@@ -15,7 +15,7 @@ public class IOSShortcut {
      */
     public static final String ACTION_CREATE_IOS_SHORTCUT = "com.ios.ioslite.CREATE_SHORTCUT";
 
-    public static final String CLASS_NAME_THEMECLUB = "com.truongnt.ios.themeclub.MainActivity";
+    public static final String CLASS_NAME_THEMECLUB = "com.ezla.oslauncher.themes.features.home.ThemesActivity";
     public static final String CLASS_NAME_IOS_SETTINGS = "com.ios.iossettings.SettingsActivity";
     public static final String CLASS_NAME_WALLPAPER_SETTINGS = "com.truongnt.ios.launcher.shortcut.Wallpaper";
     public static final String CLASS_NAME_THEME_SETTINGS = "com.truongnt.ios.launcher.shortcut.Theme";
@@ -30,7 +30,8 @@ public class IOSShortcut {
         CLASS_TO_ICON_MAP.put(CLASS_NAME_THEMECLUB,"lite_rom_themeclub");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_IOS_SETTINGS,"lite_rom_ios_settings");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_WALLPAPER_SETTINGS,"lite_rom_wallpaper_setting");
-        CLASS_TO_ICON_MAP.put(CLASS_NAME_THEME_SETTINGS,"lite_rom_themeclub");
+        // Icon "Themes" trên desktop (module iOSThemes); ảnh ở asset icon-xxhdpi của theme.
+        CLASS_TO_ICON_MAP.put(CLASS_NAME_THEME_SETTINGS,"lite_rom_themes");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_IOS_CLUB,"lite_rom_iosclub");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_POWER_SAVE,"lite_rom_power_save");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_IOS_DISCOVERY,"lite_rom_discovery");

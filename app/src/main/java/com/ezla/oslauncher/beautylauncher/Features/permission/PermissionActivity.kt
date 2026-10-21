@@ -11,10 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.ezla.oslauncher.beautylauncher.Base.BaseActivity
 import com.ezla.oslauncher.beautylauncher.Features.wallpaperonboarding.SelectBackgroundActivity
-import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
-import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
+import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityPermissionBinding
+import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
+import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+import com.truongnt.ios.ioslite.common.config.AppAds
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
     override val setViewBinding: ActivityPermissionBinding
@@ -33,6 +36,15 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
         onBackPressedDispatcher.addCallback {
             finishAffinity()
         }
+
+        if (!AdsSdk.isAdFree) {
+            AppAds.kit.showNativeInline(
+                this,
+                "native_permission",
+                binding.frNative,
+                R.layout.layout_native_small
+            )
+        }
     }
 
     override fun onResume() {
@@ -44,8 +56,6 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
             swExternal.isChecked = hasExternal
             swExternal.isEnabled = !hasExternal
 
-            // Notification: máy <13 không có quyền runtime -> coi như đã bật (ON + khóa).
-            // Máy 13+ đọc trạng thái thật; đã cấp -> khóa, chưa -> cho bấm để xin.
             val hasNotification = isNotificationGranted()
             swNotification.isChecked = hasNotification
             swNotification.isEnabled =

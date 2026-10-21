@@ -11,8 +11,8 @@ import com.ezla.oslauncher.beautylauncher.Features.wallpaperonboarding.SelectBac
 import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
-import com.ezla.oslauncher.beautylauncher.tool.sharePreferenceTool.SharePrefUtils
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityHelloBinding
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 
 class HelloActivity : BaseActivity<ActivityHelloBinding>() {

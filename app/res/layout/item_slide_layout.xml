@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- scaleType=matrix: IntroAdapter.fitWidthBottom() phủ ngang + neo ĐÁY, màn thấp hơn Figma
+         chỉ cắt nền trang trí phía trên, không cắt 2 bên hay nội dung đáy (dock, "Pick your themes"). -->
     <ImageView
         android:id="@+id/im_LogoSlide"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scaleType="fitXY"
-        android:layout_marginTop="30dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
