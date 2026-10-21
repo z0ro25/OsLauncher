@@ -102,17 +102,6 @@ allprojects {
         //   --patch-module). Giữ lại sẽ làm javac lỗi ngay. Plugin PowerKey vốn đã bị comment ở
         //   app/build.gradle (compileOnly framework.jar) nên không có gì phụ thuộc cờ này.
     }
-
-    // [GỠ] Khối force kotlin-stdlib:1.9.24 trên compileClasspath.
-    //
-    // Khối đó chỉ tồn tại để compiler 1.9.24 không gặp metadata 2.1.0 của kotlin-stdlib mà
-    // play-services-ads kéo vào — đúng như phần "BẤT BIẾN" của chính nó đã ghi. Nay compiler
-    // là 2.1.21 (đọc được tới metadata 2.2.0) nên khối này không còn cần thiết; giữ lại thì
-    // nó lại ép NGƯỢC về stdlib cũ — sai hướng.
-    //
-    // Lưu ý: khối này chỉ vá được lỗi metadata của kotlin-stdlib. Lỗi "Module was compiled
-    // with an incompatible version of Kotlin" từ các file META-INF/*.kotlin_module nằm bên
-    // trong api.jar của play-services-ads thì nó KHÔNG chạm tới — chỉ nâng compiler mới hết.
 }
 
 tasks.register('clean', Delete) {

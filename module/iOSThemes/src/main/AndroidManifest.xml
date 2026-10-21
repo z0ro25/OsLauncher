@@ -55,9 +55,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/ThemesTheme" />
 
-        <!-- Xem tất cả theme của 1 danh mục (nút ">" ở tab Icons). -->
+        <!-- Xem tất cả bộ icon của 1 danh mục (nút ">" ở tab Icons). -->
         <activity
             android:name=".features.icons.IconCategoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <!-- Xem tất cả My Library / Suggest theo tab (nút "more" ở Mine). -->
+        <activity
+            android:name=".features.mine.MineMoreActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/ThemesTheme" />

@@ -34,6 +34,24 @@ public class AnalyticsDelegate {
         }
     }
 
+    // Event kèm param (String). Tách khỏi EventLogger để không đổi call-site cũ; :app gắn ở Application.
+    public interface ParamEventLogger {
+        void log(String event, java.util.Map<String, String> params);
+    }
+
+    private static volatile ParamEventLogger sParamEventLogger;
+
+    public static void setParamEventLogger(ParamEventLogger logger) {
+        sParamEventLogger = logger;
+    }
+
+    public static void logEvent(String event, java.util.Map<String, String> params) {
+        ParamEventLogger logger = sParamEventLogger;
+        if (logger != null) {
+            logger.log(event, params);
+        }
+    }
+
     public static void initalize(Application application) {
 //        sUmAnalytics = new UmAnalytics();
 //        sUmAnalytics.initalize(application);

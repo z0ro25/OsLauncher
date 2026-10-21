@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.Models.ThemeDetail
 import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.ThemesEntry
@@ -16,6 +15,7 @@ import com.ezla.oslauncher.themes.apply.ThemeApplyEngine
 import com.ezla.oslauncher.themes.base.BaseActivity
 import com.ezla.oslauncher.themes.base.ApplyTask
 import com.ezla.oslauncher.themes.base.LoadingOverlay
+import com.ezla.oslauncher.themes.features.ApplyTracker
 import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.loadCreditInto
 import com.ezla.oslauncher.themes.data.CreditRejectedException
@@ -104,7 +104,6 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     // Dock cố định 4 app + lưới vuốt: dùng chung IconPreviewBinder với màn Icon detail.
     private fun bindIcons(d: ThemeDetail?) {
         val logos = d?.logos.orEmpty()
-        ApiLog.d("install theme=${d?.id} ${d?.name} logos=${logos.map { it.packageName }}")
         IconPreviewBinder.bind(logos, binding.pagerIcons, binding.layoutDock)
     }
 
@@ -159,7 +158,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
 
     private fun applyTab(d: ThemeDetail) {
         when (tab) {
-            Tab.ICON -> runApply { applyIcons(d) }
+            Tab.ICON -> runApply(ApplyTracker.TYPE_ICONS) { applyIcons(d) }
             Tab.WALLPAPER -> chooseWhere(d)
         }
     }
@@ -173,10 +172,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
             Tab.ICON -> CreditRepository.UNLOCK_THEME_ICONS to (d.id.toIntOrNull() ?: 0)
             Tab.WALLPAPER -> CreditRepository.UNLOCK_BACKGROUND to d.backgroundId
         }
-        if (id <= 0) {
-            ApiLog.e("unlock $type: thiếu id (theme=${d.id})", null)
-            return
-        }
+        if (id <= 0) return
         unlocking = true
         lifecycleScope.launch {
             val result = CreditRepository.unlock(type, id)
@@ -228,7 +224,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
             val url = d.wallpapers.firstOrNull() ?: return@setFragmentResultListener
             val lock = bundle.getBoolean(ChooseWhereToApplyDialog.KEY_LOCK)
             val home = bundle.getBoolean(ChooseWhereToApplyDialog.KEY_HOME)
-            runApply { applyWallpaper(d, url, home, lock) }
+            runApply(ApplyTracker.TYPE_BACKGROUND) { applyWallpaper(d, url, home, lock) }
         }
     }
 
@@ -257,7 +253,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     }
 
     private fun applyAll(d: ThemeDetail) {
-        runApply {
+        runApply(ApplyTracker.TYPE_BOTH) {
             if (isDefault(d)) applyIcons(d) && applyWallpaper(d, "", home = true, lock = true)
             else ThemeApplyEngine.applyTheme(this, d, applyHome = true, applyLock = true)
         }
@@ -278,14 +274,16 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
 
     // Chạy 1 lần áp (chặn bấm lặp); thành công -> toast + về Main, lỗi -> toast lỗi, ở lại màn.
     // Qua ApplyTask: đổi nền làm màn bị tạo lại, kết quả phải về instance đang sống.
-    private fun runApply(block: suspend () -> Boolean) {
+    private fun runApply(type: String, block: suspend () -> Boolean) {
         if (applyTask.running) return
         loading.show()
         val appCtx = applicationContext
+        val themeName = detail?.name.orEmpty()
         applyTask.run(block) { live, ok ->
             live?.loading?.hide()
             val msg = if (ok) R.string.themes_apply_success else R.string.themes_apply_failed
             Toast.makeText(live ?: appCtx, msg, Toast.LENGTH_SHORT).show()
+            if (ok) ApplyTracker.log(themeName, type)
             if (ok) live?.backToMain()
         }
     }

@@ -92,8 +92,6 @@
     <string name="themes_apply_success">Erfolgreich angewendet</string>
     <string name="themes_apply_failed">Anwenden fehlgeschlagen, bitte erneut versuchen</string>
     <string name="themes_network_error">Verbindungsfehler, bitte versuche es erneut</string>
-    <string name="themes_test_add_coin">[TEST] 50 Münzen hinzufügen</string>
-    <string name="themes_test_add_coin_done">+%1$d Münzen, Guthaben: %2$d</string>
     <string name="themes_restore_default_title">Standardsymbole wiederherstellen?</string>
     <string name="themes_restore_default_message">Alle Symbole des angewendeten Designs werden durch die Standardsymbole ersetzt.</string>
     <string name="themes_restore">Wiederherstellen</string>
@@ -110,8 +108,6 @@
     <string name="themes_reward_done_today">Alle Belohnungen für heute verbraucht</string>
     <string name="themes_reward_no_ad">Kein Video verfügbar, bitte später erneut versuchen</string>
     <string name="themes_claim_reward">Belohnung abholen</string>
-    <string name="themes_test_clear_coin">[TEST] Alle Münzen entfernen</string>
-    <string name="themes_test_clear_coin_done">Münzen entfernt, Guthaben: %1$d</string>
     <string name="themes_no_app_to_open">Keine App zum Öffnen gefunden</string>
     <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
     <string name="themes_badge_new">Neu</string>

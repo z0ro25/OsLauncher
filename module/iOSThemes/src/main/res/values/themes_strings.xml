@@ -104,8 +104,6 @@
     <string name="themes_apply_success">Applied successfully</string>
     <string name="themes_apply_failed">Couldn\'t apply, please try again</string>
     <string name="themes_network_error">Connection error, please try again</string>
-    <string name="themes_test_add_coin">[TEST] Add 50 coins</string>
-    <string name="themes_test_add_coin_done">+%1$d coins, balance: %2$d</string>
     <string name="themes_restore_default_title">Restore default icons?</string>
     <string name="themes_restore_default_message">All icons from the applied theme will be replaced by the default icons.</string>
     <string name="themes_restore">Restore</string>
@@ -122,8 +120,6 @@
     <string name="themes_reward_done_today">You have used all rewards today</string>
     <string name="themes_reward_no_ad">No video available, please try again later</string>
     <string name="themes_claim_reward">Claim reward</string>
-    <string name="themes_test_clear_coin">[TEST] Remove all coins</string>
-    <string name="themes_test_clear_coin_done">Coins removed, balance: %1$d</string>
     <string name="themes_no_app_to_open">No app found to open this</string>
     <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
     <string name="themes_badge_new">New</string>

@@ -1,6 +1,7 @@
 package com.ezla.oslauncher.themes.data
 
 import com.ezla.oslauncher.themes.Models.IconSection
+import com.ezla.oslauncher.themes.Models.IconThemeCard
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.ThemeCategory
 import com.ezla.oslauncher.themes.Models.ThemeDetail
@@ -24,6 +25,9 @@ interface ThemeRepository {
 
     // Tab Icons: mỗi danh mục 1 section (bỏ danh mục rỗng), thứ tự giữ như [categories].
     suspend fun getIconSections(categories: List<ThemeCategory>): List<IconSection>
+
+    // Màn xem tất cả (">" ở tab Icons): thẻ icon của 1 danh mục; lỗi -> rỗng.
+    suspend fun getIconCards(categoryId: String): List<IconThemeCard>
 }
 
 object ThemeRepositoryProvider {

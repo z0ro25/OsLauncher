@@ -63,8 +63,14 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
     }
 
     override fun viewListener() {
-        binding.headerLibrary.tvSectionMore.setOnClickListener { callback.onMoreClick(tab, true) }
-        binding.headerSuggest.tvSectionMore.setOnClickListener { callback.onMoreClick(tab, false) }
+        binding.headerLibrary.tvSectionMore.setOnClickListener { openMore(true) }
+        binding.headerSuggest.tvSectionMore.setOnClickListener { openMore(false) }
+    }
+
+    // Vẫn báo callback cũ (nếu nơi khác có gắn) rồi mở màn xem tất cả của tab đang chọn.
+    private fun openMore(isLibrary: Boolean) {
+        callback.onMoreClick(tab, isLibrary)
+        MineMoreActivity.start(requireContext(), tab, isLibrary)
     }
 
     override fun dataObservable() = load()

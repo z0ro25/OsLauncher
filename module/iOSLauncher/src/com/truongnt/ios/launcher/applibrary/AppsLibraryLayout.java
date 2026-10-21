@@ -427,7 +427,11 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         mTotalLibraryRV.post(new Runnable() {
             @Override
             public void run() {
-                if (mAppLibraryAdapter != null) {
+                if (mAppLibraryAdapter == null) {
+                    return;
+                }
+                // Lần trước ad lỗi đã bị gỡ khỏi list -> chèn lại (insert tự bind) để thử lần này.
+                if (!mAppLibraryAdapter.restoreAdItemIfRemoved()) {
                     mAppLibraryAdapter.notifyAdChanged();
                 }
             }

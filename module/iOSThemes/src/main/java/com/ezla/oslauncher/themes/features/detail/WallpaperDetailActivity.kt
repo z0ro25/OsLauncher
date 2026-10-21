@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezla.oslauncher.themes.apply.ThemeApplyEngine
@@ -19,6 +18,7 @@ import com.ezla.oslauncher.themes.data.CreditRepository
 import com.ezla.oslauncher.themes.data.DefaultThemeProvider
 import com.ezla.oslauncher.themes.data.SubsRepository
 import com.ezla.oslauncher.themes.data.favorite.FavoriteRepository
+import com.ezla.oslauncher.themes.features.ApplyTracker
 import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.loadCreditInto
 import com.ezla.oslauncher.themes.features.shareAppOnStore
@@ -66,7 +66,8 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
 
     override fun viewListener() {
         binding.imgBack.setOnClickListener { finish() }
-        binding.layoutCoin.setOnClickListener { onPremiumClick?.invoke(imageUrl) }
+        // Cùng hành vi badge xu ở Themes/Theme detail/Icon detail: mở màn kiếm xu.
+        binding.layoutCoin.setOnClickListener { showActivity(RewardsActivity::class.java, null) }
         binding.btnFavorite.setOnClickListener { toggleFavorite() }
         binding.btnShare.setOnClickListener { shareAppOnStore() }
         binding.btnApply.setOnClickListener {
@@ -106,10 +107,7 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
     // Enough Coins; lỗi mạng -> toast. Chặn bấm lặp để không gửi 2 lần.
     private fun useCoins() {
         if (unlocking) return
-        if (backgroundId <= 0) {
-            ApiLog.e("unlock background: thiếu id (url=$imageUrl)", null)
-            return
-        }
+        if (backgroundId <= 0) return
         unlocking = true
         lifecycleScope.launch {
             CreditRepository.unlock(CreditRepository.UNLOCK_BACKGROUND, backgroundId)
@@ -162,6 +160,7 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
             val appCtx = applicationContext
             val default = isDefault
             val url = imageUrl
+            val name = wallpaperName
             applyTask.run({
                 if (default) {
                     ThemeApplyEngine.restoreDefaultWallpaper(appCtx, DefaultThemeProvider.WALLPAPER_RES, home, lock)
@@ -170,6 +169,7 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
                 }
             }) { live, ok ->
                 live?.loading?.hide()
+                if (ok) ApplyTracker.log(name, ApplyTracker.TYPE_BACKGROUND)
                 if (ok) live?.let {
                     SuccessfullySetDialog.newInstance(url).show(it.supportFragmentManager, TAG_SUCCESS)
                 }

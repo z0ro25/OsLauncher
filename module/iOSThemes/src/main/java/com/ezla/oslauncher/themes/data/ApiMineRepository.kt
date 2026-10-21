@@ -1,7 +1,6 @@
 package com.ezla.oslauncher.themes.data
 
 import com.ezla.oslauncher.themes.Api.ApiClient
-import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.Models.ApiTheme
 import com.ezla.oslauncher.themes.Models.IconPack
 import com.ezla.oslauncher.themes.Models.PreviewCard
@@ -10,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 // Màn Mine: "owned" theme/nền lấy từ my-themes / my-backgrounds (đồ device đã mở khoá, qua SAG).
-// Lỗi mạng/HTTP -> danh sách rỗng (chỉ còn thẻ mặc định) + log. Suggest lấy /themes; Favorites còn mẫu.
+// Lỗi mạng/HTTP -> danh sách rỗng (chỉ còn thẻ mặc định). Suggest lấy /themes; Favorites còn mẫu.
 class ApiMineRepository : MineRepository by SampleMineRepository() {
 
     override suspend fun getOwnedThemes(): List<PreviewCard> = withContext(Dispatchers.IO) {
@@ -25,8 +24,7 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
                     image = url?.medium ?: url?.full ?: url?.small ?: url?.extraSmall.orEmpty()
                 )
             }
-        }.getOrElse { error ->
-            ApiLog.e("my-themes ✘ ${error.message}", error)
+        }.getOrElse {
             emptyList()
         }
     }
@@ -45,8 +43,7 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
                     backgroundId = bg.id, coins = bg.coins, isUnlocked = true
                 )
             }
-        }.getOrElse { error ->
-            ApiLog.e("my-backgrounds ✘ ${error.message}", error)
+        }.getOrElse {
             emptyList()
         }
     }
@@ -73,8 +70,7 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
                         background = bg?.medium ?: bg?.full ?: thumb?.medium ?: thumb?.full
                     )
                 }
-        }.getOrElse { error ->
-            ApiLog.e("my-themes (icons) ✘ ${error.message}", error)
+        }.getOrElse {
             emptyList()
         }
     }
@@ -118,7 +114,7 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
         }
 
 
-    // Gọi /themes (mọi danh mục) rồi map từng theme; lỗi -> rỗng + log.
+    // Gọi /themes (mọi danh mục) rồi map từng theme; lỗi -> rỗng.
     private suspend fun <T> suggestThemes(
         fields: String,
         tag: String,
@@ -129,8 +125,7 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
             val response = ApiClient.api(ctx).getThemes(fields, WHERE, SUGGEST_ORDER_BY)
             if (!response.isSuccessful) error("suggest $tag failed: http=${response.code()}")
             response.body()?.data?.items.orEmpty().mapNotNull(map)
-        }.getOrElse { error ->
-            ApiLog.e("suggest $tag ✘ ${error.message}", error)
+        }.getOrElse {
             emptyList()
         }
     }

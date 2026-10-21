@@ -96,9 +96,40 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
         return mAdAllowed;
     }
 
+    // Ad lỗi trong lần vào màn này -> gỡ HẲN item (item GONE vẫn chiếm 1 hàng lưới -> khoảng trống).
+    // Hạ ở restoreAdItemIfRemoved() lúc vào màn sau để chèn lại và thử lại (cùng cách màn trái).
+    private boolean mAdFailedThisVisit;
+
     /** Có chèn item quảng cáo không. Danh sách rỗng thì không chèn — chỉ có mỗi ad trơ trọi. */
     private boolean isAdVisible() {
-        return isAdAllowed() && !mVisible.isEmpty();
+        return isAdAllowed() && !mAdFailedThisVisit && !mVisible.isEmpty();
+    }
+
+    // Gỡ item ad. Post trên RecyclerView: callback ad có thể về đúng lúc nó đang layout.
+    private void removeAdItem(final View itemView) {
+        itemView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isAdVisible()) {
+                    return;
+                }
+                mAdFailedThisVisit = true;
+                notifyItemRemoved(AD_POSITION);
+            }
+        });
+    }
+
+    // Lần vào màn mới: lần trước ad lỗi đã bị gỡ -> chèn lại để thử lại. Trả true nếu có chèn.
+    public boolean restoreAdItemIfRemoved() {
+        if (!mAdFailedThisVisit) {
+            return false;
+        }
+        mAdFailedThisVisit = false;
+        if (!isAdVisible()) {
+            return false;
+        }
+        notifyItemInserted(AD_POSITION);
+        return true;
     }
 
     /** Vị trí hiển thị -> chỉ số trong [mVisible]. -1 nghĩa là chính item quảng cáo. */
@@ -183,21 +214,20 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
         final Activity activity = ActivityUtil.findActivity(container.getContext());
         if (!(activity instanceof FragmentActivity)) {
             mAdState = AD_FAILED;
-            if (post == AD_POSITION) {
-                holder.itemView.setVisibility(View.GONE);
-            }
+            removeAdItem(holder.itemView);
             return;
         }
 
+        // Khung ad hiện ngay với skeleton; có ad thì hiện ad, lỗi thì gỡ hẳn item.
+        holder.itemView.setVisibility(View.VISIBLE);
         // Container cao cố định (box 2:1) -> dùng bản Fill để native lấp đầy thay vì wrap_content.
         // Ghi rõ R của library vì file này đang import R của module launcher.
         AppAds.showNativeFill((FragmentActivity) activity, NATIVE_PLACEMENT, container,
                 com.truongnt.ios.ioslite.common.R.layout.layout_native_app_libs,
                 com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs, hasAd -> {
                     mAdState = hasAd ? AD_LOADED : AD_FAILED;
-                    // Holder có thể đã bị tái dùng cho item khác -> chỉ đổi khi vẫn là ô quảng cáo.
-                    if (post == AD_POSITION) {
-                        holder.itemView.setVisibility(hasAd ? View.VISIBLE : View.GONE);
+                    if (!hasAd) {
+                        removeAdItem(holder.itemView);
                     }
                 });
     }

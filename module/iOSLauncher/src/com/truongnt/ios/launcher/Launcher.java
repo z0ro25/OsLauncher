@@ -128,6 +128,7 @@ import com.truongnt.ios.launcher.compat.LauncherAppsCompatVO;
 import com.truongnt.ios.launcher.compat.UserHandleCompat;
 import com.truongnt.ios.launcher.compat.UserManagerCompat;
 import com.truongnt.ios.launcher.config.GestureEventModel;
+import com.truongnt.ios.launcher.config.GridConfig;
 import com.truongnt.ios.launcher.config.LauncherSettingActivity;
 import com.truongnt.ios.launcher.config.Settings;
 import com.truongnt.ios.launcher.dialog.CommonDialog;
@@ -312,6 +313,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
      * chờ hết TTL 30 phút mới gọi API.
      */
     private boolean mHadLocationPermission;
+    // Đã ensureReady App Library cho lượt vuốt mở hiện tại chưa (reset khi về hẳn Home).
+    private boolean mAppLibraryPrepared;
 
     public boolean showingFloatingMenu = false;
 
@@ -652,9 +655,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("UPDATE_UNHIDDENAPP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(updateHiddenAppBroadcast, intentFilter, RECEIVER_EXPORTED);
-        } else registerReceiver(updateHiddenAppBroadcast, intentFilter);
+        // API 34+ thiếu cờ export là SecurityException; ContextCompat tự lo cờ cho mọi API.
+        // Giữ EXPORTED như cũ vì HiddenAppManager gửi broadcast ngầm (không setPackage).
+        ContextCompat.registerReceiver(this, updateHiddenAppBroadcast, intentFilter, ContextCompat.RECEIVER_EXPORTED);
 
         LauncherSharePrefUtils.increaseCountOpenApp(this);
     }
@@ -1350,6 +1353,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SEARCH_ACTIVITY_REQUEST_CODE) {
             hideBlurBg();
@@ -1688,6 +1692,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                         (System.currentTimeMillis() - startTimeCallbacks));
             }
         }
+        // Lượt reload do đổi grid có thể bị mất (bị clear ở nhánh mOnResumeNeedsLoad phía trên, hoặc
+        // Launcher chưa đăng ký nghe lúc đổi) -> profile còn grid cũ. Lệch với pref thì dựng lại ngay.
+        if (isDesktopGridStale()) {
+            reloadLauncher(true/*resetDesktop*/);
+        }
         if (mOnResumeCallbacks.size() > 0) {
             for (int i = 0; i < mOnResumeCallbacks.size(); i++) {
                 mOnResumeCallbacks.get(i).run();
@@ -1867,6 +1876,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
             // Post a Runnable with some delay - currently set to 300 ms
             collapseNotificationHandler.post(new Runnable() {
+                // "statusbar" là service ẩn nên lint không nhận; null đã được chặn bên dưới.
+                @SuppressLint("WrongConstant")
                 @Override
                 public void run() {
 
@@ -2295,6 +2306,15 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         mIconCache.flush();
     }
 
+
+    // Grid user chọn ở Screen Grid khác số hàng/cột của profile đang chạy. Chưa chọn thì không so.
+    private boolean isDesktopGridStale() {
+        if (!Settings.hasDesktopGrid(this)) return false;
+        GridConfig.GridInfo want = GridConfig.PRE_DESKTOP_GRID.get(Settings.getDesktopGrid(this));
+        InvariantDeviceProfile inv = LauncherAppState.getInstance().getInvariantDeviceProfile();
+        if (want == null || inv == null || want.rows <= 0 || want.columns <= 0) return false;
+        return inv.numRows != want.rows || inv.numColumns != want.columns;
+    }
 
     Runnable mReloadLauncherRunnable = new Runnable() {
         @Override
@@ -3309,6 +3329,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     }
 
 
+    // dispatchKeyEvent bị @RestrictTo trong androidx.core; override + gọi super vẫn hợp lệ lúc chạy.
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -3331,6 +3353,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         return super.dispatchKeyEvent(event);
     }
 
+    // Cố ý không gọi super: Launcher là màn Home, super sẽ finish() Launcher.
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
 
@@ -7606,15 +7630,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // đúng activity đang sống. Do vòng đời loader của Launcher3, callback có thể post vào
         // activity cũ đã chết -> allApp còn null dù model ĐÃ nạp xong app. Khi đó đọc thẳng từ
         // nguồn sự thật của model (mBgAllAppsList.data qua getAllAppInfo) để không bao giờ trống.
-        ArrayList<AppInfo> appsForLibrary = allApp;
-        if ((appsForLibrary == null || appsForLibrary.isEmpty()) && mModel != null) {
-            java.util.List<AppInfo> fromModel = mModel.getAllAppInfo();
-            if (fromModel != null && !fromModel.isEmpty()) {
-                appsForLibrary = new ArrayList<>(fromModel);
-                allApp = appsForLibrary;
-            }
-        }
-        this.mAppsLibraryLayout.ensureReady(appsForLibrary);
+        this.mAppsLibraryLayout.ensureReady(appsForLibrary());
         // NGHỊCH TÊN (đo bằng log): callback này bắn khi VỀ HOME (f=1, App Library đóng hẳn).
         // -> gỡ hẳn frost + khôi phục workspace + reset alpha/scale DragLayer về trạng thái nghỉ
         //    (fix fling bị cắt ngang làm kẹt alpha/scale -> mất sạch app + dock).
@@ -7655,10 +7671,31 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         setWorkspaceGlassHidden(false);
     }
 
+    // allApp có thể null dù model đã nạp xong (callback bind rơi vào activity cũ) -> đọc từ model.
+    private ArrayList<AppInfo> appsForLibrary() {
+        ArrayList<AppInfo> apps = allApp;
+        if ((apps == null || apps.isEmpty()) && mModel != null) {
+            java.util.List<AppInfo> fromModel = mModel.getAllAppInfo();
+            if (fromModel != null && !fromModel.isEmpty()) {
+                apps = new ArrayList<>(fromModel);
+                allApp = apps;
+            }
+        }
+        return apps;
+    }
+
     @Override
     public void onAppsLibrarySlide(float f) {
         float f2 = 1.0f - f;
         float interpolation = initInterpolator(0.0f, 0.0f, 0.58f, 1.0f).getInterpolation(f2);
+        // ensureReady trước chỉ chạy lúc VỀ HOME -> app đổi/bind lỡ sau đó thì lần mở kế thấy trống.
+        // Chạy thêm ở frame ĐẦU của mỗi lần mở để danh sách có sẵn trước khi lộ ra.
+        if (interpolation > 0f && !mAppLibraryPrepared) {
+            mAppLibraryPrepared = true;
+            if (mAppsLibraryLayout != null) mAppsLibraryLayout.ensureReady(appsForLibrary());
+        } else if (interpolation == 0f) {
+            mAppLibraryPrepared = false;
+        }
         // CHIỀU THỰC TẾ (đo bằng log): App Library MỞ HẲN -> f=0 -> interpolation=1;
         // về HOME -> f=1 -> interpolation=0. Vậy interpolation CHÍNH LÀ cường độ MỞ.
         // Nền frosted THẬT (blur wallpaper qua compositor): blur mạnh dần khi MỞ.

@@ -20,7 +20,6 @@ import com.ezla.oslauncher.themes.features.rewards.CheckinDialog
 import com.ezla.oslauncher.themes.features.rewards.RewardDialog
 import com.ezla.oslauncher.themes.features.rewards.RewardsActivity
 import com.ezla.oslauncher.themes.features.settings.SettingsActivity
-import com.ezla.oslauncher.themes.test.TestApi
 
 // Home của trang Themes. Router/IOSShortcut mở màn này bằng tên class dạng chuỗi: đổi
 // package/tên class thì phải sửa cả Router.ACTIVITY_THEMECLUB và IOSShortcut.CLASS_NAME_THEMECLUB.
@@ -51,7 +50,6 @@ class ThemesActivity : BaseActivity<ThemesActivityMainBinding>() {
     }
 
     override fun initView() {
-        TestApi.test(this);
         showBannerIfEnabled(binding.frBanner, false)
         tabs.forEach { it.view.tvNav.setText(it.label) }
         // Sau recreate (đổi ngôn ngữ...) FragmentManager tự khôi phục; chỉ chọn tab đầu khi mở mới.

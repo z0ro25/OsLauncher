@@ -50,6 +50,26 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
             this, BANNER_PLACEMENT, container,
             BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
         )
+        bannerContainer = container
+        if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
+    }
+
+    private var bannerContainer: ViewGroup? = null
+    private var bannerHiddenByAd = false
+    private val fullscreenAdListener: (Boolean) -> Unit = { onFullscreenAdChanged(it) }
+
+    // AdActivity trong suốt -> banner màn dưới lộ ra đè lên App Open: ẩn trong lúc ad full màn hiện.
+    // Chỉ hiện lại banner do chính mình ẩn, không đè trạng thái GONE mà SDK/subs đã đặt.
+    private fun onFullscreenAdChanged(showing: Boolean) {
+        val container = bannerContainer ?: return
+        if (showing) {
+            if (container.visibility != View.VISIBLE) return
+            container.visibility = View.INVISIBLE
+            bannerHiddenByAd = true
+        } else if (bannerHiddenByAd) {
+            container.visibility = View.VISIBLE
+            bannerHiddenByAd = false
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,9 +98,18 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
             insets
         }
 
+        FullscreenAdTracker.register(application)
+        FullscreenAdTracker.addListener(fullscreenAdListener)
+
         initView()
         viewListener()
         dataObservable()
+    }
+
+    override fun onDestroy() {
+        FullscreenAdTracker.removeListener(fullscreenAdListener)
+        bannerContainer = null
+        super.onDestroy()
     }
 
     fun showActivity(activity: Class<*>, bundle: Bundle?) {

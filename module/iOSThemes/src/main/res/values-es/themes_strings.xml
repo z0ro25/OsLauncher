@@ -92,8 +92,6 @@
     <string name="themes_apply_success">Aplicado correctamente</string>
     <string name="themes_apply_failed">No se pudo aplicar, inténtalo de nuevo</string>
     <string name="themes_network_error">Error de conexión, inténtalo de nuevo</string>
-    <string name="themes_test_add_coin">[TEST] Añadir 50 monedas</string>
-    <string name="themes_test_add_coin_done">+%1$d monedas, saldo: %2$d</string>
     <string name="themes_restore_default_title">¿Restaurar iconos predeterminados?</string>
     <string name="themes_restore_default_message">Todos los iconos del tema aplicado se reemplazarán por los iconos predeterminados.</string>
     <string name="themes_restore">Restaurar</string>
@@ -110,8 +108,6 @@
     <string name="themes_reward_done_today">Ya usaste todas las recompensas de hoy</string>
     <string name="themes_reward_no_ad">No hay vídeo disponible, inténtalo más tarde</string>
     <string name="themes_claim_reward">Reclamar recompensa</string>
-    <string name="themes_test_clear_coin">[TEST] Quitar todas las monedas</string>
-    <string name="themes_test_clear_coin_done">Monedas quitadas, saldo: %1$d</string>
     <string name="themes_no_app_to_open">No se encontró ninguna app para abrirlo</string>
     <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
     <string name="themes_badge_new">Nuevo</string>

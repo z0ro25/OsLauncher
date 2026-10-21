@@ -11,7 +11,6 @@ import com.ezla.oslauncher.beautylauncher.Features.subs.SubsAct
 import com.ezla.oslauncher.beautylauncher.dialog.RateFlow
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.themes.ThemesEntry
-import com.ezla.oslauncher.themes.test.TestApi
 import com.ezt.v2.ezt.admobdemo.ads.core.AdUnitDefaults
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsHostConfig
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
@@ -38,6 +37,10 @@ class App : BaseLauncherApplication() {
         val analytics = FirebaseAnalytics.getInstance(this)
         // Click trong module launcher (icon app / icon Themes trên desktop) đi qua đây vào Firebase.
         AnalyticsDelegate.setEventLogger { event -> analytics.logEvent(event, null) }
+        // Event có param từ các module (vd user_apply ở module Themes).
+        AnalyticsDelegate.setParamEventLogger { event, params ->
+            analytics.logEvent(event, Bundle().apply { params.forEach { (k, v) -> putString(k, v) } })
+        }
         val accepted = AdsSdk.configure(
             AdsHostConfig(
                 adUnits = AdUnitDefaults(getString(R.string.admob_app_id)),

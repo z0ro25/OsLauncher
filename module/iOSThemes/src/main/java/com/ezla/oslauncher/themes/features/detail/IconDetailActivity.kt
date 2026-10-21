@@ -21,6 +21,7 @@ import com.ezla.oslauncher.themes.data.SubsRepository
 import com.ezla.oslauncher.themes.data.ThemeRepositoryProvider
 import com.ezla.oslauncher.themes.data.favorite.FavoriteRepository
 import com.ezla.oslauncher.themes.databinding.ThemesActivityIconDetailBinding
+import com.ezla.oslauncher.themes.features.ApplyTracker
 import com.ezla.oslauncher.themes.features.ThemesInter
 import com.ezla.oslauncher.themes.features.loadCreditInto
 import com.ezla.oslauncher.themes.features.shareAppOnStore
@@ -170,6 +171,8 @@ class IconDetailActivity : BaseActivity<ThemesActivityIconDetailBinding>() {
                 ThemeApplyEngine.applyIcons(appCtx, d)
             }
         }) { live, ok ->
+            // Log trước nhánh live == null: màn bị tạo lại vẫn là 1 lần áp thành công.
+            if (ok) ApplyTracker.log(d.name, ApplyTracker.TYPE_ICONS)
             if (live == null) {
                 if (!ok) Toast.makeText(appCtx, R.string.themes_apply_failed, Toast.LENGTH_SHORT).show()
                 return@run

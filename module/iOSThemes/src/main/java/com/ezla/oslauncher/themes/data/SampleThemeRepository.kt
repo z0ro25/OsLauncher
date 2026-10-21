@@ -53,5 +53,8 @@ class SampleThemeRepository : ThemeRepository {
             })
         }
 
+    override suspend fun getIconCards(categoryId: String): List<IconThemeCard> =
+        getThemes(ThemeTab.FEATURED, categoryId).map { IconThemeCard(it.id, it.name, it.previewUrl, emptyList()) }
+
     private fun asset(name: String) = "file:///android_asset/themes_sample/$name"
 }

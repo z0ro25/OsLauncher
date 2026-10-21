@@ -86,43 +86,6 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
             callback.onWatchVideoClick(this)
             watchVideo()
         }
-        binding.btnTestAddCoin.setOnClickListener { testAddCoin() }
-        binding.btnTestClearCoin.setOnClickListener { testClearCoin() }
-    }
-
-    // CHỈ ĐỂ TEST POST /credits/consume: lấy số dư rồi trừ đúng số đó (về 0). Gỡ cùng btnTestClearCoin.
-    private fun testClearCoin() {
-        binding.btnTestClearCoin.isEnabled = false
-        lifecycleScope.launch {
-            val result = CreditRepository.getCredit().mapCatching { balance ->
-                if (balance <= 0) balance
-                else CreditRepository.consumeCredit(balance, TEST_TYPE).getOrThrow()
-            }
-            result
-                .onSuccess {
-                    Toast.makeText(this@RewardsActivity, getString(R.string.themes_test_clear_coin_done, it), Toast.LENGTH_SHORT).show()
-                }
-                .onFailure {
-                    Toast.makeText(this@RewardsActivity, R.string.themes_network_error, Toast.LENGTH_SHORT).show()
-                }
-            binding.btnTestClearCoin.isEnabled = true
-        }
-    }
-
-    // CHỈ ĐỂ TEST POST /credits: mỗi lần bấm cộng TEST_COINS; khoá nút tới khi có kết quả
-    // để không gửi trùng. Gỡ cùng nút btnTestAddCoin trước khi release.
-    private fun testAddCoin() {
-        binding.btnTestAddCoin.isEnabled = false
-        lifecycleScope.launch {
-            CreditRepository.addCredit(TEST_COINS, TEST_TYPE)
-                .onSuccess {
-                    Toast.makeText(this@RewardsActivity, getString(R.string.themes_test_add_coin_done, TEST_COINS, it), Toast.LENGTH_SHORT).show()
-                }
-                .onFailure {
-                    Toast.makeText(this@RewardsActivity, R.string.themes_network_error, Toast.LENGTH_SHORT).show()
-                }
-            binding.btnTestAddCoin.isEnabled = true
-        }
     }
 
     override fun dataObservable() {}
@@ -250,8 +213,6 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
 
     companion object {
         private const val PACK_SPAN = 3
-        private const val TEST_COINS = 50
-        private const val TEST_TYPE = "view_ads"
         // Placement rewarded trong app/assets/ads/*placements.json.
         private const val REWARDED_KEY = "rewarded_coin"
         private const val DONE_ALPHA = 0.5f

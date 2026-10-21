@@ -92,8 +92,6 @@
     <string name="themes_apply_success">सफलतापूर्वक लागू हुआ</string>
     <string name="themes_apply_failed">लागू नहीं हो सका, कृपया फिर से कोशिश करें</string>
     <string name="themes_network_error">कनेक्शन में त्रुटि, कृपया फिर से कोशिश करें</string>
-    <string name="themes_test_add_coin">[TEST] 50 सिक्के जोड़ें</string>
-    <string name="themes_test_add_coin_done">+%1$d सिक्के, बैलेंस: %2$d</string>
     <string name="themes_restore_default_title">डिफ़ॉल्ट आइकन वापस लाएं?</string>
     <string name="themes_restore_default_message">लागू थीम के सभी आइकन डिफ़ॉल्ट आइकन से बदल दिए जाएंगे।</string>
     <string name="themes_restore">वापस लाएं</string>
@@ -110,8 +108,6 @@
     <string name="themes_reward_done_today">आज के सभी इनाम इस्तेमाल हो चुके हैं</string>
     <string name="themes_reward_no_ad">कोई वीडियो उपलब्ध नहीं है, कृपया बाद में प्रयास करें</string>
     <string name="themes_claim_reward">इनाम प्राप्त करें</string>
-    <string name="themes_test_clear_coin">[TEST] सभी सिक्के हटाएँ</string>
-    <string name="themes_test_clear_coin_done">सिक्के हटाए गए, बैलेंस: %1$d</string>
     <string name="themes_no_app_to_open">इसे खोलने के लिए कोई ऐप नहीं मिला</string>
     <!-- Nhãn trên thẻ theme/icon/nền chưa mở khoá. -->
     <string name="themes_badge_new">नया</string>

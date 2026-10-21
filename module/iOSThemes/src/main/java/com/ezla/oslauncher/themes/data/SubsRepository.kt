@@ -2,7 +2,6 @@ package com.ezla.oslauncher.themes.data
 
 import android.content.Context
 import com.ezla.oslauncher.themes.Api.ApiClient
-import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.Models.CreditRequest
 import com.ezla.oslauncher.themes.Models.SubsModel
 import com.ezla.oslauncher.themes.utils.EncryptionUtil
@@ -54,7 +53,6 @@ object SubsRepository {
                 error("device/sub failed: http=${response.code()} status=${data?.status} error=${data?.error ?: response.errorBody()?.string()}")
             }
             PreferencesUtil.putInt(context, KEY_SYNCED, value)
-        }.onSuccess { ApiLog.d("device/sub ✔ is_sub=$value") }
-            .onFailure { ApiLog.e("device/sub ✘ ${it.message}", it) }
+        }
     }
 }

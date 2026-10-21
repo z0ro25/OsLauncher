@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Màn xem tất cả theme của 1 danh mục (Figma "Wallpapers/Anime"): header back + tên danh mục,
-     lưới 3 cột thẻ thumbnail dọc 104x208 bo 10, khe 8dp ngang / 16dp dọc. -->
+<!-- Màn xem tất cả: header back + tiêu đề, lưới thẻ cuộn dọc. Dùng chung cho danh mục tab Icons
+     (IconCategoryActivity) và nút "more" ở Mine (MineMoreActivity). -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

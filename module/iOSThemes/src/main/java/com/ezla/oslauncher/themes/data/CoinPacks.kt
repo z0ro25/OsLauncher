@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.DrawableRes
-import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.Models.CoinPack
 import com.ezla.oslauncher.themes.R
 import kotlinx.coroutines.CoroutineScope
@@ -79,7 +78,6 @@ object CoinPacks {
         val coins = def.coins * quantity.coerceAtLeast(1)
         scope.launch {
             val result = CreditRepository.addCredit(coins, def.creditType)
-            result.onFailure { ApiLog.e("coin pack $productId: cộng xu lỗi ${it.message}", it) }
             main.post {
                 done(result)
                 result.onSuccess { balance -> onCoinsAdded?.invoke(coins, balance) }

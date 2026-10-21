@@ -125,23 +125,6 @@
                     android:layout_marginTop="12dp"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never" />
-
-                <!-- CHỈ ĐỂ TEST API cộng xu (POST /credits), không theo Figma. Gỡ trước khi release. -->
-                <Button
-                    android:id="@+id/btnTestAddCoin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/themes_test_add_coin" />
-
-                <!-- CHỈ ĐỂ TEST API trừ xu (POST /credits/consume): trừ hết số dư. Gỡ cùng nút trên. -->
-                <Button
-                    android:id="@+id/btnTestClearCoin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/themes_test_clear_coin" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

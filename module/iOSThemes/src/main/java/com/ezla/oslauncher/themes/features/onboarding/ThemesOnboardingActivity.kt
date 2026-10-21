@@ -60,19 +60,20 @@ class ThemesOnboardingActivity : BaseActivity<ThemesActivityOnboardingBinding>()
     // Key riêng của Themes (tách báo cáo), tạm trỏ ad unit của native_onb1/2/3 trong placements JSON.
     private val nativeKeys = listOf("native_themes_onb1", "native_themes_onb2", "native_themes_onb3")
 
-    // Ad-free / chưa có kit / ad lỗi -> ẩn frAds. Ad về muộn của trang cũ thì bỏ qua.
+    // Ad-free / chưa có kit / ad lỗi -> INVISIBLE (không GONE) để giữ chỗ 300dp, ảnh fitXY không bị kéo méo.
+    // Ad về muộn của trang cũ thì bỏ qua.
     private fun showPageNative(position: Int) {
         val container = binding.frAds
         container.removeAllViews()
         val key = nativeKeys.getOrNull(position)
         if (key == null || AdsSdk.isAdFree || !AppAds.hasKit()) {
-            container.visibility = View.GONE
+            container.visibility = View.INVISIBLE
             return
         }
         container.visibility = View.VISIBLE
         AppAds.showNativeFill(this, key, container, R.layout.themes_layout_native_onb,
             com.truongnt.ios.ioslite.common.R.layout.shimmer_native_large) { hasAd ->
-            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.GONE
+            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.INVISIBLE
         }
     }
 

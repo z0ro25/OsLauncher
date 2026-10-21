@@ -1,7 +1,6 @@
 package com.ezla.oslauncher.themes.data
 
 import com.ezla.oslauncher.themes.Api.ApiClient
-import com.ezla.oslauncher.themes.Api.ApiLog
 import com.ezla.oslauncher.themes.Api.ThemesApi
 import com.ezla.oslauncher.themes.Models.ApiResponse
 import com.ezla.oslauncher.themes.Models.Credit
@@ -71,7 +70,7 @@ object CreditRepository {
             val detail = "$name failed: http=${response.code()} status=${data?.status} error=${serverError ?: rawError}"
             if (serverError != null) throw CreditRejectedException(detail)
             error(detail)
-        }.onFailure { ApiLog.e("$name ✘ ${it.message}", it) }
+        }
     }
 
     // errorBody (HTTP lỗi) cũng có dạng {"data":{"error":...}} -> đọc ra để phân loại.
