@@ -1,6 +1,5 @@
 package com.truongnt.ios.launcher.widget.widgetprovider;
 
-import android.Manifest;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,8 +8,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -19,19 +16,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager2.widget.ViewPager2;
@@ -50,139 +41,14 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
 
     public static final String APP_WIDGET_PREFIX = "appwidget_";
 
-    /**
-     * Quyền cần để đọc ảnh trong máy.
-     *
-     * Android 13+ VÔ HIỆU HOÁ READ_EXTERNAL_STORAGE, phải dùng READ_MEDIA_IMAGES. Dự án target 36
-     * nên nhánh này là chính; giữ nhánh cũ cho máy dưới API 33.
-     */
-    public static String requiredPhotoPermission() {
-        return Build.VERSION.SDK_INT >= 33
-                ? "android.permission.READ_MEDIA_IMAGES"
-                : Manifest.permission.READ_EXTERNAL_STORAGE;
-    }
-
-    /** App đã có quyền đọc ảnh chưa. */
-    public static boolean hasPhotoPermission(Context context) {
-        return ContextCompat.checkSelfPermission(context, requiredPhotoPermission())
-                == PackageManager.PERMISSION_GRANTED;
-    }
-
-    /** Mã request khi widget ảnh tự xin quyền đọc ảnh. */
-    public static final int REQUEST_PHOTO_PERMISSION = 4210;
-
-    /**
-     * Xin quyền đọc ảnh từ widget.
-     *
-     * Người dùng đã chọn "Không hỏi lại" thì hệ thống bỏ qua hộp thoại — lúc đó mở thẳng màn Cài
-     * đặt của app để họ tự bật, nếu không bấm vào widget sẽ không có phản hồi gì.
-     */
-    private static void requestPhotoPermission(Context context) {
-        String permission = requiredPhotoPermission();
-        if (context instanceof android.app.Activity) {
-            android.app.Activity activity = (android.app.Activity) context;
-            boolean canAsk = ActivityCompat.shouldShowRequestPermissionRationale(
-                    activity, permission)
-                    // Lần đầu tiên: chưa từng hỏi nên rationale = false, vẫn phải hỏi.
-                    || !hasAskedPhotoPermission(context);
-            if (canAsk) {
-                markAskedPhotoPermission(context);
-                ActivityCompat.requestPermissions(
-                        activity, new String[]{permission}, REQUEST_PHOTO_PERMISSION);
-                return;
-            }
-        }
-        openAppSettings(context);
-    }
-
-    /** Intent mở màn Cài đặt > Ứng dụng > quyền của app. */
-    private static Intent buildAppSettingsIntent(Context context) {
-        Intent intent = new Intent(
-                android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.fromParts("package", context.getPackageName(), null));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return intent;
-    }
-
-    /** Mở màn Cài đặt > Ứng dụng > quyền của app. */
-    private static void openAppSettings(Context context) {
-        try {
-            context.startActivity(buildAppSettingsIntent(context));
-        } catch (Throwable ignored) {
-        }
-    }
-
-    /**
-     * Đã từng hiện hộp xin quyền từ widget chưa.
-     * Cần vì shouldShowRequestPermissionRationale() trả false ở CẢ hai trường hợp "chưa hỏi lần
-     * nào" và "đã từ chối vĩnh viễn" — không phân biệt được nếu chỉ dựa vào nó.
-     */
-    private static boolean hasAskedPhotoPermission(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(PREF_ASKED_PHOTO_PERMISSION, false);
-    }
-
-    private static void markAskedPhotoPermission(Context context) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putBoolean(PREF_ASKED_PHOTO_PERMISSION, true).apply();
-    }
-
-    private static final String PREF_ASKED_PHOTO_PERMISSION = "picture_widget_asked_permission";
-
-    /**
-     * Intent mở app THƯ VIỆN ẢNH của máy (để XEM ảnh, không phải để chọn).
-     *
-     * Thử theo thứ tự để phủ được nhiều máy:
-     *   1. ACTION_VIEW trên MediaStore images — mở thẳng app ảnh mặc định.
-     *   2. Google Photos nếu có cài.
-     *   3. ACTION_VIEW với type image/* — để hệ thống tự hỏi app nào mở.
-     */
-    private static Intent buildOpenGalleryIntent(Context context) {
-        Intent viewImages = new Intent(Intent.ACTION_VIEW,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        viewImages.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (viewImages.resolveActivity(context.getPackageManager()) != null) {
-            return viewImages;
-        }
-
-        Intent photos = context.getPackageManager()
-                .getLaunchIntentForPackage("com.google.android.apps.photos");
-        if (photos != null) {
-            photos.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            return photos;
-        }
-
-        Intent generic = new Intent(Intent.ACTION_VIEW);
-        generic.setType("image/*");
-        generic.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return generic;
-    }
-
-    // Mở MÀN CHÍNH app thư viện, không VIEW một URI: buildOpenGalleryIntent VIEW cả bảng
-    // MediaStore nên Samsung Gallery (khi được chọn làm mặc định) báo lỗi không hiển thị được ảnh.
-    private static Intent buildOpenGalleryAppIntent(Context context) {
-        Intent gallery = Intent.makeMainSelectorActivity(
-                Intent.ACTION_MAIN, Intent.CATEGORY_APP_GALLERY);
-        gallery.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (gallery.resolveActivity(context.getPackageManager()) != null) {
-            return gallery;
-        }
-        // Máy không có app nào khai CATEGORY_APP_GALLERY -> giữ chuỗi fallback cũ.
-        return buildOpenGalleryIntent(context);
-    }
-
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId){
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.picture_app_widget_provider);
 
         Bitmap bitmap = null;
         long dateMillis = 0L;
 
-        // [THAY ĐỔI HÀNH VI] Widget LUÔN hiện ảnh MỚI NHẤT trong máy (ưu tiên ảnh camera), giống
-        //   widget Photos của iOS — không còn ảnh "đã chọn" cố định nữa.
-        //   Trước đây ưu tiên ảnh người dùng pick qua config activity; nay bỏ hẳn nhánh đó, vì bấm
-        //   widget giờ mở THƯ VIỆN ẢNH để xem chứ không phải để chọn (xem phần setOnClickPendingIntent
-        //   bên dưới). Còn giữ nhánh pref thì ảnh cũ sẽ đè lên và widget đứng yên.
-        PhotoInfo photo = loadRecentPhoto(context);
+        // Ảnh do người dùng chọn qua Photo Picker (dùng chung mọi widget ảnh), không đọc thư viện.
+        PhotoInfo photo = loadChosenPhoto(context);
         if (photo != null && photo.path != null) {
             try {
                 bitmap = decodeScaledFile(photo.path);
@@ -192,7 +58,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             }
         }
 
-        // Fallback ảnh mẫu khi không có ảnh nào (chưa cấp quyền / thư viện trống).
+        // Fallback ảnh mẫu khi chưa chọn ảnh.
         if (bitmap != null) {
             rv.setImageViewBitmap(R.id.widget_picture_image, bitmap);
         } else {
@@ -212,25 +78,15 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             rv.setViewVisibility(R.id.widget_picture_scrim, View.GONE);
         }
 
-        // [CHƯA CẤP QUYỀN] Phủ lớp mờ + lời nhắc lên ảnh mẫu, thay vì để widget trông như đã hỏng.
-        // Bấm vào widget lúc này sẽ mở hộp xin quyền chứ không mở thư viện.
+        // Chưa chọn ảnh -> phủ lời mời "chọn ảnh" lên ảnh mẫu.
         rv.setViewVisibility(R.id.widget_picture_permission,
-                hasPhotoPermission(context) ? View.GONE : View.VISIBLE);
+                bitmap != null ? View.GONE : View.VISIBLE);
 
-        // Bấm widget -> mở THƯ VIỆN ẢNH của máy để xem ảnh.
-        // Trước đây mở PictureAppWidgetProviderConfigureActivity (trình chọn + crop) nhưng luồng đó
-        // không chọn được ảnh; nay widget tự hiện ảnh mới nhất nên cũng không cần chọn nữa.
-        //
-        // CHƯA CẤP QUYỀN: đường RemoteViews chỉ chạy được PendingIntent, KHÔNG gọi được
-        // requestPermissions (thứ đòi Activity). Nên ở đây mở thẳng màn Cài đặt của app để người
-        // dùng tự bật quyền. Widget nội bộ (đường bindInflatedView) có Activity thật nên vẫn hiện
-        // được hộp xin quyền bình thường.
+        // RemoteViews không mở được picker có kết quả -> mở Launcher kèm action, Launcher mở picker.
         try {
-            Intent intent = hasPhotoPermission(context)
-                    ? buildOpenGalleryAppIntent(context)
-                    : buildAppSettingsIntent(context);
             rv.setOnClickPendingIntent(R.id.widget_picture_layout,
-                    PendingIntent.getActivity(context, appWidgetId, intent,
+                    PendingIntent.getActivity(context, appWidgetId,
+                            PhotoWidgetPicker.buildLauncherPickIntent(context),
                             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
         } catch (Throwable ignored) {
         }
@@ -257,15 +113,8 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
      * tổng bitmap ~15MB; ảnh camera thường 12MP (~50MB ARGB) sẽ làm crash. Cap 1024px -> tối đa
      * ~4MB, dư an toàn. Dùng inSampleSize (đọc bounds trước) để không nạp cả ảnh gốc vào RAM.
      */
-    /**
-     * Cache ảnh đã decode cho luồng PREVIEW trong khay widget.
-     *
-     * [TỐI ƯU] bindInflatedView() chạy trên MAIN THREAD và mỗi lần lại query MediaStore +
-     * decodeFile 2 lượt (đo bounds, rồi decode thật). Trong khay widget, thẻ bị RecyclerView dựng
-     * lại liên tục khi cuộn -> treo vài giây mỗi lần. Giữ lại bitmap đã decode theo ĐƯỜNG DẪN ảnh:
-     * cùng ảnh thì dùng lại ngay, ảnh mới (người dùng chụp thêm) thì path đổi -> tự decode lại.
-     * Chỉ giữ MỘT bitmap (ảnh gần nhất) nên không phình RAM.
-     */
+    // Cache bitmap cho preview khay widget (bindInflatedView chạy main thread, bị gọi lại khi cuộn).
+    // File ảnh luôn cùng path -> đổi ảnh phải gọi invalidatePhotoCache(), không tự nhận ra được.
     private static String sCachedPhotoPath;
     private static Bitmap sCachedPhotoBitmap;
 
@@ -321,7 +170,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         }
         if (imageView == null) return;
 
-        PhotoInfo photo = loadRecentPhoto(context);
+        PhotoInfo photo = loadChosenPhoto(context);
         Bitmap bitmap = null;
         if (photo != null && photo.path != null) {
             try {
@@ -332,6 +181,7 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
                 th.printStackTrace();
             }
         }
+        boolean hasRealPhoto = bitmap != null;
         if (bitmap == null) {
             try {
                 bitmap = BitmapFactory.decodeResource(
@@ -351,9 +201,8 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             imageView.setImageDrawable(new RoundedCropDrawable(bitmap, radiusPx));
         }
 
-        // Overlay ("ON THIS DAY" + ngày + scrim): chỉ hiện khi có ảnh THẬT từ thư viện + ngày
-        // hợp lệ. Ảnh default (chưa cấp quyền / thư viện trống) -> ẩn toàn bộ overlay, chỉ còn ảnh.
-        boolean hasDate = photo != null && photo.dateMillis > 0L && bitmap != null;
+        // Overlay ngày chỉ hiện khi có ảnh đã chọn + ngày chụp đọc được; ảnh mẫu thì ẩn hết.
+        boolean hasDate = hasRealPhoto && photo.dateMillis > 0L;
         if (titleView != null) {
             titleView.setVisibility(hasDate ? View.VISIBLE : View.GONE);
         }
@@ -369,24 +218,16 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             scrim.setVisibility(hasDate ? View.VISIBLE : View.GONE);
         }
 
-        // [CHƯA CẤP QUYỀN] Phủ lớp mờ + lời nhắc (xem updateWidget — cùng ý nghĩa cho đường
-        // RemoteViews). Bấm vào widget lúc này mở hộp xin quyền thay vì mở thư viện.
+        // Chưa chọn ảnh -> phủ lời mời "chọn ảnh" (cùng ý nghĩa với updateWidget).
         View permissionOverlay = root.findViewById(R.id.widget_picture_permission);
         if (permissionOverlay != null) {
-            permissionOverlay.setVisibility(
-                    hasPhotoPermission(context) ? View.GONE : View.VISIBLE);
+            permissionOverlay.setVisibility(hasRealPhoto ? View.GONE : View.VISIBLE);
         }
     }
 
     /**
-     * Gắn action BẤM widget ảnh (đã đặt màn) mở THƯ VIỆN ẢNH — giống đường RemoteViews trong
-     * {@link #updateWidget}, nhưng widget iOS (id -100) không đi qua AppWidgetHost nên phải
-     * gắn OnClickListener trực tiếp sau khi inflate.
-     *
-     * <p>Gắn vào VIEW CON {@code widget_picture_layout} chứ KHÔNG phải host view, vì
-     * {@code LauncherAppWidgetHostView.onTouchEvent} luôn trả false (không tự xử click) — chỉ view
-     * con thường mới nhận được tap. CHỈ gọi ở đường đặt màn (LauncherAppWidgetHost.createView),
-     * KHÔNG gọi ở preview (LiveWidgetPreviewHelper đã disableTouch để tap lọt xuống cell).
+     * Bấm widget ảnh đã đặt màn -> mở Photo Picker để chọn/đổi ảnh. Gắn vào view con vì
+     * LauncherAppWidgetHostView không tự xử click; KHÔNG gọi ở preview khay (đã disableTouch).
      */
     public static void attachOpenGalleryClick(final Context context, View root,
                                              final int appWidgetId) {
@@ -397,12 +238,10 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
             @Override
             public void onClick(View v) {
                 try {
-                    // Chưa cấp quyền -> xin quyền (đúng thứ lớp phủ đang mời gọi), có quyền rồi thì
-                    // mở thư viện ảnh như bình thường.
-                    if (!hasPhotoPermission(context)) {
-                        requestPhotoPermission(context);
+                    if (context instanceof android.app.Activity) {
+                        PhotoWidgetPicker.launch((android.app.Activity) context);
                     } else {
-                        context.startActivity(buildOpenGalleryAppIntent(context));
+                        context.startActivity(PhotoWidgetPicker.buildLauncherPickIntent(context));
                     }
                 } catch (Throwable ignored) {
                 }
@@ -500,106 +339,11 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         }
     }
 
-    /**
-     * Lấy ảnh gần đây nhất: ưu tiên ảnh chụp từ camera (DCIM/Camera), nếu không có
-     * thì lấy ảnh mới nhất bất kỳ trong thư viện. Trả về null nếu chưa cấp quyền
-     * hoặc thư viện trống.
-     */
-    // [TỐI ƯU] Cache ngắn hạn cho kết quả query MediaStore.
-    //   loadRecentPhoto() chạy trên MAIN THREAD và query tới 2 lượt (camera, rồi toàn thư viện).
-    //   Trong khay widget, thẻ preview bị dựng lại liên tục khi cuộn -> query dồn dập gây giật/treo.
-    //   Giữ kết quả trong 30 giây: đủ để cuộn qua-lại mượt, mà vẫn cập nhật khi người dùng chụp ảnh
-    //   mới rồi quay lại khay. TTL ngắn nên không cần lắng nghe ContentObserver.
-    private static PhotoInfo sCachedPhotoInfo;
-    private static long sCachedPhotoAtMs;
-    private static final long PHOTO_CACHE_TTL_MS = 30_000L;
-
-    private static PhotoInfo loadRecentPhoto(Context context) {
-        if (!hasPhotoPermission(context)) {
-            return null;
-        }
-
-        long now = android.os.SystemClock.uptimeMillis();
-        if (sCachedPhotoInfo != null && (now - sCachedPhotoAtMs) < PHOTO_CACHE_TTL_MS) {
-            return sCachedPhotoInfo;
-        }
-
-        // 1) Ưu tiên ảnh từ camera.
-        PhotoInfo photo = queryRecentPhoto(context, true);
-        if (photo == null) {
-            // 2) Fallback: ảnh mới nhất bất kỳ.
-            photo = queryRecentPhoto(context, false);
-        }
-        if (photo != null) {
-            sCachedPhotoInfo = photo;
-            sCachedPhotoAtMs = now;
-        }
-        return photo;
-    }
-
-    /**
-     * Truy vấn một ảnh mới nhất. Nếu cameraOnly = true, chỉ lấy ảnh nằm trong
-     * DCIM/Camera (ảnh do máy ảnh chụp).
-     */
-    private static PhotoInfo queryRecentPhoto(Context context, boolean cameraOnly) {
-        Cursor cursor = null;
-        try {
-            String[] projection = {
-                    MediaStore.Images.Media.DATA,
-                    MediaStore.Images.Media.DATE_TAKEN,
-                    MediaStore.Images.Media.DATE_ADDED
-            };
-            Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
-            String selection = null;
-            String[] selectionArgs = null;
-            if (cameraOnly) {
-                if (Build.VERSION.SDK_INT >= 29) {
-                    selection = MediaStore.Images.Media.RELATIVE_PATH + " LIKE ?";
-                    selectionArgs = new String[]{"%DCIM/Camera%"};
-                } else {
-                    selection = MediaStore.Images.Media.DATA + " LIKE ?";
-                    selectionArgs = new String[]{"%DCIM/Camera%"};
-                }
-            }
-
-            String sortOrder = MediaStore.Images.Media.DATE_ADDED + " DESC";
-            if (Build.VERSION.SDK_INT >= 26) {
-                Bundle args = new Bundle();
-                args.putInt("android:query-arg-limit", 1);
-                args.putString("android:query-arg-sql-sort-order", sortOrder);
-                if (selection != null) {
-                    args.putString("android:query-arg-sql-selection", selection);
-                    args.putStringArray("android:query-arg-sql-selection-args", selectionArgs);
-                }
-                cursor = context.getContentResolver().query(uri, projection, args, null);
-            } else {
-                cursor = context.getContentResolver().query(uri, projection,
-                        selection, selectionArgs, sortOrder + " LIMIT 1");
-            }
-
-            if (cursor != null && cursor.moveToFirst()) {
-                int dataIdx = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                int takenIdx = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
-                int addedIdx = cursor.getColumnIndex(MediaStore.Images.Media.DATE_ADDED);
-                String path = dataIdx >= 0 ? cursor.getString(dataIdx) : null;
-                if (path == null) return null;
-
-                long dateMillis = 0L;
-                if (takenIdx >= 0) {
-                    dateMillis = cursor.getLong(takenIdx); // đã tính bằng mili-giây
-                }
-                if (dateMillis <= 0L && addedIdx >= 0) {
-                    dateMillis = cursor.getLong(addedIdx) * 1000L; // DATE_ADDED tính bằng giây
-                }
-                return new PhotoInfo(path, dateMillis);
-            }
-        } catch (Throwable th) {
-            th.printStackTrace();
-        } finally {
-            if (cursor != null) cursor.close();
-        }
-        return null;
+    // Ảnh người dùng đã chọn qua Photo Picker; null khi chưa chọn. Chỉ là 1 file nội bộ nên đọc thẳng.
+    private static PhotoInfo loadChosenPhoto(Context context) {
+        String path = PhotoWidgetStore.photoPath(context);
+        if (path == null) return null;
+        return new PhotoInfo(path, PhotoWidgetStore.dateMillis(context));
     }
 
     /**
@@ -639,18 +383,14 @@ public class PictureAppWidgetProvider extends AppWidgetProvider implements IOSAp
         }
     }
 
-    /**
-     * Làm mới widget ảnh: xoá cache rồi vẽ lại bằng ảnh MỚI NHẤT hiện có trong máy.
-     *
-     * CẦN THIẾT vì widget chỉ tự cập nhật theo updatePeriodMillis, mà Android chặn giá trị dưới 30
-     * phút — chụp ảnh mới xong quay về launcher sẽ vẫn thấy ảnh cũ hàng chục phút.
-     * Gọi từ Launcher.onResume: người dùng chụp ảnh xong bao giờ cũng quay lại launcher, nên đó là
-     * đúng thời điểm cần làm mới, và không tốn gì khi không có widget ảnh nào.
-     */
+    // Gọi ngay sau khi lưu ảnh mới: file luôn cùng path nên cache bitmap không tự nhận ra ảnh đã đổi.
+    static void invalidatePhotoCache() {
+        sCachedPhotoPath = null;
+        sCachedPhotoBitmap = null;
+    }
+
+    /** Vẽ lại mọi widget ảnh (gọi ở Launcher.onResume và sau khi chọn ảnh mới). */
     public static void refreshAll(Context context) {
-        // Xoá cache để loadRecentPhoto() query lại MediaStore thay vì trả ảnh cũ trong TTL 30s.
-        sCachedPhotoInfo = null;
-        sCachedPhotoAtMs = 0L;
 
         // 1) Widget qua AppWidgetHost thật (nếu có).
         try {

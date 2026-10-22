@@ -215,7 +215,6 @@
     <string name="gesture_tab_shortcut">Atalhos</string>
     <string name="grant_calendar_permission">Conceder permissão de leitura do calendário</string>
     <string name="grant_contact_permission">Conceder permissão de leitura de contatos</string>
-    <string name="grant_storage_permission">Conceder permissão de leitura do armazenamento</string>
     <string name="hidden_app">Aplicativo oculto</string>
     <string name="hide_apps_guide_page_title">Ocultar aplicativos</string>
     <string name="hint_prompt">Diga uma palavra-chave</string>
@@ -482,7 +481,6 @@
     <string name="wallpaper_settings">Configurações do papel de parede</string>
     <string name="warning_calendar_permission">Sem permissão de LEITURA DO CALENDÁRIO, conceda a permissão para carregar os eventos.</string>
     <string name="warning_contact_permission">Sem permissão de LEITURA DE CONTATOS, conceda a permissão para carregar os contatos favoritos.</string>
-    <string name="warning_storage_permission">Sem permissão de LEITURA DO ARMAZENAMENTO, conceda a permissão para carregar a foto.</string>
     <string name="weather">Clima</string>
     <string name="weather_code_clear">Limpo</string>
     <string name="weather_code_drizzle">Garoa</string>
@@ -521,7 +519,6 @@
     <string name="widget_meta_title_photos">Fotos</string>
     <string name="widget_meta_title_weather">Clima</string>
     <string name="widget_meta_title_world_clock">Relógio mundial</string>
-    <string name="widget_picture_need_permission">Acesso a fotos necessário</string>
     <string name="widget_picture_on_this_day">NESTE DIA</string>
     <string name="widget_picture_tap_to_grant">Toque para permitir o acesso</string>
     <string name="widget_section_title_ios">Launcher</string>
@@ -534,4 +531,5 @@
     <string name="widgets_bottom_sheet_title">Widgets de <xliff:g id="name" example="Messenger">%1$s</xliff:g></string>
     <string name="world_clock">Relógio mundial</string>
     <string name="zero">0</string>
+    <string name="widget_picture_choose_photo">Toque para escolher uma foto</string>
 </resources>

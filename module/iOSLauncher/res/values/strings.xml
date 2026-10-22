@@ -701,8 +701,6 @@
     <string name="calendar">Calendar</string>
     <string name="grant_calendar_permission">Grant Read Calendar Permission</string>
     <string name="warning_calendar_permission">No READ CALENDAR permission, grant the permission to loading events.</string>
-    <string name="grant_storage_permission">Grant Read Storage Permission</string>
-    <string name="warning_storage_permission">No READ STORAGE permission, grant the permission to loading photo.</string>
     <string name="hint_prompt">Speak a keyword</string>
     <string name="suggestions">Suggestions</string>
     <string name="search_results_title">Results</string>
@@ -762,8 +760,6 @@
     <string name="widget_meta_desc_photos">Show a favorite photo.</string>
     <!-- Overlay tiêu đề trên widget Photos (kiểu iOS "On This Day"). -->
     <string name="widget_picture_on_this_day">ON THIS DAY</string>
-    <!-- Hiện đè lên widget ảnh khi app chưa có quyền đọc ảnh; bấm vào widget để cấp. -->
-    <string name="widget_picture_need_permission">Photo access needed</string>
     <string name="widget_picture_tap_to_grant">Tap to allow access</string>
     <string name="widget_meta_title_batteries">Batteries</string>
     <string name="widget_meta_desc_batteries">Keep an eye on battery level.</string>
@@ -806,4 +802,5 @@
          "Cancel" dùng lại remove_from_home_screen / cancel_action đã có. -->
     <string name="remove_widget_title">Remove Widget?</string>
     <string name="remove_widget_message">This widget will be removed from your Home Screen.</string>
+    <string name="widget_picture_choose_photo">Tap to choose a photo</string>
 </resources>

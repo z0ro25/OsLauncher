@@ -77,11 +77,8 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- [CHƯA CẤP QUYỀN] Lớp phủ mờ + lời nhắc, hiện đè lên ảnh mẫu khi app chưa có quyền đọc
-             ảnh. Bấm vào widget lúc này sẽ hiện hộp xin quyền (xem
-             PictureAppWidgetProvider.attachOpenGalleryClick).
-             Mặc định GONE; code bật lên khi phát hiện thiếu quyền, để widget đã cấp quyền không
-             tốn gì. -->
+        <!-- Chưa chọn ảnh: lớp phủ mời chọn ảnh, bấm widget mở Photo Picker.
+             Giữ id cũ vì code bật/tắt theo id; mặc định GONE. -->
         <LinearLayout
             android:id="@+id/widget_picture_permission"
             android:layout_width="match_parent"
@@ -106,18 +103,9 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:gravity="center"
-                android:text="@string/widget_picture_need_permission"
+                android:text="@string/widget_picture_choose_photo"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="center"
-                android:text="@string/widget_picture_tap_to_grant"
-                android:textColor="#CCFFFFFF"
-                android:textSize="11sp" />
         </LinearLayout>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@ class ChangeIconDetailActivity : BaseActivity<ActivityChangeIconDetailBinding>()
     private var packageName: String = ""
     private var label: String = ""
 
-    /** Mở gallery (ảnh) qua Photo Picker (GetContent) — không cần quyền READ_MEDIA. */
+    /** Mở gallery (ảnh) qua Photo Picker (GetContent) — không cần quyền đọc ảnh. */
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) applyGalleryIcon(uri)
