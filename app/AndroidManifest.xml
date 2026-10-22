@@ -5,14 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- Quyền hiển thị thông báo (runtime từ Android 13). Dùng cho toggle Notification màn xin quyền. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission
+        android:name="android.permission.READ_BASIC_PHONE_STATE"
+        tools:node="remove" />
 
     <application
         android:name=".App"

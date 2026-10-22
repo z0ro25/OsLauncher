@@ -15,17 +15,6 @@
         android:padding="8dp">
 
 <!--        <include layout="@layout/ads_native_attribution" />-->
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tvActionBtnTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:background="@drawable/bg_circle_007aff"
-            android:layout_marginTop="8dp"
-            tools:text="Learn more" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,5 +108,16 @@
                     android:layout_height="match_parent" />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tvActionBtnTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_circle_007aff"
+            android:layout_marginTop="8dp"
+            tools:text="Learn more" />
     </LinearLayout>
 </com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView>

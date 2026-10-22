@@ -66,6 +66,7 @@
 
         <!-- Dòng External Storage -->
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center_vertical"
