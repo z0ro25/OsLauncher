@@ -13,6 +13,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -59,6 +63,13 @@ public class GlassBlurView extends View {
     private static Bitmap sScreenBlur;
     private static int sScreenW, sScreenH;
     private boolean mScheduledReload;
+
+    // Nguồn dự phòng (file "blur" / wallpaper hệ thống) nạp ở luồng nền: getWallpaperInfo() là Binder,
+    // gọi trong onDraw() trên main thread gây ANR. Các field dưới chỉ đọc/ghi trên main thread.
+    private static Bitmap sFallbackSrc;
+    private static boolean sFallbackLoading;
+    private static long sFallbackFailedAt;
+    private static final long FALLBACK_RETRY_MS = 3000;
 
     public GlassBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -201,15 +212,9 @@ public class GlassBlurView extends View {
             }
         } catch (Throwable ignored) {
         }
-        // 2) Cache "blur" đã lưu ở getDir("image")/"blur".
-        Bitmap stored = decodeStored("blur");
-        if (stored != null && !stored.isRecycled()) return stored;
-        // 3) Tự đọc wallpaper hệ thống (nếu máy còn cho) rồi blur nhanh.
-        Bitmap raw = readSystemWallpaper();
-        if (raw != null && !raw.isRecycled()) {
-            Bitmap b = blurRaw(raw);
-            if (b != null) return b;
-        }
+        // 2) Cache "blur" đã lưu, 3) wallpaper hệ thống rồi blur nhanh — cả hai nạp ở luồng nền.
+        if (sFallbackSrc != null && !sFallbackSrc.isRecycled()) return sFallbackSrc;
+        loadFallbackAsync(getContext().getApplicationContext());
         // KHÔNG fallback về default_wallpaper: ảnh mặc định (bong bóng xanh) KHÁC wallpaper
         // thật người dùng đang đặt -> blur nó sẽ NHUỘM XANH sai màu lên dock/widget, và vì
         // luôn non-null nên chặn mất nhánh ảnh theme (mFallbackDrawable). Trả null để onDraw
@@ -217,10 +222,43 @@ public class GlassBlurView extends View {
         return null;
     }
 
+    private void loadFallbackAsync(final Context ctx) {
+        if (sFallbackLoading || ctx == null) return;
+        // Nạp hỏng (máy chặn đọc wallpaper) thì giãn lần thử, tránh mỗi frame lại bắn 1 task.
+        if (SystemClock.uptimeMillis() - sFallbackFailedAt < FALLBACK_RETRY_MS) return;
+        sFallbackLoading = true;
+        final Handler main = new Handler(Looper.getMainLooper());
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap result = decodeStored(ctx, "blur");
+                if (result == null || result.isRecycled()) {
+                    result = null;
+                    Bitmap raw = readSystemWallpaper(ctx);
+                    if (raw != null && !raw.isRecycled()) result = blurRaw(raw);
+                }
+                final Bitmap loaded = result;
+                main.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        sFallbackLoading = false;
+                        if (loaded == null) {
+                            sFallbackFailedAt = SystemClock.uptimeMillis();
+                            return;
+                        }
+                        sFallbackSrc = loaded;
+                        sScreenBlur = null; // dựng lại từ nguồn vừa nạp.
+                        invalidate();
+                    }
+                });
+            }
+        });
+    }
+
     /** Đọc bitmap wallpaper hệ thống; trả null nếu Android chặn (getDrawable ném/không có quyền). */
-    private Bitmap readSystemWallpaper() {
+    private static Bitmap readSystemWallpaper(Context ctx) {
         try {
-            WallpaperManager wm = WallpaperManager.getInstance(getContext());
+            WallpaperManager wm = WallpaperManager.getInstance(ctx);
             if (wm == null || wm.getWallpaperInfo() != null) return null; // bỏ live wallpaper.
             Drawable d = wm.getDrawable();
             if (d instanceof BitmapDrawable) {
@@ -245,9 +283,9 @@ public class GlassBlurView extends View {
         }
     }
 
-    private Bitmap decodeStored(String name) {
+    private static Bitmap decodeStored(Context ctx, String name) {
         try {
-            File f = new File(new ContextWrapper(getContext()).getDir("image", Context.MODE_PRIVATE), name);
+            File f = new File(new ContextWrapper(ctx).getDir("image", Context.MODE_PRIVATE), name);
             if (!f.exists()) return null;
             return BitmapFactory.decodeStream(new FileInputStream(f));
         } catch (Throwable t) {

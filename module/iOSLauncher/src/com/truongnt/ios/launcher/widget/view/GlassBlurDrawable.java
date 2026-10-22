@@ -14,6 +14,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.view.View;
 
 import com.truongnt.ios.launcher.Launcher;
@@ -56,6 +60,13 @@ public class GlassBlurDrawable extends Drawable {
     private static Bitmap sScreenBlur;
     private static int sScreenW, sScreenH;
     private boolean mScheduledReload;
+
+    // Nguồn dự phòng (file "blur" / wallpaper hệ thống) nạp ở luồng nền: getWallpaperInfo() là Binder,
+    // gọi trong draw() trên main thread gây ANR. Các field dưới chỉ đọc/ghi trên main thread.
+    private static Bitmap sFallbackSrc;
+    private static boolean sFallbackLoading;
+    private static long sFallbackFailedAt;
+    private static final long FALLBACK_RETRY_MS = 3000;
 
     public GlassBlurDrawable(View host, float cornerRadiusPx, float borderWidthPx,
                              int borderColor, int overlayColor, Drawable fallback) {
@@ -158,14 +169,44 @@ public class GlassBlurDrawable extends Drawable {
             }
         } catch (Throwable ignored) {
         }
-        Bitmap stored = decodeStored(host.getContext(), "blur");
-        if (stored != null && !stored.isRecycled()) return stored;
-        Bitmap raw = readSystemWallpaper(host.getContext());
-        if (raw != null && !raw.isRecycled()) {
-            Bitmap b = blurRaw(raw);
-            if (b != null) return b;
-        }
-        return null;
+        if (sFallbackSrc != null && !sFallbackSrc.isRecycled()) return sFallbackSrc;
+        loadFallbackAsync(host.getContext().getApplicationContext());
+        return null; // frame này vẽ mFallbackDrawable; nạp xong sẽ invalidateSelf().
+    }
+
+    private void loadFallbackAsync(final Context ctx) {
+        if (sFallbackLoading || ctx == null) return;
+        // Nạp hỏng (máy chặn đọc wallpaper) thì giãn lần thử, tránh mỗi frame lại bắn 1 task.
+        if (SystemClock.uptimeMillis() - sFallbackFailedAt < FALLBACK_RETRY_MS) return;
+        sFallbackLoading = true;
+        final Handler main = new Handler(Looper.getMainLooper());
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap result = null;
+                Bitmap stored = decodeStored(ctx, "blur");
+                if (stored != null && !stored.isRecycled()) {
+                    result = stored;
+                } else {
+                    Bitmap raw = readSystemWallpaper(ctx);
+                    if (raw != null && !raw.isRecycled()) result = blurRaw(raw);
+                }
+                final Bitmap loaded = result;
+                main.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        sFallbackLoading = false;
+                        if (loaded == null) {
+                            sFallbackFailedAt = SystemClock.uptimeMillis();
+                            return;
+                        }
+                        sFallbackSrc = loaded;
+                        sScreenBlur = null; // dựng lại từ nguồn vừa nạp.
+                        invalidateSelf();
+                    }
+                });
+            }
+        });
     }
 
     private Bitmap readSystemWallpaper(Context ctx) {
