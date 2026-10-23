@@ -51,7 +51,7 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
     var onPremiumClick: ((String) -> Unit)? = null
 
     override fun initView() {
-        showBannerIfEnabled(binding.frBanner, false)
+        showBannerOverlay(binding.frBanner, binding.mainLayout, false)
         // Đổi nền -> màn bị tạo lại giữa lúc áp: nhận kết quả + hiện lại loading.
         applyTask.attach(this)
         if (applyTask.running) loading.show()

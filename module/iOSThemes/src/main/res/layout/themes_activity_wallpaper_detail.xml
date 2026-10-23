@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Màn wallpaper detail (Figma bg11): topbar + ảnh nền lớn + hàng [tim][Apply][chia sẻ]. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/themes_bg"
-    android:orientation="vertical">
+    android:background="@color/themes_bg">
+
+    <!-- Nội dung chừa padding đáy = chiều cao SDK báo; frBanner đè lên trên để collapse không đẩy nội dung. -->
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -147,13 +154,16 @@
         </FrameLayout>
     </LinearLayout>
 
-    <!-- Banner "bannerinapp" sát đáy (ẩn khi subs). Nội dung phía trên co lại, không bị che. -->
+    </LinearLayout>
+
+    <!-- Banner sát đáy, đè lên main_layout (ẩn khi subs). -->
     <FrameLayout
         android:id="@+id/frBanner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
 
         <include layout="@layout/ads_banner" />
     </FrameLayout>
 
-</LinearLayout>
+</FrameLayout>

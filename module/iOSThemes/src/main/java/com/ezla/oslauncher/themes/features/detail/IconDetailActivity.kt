@@ -52,7 +52,7 @@ class IconDetailActivity : BaseActivity<ThemesActivityIconDetailBinding>() {
     private val themeId get() = intent.getStringExtra(EXTRA_THEME_ID).orEmpty()
 
     override fun initView() {
-        showBannerIfEnabled(binding.frBanner, false)
+        showBannerOverlay(binding.frBanner, binding.mainLayout, false)
         // Màn tạo lại giữa lúc áp: nhận kết quả + hiện lại loading, khoá nút như lượt cũ.
         applyTask.attach(this)
         if (applyTask.running) {

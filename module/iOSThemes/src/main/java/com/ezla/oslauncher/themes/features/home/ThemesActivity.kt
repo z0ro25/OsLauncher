@@ -50,7 +50,7 @@ class ThemesActivity : BaseActivity<ThemesActivityMainBinding>() {
     }
 
     override fun initView() {
-        showBannerIfEnabled(binding.frBanner, false)
+        showBannerOverlay(binding.frBanner, binding.mainLayout, false)
         tabs.forEach { it.view.tvNav.setText(it.label) }
         // Sau recreate (đổi ngôn ngữ...) FragmentManager tự khôi phục; chỉ chọn tab đầu khi mở mới.
         val current = tabs.firstOrNull { supportFragmentManager.findFragmentByTag(it.tag)?.isHidden == false }

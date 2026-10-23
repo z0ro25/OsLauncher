@@ -132,11 +132,19 @@
         android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
         android:src="@drawable/screengrid_preview_4x4"
-           app:layout_constraintBottom_toTopOf="@id/fr_banner"
+           app:layout_constraintBottom_toTopOf="@id/space_banner"
         app:layout_constraintDimensionRatio="W,580:1141"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_segmented" />
+    <!-- Chừa chỗ đúng bằng chiều cao SDK báo (onReservedHeightChanged): nội dung bám vào đây,
+         fr_banner đè lên trên nên banner collapse bung ra không đẩy nội dung. -->
+    <Space
+        android:id="@+id/space_banner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <FrameLayout
         android:id="@+id/fr_banner"
         android:layout_width="match_parent"

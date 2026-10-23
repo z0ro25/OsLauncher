@@ -25,6 +25,7 @@ import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.ezla.oslauncher.themes.features.home.ThemesActivity
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.truongnt.ios.ioslite.common.Router
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -74,6 +75,13 @@ open class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 finish()
             }
         }
+    }
+
+    override fun onStop() {
+        // Consent của AdsSdk đang chờ RESUMED mà gặp ON_DESTROY (xoay/đổi config) thì retry vô hạn trên main
+        // vì job ngoài chưa bị huỷ -> ANR. Huỷ lifecycleScope trước ON_DESTROY để vòng retry thoát.
+        if (isFinishing || isChangingConfigurations) lifecycleScope.cancel()
+        super.onStop()
     }
 
     override fun viewListener() {}

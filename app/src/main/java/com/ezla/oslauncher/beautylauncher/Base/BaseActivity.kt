@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.ezla.oslauncher.beautylauncher.Features.no_internet.NetworkReceiver
@@ -70,6 +71,25 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         AppAds.kit.showBanner(
             this, "bannerinapp", container,
             BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
+        )
+    }
+
+    // Như showBannerIfEnabled nhưng banner đè lên nội dung: [spaceBanner] (nội dung bám vào nó) cao
+    // đúng phần SDK báo qua onReservedHeightChanged, nên collapse bung ra không đẩy nội dung.
+    protected fun showBannerOverlay(
+        container: ViewGroup, spaceBanner: View, isColapse: Boolean, key: String = "bannerinapp"
+    ) {
+        if (AdsSdk.isAdFree) {
+            container.visibility = View.GONE
+            return
+        }
+        AppAds.kit.showBanner(
+            this, key, container,
+            BannerAdOptions(
+                collapsible = isColapse,
+                bannerSize = BannerSize.STANDARD,
+                onReservedHeightChanged = { h -> spaceBanner.updateLayoutParams { height = h } }
+            )
         )
     }
 

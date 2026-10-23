@@ -36,8 +36,6 @@ import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezt.v2.ezt.admobdemo.ads.InterAds
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
-import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
 import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
@@ -90,12 +88,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
         if (!AdsSdk.isAdFree) {
-            AppAds.kit.showBanner(
-                this,
-                "main_banner",
-                binding.frBanner,
-                BannerAdOptions(collapsible = false, bannerSize = BannerSize.STANDARD)
-            )
+            showBannerOverlay(binding.frBanner, binding.spaceBanner, true, "main_banner")
         } else {
             // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
             binding.frBanner.isVisible = false

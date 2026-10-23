@@ -58,11 +58,19 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-           app:layout_constraintBottom_toTopOf="@id/fr_banner"
+           app:layout_constraintBottom_toTopOf="@id/space_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:listitem="@layout/viewholder_applib_select_folder" />
+    <!-- Chừa chỗ đúng bằng chiều cao SDK báo (onReservedHeightChanged): nội dung bám vào đây,
+         fr_banner đè lên trên nên banner collapse bung ra không đẩy nội dung. -->
+    <Space
+        android:id="@+id/space_banner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <FrameLayout
         android:id="@+id/fr_banner"
         android:layout_width="match_parent"

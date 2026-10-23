@@ -54,6 +54,25 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
     }
 
+    // Như showBannerIfEnabled nhưng frBanner đè lên [content] (main_layout): padding đáy của content
+    // = phần SDK báo qua onReservedHeightChanged, nên collapse bung ra không đẩy nội dung.
+    protected fun showBannerOverlay(container: ViewGroup, content: View, isColapse: Boolean) {
+        if (AdsSdk.isAdFree || !AppAds.hasKit()) {
+            container.visibility = View.GONE
+            return
+        }
+        AppAds.kit.showBanner(
+            this, BANNER_PLACEMENT, container,
+            BannerAdOptions(
+                collapsible = isColapse,
+                bannerSize = BannerSize.STANDARD,
+                onReservedHeightChanged = { h -> content.updatePadding(bottom = h) }
+            )
+        )
+        bannerContainer = container
+        if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
+    }
+
     private var bannerContainer: ViewGroup? = null
     private var bannerHiddenByAd = false
     private val fullscreenAdListener: (Boolean) -> Unit = { onFullscreenAdChanged(it) }

@@ -30,7 +30,7 @@ class ManageLibraryActivity : BaseActivity<ActivityManageLibraryBinding>() {
 
     override fun onResume() {
         super.onResume()
-        showBannerIfEnabled(binding.frBanner, false)
+        showBannerOverlay(binding.frBanner, binding.spaceBanner, false)
     }
 
     override fun initView() {
