@@ -79,35 +79,10 @@ object PermissionManager {
         } else true
     }
 
-    fun isExternalPermissionGranted(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            isPermissionGranted(
-                context,
-                arrayOf(
-//                    Manifest.permission.READ_MEDIA_IMAGES,
-//                    Manifest.permission.READ_MEDIA_AUDIO,
-                    Manifest.permission.READ_MEDIA_VIDEO
-                )
-            )
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            isPermissionGranted(
-                context,
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-            )
-        } else true
-    }
-
-
+    // Android 13+ không xin quyền media nào: chọn ảnh đều qua Photo Picker.
     fun isExternalPermission(context: Context): Boolean {
         externalPermisison = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arrayOf(
-//                Manifest.permission.READ_MEDIA_VIDEO,
-//                Manifest.permission.READ_MEDIA_AUDIO,
-                Manifest.permission.READ_MEDIA_IMAGES
-            )
+            arrayOf()
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE

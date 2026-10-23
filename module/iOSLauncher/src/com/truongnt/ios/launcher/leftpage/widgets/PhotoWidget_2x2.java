@@ -2,7 +2,6 @@ package com.truongnt.ios.launcher.leftpage.widgets;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -10,10 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +25,13 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.ObjectKey;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.R;
+import com.truongnt.ios.launcher.widget.widgetprovider.PhotoWidgetPicker;
+import com.truongnt.ios.launcher.widget.widgetprovider.PhotoWidgetStore;
+
+import java.io.File;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -102,23 +103,9 @@ public class PhotoWidget_2x2 extends BlurConstraintLayoutWidget {
         );
     }
 
+    // Ảnh dùng chung do người dùng chọn qua Photo Picker; không đọc thư viện ảnh.
     public static String loadPhotoWidget(PhotoWidget_2x2 photoWidget_2x2, Context context) {
-        Cursor query;
-        photoWidget_2x2.getClass();
-        String[] strArr = {"_data"};
-        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        if (Build.VERSION.SDK_INT >= 26) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("android:query-arg-limit", 1);
-            bundle.putString("android:query-arg-sql-sort-order", "RANDOM()");
-            query = context.getContentResolver().query(uri, strArr, bundle, null);
-        } else {
-            query = context.getContentResolver().query(uri, strArr, null, null, "RANDOM() LIMIT 1");
-        }
-        int columnIndex = query.getColumnIndex("_data");
-        String string = query.moveToFirst() ? query.getString(columnIndex) : null;
-        query.close();
-        return string;
+        return PhotoWidgetStore.photoPath(context);
     }
 
     @Override
@@ -126,14 +113,16 @@ public class PhotoWidget_2x2 extends BlurConstraintLayoutWidget {
         super.onFinishInflate();
         this.mPhotoIV = (AppCompatImageView) findViewById(R.id.picture_widget_content);
         this.mPermissionView = (LinearLayoutCompat) findViewById(R.id.picture_widget_permission);
-        findViewById(R.id.button_request_storage_permission).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // TODO: 2023.11.20 PERMISSION
-                    }
-                }
-        );
+        View.OnClickListener pickPhoto = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Đang ở chế độ sửa (widget rung) thì tap thuộc về luồng sửa, không mở picker.
+                if (mLauncher.mCustomContentView != null && mLauncher.mCustomContentView.t) return;
+                PhotoWidgetPicker.launch(mLauncher);
+            }
+        };
+        findViewById(R.id.button_request_storage_permission).setOnClickListener(pickPhoto);
+        setOnClickListener(pickPhoto);
 
         this.mPhotoIV.setLayerType(LAYER_TYPE_SOFTWARE, null);
 
@@ -156,10 +145,20 @@ public class PhotoWidget_2x2 extends BlurConstraintLayoutWidget {
         super.r();
     }
 
+    /** Gọi sau khi người dùng chọn ảnh mới (xem PhotoWidgetPicker.handleResult). */
+    public void reloadPhoto() {
+        reload(mLauncher);
+    }
+
     void reload(final Context context) {
         try {
             final String path = new PhotoReloadCallable().call();
-            if (path != null && !path.equals("")) {
+            boolean hasPhoto = path != null && !path.equals("");
+            mPermissionView.setVisibility(hasPhoto ? View.GONE : View.VISIBLE);
+            mPhotoIV.setVisibility(hasPhoto ? View.VISIBLE : View.INVISIBLE);
+            if (hasPhoto) {
+                // File ảnh luôn cùng path -> khoá cache Glide theo lastModified, nếu không đổi ảnh vẫn hiện ảnh cũ.
+                final long version = new File(path).lastModified();
 
                 postOnAnimationDelayed(
                         new Runnable() {
@@ -177,6 +176,7 @@ public class PhotoWidget_2x2 extends BlurConstraintLayoutWidget {
                                 if (!isAttachedToWindow()) return;
                                 Glide.with(context)
                                         .load(path)
+                                        .signature(new ObjectKey(version))
                                         .centerCrop()
                                         .transform(new BitmapRoundTransformer(context, getResources().getDimensionPixelSize(R.dimen.widget_round_corner)))
                                         .into(new CustomTarget<Drawable>() {

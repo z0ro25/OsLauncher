@@ -838,10 +838,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 == PackageManager.PERMISSION_DENIED) {
             permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
-        // KHÔNG xin READ_MEDIA_IMAGES ở đây. Quyền đọc ảnh chỉ phục vụ widget ảnh, mà không phải ai
-        // cũng dùng widget đó — hỏi ngay lúc vào desktop là làm phiền vô cớ.
-        // Widget ảnh tự hiện lớp phủ "Nhấn để cấp quyền" và chỉ xin khi người dùng BẤM vào nó
-        // (xem PictureAppWidgetProvider.attachOpenGalleryClick).
+        // Widget ảnh chọn ảnh qua Photo Picker nên không xin quyền đọc ảnh ở đây.
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
 //                == PackageManager.PERMISSION_DENIED) {
 //            permissionList.add(Manifest.permission.READ_CALENDAR);
@@ -1359,6 +1356,14 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             hideBlurBg();
         }
 
+        // Ảnh cho widget ảnh: xử lý riêng, không cho rơi vào handleActivityResult (luồng thả widget).
+        if (requestCode == com.truongnt.ios.launcher.widget.widgetprovider.PhotoWidgetPicker.REQUEST_PICK_PHOTO) {
+            setWaitingForResult(false);
+            com.truongnt.ios.launcher.widget.widgetprovider.PhotoWidgetPicker
+                    .handleResult(this, resultCode, data);
+            return;
+        }
+
         handleActivityResult(requestCode, resultCode, data);
         if (mLauncherCallbacks != null) {
             mLauncherCallbacks.onActivityResult(requestCode, resultCode, data);
@@ -1437,8 +1442,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             if (Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)
                     || Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
                 locationGranted = true;
-            } else if ("android.permission.READ_MEDIA_IMAGES".equals(permission)
-                    || Manifest.permission.READ_EXTERNAL_STORAGE.equals(permission)) {
+            } else if (Manifest.permission.READ_EXTERNAL_STORAGE.equals(permission)) {
                 photoGranted = true;
             }
         }
@@ -2681,6 +2685,11 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             startTime = System.currentTimeMillis();
         }
         super.onNewIntent(intent);
+        // Bấm widget ảnh dạng RemoteViews -> chỉ mở Photo Picker, bỏ qua luồng "về Home" bên dưới.
+        if (com.truongnt.ios.launcher.widget.widgetprovider.PhotoWidgetPicker
+                .handleLauncherIntent(this, intent)) {
+            return;
+        }
         LauncherSharePrefUtils.increaseCountOpenApp(this);
 
         // Close the menu

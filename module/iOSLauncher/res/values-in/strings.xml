@@ -80,4 +80,5 @@
     <string name="action_decrease_width">"Kurangi lebar"</string>
     <string name="action_decrease_height">"Kurangi tinggi"</string>
     <string name="widget_resized">"Widget diubah ukurannya menjadi lebar <xliff:g id="NUMBER_0">%1$s</xliff:g> tinggi <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+    <string name="widget_picture_choose_photo">Ketuk untuk memilih foto</string>
 </resources>

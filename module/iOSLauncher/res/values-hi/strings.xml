@@ -273,7 +273,6 @@
     <string name="gesture_tab_shortcut">शॉर्टकट</string>
     <string name="grant_calendar_permission">कैलेंडर पढ़ने की अनुमति दें</string>
     <string name="grant_contact_permission">संपर्क पढ़ने की अनुमति दें</string>
-    <string name="grant_storage_permission">स्टोरेज पढ़ने की अनुमति दें</string>
     <string name="hidden_app">छिपा हुआ ऐप</string>
     <string name="hide_apps_guide_page_title">ऐप्स छिपाएं</string>
     <string name="hint_prompt">कीवर्ड बोलें</string>
@@ -499,7 +498,6 @@
     <string name="wallpaper_settings">वॉलपेपर सेटिंग्स</string>
     <string name="warning_calendar_permission">कोई कैलेंडर पढ़ने की अनुमति नहीं, ईवेंट लोड करने के लिए अनुमति दें।</string>
     <string name="warning_contact_permission">कोई संपर्क पढ़ने की अनुमति नहीं, पसंदीदा संपर्क लोड करने के लिए अनुमति दें।</string>
-    <string name="warning_storage_permission">कोई स्टोरेज पढ़ने की अनुमति नहीं, फ़ोटो लोड करने के लिए अनुमति दें।</string>
     <string name="weather">मौसम</string>
     <string name="weather_code_clear">साफ़</string>
     <string name="weather_code_drizzle">बूंदाबांदी</string>
@@ -538,7 +536,6 @@
     <string name="widget_meta_title_photos">फ़ोटो</string>
     <string name="widget_meta_title_weather">मौसम</string>
     <string name="widget_meta_title_world_clock">विश्व घड़ी</string>
-    <string name="widget_picture_need_permission">फ़ोटो एक्सेस आवश्यक</string>
     <string name="widget_picture_on_this_day">इस दिन</string>
     <string name="widget_picture_tap_to_grant">एक्सेस की अनुमति देने के लिए टैप करें</string>
     <string name="widget_size_extra">अतिरिक्त बड़ा विजेट</string>
@@ -549,4 +546,5 @@
     <string name="widgets_bottom_sheet_title"><xliff:g id="name" example="Messenger">%1$s</xliff:g> विजेट</string>
     <string name="world_clock">विश्व घड़ी</string>
     <string name="zero">0</string>
+    <string name="widget_picture_choose_photo">फ़ोटो चुनने के लिए टैप करें</string>
 </resources>

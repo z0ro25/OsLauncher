@@ -216,7 +216,6 @@
     <string name="gesture_tab_shortcut">Verknüpfungen</string>
     <string name="grant_calendar_permission">Leseberechtigung für Kalender erteilen</string>
     <string name="grant_contact_permission">Leseberechtigung für Kontakte erteilen</string>
-    <string name="grant_storage_permission">Leseberechtigung für Speicher erteilen</string>
     <string name="hidden_app">Versteckte App</string>
     <string name="hide_apps_guide_page_title">Apps ausblenden</string>
     <string name="hint_prompt">Geben Sie ein Stichwort ein</string>
@@ -483,7 +482,6 @@
     <string name="wallpaper_settings">Hintergrundbild-Einstellungen</string>
     <string name="warning_calendar_permission">Keine KALENDER-Leseberechtigung, erteilen Sie die Berechtigung zum Laden der Ereignisse.</string>
     <string name="warning_contact_permission">Keine KONTAKT-Leseberechtigung, erteilen Sie die Berechtigung zum Laden der bevorzugten Kontakte.</string>
-    <string name="warning_storage_permission">Keine SPEICHER-Leseberechtigung, erteilen Sie die Berechtigung zum Laden des Fotos.</string>
     <string name="weather">Wetter</string>
     <string name="weather_code_clear">Klar</string>
     <string name="weather_code_drizzle">Nieselregen</string>
@@ -522,7 +520,6 @@
     <string name="widget_meta_title_photos">Fotos</string>
     <string name="widget_meta_title_weather">Wetter</string>
     <string name="widget_meta_title_world_clock">Weltuhr</string>
-    <string name="widget_picture_need_permission">Fotozugriff erforderlich</string>
     <string name="widget_picture_on_this_day">AN DIESEM TAG</string>
     <string name="widget_picture_tap_to_grant">Tippen, um Zugriff zu erlauben</string>
     <string name="widget_section_title_ios">Launcher</string>
@@ -535,4 +532,5 @@
     <string name="widgets_bottom_sheet_title"><xliff:g id="name" example="Messenger">%1$s</xliff:g>-Widgets</string>
     <string name="world_clock">Weltuhr</string>
     <string name="zero">0</string>
+    <string name="widget_picture_choose_photo">Tippen, um ein Foto auszuwählen</string>
 </resources>

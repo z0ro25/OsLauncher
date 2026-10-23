@@ -215,7 +215,6 @@
     <string name="gesture_tab_shortcut">Raccourcis</string>
     <string name="grant_calendar_permission">Accorder l\'autorisation de lecture du calendrier</string>
     <string name="grant_contact_permission">Accorder l\'autorisation de lecture des contacts</string>
-    <string name="grant_storage_permission">Accorder l\'autorisation de lecture du stockage</string>
     <string name="hidden_app">Application masquée</string>
     <string name="hide_apps_guide_page_title">Masquer les applications</string>
     <string name="hint_prompt">Prononcez un mot-clé</string>
@@ -482,7 +481,6 @@
     <string name="wallpaper_settings">Paramètres du fond d\'écran</string>
     <string name="warning_calendar_permission">Pas d\'autorisation de LECTURE DU CALENDRIER, accordez l\'autorisation pour charger les événements.</string>
     <string name="warning_contact_permission">Pas d\'autorisation de LECTURE DES CONTACTS, accordez l\'autorisation pour charger les contacts favoris.</string>
-    <string name="warning_storage_permission">Pas d\'autorisation de LECTURE DU STOCKAGE, accordez l\'autorisation pour charger la photo.</string>
     <string name="weather">Météo</string>
     <string name="weather_code_clear">Dégagé</string>
     <string name="weather_code_drizzle">Bruine</string>
@@ -521,7 +519,6 @@
     <string name="widget_meta_title_photos">Photos</string>
     <string name="widget_meta_title_weather">Météo</string>
     <string name="widget_meta_title_world_clock">Horloge mondiale</string>
-    <string name="widget_picture_need_permission">Accès aux photos requis</string>
     <string name="widget_picture_on_this_day">À CE JOUR</string>
     <string name="widget_picture_tap_to_grant">Touchez pour autoriser l\'accès</string>
     <string name="widget_section_title_ios">Lanceur</string>
@@ -534,4 +531,5 @@
     <string name="widgets_bottom_sheet_title">Widgets de <xliff:g id="name" example="Messenger">%1$s</xliff:g></string>
     <string name="world_clock">Horloge mondiale</string>
     <string name="zero">0</string>
+    <string name="widget_picture_choose_photo">Touchez pour choisir une photo</string>
 </resources>

@@ -216,7 +216,6 @@
     <string name="gesture_tab_shortcut">Accesos directos</string>
     <string name="grant_calendar_permission">Conceder permiso de lectura del calendario</string>
     <string name="grant_contact_permission">Conceder permiso de lectura de contactos</string>
-    <string name="grant_storage_permission">Conceder permiso de lectura del almacenamiento</string>
     <string name="hidden_app">Aplicación oculta</string>
     <string name="hide_apps_guide_page_title">Ocultar aplicaciones</string>
     <string name="hint_prompt">Di una palabra clave</string>
@@ -483,7 +482,6 @@
     <string name="wallpaper_settings">Configuración del fondo de pantalla</string>
     <string name="warning_calendar_permission">Sin permiso de LECTURA DEL CALENDARIO, concede el permiso para cargar los eventos.</string>
     <string name="warning_contact_permission">Sin permiso de LECTURA DE CONTACTOS, concede el permiso para cargar los contactos favoritos.</string>
-    <string name="warning_storage_permission">Sin permiso de LECTURA DEL ALMACENAMIENTO, concede el permiso para cargar la foto.</string>
     <string name="weather">Clima</string>
     <string name="weather_code_clear">Despejado</string>
     <string name="weather_code_drizzle">Llovizna</string>
@@ -522,7 +520,6 @@
     <string name="widget_meta_title_photos">Fotos</string>
     <string name="widget_meta_title_weather">Clima</string>
     <string name="widget_meta_title_world_clock">Reloj mundial</string>
-    <string name="widget_picture_need_permission">Se necesita acceso a las fotos</string>
     <string name="widget_picture_on_this_day">EN ESTE DÍA</string>
     <string name="widget_picture_tap_to_grant">Toca para permitir el acceso</string>
     <string name="widget_section_title_ios">Lanzador</string>
@@ -535,4 +532,5 @@
     <string name="widgets_bottom_sheet_title">Widgets de <xliff:g id="name" example="Messenger">%1$s</xliff:g></string>
     <string name="world_clock">Reloj mundial</string>
     <string name="zero">0</string>
+    <string name="widget_picture_choose_photo">Toca para elegir una foto</string>
 </resources>
