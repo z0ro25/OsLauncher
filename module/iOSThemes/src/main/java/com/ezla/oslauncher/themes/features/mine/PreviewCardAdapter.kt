@@ -4,6 +4,7 @@ import com.ezla.oslauncher.themes.Models.PreviewCard
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.ezla.oslauncher.themes.R
@@ -11,7 +12,7 @@ import com.ezla.oslauncher.themes.features.loadCardImage
 import com.ezla.oslauncher.themes.databinding.ThemesItemPreviewCardBinding
 import com.google.android.material.shape.ShapeAppearanceModel
 
-// Thẻ preview theme/wallpaper; [small] = thẻ hàng Suggest (102:196, bo 11) thay vì thẻ lớn.
+// Thẻ preview theme/wallpaper; [small] = thẻ hàng Suggest (320:690 centerCrop, bo 11) thay vì thẻ lớn.
 // [showNewBadge]: chỉ tab Wallpapers bật nhãn New; Mine/Suggest dùng chung adapter nên mặc định tắt.
 class PreviewCardAdapter(
     private val small: Boolean,
@@ -38,7 +39,9 @@ class PreviewCardAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ThemesItemPreviewCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         if (small) {
-            (binding.imgCard.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "102:196"
+            // Cùng tỉ lệ + centerCrop với thumbnail tab Themes (themes_item_theme) để ảnh Suggest không méo.
+            (binding.imgCard.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "320:690"
+            binding.imgCard.scaleType = ImageView.ScaleType.CENTER_CROP
             binding.imgCard.shapeAppearanceModel = ShapeAppearanceModel.builder(
                 parent.context, 0, R.style.ThemesRoundedImage11
             ).build()

@@ -305,7 +305,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     // Unlock All Icon -> màn Subs (IAP) của :app qua ThemesEntry; callback cũ vẫn được báo.
     private fun openPremium(d: ThemeDetail?) {
         onPremiumClick?.invoke(d)
-        ThemesEntry.openPremium(this)
+        ThemesEntry.openPremium(this, "themes_detail")
     }
 
     private fun listenNotEnough() {

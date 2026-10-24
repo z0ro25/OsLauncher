@@ -277,7 +277,8 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         if (mWidgetListAdapter == null || mListWidgetRV == null) {
             return;
         }
-        mWidgetListAdapter.resetNativeAd();
+        // Không reset nữa: ad tải lúc trang còn dựng ngoài màn hình / đang tải dở thì giữ lại.
+        mWidgetListAdapter.onPageEntered();
         mListWidgetRV.post(new Runnable() {
             @Override
             public void run() {
@@ -285,7 +286,7 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
                     return;
                 }
                 // Lần trước ad lỗi đã gỡ item -> chèn lại (tự bind) thay vì notifyItemChanged.
-                if (!mWidgetListAdapter.restoreAdItemIfRemoved()) {
+                if (!mWidgetListAdapter.restoreAdItemIfRemoved() && mWidgetListAdapter.needsAdBind()) {
                     mWidgetListAdapter.notifyAdChanged();
                 }
             }
@@ -510,8 +511,7 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         if (mWidgetListAdapter == null) {
             return;
         }
-        mWidgetListAdapter.clearNativeAdView();
-        mWidgetListAdapter.resetNativeAd();
+        mWidgetListAdapter.onPageClosed();
     }
 
     public void collapseAppsStyle(){

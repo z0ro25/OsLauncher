@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Thẻ preview theme/wallpaper. Tỉ lệ + bo góc đặt từ code: lớn 158:308 bo 18, suggest 102:196 bo 11. -->
+<!-- Thẻ preview theme/wallpaper. Tỉ lệ + bo góc đặt từ code: lớn 158:308 bo 18, suggest 320:690 centerCrop bo 11. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"

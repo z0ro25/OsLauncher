@@ -23,6 +23,7 @@ class NewFolderDialog(context: Context) : Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate.logDialog(this)
         binding = DialogNewFolderBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 

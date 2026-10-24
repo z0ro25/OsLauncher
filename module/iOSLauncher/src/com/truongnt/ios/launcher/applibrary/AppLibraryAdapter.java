@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.FragmentActivity;
 
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
 import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.launcher.R;
@@ -57,6 +58,12 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
 
     /** Container đang giữ ad (hoặc đang chờ ad) — để biết khi nào phải dọn trước khi đổ lại. */
     private FrameLayout mAdContainer;
+
+    // Phiên ad đang chạy; close() khi gỡ ô/đóng màn để request đang bay không đổ vào container cũ.
+    private InlineAdBinding mAdBinding;
+
+    // Trang dựng sẵn ngoài màn hình vẫn bind -> chỉ phát request khi user đã thật sự vào trang.
+    private boolean mPageOpen;
 
     /** Gán danh sách category đầy đủ rồi lọc lại danh sách hiển thị (ẩn folder rỗng). */
     public void setCategories(ArrayList<AppCategory> categories) {
@@ -203,11 +210,9 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
 
         // Mỗi lần vào màn chỉ MỘT request: đang chờ / đã có ad / đã thất bại đều không gọi lại.
         // Đây là chỗ chặn quảng cáo nháy — xem khối comment ở khai báo mAdState.
-        if (mAdState != AD_IDLE) {
+        if (mAdState != AD_IDLE || !mPageOpen) {
             return;
         }
-
-        mAdState = AD_LOADING;
 
         // AdsKit chỉ show từ FragmentActivity; dò từ context của container vì view trong
         // RecyclerView giữ ContextThemeWrapper chứ không phải chính Activity.
@@ -218,15 +223,20 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
             return;
         }
 
+        mAdState = AD_LOADING;
+
         // Khung ad hiện ngay với skeleton; có ad thì hiện ad, lỗi thì gỡ hẳn item.
         holder.itemView.setVisibility(View.VISIBLE);
         // Container cao cố định (box 2:1) -> dùng bản Fill để native lấp đầy thay vì wrap_content.
         // Ghi rõ R của library vì file này đang import R của module launcher.
-        AppAds.showNativeFill((FragmentActivity) activity, NATIVE_PLACEMENT, container,
+        closeAdBinding();
+        mAdBinding = AppAds.showNativeFill((FragmentActivity) activity, NATIVE_PLACEMENT, container,
                 com.truongnt.ios.ioslite.common.R.layout.layout_native_app_libs,
                 com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs, hasAd -> {
                     mAdState = hasAd ? AD_LOADED : AD_FAILED;
                     if (!hasAd) {
+                        // Ô sắp bị gỡ: đóng phiên để SDK không retry cho slot không còn hiển thị.
+                        closeAdBinding();
                         removeAdItem(holder.itemView);
                     }
                 });
@@ -239,6 +249,7 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
      * (để lần mở sau không thấy lại ad cũ rồi bị thay bằng skeleton — nhìn như nháy hai lần).
      */
     public void resetNativeAd() {
+        closeAdBinding();
         mAdState = AD_IDLE;
         // FSDAds đổ THÊM view vào container chứ không thay thế -> dọn nội dung lần trước, nếu không
         // ad mới sẽ chồng lên ad cũ.
@@ -252,6 +263,41 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
      * Ép bind lại ô quảng cáo. Cần gọi SAU {@link #resetNativeAd()} thì ad mới thật sự được tải lại
      * (không có bind lại thì không có ai gọi AdsNative.show).
      */
+    // Vào trang: ad đang tải/đã có thì giữ nguyên; chỉ ép bind khi chưa có phiên nào (IDLE).
+    public void onPageEntered() {
+        mPageOpen = true;
+        if (mAdState == AD_FAILED) {
+            mAdState = AD_IDLE;
+        }
+    }
+
+    // Đóng hẳn trang: huỷ phiên + dọn view; lần vào sau bind lại từ đầu.
+    public void onPageClosed() {
+        mPageOpen = false;
+        resetNativeAd();
+    }
+
+    public boolean needsAdBind() {
+        return mAdState == AD_IDLE;
+    }
+
+    private void closeAdBinding() {
+        if (mAdBinding != null) {
+            mAdBinding.close();
+            mAdBinding = null;
+        }
+    }
+
+    // Holder ad bị recycle (cuộn xa / rebuild adapter) -> container đó không còn hiển thị ad nữa.
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        if (holder instanceof NativeAdViewHolder
+                && ((NativeAdViewHolder) holder).mContainer == mAdContainer) {
+            resetNativeAd();
+        }
+    }
+
     public void notifyAdChanged() {
         if (isAdVisible()) {
             notifyItemChanged(AD_POSITION);

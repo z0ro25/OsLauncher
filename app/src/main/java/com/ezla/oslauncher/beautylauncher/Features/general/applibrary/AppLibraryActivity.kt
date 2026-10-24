@@ -58,6 +58,6 @@ class AppLibraryActivity : BaseActivity<ActivityAppLibraryBinding>() {
         super.onResume()
         // Sau khi quay lại từ Select Folder: cập nhật nhãn folder đã gán.
         viewModel.refreshLabels()
-        showBannerOverlay(binding.frBanner, binding.spaceBanner, false)
+        showBannerOverlay(binding.frBanner, binding.spaceBanner)
     }
 }

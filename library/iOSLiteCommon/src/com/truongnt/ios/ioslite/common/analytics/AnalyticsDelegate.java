@@ -52,6 +52,25 @@ public class AnalyticsDelegate {
         }
     }
 
+    // Log mở Dialog thường (không phải DialogFragment, không có hook tự động). Tên event do :app
+    // sinh từ tên class (ScreenTracker). Chưa gắn thì bỏ qua.
+    public interface DialogLogger {
+        void log(String dialogClassName);
+    }
+
+    private static volatile DialogLogger sDialogLogger;
+
+    public static void setDialogLogger(DialogLogger logger) {
+        sDialogLogger = logger;
+    }
+
+    public static void logDialog(Object dialog) {
+        DialogLogger logger = sDialogLogger;
+        if (logger != null && dialog != null) {
+            logger.log(dialog.getClass().getName());
+        }
+    }
+
     public static void initalize(Application application) {
 //        sUmAnalytics = new UmAnalytics();
 //        sUmAnalytics.initalize(application);

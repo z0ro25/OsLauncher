@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -145,6 +146,8 @@ public class LauncherModel extends BroadcastReceiver
     // Bật tự thêm icon Themes lên desktop; tắt thì đổi thành false.
     // Chỉ chặn thêm mới: icon đã có trên desktop vẫn giữ và vẫn mở được.
     private static final boolean AUTO_ADD_THEMES_SHORTCUT = true;
+    // Cờ 1 lần: đã kéo Themes về sát icon app chưa. Đổi tên key nếu muốn chạy lại cho mọi máy.
+    private static final String PREF_THEMES_BESIDE_HOME_DONE = "themes_beside_home_done_v1";
 
     public static final int LOADER_FLAG_NONE = 0;
     public static final int LOADER_FLAG_CLEAR_WORKSPACE = 1 << 0;
@@ -3859,6 +3862,10 @@ public class LauncherModel extends BroadcastReceiver
                 addAndBindAddedWorkspaceItems(context, homeList);
             }
 
+            // Một lần duy nhất (cả máy update từ bản cũ): kéo Themes về sát icon app, dời app đang
+            // chiếm ô đó đi. Sau đó user tự dời Themes thì giữ nguyên.
+            ensureThemesBesideHomeOnce(context);
+
             // Icon "Themes" (module iOSThemes) đặt NGAY SAU icon app: cùng worker thread nên chạy
             // sau khi icon app đã ghi DB -> tìm được ô kế bên. Có trên desktop rồi thì bỏ qua.
             addThemesShortcutIfMissing(context);
@@ -3867,6 +3874,127 @@ public class LauncherModel extends BroadcastReceiver
                 boolean prompt = !mInitWorkspace;
                 addAndBindAddedWorkspaceItems(context, added, true, prompt);
             }
+        }
+
+        // Worker thread nên mọi ghi DB bên dưới chạy đồng bộ. Ô đích = bên phải icon app, cột cuối thì
+        // xuống đầu hàng sau. Ô bị widget nhiều ô chiếm / hết hàng -> bỏ qua, để luồng cũ xử lý.
+        private void ensureThemesBesideHomeOnce(Context context) {
+            if (!AUTO_ADD_THEMES_SHORTCUT) {
+                return;
+            }
+            final SharedPreferences sp = context.getSharedPreferences(
+                    LauncherAppState.getSharedPreferencesKey(), Context.MODE_PRIVATE);
+            if (sp.getBoolean(PREF_THEMES_BESIDE_HOME_DONE, false)) {
+                return;
+            }
+            final ComponentName themesCn = new ComponentName(
+                    context, com.truongnt.ios.launcher.shortcut.Theme.class);
+            final String homePkg = context.getPackageName();
+            final InvariantDeviceProfile profile =
+                    LauncherAppState.getInstance().getInvariantDeviceProfile();
+
+            ItemInfo homeItem = null;
+            ItemInfo themesItem = null;
+            synchronized (sBgLock) {
+                for (ItemInfo info : sBgItemsIdMap) {
+                    ComponentName cn = info.getTargetComponent();
+                    if (cn == null) continue;
+                    if (homeItem == null
+                            && info.container == LauncherSettings.Favorites.CONTAINER_DESKTOP
+                            && info.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION
+                            && homePkg.equals(cn.getPackageName())) {
+                        homeItem = info;
+                    } else if (themesItem == null
+                            && info.itemType == LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT
+                            && themesCn.equals(cn)) {
+                        themesItem = info;
+                    }
+                }
+            }
+            if (homeItem == null) {
+                // Icon app không nằm trên desktop (vd trong folder): không có mốc để đặt.
+                sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+                return;
+            }
+
+            int x = homeItem.cellX + homeItem.spanX;
+            int y = homeItem.cellY;
+            if (x >= profile.numColumns) {
+                x = 0;
+                y++;
+            }
+            final long screenId = homeItem.screenId;
+            if (y >= profile.numRows) {
+                sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+                return;
+            }
+            if (themesItem != null
+                    && themesItem.container == LauncherSettings.Favorites.CONTAINER_DESKTOP
+                    && themesItem.screenId == screenId
+                    && themesItem.cellX == x && themesItem.cellY == y) {
+                sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+                return;
+            }
+
+            ItemInfo occupant = null;
+            synchronized (sBgLock) {
+                for (ItemInfo r : sBgItemsIdMap) {
+                    if (r.container == LauncherSettings.Favorites.CONTAINER_DESKTOP
+                            && r.screenId == screenId
+                            && x >= r.cellX && x < r.cellX + r.spanX
+                            && y >= r.cellY && y < r.cellY + r.spanY) {
+                        occupant = r;
+                        break;
+                    }
+                }
+            }
+            if (occupant == null && themesItem == null) {
+                // Ô đích trống + chưa có Themes (máy cài mới): addThemesShortcutIfMissing ngay sau đặt.
+                sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+                return;
+            }
+            if (occupant != null && (occupant.spanX > 1 || occupant.spanY > 1)) {
+                // Widget nhiều ô: dời đi dễ vỡ bố cục -> giữ nguyên, luồng cũ đặt Themes ô trống.
+                sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+                return;
+            }
+
+            if (occupant != null) {
+                // Ô đích vẫn tính là bận (occupant chưa dời) nên findSpaceForItem không chọn lại nó.
+                ArrayList<Long> workspaceScreens = loadWorkspaceScreensDb(context);
+                ArrayList<Long> addedScreens = new ArrayList<Long>();
+                Pair<Long, int[]> coords = findSpaceForItem(context, workspaceScreens,
+                        addedScreens, 1, 1, -1);
+                if (coords == null) {
+                    sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+                    return;
+                }
+                if (!addedScreens.isEmpty()) {
+                    updateWorkspaceScreenOrder(context, workspaceScreens);
+                }
+                moveItemInDatabase(context, occupant, LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                        coords.first, coords.second[0], coords.second[1]);
+            }
+
+            if (themesItem != null) {
+                moveItemInDatabase(context, themesItem, LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                        screenId, x, y);
+            } else {
+                Intent probe = new Intent().setComponent(themesCn);
+                ShortcutInfo themes = infoFromIOSShortcutIntent(context, probe);
+                if (themes != null) {
+                    addItemToDatabase(context, themes, LauncherSettings.Favorites.CONTAINER_DESKTOP,
+                            screenId, x, y);
+                }
+            }
+            sp.edit().putBoolean(PREF_THEMES_BESIDE_HOME_DONE, true).apply();
+
+            // DB đã đổi vị trí nhiều item (có thể cả trong folder) -> nạp lại desktop cho đồng bộ UI.
+            runOnMainThread(new Runnable() {
+                public void run() {
+                    forceReload();
+                }
+            });
         }
 
         // Chạy trên worker thread (trong LoaderTask). Ưu tiên ô ngay bên phải icon app; ô đó bận

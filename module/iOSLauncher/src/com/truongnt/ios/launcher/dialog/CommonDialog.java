@@ -207,4 +207,11 @@ public class CommonDialog extends Dialog {
     public CommonDialog(Context context, int i) {
         super(context, i);
     }
+
+    // Log mở dialog (event sinh từ tên class ở :app, xem ScreenTracker).
+    @Override
+    protected void onCreate(android.os.Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate.logDialog(this);
+    }
 }

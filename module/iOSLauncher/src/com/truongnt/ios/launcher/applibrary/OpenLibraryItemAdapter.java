@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
 import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.BubbleTextView;
@@ -41,6 +42,9 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
      * đồng bộ. Không chừa -> grid giữ nguyên như trước.
      */
     private final boolean mHasAd;
+
+    // Phiên ad của ô; close() khi folder bị gỡ / holder recycle để request không đổ vào view chết.
+    private InlineAdBinding mAdBinding;
 
     public OpenLibraryItemAdapter(Launcher launcher){
         mLauncher = launcher;
@@ -114,9 +118,13 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
             // container còn trống, tránh nhồi chồng khi bind lại.
             if (container instanceof FrameLayout && ((FrameLayout) container).getChildCount() == 0) {
                 // Không có ad -> thu ô lại thay vì để khoảng trống.
-                AppAds.showNative(mLauncher, NATIVE_PLACEMENT, (FrameLayout) container,
+                closeAd();
+                mAdBinding = AppAds.showNative(mLauncher, NATIVE_PLACEMENT, (FrameLayout) container,
                         com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
-                        hasAd -> container.setVisibility(hasAd ? View.VISIBLE : View.GONE));
+                        hasAd -> {
+                            container.setVisibility(hasAd ? View.VISIBLE : View.GONE);
+                            if (!hasAd) closeAd();
+                        });
             }
         }
         else if (holder instanceof ItemViewHolder){
@@ -162,6 +170,25 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
 
         public HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
+        }
+    }
+
+    public void closeAd() {
+        if (mAdBinding != null) {
+            mAdBinding.close();
+            mAdBinding = null;
+        }
+    }
+
+    // Holder ad bị recycle: huỷ phiên + dọn container để lần bind sau (container trống) tải lại.
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        if (holder instanceof AdViewHolder) {
+            closeAd();
+            if (holder.itemView instanceof FrameLayout) {
+                ((FrameLayout) holder.itemView).removeAllViews();
+            }
         }
     }
 

@@ -91,7 +91,7 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
                     // Chưa có ProductDetails: chưa điền productId, hoặc billing chưa query xong.
                     toast(R.string.subs_product_not_ready)
                 } else {
-                    BillingUtils.launchPurchaseSubs(this@SubsAct, product)
+                    BillingUtils.launchPurchaseSubs(this@SubsAct, product, purchaseSource())
                 }
             }
 
@@ -110,6 +110,10 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
     }
 
     override fun dataObservable() {}
+
+    // Onboarding không truyền EXTRA_SOURCE (luồng cũ) nên suy ra từ cờ onboarding.
+    private fun purchaseSource(): String = intent.getStringExtra(EXTRA_SOURCE)
+        ?: if (intent.getBooleanExtra(EXTRA_FROM_ONBOARDING, false)) SOURCE_ONBOARDING else "unknown"
 
     // Figma có 2 frame (chọn Yearly / chọn Monthly): thẻ chọn cao 168dp, nền + viền gradient, radio tích,
     // giá gradient, trial xanh, bóng xanh; thẻ kia 150dp nền trắng, giá đặc, trial xám, bóng nhạt.
@@ -280,6 +284,16 @@ class SubsAct : BaseActivity<ActSubsBinding>() {
     companion object {
         /** Extra: màn được mở từ luồng onboarding đầu tiên (back = thoát app, không quay lại). */
         const val EXTRA_FROM_ONBOARDING = "subs_from_onboarding"
+
+        /** Extra: vị trí mở màn, ghép vào event user_purchase_subs_<source> khi mua thành công. */
+        const val EXTRA_SOURCE = "subs_source"
+        const val SOURCE_HOME_PRO = "home_pro"
+        const val SOURCE_HOME_UPGRADE = "home_upgrade"
+        const val SOURCE_ONBOARDING = "onboarding"
+        const val SOURCE_OFFER_DIALOG = "offer_dialog"
+
+        fun intent(context: android.content.Context, source: String): android.content.Intent =
+            android.content.Intent(context, SubsAct::class.java).putExtra(EXTRA_SOURCE, source)
 
         private val PRICE_GRADIENT_START = android.graphics.Color.parseColor("#2563EB")
         private val PRICE_GRADIENT_END = android.graphics.Color.parseColor("#7C3AED")

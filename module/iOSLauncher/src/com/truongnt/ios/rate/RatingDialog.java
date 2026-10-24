@@ -130,4 +130,11 @@ public class RatingDialog extends Dialog {
 
     }
 
+
+    // Log mở dialog (event sinh từ tên class ở :app, xem ScreenTracker).
+    @Override
+    protected void onCreate(android.os.Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate.logDialog(this);
+    }
 }

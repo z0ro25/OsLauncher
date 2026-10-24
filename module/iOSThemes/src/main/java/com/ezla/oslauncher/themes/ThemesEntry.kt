@@ -19,6 +19,14 @@ object ThemesEntry {
         premiumOpener?.invoke(activity)
     }
 
+    // Kèm vị trí mở (vd "themes_settings") để :app log user_purchase_subs_<source> khi mua xong.
+    var premiumOpenerWithSource: ((Activity, String) -> Unit)? = null
+
+    fun openPremium(activity: Activity, source: String) {
+        val opener = premiumOpenerWithSource
+        if (opener != null) opener(activity, source) else openPremium(activity)
+    }
+
     // Dialog Rate dùng chung của :app (RatingDialog + In-App Review); :app gắn ở Application.
     // onRated chạy khi user đã rate xong (để ẩn dòng Rate).
     var rateOpener: ((Activity, onRated: () -> Unit) -> Unit)? = null

@@ -248,3 +248,9 @@
 # Không ảnh hưởng kích thước đáng kể nhưng giúp đọc được crash log từ Play Console.
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
+
+# ScreenTracker sinh tên event từ TÊN CLASS: R8 đổi tên (SubsOfferDialog -> x2.g) thì event release
+# vô nghĩa / bị bỏ. Chỉ giữ tên (allowshrinking), không chặn tối ưu code bên trong.
+-keepnames,allowshrinking class com.ezla.oslauncher.** extends androidx.fragment.app.Fragment
+-keepnames,allowshrinking class com.ezla.oslauncher.** extends android.app.Dialog
+-keepnames,allowshrinking class com.truongnt.ios.** extends android.app.Dialog

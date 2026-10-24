@@ -1,12 +1,15 @@
 package com.ezla.oslauncher.beautylauncher.Features.wallpaperonboarding
 
 import android.app.WallpaperManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -56,6 +59,9 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
     /** Đã mời mua sub trong lần onboarding này chưa — chặn mở lặp khi user quay về màn. */
     private var subsOffered = false
 
+    // Hình nền user chọn, chỉ đặt lúc rời màn (sau inter / sau Subs); null = bấm Skip.
+    private var pendingWallpaperAsset: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         subsOffered = savedInstanceState?.getBoolean(KEY_SUBS_OFFERED) == true
         super.onCreate(savedInstanceState)
@@ -77,7 +83,7 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
 
     override fun onResume() {
         super.onResume()
-        showBannerOverlay(binding.frBanner, binding.spaceBanner, false)
+        showBannerOverlay(binding.frBanner, binding.spaceBanner)
     }
 
     override fun initView() {
@@ -163,16 +169,25 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
     }
 
     private fun setWallpaperAndStartLauncher(assetPath: String) {
-        binding.frLoading.isVisible = true
         // User chủ động chọn hình nền -> từ đây đổi mode không ghi đè ảnh của user.
         AppThemeManager.markUserWallpaper(this)
         // Lưu asset đã chọn để màn Hello dùng lại làm nền (thay ảnh bg_hello cứng).
         SharePrefUtils.putString(this, HELLO_BG_ASSET_KEY, assetPath)
+        // Đặt wallpaper SAU inter: Android 12+ đổi bảng màu theo wallpaper sẽ dựng lại Activity,
+        // đặt trước thì inter đang hiện bị tắt ngang và kẹt lại màn này.
+        pendingWallpaperAsset = assetPath
+        goToLauncher()
+    }
 
+    // Đặt wallpaper XONG rồi mới mở desktop: đổi wallpaper lúc desktop đang onCreate (lần đầu) làm
+    // crash NPE mDragLayer ở Launcher.setupViews. Inter đã đóng nên không còn bị cắt ngang.
+    private fun applyWallpaperThenStartLauncher(assetPath: String) {
+        binding.frLoading.isVisible = true
+        val appContext = applicationContext
         Thread {
             try {
-                val bitmap = assets.open(assetPath).use { BitmapFactory.decodeStream(it) }
-                val wm = WallpaperManager.getInstance(applicationContext)
+                val bitmap = appContext.assets.open(assetPath).use { BitmapFactory.decodeStream(it) }
+                val wm = WallpaperManager.getInstance(appContext)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     wm.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)
                 } else {
@@ -180,26 +195,31 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                runOnUiThread {
-                    Toast.makeText(
-                        applicationContext,
-                        "Set wallpaper failed!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } finally {
-                runOnUiThread {
-                    binding.frLoading.isVisible = false
-                    goToLauncher()
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(appContext, "Set wallpaper failed!", Toast.LENGTH_SHORT).show()
                 }
             }
+            runOnUiThread {
+                if (isDestroyed) return@runOnUiThread
+                binding.frLoading.isVisible = false
+                startLauncherAndFinish()
+            }
         }.start()
+    }
+
+    private fun startLauncherAndFinish() {
+        if (!isDefaultLauncher()) {
+            SharePrefUtils.putBoolean(this, "hello_pending", true)
+            SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
+        }
+        launchActivity<SearchLauncher> { }
+        finishAffinity()
     }
 
     private fun goToLauncher() {
         Log.d(TAG, "goToLauncher: offered=$subsOffered premium=${BillingUtils.isSubsCached(this)} inst=${hashCode()}")
 
-        if (!subsOffered && !BillingUtils.isSubsCached(this)) {
+        if (SHOW_SUBS_ON_ONBOARDING && !subsOffered && !BillingUtils.isSubsCached(this)) {
             subsOffered = true
             subsLauncher.launch(
                 Intent(this, SubsAct::class.java)
@@ -216,12 +236,9 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
         val continueToLauncher: () -> Unit = {
             if (!fired) {
                 fired = true
-                if (!isDefaultLauncher()) {
-                    SharePrefUtils.putBoolean(this, "hello_pending", true)
-                    SharePrefUtils.putBoolean(this, PREF_PROMPT_SET_DEFAULT_ON_DESKTOP, true)
-                }
-                launchActivity<SearchLauncher> { }
-                finishAffinity()
+                val asset = pendingWallpaperAsset
+                pendingWallpaperAsset = null
+                if (asset != null) applyWallpaperThenStartLauncher(asset) else startLauncherAndFinish()
             }
         }
 
@@ -255,6 +272,8 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
     companion object {
         private const val TAG = "SelectBackground"
         private const val KEY_SUBS_OFFERED = "subs_offered"
+        // Tạm ẩn màn Subs sau onboarding: Skip / Set wallpaper -> inter -> launcher. Bật lại = true.
+        private const val SHOW_SUBS_ON_ONBOARDING = false
         const val HELLO_BG_ASSET_KEY = "HELLO_BG_ASSET"
         private const val PREF_PROMPT_SET_DEFAULT_ON_DESKTOP = "prompt_set_default_on_desktop"
     }

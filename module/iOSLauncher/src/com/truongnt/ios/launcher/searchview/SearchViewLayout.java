@@ -45,6 +45,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
 import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.database.HiddenAppManager;
 import com.truongnt.ios.launcher.AppInfo;
@@ -96,6 +97,8 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     // Khung KẾT QUẢ app khớp + list GỢI Ý DỌC (khi đang gõ).
     View mResultAppBox;                      // wrapper "Kết quả" (title + list)
     FrameLayout mNativeAdContainer;          // quảng cáo native ngay dưới lưới gợi ý
+    // Phiên ad của ô native; close() khi search đóng hẳn / view bị gỡ.
+    private InlineAdBinding mNativeAdBinding;
     boolean mNativeAdRequested;              // đã phát request ad cho lần vào màn này chưa
     boolean mNativeAdLoaded;                 // FSDAds đã đổ được ad vào ô chưa
     /**
@@ -793,10 +796,18 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
      * nó hiện ra trước, rồi tới lúc tải ad mới bị xoá để đổ skeleton — nhìn thành "ad -> shimmer -> ad".
      */
     private void clearNativeAdContainer() {
+        closeNativeAdBinding();
         if (mNativeAdContainer != null) {
             mNativeAdContainer.removeAllViews();
         }
         mNativeAdLoaded = false;
+    }
+
+    private void closeNativeAdBinding() {
+        if (mNativeAdBinding != null) {
+            mNativeAdBinding.close();
+            mNativeAdBinding = null;
+        }
     }
 
     public void showSearchView(){
@@ -953,7 +964,8 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
             mNativeAdFailed = false;
             // AppAds đổ skeleton rồi bật ô lại (SDK tự GONE container lúc gọi). Ô này chỉ ở trạng
             // thái "chưa gõ" nên bật là an toàn; có kết quả thì updateSectionsVisibility quyết định.
-            AppAds.showNative(mLauncher, NATIVE_PLACEMENT, mNativeAdContainer,
+            closeNativeAdBinding();
+            mNativeAdBinding = AppAds.showNative(mLauncher, NATIVE_PLACEMENT, mNativeAdContainer,
                     com.truongnt.ios.ioslite.common.R.layout.layout_native_search,
                     com.truongnt.ios.ioslite.common.R.layout.shimmer_native_search, hasAd -> {
                         mNativeAdLoaded = hasAd;
@@ -962,6 +974,8 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
                             updateSectionsVisibility(mLastHasText);
                         } else {
                             mNativeAdContainer.setVisibility(View.GONE);
+                            // Ô đã ẩn hẳn cho lần vào này: đóng phiên để SDK không retry vô ích.
+                            closeNativeAdBinding();
                         }
                     });
             return;
@@ -1054,6 +1068,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         // Phòng khi view bị gỡ khi search đang mở (recreate...): gỡ cơ chế bám bàn phím + hiện lại
         // status bar nếu chính search đang giữ ẩn, tránh kẹt trạng thái.
         detachKbTracking();
+        closeNativeAdBinding();
         if (mSearchStatusBarHidden) {
             try {
                 mLauncher.setStatusBarHiddenForSearch(false);

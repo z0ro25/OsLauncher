@@ -36,6 +36,10 @@ public class OpenedLibraryView extends OpenedView {
             if (launcherRootView != null) {
                 launcherRootView.removeView(OpenedLibraryView.this);
             }
+            // Folder đã gỡ khỏi màn hình -> đóng phiên ad của ô native trong folder.
+            if (mAdapter != null) {
+                mAdapter.closeAd();
+            }
         }
 
         @Override

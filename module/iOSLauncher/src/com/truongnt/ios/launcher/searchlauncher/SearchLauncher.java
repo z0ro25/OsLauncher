@@ -60,7 +60,8 @@ public class SearchLauncher extends Launcher {
                     "com.ezla.oslauncher.beautylauncher.Features.hello.HelloActivity"));
             startActivity(helloIntent);
             overridePendingTransition(0, 0); // không nháy desktop trước khi sang Hello
-            finish();
+            // KHÔNG finish(): instance thứ 2 tạo trong cùng process crash NPE mDragLayer (setupViews).
+            // Hello mở lại SearchLauncher (singleTask) -> về đúng instance này qua onNewIntent.
             return;
         }
         // Không cần đọc cờ ở đây: onResume/finishBindingItems sẽ tự đọc cờ persist khi desktop
@@ -142,7 +143,8 @@ public class SearchLauncher extends Launcher {
         }
         // CHƯA bind xong -> chờ. finishBindingItems() sẽ gọi lại hàm này khi desktop sẵn sàng,
         // nên không mất lượt nhắc; cờ persist vẫn còn nguyên (chỉ xoá sau khi mở được dialog).
-        if (!mDesktopReady) {
+        // Desktop còn nằm dưới màn Hello (không finish nữa) -> chưa bung; onResume khi quay về gọi lại.
+        if (!mDesktopReady || !hasBeenResumed()) {
             return;
         }
         if (isDefaultLauncher()) {
@@ -198,7 +200,7 @@ public class SearchLauncher extends Launcher {
      * và KHÔNG ghi key nên lượt hôm nay vẫn còn cho lần vào desktop kế tiếp.
      */
     private void maybeShowSubsOfferWhenReady() {
-        if (!mDesktopReady || mSubsOfferYielded || mSubsOfferPosted) {
+        if (!mDesktopReady || !hasBeenResumed() || mSubsOfferYielded || mSubsOfferPosted) {
             return;
         }
         if (AdsSdk.INSTANCE.isAdFree()) {

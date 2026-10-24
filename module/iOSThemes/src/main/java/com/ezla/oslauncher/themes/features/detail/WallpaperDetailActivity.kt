@@ -130,7 +130,7 @@ class WallpaperDetailActivity : BaseActivity<ThemesActivityWallpaperDetailBindin
     // Go Premium / Unlock All -> màn Subs (IAP) của :app qua ThemesEntry; callback cũ vẫn được báo.
     private fun openPremium() {
         onPremiumClick?.invoke(imageUrl)
-        ThemesEntry.openPremium(this)
+        ThemesEntry.openPremium(this, "themes_wp_detail")
     }
 
     private fun listenNotEnough() {

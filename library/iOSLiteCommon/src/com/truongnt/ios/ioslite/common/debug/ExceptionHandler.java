@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -69,12 +68,12 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        if (!handleException(ex) && mDefaultHandler != null) {
+        handleException(ex);
+        // Luôn chuyển cho handler trước (Crashlytics/hệ thống) để crash được báo cáo. KHÔNG sleep ở đây:
+        // treo main thread lúc crash biến crash thành ANR và Crashlytics không nhận được gì.
+        if (mDefaultHandler != null) {
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
-            // if not handle exception, exit program;
-            // app will crash ,so wait a second to dump log;
-            SystemClock.sleep(1000);
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
         }

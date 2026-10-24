@@ -423,7 +423,8 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
         if (mAppLibraryAdapter == null || mTotalLibraryRV == null) {
             return;
         }
-        mAppLibraryAdapter.resetNativeAd();
+        // Không reset nữa: ad tải lúc trang còn dựng ngoài màn hình / đang tải dở thì giữ lại.
+        mAppLibraryAdapter.onPageEntered();
         mTotalLibraryRV.post(new Runnable() {
             @Override
             public void run() {
@@ -431,7 +432,7 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
                     return;
                 }
                 // Lần trước ad lỗi đã bị gỡ khỏi list -> chèn lại (insert tự bind) để thử lần này.
-                if (!mAppLibraryAdapter.restoreAdItemIfRemoved()) {
+                if (!mAppLibraryAdapter.restoreAdItemIfRemoved() && mAppLibraryAdapter.needsAdBind()) {
                     mAppLibraryAdapter.notifyAdChanged();
                 }
             }
@@ -446,7 +447,7 @@ public class AppsLibraryLayout extends MotionLayout implements MotionLayout.Tran
      */
     public void onAppLibraryFullyClosed() {
         if (mAppLibraryAdapter != null) {
-            mAppLibraryAdapter.resetNativeAd();
+            mAppLibraryAdapter.onPageClosed();
         }
     }
 

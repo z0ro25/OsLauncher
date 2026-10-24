@@ -40,7 +40,7 @@ class SettingsActivity : BaseActivity<ThemesActivitySettingsBinding>() {
         binding.header.imgBack.setOnClickListener { finish() }
         binding.layoutPremium.setOnClickListener {
             callback.onPremiumClick(this)
-            ThemesEntry.openPremium(this)
+            ThemesEntry.openPremium(this, "themes_settings")
         }
     }
 
@@ -76,7 +76,7 @@ class SettingsActivity : BaseActivity<ThemesActivitySettingsBinding>() {
             // Manage subscriptions mở màn Subs của :app (không mở trang quản lý gói của Play).
             SettingItem.SUBSCRIPTION -> {
                 callback.onItemClick(this, item)
-                ThemesEntry.openPremium(this)
+                ThemesEntry.openPremium(this, "themes_settings")
             }
             SettingItem.CONTACT -> {
                 callback.onItemClick(this, item)

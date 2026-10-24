@@ -50,7 +50,8 @@ open class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         }
         lifecycleScope.launch {
-            val kit = AppAds.initialize(applicationContext) { AppAdsRemote.fetchPlacements() }
+            // initializeRemote: process đã init offline trước đó (Home/màn khôi phục) vẫn fetch remote.
+            val kit = AppAds.initializeRemote(applicationContext) { AppAdsRemote.fetchPlacements() }
             // Đăng ký App Open cho trang Themes; ở đây vì library không thấy ThemesActivity.
             // Gọi lại sẽ thay toàn bộ danh sách cũ, nên chỉ đăng ký tại Splash.
             kit.enableAppOpenOnForeground(setOf(ThemesActivity::class.java), "return_to_app")

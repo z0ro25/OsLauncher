@@ -136,3 +136,15 @@
 -keepclassmembers class * extends androidx.constraintlayout.motion.widget.Key {
     public <init>();
 }
+
+# Module tự minify riêng (minifyEnabled true) nên class mà :app / :iOSThemes gọi sang PHẢI giữ tên,
+# không thì R8 đổi tên (HiddenAppManager -> database.d...) -> NoClassDefFoundError, màn trắng.
+# Thêm package vào đây mỗi khi module khác gọi class mới của module này.
+-keep class com.truongnt.ios.database.** { *; }
+-keep class com.truongnt.ios.utils.** { *; }
+-keep class com.truongnt.ios.rate.** { *; }
+
+# Mapping của module không được upload lên Crashlytics -> không đổi tên + giữ số dòng để stack trace
+# đọc được. Vẫn minify (bỏ code thừa). Đồng thời chặn luôn lỗi tên lệch với :app (NoClassDefFoundError).
+-dontobfuscate
+-keepattributes SourceFile,LineNumberTable

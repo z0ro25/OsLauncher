@@ -71,7 +71,12 @@ object BillingUtils {
             override fun onPurchasesCompleted(purchases: List<Purchase>) {
                 // Gói xu (in-app) đi luồng riêng: không được ghi cờ sub cho giao dịch mua xu.
                 purchases.forEach {
-                    if (isCoinPurchase(it)) handleCoinPurchase(appContext, it) else handlePurchase(appContext, it)
+                    if (isCoinPurchase(it)) {
+                        handleCoinPurchase(appContext, it)
+                    } else {
+                        if (it.purchaseState == Purchase.PurchaseState.PURCHASED) logPurchaseSuccess(appContext)
+                        handlePurchase(appContext, it)
+                    }
                 }
             }
 
@@ -300,6 +305,23 @@ object BillingUtils {
             .setProductDetailsParamsList(productList)
             .build()
         billing?.billingClient?.launchBillingFlow(activity, billingFlowParams)
+    }
+
+    // Vị trí mở luồng mua gần nhất; chỉ dùng để đặt tên event, xoá ngay sau khi log.
+    @Volatile
+    private var pendingPurchaseSource: String? = null
+
+    /** Như [launchPurchaseSubs] nhưng ghi nhớ [source] để log user_purchase_subs_<source> khi mua xong. */
+    fun launchPurchaseSubs(activity: Activity, productDetails: ProductDetails, source: String) {
+        pendingPurchaseSource = source
+        launchPurchaseSubs(activity, productDetails)
+    }
+
+    // Chỉ gọi từ onPurchasesUpdated (user vừa mua) — KHÔNG từ checkSubs, kẻo mỗi lần mở app lại log.
+    private fun logPurchaseSuccess(context: Context) {
+        val source = pendingPurchaseSource ?: "unknown"
+        pendingPurchaseSource = null
+        EventTrackingHelper.logEvent(context, "user_purchase_subs_$source".take(40))
     }
 
     /**

@@ -125,7 +125,7 @@ class SubsOfferDialog : BottomSheetDialogFragment() {
             // Chưa có ProductDetails: chưa điền productId, hoặc billing chưa query xong.
             Toast.makeText(requireContext(), R.string.subs_product_not_ready, Toast.LENGTH_SHORT).show()
         } else {
-            BillingUtils.launchPurchaseSubs(requireActivity(), product)
+            BillingUtils.launchPurchaseSubs(requireActivity(), product, SubsAct.SOURCE_OFFER_DIALOG)
         }
     }
 

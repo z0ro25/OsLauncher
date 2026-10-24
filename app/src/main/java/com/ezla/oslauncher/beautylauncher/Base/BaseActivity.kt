@@ -77,7 +77,7 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     // Như showBannerIfEnabled nhưng banner đè lên nội dung: [spaceBanner] (nội dung bám vào nó) cao
     // đúng phần SDK báo qua onReservedHeightChanged, nên collapse bung ra không đẩy nội dung.
     protected fun showBannerOverlay(
-        container: ViewGroup, spaceBanner: View, isColapse: Boolean, key: String = "bannerinapp"
+        container: ViewGroup, spaceBanner: View, key: String = "bannerinapp"
     ) {
         if (AdsSdk.isAdFree) {
             container.visibility = View.GONE
@@ -86,7 +86,6 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         AppAds.kit.showBanner(
             this, key, container,
             BannerAdOptions(
-                collapsible = isColapse,
                 bannerSize = BannerSize.STANDARD,
                 onReservedHeightChanged = { h -> spaceBanner.updateLayoutParams { height = h } }
             )
@@ -120,6 +119,9 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         LanguageUtil.setLocale(this)
+        // Màn khôi phục sau process death không qua Splash -> AppAds.kit chưa có (lateinit crash).
+        // Trừ Splash: init offline trước sẽ khiến Splash bỏ qua đường init có fetch remote.
+        if (this !is SplashActivity) AppAds.initializeOffline(this)
         super.onCreate(savedInstanceState)
         binding = setViewBinding
         setContentView(binding.root)

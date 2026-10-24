@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import androidx.fragment.app.FragmentActivity;
 
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
 import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
@@ -81,6 +82,12 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
 
     /** Container đang giữ ad — để biết view cũ đã bị bỏ mà bắt đầu lại từ đầu. */
     private FrameLayout mAdContainer;
+
+    // Phiên ad đang chạy; close() khi gỡ ô/đóng màn để request đang bay không đổ vào container cũ.
+    private InlineAdBinding mAdBinding;
+
+    // Màn trái dựng sẵn ngoài màn hình vẫn bind -> chỉ phát request khi user đã thật sự vào màn.
+    private boolean mPageOpen;
 
     // ── Quảng cáo native: chèn như một ITEM CỦA ADAPTER, không nhét vào mWidgetInfoArrayList ──
     //
@@ -164,11 +171,9 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
 
         // Mỗi lần vào màn chỉ MỘT request: đang chờ / đã có ad / đã thất bại đều không gọi lại.
         // Đây là chỗ chặn quảng cáo nháy — xem khối comment ở khai báo mAdState.
-        if (mAdState != AD_IDLE) {
+        if (mAdState != AD_IDLE || !mPageOpen) {
             return;
         }
-
-        mAdState = AD_LOADING;
 
         // AdsKit chỉ show từ FragmentActivity; dò từ context của container vì view trong
         // RecyclerView giữ ContextThemeWrapper chứ không phải chính Activity.
@@ -179,14 +184,19 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
             return;
         }
 
+        mAdState = AD_LOADING;
+
         // Khung ad luôn hiện ngay với skeleton; có ad thì hiện ad, lỗi thì gỡ hẳn item.
         holder.itemView.setVisibility(View.VISIBLE);
         // Ghi rõ R của library vì file này đang import R của module launcher.
-        AppAds.showNative((FragmentActivity) activity, NATIVE_PLACEMENT, container,
+        closeAdBinding();
+        mAdBinding = AppAds.showNative((FragmentActivity) activity, NATIVE_PLACEMENT, container,
                 com.truongnt.ios.ioslite.common.R.layout.layout_native_left_page,
                 com.truongnt.ios.ioslite.common.R.layout.shimmer_native_left_page, hasAd -> {
                     mAdState = hasAd ? AD_LOADED : AD_FAILED;
                     if (!hasAd) {
+                        // Ô sắp bị gỡ: đóng phiên để SDK không retry cho slot không còn hiển thị.
+                        closeAdBinding();
                         removeAdItem();
                     }
                 });
@@ -228,6 +238,45 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     public void clearNativeAdView() {
         if (mAdContainer != null) {
             mAdContainer.removeAllViews();
+        }
+    }
+
+    // Vào màn: ad đang tải/đã có thì giữ nguyên; chỉ ép bind khi chưa có phiên nào (IDLE).
+    public void onPageEntered() {
+        mPageOpen = true;
+        if (mAdState == AD_FAILED) {
+            mAdState = AD_IDLE;
+        }
+    }
+
+    // Đóng hẳn màn: huỷ phiên + gỡ view để lần mở sau không hiện lại ad cũ.
+    public void onPageClosed() {
+        mPageOpen = false;
+        closeAdBinding();
+        clearNativeAdView();
+        resetNativeAd();
+    }
+
+    public boolean needsAdBind() {
+        return mAdState == AD_IDLE;
+    }
+
+    private void closeAdBinding() {
+        if (mAdBinding != null) {
+            mAdBinding.close();
+            mAdBinding = null;
+        }
+    }
+
+    // Holder ad bị recycle -> container đó không còn hiển thị ad, huỷ phiên để khỏi đổ vào view chết.
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        if (holder instanceof NativeAdViewHolder
+                && ((NativeAdViewHolder) holder).mContainer == mAdContainer) {
+            closeAdBinding();
+            mAdState = AD_IDLE;
+            mAdContainer = null;
         }
     }
 

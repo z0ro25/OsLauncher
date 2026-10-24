@@ -622,6 +622,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         // Nút Home mở thẳng launcher, không qua Splash -> tự init AdsKit bằng cache/asset.
         // Đã init ở Splash rồi thì hàm này no-op.
         AppAds.initializeOffline(this);
+        // Phiên mới mở thẳng từ Home: cập nhật consent im lặng để SDK được phép tải ads.
+        AppAds.prepareWithoutForm(this);
         HiddenAppManager.INSTANCE.initDataBase(this);
         listHiddenApp = (ArrayList<ItemInfo>) HiddenAppManager.INSTANCE.getAllHiddenApp();
         Log.d(TAG, "onCreatexxx: " + listHiddenApp.size());

@@ -20,6 +20,7 @@ class CoinToastDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate.logDialog(this)
         val binding = ThemesDialogCoinToastBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
         binding.tvToastCoins.text = context.getString(R.string.themes_coins_plus, coins)

@@ -88,7 +88,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
         if (!AdsSdk.isAdFree) {
-            showBannerOverlay(binding.frBanner, binding.spaceBanner, true, "main_banner")
+            showBannerOverlay(binding.frBanner, binding.spaceBanner, "main_banner")
         } else {
             // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
             binding.frBanner.isVisible = false
@@ -188,11 +188,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         }
 
         binding.btnUpgrade.setOnClickListener {
-            launchActivity<SubsAct>()
+            launchActivity<SubsAct> { putExtra(SubsAct.EXTRA_SOURCE, SubsAct.SOURCE_HOME_UPGRADE) }
         }
 
         binding.ivPro.setOnClickListener {
-            launchActivity<SubsAct>()
+            launchActivity<SubsAct> { putExtra(SubsAct.EXTRA_SOURCE, SubsAct.SOURCE_HOME_PRO) }
         }
         // ===== App Function Settings =====
         binding.llLauncherAi.tap { /* TODO: chưa có màn Launcher AI */ }

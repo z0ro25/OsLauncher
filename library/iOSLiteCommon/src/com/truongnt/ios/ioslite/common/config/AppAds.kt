@@ -1,5 +1,6 @@
 package com.truongnt.ios.ioslite.common.config
 
+import android.app.Activity
 import android.content.Context
 import android.os.SystemClock
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.MainThread
 import androidx.fragment.app.FragmentActivity
+import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenInfo
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdPreloadState
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdReward
@@ -19,14 +21,19 @@ import com.ezt.v2.ezt.admobdemo.ads.placement.AdsKit
 import com.ezt.v2.ezt.admobdemo.ads.placement.AssetAdsConfigSource
 import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding
 import com.ezt.v2.ezt.admobdemo.ads.placement.StartupAdsConfig
+import com.google.android.ump.ConsentRequestParameters
+import com.google.android.ump.UserMessagingPlatform
 import com.truongnt.ios.ioslite.common.BuildConfig
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 
 // Đầu mối AdsKit duy nhất cho mọi module. Ở library để :module:* dùng được; phần fetch Firebase
 // vẫn nằm ở :app và truyền vào qua fetchRemote (library không được phụ thuộc Firebase).
@@ -61,14 +68,58 @@ object AppAds {
     @MainThread
     @JvmStatic
     fun initializeOffline(context: Context) {
+        if (initialization == null) offlineOnly = true
         start(context.applicationContext) { error("offline init: bỏ qua remote") }
+    }
+
+    // true khi lần init của process này đi đường offline -> remote chưa được fetch lần nào.
+    private var offlineOnly = false
+
+    // Như initialize, nhưng process đã init offline trước (Home/màn khôi phục) thì vẫn fetch remote
+    // rồi applyConfig đè lên; fetch lỗi/quá REMOTE_REFRESH_MS thì giữ config đang chạy.
+    @MainThread
+    suspend fun initializeRemote(context: Context, fetchRemote: suspend () -> String): AdsKit {
+        val app = context.applicationContext
+        start(app, fetchRemote)
+        initialization!!.await()
+        if (!offlineOnly) return kit
+        offlineOnly = false
+        try {
+            val json = withTimeout(REMOTE_REFRESH_MS) { fetchRemote() }
+            kit.applyConfig(json)
+            activeJson = json
+            withContext(Dispatchers.IO) { prefs(app).edit().putString(CACHE_KEY, json).commit() }
+        } catch (e: Exception) {
+            if (e is CancellationException && e !is TimeoutCancellationException) throw e
+            Log.w(TAG, "Refresh remote sau offline init lỗi, giữ config hiện tại", e)
+        }
+        return kit
+    }
+
+    private const val REMOTE_REFRESH_MS = 5_000L
+
+    // Tách cache debug/release để JSON test không lẫn vào bản production.
+    private fun prefs(app: Context) = app.getSharedPreferences(
+        if (BuildConfig.DEBUG) "startup_ads_debug" else "startup_ads_release", Context.MODE_PRIVATE)
+
+    // Launcher mở thẳng (bỏ qua Splash): UMP buộc requestConsentInfoUpdate mỗi phiên, trước đó
+    // canRequestAds() = false nên SDK chặn hết ads. Không hiện form ở đây; chưa có consent thì chờ Splash.
+    @MainThread
+    @JvmStatic
+    fun prepareWithoutForm(activity: Activity) {
+        val info = UserMessagingPlatform.getConsentInformation(activity)
+        info.requestConsentInfoUpdate(activity, ConsentRequestParameters.Builder().build(), {
+            if (info.canRequestAds()) AdsSdk.initialize(activity.applicationContext)
+        }, { error ->
+            Log.w(TAG, "Consent update lỗi ${error.errorCode}: ${error.message}")
+            // Lỗi mạng: UMP vẫn giữ trạng thái phiên trước, đã đồng ý thì vẫn cho init.
+            if (info.canRequestAds()) AdsSdk.initialize(activity.applicationContext)
+        })
     }
 
     private fun start(app: Context, fetchRemote: suspend () -> String) {
         if (initialization != null) return
-        // Tách cache debug/release để JSON test không lẫn vào bản production.
-        val prefs = app.getSharedPreferences(
-            if (BuildConfig.DEBUG) "startup_ads_debug" else "startup_ads_release", Context.MODE_PRIVATE)
+        val prefs = prefs(app)
         kit = AdsKit.Builder(app)
             .manageHelperAds()
             // Ai gọi reloadConfig nhầm thì chỉ đọc lại JSON đã chọn, không load asset đè remote.

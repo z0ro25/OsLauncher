@@ -24,6 +24,7 @@ class RewardDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate.logDialog(this)
         val binding = ThemesDialogRewardBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 

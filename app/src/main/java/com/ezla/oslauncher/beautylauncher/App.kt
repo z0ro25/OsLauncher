@@ -10,6 +10,7 @@ import android.content.Intent
 import com.ezla.oslauncher.beautylauncher.Features.subs.SubsAct
 import com.ezla.oslauncher.beautylauncher.dialog.RateFlow
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
+import com.ezla.oslauncher.beautylauncher.utils.ScreenTracker
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.ezt.v2.ezt.admobdemo.ads.core.AdUnitDefaults
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsHostConfig
@@ -28,8 +29,14 @@ class App : BaseLauncherApplication() {
         AppThemeManager.applySavedMode(this)
 
         BillingUtils.initBilling(this)
+        // Log mở màn/tab/dialog của :app, Themes và launcher (xem ScreenTracker).
+        ScreenTracker.register(this)
         // Nút Premium / Unlock all trong module Themes mở màn Subs của :app.
         ThemesEntry.premiumOpener = { it.startActivity(Intent(it, SubsAct::class.java)) }
+        // Bản có vị trí: mua thành công sẽ log user_purchase_subs_<source>.
+        ThemesEntry.premiumOpenerWithSource = { activity, source ->
+            activity.startActivity(SubsAct.intent(activity, source))
+        }
         // Rate us ở Settings module Themes dùng đúng dialog rate của :app.
         ThemesEntry.rateOpener = { activity, onRated -> RateFlow.show(activity, false, onRated) }
 

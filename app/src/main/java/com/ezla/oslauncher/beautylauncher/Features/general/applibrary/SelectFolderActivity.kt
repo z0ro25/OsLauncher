@@ -25,7 +25,7 @@ class SelectFolderActivity : BaseActivity<ActivitySelectFolderBinding>() {
 
     override fun onResume() {
         super.onResume()
-        showBannerOverlay(binding.frBanner, binding.spaceBanner, false)
+        showBannerOverlay(binding.frBanner, binding.spaceBanner)
     }
 
     override fun initView() {
