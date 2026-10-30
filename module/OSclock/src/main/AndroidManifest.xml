@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Báo thức / hẹn giờ kêu thật khi app đã đóng: lịch chính xác + service phát chuông. -->
+    <!-- Không dùng USE_EXACT_ALARM: Play chỉ cho app có chức năng chính là báo thức. API 33+ người dùng
+         tự cấp ở Cài đặt (ClockActivity.ensureAlarmPermissions); chưa cấp thì lịch có thể trễ vài phút. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application>
+        <!-- Không khai intent-filter SHOW_ALARMS / SET_ALARM: sẽ thành lựa chọn đồng hồ cho cả hệ thống. -->
+        <!-- Affinity riêng (như ThemesSplashActivity) -> task + thẻ Đa nhiệm riêng, không đè task MiOS.
+             Onboarding dùng cùng affinity để nằm chung task này. -->
+        <activity
+            android:name=".ClockActivity"
+            android:exported="false"
+            android:icon="@drawable/osclock_ic_task"
+            android:label="@string/osclock_app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.clock"
+            android:theme="@style/OsclockTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Lần đầu mở: ClockActivity tự chuyển sang đây (redirectBeforeCreate). -->
+        <activity
+            android:name=".ClockOnboardingActivity"
+            android:exported="false"
+            android:icon="@drawable/osclock_ic_task"
+            android:label="@string/osclock_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.clock"
+            android:theme="@style/OsclockOnboardingTheme" />
+
+        <activity
+            android:name=".ring.RingActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:taskAffinity="com.ezla.oslauncher.clock.ring"
+            android:theme="@style/OsclockRingTheme"
+            android:turnScreenOn="true" />
+
+        <service
+            android:name=".ring.RingService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <receiver
+            android:name=".ring.AlarmReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

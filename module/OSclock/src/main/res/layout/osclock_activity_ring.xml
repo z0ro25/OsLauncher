@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "Alarm Ringing" / "Timer Done": nền ảnh, nhãn + giờ to, nút kính Snooze|Repeat 240x64, Stop 160x56. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/osclock_ring_timer_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="140dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/osclock_ic_timer_big"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/osclock_ring_title"
+        style="@style/OsclockRingAlarmTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/osclock_ring_time"
+        style="@style/OsclockRingAlarmTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/osclock_ring_title" />
+
+    <TextView
+        android:id="@+id/osclock_ring_primary"
+        style="@style/OsclockRingButton"
+        android:layout_width="240dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="26dp"
+        android:textColor="@color/osclock_orange"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/osclock_ring_stop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/osclock_ring_stop"
+        style="@style/OsclockRingButton"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="134dp"
+        android:text="@string/osclock_stop"
+        android:textColor="@color/osclock_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

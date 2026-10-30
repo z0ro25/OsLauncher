@@ -22,6 +22,8 @@ public class IOSShortcut {
     public static final String CLASS_NAME_IOS_CLUB = "com.ios.activitiycenter.IOSClubActivity";
     public static final String CLASS_NAME_POWER_SAVE = "com.truongnt.ios.launcher.shortcut.BatterySave";
     public static final String CLASS_NAME_IOS_DISCOVERY = "com.truongnt.ios.launcher.shortcut.Discovery";
+    public static final String CLASS_NAME_COMPASS = "com.truongnt.ios.launcher.shortcut.Compass";
+    public static final String CLASS_NAME_MEASURE = "com.truongnt.ios.launcher.shortcut.Measure";
     private static final HashMap<String,String> CLASS_TO_ICON_MAP;
 
     static {
@@ -35,6 +37,18 @@ public class IOSShortcut {
         CLASS_TO_ICON_MAP.put(CLASS_NAME_IOS_CLUB,"lite_rom_iosclub");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_POWER_SAVE,"lite_rom_power_save");
         CLASS_TO_ICON_MAP.put(CLASS_NAME_IOS_DISCOVERY,"lite_rom_discovery");
+        // Theme pack có asset này thì dùng; không có -> IconCache lấy android:icon của marker.
+        CLASS_TO_ICON_MAP.put(CLASS_NAME_COMPASS,"lite_rom_compass");
+        CLASS_TO_ICON_MAP.put(CLASS_NAME_MEASURE,"lite_rom_measure");
+    }
+
+    // Icon desktop mở module riêng (Themes / Compass / Measure): là ITEM_TYPE_SHORTCUT nên phải mở
+    // popup giữ-liền theo nhánh riêng (xem PopupContainerWithArrow.showForIcon).
+    public static boolean isOwnModuleMarker(ComponentName cn) {
+        if (cn == null) return false;
+        String cls = cn.getClassName();
+        return CLASS_NAME_THEME_SETTINGS.equals(cls) || CLASS_NAME_COMPASS.equals(cls)
+                || CLASS_NAME_MEASURE.equals(cls);
     }
 
     public static String getIconResName(ComponentName cn){

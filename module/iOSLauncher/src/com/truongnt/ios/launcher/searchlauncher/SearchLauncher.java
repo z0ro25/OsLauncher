@@ -52,6 +52,8 @@ public class SearchLauncher extends Launcher {
         // cờ ngay để chỉ hiện đúng 1 lần; Hello xong tự mở lại SearchLauncher -> lúc đó cờ đã tắt nên
         // vào desktop bình thường (không lặp). Dùng ComponentName (string) để không phụ thuộc ngược :app.
         super.onCreate(savedInstanceState);
+        // Desktop dựng hỏng (Launcher.recoverFromBrokenSetup): giữ cờ hello cho instance mở lại.
+        if (isFinishing()) return;
         SharedPreferences pref = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         if (pref.getBoolean("hello_pending", false)) {
             pref.edit().putBoolean("hello_pending", false).commit();
@@ -80,6 +82,7 @@ public class SearchLauncher extends Launcher {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        if (isFinishing()) return; // onCreate hỏng -> Launcher đang tự đóng/mở lại
         // Instance đã sống từ trước -> desktop bind xong từ lâu, finishBindingItems sẽ KHÔNG nổ
         // lại. Đánh dấu sẵn sàng rồi tự bung dialog thay vì chờ nó.
         mDesktopReady = true;
@@ -104,6 +107,7 @@ public class SearchLauncher extends Launcher {
     @Override
     protected void onResume() {
         super.onResume();
+        if (isFinishing()) return;
         // showSetDefaultPromptWhenReady() tự đọc cờ persist + tự kiểm tra desktop đã sẵn sàng chưa.
         showSetDefaultPromptWhenReady();
         maybeShowSubsOfferWhenReady();

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calc_app_name">Kalkulator</string>
+    <string name="calc_clear">C</string>
+    <string name="calc_all_clear">AC</string>
+    <string name="calc_error">Kesalahan</string>
+    <string name="calc_history">Riwayat</string>
+    <string name="calc_edit">Edit</string>
+    <string name="calc_done">Selesai</string>
+    <string name="calc_clear_all">Hapus Semua</string>
+    <string name="calc_delete_count">Hapus (%1$d)</string>
+    <string name="calc_no_history">Tidak ada riwayat</string>
+    <string name="calc_today">Hari ini</string>
+    <string name="calc_yesterday">Kemarin</string>
+    <string name="calc_older">Sebelumnya</string>
+    <string name="calc_back">Kembali</string>
+    <string name="calc_copied">Disalin</string>
+    <string name="calc_cd_plus_minus">Plus minus</string>
+    <string name="calc_cd_percent">Persen</string>
+    <string name="calc_cd_divide">Bagi</string>
+    <string name="calc_cd_multiply">Kali</string>
+    <string name="calc_cd_minus">Kurang</string>
+    <string name="calc_cd_plus">Tambah</string>
+    <string name="calc_cd_equal">Sama dengan</string>
+    <string name="calc_onboarding_title_1">Dasar &amp; Ilmiah</string>
+    <string name="calc_onboarding_desc_1">Beralih dengan mudah antara hitungan dasar dan fungsi ilmiah lanjutan</string>
+    <string name="calc_onboarding_title_2">Riwayat &amp; Memori</string>
+    <string name="calc_onboarding_desc_2">Tinjau perhitungan sebelumnya, salin hasil, dan ubah langkah sebelumnya</string>
+    <string name="calc_onboarding_title_3">Tampilan Besar</string>
+    <string name="calc_onboarding_desc_3">Angka besar yang mudah dibaca dan tombol jelas untuk penggunaan sehari-hari</string>
+</resources>

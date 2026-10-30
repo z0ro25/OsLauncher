@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hàng báo thức 92dp (Figma "Alarm: 06:30"). Tắt = chữ xám; edit = nút xoá + chevron, ẩn toggle.
+     Giờ + mô tả là chain packed để cả khối căn giữa dọc. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:background="?attr/selectableItemBackground">
+
+    <FrameLayout
+        android:id="@+id/osclock_alarm_delete"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="5dp"
+        android:contentDescription="@string/osclock_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:background="@drawable/osclock_bg_minus"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/osclock_ic_minus" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/osclock_alarm_time"
+        style="@style/OsclockBigTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toTopOf="@id/osclock_alarm_desc"
+        app:layout_constraintStart_toEndOf="@id/osclock_alarm_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_goneMarginStart="16dp" />
+
+    <TextView
+        android:id="@+id/osclock_alarm_desc"
+        style="@style/OsclockCaption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/osclock_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/osclock_alarm_toggle"
+        app:layout_constraintStart_toStartOf="@id/osclock_alarm_time"
+        app:layout_constraintTop_toBottomOf="@id/osclock_alarm_time" />
+
+    <com.ezla.oslauncher.clock.ui.IosToggle
+        android:id="@+id/osclock_alarm_toggle"
+        android:layout_width="52dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/osclock_alarm_chevron"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="20dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/osclock_ic_chevron_big"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/osclock_separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

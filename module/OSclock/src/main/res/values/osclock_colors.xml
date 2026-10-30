@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu lấy từ Figma "15 · Clock". -->
+<resources>
+    <color name="osclock_bg">#000000</color>
+    <color name="osclock_text">#FFFFFF</color>
+    <color name="osclock_orange">#FF9F0A</color>
+    <color name="osclock_green">#30D158</color>
+    <color name="osclock_red">#FF453A</color>
+    <color name="osclock_gray">#8E8E93</color>
+    <color name="osclock_gray2">#98989F</color>
+    <color name="osclock_separator">#38383A</color>
+    <color name="osclock_chevron">#5A5A5F</color>
+    <color name="osclock_toggle_off">#39393D</color>
+    <color name="osclock_glass">#9E2C2C2E</color>
+    <color name="osclock_glass_stroke">#29FFFFFF</color>
+    <color name="osclock_glass_solid">#2C2C2E</color>
+    <color name="osclock_card">#2C2C2E</color>
+    <color name="osclock_sheet_bg">#1C1C1E</color>
+    <color name="osclock_grab">#48484A</color>
+    <color name="osclock_band">#1F767680</color>
+    <color name="osclock_search_bg">#3D767680</color>
+    <color name="osclock_ring_track">#3A3A3C</color>
+    <color name="osclock_green_bg">#4030D158</color>
+    <color name="osclock_red_bg">#40FF453A</color>
+    <color name="osclock_orange_bg">#4DFF9F0A</color>
+    <color name="osclock_green_soft">#4D30D158</color>
+    <color name="osclock_btn_idle">#14FFFFFF</color>
+    <color name="osclock_btn_active">#29FFFFFF</color>
+    <color name="osclock_toast_bg">#E62C2C2E</color>
+    <color name="osclock_ring_btn">#592C2C2E</color>
+    <color name="osclock_tab_selected">#24FFFFFF</color>
+    <color name="osclock_text_dim">#D9FFFFFF</color>
+    <color name="osclock_text_soft">#CCFFFFFF</color>
+</resources>

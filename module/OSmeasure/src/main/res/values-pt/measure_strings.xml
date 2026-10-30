@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_app_name">Medida</string>
+    <string name="measure_tab_measure">Medir</string>
+    <string name="measure_tab_level">Nível</string>
+    <string name="measure_move_to_start">Mova o telefone para começar</string>
+    <string name="measure_undo">Desfazer</string>
+    <string name="measure_clear">Limpar</string>
+    <string name="measure_add_point">Adicionar ponto</string>
+    <string name="measure_capture">Capturar</string>
+    <string name="measure_measurements">Medidas</string>
+    <string name="measure_done">OK</string>
+    <string name="measure_copy">Copiar</string>
+    <string name="measure_copied">Copiado</string>
+    <string name="measure_clear_all">Limpar tudo</string>
+    <string name="measure_empty">Nenhuma medida ainda</string>
+    <string name="measure_type_line">Linha</string>
+    <string name="measure_saved_to_photos">Salvo em Fotos</string>
+    <string name="measure_save_failed">Não foi possível salvar a foto</string>
+    <string name="measure_ar_unsupported">Este dispositivo não é compatível com medição em RA. Você ainda pode usar o Nível.</string>
+    <string name="measure_camera_permission">Permita o acesso à câmera para medir. Toque para abrir os Ajustes.</string>
+    <string name="measure_onboarding_title_1">Medição em RA</string>
+    <string name="measure_onboarding_desc_1">Meça objetos na hora com\nrealidade aumentada</string>
+    <string name="measure_onboarding_title_2">Encaixe inteligente</string>
+    <string name="measure_onboarding_desc_2">Detecção automática de bordas e\nmedição rápida de altura</string>
+    <string name="measure_onboarding_title_3">Salvar e compartilhar</string>
+    <string name="measure_onboarding_desc_3">Guarde o histórico de medidas\ncom fotos anexadas</string>
+    <string name="measure_ruler_hint">Aproxime-se para ver a régua</string>
+</resources>

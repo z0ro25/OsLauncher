@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.content.res.XmlResourceParser;
 
 import com.ezla.oslauncher.beautylauncher.BuildConfig;
+import com.ezla.oslauncher.beautylauncher.R;
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil;
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils;
 import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils;
+import com.ezla.oslauncher.themes.Api.ApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.ezla.oslauncher.beautylauncher.ads.AdjustTracker;
@@ -23,6 +26,8 @@ import com.truongnt.ios.ioslite.common.noti.DailyNotiScheduler;
 import com.truongnt.ios.ioslite.common.util.ProcessUtil;
 import com.truongnt.ios.launcher.LauncherAppState;
 
+import org.xmlpull.v1.XmlPullParser;
+
 import java.util.Locale;
 
 public class BaseLauncherApplication extends Application {
@@ -33,6 +38,8 @@ public class BaseLauncherApplication extends Application {
     // res/xml/remote_config_defaults.xml, đọc ở setupDailyNotification().
     private static final String KEY_DAILY_NOTI_ENABLED = "daily_noti_enabled";
     private static final String KEY_DAILY_NOTI_TIME = "daily_noti_time";
+    // Base url API module Themes, đẩy xuống ApiClient.applyDomain() cùng lượt fetch ở dưới.
+    private static final String KEY_DOMAIN_API = "domain_api";
     protected Application mApplication;
     //private WeatherApplication mWeatherApplication;
 
@@ -145,7 +152,33 @@ public class BaseLauncherApplication extends Application {
     }
 
 
+    // Đọc default domain_api thẳng từ xml (đồng bộ): setDefaultsAsync + reset() trong
+    // initRemoteConfig() bất đồng bộ nên đọc qua Firebase lúc này có thể ra rỗng.
+    private String readDefaultDomainApi() {
+        XmlResourceParser parser = getResources().getXml(R.xml.remote_config_defaults);
+        try {
+            String tag = null, key = null;
+            for (int ev = parser.getEventType(); ev != XmlPullParser.END_DOCUMENT; ev = parser.next()) {
+                if (ev == XmlPullParser.START_TAG) {
+                    tag = parser.getName();
+                } else if (ev == XmlPullParser.TEXT) {
+                    if ("key".equals(tag)) key = parser.getText().trim();
+                    else if ("value".equals(tag) && KEY_DOMAIN_API.equals(key)) return parser.getText().trim();
+                } else if (ev == XmlPullParser.END_TAG) {
+                    tag = null;
+                }
+            }
+        } catch (Exception e) {
+            DebugUtil.debugLaunch(TAG, "đọc default domain_api lỗi: " + e.getMessage());
+        } finally {
+            parser.close();
+        }
+        return null;
+    }
+
     private void setupDailyNotification() {
+        // Seed trước khi fetch để request đầu tiên (lần cài đầu) đã có base url.
+        ApiClient.INSTANCE.applyDefaultDomain(this, readDefaultDomainApi());
         RemoteConfigUtils.INSTANCE.initRemoteConfig(new OnCompleteListener() {
             @Override
             public void onComplete(Task task) {
@@ -159,6 +192,14 @@ public class BaseLauncherApplication extends Application {
                     DebugUtil.debugLaunch(TAG, "đọc Remote Config notification lỗi: " + e.getMessage());
                 }
                 DailyNotiScheduler.applyRemoteConfig(enabled, time);
+
+                // Dùng chung lượt fetch: initRemoteConfig() có reset(), gọi thêm lần nữa là thừa.
+                try {
+                    ApiClient.INSTANCE.applyDomain(mApplication,
+                            RemoteConfigUtils.INSTANCE.getRemoteConfigString(KEY_DOMAIN_API));
+                } catch (Exception e) {
+                    DebugUtil.debugLaunch(TAG, "đọc Remote Config domain_api lỗi: " + e.getMessage());
+                }
             }
         });
     }

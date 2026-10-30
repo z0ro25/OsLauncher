@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sheet lịch sử theo 4 frame "Calculator/edit": xem / sửa / đã chọn / rỗng. Cao 360dp, bo 20dp 2 góc trên. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="360dp"
+    android:background="@drawable/calc_bg_sheet">
+
+    <View
+        android:id="@+id/calc_sheet_handle"
+        android:layout_width="32dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/calc_bg_sheet_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Bên trái: "Edit" (chế độ xem) hoặc nút back (chế độ sửa / rỗng). -->
+    <TextView
+        android:id="@+id/calc_sheet_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/appbase_sf_pro_medium"
+        android:includeFontPadding="false"
+        android:text="@string/calc_edit"
+        android:textColor="@color/calc_accent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/calc_sheet_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/calc_back"
+        android:src="@drawable/calc_ic_back"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Bên phải: "Done" (trắng) / "Clear All" / "Delete (n)" (đỏ). -->
+    <TextView
+        android:id="@+id/calc_sheet_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/appbase_sf_pro_medium"
+        android:includeFontPadding="false"
+        android:text="@string/calc_done"
+        android:textColor="@color/calc_text_primary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/calc_sheet_header_guide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/calc_sheet_header_guide" />
+
+    <!-- Mốc chiều cao header (24dp, căn giữa chữ phải với nút back / chữ Edit). -->
+    <Space
+        android:id="@+id/calc_sheet_header_guide"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calc_sheet_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:clipToPadding="false"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_sheet_header_guide"
+        tools:listitem="@layout/calc_item_history" />
+
+    <!-- Rỗng: icon đồng hồ + "No history" (frame cuối). -->
+    <LinearLayout
+        android:id="@+id/calc_sheet_empty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_sheet_header_guide">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/calc_ic_history_empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/appbase_sf_pro_medium"
+            android:text="@string/calc_no_history"
+            android:textColor="@color/calc_empty"
+            android:textSize="14sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

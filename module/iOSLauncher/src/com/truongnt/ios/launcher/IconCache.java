@@ -870,6 +870,12 @@ public class IconCache {
 
         icon = mThemeManager.readCustomizedIconForShortcutComp(componentName);
 
+        // getRoundIcon() trả icon APP (MiOS) chứ không phải icon activity -> Compass lấy icon của marker.
+        if (icon == null && info != null && (IOSShortcut.CLASS_NAME_COMPASS.equals(componentName.getClassName())
+                || IOSShortcut.CLASS_NAME_MEASURE.equals(componentName.getClassName()))) {
+            return info.getIcon(mIconDpi);
+        }
+
         if (icon == null && info != null) {
             try {
                 Drawable iconDrawable = getRoundIcon(info.getApplicationInfo(),mPackageManager);

@@ -72,6 +72,14 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
             new SystemShortcut.EditHomeScreen(),
     };
 
+    // Icon Calculator/Clock/Compass hệ thống đang mở module riêng: như SYSTEM_SHORTCUTS nhưng bỏ Remove App.
+    private static final SystemShortcut[] OWN_MODULE_SYSTEM_SHORTCUTS = new SystemShortcut[]{
+            new SystemShortcut.AppInfo(),
+            new SystemShortcut.HiddenApp(),
+            new SystemShortcut.Widgets(),
+            new SystemShortcut.EditHomeScreen(),
+    };
+
     private static final SystemShortcut[] WIDGET_SHORTCUTS = new SystemShortcut[]{
             new SystemShortcut.EditHomeScreen(),
             new SystemShortcut.RemoveApp(),
@@ -311,7 +319,11 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
         } else {
             ComponentName cn = info.getTargetComponent();
             if (cn != null && cn.getPackageName().equals("com.ezla.oslauncher.beautylauncher")) {
+                // Gồm cả icon Themes/Compass/Measure (marker cùng package): không Remove App, không Hide App
+                // (Hide sẽ ẩn theo package = ẩn chính launcher).
                 shortcuts = MY_APP_SHORTCUTS;
+            } else if (Launcher.isRedirectedToOwnModule(cn)) {
+                shortcuts = OWN_MODULE_SYSTEM_SHORTCUTS;
             } else shortcuts = SYSTEM_SHORTCUTS;
         }
 

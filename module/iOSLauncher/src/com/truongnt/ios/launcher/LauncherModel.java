@@ -117,6 +117,7 @@ import java.net.URISyntaxException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -1112,11 +1113,9 @@ public class LauncherModel extends BroadcastReceiver
                         modelShortcut.cellY == shortcut.cellY &&
                         modelShortcut.spanX == shortcut.spanX &&
                         modelShortcut.spanY == shortcut.spanY &&
-                        ((modelShortcut.dropPos == null && shortcut.dropPos == null) ||
-                                (modelShortcut.dropPos != null &&
-                                        shortcut.dropPos != null &&
-                                        modelShortcut.dropPos[0] == shortcut.dropPos[0] &&
-                                        modelShortcut.dropPos[1] == shortcut.dropPos[1]))) {
+                        // Crashlytics AIOOBE length=0: ItemInfo.dropPos mặc định là mảng RỖNG (không phải
+                        // null) nên đọc [0]/[1] trực tiếp là nổ. Arrays.equals xử lý cả null/rỗng/độ dài khác.
+                        Arrays.equals(modelShortcut.dropPos, shortcut.dropPos)) {
                     // For all intents and purposes, this is the same object
                     return;
                 }
@@ -1142,8 +1141,15 @@ public class LauncherModel extends BroadcastReceiver
         final long itemId = item.id;
         Runnable r = new Runnable() {
             public void run() {
-                synchronized (sBgLock) {
-                    checkItemInfoLocked(itemId, item, stackTrace);
+                // Chỉ là kiểm tra nhất quán (kết quả không dùng, throw đã tắt): lỗi ở đây (title/intent
+                // null...) không được giết worker thread của launcher -> nuốt và báo Crashlytics.
+                try {
+                    synchronized (sBgLock) {
+                        checkItemInfoLocked(itemId, item, stackTrace);
+                    }
+                } catch (RuntimeException e) {
+                    Log.w(TAG, "checkItemInfo failed", e);
+                    AnalyticsDelegate.logNonFatal(e, null);
                 }
             }
         };
@@ -3870,6 +3876,12 @@ public class LauncherModel extends BroadcastReceiver
             // sau khi icon app đã ghi DB -> tìm được ô kế bên. Có trên desktop rồi thì bỏ qua.
             addThemesShortcutIfMissing(context);
 
+            // Icon "Compass" (:module:OScompass) cho MỌI máy, kể cả máy update: ô trống đầu tiên.
+            addCompassShortcutIfMissing(context);
+
+            // Icon "Measure" (:module:OSmeasure): cùng cơ chế Compass, ô trống đầu tiên.
+            addMeasureShortcutIfMissing(context);
+
             if (!added.isEmpty()) {
                 boolean prompt = !mInitWorkspace;
                 addAndBindAddedWorkspaceItems(context, added, true, prompt);
@@ -4057,6 +4069,34 @@ public class LauncherModel extends BroadcastReceiver
                     }
                 }
             });
+        }
+
+        // Đã có ở desktop / folder / hotseat thì bỏ qua (chống trùng theo component như Themes).
+        private void addCompassShortcutIfMissing(Context context) {
+            Intent probe = new Intent().setComponent(
+                    new ComponentName(context, com.truongnt.ios.launcher.shortcut.Compass.class));
+            ShortcutInfo compass = infoFromIOSShortcutIntent(context, probe);
+            if (compass == null || themeShortcutExists(probe.getComponent())) {
+                return;
+            }
+            compass.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+            ArrayList<ItemInfo> list = new ArrayList<ItemInfo>(1);
+            list.add(compass);
+            addAndBindAddedWorkspaceItems(context, list);
+        }
+
+        // Như addCompassShortcutIfMissing, cho icon Measure.
+        private void addMeasureShortcutIfMissing(Context context) {
+            Intent probe = new Intent().setComponent(
+                    new ComponentName(context, com.truongnt.ios.launcher.shortcut.Measure.class));
+            ShortcutInfo measure = infoFromIOSShortcutIntent(context, probe);
+            if (measure == null || themeShortcutExists(probe.getComponent())) {
+                return;
+            }
+            measure.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+            ArrayList<ItemInfo> list = new ArrayList<ItemInfo>(1);
+            list.add(measure);
+            addAndBindAddedWorkspaceItems(context, list);
         }
 
         // Chống trùng theo COMPONENT (không so intent): intent lưu trong DB có thể khác cờ so với

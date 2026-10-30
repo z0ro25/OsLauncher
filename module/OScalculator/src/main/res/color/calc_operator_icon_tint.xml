@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icon toán tử: trắng; khi nút đang chọn (nền trắng) thì đổi sang cam. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/calc_key_operator" android:state_selected="true" />
+    <item android:color="@color/calc_text_primary" />
+</selector>

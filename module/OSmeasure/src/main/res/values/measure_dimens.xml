@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="measure_line_width">4dp</dimen>
+    <dimen name="measure_dot_radius">7dp</dimen>
+    <dimen name="measure_reticle_radius">30dp</dimen>
+    <dimen name="measure_reticle_stroke">2.5dp</dimen>
+    <dimen name="measure_reticle_dot">4dp</dimen>
+    <dimen name="measure_label_height">32dp</dimen>
+    <dimen name="measure_label_min_width">88dp</dimen>
+    <dimen name="measure_label_text">17sp</dimen>
+    <dimen name="measure_level_radius">100dp</dimen>
+    <dimen name="measure_level_text">64sp</dimen>
+    <dimen name="measure_controls_margin">32dp</dimen>
+</resources>

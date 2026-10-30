@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- required=false: máy không có la bàn / GPS vẫn cài được launcher. -->
+    <uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+
+    <application>
+        <!-- Mở qua CompassEntry.open() hoặc icon Compass trên desktop (Launcher.openOwnAppIfMatch). -->
+        <!-- Affinity riêng (như ThemesSplashActivity) -> task + thẻ Đa nhiệm riêng, không đè task MiOS.
+             Onboarding dùng cùng affinity để nằm chung task này. -->
+        <activity
+            android:name=".CompassActivity"
+            android:exported="false"
+            android:icon="@drawable/compass_ic_task"
+            android:label="@string/compass_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.compass"
+            android:theme="@style/CompassTheme" />
+
+        <!-- Lần đầu mở: CompassActivity tự chuyển sang đây (redirectBeforeCreate). -->
+        <activity
+            android:name=".CompassOnboardingActivity"
+            android:exported="false"
+            android:icon="@drawable/compass_ic_task"
+            android:label="@string/compass_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.compass"
+            android:theme="@style/CompassOnboardingTheme" />
+    </application>
+</manifest>

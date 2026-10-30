@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <!-- Không khai intent-filter APP_CALCULATOR: sẽ thành lựa chọn calculator cho cả hệ thống.
+             Mở qua CalculatorEntry.open(). -->
+        <!-- Affinity riêng (như ThemesSplashActivity) -> task + thẻ Đa nhiệm riêng: bấm icon MiOS
+             không đưa lại task đang đứng ở Calculator. Nơi mở phải kèm FLAG_ACTIVITY_NEW_TASK. -->
+        <activity
+            android:name=".CalculatorActivity"
+            android:exported="false"
+            android:icon="@drawable/calc_ic_task"
+            android:label="@string/calc_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.calculator"
+            android:theme="@style/CalcTheme" />
+
+        <!-- Lần đầu mở: CalculatorActivity tự chuyển sang đây (redirectBeforeCreate). Cùng affinity
+             để onboarding nằm chung task Calculator. -->
+        <activity
+            android:name=".CalculatorOnboardingActivity"
+            android:exported="false"
+            android:icon="@drawable/calc_ic_task"
+            android:label="@string/calc_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.calculator"
+            android:theme="@style/CalcOnboardingTheme" />
+    </application>
+</manifest>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_app_name">Maßband</string>
+    <string name="measure_tab_measure">Messen</string>
+    <string name="measure_tab_level">Wasserwaage</string>
+    <string name="measure_move_to_start">Bewege das Telefon, um zu starten</string>
+    <string name="measure_undo">Widerrufen</string>
+    <string name="measure_clear">Löschen</string>
+    <string name="measure_add_point">Punkt hinzufügen</string>
+    <string name="measure_capture">Aufnehmen</string>
+    <string name="measure_measurements">Messungen</string>
+    <string name="measure_done">Fertig</string>
+    <string name="measure_copy">Kopieren</string>
+    <string name="measure_copied">Kopiert</string>
+    <string name="measure_clear_all">Alle löschen</string>
+    <string name="measure_empty">Noch keine Messungen</string>
+    <string name="measure_type_line">Linie</string>
+    <string name="measure_saved_to_photos">In Fotos gesichert</string>
+    <string name="measure_save_failed">Foto konnte nicht gesichert werden</string>
+    <string name="measure_ar_unsupported">Dieses Gerät unterstützt keine AR-Messung. Die Wasserwaage ist weiterhin verfügbar.</string>
+    <string name="measure_camera_permission">Erlaube den Kamerazugriff zum Messen. Tippe, um die Einstellungen zu öffnen.</string>
+    <string name="measure_onboarding_title_1">AR-Messung</string>
+    <string name="measure_onboarding_desc_1">Sofortiges Messen von Objekten\nmit Augmented Reality</string>
+    <string name="measure_onboarding_title_2">Intelligentes Einrasten</string>
+    <string name="measure_onboarding_desc_2">Automatische Kantenerkennung und\nschnelle Höhenmessung</string>
+    <string name="measure_onboarding_title_3">Sichern &amp; Teilen</string>
+    <string name="measure_onboarding_desc_3">Messverlauf einfach mit\nFotos speichern</string>
+    <string name="measure_ruler_hint">Geh näher heran, um das Lineal zu sehen</string>
+</resources>

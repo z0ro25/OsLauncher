@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OsclockRingButton">
+        <item name="android:background">@drawable/osclock_bg_ring_button</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

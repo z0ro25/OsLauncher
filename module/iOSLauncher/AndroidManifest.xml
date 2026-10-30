@@ -47,7 +47,7 @@
         <activity
             android:name=".searchlauncher.SearchLauncher"
             android:clearTaskOnLaunch="true"
-            android:configChanges="fontScale|colorMode|layoutDirection|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc"
+            android:configChanges="fontScale|colorMode|layoutDirection|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc|fontWeightAdjustment|assetsPaths"
             android:enabled="true"
             android:excludeFromRecents="true"
             android:exported="true"
@@ -338,6 +338,22 @@
             android:exported="true"
             android:icon="@drawable/lite_rom_themes"
             android:label="@string/themes_shortcut_label"
+            android:resizeableActivity="false" />
+
+        <!-- Marker icon "Compass" trên desktop (mở :module:OScompass), cùng cơ chế với Themes. -->
+        <activity
+            android:name="com.truongnt.ios.launcher.shortcut.Compass"
+            android:exported="true"
+            android:icon="@drawable/compass_icon"
+            android:label="@string/launcher_compass_label"
+            android:resizeableActivity="false" />
+
+        <!-- Marker icon "Measure" trên desktop (mở :module:OSmeasure), cùng cơ chế với Compass. -->
+        <activity
+            android:name="com.truongnt.ios.launcher.shortcut.Measure"
+            android:exported="true"
+            android:icon="@drawable/measure_icon"
+            android:label="@string/launcher_measure_label"
             android:resizeableActivity="false" />
 
 

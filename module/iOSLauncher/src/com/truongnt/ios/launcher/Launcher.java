@@ -47,6 +47,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PersistableBundle;
 import android.os.StrictMode;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.text.TextUtils;
@@ -146,7 +147,9 @@ import com.truongnt.ios.launcher.provider.AppTypeProvider;
 import com.truongnt.ios.launcher.searchview.SearchPullDetector;
 import com.truongnt.ios.launcher.searchview.SearchViewLayout;
 import com.truongnt.ios.launcher.shortcut.BatterySave;
+import com.truongnt.ios.launcher.shortcut.Compass;
 import com.truongnt.ios.launcher.shortcut.Discovery;
+import com.truongnt.ios.launcher.shortcut.Measure;
 import com.truongnt.ios.launcher.shortcut.Theme;
 import com.truongnt.ios.launcher.shortcut.Wallpaper;
 import com.truongnt.ios.launcher.shortcuts.DeepShortcutManager;
@@ -475,6 +478,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     boolean mWorkspaceLoading = true;
 
     private boolean mPaused = true;
+    // onCreate bỏ dở (recoverFromBrokenSetup): mọi lifecycle sau đó phải bỏ qua, view đều null.
+    private boolean mSetupFailed;
+    // Bước initApp đang chạy, gửi kèm log khi hỏng để biết null ở đâu (content / drag_layer / sau đó).
+    private String mSetupStep = "start";
+    private static long sLastSetupRecoveryAt;
+    private static final long SETUP_RECOVERY_WINDOW_MS = 10_000L;
+    private static final long SETUP_RECOVERY_DELAY_MS = 300L;
     private boolean mRestoring;
     private boolean mWaitingForResult;
     private boolean mOnResumeNeedsLoad;
@@ -631,25 +641,46 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             Log.d(TAG, "onCreatexxx: " + info.getTargetComponent());
         }
 
-        getWindow().setExitTransition(null);
-        getWindow().setEnterTransition(null);
-        getWindow().setAllowReturnTransitionOverlap(false);
-        getWindow().setAllowEnterTransitionOverlap(false);
-        getWindow().setTransitionBackgroundFadeDuration(0L);
-        Log.e("alshdflkasdf", "onCreate: ");
-        hideNavigationBar(getWindow());
-        getWindow().setStatusBarColor(0);
-        getWindow().setNavigationBarColor(Color.parseColor("#01ffffff"));
+        mSavedState = savedInstanceState;
+        // Crashlytics: "Window couldn't find content container view" nổ ngay ở đây (getDecorView) khi
+        // relaunch trên resource đang đổi overlay. Bắt lại, vẫn gọi super.onCreate rồi mới tự cứu.
+        RuntimeException windowError = null;
+        mSetupStep = "window";
+        try {
+            // Chọn theme theo nền TRƯỚC mọi lệnh chạm window bên dưới (hideNavigationBar dựng decor).
+            applyWallpaperTheme();
+            getWindow().setExitTransition(null);
+            getWindow().setEnterTransition(null);
+            getWindow().setAllowReturnTransitionOverlap(false);
+            getWindow().setAllowEnterTransitionOverlap(false);
+            getWindow().setTransitionBackgroundFadeDuration(0L);
+            Log.e("alshdflkasdf", "onCreate: ");
+            hideNavigationBar(getWindow());
+            getWindow().setStatusBarColor(0);
+            getWindow().setNavigationBarColor(Color.parseColor("#01ffffff"));
+        } catch (RuntimeException e) {
+            windowError = e;
+        }
 
         useDB();
 
-        mSavedState = savedInstanceState;
         int availableProcessors = Runtime.getRuntime().availableProcessors();
         mThreadExecutor = new ThreadPoolExecutor(availableProcessors + 1, (availableProcessors * 2) + 1, 1L, TimeUnit.SECONDS, new LinkedBlockingQueue());
         mBlurWallpaperProvider = new BlurWallpaperProvider(this);
         super.onCreate(mSavedState);
         mOnResumeState = State.WORKSPACE;
-        initApp();
+        if (windowError != null) {
+            recoverFromBrokenSetup(windowError);
+            return;
+        }
+        try {
+            initApp();
+        } catch (RuntimeException e) {
+            // Không dựng được desktop: không để crash/treo, đóng instance hỏng rồi mở lại sạch.
+            recoverFromBrokenSetup(e);
+            return;
+        }
+        mSetupStep = "done";
         checkPermissionGranted();
         mSearchPullDetector = new SearchPullDetector(this, mDeviceProfile.heightPx);
 
@@ -664,6 +695,59 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         LauncherSharePrefUtils.increaseCountOpenApp(this);
     }
 
+
+    // Lỗi lặp (mở lại vẫn hỏng) thì dừng retry, để hệ thống tự xử lý thay vì mở vòng lặp vô hạn.
+    private void recoverFromBrokenSetup(Throwable cause) {
+        mSetupFailed = true;
+        Log.e(TAG, "Launcher setup failed, restarting desktop", cause);
+        logSetupFailure(cause);
+        if (mModel != null && mModel.isCurrentCallbacks(this)) {
+            LauncherAppState.getInstance().setLauncher(null);
+        }
+        long now = SystemClock.elapsedRealtime();
+        boolean retry = now - sLastSetupRecoveryAt > SETUP_RECOVERY_WINDOW_MS;
+        sLastSetupRecoveryAt = now;
+        if (retry) {
+            Intent home = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+                    .setPackage(getPackageName()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                try {
+                    startActivity(home);
+                } catch (Exception e) {
+                    Log.w(TAG, "restart desktop failed", e);
+                }
+            }, SETUP_RECOVERY_DELAY_MS);
+        }
+        finish();
+    }
+
+    // Non-fatal lên Crashlytics (qua :app): đủ dữ kiện để biết lỗi do relaunch/đổi theme/đa cửa sổ
+    // hay do hãng máy, vì sau khi tự cứu thì crash gốc không còn xuất hiện trên console nữa.
+    private void logSetupFailure(Throwable cause) {
+        java.util.Map<String, String> keys = new java.util.HashMap<>();
+        keys.put("launcher_setup_step", mSetupStep);
+        keys.put("launcher_relaunch", String.valueOf(mSavedState != null));
+        keys.put("launcher_theme_applied", themeName(getAppliedThemeRes()));
+        keys.put("launcher_theme_wanted", themeName(getThemeRes(com.truongnt.ios.launcher.dynamicui.WallpaperColorInfo.getInstance(this))));
+        // peekDecorView: KHÔNG dựng decor (findViewById/getDecorView sẽ ném lại "content container").
+        View decor = getWindow().peekDecorView();
+        keys.put("launcher_has_decor", String.valueOf(decor != null));
+        keys.put("launcher_has_content", String.valueOf(decor != null && decor.findViewById(android.R.id.content) != null));
+        keys.put("launcher_multi_window", String.valueOf(isInMultiWindowModeCompat()));
+        keys.put("launcher_recovery_retry",
+                String.valueOf(SystemClock.elapsedRealtime() - sLastSetupRecoveryAt <= SETUP_RECOVERY_WINDOW_MS));
+        keys.put("device", Build.MANUFACTURER + " " + Build.MODEL + " / API " + Build.VERSION.SDK_INT);
+        AnalyticsDelegate.logNonFatal(new IllegalStateException(
+                "Launcher setup recovered at " + mSetupStep, cause), keys);
+    }
+
+    private String themeName(int res) {
+        try {
+            return getResources().getResourceEntryName(res);
+        } catch (Exception e) {
+            return String.valueOf(res);
+        }
+    }
 
     public void showRateDialog() {
         final RatingDialog ratingDialog = new RatingDialog(this);
@@ -863,6 +947,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     //todo start app
     private void initApp() {
+        mSetupStep = "init";
         mSharedPrefs = getSharedPreferences(LauncherAppState.getSharedPreferencesKey(),
                 Context.MODE_PRIVATE);
         BlurKit.init(this.getApplicationContext());
@@ -907,9 +992,22 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             android.os.Debug.startMethodTracing(FileUtil.getTraceFilesDir() + "/launcher");
         }
 
+        mSetupStep = "content";
         setContentView(R.layout.launcher);
+        // Crashlytics (Motorola Edge 50 Pro): relaunch do đổi nền/bảng màu, decor dựng lệch theme
+        // -> content không gắn được -> drag_layer null ở setupViews. Gắn lại 1 lần trước khi bỏ cuộc.
+        if (findViewById(R.id.drag_layer) == null) {
+            Log.w(TAG, "drag_layer missing after setContentView, retry once");
+            mSetupStep = "content_retry";
+            setContentView(getLayoutInflater().inflate(R.layout.launcher, null));
+        }
+        if (findViewById(R.id.drag_layer) == null) {
+            throw new IllegalStateException("Launcher layout not attached");
+        }
 
+        mSetupStep = "setup_views";
         setupViews();
+        mSetupStep = "after_setup_views";
         mDeviceProfile.layout(this);
 
         mCurrentFontScale = getResources().getConfiguration().fontScale;
@@ -1067,6 +1165,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        if (mSetupFailed) {
+            super.onConfigurationChanged(newConfig);
+            return;
+        }
         dispatchDeviceProfileChanged();
         super.onConfigurationChanged(newConfig);
     }
@@ -1534,6 +1636,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     protected void onStop() {
         super.onStop();
+        if (mSetupFailed) return;
         FirstFrameAnimatorHelper.setIsVisible(false);
         if (mLauncherCallbacks != null) {
             mLauncherCallbacks.onStop();
@@ -1550,6 +1653,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
+        if (mSetupFailed) return;
         FirstFrameAnimatorHelper.setIsVisible(true);
 
         if (mLauncherCallbacks != null) {
@@ -1569,6 +1673,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        if (mSetupFailed) return;
         Log.i(TAG, "onResume Start");
         long startTime = 0;
         // Đã tắt dialog "Rate us" hiện lên khi mở launcher theo yêu cầu.
@@ -1761,6 +1866,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     protected void onPause() {
+        if (mSetupFailed) {
+            super.onPause();
+            return;
+        }
         Log.e("alshdflkasdf", "onPause: ");
         // Ensure that items added to Launcher are queued until Launcher returns
         InstallShortcutReceiver.enableInstallQueue();
@@ -1824,6 +1933,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        if (mSetupFailed) return;
         // YÊU CẦU: status bar CHỈ ẩn khi trạng thái edit THỰC SỰ hiển thị (2 nút Sửa/Xong VISIBLE),
         // và HIỆN lại khi 2 nút ẩn. Khi popup/dialog đóng hoặc cửa sổ lấy lại focus, đồng bộ status bar
         // ĐÚNG theo visibility của 2 nút — KHÔNG dựa cờ mIsShaking (long-press mở popup không set cờ này
@@ -2385,6 +2495,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+        if (mSetupFailed) return;
         Log.e("alshdflkasdf", "onAttachedToWindow: ");
         // Listen for broadcasts related to user-presence
         final IntentFilter filter = new IntentFilter();
@@ -2439,6 +2550,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        if (mSetupFailed) return;
         mVisible = false;
         Log.e("alshdflkasdf", "onDetachedFromWindow: ");
         if (mAttached) {
@@ -2680,6 +2792,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     protected void onNewIntent(Intent intent) {
+        if (mSetupFailed) {
+            super.onNewIntent(intent);
+            return;
+        }
         Log.i(TAG, "onNewIntent: " + intent);
         Log.e("alshdflkasdf", "onNewIntent: ");
         long startTime = 0;
@@ -2803,7 +2919,13 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     public void onRestoreInstanceState(Bundle state) {
-        super.onRestoreInstanceState(state);
+        // Id icon/RecyclerView sinh bằng generateViewId nên khác nhau giữa 2 process: id cũ của
+        // RecyclerView có thể trùng id mới của icon -> "Wrong state class". Bỏ restore view như CellLayout.
+        try {
+            super.onRestoreInstanceState(state);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Ignoring mismatched view state on restore", e);
+        }
 
         for (int page : mSynchronouslyBoundPages) {
             mWorkspace.restoreInstanceStateForChild(page);
@@ -2812,6 +2934,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        if (mSetupFailed) {
+            super.onSaveInstanceState(outState);
+            return;
+        }
         Log.e("alshdflkasdf", "onSaveInstanceState: ");
 
         if (mWorkspace.getChildCount() > 0) {
@@ -2849,6 +2975,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     public void onDestroy() {
         super.onDestroy();
         Log.e("alshdflkasdf", "onDestroy: ");
+        if (mSetupFailed) {
+            onDestroyAfterFailedSetup();
+            return;
+        }
         // Remove all pending runnables
         mHandler.removeMessages(ADVANCE_MSG);
         mHandler.removeMessages(0);
@@ -2901,6 +3031,25 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
 
         unregisterReceiver(updateHiddenAppBroadcast);
+    }
+
+    // Chỉ dọn những thứ initApp có thể đã tạo; mọi view (mWorkspace, mDragLayer...) có thể null.
+    private void onDestroyAfterFailedSetup() {
+        mHandler.removeCallbacksAndMessages(null);
+        if (mAppWidgetHost != null) {
+            try {
+                mAppWidgetHost.stopListening();
+            } catch (Exception e) {
+                Log.w(TAG, "stopListening after failed setup", e);
+            }
+            mAppWidgetHost = null;
+        }
+        // initApp có thể đã đăng ký receiver trước khi hỏng; chưa đăng ký thì unregister ném lỗi -> bỏ qua.
+        try {
+            unregisterReceiver(mCloseSystemDialogsReceiver);
+        } catch (IllegalArgumentException ignore) {
+        }
+        // Không gọi mLauncherCallbacks.onDestroy(): callbacks.onCreate chưa chạy nên client của nó null.
     }
 
     public DragController getDragController() {
@@ -3571,6 +3720,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             AnalyticsDelegate.onAllAppsEvent(this, UMEventConstants.ALLAPPS_PERAPP_CLICK);
             // App Library mở app qua nhánh này (không qua onClickAppShortcut) -> log riêng ở đây.
             logLauncherIconClick(((AppInfo) tag).intent);
+            if (openOwnAppIfMatch(((AppInfo) tag).intent)) {
+                return;
+            }
             startAppShortcutOrInfoActivity(v);
         } else if (tag instanceof LauncherAppWidgetInfo) {
             if (v instanceof PendingAppWidgetHostView) {
@@ -3678,6 +3830,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
             return;
         }
 
+        if (openOwnAppIfMatch(intent)) {
+            return;
+        }
+
         // Check for abandoned promise
         if ((v instanceof BubbleTextView)
                 && shortcut.isPromise()
@@ -3712,6 +3868,57 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         }
     }
 
+    // Icon Calculator / Clock / Compass của hệ thống (danh sách theo app_target_app_*.xml) -> mở màn
+    // :module:OScalculator / OSclock / OScompass. Tên class dạng chuỗi vì launcher không phụ thuộc các module đó.
+    // Icon app hệ thống đang được thay bằng module riêng (popup giữ-liền ẩn Remove App cho nhóm này).
+    public static boolean isRedirectedToOwnModule(ComponentName cn) {
+        if (cn == null) return false;
+        String pkg = cn.getPackageName();
+        return SYSTEM_CALCULATOR_PACKAGES.contains(pkg) || SYSTEM_CLOCK_PACKAGES.contains(pkg)
+                || SYSTEM_COMPASS_PACKAGES.contains(pkg);
+    }
+
+    private boolean openOwnAppIfMatch(Intent intent) {
+        ComponentName cn = intent != null ? intent.getComponent() : null;
+        if (cn == null) return false;
+        String pkg = cn.getPackageName();
+        String own = SYSTEM_CALCULATOR_PACKAGES.contains(pkg) ? OWN_CALCULATOR_ACTIVITY
+                : SYSTEM_CLOCK_PACKAGES.contains(pkg) ? OWN_CLOCK_ACTIVITY
+                : SYSTEM_COMPASS_PACKAGES.contains(pkg) ? OWN_COMPASS_ACTIVITY : null;
+        return own != null && openOwnActivity(own);
+    }
+
+    private boolean openOwnActivity(String className) {
+        try {
+            // NEW_TASK để taskAffinity riêng của module có hiệu lực (task riêng như Themes);
+            // thiếu cờ thì màn bị nhét vào task MiOS, bấm icon MiOS lại hiện màn module.
+            startActivity(new Intent().setClassName(this, className).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, className + " not available, fallback system app", e);
+            return false;
+        }
+    }
+
+    private static final String OWN_CALCULATOR_ACTIVITY = "com.ezla.oslauncher.calculator.CalculatorActivity";
+    private static final String OWN_CLOCK_ACTIVITY = "com.ezla.oslauncher.clock.ClockActivity";
+    private static final String OWN_COMPASS_ACTIVITY = "com.ezla.oslauncher.compass.CompassActivity";
+    private static final String OWN_MEASURE_ACTIVITY = "com.ezla.oslauncher.measure.MeasureActivity";
+    private static final java.util.Set<String> SYSTEM_CLOCK_PACKAGES = new java.util.HashSet<>(
+            java.util.Arrays.asList("com.ios.deskclock", "com.android.deskclock",
+                    "com.google.android.deskclock", "com.lge.clock", "com.sec.android.app.clockpackage",
+                    "com.sec.android.app.clockpackagechina", "com.oppo.alarmclock", "com.coloros.alarmclock",
+                    "com.oneplus.deskclock", "com.android.BBKClock", "com.nhstudio.alarmioss"));
+    private static final java.util.Set<String> SYSTEM_COMPASS_PACKAGES = new java.util.HashSet<>(
+            java.util.Arrays.asList("com.miui.compass", "com.coloros.compass", "com.oppo.compass",
+                    "com.oneplus.compass", "com.huawei.compass", "com.vivo.compass", "com.bbk.compass",
+                    "com.google.android.apps.compass"));
+    private static final java.util.Set<String> SYSTEM_CALCULATOR_PACKAGES = new java.util.HashSet<>(
+            java.util.Arrays.asList("com.ios.calculator", "com.android.calculator2",
+                    "com.sec.android.app.popupcalculator", "com.android.bbkcalculator",
+                    "com.google.android.calculator", "com.miui.calculator",
+                    "com.coloros.calculator", "com.oneplus.calculator"));
+
     private static final String EVENT_CLICK_THEMES = "click_themes";
     private static final String EVENT_CLICK_LAUNCHER = "click_launcher";
 
@@ -3732,6 +3939,12 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 return true;
             } else if (shortcutClass.equals(Discovery.class.getName())) {
                 Router.startDiscoveryActivity(this);
+                return true;
+            } else if (shortcutClass.equals(Compass.class.getName())) {
+                openOwnActivity(OWN_COMPASS_ACTIVITY);
+                return true;
+            } else if (shortcutClass.equals(Measure.class.getName())) {
+                openOwnActivity(OWN_MEASURE_ACTIVITY);
                 return true;
             }
         }
@@ -4758,6 +4971,7 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
+        if (mSetupFailed) return;
         if (level >= ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
             // The widget preview db can result in holding onto over
             // 3MB of memory for caching which isn't necessary.
@@ -9806,15 +10020,26 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
 
     @Override
     public void notifyWidgetProvidersChanged() {
+        // Gọi từ AppWidgetHost khi cài/gỡ app có widget, kể cả lúc desktop đã huỷ / dựng hỏng.
+        if (mSetupFailed || mModel == null || isDestroyed()) return;
         mWidgetsView = findViewById(R.id.widgets_view);
         if (mWidgetsView != null && mWidgetsView.mWidgetListAdapter != null) {
-            mModel.updateWidgetsModel(mWidgetsView.mWidgetListAdapter.getItemCount() == 0);
-            WidgetsModel widgetsModel = mModel.mBgWidgetsModel;
-            if (widgetsModel == null) return;
-            widgetsModel.setFilterNull();
-            mWidgetsView.setWidgetModel(widgetsModel);
-            mWidgetsView.mWidgetListAdapter.setWidgetModel(widgetsModel);
-            mWidgetsView.mWidgetListAdapter.notifyDataSetChanged();
+            try {
+                mModel.updateWidgetsModel(mWidgetsView.mWidgetListAdapter.getItemCount() == 0);
+                WidgetsModel widgetsModel = mModel.mBgWidgetsModel;
+                if (widgetsModel == null) return;
+                widgetsModel.setFilterNull();
+                mWidgetsView.mWidgetListAdapter.setSearching(false);
+                mWidgetsView.mWidgetListAdapter.setWidgetModel(widgetsModel);
+                // Chốt ảnh chụp + notify ngoài lượt layout (tránh AIOOBE span ở GridLayoutManager).
+                mWidgetsView.setWidgetModel(widgetsModel);
+            } catch (RuntimeException e) {
+                // Khay widget lỗi thì giữ dữ liệu cũ, không kéo sập desktop; vẫn báo Crashlytics.
+                Log.e(TAG, "notifyWidgetProvidersChanged failed", e);
+                java.util.Map<String, String> keys = new java.util.HashMap<>();
+                keys.put("widget_tray_visible", String.valueOf(isWidgetsViewVisible()));
+                AnalyticsDelegate.logNonFatal(e, keys);
+            }
         }
     }
 

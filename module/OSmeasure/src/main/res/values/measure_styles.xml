@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nền đen full màn, status bar trong suốt chữ sáng (giống Figma). -->
+    <style name="MeasureTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/measure_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorAccent">@color/measure_blue</item>
+    </style>
+
+    <!-- Onboarding (BaseOnboardingActivity): nền trắng, icon status bar tối như Figma. -->
+    <style name="MeasureOnboardingTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/appbase_onboarding_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/appbase_ad_placeholder</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="MeasureBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MeasureBottomSheetStyle</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <!-- Thanh điều hướng trong suốt + edgeToEdge: Material chỉ cho sheet vẽ tràn khi màu nav bar
+             có alpha < 255. Padding đáy do MeasurementsSheet tự cộng. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="enableEdgeToEdge">true</item>
+    </style>
+
+    <style name="MeasureBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="paddingBottomSystemWindowInsets">false</item>
+    </style>
+
+    <style name="MeasureRoundedThumb">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="MeasureGlassButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/measure_bg_glass_circle</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="MeasureTab">
+        <item name="android:layout_width">86dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/measure_bg_tab_state</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/measure_tab_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MeasurePillText">
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/measure_white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+</resources>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "Timers" / "Timer Running" / "Timer Paused". Chưa có timer: bánh xe giờ/phút/giây +
+     Cancel/Start + Label/When Timer Ends + Recents. Có timer: danh sách thẻ timer. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/osclock_header"
+        layout="@layout/osclock_view_header" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/osclock_timer_setup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/osclock_list_bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="-9dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/osclock_bg_band" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <FrameLayout style="@style/OsclockTimerColumn">
+
+                        <com.ezla.oslauncher.clock.ui.WheelView
+                            android:id="@+id/osclock_wheel_h"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingEnd="62dp" />
+
+                        <TextView
+                            style="@style/OsclockTimerUnit"
+                            android:text="@string/osclock_unit_hours" />
+                    </FrameLayout>
+
+                    <FrameLayout style="@style/OsclockTimerColumn">
+
+                        <com.ezla.oslauncher.clock.ui.WheelView
+                            android:id="@+id/osclock_wheel_m"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingEnd="62dp" />
+
+                        <TextView
+                            style="@style/OsclockTimerUnit"
+                            android:text="@string/osclock_unit_min" />
+                    </FrameLayout>
+
+                    <FrameLayout style="@style/OsclockTimerColumn">
+
+                        <com.ezla.oslauncher.clock.ui.WheelView
+                            android:id="@+id/osclock_wheel_s"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingEnd="62dp" />
+
+                        <TextView
+                            style="@style/OsclockTimerUnit"
+                            android:text="@string/osclock_unit_sec" />
+                    </FrameLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:id="@+id/osclock_timer_cancel"
+                    style="@style/OsclockRoundButton"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="24dp"
+                    android:background="@drawable/osclock_bg_circle_idle"
+                    android:text="@string/osclock_cancel"
+                    android:textColor="@color/osclock_gray" />
+
+                <TextView
+                    android:id="@+id/osclock_timer_start"
+                    style="@style/OsclockRoundButton"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/osclock_bg_circle_green"
+                    android:text="@string/osclock_start"
+                    android:textColor="@color/osclock_green" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/osclock_bg_card"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/osclock_opt_timer_label"
+                    layout="@layout/osclock_view_option_row" />
+
+                <include
+                    android:id="@+id/osclock_opt_timer_sound"
+                    layout="@layout/osclock_view_option_row" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/osclock_recents_title"
+                style="@style/OsclockSection"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/osclock_recents" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/osclock_recents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/osclock_timer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="15dp"
+        android:paddingBottom="@dimen/osclock_list_bottom"
+        android:visibility="gone" />
+</LinearLayout>

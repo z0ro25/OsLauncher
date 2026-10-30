@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu lấy đúng từ Figma "18 · Calculator" (page Apple app). -->
+<resources>
+    <color name="calc_bg">#000000</color>
+    <!-- Nút chức năng C / +/- / % : nền xám nhạt, chữ đen. -->
+    <color name="calc_key_function">#8F8F94</color>
+    <color name="calc_key_function_pressed">#C6C6C9</color>
+    <!-- Nút số. -->
+    <color name="calc_key_digit">#3A3A3C</color>
+    <color name="calc_key_digit_pressed">#737373</color>
+    <!-- Nút toán tử (÷ × − + =). -->
+    <color name="calc_key_operator">#FF9600</color>
+    <color name="calc_key_operator_pressed">#FFC27A</color>
+    <color name="calc_text_primary">#FFFFFF</color>
+    <color name="calc_text_secondary">#8F8F94</color>
+    <color name="calc_text_function">#000000</color>
+    <color name="calc_accent">#FF9600</color>
+    <color name="calc_danger">#DD0004</color>
+    <!-- Bottom sheet lịch sử. -->
+    <color name="calc_sheet_bg">#212121</color>
+    <color name="calc_sheet_scrim">#4D000000</color>
+    <color name="calc_sheet_handle">#8F8F94</color>
+    <color name="calc_divider">#33FFFFFF</color>
+    <color name="calc_empty">#4A4A4A</color>
+</resources>

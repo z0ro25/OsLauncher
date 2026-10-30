@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu lấy từ Figma "13 · Compass". -->
+<resources>
+    <color name="compass_bg">#000000</color>
+    <color name="compass_text">#FFFFFF</color>
+    <color name="compass_text_secondary">#D9FFFFFF</color>
+    <color name="compass_label">#CCFFFFFF</color>
+    <color name="compass_red">#FF3B30</color>
+    <color name="compass_crosshair">#99FFFFFF</color>
+    <color name="compass_bubble">#33D9D9D9</color>
+    <color name="compass_dim">#40000000</color>
+    <color name="compass_alert_bg">#EB2C2C2E</color>
+    <color name="compass_alert_stroke">#29FFFFFF</color>
+    <color name="compass_button_secondary">#29FFFFFF</color>
+    <color name="compass_blue">#007AFF</color>
+    <color name="compass_sheet_bg">#F2FFFFFF</color>
+    <color name="compass_sheet_stroke">#BFFFFFFF</color>
+    <color name="compass_sheet_title">#000000</color>
+    <color name="compass_sheet_subtitle">#8E8E93</color>
+    <color name="compass_grab">#C7C7CC</color>
+    <color name="compass_close_bg">#1F767680</color>
+    <color name="compass_share_bg">#1F767680</color>
+</resources>

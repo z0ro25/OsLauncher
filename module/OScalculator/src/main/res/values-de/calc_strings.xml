@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calc_app_name">Rechner</string>
+    <string name="calc_clear">C</string>
+    <string name="calc_all_clear">AC</string>
+    <string name="calc_error">Fehler</string>
+    <string name="calc_history">Verlauf</string>
+    <string name="calc_edit">Bearbeiten</string>
+    <string name="calc_done">Fertig</string>
+    <string name="calc_clear_all">Alle löschen</string>
+    <string name="calc_delete_count">Löschen (%1$d)</string>
+    <string name="calc_no_history">Kein Verlauf</string>
+    <string name="calc_today">Heute</string>
+    <string name="calc_yesterday">Gestern</string>
+    <string name="calc_older">Früher</string>
+    <string name="calc_back">Zurück</string>
+    <string name="calc_copied">Kopiert</string>
+    <string name="calc_cd_plus_minus">Plus Minus</string>
+    <string name="calc_cd_percent">Prozent</string>
+    <string name="calc_cd_divide">Geteilt</string>
+    <string name="calc_cd_multiply">Mal</string>
+    <string name="calc_cd_minus">Minus</string>
+    <string name="calc_cd_plus">Plus</string>
+    <string name="calc_cd_equal">Gleich</string>
+    <string name="calc_onboarding_title_1">Standard &amp; Wissenschaftlich</string>
+    <string name="calc_onboarding_desc_1">Wechsle mühelos zwischen Grundrechenarten und wissenschaftlichen Funktionen</string>
+    <string name="calc_onboarding_title_2">Verlauf &amp; Speicher</string>
+    <string name="calc_onboarding_desc_2">Frühere Rechnungen ansehen, Ergebnisse kopieren und Schritte bearbeiten</string>
+    <string name="calc_onboarding_title_3">Große Anzeige</string>
+    <string name="calc_onboarding_desc_3">Große, gut lesbare Zahlen und klare Tasten für den mühelosen Alltag</string>
+</resources>

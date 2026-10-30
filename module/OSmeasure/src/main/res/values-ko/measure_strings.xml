@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_app_name">측정</string>
+    <string name="measure_tab_measure">측정</string>
+    <string name="measure_tab_level">수평계</string>
+    <string name="measure_move_to_start">시작하려면 휴대폰을 움직이세요</string>
+    <string name="measure_undo">실행 취소</string>
+    <string name="measure_clear">지우기</string>
+    <string name="measure_add_point">점 추가</string>
+    <string name="measure_capture">캡처</string>
+    <string name="measure_measurements">측정 기록</string>
+    <string name="measure_done">완료</string>
+    <string name="measure_copy">복사</string>
+    <string name="measure_copied">복사됨</string>
+    <string name="measure_clear_all">모두 지우기</string>
+    <string name="measure_empty">아직 측정 기록이 없습니다</string>
+    <string name="measure_type_line">선</string>
+    <string name="measure_saved_to_photos">사진에 저장됨</string>
+    <string name="measure_save_failed">사진을 저장하지 못했습니다</string>
+    <string name="measure_ar_unsupported">이 기기는 AR 측정을 지원하지 않습니다. 수평계는 계속 사용할 수 있습니다.</string>
+    <string name="measure_camera_permission">측정하려면 카메라 접근을 허용하세요. 탭하여 설정을 엽니다.</string>
+    <string name="measure_onboarding_title_1">AR 측정</string>
+    <string name="measure_onboarding_desc_1">증강 현실로 물체를\n즉시 측정</string>
+    <string name="measure_onboarding_title_2">스마트 스냅</string>
+    <string name="measure_onboarding_desc_2">가장자리 자동 감지 및\n빠른 높이 측정</string>
+    <string name="measure_onboarding_title_3">저장 및 공유</string>
+    <string name="measure_onboarding_desc_3">사진과 함께 측정 기록을\n간편하게 보관</string>
+    <string name="measure_ruler_hint">자를 보려면 더 가까이 가세요</string>
+</resources>

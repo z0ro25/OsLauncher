@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="osclock_app_name">Clock</string>
+    <string name="osclock_tab_world">World Clock</string>
+    <string name="osclock_tab_alarms">Alarms</string>
+    <string name="osclock_tab_stopwatch">Stopwatch</string>
+    <string name="osclock_tab_timers">Timers</string>
+    <string name="osclock_edit">Edit</string>
+    <string name="osclock_done">Done</string>
+    <string name="osclock_add">Add</string>
+    <string name="osclock_cancel">Cancel</string>
+    <string name="osclock_save">Save</string>
+    <string name="osclock_set">Set</string>
+    <string name="osclock_back">Back</string>
+    <string name="osclock_delete">Delete</string>
+    <string name="osclock_reorder">Reorder</string>
+    <string name="osclock_search">Search</string>
+    <!-- World Clock -->
+    <string name="osclock_today">Today</string>
+    <string name="osclock_yesterday">Yesterday</string>
+    <string name="osclock_tomorrow">Tomorrow</string>
+    <string name="osclock_day_offset">%1$s, %2$s</string>
+    <string name="osclock_choose_city">Choose a City</string>
+    <string name="osclock_city_added">%1$s Added</string>
+    <string name="osclock_no_world_clock">No World Clock</string>
+    <!-- Alarms -->
+    <string name="osclock_alarm">Alarm</string>
+    <string name="osclock_sleep_wake">Sleep | Wake Up</string>
+    <string name="osclock_no_alarm">No Alarm</string>
+    <string name="osclock_sleep_summary">%1$s – %2$s</string>
+    <string name="osclock_change">Change</string>
+    <string name="osclock_other">Other</string>
+    <string name="osclock_add_alarm">Add Alarm</string>
+    <string name="osclock_edit_alarm">Edit Alarm</string>
+    <string name="osclock_delete_alarm">Delete Alarm</string>
+    <string name="osclock_repeat_title">Repeat</string>
+    <string name="osclock_label">Label</string>
+    <string name="osclock_sound">Sound</string>
+    <string name="osclock_snooze">Snooze</string>
+    <string name="osclock_never">Never</string>
+    <string name="osclock_every_day">Every day</string>
+    <string name="osclock_weekdays">Weekdays</string>
+    <string name="osclock_weekends">Weekends</string>
+    <string name="osclock_every_day_of">Every %1$s</string>
+    <string name="osclock_label_repeat">%1$s, %2$s</string>
+    <string name="osclock_haptics">Haptics</string>
+    <string name="osclock_haptics_on">Synchronized</string>
+    <string name="osclock_haptics_off">None</string>
+    <string name="osclock_ringtones">Ringtones</string>
+    <string name="osclock_sound_default">%1$s (Default)</string>
+    <string name="osclock_default">Default</string>
+    <string name="osclock_alarm_in_hr_min">Alarm in %1$d hr %2$d min</string>
+    <string name="osclock_alarm_in_hr">Alarm in %1$d hr</string>
+    <string name="osclock_alarm_in_min">Alarm in %1$d min</string>
+    <string name="osclock_alarm_in_less_minute">Alarm in less than a minute</string>
+    <string name="osclock_snoozed">Snoozed</string>
+    <!-- Sleep schedule -->
+    <string name="osclock_full_schedule">Full Schedule</string>
+    <string name="osclock_bedtime">Bedtime</string>
+    <string name="osclock_wake_up">Wake Up</string>
+    <string name="osclock_wake_up_label">Wake up</string>
+    <string name="osclock_hr_min">%1$d hr %2$d min</string>
+    <string name="osclock_sleep_goal_met">This schedule meets your sleep goal.</string>
+    <string name="osclock_sleep_goal_short">This schedule does not meet your sleep goal.</string>
+    <string name="osclock_turn_off_sleep">Turn Off Sleep Alarm</string>
+    <!-- Stopwatch -->
+    <string name="osclock_start">Start</string>
+    <string name="osclock_stop">Stop</string>
+    <string name="osclock_lap">Lap</string>
+    <string name="osclock_reset">Reset</string>
+    <string name="osclock_lap_n">Lap %1$d</string>
+    <!-- Timers -->
+    <string name="osclock_timer">Timer</string>
+    <string name="osclock_unit_hours">hours</string>
+    <string name="osclock_unit_min">min</string>
+    <string name="osclock_unit_sec">sec</string>
+    <string name="osclock_when_timer_ends">When Timer Ends</string>
+    <string name="osclock_stop_playing">Stop Playing</string>
+    <string name="osclock_recents">Recents</string>
+    <string name="osclock_pause">Pause</string>
+    <string name="osclock_resume">Resume</string>
+    <string name="osclock_repeat">Repeat</string>
+    <string name="osclock_n_hr">%1$d hr</string>
+    <string name="osclock_n_min">%1$d min</string>
+    <string name="osclock_n_sec">%1$d sec</string>
+    <string name="osclock_timer_label_duration">%1$s · %2$s</string>
+    <string name="osclock_timer_duration">%1$s timer</string>
+    <string name="osclock_timer_completed">%1$s completed</string>
+    <string name="osclock_timer_note">Timer also shows on the Lock Screen and in the notification bar.</string>
+    <!-- Kênh thông báo -->
+    <string name="osclock_channel_ring">Alarms and timers</string>
+    <string name="osclock_channel_timer">Running timers</string>
+    <string name="osclock_channel_snooze">Snoozed alarms</string>
+    <string name="osclock_onboarding_title_1">World Clock</string>
+    <string name="osclock_onboarding_desc_1">Track global time zones in a clean,\nminimalist layout</string>
+    <string name="osclock_onboarding_title_2">Alarms &amp; Sleep</string>
+    <string name="osclock_onboarding_desc_2">Flexible alarm schedules with\nsoothing sleep sounds</string>
+    <string name="osclock_onboarding_title_3">Precision Timers</string>
+    <string name="osclock_onboarding_desc_3">Multi-timer support &amp; millisecond-\naccurate stopwatch</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_app_name">Measure</string>
+    <string name="measure_tab_measure">Measure</string>
+    <string name="measure_tab_level">Level</string>
+    <string name="measure_move_to_start">Move phone to start</string>
+    <string name="measure_undo">Undo</string>
+    <string name="measure_clear">Clear</string>
+    <string name="measure_add_point">Add point</string>
+    <string name="measure_capture">Capture</string>
+    <string name="measure_measurements">Measurements</string>
+    <string name="measure_done">Done</string>
+    <string name="measure_copy">Copy</string>
+    <string name="measure_copied">Copied</string>
+    <string name="measure_clear_all">Clear All</string>
+    <string name="measure_empty">No measurements yet</string>
+    <string name="measure_type_line">Line</string>
+    <string name="measure_saved_to_photos">Saved to Photos</string>
+    <string name="measure_save_failed">Couldn\'t save photo</string>
+    <string name="measure_ar_unsupported">This device doesn\'t support AR measuring. You can still use Level.</string>
+    <string name="measure_camera_permission">Allow camera access to measure. Tap to open Settings.</string>
+    <string name="measure_onboarding_title_1">AR Measurement</string>
+    <string name="measure_onboarding_desc_1">Instant object measuring powered by\nAugmented Reality</string>
+    <string name="measure_onboarding_title_2">Smart Snapping</string>
+    <string name="measure_onboarding_desc_2">Auto edge detection &amp; quick\nheight measurement</string>
+    <string name="measure_onboarding_title_3">Save &amp; Share</string>
+    <string name="measure_onboarding_desc_3">Easily keep history logs with\nphoto attachments</string>
+    <string name="measure_ruler_hint">Move closer to see ruler</string>
+</resources>

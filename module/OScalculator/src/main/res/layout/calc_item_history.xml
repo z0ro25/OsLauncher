@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Một phép tính trong lịch sử: biểu thức xám 10sp + kết quả trắng 16sp, viền dưới trắng 20%.
+     Ô chọn tròn chỉ hiện ở chế độ sửa. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/calc_item_check"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/calc_ic_unselected"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/calc_item_expression"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="start"
+        android:fontFamily="@font/appbase_sf_pro_regular"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/calc_text_secondary"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@id/calc_item_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/calc_item_check"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_goneMarginStart="0dp"
+        tools:ignore="SmallSp"
+        tools:text="30×4" />
+
+    <TextView
+        android:id="@+id/calc_item_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/appbase_sf_pro_medium"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/calc_text_primary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/calc_item_expression"
+        app:layout_constraintTop_toBottomOf="@id/calc_item_expression"
+        tools:text="120" />
+
+    <!-- Viền trên mỗi dòng (Figma: vạch ngay dưới "Day before" và giữa các dòng). -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/calc_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compass_app_name">나침반</string>
+    <string name="compass_elevation">고도 %1$dm</string>
+    <string name="compass_location_unavailable">위치를 사용할 수 없음</string>
+    <string name="compass_no_sensor">나침반 센서 없음</string>
+    <string name="compass_calibrate">보정</string>
+    <string name="compass_calibrate_hint">화면을 기울여 공이 원을 따라 굴러가게 하세요.</string>
+    <string name="compass_permission_title">‘나침반’이 사용자의 위치를 사용하도록 허용하겠습니까?</string>
+    <string name="compass_permission_message">위치는 좌표와 진북을 표시하는 데 사용됩니다.</string>
+    <string name="compass_allow_while_using">앱을 사용하는 동안 허용</string>
+    <string name="compass_allow_once">한 번 허용</string>
+    <string name="compass_dont_allow">허용 안 함</string>
+    <string name="compass_my_location">나의 위치</string>
+    <string name="compass_place_heading">%1$s · 방향 %2$s</string>
+    <string name="compass_share_location">위치 공유</string>
+    <string name="compass_share_text">나의 위치: %1$s\n%2$s</string>
+    <string name="compass_close">닫기</string>
+    <string name="compass_onboarding_title_1">정밀한 방향</string>
+    <string name="compass_onboarding_desc_1">자북과 진북 방향을\n명확하게 표시</string>
+    <string name="compass_onboarding_title_2">좌표 및 고도</string>
+    <string name="compass_onboarding_desc_2">위도, 경도, 고도를\n실시간으로 확인</string>
+    <string name="compass_onboarding_title_3">내장 수평계</string>
+    <string name="compass_onboarding_desc_3">일상에서 쓰는 정확한\n경사 및 기울기 측정</string>
+</resources>

@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+// Base dùng chung cho các module app tiện ích (OScalculator / OScompass / OSclock).
+android {
+    namespace "com.ezla.oslauncher.appbase"
+    compileSdkVersion cfgs.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfgs.minSdkVersion
+        targetSdkVersion cfgs.targetSdkVersion
+    }
+    resourcePrefix 'appbase'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    // Có sẵn class ViewBinding cho BaseActivity<b : ViewBinding> (module con cũng bật viewBinding).
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    // api: module con kế thừa BaseActivity<ViewBinding> nên cần thấy các kiểu này.
+    api 'androidx.appcompat:appcompat:1.7.0'
+    api 'androidx.core:core-ktx:1.9.0'
+    api 'androidx.fragment:fragment-ktx:1.6.2'
+    // IosLocale / SharePrefUtils / AppAds (banner) + SDK ads eztech khai api ở iOSLiteCommon.
+    api project(':library:iOSLiteCommon')
+    // Onboarding dùng chung của các app tiện ích (BaseOnboardingActivity).
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
+    // CardView trong appbase_layout_native_onb (bo góc icon/media của native).
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.tbuonomo:dotsindicator:4.3'
+}

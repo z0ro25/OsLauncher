@@ -17,7 +17,6 @@ import com.truongnt.ios.launcher.InvariantDeviceProfile;
 import com.truongnt.ios.launcher.ItemInfo;
 import com.truongnt.ios.launcher.LauncherAppState;
 import com.truongnt.ios.launcher.LauncherAppWidgetProviderInfo;
-import com.truongnt.ios.launcher.Utilities;
 import com.truongnt.ios.launcher.compat.AlphabeticIndexCompat;
 import com.truongnt.ios.launcher.compat.AppWidgetManagerCompat;
 import com.truongnt.ios.launcher.compat.UserHandleCompat;
@@ -25,7 +24,6 @@ import com.truongnt.ios.launcher.compat.UserHandleCompat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,15 +37,18 @@ public class WidgetsModel {
     private static final String TAG = "WidgetsModel";
     private static final boolean DEBUG = false;
 
+    // Crashlytics ConcurrentModificationException ở getFeaturedWidgets: UI thread duyệt list trong lúc
+    // worker (hoặc lần gọi lồng) clear()/add() chính list đó. Giờ mỗi lần cập nhật dựng list MỚI rồi
+    // gán thay một lần (volatile) -> người đọc luôn duyệt một bản không ai sửa nữa.
     /* List of packages that is tracked by this model. */
-    private ArrayList<PackageItemInfo> mPackageItemInfos = new ArrayList<>();
+    private volatile ArrayList<PackageItemInfo> mPackageItemInfos = new ArrayList<>();
     public ArrayList<PackageItemInfo> mFilteredPackageInfo = new ArrayList<>();
 
     /* Map of widgets and shortcuts that are tracked per package. */
-    private HashMap<PackageItemInfo, ArrayList<Object>> mSystemWidgetsList = new HashMap<>();
+    private volatile HashMap<PackageItemInfo, ArrayList<Object>> mSystemWidgetsList = new HashMap<>();
     public HashMap<PackageItemInfo, ArrayList<Object>> mFilteredWidgetList = new HashMap<>();
 
-    private ArrayList<Object> mIOSWidgetsList = new ArrayList<Object>();
+    private volatile ArrayList<Object> mIOSWidgetsList = new ArrayList<Object>();
 
     private ArrayList<Object> mRawList;
 
@@ -270,8 +271,9 @@ public class WidgetsModel {
         return mRawList;
     }
 
-    public void setWidgetsAndShortcuts(ArrayList<Object> rawWidgetsShortcuts) {
-        Utilities.assertWorkerThread();
+    // synchronized: worker (loadAndBindWidgetsAndShortcuts) và UI (notifyWidgetProvidersChanged) đều
+    // gọi; comparator dùng chung có cache HashMap nên hai lần dựng không được chạy song song.
+    public synchronized void setWidgetsAndShortcuts(ArrayList<Object> rawWidgetsShortcuts) {
         mRawList = rawWidgetsShortcuts;
         if (DEBUG) {
             Log.d(TAG, "addWidgetsAndShortcuts, widgetsShortcuts#=" + rawWidgetsShortcuts.size());
@@ -281,10 +283,10 @@ public class WidgetsModel {
         // {@link mPackageItemInfos} to locate the key to be used for {@link #mSystemWidgetsList}
         HashMap<String, PackageItemInfo> tmpPackageItemInfos = new HashMap<>();
 
-        // clear the lists.
-        mSystemWidgetsList.clear();
-        mIOSWidgetsList.clear();
-        mPackageItemInfos.clear();
+        // Dựng vào bản MỚI (không clear bản đang được UI duyệt), cuối hàm mới gán thay.
+        HashMap<PackageItemInfo, ArrayList<Object>> systemWidgets = new HashMap<>();
+        ArrayList<Object> iosWidgets = new ArrayList<>();
+        ArrayList<PackageItemInfo> packageItemInfos = new ArrayList<>();
         mWidgetAndShortcutNameComparator.reset();
 
         InvariantDeviceProfile idp = LauncherAppState.getInstance().getInvariantDeviceProfile();
@@ -340,10 +342,10 @@ public class WidgetsModel {
             }
 
             if (packageName.equals(mIOSPkgName)) {
-                mIOSWidgetsList.add(o);
+                iosWidgets.add(o);
             } else {
                 PackageItemInfo pInfo = tmpPackageItemInfos.get(packageName);
-                ArrayList<Object> widgetsShortcutsList = mSystemWidgetsList.get(pInfo);
+                ArrayList<Object> widgetsShortcutsList = systemWidgets.get(pInfo);
                 if (widgetsShortcutsList != null) {
                     widgetsShortcutsList.add(o);
                 } else {
@@ -365,9 +367,9 @@ public class WidgetsModel {
                     }
 
                     pInfo.titleSectionName = mIndexer.computeSectionName(pInfo.title);
-                    mSystemWidgetsList.put(pInfo, widgetsShortcutsList);
+                    systemWidgets.put(pInfo, widgetsShortcutsList);
                     tmpPackageItemInfos.put(packageName, pInfo);
-                    mPackageItemInfos.add(pInfo);
+                    packageItemInfos.add(pInfo);
                 }
             }
 
@@ -383,30 +385,17 @@ public class WidgetsModel {
          */
 
 
-        try {
-            synchronized (WidgetsModel.class){
-
-                Collections.sort(mIOSWidgetsList, mWidgetAndShortcutNameComparator);
-                Collections.sort(mPackageItemInfos, mAppNameComparator);
-
-//                int size  = mPackageItemInfos.size();
-//                for (int i = 0 ; i < size - 1 ; i++){
-//                    PackageItemInfo p = mPackageItemInfos.get(i);
-//                    if (p == null) return;
-//                    Collections.sort(mSystemWidgetsList.get(p),mWidgetAndShortcutNameComparator);
-//                }
-
-                for (PackageItemInfo pack : mPackageItemInfos) {
-                    if (pack == null) return;
-                    Collections.sort(mSystemWidgetsList.get(pack),mWidgetAndShortcutNameComparator);
-                }
-            }
-        }
-        catch (ConcurrentModificationException e){
-
+        // Sắp xếp trên bản cục bộ (chưa ai thấy) nên không còn ConcurrentModification.
+        Collections.sort(iosWidgets, mWidgetAndShortcutNameComparator);
+        Collections.sort(packageItemInfos, mAppNameComparator);
+        for (PackageItemInfo pack : packageItemInfos) {
+            ArrayList<Object> widgets = systemWidgets.get(pack);
+            if (widgets != null) Collections.sort(widgets, mWidgetAndShortcutNameComparator);
         }
 
-
+        mSystemWidgetsList = systemWidgets;
+        mPackageItemInfos = packageItemInfos;
+        mIOSWidgetsList = iosWidgets;
     }
 
     /**
@@ -440,11 +429,10 @@ public class WidgetsModel {
         return false;
     }
 
+    // Thay bằng bản mới thay vì clear()+addAll() lên list mà RecyclerView có thể đang đọc dở.
     public void setFilterNull(){
-        mFilteredPackageInfo.clear();
-        mFilteredPackageInfo.addAll(mPackageItemInfos);
-        mFilteredWidgetList.clear();
-        mFilteredWidgetList.putAll(mSystemWidgetsList);
+        mFilteredPackageInfo = new ArrayList<>(mPackageItemInfos);
+        mFilteredWidgetList = new HashMap<>(mSystemWidgetsList);
     }
 
 }

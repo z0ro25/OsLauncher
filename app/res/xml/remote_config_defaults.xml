@@ -23,6 +23,13 @@
         <value>08:00</value>
     </entry>
 
+    <!-- Base url API của module Themes — nguồn DUY NHẤT, code không fix cứng. BaseLauncherApplication
+         đọc giá trị này seed lúc khởi động, rồi đẩy giá trị fetch về xuống ApiClient.applyDomain(). -->
+    <entry>
+        <key>domain_api</key>
+        <value>https://launcher-os.eztechglobal.com/api/v1/</value>
+    </entry>
+
     <!-- ==================================================================================
          Bộ key MỚI — tên khai trong RemoteConfigs (iOSLiteCommon), lưu ở SplashActivity rồi
          mọi module đọc lại qua RemoteConfigs.get*().

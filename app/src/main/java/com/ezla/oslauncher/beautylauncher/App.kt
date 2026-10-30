@@ -16,6 +16,7 @@ import com.ezt.v2.ezt.admobdemo.ads.core.AdUnitDefaults
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsHostConfig
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate
 import com.truongnt.ios.launcher.Utilities
 
@@ -38,12 +39,20 @@ class App : BaseLauncherApplication() {
             activity.startActivity(SubsAct.intent(activity, source))
         }
         // Rate us ở Settings module Themes dùng đúng dialog rate của :app.
-        ThemesEntry.rateOpener = { activity, onRated -> RateFlow.show(activity, false, onRated) }
+        // Nền đặt từ module Themes = nền user chọn: đổi Dark/Light không đè lên.
+        ThemesEntry.wallpaperChangedListener = { AppThemeManager.markUserWallpaper(it) }
+        ThemesEntry.rateOpener ={ activity, onRated -> RateFlow.show(activity, false, onRated) }
 
         val preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE)
         val analytics = FirebaseAnalytics.getInstance(this)
         // Click trong module launcher (icon app / icon Themes trên desktop) đi qua đây vào Firebase.
         AnalyticsDelegate.setEventLogger { event -> analytics.logEvent(event, null) }
+        // Lỗi các module đã tự bắt + cứu (vd desktop dựng hỏng) vẫn phải lên Crashlytics để theo dõi.
+        AnalyticsDelegate.setNonFatalLogger { error, keys ->
+            val crashlytics = FirebaseCrashlytics.getInstance()
+            keys.forEach { (k, v) -> crashlytics.setCustomKey(k, v) }
+            crashlytics.recordException(error)
+        }
         // Event có param từ các module (vd user_apply ở module Themes).
         AnalyticsDelegate.setParamEventLogger { event, params ->
             analytics.logEvent(event, Bundle().apply { params.forEach { (k, v) -> putString(k, v) } })

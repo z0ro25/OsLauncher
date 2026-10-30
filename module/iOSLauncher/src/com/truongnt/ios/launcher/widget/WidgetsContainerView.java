@@ -134,6 +134,7 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         @Override
         public WidgetsModel call() throws Exception {
             if (mWidgetsModel == null) return null;
+            mWidgetListAdapter.setSearching(!TextUtils.isEmpty(mKeyWord));
             if (TextUtils.isEmpty(mKeyWord)){
                 mWidgetsModel.setFilterNull();
             }
@@ -273,16 +274,7 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
     public void filterWidget(CharSequence keyword){
         try {
             new FilterWidgetCallable(keyword).call();
-            WidgetsContainerView.this.post(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!mWidgetListRV.isComputingLayout()){
-                                mWidgetListAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-            );
+            notifyWidgetListChanged();
         }
         catch (Throwable th){
             th.getMessage();
@@ -808,6 +800,17 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
 
     public void setWidgetModel(WidgetsModel widgetModel){
         mWidgetsModel = widgetModel;
+        notifyWidgetListChanged();
+    }
+
+    // Mọi lần đổi dữ liệu khay đi qua đây: chốt ảnh chụp + notify NGOÀI lượt layout. Đang layout thì
+    // hẹn lại frame sau thay vì bỏ qua (bỏ qua = khay đứng ở dữ liệu cũ, lệch với model).
+    public void notifyWidgetListChanged() {
+        if (mWidgetListRV.isComputingLayout()) {
+            mWidgetListRV.post(this::notifyWidgetListChanged);
+            return;
+        }
+        mWidgetListAdapter.refreshSnapshot();
         mWidgetListAdapter.notifyDataSetChanged();
     }
 
@@ -821,8 +824,10 @@ public class WidgetsContainerView extends SlidingUpPanelLayout implements
         super.clearFocus();
         mSearchWidgetEDT.setText("");
         if (mWidgetsModel != null){
+            mWidgetListAdapter.setSearching(false);
             mWidgetsModel.setFilterNull();
             mWidgetListAdapter.setWidgetModel(mWidgetsModel);
+            notifyWidgetListChanged();
         }
     }
 

@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import com.ezla.oslauncher.themes.Models.ThemeDetail
+import com.ezla.oslauncher.themes.ThemesEntry
 import com.truongnt.ios.ioslite.common.util.PreferencesUtil
 import com.truongnt.ios.launcher.LauncherAppState
 import com.truongnt.ios.launcher.appoverride.AppOverrideStore
@@ -38,16 +39,18 @@ object ThemeApplyEngine {
         applyLock: Boolean
     ): Boolean = withContext(Dispatchers.IO) {
         val appCtx = context.applicationContext
-        var applied = false
 
-        // 1) Background: tải về folder rồi set nền TỪ FILE (giữ 1 bản background.png của theme).
+        // 1) Icon TRƯỚC: đổi nền (Android 12+) làm desktop bị dựng lại, nếu process chết lúc đó
+        // thì icon tải dở -> desktop lẫn icon theme cũ/mới.
+        val iconsApplied = replaceIcons(appCtx, detail)
+
+        // 2) Background: tải về folder rồi set nền TỪ FILE (giữ 1 bản background.png của theme).
+        var wallpaperApplied = false
         val wallpaperUrl = detail.wallpapers.firstOrNull()
         if (wallpaperUrl != null && (applyHome || applyLock)) {
-            applied = saveAndSetWallpaper(appCtx, wallpaperUrl, applyHome, applyLock)
+            wallpaperApplied = saveAndSetWallpaper(appCtx, wallpaperUrl, applyHome, applyLock)
         }
-
-        // 2) Icon: thay phần icon của "theme đang dùng" (giữ nền).
-        replaceIcons(appCtx, detail) || applied
+        iconsApplied || wallpaperApplied
     }
 
     // Đổi riêng ICON (tab Icon ở màn Install): thay phần icon của "theme đang dùng", giữ nền.
@@ -156,6 +159,8 @@ object ThemeApplyEngine {
     }
 
     private fun setWallpaper(context: Context, bmp: android.graphics.Bitmap, home: Boolean, lock: Boolean): Boolean = try {
+        // Báo :app trước khi đặt: nền do user chọn, đổi Dark/Light không được ghi đè.
+        ThemesEntry.wallpaperChangedListener?.invoke(context)
         val wm = WallpaperManager.getInstance(context)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             var flags = 0

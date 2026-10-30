@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_app_name">Ukur</string>
+    <string name="measure_tab_measure">Ukur</string>
+    <string name="measure_tab_level">Waterpas</string>
+    <string name="measure_move_to_start">Gerakkan ponsel untuk memulai</string>
+    <string name="measure_undo">Urungkan</string>
+    <string name="measure_clear">Hapus</string>
+    <string name="measure_add_point">Tambah titik</string>
+    <string name="measure_capture">Ambil gambar</string>
+    <string name="measure_measurements">Pengukuran</string>
+    <string name="measure_done">Selesai</string>
+    <string name="measure_copy">Salin</string>
+    <string name="measure_copied">Disalin</string>
+    <string name="measure_clear_all">Hapus Semua</string>
+    <string name="measure_empty">Belum ada pengukuran</string>
+    <string name="measure_type_line">Garis</string>
+    <string name="measure_saved_to_photos">Disimpan ke Foto</string>
+    <string name="measure_save_failed">Gagal menyimpan foto</string>
+    <string name="measure_ar_unsupported">Perangkat ini tidak mendukung pengukuran AR. Anda tetap dapat memakai Waterpas.</string>
+    <string name="measure_camera_permission">Izinkan akses kamera untuk mengukur. Ketuk untuk membuka Pengaturan.</string>
+    <string name="measure_onboarding_title_1">Pengukuran AR</string>
+    <string name="measure_onboarding_desc_1">Ukur objek secara instan dengan\nAugmented Reality</string>
+    <string name="measure_onboarding_title_2">Penempatan Pintar</string>
+    <string name="measure_onboarding_desc_2">Deteksi tepi otomatis &amp;\npengukuran tinggi cepat</string>
+    <string name="measure_onboarding_title_3">Simpan &amp; Bagikan</string>
+    <string name="measure_onboarding_desc_3">Simpan riwayat pengukuran\ndengan lampiran foto</string>
+    <string name="measure_ruler_hint">Dekatkan untuk melihat penggaris</string>
+</resources>

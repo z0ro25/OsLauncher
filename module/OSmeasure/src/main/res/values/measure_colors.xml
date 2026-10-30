@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu lấy từ Figma "14 · Measure". -->
+<resources>
+    <color name="measure_bg">#000000</color>
+    <color name="measure_white">#FFFFFF</color>
+    <color name="measure_text_secondary">#BFFFFFFF</color>
+    <color name="measure_dim">#1F000000</color>
+    <color name="measure_dim_detail">#40000000</color>
+    <color name="measure_glass">#9E2C2C2E</color>
+    <color name="measure_glass_tabs">#592C2C2E</color>
+    <color name="measure_glass_card">#E62C2C2E</color>
+    <color name="measure_glass_toast">#E62C2C2E</color>
+    <color name="measure_glass_stroke">#29FFFFFF</color>
+    <color name="measure_button_secondary">#2EFFFFFF</color>
+    <color name="measure_glass_coach">#4D2C2C2E</color>
+    <color name="measure_flash">#59FFFFFF</color>
+    <color name="measure_sheet_bg">#1C1C1E</color>
+    <color name="measure_item_bg">#2C2C2E</color>
+    <color name="measure_grab">#48484A</color>
+    <color name="measure_gray">#8E8E93</color>
+    <color name="measure_blue">#0A84FF</color>
+    <color name="measure_red">#FF453A</color>
+    <color name="measure_level_green">#34C759</color>
+    <color name="measure_level_upper">#1C1C1E</color>
+    <color name="measure_yellow">#FFD60A</color>
+    <color name="measure_level_disc_zero">#40FFFFFF</color>
+</resources>

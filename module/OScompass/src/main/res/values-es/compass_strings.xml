@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compass_app_name">Brújula</string>
+    <string name="compass_elevation">%1$d m de altitud</string>
+    <string name="compass_location_unavailable">Ubicación no disponible</string>
+    <string name="compass_no_sensor">Sin sensor de brújula</string>
+    <string name="compass_calibrate">Calibrar</string>
+    <string name="compass_calibrate_hint">Inclina la pantalla para hacer rodar la bola por el círculo.</string>
+    <string name="compass_permission_title">¿Permitir que “Brújula” use tu ubicación?</string>
+    <string name="compass_permission_message">Tu ubicación se usa para mostrar las coordenadas y el norte geográfico.</string>
+    <string name="compass_allow_while_using">Permitir al usar la app</string>
+    <string name="compass_allow_once">Permitir una vez</string>
+    <string name="compass_dont_allow">No permitir</string>
+    <string name="compass_my_location">Mi ubicación</string>
+    <string name="compass_place_heading">%1$s · Rumbo %2$s</string>
+    <string name="compass_share_location">Compartir ubicación</string>
+    <string name="compass_share_text">Mi ubicación: %1$s\n%2$s</string>
+    <string name="compass_close">Cerrar</string>
+    <string-array name="compass_cardinals">
+        <item>N</item>
+        <item>E</item>
+        <item>S</item>
+        <item>O</item>
+    </string-array>
+    <string-array name="compass_directions">
+        <item>N</item>
+        <item>NE</item>
+        <item>E</item>
+        <item>SE</item>
+        <item>S</item>
+        <item>SO</item>
+        <item>O</item>
+        <item>NO</item>
+    </string-array>
+    <string name="compass_onboarding_title_1">Orientación precisa</string>
+    <string name="compass_onboarding_desc_1">Direcciones claras del norte\nmagnético y verdadero</string>
+    <string name="compass_onboarding_title_2">Coordenadas y altitud</string>
+    <string name="compass_onboarding_desc_2">Latitud, longitud y altitud\nen tiempo real</string>
+    <string name="compass_onboarding_title_3">Nivel integrado</string>
+    <string name="compass_onboarding_desc_3">Medición precisa de pendiente\ne inclinación para el día a día</string>
+</resources>

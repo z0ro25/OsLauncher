@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calc_app_name">Calculatrice</string>
+    <string name="calc_clear">C</string>
+    <string name="calc_all_clear">AC</string>
+    <string name="calc_error">Erreur</string>
+    <string name="calc_history">Historique</string>
+    <string name="calc_edit">Modifier</string>
+    <string name="calc_done">OK</string>
+    <string name="calc_clear_all">Tout effacer</string>
+    <string name="calc_delete_count">Supprimer (%1$d)</string>
+    <string name="calc_no_history">Aucun historique</string>
+    <string name="calc_today">Aujourd\'hui</string>
+    <string name="calc_yesterday">Hier</string>
+    <string name="calc_older">Plus ancien</string>
+    <string name="calc_back">Retour</string>
+    <string name="calc_copied">Copié</string>
+    <string name="calc_cd_plus_minus">Plus moins</string>
+    <string name="calc_cd_percent">Pourcentage</string>
+    <string name="calc_cd_divide">Diviser</string>
+    <string name="calc_cd_multiply">Multiplier</string>
+    <string name="calc_cd_minus">Moins</string>
+    <string name="calc_cd_plus">Plus</string>
+    <string name="calc_cd_equal">Égal</string>
+    <string name="calc_onboarding_title_1">Standard et scientifique</string>
+    <string name="calc_onboarding_desc_1">Passez facilement des calculs simples aux fonctions scientifiques avancées</string>
+    <string name="calc_onboarding_title_2">Historique et mémoire</string>
+    <string name="calc_onboarding_desc_2">Revoyez vos calculs, copiez les résultats et modifiez les étapes précédentes</string>
+    <string name="calc_onboarding_title_3">Grand affichage</string>
+    <string name="calc_onboarding_desc_3">Des chiffres grands et lisibles et des touches claires pour un usage quotidien</string>
+</resources>

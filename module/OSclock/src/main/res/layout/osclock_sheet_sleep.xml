@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "Sleep Schedule": BEDTIME / WAKE UP, vòng 240dp kéo được, tổng giờ ngủ. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/osclock_bg_sheet"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/osclock_sleep_bar"
+        layout="@layout/osclock_view_sheet_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/OsclockSleepLabel"
+                android:drawableStart="@drawable/osclock_ic_bed"
+                android:text="@string/osclock_bedtime" />
+
+            <TextView
+                android:id="@+id/osclock_sleep_bed"
+                style="@style/OsclockSleepTime" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/OsclockSleepLabel"
+                android:drawableStart="@drawable/osclock_ic_alarm_small"
+                android:text="@string/osclock_wake_up" />
+
+            <TextView
+                android:id="@+id/osclock_sleep_wake"
+                style="@style/OsclockSleepTime" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.ezla.oslauncher.clock.ui.SleepDialView
+        android:id="@+id/osclock_sleep_dial"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:id="@+id/osclock_sleep_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/appbase_sf_pro_semibold"
+        android:gravity="center"
+        android:textColor="@color/osclock_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/osclock_sleep_goal"
+        style="@style/OsclockCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/osclock_sleep_off"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/osclock_bg_card"
+        android:fontFamily="@font/appbase_sf_pro_regular"
+        android:gravity="center"
+        android:text="@string/osclock_turn_off_sleep"
+        android:textColor="@color/osclock_red"
+        android:textSize="17sp" />
+</LinearLayout>

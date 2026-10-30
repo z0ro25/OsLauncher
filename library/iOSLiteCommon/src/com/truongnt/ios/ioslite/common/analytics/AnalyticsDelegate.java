@@ -71,6 +71,28 @@ public class AnalyticsDelegate {
         }
     }
 
+    // Lỗi đã bắt được (non-fatal) -> Crashlytics. :app gắn ở Application; [keys] = custom key để lọc
+    // theo hãng/bước lỗi trên console. Chưa gắn thì bỏ qua.
+    public interface NonFatalLogger {
+        void log(Throwable error, java.util.Map<String, String> keys);
+    }
+
+    private static volatile NonFatalLogger sNonFatalLogger;
+
+    public static void setNonFatalLogger(NonFatalLogger logger) {
+        sNonFatalLogger = logger;
+    }
+
+    public static void logNonFatal(Throwable error, java.util.Map<String, String> keys) {
+        NonFatalLogger logger = sNonFatalLogger;
+        if (logger == null || error == null) return;
+        try {
+            logger.log(error, keys != null ? keys : java.util.Collections.<String, String>emptyMap());
+        } catch (Throwable ignore) {
+            // Không để lỗi của chính bộ log làm hỏng luồng đang cứu.
+        }
+    }
+
     public static void initalize(Application application) {
 //        sUmAnalytics = new UmAnalytics();
 //        sUmAnalytics.initalize(application);

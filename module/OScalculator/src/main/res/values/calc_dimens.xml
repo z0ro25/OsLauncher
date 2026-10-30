@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kích thước theo frame 360x800 của Figma (1px Figma = 1dp). -->
+<resources>
+    <dimen name="calc_key_gap">12.83dp</dimen>
+    <dimen name="calc_keypad_padding_h">13.4dp</dimen>
+    <dimen name="calc_keypad_padding_bottom">24dp</dimen>
+    <dimen name="calc_display_padding_h">27.6dp</dimen>
+    <dimen name="calc_key_text">34sp</dimen>
+    <dimen name="calc_expression_text">32sp</dimen>
+    <dimen name="calc_result_text">78sp</dimen>
+    <dimen name="calc_result_text_min">40sp</dimen>
+    <dimen name="calc_key_icon">32dp</dimen>
+</resources>

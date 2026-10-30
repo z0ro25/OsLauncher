@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compass_app_name">Kompass</string>
+    <string name="compass_elevation">%1$d m Höhe</string>
+    <string name="compass_location_unavailable">Standort nicht verfügbar</string>
+    <string name="compass_no_sensor">Kein Kompasssensor</string>
+    <string name="compass_calibrate">Kalibrieren</string>
+    <string name="compass_calibrate_hint">Neige den Bildschirm, um die Kugel im Kreis rollen zu lassen.</string>
+    <string name="compass_permission_title">„Kompass“ erlauben, deinen Standort zu verwenden?</string>
+    <string name="compass_permission_message">Dein Standort wird verwendet, um Koordinaten und geografisch Nord anzuzeigen.</string>
+    <string name="compass_allow_while_using">Beim Verwenden der App erlauben</string>
+    <string name="compass_allow_once">Einmal erlauben</string>
+    <string name="compass_dont_allow">Nicht erlauben</string>
+    <string name="compass_my_location">Mein Standort</string>
+    <string name="compass_place_heading">%1$s · Richtung %2$s</string>
+    <string name="compass_share_location">Standort teilen</string>
+    <string name="compass_share_text">Mein Standort: %1$s\n%2$s</string>
+    <string name="compass_close">Schließen</string>
+    <string-array name="compass_cardinals">
+        <item>N</item>
+        <item>O</item>
+        <item>S</item>
+        <item>W</item>
+    </string-array>
+    <string-array name="compass_directions">
+        <item>N</item>
+        <item>NO</item>
+        <item>O</item>
+        <item>SO</item>
+        <item>S</item>
+        <item>SW</item>
+        <item>W</item>
+        <item>NW</item>
+    </string-array>
+    <string name="compass_onboarding_title_1">Präzise Ausrichtung</string>
+    <string name="compass_onboarding_desc_1">Klare magnetische und\ngeografische Nordrichtung</string>
+    <string name="compass_onboarding_title_2">Koordinaten &amp; Höhe</string>
+    <string name="compass_onboarding_desc_2">Breitengrad, Längengrad und\nHöhe in Echtzeit</string>
+    <string name="compass_onboarding_title_3">Integrierte Wasserwaage</string>
+    <string name="compass_onboarding_desc_3">Genaue Neigungs- und Winkelmessung\nfür den Alltag</string>
+</resources>

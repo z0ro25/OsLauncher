@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calc_app_name">कैलकुलेटर</string>
+    <string name="calc_clear">C</string>
+    <string name="calc_all_clear">AC</string>
+    <string name="calc_error">त्रुटि</string>
+    <string name="calc_history">इतिहास</string>
+    <string name="calc_edit">संपादित करें</string>
+    <string name="calc_done">हो गया</string>
+    <string name="calc_clear_all">सभी साफ़ करें</string>
+    <string name="calc_delete_count">हटाएं (%1$d)</string>
+    <string name="calc_no_history">कोई इतिहास नहीं</string>
+    <string name="calc_today">आज</string>
+    <string name="calc_yesterday">कल</string>
+    <string name="calc_older">पहले</string>
+    <string name="calc_back">वापस</string>
+    <string name="calc_copied">कॉपी किया गया</string>
+    <string name="calc_cd_plus_minus">प्लस माइनस</string>
+    <string name="calc_cd_percent">प्रतिशत</string>
+    <string name="calc_cd_divide">भाग</string>
+    <string name="calc_cd_multiply">गुणा</string>
+    <string name="calc_cd_minus">घटाएं</string>
+    <string name="calc_cd_plus">जोड़ें</string>
+    <string name="calc_cd_equal">बराबर</string>
+    <string name="calc_onboarding_title_1">बेसिक और साइंटिफ़िक</string>
+    <string name="calc_onboarding_desc_1">सामान्य गणित और एडवांस्ड साइंटिफ़िक फ़ंक्शन के बीच आसानी से स्विच करें</string>
+    <string name="calc_onboarding_title_2">इतिहास और मेमोरी</string>
+    <string name="calc_onboarding_desc_2">पिछली गणनाएं देखें, नतीजे कॉपी करें और पिछले चरण बदलें</string>
+    <string name="calc_onboarding_title_3">बड़ा डिस्प्ले</string>
+    <string name="calc_onboarding_desc_3">रोज़ के आसान इस्तेमाल के लिए बड़े, साफ़ अंक और स्पष्ट बटन</string>
+</resources>

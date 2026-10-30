@@ -76,6 +76,10 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
      * Gọi từ getItemCount() (điểm đồng bộ chính, đầu mỗi lượt layout) và setWidgetModel().
      */
     private void refreshFeatured() {
+        // Crashlytics AIOOBE ở GridLayoutManager.getSpaceForSpanRange: layoutChunk hỏi getSpanSize
+        // 2 lần (đếm rồi xếp); ảnh chụp đổi giữa 2 lần -> span cộng dồn vượt số cột. Đang layout thì
+        // KHÔNG chốt lại; các điểm đổi dữ liệu đã gọi refreshSnapshot() trước khi notify.
+        if (mRecyclerView != null && mRecyclerView.isComputingLayout()) return;
         mFeatured.clear();
         if (!hasFeatured()) return;
         ArrayList<Object> featured = mWidgetsModel.getFeaturedWidgets();
@@ -85,6 +89,33 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
                 mFeatured.add((LauncherAppWidgetProviderInfo) o);
             }
         }
+    }
+
+    /** Chốt lại ảnh chụp ngay — gọi trước notifyDataSetChanged ở mọi chỗ đổi dữ liệu khay. */
+    public void refreshSnapshot() {
+        refreshFeatured();
+    }
+
+    // Đang search do WidgetsContainerView báo; KHÔNG suy ra bằng so size list lọc với list gốc vì
+    // list gốc bị luồng worker thay bất kỳ lúc nào -> khối nổi bật tự ẩn/hiện giữa lượt layout.
+    private boolean mSearching;
+
+    public void setSearching(boolean searching) {
+        mSearching = searching;
+    }
+
+    private RecyclerView mRecyclerView;
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView = null;
     }
 
     // KHÔNG đè notifyDataSetChanged() được: RecyclerView.Adapter khai báo nó là public FINAL
@@ -327,10 +358,9 @@ public class WidgetAppListAdapter extends RecyclerView.Adapter {
      */
     private boolean hasFeatured() {
         if (mWidgetsModel == null || mWidgetsModel.mFilteredPackageInfo == null) return false;
-        boolean notSearching =
-                mWidgetsModel.mFilteredPackageInfo.size() == mWidgetsModel.getPackageSize();
+        if (mSearching) return false;
         ArrayList<Object> featured = mWidgetsModel.getFeaturedWidgets();
-        return notSearching && featured != null && !featured.isEmpty();
+        return featured != null && !featured.isEmpty();
     }
     /** Bấm thẻ Clock -> mở carousel level-2 gồm 4 size đồng hồ làm sẵn. */
     private void openClockCarousel() {

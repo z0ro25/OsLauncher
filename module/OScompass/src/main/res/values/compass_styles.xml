@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nền đen full màn, status bar trong suốt chữ sáng (giống Figma). -->
+    <style name="CompassTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/compass_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/compass_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorAccent">@color/compass_blue</item>
+    </style>
+
+    <style name="CompassBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CompassBottomSheetStyle</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+    </style>
+
+    <style name="CompassBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="CompassHeadingText">
+        <item name="android:fontFamily">@font/appbase_sf_pro_light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/compass_text</item>
+        <item name="android:textSize">52sp</item>
+    </style>
+
+    <style name="CompassInfoText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/compass_text_secondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CompassAlertButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@drawable/compass_bg_button_secondary</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/compass_text</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!-- Onboarding (BaseOnboardingActivity): nền trắng, icon status bar tối như Figma. -->
+    <style name="CompassOnboardingTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/appbase_onboarding_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/appbase_ad_placeholder</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

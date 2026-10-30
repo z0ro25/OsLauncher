@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "15 · Clock": 4 tab (fragment show/hide) + tab bar kính nổi 328x60 ở đáy. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/osclock_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/osclock_bg">
+
+    <FrameLayout
+        android:id="@+id/osclock_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/osclock_tabbar"
+        android:layout_width="328dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/osclock_bg_tabbar"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <LinearLayout
+            android:id="@+id/osclock_tab_world"
+            style="@style/OsclockTab">
+
+            <ImageView
+                style="@style/OsclockTabIcon"
+                android:src="@drawable/osclock_ic_tab_world" />
+
+            <TextView
+                style="@style/OsclockTabText"
+                android:text="@string/osclock_tab_world" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/osclock_tab_alarms"
+            style="@style/OsclockTab">
+
+            <ImageView
+                style="@style/OsclockTabIcon"
+                android:src="@drawable/osclock_ic_tab_alarm" />
+
+            <TextView
+                style="@style/OsclockTabText"
+                android:text="@string/osclock_tab_alarms" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/osclock_tab_stopwatch"
+            style="@style/OsclockTab">
+
+            <ImageView
+                style="@style/OsclockTabIcon"
+                android:src="@drawable/osclock_ic_tab_stopwatch" />
+
+            <TextView
+                style="@style/OsclockTabText"
+                android:text="@string/osclock_tab_stopwatch" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/osclock_tab_timers"
+            style="@style/OsclockTab">
+
+            <ImageView
+                style="@style/OsclockTabIcon"
+                android:src="@drawable/osclock_ic_tab_timer" />
+
+            <TextView
+                style="@style/OsclockTabText"
+                android:text="@string/osclock_tab_timers" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Toast kính "Paris Added" / "Alarm in 18 hr 4 min" (Figma: cách đáy 126dp). -->
+    <LinearLayout
+        android:id="@+id/osclock_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="126dp"
+        android:alpha="0"
+        android:background="@drawable/osclock_bg_toast"
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="20dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/osclock_toast_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/osclock_toast_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/appbase_sf_pro_semibold"
+            android:textColor="@color/osclock_text"
+            android:textSize="15sp" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OsclockTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/osclock_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/osclock_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorAccent">@color/osclock_orange</item>
+        <item name="colorPrimary">@color/osclock_orange</item>
+        <item name="bottomSheetDialogTheme">@style/OsclockBottomSheetDialog</item>
+    </style>
+
+    <!-- Màn chuông: nền ảnh Figma, hiện ngay trên màn khoá. -->
+    <style name="OsclockRingTheme" parent="OsclockTheme">
+        <item name="android:windowBackground">@drawable/osclock_bg_wallpaper</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="OsclockBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/OsclockBottomSheetStyle</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="android:navigationBarColor">@color/osclock_sheet_bg</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="colorAccent">@color/osclock_orange</item>
+        <item name="colorPrimary">@color/osclock_orange</item>
+    </style>
+
+    <style name="OsclockBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="OsclockTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="OsclockSection">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="OsclockBigTime">
+        <item name="android:fontFamily">@font/appbase_sf_pro_light</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">52sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="OsclockBody">
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="OsclockCaption">
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textColor">@color/osclock_gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Nút pill kính (Edit / Done / Cancel / Save / CHANGE). -->
+    <style name="OsclockGlassPill">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/osclock_bg_glass_pill</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">64dp</item>
+        <item name="android:paddingHorizontal">14dp</item>
+        <item name="android:textColor">@color/osclock_orange</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="OsclockGlassPill.Bold">
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+    </style>
+
+    <!-- Nút tròn 88dp (Reset / Lap / Start / Stop / Cancel). -->
+    <style name="OsclockRoundButton">
+        <item name="android:layout_width">88dp</item>
+        <item name="android:layout_height">88dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="OsclockSheetTitle">
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="OsclockRingAlarmTitle">
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:textColor">@color/osclock_text_dim</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="OsclockRingTimerTitle">
+        <item name="android:fontFamily">@font/appbase_sf_pro_bold</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="OsclockRingAlarmTime">
+        <item name="android:fontFamily">@font/appbase_sf_pro_bold</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">96sp</item>
+    </style>
+
+    <style name="OsclockRingTimerSubtitle">
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textColor">@color/osclock_text_soft</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!-- Onboarding (BaseOnboardingActivity): nền trắng, icon status bar tối như Figma. -->
+    <style name="OsclockOnboardingTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/appbase_onboarding_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/appbase_ad_placeholder</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

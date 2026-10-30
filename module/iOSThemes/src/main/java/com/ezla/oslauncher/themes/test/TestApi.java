@@ -9,12 +9,11 @@ import com.mct.sag.SagClient;
 import java.io.IOException;
 
 public class TestApi {
-    static String BASE_URL = "https://launcher-os.eztechglobal.com/api/v1/";
-
-    public static void test(Context context) {
+    // Base url truyền vào thay vì fix cứng (lấy từ Remote Config domain_api).
+    public static void test(Context context, String baseUrl) {
         FileLogger.init(context);
         FileLogger.d("AZZZ", "Step 1: start");
-        SagClient client = SagClient.builder(context, BASE_URL, BuildConfig.SAG_BOOTSTRAP_SECRET).build();
+        SagClient client = SagClient.builder(context, baseUrl, BuildConfig.SAG_BOOTSTRAP_SECRET).build();
         new Thread(() -> {
             try {
                 FileLogger.d("AZZZ", "Step 2: prepare");

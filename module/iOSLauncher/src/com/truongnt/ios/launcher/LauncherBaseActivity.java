@@ -30,21 +30,53 @@ public class LauncherBaseActivity extends CommonFragmentActivity implements Wall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Update theme
+        // Update theme (no-op nếu lớp con đã gọi applyWallpaperTheme() trước khi chạm window).
         WallpaperColorInfo wallpaperColorInfo = WallpaperColorInfo.getInstance(this);
         wallpaperColorInfo.addOnChangeListener(this);
-        int themeRes = getThemeRes(wallpaperColorInfo);
+        applyWallpaperTheme();
+    }
+
+    // Phải chạy TRƯỚC getWindow().getDecorView(): setTheme sau khi decor đã dựng làm decor lệch theme
+    // -> "Window couldn't find content container view" / drag_layer null khi recreate do đổi nền.
+    protected void applyWallpaperTheme() {
+        int themeRes = getThemeRes(WallpaperColorInfo.getInstance(this));
         if (themeRes != mThemeRes) {
             mThemeRes = themeRes;
             setTheme(themeRes);
         }
     }
 
+    // Màu nền đổi đúng lúc hệ thống đang thay overlay Material You (assets frro): recreate ngay lúc
+    // đó dựng lại window/layout trên resource dở dang -> crash "content container" / drag_layer null.
+    // Nên chỉ đánh dấu, đợi lần onStart kế tiếp (overlay đã xong) mới dựng lại theo theme mới.
+    private boolean mThemeRecreatePending;
+    private final android.os.Handler mUiHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+
     @Override
     public void onExtractedColorsChanged(WallpaperColorInfo wallpaperColorInfo) {
         if (mThemeRes != getThemeRes(wallpaperColorInfo)) {
-            recreate();
+            mThemeRecreatePending = true;
+            if (!isStarted()) return;
+            // Đang hiển thị: hoãn một nhịp cho hệ thống áp xong overlay mới. Handler thay vì
+            // getDecorView().post(): decor hỏng thì getDecorView() ném lại "content container".
+            mUiHandler.postDelayed(this::recreateForPendingTheme, THEME_RECREATE_DELAY_MS);
         }
+    }
+
+    private void recreateForPendingTheme() {
+        if (!mThemeRecreatePending || isFinishing() || isDestroyed()) return;
+        if (mThemeRes == getThemeRes(WallpaperColorInfo.getInstance(this))) {
+            mThemeRecreatePending = false;
+            return;
+        }
+        mThemeRecreatePending = false;
+        recreate();
+    }
+
+    private static final long THEME_RECREATE_DELAY_MS = 1500L;
+
+    protected int getAppliedThemeRes() {
+        return mThemeRes;
     }
 
     protected int getThemeRes(WallpaperColorInfo wallpaperColorInfo) {
@@ -61,6 +93,10 @@ public class LauncherBaseActivity extends CommonFragmentActivity implements Wall
     protected void onStart() {
         super.onStart();
         mActivityFlags |= ACTIVITY_STATE_STARTED;
+        if (mThemeRecreatePending) {
+            // Đổi nền khi desktop ẩn (vd từ màn Themes): quay lại desktop mới dựng theo theme mới.
+            mUiHandler.post(this::recreateForPendingTheme);
+        }
     }
 
     @Override
@@ -80,11 +116,14 @@ public class LauncherBaseActivity extends CommonFragmentActivity implements Wall
         mActivityFlags &= ~ACTIVITY_STATE_STARTED & ~ACTIVITY_STATE_USER_ACTIVE;
         mForceInvisible = 0;
         super.onStop();
+        // Decor chưa dựng được (onCreate tự cứu do lỗi window) thì không đụng: getDecorView() sẽ ném lại.
+        if (getWindow().peekDecorView() == null) return;
         getSystemUiController().updateUiState(UI_STATE_OVERVIEW, 0);
     }
 
     @Override
     protected void onDestroy() {
+        mUiHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
         WallpaperColorInfo.getInstance(this).removeOnChangeListener(this);
     }

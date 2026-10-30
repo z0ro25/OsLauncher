@@ -35,6 +35,10 @@ object ThemesEntry {
         rateOpener?.invoke(activity, onRated)
     }
 
+    // Gọi mỗi khi module đặt nền; :app gắn AppThemeManager.markUserWallpaper để lần mở app sau
+    // không tự đặt lại nền mặc định đè lên nền theme.
+    var wallpaperChangedListener: ((Context) -> Unit)? = null
+
     fun open(activity: Activity) {
         val target = if (isOnboardingDone(activity)) ThemesActivity::class.java
         else ThemesOnboardingActivity::class.java

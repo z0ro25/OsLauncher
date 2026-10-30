@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu + kích thước lấy từ Figma "Onboarding 22..24 / 40..42" (trang Apple app). -->
+<resources>
+    <color name="appbase_onboarding_bg">#FFFFFF</color>
+    <color name="appbase_onboarding_title">#151515</color>
+    <color name="appbase_onboarding_desc">#80151515</color>
+    <color name="appbase_onboarding_accent">#007AFF</color>
+    <color name="appbase_onboarding_dot">#4D007AFF</color>
+    <color name="appbase_ad_placeholder">#F1F1F1</color>
+
+    <dimen name="appbase_onboarding_ad_height">300dp</dimen>
+    <dimen name="appbase_onboarding_fade_height">130dp</dimen>
+    <dimen name="appbase_onboarding_padding">16dp</dimen>
+</resources>

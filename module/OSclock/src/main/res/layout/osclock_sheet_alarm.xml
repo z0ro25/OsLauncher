@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "Add Alarm" / "Edit Alarm" + 3 trang con Repeat / Label / Sound trong cùng sheet. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/osclock_bg_sheet">
+
+    <!-- Trang chính -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/osclock_page_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <include
+                android:id="@+id/osclock_main_bar"
+                layout="@layout/osclock_view_sheet_bar" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginHorizontal="16dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/osclock_bg_band" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.ezla.oslauncher.clock.ui.WheelView
+                        android:id="@+id/osclock_wheel_hour"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <com.ezla.oslauncher.clock.ui.WheelView
+                        android:id="@+id/osclock_wheel_minute"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/osclock_bg_card"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/osclock_opt_repeat"
+                    layout="@layout/osclock_view_option_row" />
+
+                <include
+                    android:id="@+id/osclock_opt_label"
+                    layout="@layout/osclock_view_option_row" />
+
+                <include
+                    android:id="@+id/osclock_opt_sound"
+                    layout="@layout/osclock_view_option_row" />
+
+                <include
+                    android:id="@+id/osclock_opt_snooze"
+                    layout="@layout/osclock_view_option_row" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/osclock_btn_delete_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/osclock_bg_card"
+                android:fontFamily="@font/appbase_sf_pro_regular"
+                android:gravity="center"
+                android:text="@string/osclock_delete_alarm"
+                android:textColor="@color/osclock_red"
+                android:textSize="17sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Trang Repeat -->
+    <LinearLayout
+        android:id="@+id/osclock_page_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/osclock_repeat_bar"
+            layout="@layout/osclock_view_sheet_bar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/osclock_repeat_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/osclock_bg_card"
+            android:overScrollMode="never" />
+    </LinearLayout>
+
+    <!-- Trang Label -->
+    <LinearLayout
+        android:id="@+id/osclock_page_label"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/osclock_label_bar"
+            layout="@layout/osclock_view_sheet_bar" />
+
+        <EditText
+            android:id="@+id/osclock_label_input"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/osclock_bg_card"
+            android:fontFamily="@font/appbase_sf_pro_regular"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLength="40"
+            android:maxLines="1"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/osclock_text"
+            android:textColorHint="@color/osclock_gray2"
+            android:textCursorDrawable="@drawable/osclock_bg_caret"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <!-- Trang Sound -->
+    <LinearLayout
+        android:id="@+id/osclock_page_sound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/osclock_sound_bar"
+            layout="@layout/osclock_view_sheet_bar" />
+
+        <include
+            android:id="@+id/osclock_opt_haptics"
+            layout="@layout/osclock_view_option_row"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/appbase_sf_pro_regular"
+            android:text="@string/osclock_ringtones"
+            android:textAllCaps="true"
+            android:textColor="@color/osclock_gray"
+            android:textSize="13sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/osclock_sound_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/osclock_bg_card"
+            android:clipToOutline="true" />
+    </LinearLayout>
+</FrameLayout>

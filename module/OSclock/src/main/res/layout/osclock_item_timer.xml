@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ timer 328x120 nền #1c1c1e bo 22 (Figma "Timer: 10 min"): thời gian còn lại, nhãn, vòng 64dp + nút. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="136dp"
+    android:paddingHorizontal="16dp"
+    android:paddingBottom="16dp">
+
+    <View
+        android:id="@+id/osclock_timer_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/osclock_bg_timer_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/osclock_timer_delete"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/osclock_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/osclock_timer_card"
+        app:layout_constraintStart_toStartOf="@id/osclock_timer_card"
+        app:layout_constraintTop_toTopOf="@id/osclock_timer_card">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:background="@drawable/osclock_bg_minus"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/osclock_ic_minus" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/osclock_timer_remaining"
+        style="@style/OsclockBigTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFeatureSettings="tnum"
+        app:layout_constraintStart_toEndOf="@id/osclock_timer_delete"
+        app:layout_constraintTop_toTopOf="@id/osclock_timer_card"
+        app:layout_goneMarginStart="16dp" />
+
+    <TextView
+        android:id="@+id/osclock_timer_label"
+        style="@style/OsclockCaption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/osclock_timer_ring"
+        app:layout_constraintStart_toStartOf="@id/osclock_timer_remaining"
+        app:layout_constraintTop_toBottomOf="@id/osclock_timer_remaining" />
+
+    <com.ezla.oslauncher.clock.ui.TimerRingView
+        android:id="@+id/osclock_timer_ring"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/osclock_timer_card"
+        app:layout_constraintEnd_toEndOf="@id/osclock_timer_card"
+        app:layout_constraintTop_toTopOf="@id/osclock_timer_card" />
+
+    <ImageView
+        android:id="@+id/osclock_timer_toggle"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/osclock_pause"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@id/osclock_timer_ring"
+        app:layout_constraintEnd_toEndOf="@id/osclock_timer_ring"
+        app:layout_constraintStart_toStartOf="@id/osclock_timer_ring"
+        app:layout_constraintTop_toTopOf="@id/osclock_timer_ring" />
+</androidx.constraintlayout.widget.ConstraintLayout>

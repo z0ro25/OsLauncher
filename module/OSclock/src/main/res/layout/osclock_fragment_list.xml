@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Khung chung World Clock / Alarms / Timers: header + RecyclerView, chừa đáy cho tab bar. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/osclock_header"
+        layout="@layout/osclock_view_header" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/osclock_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/osclock_list_top"
+            android:paddingBottom="@dimen/osclock_list_bottom" />
+
+        <!-- Trạng thái rỗng (iOS "No World Clock"); màn nào dùng thì tự đặt chữ + bật. -->
+        <TextView
+            android:id="@+id/osclock_list_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/osclock_list_bottom"
+            android:fontFamily="@font/appbase_sf_pro_regular"
+            android:gravity="center"
+            android:paddingHorizontal="32dp"
+            android:textColor="@color/osclock_gray"
+            android:textSize="22sp"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

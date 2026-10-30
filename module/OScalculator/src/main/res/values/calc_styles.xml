@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nền đen full màn, status bar trong suốt chữ sáng (giống Figma). -->
+    <style name="CalcTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/calc_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/calc_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorAccent">@color/calc_accent</item>
+        <item name="bottomSheetDialogTheme">@style/CalcBottomSheetDialog</item>
+    </style>
+
+    <style name="CalcBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CalcBottomSheetStyle</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <!-- Thanh điều hướng trong suốt + edgeToEdge: Material chỉ cho sheet vẽ tràn khi màu nav bar
+             có alpha < 255. Padding đáy do HistorySheet tự cộng. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="enableEdgeToEdge">true</item>
+    </style>
+
+    <style name="CalcBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="paddingBottomSystemWindowInsets">false</item>
+    </style>
+
+    <!-- Ô nút: kích thước do GridLayout/ConstraintLayout quyết định, tỉ lệ 1:1. -->
+    <style name="CalcKey">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textSize">@dimen/calc_key_text</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:soundEffectsEnabled">true</item>
+    </style>
+
+    <style name="CalcKey.Digit">
+        <item name="android:background">@drawable/calc_bg_key_digit</item>
+        <item name="android:textColor">@color/calc_text_primary</item>
+    </style>
+
+    <style name="CalcKey.Function">
+        <item name="android:background">@drawable/calc_bg_key_function</item>
+        <item name="android:textColor">@color/calc_text_function</item>
+    </style>
+
+    <style name="CalcKeyIcon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:padding">21dp</item>
+        <item name="android:soundEffectsEnabled">true</item>
+    </style>
+
+    <style name="CalcKeyIcon.Function">
+        <item name="android:background">@drawable/calc_bg_key_function</item>
+    </style>
+
+    <style name="CalcKeyIcon.Operator">
+        <item name="android:background">@drawable/calc_bg_key_operator</item>
+        <item name="tint">@color/calc_operator_icon_tint</item>
+    </style>
+
+    <!-- Onboarding (BaseOnboardingActivity): nền trắng, icon status bar tối như Figma. -->
+    <style name="CalcOnboardingTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/appbase_onboarding_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/appbase_ad_placeholder</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

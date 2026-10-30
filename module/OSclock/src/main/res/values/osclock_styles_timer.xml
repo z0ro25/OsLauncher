@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OsclockTimerColumn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- Chữ đơn vị đứng yên cạnh số đã chọn (Figma: "hours" / "min" / "sec" 13sp semibold). -->
+    <style name="OsclockTimerUnit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical|end</item>
+        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:minWidth">44dp</item>
+        <item name="android:textColor">@color/osclock_text</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+</resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hàng thành phố 92dp (Figma "City: Hà Nội"). Edit mode: nút xoá đỏ trái + tay kéo phải, ẩn giờ.
+     Múi giờ + tên thành phố là chain packed để cả khối căn giữa dọc. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:background="@color/osclock_bg">
+
+    <FrameLayout
+        android:id="@+id/osclock_city_delete"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="5dp"
+        android:contentDescription="@string/osclock_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:background="@drawable/osclock_bg_minus"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/osclock_ic_minus" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/osclock_city_offset"
+        style="@style/OsclockCaption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@id/osclock_city_name"
+        app:layout_constraintEnd_toStartOf="@id/osclock_city_time"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/osclock_city_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="16dp" />
+
+    <TextView
+        android:id="@+id/osclock_city_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/appbase_sf_pro_regular"
+        android:maxLines="1"
+        android:textColor="@color/osclock_text"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/osclock_city_offset"
+        app:layout_constraintStart_toStartOf="@id/osclock_city_offset"
+        app:layout_constraintTop_toBottomOf="@id/osclock_city_offset" />
+
+    <TextView
+        android:id="@+id/osclock_city_time"
+        style="@style/OsclockBigTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/osclock_city_drag"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/osclock_reorder"
+        android:scaleType="center"
+        android:src="@drawable/osclock_ic_drag"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/osclock_separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

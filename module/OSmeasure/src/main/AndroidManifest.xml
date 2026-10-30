@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Lưu ảnh API 29+ qua MediaStore không cần quyền; WRITE_EXTERNAL_STORAGE (API <= 28) iOSLauncher
+         đã khai, không khai lại kèm maxSdkVersion vì merge sẽ giới hạn luôn quyền của launcher. -->
+
+    <!-- required=false: máy không có camera / ARCore vẫn cài được launcher (tab Level vẫn dùng được). -->
+    <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <application>
+        <!-- optional: ARCore chưa cài thì tự đề nghị cài lúc mở tab Measure, không bắt buộc khi tải app. -->
+        <meta-data android:name="com.google.ar.core" android:value="optional" />
+
+        <!-- Mở qua MeasureEntry.open() hoặc icon Measure trên desktop (Launcher.handlerIOSShortcutClick).
+             Affinity riêng (như ThemesSplashActivity) -> task + thẻ Đa nhiệm riêng, không đè task MiOS. -->
+        <activity
+            android:name=".MeasureActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:icon="@drawable/measure_ic_task"
+            android:label="@string/measure_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.measure"
+            android:theme="@style/MeasureTheme" />
+
+        <!-- Lần đầu mở: MeasureActivity tự chuyển sang đây (redirectBeforeCreate). -->
+        <activity
+            android:name=".MeasureOnboardingActivity"
+            android:exported="false"
+            android:icon="@drawable/measure_ic_task"
+            android:label="@string/measure_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.measure"
+            android:theme="@style/MeasureOnboardingTheme" />
+    </application>
+</manifest>

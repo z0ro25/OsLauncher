@@ -48,6 +48,7 @@ import com.truongnt.ios.launcher.DragLayer;
 import com.truongnt.ios.launcher.DragSource;
 import com.truongnt.ios.launcher.DropTarget;
 import com.truongnt.ios.launcher.FolderIcon;
+import com.truongnt.ios.launcher.IOSShortcut;
 import com.truongnt.ios.launcher.ItemInfo;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
@@ -139,7 +140,11 @@ public class PopupContainerWithArrow extends AbstractFloatingView implements Dra
             return null;
         }
         ItemInfo itemInfo = (ItemInfo) icon.getTag();
-        if (!DeepShortcutManager.supportsShortcuts(itemInfo)) {
+        // Icon module riêng (Themes/Compass/Measure) là SHORTCUT, supportsShortcuts() loại -> không popup,
+        // kéo theo không "giữ rồi kéo" được. Cho qua riêng, không sửa supportsShortcuts() dùng chung.
+        if (!DeepShortcutManager.supportsShortcuts(itemInfo)
+                && !(itemInfo != null && !itemInfo.isDisabled()
+                && IOSShortcut.isOwnModuleMarker(itemInfo.getTargetComponent()))) {
             return null;
         }
 

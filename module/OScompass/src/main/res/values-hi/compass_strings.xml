@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compass_app_name">कम्पास</string>
+    <string name="compass_elevation">%1$d मी ऊँचाई</string>
+    <string name="compass_location_unavailable">स्थान उपलब्ध नहीं</string>
+    <string name="compass_no_sensor">कम्पास सेंसर नहीं है</string>
+    <string name="compass_calibrate">कैलिब्रेट करें</string>
+    <string name="compass_calibrate_hint">गेंद को घेरे में घुमाने के लिए स्क्रीन को झुकाएँ।</string>
+    <string name="compass_permission_title">“कम्पास” को आपका स्थान उपयोग करने दें?</string>
+    <string name="compass_permission_message">आपके स्थान का उपयोग निर्देशांक और सही उत्तर दिखाने के लिए किया जाता है।</string>
+    <string name="compass_allow_while_using">ऐप उपयोग करते समय अनुमति दें</string>
+    <string name="compass_allow_once">एक बार अनुमति दें</string>
+    <string name="compass_dont_allow">अनुमति न दें</string>
+    <string name="compass_my_location">मेरा स्थान</string>
+    <string name="compass_place_heading">%1$s · दिशा %2$s</string>
+    <string name="compass_share_location">स्थान साझा करें</string>
+    <string name="compass_share_text">मेरा स्थान: %1$s\n%2$s</string>
+    <string name="compass_close">बंद करें</string>
+    <string name="compass_onboarding_title_1">सटीक दिशा</string>
+    <string name="compass_onboarding_desc_1">चुंबकीय और वास्तविक उत्तर\nकी साफ़ दिशा</string>
+    <string name="compass_onboarding_title_2">निर्देशांक और ऊंचाई</string>
+    <string name="compass_onboarding_desc_2">अक्षांश, देशांतर और ऊंचाई\nरियल-टाइम में</string>
+    <string name="compass_onboarding_title_3">बिल्ट-इन लेवल</string>
+    <string name="compass_onboarding_desc_3">रोज़ के कामों के लिए ढलान और\nझुकाव का सटीक माप</string>
+</resources>

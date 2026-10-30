@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="measure_app_name">Mesures</string>
+    <string name="measure_tab_measure">Mesurer</string>
+    <string name="measure_tab_level">Niveau</string>
+    <string name="measure_move_to_start">Déplacez le téléphone pour commencer</string>
+    <string name="measure_undo">Annuler</string>
+    <string name="measure_clear">Effacer</string>
+    <string name="measure_add_point">Ajouter un point</string>
+    <string name="measure_capture">Capturer</string>
+    <string name="measure_measurements">Mesures</string>
+    <string name="measure_done">OK</string>
+    <string name="measure_copy">Copier</string>
+    <string name="measure_copied">Copié</string>
+    <string name="measure_clear_all">Tout effacer</string>
+    <string name="measure_empty">Aucune mesure pour l\'instant</string>
+    <string name="measure_type_line">Ligne</string>
+    <string name="measure_saved_to_photos">Enregistré dans Photos</string>
+    <string name="measure_save_failed">Impossible d\'enregistrer la photo</string>
+    <string name="measure_ar_unsupported">Cet appareil ne prend pas en charge la mesure en RA. Le niveau reste disponible.</string>
+    <string name="measure_camera_permission">Autorisez l\'accès à la caméra pour mesurer. Touchez pour ouvrir les Réglages.</string>
+    <string name="measure_onboarding_title_1">Mesure en RA</string>
+    <string name="measure_onboarding_desc_1">Mesurez des objets instantanément\ngrâce à la réalité augmentée</string>
+    <string name="measure_onboarding_title_2">Alignement intelligent</string>
+    <string name="measure_onboarding_desc_2">Détection automatique des bords et\nmesure rapide de la taille</string>
+    <string name="measure_onboarding_title_3">Enregistrer et partager</string>
+    <string name="measure_onboarding_desc_3">Conservez l\'historique des mesures\navec des photos</string>
+    <string name="measure_ruler_hint">Rapprochez-vous pour voir la règle</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chú thích cuối danh sách timer (Figma "Timer Running" y=300, cách thẻ 16dp nhờ paddingBottom của thẻ). -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/appbase_sf_pro_regular"
+    android:paddingHorizontal="16dp"
+    android:text="@string/osclock_timer_note"
+    android:textColor="@color/osclock_gray"
+    android:textSize="13sp" />

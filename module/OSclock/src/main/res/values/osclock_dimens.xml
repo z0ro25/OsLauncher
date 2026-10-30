@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kích thước theo frame 360x800 của Figma (1px = 1dp), tính từ dưới status bar 48. -->
+<resources>
+    <!-- Tiêu đề kết thúc ở y=101, list World Clock / Alarms bắt đầu ở y=116. -->
+    <dimen name="osclock_list_top">15dp</dimen>
+    <!-- Tab bar 60dp + lề đáy 12dp + khoảng thở. -->
+    <dimen name="osclock_list_bottom">96dp</dimen>
+    <dimen name="osclock_tab_margin">12dp</dimen>
+</resources>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn Calculator theo Figma "18 · Calculator" (page Apple app, frame 360x800).
+     Bàn phím 5 hàng x 4 cột, ô vuông 1:1; hàng cuối nút 0 rộng 2 ô + 1 khe. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calc_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="Overdraw">
+
+    <!-- Nút mở lịch sử (icon danh sách cam, Figma x=20 y=56 24x24 dưới status bar 48). -->
+    <ImageView
+        android:id="@+id/calc_btn_history"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="46dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/calc_history"
+        android:padding="10dp"
+        android:src="@drawable/calc_ic_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Biểu thức (xám 32sp) + kết quả (trắng 78sp), canh phải, ngay trên bàn phím. -->
+    <TextView
+        android:id="@+id/calc_tv_expression"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/calc_display_padding_h"
+        android:ellipsize="start"
+        android:fontFamily="@font/appbase_sf_pro_regular"
+        android:gravity="end"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/calc_text_secondary"
+        android:textSize="@dimen/calc_expression_text"
+        app:layout_constraintBottom_toTopOf="@id/calc_tv_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="30x4" />
+
+    <TextView
+        android:id="@+id/calc_tv_result"
+        android:layout_width="0dp"
+        android:layout_height="93dp"
+        android:layout_marginHorizontal="@dimen/calc_display_padding_h"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/appbase_sf_pro_medium"
+        android:gravity="end|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/calc_text_primary"
+        android:textSize="@dimen/calc_result_text"
+        app:autoSizeMaxTextSize="@dimen/calc_result_text"
+        app:autoSizeMinTextSize="@dimen/calc_result_text_min"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/calc_keypad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="120" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/calc_keypad"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/calc_keypad_padding_h"
+        android:paddingEnd="@dimen/calc_keypad_padding_h"
+        android:paddingBottom="@dimen/calc_keypad_padding_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Hàng 1: C  +/-  %  ÷ -->
+        <TextView
+            android:id="@+id/calc_key_clear"
+            style="@style/CalcKey.Function"
+            android:text="@string/calc_clear"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_sign"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <ImageView
+            android:id="@+id/calc_key_sign"
+            style="@style/CalcKeyIcon.Function"
+            android:contentDescription="@string/calc_cd_plus_minus"
+            android:src="@drawable/calc_ic_plus_minus"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_percent"
+            app:layout_constraintStart_toEndOf="@id/calc_key_clear"
+            app:layout_constraintTop_toTopOf="@id/calc_key_clear"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <ImageView
+            android:id="@+id/calc_key_percent"
+            style="@style/CalcKeyIcon.Function"
+            android:contentDescription="@string/calc_cd_percent"
+            android:src="@drawable/calc_ic_percent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_divide"
+            app:layout_constraintStart_toEndOf="@id/calc_key_sign"
+            app:layout_constraintTop_toTopOf="@id/calc_key_clear"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <ImageView
+            android:id="@+id/calc_key_divide"
+            style="@style/CalcKeyIcon.Operator"
+            android:contentDescription="@string/calc_cd_divide"
+            android:src="@drawable/calc_ic_divide"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/calc_key_percent"
+            app:layout_constraintTop_toTopOf="@id/calc_key_clear"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <!-- Hàng 2: 7 8 9 × -->
+        <TextView
+            android:id="@+id/calc_key_7"
+            style="@style/CalcKey.Digit"
+            android:layout_marginTop="@dimen/calc_key_gap"
+            android:text="7"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_8"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calc_key_clear"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/calc_key_8"
+            style="@style/CalcKey.Digit"
+            android:text="8"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_9"
+            app:layout_constraintStart_toEndOf="@id/calc_key_7"
+            app:layout_constraintTop_toTopOf="@id/calc_key_7"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/calc_key_9"
+            style="@style/CalcKey.Digit"
+            android:text="9"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_multiply"
+            app:layout_constraintStart_toEndOf="@id/calc_key_8"
+            app:layout_constraintTop_toTopOf="@id/calc_key_7"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/calc_key_multiply"
+            style="@style/CalcKeyIcon.Operator"
+            android:contentDescription="@string/calc_cd_multiply"
+            android:src="@drawable/calc_ic_multiply"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/calc_key_9"
+            app:layout_constraintTop_toTopOf="@id/calc_key_7"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <!-- Hàng 3: 4 5 6 − -->
+        <TextView
+            android:id="@+id/calc_key_4"
+            style="@style/CalcKey.Digit"
+            android:layout_marginTop="@dimen/calc_key_gap"
+            android:text="4"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calc_key_7"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/calc_key_5"
+            style="@style/CalcKey.Digit"
+            android:text="5"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_6"
+            app:layout_constraintStart_toEndOf="@id/calc_key_4"
+            app:layout_constraintTop_toTopOf="@id/calc_key_4"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/calc_key_6"
+            style="@style/CalcKey.Digit"
+            android:text="6"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_minus"
+            app:layout_constraintStart_toEndOf="@id/calc_key_5"
+            app:layout_constraintTop_toTopOf="@id/calc_key_4"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/calc_key_minus"
+            style="@style/CalcKeyIcon.Operator"
+            android:contentDescription="@string/calc_cd_minus"
+            android:src="@drawable/calc_ic_minus"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/calc_key_6"
+            app:layout_constraintTop_toTopOf="@id/calc_key_4"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <!-- Hàng 4: 1 2 3 + -->
+        <TextView
+            android:id="@+id/calc_key_1"
+            style="@style/CalcKey.Digit"
+            android:layout_marginTop="@dimen/calc_key_gap"
+            android:text="1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_2"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calc_key_4"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/calc_key_2"
+            style="@style/CalcKey.Digit"
+            android:text="2"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_3"
+            app:layout_constraintStart_toEndOf="@id/calc_key_1"
+            app:layout_constraintTop_toTopOf="@id/calc_key_1"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/calc_key_3"
+            style="@style/CalcKey.Digit"
+            android:text="3"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/calc_key_plus"
+            app:layout_constraintStart_toEndOf="@id/calc_key_2"
+            app:layout_constraintTop_toTopOf="@id/calc_key_1"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/calc_key_plus"
+            style="@style/CalcKeyIcon.Operator"
+            android:contentDescription="@string/calc_cd_plus"
+            android:src="@drawable/calc_ic_plus"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/calc_key_3"
+            app:layout_constraintTop_toTopOf="@id/calc_key_1"
+            app:layout_constraintWidth_percent="0.2211" />
+
+        <!-- Hàng 5: 0 (rộng 2 ô) . = ; số 0 canh trái như Figma (text ở ô trái 74dp). -->
+        <TextView
+            android:id="@+id/calc_key_0"
+            style="@style/CalcKey.Digit"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/calc_key_gap"
+            android:gravity="center_vertical|start"
+            android:paddingStart="28dp"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="@id/calc_key_dot"
+            app:layout_constraintEnd_toEndOf="@id/calc_key_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calc_key_1"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/calc_key_dot"
+            style="@style/CalcKey.Digit"
+            android:layout_marginTop="@dimen/calc_key_gap"
+            android:text="."
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/calc_key_3"
+            app:layout_constraintStart_toStartOf="@id/calc_key_3"
+            app:layout_constraintTop_toBottomOf="@id/calc_key_3"
+            app:layout_constraintWidth_percent="0.2211"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/calc_key_equal"
+            style="@style/CalcKeyIcon.Operator"
+            android:layout_marginTop="@dimen/calc_key_gap"
+            android:contentDescription="@string/calc_cd_equal"
+            android:src="@drawable/calc_ic_equal"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/calc_key_plus"
+            app:layout_constraintTop_toBottomOf="@id/calc_key_plus"
+            app:layout_constraintWidth_percent="0.2211" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

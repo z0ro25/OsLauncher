@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compass_app_name">Kompas</string>
+    <string name="compass_elevation">Ketinggian %1$d m</string>
+    <string name="compass_location_unavailable">Lokasi tidak tersedia</string>
+    <string name="compass_no_sensor">Tidak ada sensor kompas</string>
+    <string name="compass_calibrate">Kalibrasi</string>
+    <string name="compass_calibrate_hint">Miringkan layar untuk menggulirkan bola mengelilingi lingkaran.</string>
+    <string name="compass_permission_title">Izinkan “Kompas” menggunakan lokasi Anda?</string>
+    <string name="compass_permission_message">Lokasi Anda digunakan untuk menampilkan koordinat dan utara sejati.</string>
+    <string name="compass_allow_while_using">Izinkan Saat Menggunakan Aplikasi</string>
+    <string name="compass_allow_once">Izinkan Sekali</string>
+    <string name="compass_dont_allow">Jangan Izinkan</string>
+    <string name="compass_my_location">Lokasi Saya</string>
+    <string name="compass_place_heading">%1$s · Arah %2$s</string>
+    <string name="compass_share_location">Bagikan Lokasi</string>
+    <string name="compass_share_text">Lokasi saya: %1$s\n%2$s</string>
+    <string name="compass_close">Tutup</string>
+    <string-array name="compass_cardinals">
+        <item>U</item>
+        <item>T</item>
+        <item>S</item>
+        <item>B</item>
+    </string-array>
+    <string-array name="compass_directions">
+        <item>U</item>
+        <item>TL</item>
+        <item>T</item>
+        <item>TG</item>
+        <item>S</item>
+        <item>BD</item>
+        <item>B</item>
+        <item>BL</item>
+    </string-array>
+    <string name="compass_onboarding_title_1">Arah yang Presisi</string>
+    <string name="compass_onboarding_desc_1">Arah Utara Magnetik &amp;\nUtara Sejati yang jelas</string>
+    <string name="compass_onboarding_title_2">Koordinat &amp; Ketinggian</string>
+    <string name="compass_onboarding_desc_2">Lintang, Bujur &amp; Ketinggian\nsecara real-time</string>
+    <string name="compass_onboarding_title_3">Waterpas Bawaan</string>
+    <string name="compass_onboarding_desc_3">Pengukuran kemiringan &amp; sudut\nyang akurat untuk sehari-hari</string>
+</resources>

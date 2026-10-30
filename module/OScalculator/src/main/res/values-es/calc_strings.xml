@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calc_app_name">Calculadora</string>
+    <string name="calc_clear">C</string>
+    <string name="calc_all_clear">AC</string>
+    <string name="calc_error">Error</string>
+    <string name="calc_history">Historial</string>
+    <string name="calc_edit">Editar</string>
+    <string name="calc_done">Listo</string>
+    <string name="calc_clear_all">Borrar todo</string>
+    <string name="calc_delete_count">Eliminar (%1$d)</string>
+    <string name="calc_no_history">Sin historial</string>
+    <string name="calc_today">Hoy</string>
+    <string name="calc_yesterday">Ayer</string>
+    <string name="calc_older">Anteriores</string>
+    <string name="calc_back">Atrás</string>
+    <string name="calc_copied">Copiado</string>
+    <string name="calc_cd_plus_minus">Más menos</string>
+    <string name="calc_cd_percent">Porcentaje</string>
+    <string name="calc_cd_divide">Dividir</string>
+    <string name="calc_cd_multiply">Multiplicar</string>
+    <string name="calc_cd_minus">Menos</string>
+    <string name="calc_cd_plus">Más</string>
+    <string name="calc_cd_equal">Igual</string>
+    <string name="calc_onboarding_title_1">Básica y científica</string>
+    <string name="calc_onboarding_desc_1">Cambia fácilmente entre operaciones básicas y funciones científicas avanzadas</string>
+    <string name="calc_onboarding_title_2">Historial y memoria</string>
+    <string name="calc_onboarding_desc_2">Revisa cálculos anteriores, copia resultados y edita pasos previos</string>
+    <string name="calc_onboarding_title_3">Pantalla grande</string>
+    <string name="calc_onboarding_desc_3">Números grandes y fáciles de leer y botones claros para el uso diario</string>
+</resources>

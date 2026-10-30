@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Con trỏ phải khai size: shape không có size thì rộng 0px, ô nhập không hiện caret. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <size android:width="2dp" />
+    <corners android:radius="1dp" />
+    <solid android:color="@color/osclock_orange" />
+</shape>

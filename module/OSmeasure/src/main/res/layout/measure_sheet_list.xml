@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "Measurements": sheet tối #1c1c1e bo 34, cao 460/800. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/measure_bg_sheet"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingBottom="24dp">
+
+    <View
+        android:layout_width="36dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/measure_bg_grab" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/appbase_sf_pro_bold"
+            android:text="@string/measure_measurements"
+            android:textColor="@color/measure_white"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/measure_sheet_done"
+            style="@style/MeasurePillText"
+            android:layout_width="62dp"
+            android:layout_height="40dp"
+            android:background="@drawable/measure_bg_glass_pill"
+            android:text="@string/measure_done"
+            android:textColor="@color/measure_blue" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/measure_sheet_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:overScrollMode="never"
+        tools:itemCount="4"
+        tools:listitem="@layout/measure_item_measurement" />
+
+    <TextView
+        android:id="@+id/measure_sheet_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/appbase_sf_pro_regular"
+        android:gravity="center"
+        android:text="@string/measure_empty"
+        android:textColor="@color/measure_gray"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/measure_sheet_clear_all"
+        style="@style/MeasurePillText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/measure_bg_item"
+        android:text="@string/measure_clear_all"
+        android:textColor="@color/measure_red"
+        android:textSize="17sp" />
+</LinearLayout>

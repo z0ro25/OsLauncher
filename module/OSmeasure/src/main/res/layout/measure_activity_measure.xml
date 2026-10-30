@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma "14 · Measure" (frame 360x800). Toạ độ y tính từ đỉnh frame (gồm status bar 48). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/measure_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/measure_bg">
+
+    <!-- ===== Tab Measure ===== -->
+    <FrameLayout
+        android:id="@+id/measure_ar_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/measure_gl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/measure_dim" />
+
+        <com.ezla.oslauncher.measure.ui.MeasureOverlayView
+            android:id="@+id/measure_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Figma "Move iPhone": vòng kính 200dp giữa màn + chữ hướng dẫn. -->
+        <LinearLayout
+            android:id="@+id/measure_coach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="22dp">
+
+            <FrameLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/measure_bg_coach">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="110dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/measure_ic_coach_phone" />
+
+                <ImageView
+                    android:id="@+id/measure_coach_arrow"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="150dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/measure_ic_coach_arrow" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/measure_tv_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/appbase_sf_pro_semibold"
+                android:gravity="center"
+                android:paddingHorizontal="24dp"
+                android:text="@string/measure_move_to_start"
+                android:textColor="@color/measure_white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <!-- Figma "Ruler": y=560, hiện khi có đoạn đo mà camera còn xa. -->
+        <TextView
+            android:id="@+id/measure_tv_ruler_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="560dp"
+            android:fontFamily="@font/appbase_sf_pro_semibold"
+            android:gravity="center"
+            android:text="@string/measure_ruler_hint"
+            android:textColor="@color/measure_white"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <!-- Máy không hỗ trợ / thiếu quyền camera: thay cho camera. -->
+        <TextView
+            android:id="@+id/measure_tv_unsupported"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/appbase_sf_pro_semibold"
+            android:gravity="center"
+            android:paddingHorizontal="32dp"
+            android:textColor="@color/measure_white"
+            android:textSize="17sp"
+            android:visibility="gone"
+            tools:text="@string/measure_ar_unsupported" />
+
+        <ImageView
+            android:id="@+id/measure_btn_undo"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="56dp"
+            android:background="@drawable/measure_bg_glass_circle"
+            android:contentDescription="@string/measure_undo"
+            android:scaleType="center"
+            android:src="@drawable/measure_ic_undo"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/measure_btn_clear"
+            style="@style/MeasurePillText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/measure_bg_glass_pill"
+            android:text="@string/measure_clear"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- ===== Tab Level ===== -->
+    <com.ezla.oslauncher.measure.level.LevelView
+        android:id="@+id/measure_level"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- Toast "Saved to Photos" (Figma "Captured": y=110). -->
+    <LinearLayout
+        android:id="@+id/measure_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="110dp"
+        android:alpha="0"
+        android:background="@drawable/measure_bg_toast"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/measure_ic_camera" />
+
+        <TextView
+            android:id="@+id/measure_toast_text"
+            style="@style/MeasurePillText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/measure_saved_to_photos" />
+    </LinearLayout>
+
+    <!-- ===== Thanh điều khiển dưới (Figma "Controls": y=632..800) ===== -->
+    <FrameLayout
+        android:id="@+id/measure_controls"
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/measure_bg_tabs"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/measure_tab_measure"
+                style="@style/MeasureTab"
+                android:text="@string/measure_tab_measure" />
+
+            <TextView
+                android:id="@+id/measure_tab_level"
+                style="@style/MeasureTab"
+                android:text="@string/measure_tab_level" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/measure_btn_list"
+            style="@style/MeasureGlassButton"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="72dp"
+            android:contentDescription="@string/measure_measurements"
+            android:src="@drawable/measure_ic_list" />
+
+        <!-- Ảnh chụp vừa lưu thay chỗ nút danh sách trong lúc hiện toast (Figma "Captured").
+             Shapeable cắt ảnh theo góc bo 10dp + viền 2dp; foreground cũ không cắt nên ảnh lòi ra khung. -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/measure_thumb"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:importantForAccessibility="no"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/MeasureRoundedThumb"
+            app:strokeColor="@color/measure_white"
+            app:strokeWidth="2dp" />
+
+        <ImageView
+            android:id="@+id/measure_btn_add"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="56dp"
+            android:background="@drawable/measure_bg_add_point"
+            android:contentDescription="@string/measure_add_point"
+            android:scaleType="center"
+            android:src="@drawable/measure_ic_plus" />
+
+        <ImageView
+            android:id="@+id/measure_btn_capture"
+            style="@style/MeasureGlassButton"
+            android:layout_gravity="end"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/measure_capture"
+            android:src="@drawable/measure_ic_camera" />
+    </FrameLayout>
+
+    <!-- Màn chớp trắng khi chụp (Figma "Captured": trắng 35%). -->
+    <View
+        android:id="@+id/measure_flash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/measure_flash"
+        android:visibility="gone" />
+
+    <!-- ===== Thẻ chi tiết (Figma "Measurement Detail") ===== -->
+    <FrameLayout
+        android:id="@+id/measure_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/measure_dim_detail"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/measure_bg_card"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="24dp">
+
+            <TextView
+                android:id="@+id/measure_detail_value"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:fontFamily="@font/appbase_sf_pro_light"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/measure_white"
+                android:textSize="44sp"
+                tools:text="86 cm" />
+
+            <TextView
+                android:id="@+id/measure_detail_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/appbase_sf_pro_regular"
+                android:gravity="center"
+                android:textColor="@color/measure_text_secondary"
+                android:textSize="17sp"
+                tools:text="2 ft 9.9 in" />
+
+            <LinearLayout
+                android:id="@+id/measure_detail_copy"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/measure_bg_button_secondary"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/measure_ic_copy" />
+
+                <TextView
+                    style="@style/MeasurePillText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/measure_copy"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/measure_detail_done"
+                style="@style/MeasurePillText"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/measure_bg_button_primary"
+                android:text="@string/measure_done"
+                android:textColor="@color/measure_bg"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

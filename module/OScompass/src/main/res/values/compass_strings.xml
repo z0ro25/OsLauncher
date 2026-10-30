@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compass_app_name">Compass</string>
+    <string name="compass_heading_format">%1$d° %2$s</string>
+    <string name="compass_elevation">%1$d m Elevation</string>
+    <string name="compass_location_unavailable">Location unavailable</string>
+    <string name="compass_dash">—</string>
+    <string name="compass_no_sensor">No compass sensor</string>
+    <string name="compass_calibrate">Calibrate</string>
+    <string name="compass_calibrate_hint">Tilt the screen to roll the ball around the circle.</string>
+    <string name="compass_percent">%1$d%%</string>
+    <string name="compass_permission_title">Allow “Compass” to use your location?</string>
+    <string name="compass_permission_message">Your location is used to show coordinates and true north.</string>
+    <string name="compass_allow_while_using">Allow While Using App</string>
+    <string name="compass_allow_once">Allow Once</string>
+    <string name="compass_dont_allow">Don’t Allow</string>
+    <string name="compass_my_location">My Location</string>
+    <string name="compass_place_heading">%1$s · Heading %2$s</string>
+    <string name="compass_share_location">Share Location</string>
+    <string name="compass_share_text">My location: %1$s\n%2$s</string>
+    <string name="compass_close">Close</string>
+    <!-- Thứ tự N, E, S, W (cũng dùng làm ký hiệu bán cầu trong toạ độ). -->
+    <string-array name="compass_cardinals">
+        <item>N</item>
+        <item>E</item>
+        <item>S</item>
+        <item>W</item>
+    </string-array>
+    <string-array name="compass_directions">
+        <item>N</item>
+        <item>NE</item>
+        <item>E</item>
+        <item>SE</item>
+        <item>S</item>
+        <item>SW</item>
+        <item>W</item>
+        <item>NW</item>
+    </string-array>
+    <string name="compass_onboarding_title_1">Precise Orientation</string>
+    <string name="compass_onboarding_desc_1">Clear Magnetic &amp;\nTrue North directions</string>
+    <string name="compass_onboarding_title_2">Coordinates &amp; Altitude</string>
+    <string name="compass_onboarding_desc_2">Real-time Latitude, Longitude &amp;\nElevation tracking</string>
+    <string name="compass_onboarding_title_3">Built-in Level</string>
+    <string name="compass_onboarding_desc_3">Accurate slope &amp; tilt angle\nmeasurement for daily tools</string>
+</resources>

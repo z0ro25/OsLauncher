@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calc_app_name">Calculator</string>
+    <string name="calc_clear">C</string>
+    <string name="calc_all_clear">AC</string>
+    <string name="calc_error">Error</string>
+    <string name="calc_history">History</string>
+    <string name="calc_edit">Edit</string>
+    <string name="calc_done">Done</string>
+    <string name="calc_clear_all">Clear All</string>
+    <string name="calc_delete_count">Delete (%1$d)</string>
+    <string name="calc_no_history">No history</string>
+    <string name="calc_today">Today</string>
+    <string name="calc_yesterday">Day before</string>
+    <string name="calc_older">Earlier</string>
+    <string name="calc_back">Back</string>
+    <string name="calc_copied">Copied</string>
+    <string name="calc_cd_plus_minus">Plus minus</string>
+    <string name="calc_cd_percent">Percent</string>
+    <string name="calc_cd_divide">Divide</string>
+    <string name="calc_cd_multiply">Multiply</string>
+    <string name="calc_cd_minus">Minus</string>
+    <string name="calc_cd_plus">Plus</string>
+    <string name="calc_cd_equal">Equals</string>
+    <string name="calc_onboarding_title_1">Basic &amp; Scientific</string>
+    <string name="calc_onboarding_desc_1">Switch seamlessly between standard math and advanced scientific functions</string>
+    <string name="calc_onboarding_title_2">History &amp; Memory</string>
+    <string name="calc_onboarding_desc_2">Easily review past calculations, copy results, and edit previous steps</string>
+    <string name="calc_onboarding_title_3">Large Display</string>
+    <string name="calc_onboarding_desc_3">Large, easy-to-read numbers and clear buttons designed for effortless daily use</string>
+</resources>

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
+
 /**
  * Bản GridLayoutManager giữ nguyên hành vi cuộn mượt của {@link SpeedLinearLayoutManager}.
  *
@@ -27,6 +29,39 @@ public class SpeedGridLayoutManager extends GridLayoutManager {
     public SpeedGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr,
                                   int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    // Lưới an toàn cho AIOOBE ở getSpaceForSpanRange (span lệch vì dữ liệu đổi giữa lượt layout):
+    // bỏ lượt hỏng, xoá cache span rồi layout lại frame sau với dữ liệu đã ổn định; báo Crashlytics.
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            super.onLayoutChildren(recycler, state);
+        } catch (IndexOutOfBoundsException e) {
+            java.util.Map<String, String> keys = new java.util.HashMap<>();
+            keys.put("grid_item_count", String.valueOf(state.getItemCount()));
+            keys.put("grid_span_count", String.valueOf(getSpanCount()));
+            AnalyticsDelegate.logNonFatal(e, keys);
+            getSpanSizeLookup().invalidateSpanIndexCache();
+            getSpanSizeLookup().invalidateSpanGroupIndexCache();
+            removeAndRecycleAllViews(recycler);
+            RecyclerView rv = mRecyclerView;
+            if (rv != null) rv.post(rv::requestLayout);
+        }
+    }
+
+    private RecyclerView mRecyclerView;
+
+    @Override
+    public void onAttachedToWindow(RecyclerView view) {
+        super.onAttachedToWindow(view);
+        mRecyclerView = view;
+    }
+
+    @Override
+    public void onDetachedFromWindow(RecyclerView view, RecyclerView.Recycler recycler) {
+        super.onDetachedFromWindow(view, recycler);
+        mRecyclerView = null;
     }
 
     @Override
