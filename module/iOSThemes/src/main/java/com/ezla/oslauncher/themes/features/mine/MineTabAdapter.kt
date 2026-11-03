@@ -51,6 +51,7 @@ class MineTabAdapter(
         MineTab.THEME -> R.string.themes_mine_tab_theme
         MineTab.WALLPAPERS -> R.string.themes_mine_tab_wallpapers
         MineTab.ICON -> R.string.themes_mine_tab_icon
+        MineTab.CONTROL_CENTER -> R.string.themes_kind_control_center
         MineTab.FAVORITES -> R.string.themes_mine_tab_favorites
     }
 

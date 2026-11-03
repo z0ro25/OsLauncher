@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền ô vuông cho thanh Alpha của hộp chọn màu. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#E5E5E5" />
+    <corners android:radius="6dp" />
+</shape>

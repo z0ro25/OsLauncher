@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cc_app_name">Control Center</string>
+
+    <!-- Onboarding -->
+    <string name="cc_onboarding_title_1">Make Your Control Center Yours</string>
+    <string name="cc_onboarding_desc_1">Transform your control center with stunning layouts, colors, and styles in seconds</string>
+    <string name="cc_onboarding_title_2">Customize Every Detail</string>
+    <string name="cc_onboarding_desc_2">Change backgrounds, colors, and controls to match your style</string>
+    <string name="cc_onboarding_title_3">Start Your New Experience</string>
+    <string name="cc_onboarding_desc_3">Set up your control center and enjoy a fresh new look today</string>
+
+    <!-- Main -->
+    <string name="cc_enable_feature">Enable Feature</string>
+    <string name="cc_blur_effect">Blur Effect</string>
+    <string name="cc_permissions_needed">Permissions Needed</string>
+    <string name="cc_section_customize">Customize Control Center</string>
+    <string name="cc_custom_theme">Custom Theme</string>
+    <string name="cc_position">Position</string>
+    <string name="cc_custom_controls">Custom Controls</string>
+    <string name="cc_section_other">Other Settings</string>
+    <string name="cc_choose_screen_record">Choose Screen Record</string>
+    <string name="cc_language">Language</string>
+    <string name="cc_vibration">Vibration</string>
+    <string name="cc_guide_enable">Enable Control Center\nservice to get started</string>
+    <string name="cc_coming_soon">Coming soon</string>
+
+    <!-- Permissions -->
+    <string name="cc_permissions">Permissions</string>
+    <string name="cc_permissions_desc">These are the essential permissions required for Launcher MiOS to function normally</string>
+    <string name="cc_perm_accessibility">Accessibility Service</string>
+    <string name="cc_perm_accessibility_desc">Show Control Center over other apps</string>
+    <string name="cc_perm_battery">Battery Optimization</string>
+    <string name="cc_perm_battery_desc">Keep app working in background</string>
+    <string name="cc_perm_notification">Notification Access</string>
+    <string name="cc_perm_notification_desc">Control music player and show notifications</string>
+    <string name="cc_guide_notification">Allow Launcher MiOS to control music player</string>
+    <string name="cc_accessibility_service_label">Launcher MiOS Control Center</string>
+    <string name="cc_accessibility_service_desc">Launcher MiOS uses the Accessibility Service only to display Control Center and Notification Center over other apps when you swipe from the screen edge. It does not read, collect or share any screen content or personal data. Touches on the swipe area that are not a swipe are passed through to the app below.</string>
+
+    <!-- Hộp giải thích Accessibility (Google Play bắt buộc) -->
+    <string name="cc_disclosure_title">Use Accessibility Service</string>
+    <string name="cc_disclosure_message">To show Control Center and Notification Center on top of other apps, Launcher MiOS needs the Accessibility Service permission.\n\n• It is only used to draw the panels when you swipe from the screen edge.\n• Launcher MiOS does not read, collect or share any screen content or personal data.\n• Taps on the thin swipe area are passed through to the app below, so it never blocks your apps.\n\nOn the next screen, find \"Launcher MiOS Control Center\" and turn it on.</string>
+    <string name="cc_disclosure_agree">Agree</string>
+    <string name="cc_disclosure_deny">Not now</string>
+
+    <!-- Position -->
+    <string name="cc_position_desc">Change the location of Control Center</string>
+    <string name="cc_left">Left</string>
+    <string name="cc_top">Top</string>
+    <string name="cc_bottom">Bottom</string>
+    <string name="cc_right">Right</string>
+    <string name="cc_edge_settings">Edge Settings</string>
+    <string name="cc_color">Color</string>
+    <string name="cc_hide_edge">Hide Edge</string>
+    <string name="cc_width">Width</string>
+    <string name="cc_length">Length</string>
+    <string name="cc_opacity">Opacity</string>
+    <string name="cc_position_vertical">Position Vertical</string>
+    <string name="cc_apply">Apply</string>
+    <string name="cc_cancel">Cancel</string>
+    <string name="cc_applied">Applied</string>
+
+    <!-- Controls -->
+    <string name="cc_controls">Controls</string>
+    <string name="cc_add_control">Add Control</string>
+    <string name="cc_controls_full">No more empty slots</string>
+    <string name="cc_controls_all_added">All controls have been added</string>
+    <string name="cc_tile_flashlight">Flashlight</string>
+    <string name="cc_tile_alarm">Alarm</string>
+    <string name="cc_tile_calculator">Calculator</string>
+    <string name="cc_tile_camera">Camera</string>
+    <string name="cc_tile_screen_record">Screen Recording</string>
+    <string name="cc_tile_dark_mode">Dark Mode</string>
+    <string name="cc_tile_low_power">Low Power Mode</string>
+    <string name="cc_tile_voice_memo">Voice Memos</string>
+    <string name="cc_tile_settings">Settings</string>
+
+    <!-- Panel -->
+    <string name="cc_focus">Focus</string>
+    <string name="cc_on">On</string>
+    <string name="cc_off">Off</string>
+    <string name="cc_track">Track</string>
+    <string name="cc_artist">Artist</string>
+    <string name="cc_not_playing">Not Playing</string>
+    <string name="cc_airplane">Airplane Mode</string>
+    <string name="cc_wifi">Wi-Fi</string>
+    <string name="cc_cellular">Cellular Data</string>
+    <string name="cc_bluetooth">Bluetooth</string>
+    <string name="cc_hotspot">Personal Hotspot</string>
+    <string name="cc_sync">Sync</string>
+    <string name="cc_need_write_settings">Allow \"Modify system settings\" to change this</string>
+    <string name="cc_need_notification">Allow notification access to control music</string>
+    <string name="cc_no_app">No app found for this action</string>
+
+    <!-- Quay / chụp màn hình -->
+    <string name="cc_record_channel">Screen recording</string>
+    <string name="cc_recording">Recording screen…</string>
+    <string name="cc_record_stop">Stop</string>
+    <string name="cc_record_saved">Screen recording saved to Movies</string>
+    <string name="cc_record_failed">Could not record the screen</string>
+
+    <!-- Trung tâm thông báo -->
+    <string name="cc_notification_center">Notification Center</string>
+    <string name="cc_no_notifications">No notifications</string>
+    <string name="cc_more_notifications">%d more notifications</string>
+    <string name="cc_just_now">now</string>
+    <string name="cc_minutes_ago">%dm ago</string>
+    <string name="cc_hours_ago">%dh ago</string>
+    <string name="cc_days_ago">%dd ago</string>
+</resources>

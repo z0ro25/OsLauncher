@@ -2,6 +2,7 @@ package com.ezla.oslauncher.themes.data
 
 import com.ezla.oslauncher.themes.Api.ApiClient
 import com.ezla.oslauncher.themes.Models.ApiTheme
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
 import com.ezla.oslauncher.themes.Models.IconPack
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.truongnt.ios.ioslite.common.CommonSdk
@@ -114,6 +115,19 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
         }
 
 
+    // Server chưa có unlock riêng cho Control Center: "đã có" = theme trong my-themes có skin.
+    override suspend fun getOwnedControlCenters(): List<ControlCenterCard> = withContext(Dispatchers.IO) {
+        val ctx = CommonSdk.getApplicationContext() ?: return@withContext emptyList()
+        runCatching {
+            val response = ApiClient.api(ctx).getMyThemes(CC_FIELDS, WHERE, ORDER_BY)
+            if (!response.isSuccessful) error("my-themes (cc) failed: http=${response.code()}")
+            response.body()?.data?.items.orEmpty().mapNotNull { it.toControlCenterCard() }
+        }.getOrElse { emptyList() }
+    }
+
+    override suspend fun getSuggestControlCenters(): List<ControlCenterCard> =
+        suggestThemes(CC_FIELDS, "control center") { it.toControlCenterCard() }
+
     // Gọi /themes (mọi danh mục) rồi map từng theme; lỗi -> rỗng.
     private suspend fun <T> suggestThemes(
         fields: String,
@@ -143,5 +157,7 @@ class ApiMineRepository : MineRepository by SampleMineRepository() {
         const val SUGGEST_THEME_FIELDS = "id,name,thumbnail,is_unlocked,order"
         const val SUGGEST_WALLPAPER_FIELDS = "id,name,thumbnail,backgrounds,order"
         const val SUGGEST_ICON_FIELDS = "id,name,thumbnail,is_unlocked,order,backgrounds,logos"
+        // Tab Control Center: nền theme + ảnh nền ô.
+        const val CC_FIELDS = "id,name,order,backgrounds,control_systems"
     }
 }

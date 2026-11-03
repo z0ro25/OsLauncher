@@ -114,4 +114,17 @@
     <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
     <string name="themes_reward_cooldown">다음 영상까지 %1$s</string>
     <string name="themes_reward_wait_toast">다음 영상을 보려면 %1$s 기다려 주세요</string>
+    <string name="themes_nav_rewards">리워드</string>
+    <string name="themes_nav_setting">설정</string>
+    <string name="themes_kind_theme">테마</string>
+    <string name="themes_kind_icons">아이콘</string>
+    <string name="themes_kind_wallpaper">배경화면</string>
+    <string name="themes_kind_control_center">제어 센터</string>
+    <string name="themes_see_more">더보기</string>
+    <string name="themes_fetch_failed">데이터를 불러오지 못했습니다. 다시 시도해 주세요</string>
+    <string name="themes_retry">다시 시도</string>
+    <string name="themes_setting_language">언어 변경</string>
+    <string name="themes_apply_control_center">제어 센터 적용</string>
+    <string name="themes_cc_ready">새 제어 센터가 준비되었습니다! 가장자리에서 스와이프하여 확인하세요</string>
+    <string name="themes_explore_more_cc">더 많은 제어 센터 둘러보기</string>
 </resources>

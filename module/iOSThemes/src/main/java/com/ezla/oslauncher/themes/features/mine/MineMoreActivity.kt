@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
+import com.ezla.oslauncher.themes.Models.HomeKind
 import com.ezla.oslauncher.themes.Models.MineTab
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.R
@@ -16,7 +18,9 @@ import com.ezla.oslauncher.themes.databinding.ThemesActivityIconCategoryBinding
 import com.ezla.oslauncher.themes.features.detail.IconDetailActivity
 import com.ezla.oslauncher.themes.features.detail.ThemeViewActivity
 import com.ezla.oslauncher.themes.features.detail.WallpaperDetailActivity
+import com.ezla.oslauncher.themes.features.controlcenter.ControlCenterDetailActivity
 import com.ezla.oslauncher.themes.features.home.GridSpacingDecoration
+import com.ezla.oslauncher.themes.features.home.HomeCardAdapter
 import kotlinx.coroutines.launch
 
 // Nút "more" ở Mine: toàn bộ My Library / Suggest của tab đang chọn (Mine chỉ hiện vài thẻ Suggest).
@@ -57,6 +61,13 @@ class MineMoreActivity : BaseActivity<ThemesActivityIconCategoryBinding>() {
                     if (isLibrary) listOf(DefaultThemeProvider.iconPack(ctx)) + repository.getOwnedIconPacks()
                     else repository.getSuggestIconPacks()
                 )
+                // Control Center: thẻ panel xem trước; My Library không có thẻ mặc định (đã ở Mine).
+                MineTab.CONTROL_CENTER -> {
+                    val list = if (isLibrary) repository.getOwnedControlCenters() else repository.getSuggestControlCenters()
+                    binding.rvThemes.adapter = HomeCardAdapter(HomeKind.CONTROL_CENTER, list, { card ->
+                        ControlCenterDetailActivity.start(this@MineMoreActivity, (card as ControlCenterCard).themeId)
+                    }, {}, grid = true)
+                }
                 MineTab.WALLPAPERS -> cards.submit(
                     if (isLibrary) listOf(DefaultThemeProvider.wallpaper(ctx)) + repository.getOwnedWallpapers()
                     else repository.getSuggestWallpapers()

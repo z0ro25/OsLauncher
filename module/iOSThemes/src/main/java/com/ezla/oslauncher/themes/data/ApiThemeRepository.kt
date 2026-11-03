@@ -2,6 +2,8 @@ package com.ezla.oslauncher.themes.data
 
 import com.ezla.oslauncher.themes.Api.ApiClient
 import com.ezla.oslauncher.themes.Models.ApiTheme
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
+import com.ezla.oslauncher.themes.Models.HomeKind
 import com.ezla.oslauncher.themes.Models.IconSection
 import com.ezla.oslauncher.themes.Models.IconThemeCard
 import com.ezla.oslauncher.themes.Models.PreviewCard
@@ -76,7 +78,7 @@ class ApiThemeRepository : ThemeRepository {
     }
 
     private suspend fun findTheme(ctx: android.content.Context, id: String, where: String): ThemeDetail? {
-        val response = ApiClient.api(ctx).getThemes(DETAIL_FIELDS, where, THEME_ORDER_BY)
+        val response = ApiClient.api(ctx).getThemesFull(where, THEME_ORDER_BY)
         if (!response.isSuccessful) error("theme detail failed: http=${response.code()}")
         return response.body()?.data?.items?.firstOrNull { it.id.toString() == id }?.toDetail()
     }
@@ -183,6 +185,25 @@ class ApiThemeRepository : ThemeRepository {
         }
     }
 
+    // Mỗi loại đi qua đúng hàm sẵn có của tab cũ (cùng fields, cùng map) để thẻ giống hệt.
+    override suspend fun getHomeItems(kind: HomeKind, categoryId: String): List<Any> = when (kind) {
+        HomeKind.THEME -> getThemes(ThemeTab.FEATURED, categoryId)
+        HomeKind.ICON -> getIconCards(categoryId)
+        HomeKind.WALLPAPER -> getWallpapers(ThemeTab.FEATURED, categoryId)
+        HomeKind.CONTROL_CENTER -> getControlCenterCards(categoryId)
+    }
+
+    override suspend fun getControlCenterCards(categoryId: String): List<ControlCenterCard> =
+        withContext(Dispatchers.IO) {
+            val ctx = CommonSdk.getApplicationContext() ?: return@withContext emptyList()
+            runCatching {
+                val response = ApiClient.api(ctx)
+                    .getThemes(CC_FIELDS, "category_id $categoryId", THEME_ORDER_BY)
+                if (!response.isSuccessful) error("cc themes failed: http=${response.code()}")
+                response.body()?.data?.items.orEmpty().mapNotNull { it.toControlCenterCard() }
+            }.getOrDefault(emptyList())
+        }
+
     // Ảnh preview của theme = thumbnail đầu; ưu tiên medium/full cho vừa lưới.
     private fun previewUrl(theme: ApiTheme): String {
         val url = theme.thumbnail.firstOrNull()?.url ?: return ""
@@ -206,7 +227,9 @@ class ApiThemeRepository : ThemeRepository {
         },
         backgroundId = backgrounds.firstOrNull()?.id ?: 0,
         iconUnlocked = isUnlocked,
-        wallpaperUnlocked = backgrounds.firstOrNull()?.isUnlocked ?: false
+        wallpaperUnlocked = backgrounds.firstOrNull()?.isUnlocked ?: false,
+        controlSystems = ccSkins(),
+        controlSkin = ccSkin()
     )
 
     private companion object {
@@ -217,8 +240,6 @@ class ApiThemeRepository : ThemeRepository {
         // is_unlocked: ẩn/hiện nhãn New trên thẻ theme.
         const val THEME_FIELDS = "id,category_id,name,thumbnail,order,icons_coins,is_unlocked"
         const val THEME_ORDER_BY = "order asc,download_count desc"
-        // Chi tiết cần backgrounds + logos (ảnh nền + icon theo mã app) + icons_coins (giá mở icon).
-        const val DETAIL_FIELDS = "id,name,thumbnail,icons_coins,is_unlocked,backgrounds,logos"
         // Tab Wallpapers: /backgrounds theo curl của server (+ is_unlocked); theme chỉ cần id + name.
         const val BACKGROUND_FIELDS = "id,theme_id,name,image,coins,is_unlocked"
         const val BACKGROUND_ORDER_BY = "id desc"
@@ -228,5 +249,7 @@ class ApiThemeRepository : ThemeRepository {
         // Tab Icons: thẻ cần ảnh nền (backgrounds) + 6 logo đầu (logos).
         const val ICON_FIELDS = "id,category_id,name,thumbnail,order,backgrounds,logos,is_unlocked"
         const val CARD_ICON_COUNT = 6
+        // Tab Control Center: thẻ cần nền theme + ảnh nền ô (control_systems).
+        const val CC_FIELDS = "id,category_id,name,order,backgrounds,control_systems"
     }
 }

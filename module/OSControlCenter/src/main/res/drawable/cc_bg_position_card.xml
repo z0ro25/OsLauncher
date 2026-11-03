@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Khung điện thoại minh hoạ màn Position: chọn = viền xanh + nền xanh nhạt. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="@color/cc_blue_soft" />
+            <corners android:radius="10dp" />
+            <stroke android:width="2dp" android:color="@color/cc_blue" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/cc_card_bg" />
+            <corners android:radius="10dp" />
+            <stroke android:width="1.5dp" android:color="@color/cc_phone_stroke" />
+        </shape>
+    </item>
+</selector>

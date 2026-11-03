@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn Main (Figma "Main" + "Permissions" 52:238125): Enable Feature luôn ở đầu theo yêu cầu,
+     Blur Effect + Permissions Needed bên dưới; lớp hướng dẫn lần đầu tô sáng Enable Feature. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cc_screen_bg">
+
+    <FrameLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    style="@style/CcLargeTitle"
+                    android:layout_marginStart="@dimen/cc_screen_padding"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/cc_app_name" />
+
+                <!-- Enable Feature -->
+                <LinearLayout
+                    android:id="@+id/cardEnable"
+                    style="@style/CcCard"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:id="@+id/rowEnable"
+                        style="@style/CcRow">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_enable_feature" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/swEnable"
+                            style="@style/CcSwitch" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowBlur"
+                        style="@style/CcRow">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_blur_effect" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/swBlur"
+                            style="@style/CcSwitch" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Permissions Needed: ẩn khi đã cấp đủ quyền -->
+                <LinearLayout
+                    android:id="@+id/cardPermissions"
+                    style="@style/CcCard"
+                    android:layout_marginTop="@dimen/cc_section_gap">
+
+                    <LinearLayout
+                        android:id="@+id/rowPermissions"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_permission" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_permissions_needed" />
+
+                        <ImageView style="@style/CcRowArrow" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/CcSectionTitle"
+                    android:text="@string/cc_section_customize" />
+
+                <LinearLayout style="@style/CcCard">
+
+                    <LinearLayout
+                        android:id="@+id/rowTheme"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_theme" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_custom_theme" />
+
+                        <ImageView style="@style/CcRowArrow" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowPosition"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_position" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_position" />
+
+                        <ImageView style="@style/CcRowArrow" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowControls"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_controls" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_custom_controls" />
+
+                        <ImageView style="@style/CcRowArrow" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/CcSectionTitle"
+                    android:text="@string/cc_section_other" />
+
+                <LinearLayout style="@style/CcCard">
+
+                    <LinearLayout
+                        android:id="@+id/rowRecord"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_record" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_choose_screen_record" />
+
+                        <ImageView style="@style/CcRowArrow" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowLanguage"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_language" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_language" />
+
+                        <TextView
+                            android:id="@+id/tvLanguage"
+                            style="@style/CcRowValue" />
+
+                        <ImageView style="@style/CcRowArrow" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowVibration"
+                        style="@style/CcRow">
+
+                        <ImageView
+                            style="@style/CcRowIcon"
+                            android:src="@drawable/cc_ic_main_vibration" />
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_vibration" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/swVibration"
+                            style="@style/CcSwitch" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+
+    <!-- Hướng dẫn lần đầu (Figma 52:238125): nền tối, ô Enable Feature nổi lên + chú thích. -->
+    <FrameLayout
+        android:id="@+id/guideOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cc_guide_scrim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/guideContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/guideRow"
+                style="@style/CcCard">
+
+                <LinearLayout style="@style/CcRow">
+
+                    <TextView
+                        style="@style/CcRowLabel"
+                        android:text="@string/cc_enable_feature" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/guideSwitch"
+                        style="@style/CcSwitch" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/guideText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/appbase_sf_pro_medium"
+                android:gravity="end"
+                android:text="@string/cc_guide_enable"
+                android:textColor="@color/cc_white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

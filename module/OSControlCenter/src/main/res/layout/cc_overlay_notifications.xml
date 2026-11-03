@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trung tâm thông báo (Figma "Screen Notification dark"): giờ lớn + ngày, danh sách nhóm theo app,
+     nút đèn pin / camera ở đáy. Thời tiết bỏ theo yêu cầu (app chưa có nguồn dữ liệu). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ncRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ncBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:id="@+id/ncScrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cc_panel_scrim" />
+
+    <LinearLayout
+        android:id="@+id/ncContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="72dp"
+        android:paddingBottom="110dp">
+
+        <TextClock
+            android:id="@+id/ncDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/appbase_sf_pro_semibold"
+            android:format12Hour="EEE d MMMM"
+            android:format24Hour="EEE d MMMM"
+            android:gravity="center"
+            android:textColor="@color/cc_white"
+            android:textSize="20sp" />
+
+        <TextClock
+            android:id="@+id/ncTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/appbase_sf_pro_bold"
+            android:format12Hour="h:mm"
+            android:format24Hour="H:mm"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/cc_white"
+            android:textSize="86sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/appbase_sf_pro_regular"
+                android:maxLines="1"
+                android:text="@string/cc_notification_center"
+                android:textColor="@color/cc_white"
+                android:textSize="26sp" />
+
+            <ImageView
+                android:id="@+id/ncClose"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:contentDescription="@string/cc_cancel"
+                android:src="@drawable/cc_ic_close_circle" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ncList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingHorizontal="20dp" />
+
+            <TextView
+                android:id="@+id/ncEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="@string/cc_no_notifications"
+                android:textColor="@color/cc_nc_body"
+                android:textSize="15sp"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ncFlash"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="47dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/cc_bg_nc_button"
+        android:contentDescription="@string/cc_tile_flashlight"
+        android:padding="13dp"
+        android:src="@drawable/cc_ic_nc_flash" />
+
+    <ImageView
+        android:id="@+id/ncCamera"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/cc_bg_nc_button"
+        android:contentDescription="@string/cc_tile_camera"
+        android:padding="13dp"
+        android:src="@drawable/cc_ic_nc_camera" />
+</FrameLayout>

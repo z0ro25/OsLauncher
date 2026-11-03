@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thanh trượt Edge Settings (Figma: track 4dp xám, phần đã chọn xanh). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background" android:gravity="center_vertical|fill_horizontal">
+        <shape>
+            <size android:height="4dp" />
+            <corners android:radius="3dp" />
+            <solid android:color="@color/cc_slider_track" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress" android:gravity="center_vertical|fill_horizontal">
+        <scale android:scaleWidth="100%">
+            <shape>
+                <size android:height="4dp" />
+                <corners android:radius="3dp" />
+                <solid android:color="@color/cc_blue" />
+            </shape>
+        </scale>
+    </item>
+</layer-list>

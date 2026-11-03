@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cửa sổ Control Center toàn màn: nền wallpaper (mờ/không mờ) + 3 trang vuốt dọc. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ccRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ccBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:id="@+id/ccScrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cc_panel_scrim" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/ccPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+    <!-- Nút cài đặt góc phải trên (Figma 40x40) -> mở màn Main của module. -->
+    <ImageView
+        android:id="@+id/ccBtnSettings"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/cc_bg_chip_off"
+        android:contentDescription="@string/cc_app_name"
+        android:padding="7dp"
+        android:src="@drawable/cc_ic_settings_ring" />
+
+    <!-- Chấm chỉ trang ở mép phải: yêu thích / nhạc / kết nối. -->
+    <LinearLayout
+        android:id="@+id/ccPageDots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ccDot0"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:importantForAccessibility="no"
+            android:padding="1dp"
+            android:src="@drawable/cc_ic_page_fav" />
+
+        <ImageView
+            android:id="@+id/ccDot1"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="34dp"
+            android:importantForAccessibility="no"
+            android:padding="1dp"
+            android:src="@drawable/cc_ic_page_music" />
+
+        <ImageView
+            android:id="@+id/ccDot2"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="34dp"
+            android:importantForAccessibility="no"
+            android:padding="1dp"
+            android:src="@drawable/cc_ic_page_cell" />
+    </LinearLayout>
+</FrameLayout>

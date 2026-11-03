@@ -356,6 +356,14 @@
             android:label="@string/launcher_measure_label"
             android:resizeableActivity="false" />
 
+        <!-- Marker icon "Control Center" trên desktop (mở :module:OSControlCenter), cùng cơ chế với Compass. -->
+        <activity
+            android:name="com.truongnt.ios.launcher.shortcut.ControlCenter"
+            android:exported="true"
+            android:icon="@drawable/controlcenter_icon"
+            android:label="@string/launcher_controlcenter_label"
+            android:resizeableActivity="false" />
+
 
         <!--     ***********************    User Guide   ******************************  -->
         <activity

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nhãn icon Control Center trên desktop (shortcut.ControlCenter, mở :module:OSControlCenter). -->
+    <string name="launcher_controlcenter_label">Centro de control</string>
+</resources>

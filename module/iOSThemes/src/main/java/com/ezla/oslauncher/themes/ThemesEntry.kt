@@ -39,6 +39,13 @@ object ThemesEntry {
     // không tự đặt lại nền mặc định đè lên nền theme.
     var wallpaperChangedListener: ((Context) -> Unit)? = null
 
+    // Màn Language nằm ở :app; :app gắn ở Application (giống ControlCenterEntry.languageOpener).
+    var languageOpener: ((Activity) -> Unit)? = null
+
+    fun openLanguage(activity: Activity) {
+        languageOpener?.invoke(activity)
+    }
+
     fun open(activity: Activity) {
         val target = if (isOnboardingDone(activity)) ThemesActivity::class.java
         else ThemesOnboardingActivity::class.java

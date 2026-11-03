@@ -49,7 +49,7 @@ class ThemeViewActivity : BaseActivity<ThemesActivityThemeViewBinding>() {
         }
         fitPagePadding()
         binding.pagerPreview.setPageTransformer(sidePageTransformer())
-        binding.pagerPreview.setCurrentItem(ThemeViewPagerAdapter.PAGE_LOCK, false)
+        binding.pagerPreview.setCurrentItem(ThemeViewPagerAdapter.PAGE_THUMBNAIL, false)
 
         binding.rvSuggest.layoutManager = object : GridLayoutManager(this, SUGGEST_SPAN) {
             override fun canScrollVertically() = false
@@ -71,7 +71,8 @@ class ThemeViewActivity : BaseActivity<ThemesActivityThemeViewBinding>() {
             binding.tvThemeName.text = detail?.name.orEmpty()
             pagerAdapter.submit(
                 background = detail?.wallpapers?.firstOrNull() ?: detail?.previewUrl,
-                thumbnail = detail?.previewUrl
+                thumbnail = detail?.previewUrl,
+                controlCenter = detail?.controlSkin?.background
             )
         }
         // Có danh mục -> theme cùng danh mục; không có (mở từ Mine / theme mặc định) -> gợi ý chung

@@ -27,6 +27,18 @@
         android:textSize="14sp"
         tools:text="Rate Us" />
 
+    <!-- Giá trị hiện tại (Figma: ngôn ngữ đang chọn, chữ hồng); dòng khác để ẩn. -->
+    <TextView
+        android:id="@+id/tvRowValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:maxLines="1"
+        android:textColor="@color/themes_pink"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="English" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"

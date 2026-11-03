@@ -3881,6 +3881,8 @@ public class LauncherModel extends BroadcastReceiver
 
             // Icon "Measure" (:module:OSmeasure): cùng cơ chế Compass, ô trống đầu tiên.
             addMeasureShortcutIfMissing(context);
+            // Icon "Control Center" (:module:OSControlCenter): cùng cơ chế Compass, ô trống đầu tiên.
+            addControlCenterShortcutIfMissing(context);
 
             if (!added.isEmpty()) {
                 boolean prompt = !mInitWorkspace;
@@ -4096,6 +4098,20 @@ public class LauncherModel extends BroadcastReceiver
             measure.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
             ArrayList<ItemInfo> list = new ArrayList<ItemInfo>(1);
             list.add(measure);
+            addAndBindAddedWorkspaceItems(context, list);
+        }
+
+        // Như addCompassShortcutIfMissing, cho icon Control Center.
+        private void addControlCenterShortcutIfMissing(Context context) {
+            Intent probe = new Intent().setComponent(
+                    new ComponentName(context, com.truongnt.ios.launcher.shortcut.ControlCenter.class));
+            ShortcutInfo cc = infoFromIOSShortcutIntent(context, probe);
+            if (cc == null || themeShortcutExists(probe.getComponent())) {
+                return;
+            }
+            cc.container = LauncherSettings.Favorites.CONTAINER_DESKTOP;
+            ArrayList<ItemInfo> list = new ArrayList<ItemInfo>(1);
+            list.add(cc);
             addAndBindAddedWorkspaceItems(context, list);
         }
 

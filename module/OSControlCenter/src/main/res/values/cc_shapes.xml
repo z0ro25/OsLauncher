@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bo góc ảnh bằng ShapeableImageView (quy ước UI: không dùng CardView). -->
+    <style name="CcRound13">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">13dp</item>
+    </style>
+
+    <style name="CcRound20">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="CcRound9">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">9dp</item>
+    </style>
+
+    <style name="CcRound5">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="CcRound12">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+</resources>

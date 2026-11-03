@@ -1,5 +1,7 @@
 package com.ezla.oslauncher.themes.data
 
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
+import com.ezla.oslauncher.themes.Models.HomeKind
 import com.ezla.oslauncher.themes.Models.IconSection
 import com.ezla.oslauncher.themes.Models.IconThemeCard
 import com.ezla.oslauncher.themes.Models.PreviewCard
@@ -55,6 +57,16 @@ class SampleThemeRepository : ThemeRepository {
 
     override suspend fun getIconCards(categoryId: String): List<IconThemeCard> =
         getThemes(ThemeTab.FEATURED, categoryId).map { IconThemeCard(it.id, it.name, it.previewUrl, emptyList()) }
+
+    override suspend fun getHomeItems(kind: HomeKind, categoryId: String): List<Any> = when (kind) {
+        HomeKind.THEME -> getThemes(ThemeTab.FEATURED, categoryId)
+        HomeKind.ICON -> getIconCards(categoryId)
+        HomeKind.WALLPAPER -> getWallpapers(ThemeTab.FEATURED, categoryId)
+        HomeKind.CONTROL_CENTER -> getControlCenterCards(categoryId)
+    }
+
+    // Mẫu không có skin Control Center.
+    override suspend fun getControlCenterCards(categoryId: String): List<ControlCenterCard> = emptyList()
 
     private fun asset(name: String) = "file:///android_asset/themes_sample/$name"
 }

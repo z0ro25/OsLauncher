@@ -11,12 +11,14 @@ import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.Models.ThemeDetail
 import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.ThemesEntry
+import com.ezla.oslauncher.themes.apply.ControlCenterSkinApplier
 import com.ezla.oslauncher.themes.apply.ThemeApplyEngine
 import com.ezla.oslauncher.themes.base.BaseActivity
 import com.ezla.oslauncher.themes.base.ApplyTask
 import com.ezla.oslauncher.themes.base.LoadingOverlay
 import com.ezla.oslauncher.themes.features.ApplyTracker
 import com.ezla.oslauncher.themes.features.ThemesInter
+import com.ezla.oslauncher.themes.features.controlcenter.CcPreviewBinder
 import com.ezla.oslauncher.themes.features.loadCreditInto
 import com.ezla.oslauncher.themes.data.CreditRejectedException
 import com.ezla.oslauncher.themes.data.CreditRepository
@@ -36,7 +38,8 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     override val setViewBinding: ThemesActivityThemeDetailBinding
         get() = ThemesActivityThemeDetailBinding.inflate(LayoutInflater.from(this))
 
-    private enum class Tab { ICON, WALLPAPER }
+    // CONTROL_CENTER chỉ hiện khi theme có control_systems; server chưa có giá nên luôn Apply, không trừ xu.
+    private enum class Tab { ICON, WALLPAPER, CONTROL_CENTER }
 
     private val repository = ThemeRepositoryProvider.repository
     private var detail: ThemeDetail? = null
@@ -44,6 +47,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     private var iconUnlocked = false
     private var wallpaperUnlocked = false
     private val loading by lazy { LoadingOverlay(this) }
+    private val ccPreview by lazy { CcPreviewBinder(binding.frCcPreview) }
     private var unlocking = false
     private var subscribed = false
 
@@ -69,6 +73,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         binding.imgBack.setOnClickListener { finish() }
         binding.tabIcon.setOnClickListener { selectTab(Tab.ICON) }
         binding.tabWallpaper.setOnClickListener { selectTab(Tab.WALLPAPER) }
+        binding.tabControlCenter.setOnClickListener { selectTab(Tab.CONTROL_CENTER) }
         binding.btnTabAction.setOnClickListener { onTabAction() }
         // Apply All -> inter (nếu có) rồi mới mở sheet Apply Theme.
         binding.btnApplyTheme.setOnClickListener {
@@ -97,6 +102,9 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
                 .load(d?.wallpapers?.firstOrNull() ?: d?.previewUrl)
                 .into(binding.imgPreviewBg)
             bindIcons(d)
+            val skins = d?.controlSystems.orEmpty()
+            binding.tabControlCenter.visibility = if (skins.isEmpty()) View.GONE else View.VISIBLE
+            if (skins.isNotEmpty()) ccPreview.bind(skins)
             renderActions()
         }
     }
@@ -115,14 +123,18 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     }
 
     private fun renderTab() {
-        val onIcon = tab == Tab.ICON
         val active = ContextCompat.getColor(this, R.color.themes_text_title)
         val inactive = ContextCompat.getColor(this, R.color.themes_text_hint)
-        binding.tvTabIcon.setTextColor(if (onIcon) active else inactive)
-        binding.tvTabWallpaper.setTextColor(if (onIcon) inactive else active)
-        binding.lineIcon.visibility = if (onIcon) View.VISIBLE else View.INVISIBLE
-        binding.lineWallpaper.visibility = if (onIcon) View.INVISIBLE else View.VISIBLE
-        binding.layoutIconPreview.visibility = if (onIcon) View.VISIBLE else View.GONE
+        listOf(
+            Triple(Tab.ICON, binding.tvTabIcon, binding.lineIcon),
+            Triple(Tab.WALLPAPER, binding.tvTabWallpaper, binding.lineWallpaper),
+            Triple(Tab.CONTROL_CENTER, binding.tvTabControlCenter, binding.lineControlCenter)
+        ).forEach { (t, text, line) ->
+            text.setTextColor(if (t == tab) active else inactive)
+            line.visibility = if (t == tab) View.VISIBLE else View.INVISIBLE
+        }
+        binding.layoutIconPreview.visibility = if (tab == Tab.ICON) View.VISIBLE else View.GONE
+        binding.frCcPreview.visibility = if (tab == Tab.CONTROL_CENTER) View.VISIBLE else View.GONE
     }
 
     // Nút dưới theo tab; header: badge xu khi chưa mở đủ, "Apply All" khi đã mở cả 2.
@@ -130,7 +142,11 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     private fun renderActions() {
         if (isUnlocked(tab) || subscribed) {
             binding.tvTabAction.setText(
-                if (tab == Tab.ICON) R.string.themes_apply_icons else R.string.themes_apply_wallpaper
+                when (tab) {
+                    Tab.ICON -> R.string.themes_apply_icons
+                    Tab.WALLPAPER -> R.string.themes_apply_wallpaper
+                    Tab.CONTROL_CENTER -> R.string.themes_apply_control_center
+                }
             )
             binding.imgTabActionCoin.visibility = View.GONE
         } else {
@@ -160,6 +176,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         when (tab) {
             Tab.ICON -> runApply(ApplyTracker.TYPE_ICONS) { applyIcons(d) }
             Tab.WALLPAPER -> chooseWhere(d)
+            Tab.CONTROL_CENTER -> runApply(ApplyTracker.TYPE_CONTROL_CENTER) { applyControlCenter(d) }
         }
     }
 
@@ -171,6 +188,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
         val (type, id) = when (target) {
             Tab.ICON -> CreditRepository.UNLOCK_THEME_ICONS to (d.id.toIntOrNull() ?: 0)
             Tab.WALLPAPER -> CreditRepository.UNLOCK_BACKGROUND to d.backgroundId
+            Tab.CONTROL_CENTER -> return
         }
         if (id <= 0) return
         unlocking = true
@@ -183,6 +201,7 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
                     when (target) {
                         Tab.ICON -> iconUnlocked = true
                         Tab.WALLPAPER -> wallpaperUnlocked = true
+                        Tab.CONTROL_CENTER -> Unit
                     }
                     binding.tvCoin.text = credit.toString()
                     renderActions()
@@ -201,12 +220,14 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
     private fun isUnlocked(target: Tab) = when (target) {
         Tab.ICON -> iconUnlocked
         Tab.WALLPAPER -> wallpaperUnlocked
+        Tab.CONTROL_CENTER -> true
     }
 
     // Giá mở khoá từ API: icon = icons_coins của theme, nền = coins của background đầu.
     private fun priceOf(target: Tab) = when (target) {
         Tab.ICON -> detail?.iconCoins ?: 0
         Tab.WALLPAPER -> detail?.wallpaperCoins ?: 0
+        Tab.CONTROL_CENTER -> 0
     }
 
     // Apply Wallpaper: vẫn hỏi Lock/Home trước khi áp nền.
@@ -254,9 +275,19 @@ class ThemeDetailActivity : BaseActivity<ThemesActivityThemeDetailBinding>() {
 
     private fun applyAll(d: ThemeDetail) {
         runApply(ApplyTracker.TYPE_BOTH) {
-            if (isDefault(d)) applyIcons(d) && applyWallpaper(d, "", home = true, lock = true)
+            val applied = if (isDefault(d)) applyIcons(d) && applyWallpaper(d, "", home = true, lock = true)
             else ThemeApplyEngine.applyTheme(this, d, applyHome = true, applyLock = true)
+            // Apply All kèm skin Control Center nếu theme có; lỗi skin không làm hỏng phần đã áp.
+            if (applied && (isDefault(d) || d.controlSystems.isNotEmpty())) applyControlCenter(d)
+            applied
         }
+    }
+
+    // Theme mặc định = Control Center gốc (gỡ skin); theme khác tải ảnh control_systems rồi cài.
+    private suspend fun applyControlCenter(d: ThemeDetail): Boolean {
+        if (!isDefault(d)) return ControlCenterSkinApplier.apply(this, d.id, d.controlSystems)
+        ControlCenterSkinApplier.restoreDefault(this)
+        return true
     }
 
     // Theme mặc định: Apply = khôi phục icon gốc / nền mặc định của launcher thay vì tải từ URL.

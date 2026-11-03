@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Màn cài đặt: nền xám iOS #F2F2F7, icon status bar tối như Figma. -->
+    <style name="CcTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/cc_blue</item>
+        <item name="colorAccent">@color/cc_blue</item>
+        <item name="android:windowBackground">@color/cc_screen_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/cc_screen_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+    </style>
+
+    <style name="CcOnboardingTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/appbase_onboarding_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/appbase_ad_placeholder</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Activity trong suốt chỉ để xin consent MediaProjection rồi đóng ngay. -->
+    <style name="CcTranslucentTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="CcDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
+    <style name="CcBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CcBottomSheetStyle</item>
+    </style>
+
+    <style name="CcBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <!-- ===== Thành phần màn cài đặt ===== -->
+    <style name="CcLargeTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_bold</item>
+        <item name="android:textColor">@color/cc_title</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="CcSectionTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/cc_screen_padding</item>
+        <item name="android:layout_marginTop">@dimen/cc_section_gap</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textColor">@color/cc_text_secondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CcCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/cc_screen_padding</item>
+        <item name="android:background">@drawable/cc_bg_card</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="CcRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/cc_row_height</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingHorizontal">@dimen/cc_screen_padding</item>
+    </style>
+
+    <style name="CcRowIcon">
+        <item name="android:layout_width">@dimen/cc_row_icon</item>
+        <item name="android:layout_height">@dimen/cc_row_icon</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="CcRowLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textColor">@color/cc_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="CcRowValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_regular</item>
+        <item name="android:textColor">@color/cc_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CcRowArrow">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:src">@drawable/cc_ic_arrow_right</item>
+        <item name="tint">@color/cc_text_secondary</item>
+    </style>
+
+    <style name="CcDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:layout_marginHorizontal">@dimen/cc_screen_padding</item>
+        <item name="android:background">@color/cc_divider</item>
+    </style>
+
+    <style name="CcSwitch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:thumb">@drawable/cc_sw_thumb</item>
+        <item name="track">@drawable/cc_sw_track</item>
+        <item name="android:background">@null</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="CcSlider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:max">100</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:progressDrawable">@drawable/cc_slider_progress</item>
+        <item name="android:thumb">@drawable/cc_slider_thumb</item>
+        <item name="android:splitTrack">false</item>
+    </style>
+
+    <!-- Header màn con: back + tiêu đề (Figma "Heading" 48dp). -->
+    <style name="CcHeaderTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="CcPillButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:background">@drawable/cc_bg_pill_blue</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:textColor">@color/cc_white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Ô nhập r/g/b/a của hộp chọn màu (Figma 37x25, bo 6). -->
+    <style name="CcColorInput">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">7dp</item>
+        <item name="android:background">@drawable/cc_bg_input</item>
+        <item name="android:gravity">center</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:importantForAutofill">no</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="CcColorInputLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">7dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#222222</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- ===== Panel overlay ===== -->
+    <style name="CcTileLabelTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_semibold</item>
+        <item name="android:textColor">@color/cc_white</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="CcTileLabelDetail" parent="CcTileLabelTitle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:fontFamily">@font/appbase_sf_pro_medium</item>
+        <item name="android:textColor">@color/cc_white_secondary</item>
+    </style>
+</resources>

@@ -109,6 +109,7 @@
     <string name="language">Language</string>
     <string name="general">General</string>
     <string name="home_themes">Themes</string>
+    <string name="home_control_center">Control Center</string>
     <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->
     <string name="general_options">Options</string>
     <string name="auto_arrange_home_screen">Auto Arrange Home Screen</string>

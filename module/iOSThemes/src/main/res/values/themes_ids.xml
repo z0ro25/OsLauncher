@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Đánh dấu dock preview tab Icon đã gắn listener co icon (IconPreviewBinder), tránh gắn lặp. -->
+    <item name="themes_tag_dock_fit" type="id" />
+</resources>

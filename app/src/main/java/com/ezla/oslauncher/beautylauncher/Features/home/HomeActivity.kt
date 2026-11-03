@@ -34,6 +34,7 @@ import com.ezla.oslauncher.beautylauncher.extensions.tap
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
 import com.ezla.oslauncher.themes.ThemesEntry
+import com.ezla.oslauncher.controlcenter.ControlCenterEntry
 import com.ezt.v2.ezt.admobdemo.ads.InterAds
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
 import com.truongnt.ios.ioslite.common.config.AppAds
@@ -153,6 +154,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         // Themes: cùng lối vào với icon Themes trên desktop (lần đầu qua onboarding của Themes).
         binding.llThemes.tap {
             tapWithInterInApp { ThemesEntry.open(this) }
+        }
+        binding.llControlCenter.tap {
+            tapWithInterInApp { ControlCenterEntry.open(this) }
         }
         binding.llGeneral.tap {
             tapWithInterInApp { launchActivity<GeneralActivity>() }

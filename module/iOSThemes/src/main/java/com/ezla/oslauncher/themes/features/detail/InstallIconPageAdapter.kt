@@ -27,13 +27,22 @@ class InstallIconPageAdapter(
         binding.rvPageIcons.layoutManager = object : GridLayoutManager(parent.context, columns) {
             override fun canScrollVertically() = false
         }
+        // Lưới đo xong / đổi cỡ -> tính lại 1 cỡ chung rồi vẽ lại cả trang (post: không gọi giữa lúc layout).
+        binding.rvPageIcons.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
+            val rv = v as RecyclerView
+            val current = rv.adapter as? IconAdapter ?: return@addOnLayoutChangeListener
+            if (current.fitTo(rv)) rv.post { current.notifyDataSetChanged() }
+        }
         return PageHolder(binding)
     }
 
     // Gắn adapter ngay; KHÔNG đợi doOnLayout: setAdapter trong onLayoutChange gọi requestLayout giữa
     // lúc ViewPager2 đang layout nên bị nuốt -> lưới không bao giờ vẽ icon.
     override fun onBindViewHolder(holder: PageHolder, position: Int) {
-        holder.binding.rvPageIcons.adapter = IconAdapter(pages[position], columns, rows)
+        val rv = holder.binding.rvPageIcons
+        val adapter = IconAdapter(pages[position], columns, rows)
+        rv.adapter = adapter
+        adapter.fitTo(rv)
     }
 
     class PageHolder(val binding: ThemesItemInstallIconPageBinding) :
@@ -45,37 +54,52 @@ class InstallIconPageAdapter(
         private val rows: Int
     ) : RecyclerView.Adapter<IconAdapter.Holder>() {
 
+        // Cỡ icon chung cho CẢ trang. Trước đây tính lúc tạo từng ô: ô hàng đầu tạo khi lưới chưa đo
+        // (width = 0) nên lấy cỡ tối đa, ô sau tính theo lưới đã đo -> hàng đầu to hơn hàng dưới.
+        private var icon = 0
+        private var labelSpace = 0
+        private var rowGap = 0
+
         override fun getItemCount() = items.size
 
-        // Hàng cao cố định (icon + tên + khe) nên các hàng xếp sát nhau từ TRÊN xuống như desktop,
-        // không giãn phủ kín khung. Lưới cao không đủ [rows] hàng thì mới co icon lại cho vừa.
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-            val binding = ThemesItemInstallIconBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
+        // Tính cỡ theo kích thước lưới hiện tại; lưới chưa đo thì tạm dùng cỡ tối đa. true = cỡ vừa đổi.
+        fun fitTo(parent: RecyclerView): Boolean {
             val res = parent.resources
             val maxIcon = res.getDimensionPixelSize(R.dimen.themes_install_icon_size)
-            val labelSpace = res.getDimensionPixelSize(R.dimen.themes_install_label_space)
+            labelSpace = res.getDimensionPixelSize(R.dimen.themes_install_label_space)
+            rowGap = res.getDimensionPixelSize(R.dimen.themes_install_row_gap)
             val colGap = res.getDimensionPixelSize(R.dimen.themes_install_icon_gap)
-            val rowGap = res.getDimensionPixelSize(R.dimen.themes_install_row_gap)
 
             val colWidth = (parent.width - parent.paddingLeft - parent.paddingRight) / columns
             val inner = parent.height - parent.paddingTop - parent.paddingBottom
             val byWidth = if (colWidth > 0) colWidth - colGap else maxIcon
             val byHeight = if (inner > 0) inner / rows - labelSpace - rowGap else maxIcon
-            val icon = minOf(maxIcon, byWidth, byHeight).coerceAtLeast(maxIcon / 2)
+            val size = minOf(maxIcon, byWidth, byHeight).coerceAtLeast(maxIcon / 2)
+            if (size == icon) return false
+            icon = size
+            return true
+        }
 
-            binding.root.layoutParams.height = icon + labelSpace + rowGap
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+            val binding = ThemesItemInstallIconBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
             binding.root.setPadding(0, 0, 0, 0)
-            binding.imgAppIcon.layoutParams.width = icon
-            binding.imgAppIcon.layoutParams.height = icon
             return Holder(binding)
         }
 
+        // Hàng cao cố định (icon + tên + khe) nên các hàng xếp sát nhau từ TRÊN xuống như desktop.
+        // Áp cỡ ở bind (không ở create) để mọi ô, kể cả ô tạo sớm, luôn cùng 1 cỡ hiện tại.
         override fun onBindViewHolder(holder: Holder, position: Int) {
+            val b = holder.binding
+            b.root.layoutParams = b.root.layoutParams.apply { height = icon + labelSpace + rowGap }
+            b.imgAppIcon.layoutParams = b.imgAppIcon.layoutParams.apply {
+                width = icon
+                height = icon
+            }
             val item = items[position]
-            Glide.with(holder.binding.imgAppIcon).load(item.imageUrl).into(holder.binding.imgAppIcon)
-            holder.binding.tvAppName.text = item.label
+            Glide.with(b.imgAppIcon).load(item.imageUrl).into(b.imgAppIcon)
+            b.tvAppName.text = item.label
         }
 
         class Holder(val binding: ThemesItemInstallIconBinding) : RecyclerView.ViewHolder(binding.root)

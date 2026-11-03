@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kích thước theo frame Figma 360dp; panel 300dp, ô 1x1 = 65dp, khối 2x2 = 142dp. -->
+<resources>
+    <dimen name="cc_screen_padding">16dp</dimen>
+    <dimen name="cc_card_radius">26dp</dimen>
+    <dimen name="cc_row_height">52dp</dimen>
+    <dimen name="cc_row_icon">32dp</dimen>
+    <dimen name="cc_section_gap">24dp</dimen>
+    <dimen name="cc_header_height">48dp</dimen>
+
+    <dimen name="cc_panel_width">300dp</dimen>
+    <dimen name="cc_tile">65dp</dimen>
+    <dimen name="cc_tile_big">142dp</dimen>
+    <dimen name="cc_tile_gap">13dp</dimen>
+    <dimen name="cc_tile_row_gap">18dp</dimen>
+    <dimen name="cc_tile_radius_big">28dp</dimen>
+    <dimen name="cc_chip_big">53dp</dimen>
+    <dimen name="cc_chip_small">24dp</dimen>
+    <dimen name="cc_tile_icon">26dp</dimen>
+    <dimen name="cc_label_tile_height">60dp</dimen>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ô 1x1 trong lưới panel; ở chế độ sửa có nút "–" góc trên trái, ô trống = slot mờ. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/cc_tile"
+    android:layout_height="@dimen/cc_tile">
+
+    <com.ezla.oslauncher.controlcenter.widget.CcTileView
+        android:id="@+id/ccTile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/ccTileMinus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="top|start"
+        android:background="@drawable/cc_bg_minus"
+        android:contentDescription="@string/cc_custom_controls"
+        android:visibility="gone" />
+</FrameLayout>

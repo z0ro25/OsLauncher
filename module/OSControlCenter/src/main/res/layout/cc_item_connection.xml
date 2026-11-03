@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dòng ở trang Kết nối (Figma "Control Tile / Label 2x1" 300x60). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/cc_panel_width"
+    android:layout_height="@dimen/cc_label_tile_height"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/cc_bg_tile"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingEnd="16dp">
+
+    <ImageView
+        android:id="@+id/ccConnIcon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/cc_bg_chip_off"
+        android:importantForAccessibility="no"
+        android:padding="12dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ccConnTitle"
+            style="@style/CcTileLabelTitle" />
+
+        <TextView
+            android:id="@+id/ccConnDetail"
+            style="@style/CcTileLabelDetail" />
+    </LinearLayout>
+</LinearLayout>

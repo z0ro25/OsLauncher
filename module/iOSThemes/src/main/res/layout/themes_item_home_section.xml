@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1 section tab Themes (Figma): icon danh mục + tên 16sp + "See more" 12sp, cách hàng thẻ 12dp. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/themes_screen_padding">
+
+        <ImageView
+            android:id="@+id/imgSectionIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="4dp"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/tvSectionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/themes_text_title"
+            android:textSize="16sp"
+            tools:text="Popular" />
+
+        <TextView
+            android:id="@+id/tvSeeMore"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="@font/themes_quicksand_semibold"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:paddingStart="8dp"
+            android:text="@string/themes_see_more"
+            android:textColor="@color/themes_text_title"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/themes_screen_padding" />
+</LinearLayout>

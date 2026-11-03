@@ -114,7 +114,8 @@
     <bool name="feature_desktop_grid_change_enable">true</bool>
 
     <!-- 删除应用后,桌面图标自动对齐 -->
-    <bool name="def_desktop_auto_align_enable">false</bool>
+    <!-- Mặc định BẬT "Auto Arrange Home Screen" (màn General); user đã tự bật/tắt thì giữ lựa chọn đó. -->
+    <bool name="def_desktop_auto_align_enable">true</bool>
 
     <!-- 壁纸滑动是否开启 -->
     <bool name="def_wallpaper_scroll_enabled">true</bool>

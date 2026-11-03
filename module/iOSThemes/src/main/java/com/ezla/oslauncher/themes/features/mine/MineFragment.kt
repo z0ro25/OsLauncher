@@ -1,5 +1,7 @@
 package com.ezla.oslauncher.themes.features.mine
 
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
+import com.ezla.oslauncher.themes.Models.HomeKind
 import com.ezla.oslauncher.themes.Models.IconPack
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.MineTab
@@ -18,12 +20,14 @@ import com.ezla.oslauncher.themes.databinding.ThemesFragmentMineBinding
 import com.ezla.oslauncher.themes.features.detail.IconDetailActivity
 import com.ezla.oslauncher.themes.features.detail.ThemeViewActivity
 import com.ezla.oslauncher.themes.features.detail.WallpaperDetailActivity
+import com.ezla.oslauncher.themes.features.controlcenter.ControlCenterDetailActivity
 import com.ezla.oslauncher.themes.features.home.GridSpacingDecoration
+import com.ezla.oslauncher.themes.features.home.HomeCardAdapter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 // Màn Mine (Figma Profile/*): My Library = theme mặc định của launcher đứng đầu + đồ user đã có;
-// Suggest = gợi ý. Favorites (local) có chip con Wallpapers / Icon, không có theme và Suggest.
+// Suggest = gợi ý. Favorites (local) có chip con Wallpapers / Icon / Control Center, không có Suggest.
 class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
 
     private val repository = MineRepositoryProvider.repository
@@ -98,20 +102,27 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
         load()
     }
 
-    // Theme/Wallpapers: thẻ preview (Suggest 3 cột nhỏ); Icon: thẻ icon pack 2 cột.
-    // Favorites theo chip con: Wallpapers = thẻ preview, Icon = thẻ icon pack.
+    // Theme/Wallpapers: thẻ preview (Suggest 3 cột nhỏ); Icon: thẻ icon pack 2 cột; Control Center:
+    // thẻ panel xem trước (adapter gắn lúc có dữ liệu). Favorites theo chip con, cùng kiểu thẻ.
     private fun applyLayouts() {
         val isPack = tab == MineTab.ICON || (tab == MineTab.FAVORITES && favoriteTab == MineTab.ICON)
+        val isCc = isControlCenter()
         val suggestSpan = if (isPack) LIBRARY_SPAN else SUGGEST_CARD_SPAN
         binding.rvLibrary.layoutManager = noScrollGrid(LIBRARY_SPAN)
-        binding.rvLibrary.adapter = if (isPack) libraryPacks else libraryCards
+        binding.rvLibrary.adapter = if (isPack) libraryPacks else if (isCc) null else libraryCards
 
         // Số cột Suggest đổi theo tab nên decoration phải thay theo.
         while (binding.rvSuggest.itemDecorationCount > 0) binding.rvSuggest.removeItemDecorationAt(0)
         binding.rvSuggest.addItemDecoration(GridSpacingDecoration(suggestSpan, gapPx()))
         binding.rvSuggest.layoutManager = noScrollGrid(suggestSpan)
-        binding.rvSuggest.adapter = if (isPack) suggestPacks else suggestCards
+        binding.rvSuggest.adapter = if (isPack) suggestPacks else if (isCc) null else suggestCards
     }
+
+    private fun isControlCenter() =
+        tab == MineTab.CONTROL_CENTER || (tab == MineTab.FAVORITES && favoriteTab == MineTab.CONTROL_CENTER)
+
+    private fun ccAdapter(cards: List<ControlCenterCard>) =
+        HomeCardAdapter(HomeKind.CONTROL_CENTER, cards, { onControlCenterClick(it as ControlCenterCard) }, {}, grid = true)
 
     private fun gapPx() = resources.getDimensionPixelSize(R.dimen.themes_mine_gap)
 
@@ -144,9 +155,15 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
                     libraryPacks.submit(listOf(DefaultThemeProvider.iconPack(ctx)) + repository.getOwnedIconPacks())
                     suggestPacks.submit(repository.getSuggestIconPacks().take(SUGGEST_PACK_COUNT))
                 }
+                MineTab.CONTROL_CENTER -> {
+                    binding.rvLibrary.adapter = ccAdapter(listOf(defaultControlCenter()) + repository.getOwnedControlCenters())
+                    binding.rvSuggest.adapter = ccAdapter(repository.getSuggestControlCenters().take(SUGGEST_CARD_SPAN))
+                }
                 MineTab.FAVORITES -> {
                     val count = if (favoriteTab == MineTab.ICON) {
                         FavoriteRepository.getIconPacks(ctx).also { libraryPacks.submit(it) }.size
+                    } else if (favoriteTab == MineTab.CONTROL_CENTER) {
+                        FavoriteRepository.getControlCenters(ctx).also { binding.rvLibrary.adapter = ccAdapter(it) }.size
                     } else {
                         favoriteWallpapers().also { libraryCards.submit(it) }.size
                     }
@@ -162,6 +179,19 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
         if (cards.none { !it.isDefault }) return cards
         val unlockedIds = repository.getOwnedWallpapers().map { it.backgroundId }.toSet()
         return cards.map { if (it.isDefault) it else it.copy(isUnlocked = it.backgroundId in unlockedIds) }
+    }
+
+    // Thẻ Default = Control Center gốc của launcher (nền kính, không skin); Apply = gỡ skin.
+    private fun defaultControlCenter() = ControlCenterCard(
+        themeId = DefaultThemeProvider.DEFAULT_ID,
+        name = getString(R.string.themes_default_name),
+        background = DefaultThemeProvider.WALLPAPER_RES,
+        skins = emptyList(),
+        isDefault = true
+    )
+
+    private fun onControlCenterClick(card: ControlCenterCard) {
+        ControlCenterDetailActivity.start(requireContext(), card.themeId)
     }
 
     // Thẻ Default đi chung luồng với theme thường (màn tự dựng dữ liệu mặc định, Apply = khôi phục).
@@ -193,6 +223,6 @@ class MineFragment : BaseFragment<ThemesFragmentMineBinding>() {
         private const val LIBRARY_SPAN = 2
         private const val SUGGEST_CARD_SPAN = 3
         private const val SUGGEST_PACK_COUNT = 4
-        private val FAVORITE_TABS = listOf(MineTab.WALLPAPERS, MineTab.ICON)
+        private val FAVORITE_TABS = listOf(MineTab.WALLPAPERS, MineTab.ICON, MineTab.CONTROL_CENTER)
     }
 }

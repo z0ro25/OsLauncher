@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn quyền (Figma "Permissions" 52:238222). Dòng Display Over Other Apps của Figma đổi thành
+     Accessibility vì overlay chạy bằng Accessibility Service (đã chốt với user). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cc_screen_bg">
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cc_header_height">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/cc_cancel"
+                android:padding="8dp"
+                android:src="@drawable/cc_ic_arrow_back"
+                android:tint="@color/cc_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/appbase_sf_pro_medium"
+                android:text="@string/cc_permissions"
+                android:textColor="@color/cc_title"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/cc_screen_padding"
+            android:layout_marginTop="16dp"
+            android:text="@string/cc_permissions_desc"
+            android:textColor="@color/cc_text_secondary"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            style="@style/CcCard"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:id="@+id/rowAccessibility"
+                style="@style/CcRow"
+                android:layout_height="61dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CcRowLabel"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/appbase_sf_pro_medium"
+                        android:text="@string/cc_perm_accessibility"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        style="@style/CcRowValue"
+                        android:text="@string/cc_perm_accessibility_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swAccessibility"
+                    style="@style/CcSwitch" />
+            </LinearLayout>
+
+            <View style="@style/CcDivider" />
+
+            <LinearLayout
+                android:id="@+id/rowBattery"
+                style="@style/CcRow"
+                android:layout_height="61dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CcRowLabel"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/appbase_sf_pro_medium"
+                        android:text="@string/cc_perm_battery"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        style="@style/CcRowValue"
+                        android:text="@string/cc_perm_battery_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swBattery"
+                    style="@style/CcSwitch" />
+            </LinearLayout>
+
+            <View style="@style/CcDivider" />
+
+            <LinearLayout
+                android:id="@+id/rowNotification"
+                style="@style/CcRow"
+                android:layout_height="61dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CcRowLabel"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/appbase_sf_pro_medium"
+                        android:text="@string/cc_perm_notification"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        style="@style/CcRowValue"
+                        android:text="@string/cc_perm_notification_desc" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swNotification"
+                    style="@style/CcSwitch" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+</FrameLayout>

@@ -97,6 +97,14 @@
                 android:columnCount="3"
                 android:importantForAccessibility="noHideDescendants"
                 android:visibility="gone" />
+
+            <!-- Biến thể Control Center: panel xem trước skin phủ lên ảnh nền. -->
+            <FrameLayout
+                android:id="@+id/frSetCcPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:visibility="gone" />
         </FrameLayout>
 
         <!-- Nét gạch + phần dưới tô màu nền sheet: che đoạn ảnh thò xuống dưới nét (đáy 189dp,

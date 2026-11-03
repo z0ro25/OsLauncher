@@ -150,6 +150,7 @@ import com.truongnt.ios.launcher.shortcut.BatterySave;
 import com.truongnt.ios.launcher.shortcut.Compass;
 import com.truongnt.ios.launcher.shortcut.Discovery;
 import com.truongnt.ios.launcher.shortcut.Measure;
+import com.truongnt.ios.launcher.shortcut.ControlCenter;
 import com.truongnt.ios.launcher.shortcut.Theme;
 import com.truongnt.ios.launcher.shortcut.Wallpaper;
 import com.truongnt.ios.launcher.shortcuts.DeepShortcutManager;
@@ -3904,6 +3905,8 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
     private static final String OWN_CLOCK_ACTIVITY = "com.ezla.oslauncher.clock.ClockActivity";
     private static final String OWN_COMPASS_ACTIVITY = "com.ezla.oslauncher.compass.CompassActivity";
     private static final String OWN_MEASURE_ACTIVITY = "com.ezla.oslauncher.measure.MeasureActivity";
+    // Màn Main tự chuyển sang onboarding lần đầu (redirectBeforeCreate) nên mở thẳng được.
+    private static final String OWN_CONTROL_CENTER_ACTIVITY = "com.ezla.oslauncher.controlcenter.features.main.CcMainActivity";
     private static final java.util.Set<String> SYSTEM_CLOCK_PACKAGES = new java.util.HashSet<>(
             java.util.Arrays.asList("com.ios.deskclock", "com.android.deskclock",
                     "com.google.android.deskclock", "com.lge.clock", "com.sec.android.app.clockpackage",
@@ -3945,6 +3948,9 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
                 return true;
             } else if (shortcutClass.equals(Measure.class.getName())) {
                 openOwnActivity(OWN_MEASURE_ACTIVITY);
+                return true;
+            } else if (shortcutClass.equals(ControlCenter.class.getName())) {
+                openOwnActivity(OWN_CONTROL_CENTER_ACTIVITY);
                 return true;
             }
         }

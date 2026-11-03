@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nút xoá ô ở chế độ sửa (Figma 24x24 #111111 60%). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/cc_minus_bg" />
+        </shape>
+    </item>
+    <item android:left="6dp" android:right="6dp" android:gravity="center_vertical">
+        <shape>
+            <size android:height="2dp" />
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="1dp" />
+        </shape>
+    </item>
+</layer-list>

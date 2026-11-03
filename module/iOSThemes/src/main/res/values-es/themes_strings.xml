@@ -114,4 +114,17 @@
     <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
     <string name="themes_reward_cooldown">Siguiente video en %1$s</string>
     <string name="themes_reward_wait_toast">Espera %1$s para ver el siguiente video</string>
+    <string name="themes_nav_rewards">Recompensas</string>
+    <string name="themes_nav_setting">Ajustes</string>
+    <string name="themes_kind_theme">Tema</string>
+    <string name="themes_kind_icons">Iconos</string>
+    <string name="themes_kind_wallpaper">Fondo</string>
+    <string name="themes_kind_control_center">Centro de control</string>
+    <string name="themes_see_more">Ver más</string>
+    <string name="themes_fetch_failed">No se pudieron cargar los datos, inténtalo de nuevo</string>
+    <string name="themes_retry">Reintentar</string>
+    <string name="themes_setting_language">Cambiar idioma</string>
+    <string name="themes_apply_control_center">Aplicar Centro de control</string>
+    <string name="themes_cc_ready">¡Tu nuevo Centro de control está listo! Desliza desde el borde para verlo</string>
+    <string name="themes_explore_more_cc">Explorar más Centros de control</string>
 </resources>

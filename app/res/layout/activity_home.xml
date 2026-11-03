@@ -277,6 +277,24 @@
 
                 <View style="@style/HomeSettingDivider" />
 
+                <!-- Control Center: logo Figma "Logo Control Center 1" (cc_ic_logo của module OSControlCenter). -->
+                <LinearLayout
+                    android:id="@+id/ll_control_center"
+                    style="@style/HomeSettingRow">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        style="@style/HomeSettingIcon"
+                        android:src="@drawable/cc_ic_logo" />
+
+                    <TextView
+                        style="@style/HomeSettingLabel"
+                        android:text="@string/home_control_center" />
+
+                    <ImageView style="@style/HomeSettingArrow" />
+                </LinearLayout>
+
+                <View style="@style/HomeSettingDivider" />
+
                 <!-- General -->
                 <LinearLayout
                     android:id="@+id/ll_general"

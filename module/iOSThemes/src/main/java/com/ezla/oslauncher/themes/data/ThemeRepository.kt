@@ -1,5 +1,7 @@
 package com.ezla.oslauncher.themes.data
 
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
+import com.ezla.oslauncher.themes.Models.HomeKind
 import com.ezla.oslauncher.themes.Models.IconSection
 import com.ezla.oslauncher.themes.Models.IconThemeCard
 import com.ezla.oslauncher.themes.Models.PreviewCard
@@ -28,6 +30,13 @@ interface ThemeRepository {
 
     // Màn xem tất cả (">" ở tab Icons): thẻ icon của 1 danh mục; lỗi -> rỗng.
     suspend fun getIconCards(categoryId: String): List<IconThemeCard>
+
+    // Tab Themes: thẻ của 1 danh mục theo loại chip (ThemeItem / IconThemeCard / PreviewCard /
+    // ControlCenterCard). Mỗi danh mục 1 request riêng để section nào về trước hiện trước.
+    suspend fun getHomeItems(kind: HomeKind, categoryId: String): List<Any>
+
+    // Thẻ Control Center của 1 danh mục: chỉ theme có control_systems; lỗi -> rỗng.
+    suspend fun getControlCenterCards(categoryId: String): List<ControlCenterCard>
 }
 
 object ThemeRepositoryProvider {

@@ -33,6 +33,14 @@ interface ThemesApi {
         @Query("order_by") orderBy: String
     ): Response<ApiResponse<ThemePage>>
 
+    // GET /api/v1/themes không gửi fields -> server trả đủ mọi trường (control_systems đủ coins/color/
+    // background/items). Dùng cho chi tiết 1 theme.
+    @GET("themes")
+    suspend fun getThemesFull(
+        @Query("where") where: String,
+        @Query("order_by") orderBy: String
+    ): Response<ApiResponse<ThemePage>>
+
     // GET /api/v1/backgrounds — toàn bộ ảnh nền, phân trang (page từ 1, limit = số item/trang);
     // where "theme_id X" lọc theo theme.
     @GET("backgrounds")

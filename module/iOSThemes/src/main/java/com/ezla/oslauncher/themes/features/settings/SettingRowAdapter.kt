@@ -3,6 +3,7 @@ package com.ezla.oslauncher.themes.features.settings
 import com.ezla.oslauncher.themes.Models.SettingRow
 import com.ezla.oslauncher.themes.Models.SettingItem
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ezla.oslauncher.themes.databinding.ThemesItemSettingRowBinding
@@ -29,6 +30,8 @@ class SettingRowAdapter(private val onClick: (SettingItem) -> Unit) :
         holder.binding.apply {
             imgRowIcon.setImageResource(row.icon)
             tvRowTitle.setText(row.title)
+            tvRowValue.text = row.value
+            tvRowValue.visibility = if (row.value.isNullOrEmpty()) View.GONE else View.VISIBLE
             root.setOnClickListener { onClick(row.item) }
         }
     }

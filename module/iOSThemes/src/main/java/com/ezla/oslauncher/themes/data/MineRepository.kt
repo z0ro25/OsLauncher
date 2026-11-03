@@ -1,6 +1,7 @@
 package com.ezla.oslauncher.themes.data
 
 import com.ezla.oslauncher.themes.Models.PreviewCard
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
 import com.ezla.oslauncher.themes.Models.IconPack
 
 // Dữ liệu màn Mine. "Owned" = đồ device đã mở khoá (theme/nền lấy từ API);
@@ -14,6 +15,10 @@ interface MineRepository {
     suspend fun getSuggestThemes(): List<PreviewCard>
     suspend fun getSuggestWallpapers(): List<PreviewCard>
     suspend fun getSuggestIconPacks(): List<IconPack>
+
+    // Tab Control Center: theme đã mở khoá / gợi ý có ảnh control_systems.
+    suspend fun getOwnedControlCenters(): List<ControlCenterCard> = emptyList()
+    suspend fun getSuggestControlCenters(): List<ControlCenterCard> = emptyList()
 }
 
 object MineRepositoryProvider {

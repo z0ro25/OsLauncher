@@ -65,6 +65,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.7.2"
     implementation project(':library:iOSLiteCommon')
     implementation project(':module:iOSLauncher')
+    // Áp skin Control Center (control_systems) + panel xem trước dùng chung view của module CC.
+    implementation project(':module:OSControlCenter')
     // Ảnh theme mặc định (preview, wallpaper, icon) cho màn Mine.
     implementation project(':library:ThemeResource:ThemeDefault')
 }

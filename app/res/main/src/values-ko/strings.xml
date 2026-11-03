@@ -99,6 +99,7 @@
     <string name="language">언어</string>
     <string name="general">일반</string>
     <string name="home_themes">테마</string>
+    <string name="home_control_center">제어 센터</string>
     <!-- Màn General (dựng lại theo Figma 25-535 dark / 115-1132 light) -->
     <string name="general_options">옵션</string>
     <string name="auto_arrange_home_screen">홈 화면 자동 정렬</string>

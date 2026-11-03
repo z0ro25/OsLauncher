@@ -114,4 +114,17 @@
     <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
     <string name="themes_reward_cooldown">Video berikutnya dalam %1$s</string>
     <string name="themes_reward_wait_toast">Tunggu %1$s untuk menonton video berikutnya</string>
+    <string name="themes_nav_rewards">Hadiah</string>
+    <string name="themes_nav_setting">Pengaturan</string>
+    <string name="themes_kind_theme">Tema</string>
+    <string name="themes_kind_icons">Ikon</string>
+    <string name="themes_kind_wallpaper">Wallpaper</string>
+    <string name="themes_kind_control_center">Pusat Kontrol</string>
+    <string name="themes_see_more">Lihat lainnya</string>
+    <string name="themes_fetch_failed">Gagal memuat data, silakan coba lagi</string>
+    <string name="themes_retry">Coba lagi</string>
+    <string name="themes_setting_language">Ubah Bahasa</string>
+    <string name="themes_apply_control_center">Terapkan Pusat Kontrol</string>
+    <string name="themes_cc_ready">Pusat Kontrol baru Anda sudah siap! Geser dari tepi untuk melihatnya</string>
+    <string name="themes_explore_more_cc">Jelajahi Pusat Kontrol lainnya</string>
 </resources>

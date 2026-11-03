@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Độ sáng / khoá xoay: user cấp ở màn "Sửa cài đặt hệ thống". -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <!-- Ô chuông im lặng (đổi ringer khi đang bật DND cần quyền này). -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+
+    <!-- Tìm app máy tính / ghi âm / camera của hãng để mở từ panel (Android 11+ cần khai queries). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.APP_CALCULATOR" />
+        </intent>
+        <intent>
+            <action android:name="android.provider.MediaStore.RECORD_SOUND" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.STILL_IMAGE_CAMERA" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SHOW_ALARMS" />
+        </intent>
+    </queries>
+
+    <application>
+        <!-- Mở qua ControlCenterEntry.open() từ HomeActivity của :app. Task riêng như Compass. -->
+        <activity
+            android:name=".features.main.CcMainActivity"
+            android:exported="false"
+            android:label="@string/cc_app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.controlcenter"
+            android:theme="@style/CcTheme" />
+
+        <activity
+            android:name=".features.onboarding.CcOnboardingActivity"
+            android:exported="false"
+            android:label="@string/cc_app_name"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.controlcenter"
+            android:theme="@style/CcOnboardingTheme" />
+
+        <activity
+            android:name=".features.permission.CcPermissionsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.controlcenter"
+            android:theme="@style/CcTheme" />
+
+        <activity
+            android:name=".features.position.CcPositionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.controlcenter"
+            android:theme="@style/CcTheme" />
+
+        <activity
+            android:name=".features.controls.CcControlsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:taskAffinity="${applicationId}.controlcenter"
+            android:theme="@style/CcTheme" />
+
+        <!-- Chỉ để xin consent quay màn hình; excludeFromRecents để không lộ thẻ trống ở Đa nhiệm. -->
+        <activity
+            android:name=".record.ScreenRecordStarter"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity="${applicationId}.ccrecord"
+            android:theme="@style/CcTranslucentTheme" />
+
+        <!-- Hệ thống bind 2 service dưới; exported=true như NotificationListener của launcher, đã có permission BIND bảo vệ. -->
+        <service
+            android:name=".service.CcAccessibilityService"
+            android:exported="true"
+            android:label="@string/cc_accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/cc_accessibility_service" />
+        </service>
+
+        <service
+            android:name=".service.CcNotificationListener"
+            android:exported="true"
+            android:label="@string/cc_accessibility_service_label"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".record.ScreenRecordService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+    </application>
+</manifest>

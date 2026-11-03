@@ -73,7 +73,8 @@ class IconCardAdapter(
     }
 }
 
-private class IconCellAdapter(
+// internal: tab Themes (HomeCardAdapter) dùng lại lưới icon của thẻ Icons.
+internal class IconCellAdapter(
     private val icons: List<String>,
     private val onResult: (Boolean) -> Unit
 ) : RecyclerView.Adapter<IconCellAdapter.Holder>() {

@@ -7,6 +7,7 @@ object ApplyTracker {
     const val TYPE_ICONS = "icons"
     const val TYPE_BACKGROUND = "background"
     const val TYPE_BOTH = "both"
+    const val TYPE_CONTROL_CENTER = "control_center"
 
     fun log(theme: String, type: String) {
         AnalyticsDelegate.logEvent("user_apply", mapOf("theme" to theme, "type" to type))

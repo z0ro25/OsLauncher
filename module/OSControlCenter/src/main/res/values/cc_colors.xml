@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màu lấy từ Figma page "App Control Center". -->
+<resources>
+    <!-- Màn cài đặt (Main / Position / Permissions...) -->
+    <color name="cc_screen_bg">#F2F2F7</color>
+    <color name="cc_card_bg">#FFFFFF</color>
+    <color name="cc_title">#212121</color>
+    <color name="cc_text">#191919</color>
+    <color name="cc_text_secondary">#80191919</color>
+    <color name="cc_divider">#1F3C3C43</color>
+    <color name="cc_blue">#006FFF</color>
+    <color name="cc_blue_soft">#0D006FFF</color>
+    <color name="cc_blue_button_bg">#33007AFF</color>
+    <color name="cc_blue_text">#007AFF</color>
+    <color name="cc_green">#34C759</color>
+    <color name="cc_switch_off">#4D3C3C43</color>
+    <color name="cc_slider_track">#33787878</color>
+    <color name="cc_phone_stroke">#999999</color>
+    <color name="cc_guide_scrim">#B3111111</color>
+    <color name="cc_dialog_cancel_bg">#F0F0F0</color>
+    <color name="cc_dialog_cancel_text">#A7A7A7</color>
+    <color name="cc_input_bg">#F2F2F2</color>
+
+    <!-- Panel overlay (kính mờ tối) -->
+    <color name="cc_panel_scrim">#1A140818</color>
+    <color name="cc_panel_scrim_no_blur">#B3000000</color>
+    <color name="cc_tile_bg">#59242424</color>
+    <color name="cc_tile_stroke">#33FFFFFF</color>
+    <color name="cc_tile_on">#E6FFFFFF</color>
+    <color name="cc_chip_off">#0FFFFFFF</color>
+    <color name="cc_chip_blue">#006FFF</color>
+    <color name="cc_chip_green">#34C759</color>
+    <color name="cc_slider_fill">#D9E6FFFF</color>
+    <color name="cc_white">#FFFFFF</color>
+    <color name="cc_white_secondary">#54FFFFFF</color>
+    <color name="cc_page_dot_off">#40000000</color>
+    <color name="cc_minus_bg">#99111111</color>
+    <color name="cc_progress_track">#66FFFFFF</color>
+
+    <!-- Trung tâm thông báo -->
+    <color name="cc_nc_card">#73000000</color>
+    <color name="cc_nc_app">#33FFFFFF</color>
+    <color name="cc_nc_title">#FFFFFF</color>
+    <color name="cc_nc_body">#CCFFFFFF</color>
+    <color name="cc_nc_button">#12FFFFFF</color>
+</resources>

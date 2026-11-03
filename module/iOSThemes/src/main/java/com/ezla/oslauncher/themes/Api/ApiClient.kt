@@ -68,7 +68,7 @@ object ApiClient {
 
     private fun build(appContext: Context, baseUrl: String): ThemesApi {
         // Base client CHỈ chứa application interceptor (md §6 cho phép; network interceptor bị cấm
-        // vì đọc được JWT/signature).
+        // vì đọc được JWT/signature; ngoại lệ duy nhất là ApiLog, chỉ gắn ở bản debug).
         val baseClient = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -82,7 +82,7 @@ object ApiClient {
 
         return Retrofit.Builder()
             .baseUrl(sag.baseUrl())
-            .client(sag.okHttpClient())
+            .client(ApiLog.attach(sag.okHttpClient()))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ThemesApi::class.java)

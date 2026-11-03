@@ -114,4 +114,17 @@
     <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
     <string name="themes_reward_cooldown">Nächstes Video in %1$s</string>
     <string name="themes_reward_wait_toast">Bitte warte %1$s bis zum nächsten Video</string>
+    <string name="themes_nav_rewards">Belohnungen</string>
+    <string name="themes_nav_setting">Einstellungen</string>
+    <string name="themes_kind_theme">Thema</string>
+    <string name="themes_kind_icons">Symbole</string>
+    <string name="themes_kind_wallpaper">Hintergrund</string>
+    <string name="themes_kind_control_center">Kontrollzentrum</string>
+    <string name="themes_see_more">Mehr</string>
+    <string name="themes_fetch_failed">Daten konnten nicht geladen werden, bitte erneut versuchen</string>
+    <string name="themes_retry">Erneut versuchen</string>
+    <string name="themes_setting_language">Sprache ändern</string>
+    <string name="themes_apply_control_center">Kontrollzentrum anwenden</string>
+    <string name="themes_cc_ready">Dein neues Kontrollzentrum ist bereit! Wische vom Rand, um es zu sehen</string>
+    <string name="themes_explore_more_cc">Weitere Kontrollzentren entdecken</string>
 </resources>

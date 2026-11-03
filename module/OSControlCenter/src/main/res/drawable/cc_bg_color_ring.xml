@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vòng màu quanh chấm màu ở dòng Color (Figma 28x28, chấm 18x18). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="ring"
+    android:innerRadius="11dp" android:thickness="3dp" android:useLevel="false">
+    <gradient android:type="sweep"
+        android:startColor="#FF2D55" android:centerColor="#5856D6" android:endColor="#FFCC00" />
+</shape>

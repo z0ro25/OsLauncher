@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Màn Position (Figma 52:238426): chọn mép mở Control Center + Edge Settings. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cc_screen_bg">
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/cc_view_header" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    style="@style/CcSectionTitle"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cc_position_desc" />
+
+                <LinearLayout
+                    style="@style/CcCard"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/optLeft"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imgLeft"
+                            android:layout_width="62dp"
+                            android:layout_height="126dp"
+                            android:background="@drawable/cc_bg_position_card"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/cc_img_pos_left" />
+
+                        <TextView
+                            android:id="@+id/lblLeft"
+                            android:layout_width="62dp"
+                            android:layout_height="23dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/cc_bg_position_label"
+                            android:gravity="center"
+                            android:text="@string/cc_left"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/optTop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imgTop"
+                            android:layout_width="62dp"
+                            android:layout_height="126dp"
+                            android:background="@drawable/cc_bg_position_card"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/cc_img_pos_top" />
+
+                        <TextView
+                            android:id="@+id/lblTop"
+                            android:layout_width="62dp"
+                            android:layout_height="23dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/cc_bg_position_label"
+                            android:gravity="center"
+                            android:text="@string/cc_top"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/optBottom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imgBottom"
+                            android:layout_width="62dp"
+                            android:layout_height="126dp"
+                            android:background="@drawable/cc_bg_position_card"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/cc_img_pos_bottom" />
+
+                        <TextView
+                            android:id="@+id/lblBottom"
+                            android:layout_width="62dp"
+                            android:layout_height="23dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/cc_bg_position_label"
+                            android:gravity="center"
+                            android:text="@string/cc_bottom"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/optRight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imgRight"
+                            android:layout_width="62dp"
+                            android:layout_height="126dp"
+                            android:background="@drawable/cc_bg_position_card"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/cc_img_pos_right" />
+
+                        <TextView
+                            android:id="@+id/lblRight"
+                            android:layout_width="62dp"
+                            android:layout_height="23dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/cc_bg_position_label"
+                            android:gravity="center"
+                            android:text="@string/cc_right"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/CcSectionTitle"
+                    android:text="@string/cc_edge_settings" />
+
+                <LinearLayout style="@style/CcCard">
+
+                    <LinearLayout
+                        android:id="@+id/rowColor"
+                        style="@style/CcRow">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_color" />
+
+                        <FrameLayout
+                            android:layout_width="28dp"
+                            android:layout_height="28dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/cc_bg_color_ring" />
+
+                            <View
+                                android:id="@+id/colorDot"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/cc_bg_color_dot" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowHide"
+                        style="@style/CcRow">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:text="@string/cc_hide_edge" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/swHide"
+                            style="@style/CcSwitch" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/cc_screen_padding"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:layout_width="match_parent"
+                            android:text="@string/cc_width" />
+
+                        <SeekBar
+                            android:id="@+id/sbWidth"
+                            style="@style/CcSlider" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/cc_screen_padding"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:layout_width="match_parent"
+                            android:text="@string/cc_length" />
+
+                        <SeekBar
+                            android:id="@+id/sbLength"
+                            style="@style/CcSlider" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/cc_screen_padding"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:layout_width="match_parent"
+                            android:text="@string/cc_opacity" />
+
+                        <SeekBar
+                            android:id="@+id/sbOpacity"
+                            style="@style/CcSlider" />
+                    </LinearLayout>
+
+                    <View style="@style/CcDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/cc_screen_padding"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            style="@style/CcRowLabel"
+                            android:layout_width="match_parent"
+                            android:text="@string/cc_position_vertical" />
+
+                        <SeekBar
+                            android:id="@+id/sbOffset"
+                            style="@style/CcSlider" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <include layout="@layout/ads_banner" />
+    </FrameLayout>
+</FrameLayout>

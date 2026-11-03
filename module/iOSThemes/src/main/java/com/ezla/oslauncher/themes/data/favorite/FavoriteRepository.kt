@@ -1,6 +1,8 @@
 package com.ezla.oslauncher.themes.data.favorite
 
 import android.content.Context
+import com.ezla.oslauncher.themes.Models.CcSkinItem
+import com.ezla.oslauncher.themes.Models.ControlCenterCard
 import com.ezla.oslauncher.themes.Models.IconPack
 import com.ezla.oslauncher.themes.Models.PreviewCard
 import com.ezla.oslauncher.themes.Models.ThemeDetail
@@ -8,11 +10,14 @@ import com.ezla.oslauncher.themes.data.DefaultThemeProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-// Yêu thích chỉ lưu local (Room), chỉ gồm nền và bộ icon (không có theme). Mới thích lên đầu.
+// Yêu thích chỉ lưu local (Room): nền, bộ icon, Control Center (không có theme). Mới thích lên đầu.
 object FavoriteRepository {
 
     private const val TYPE_BACKGROUND = "background"
     private const val TYPE_ICONS = "icons"
+    private const val TYPE_CONTROL_CENTER = "control_center"
+    // Ảnh skin lưu dạng "name<TAB>url" mỗi dòng (name là loại ô server, URL không chứa tab).
+    private const val SKIN_SEPARATOR = "\t"
     private const val PACK_ICONS = 6
     private const val ICON_SEPARATOR = "\n"
 
@@ -70,6 +75,45 @@ object FavoriteRepository {
                 )
             )
             true
+        }
+    }
+
+    suspend fun isControlCenterFavorite(context: Context, themeId: String): Boolean =
+        withContext(Dispatchers.IO) { dao(context).exists(TYPE_CONTROL_CENTER, themeId) }
+
+    // Lưu kèm nền + ảnh skin để Mine > Favorites vẽ lại thẻ mà không gọi API. Không cần đổi schema:
+    // dùng lại cột image (nền) và icons (skin).
+    suspend fun toggleControlCenter(context: Context, card: ControlCenterCard): Boolean =
+        withContext(Dispatchers.IO) {
+            val dao = dao(context)
+            if (dao.exists(TYPE_CONTROL_CENTER, card.themeId)) {
+                dao.delete(TYPE_CONTROL_CENTER, card.themeId)
+                false
+            } else {
+                dao.upsert(
+                    FavoriteEntity(
+                        type = TYPE_CONTROL_CENTER,
+                        itemId = card.themeId,
+                        name = card.name,
+                        image = card.background as? String,
+                        icons = card.skins.joinToString(ICON_SEPARATOR) { it.name + SKIN_SEPARATOR + it.imageUrl }
+                    )
+                )
+                true
+            }
+        }
+
+    suspend fun getControlCenters(context: Context): List<ControlCenterCard> = withContext(Dispatchers.IO) {
+        dao(context).getByType(TYPE_CONTROL_CENTER).map { e ->
+            ControlCenterCard(
+                themeId = e.itemId,
+                name = e.name,
+                background = e.image,
+                skins = e.icons.split(ICON_SEPARATOR).mapNotNull { line ->
+                    val parts = line.split(SKIN_SEPARATOR, limit = 2)
+                    if (parts.size == 2) CcSkinItem(parts[0], parts[1]) else null
+                }
+            )
         }
     }
 

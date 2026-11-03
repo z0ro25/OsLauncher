@@ -21,4 +21,4 @@ data class IconPack(
     val background: Any? = null
 )
 
-enum class MineTab { THEME, WALLPAPERS, ICON, FAVORITES }
+enum class MineTab { THEME, WALLPAPERS, ICON, CONTROL_CENTER, FAVORITES }

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trang chính của panel (Figma "Control Center" 52:237517): khối cố định + lưới ô 1x1. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/cc_panel_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Hàng 1: Kết nối 2x2 + Đang phát 2x2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cc_tile_big"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ccConnectivity"
+            android:layout_width="@dimen/cc_tile_big"
+            android:layout_height="match_parent"
+            android:background="@drawable/cc_bg_tile_big">
+
+            <ImageView
+                android:id="@+id/ccChipAirplane"
+                android:layout_width="@dimen/cc_chip_big"
+                android:layout_height="@dimen/cc_chip_big"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/cc_bg_chip_off"
+                android:contentDescription="@string/cc_airplane"
+                android:padding="15dp"
+                android:src="@drawable/cc_ic_airplane"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ccChipWifi"
+                android:layout_width="@dimen/cc_chip_big"
+                android:layout_height="@dimen/cc_chip_big"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/cc_bg_chip_blue"
+                android:contentDescription="@string/cc_wifi"
+                android:padding="15dp"
+                android:src="@drawable/cc_ic_wifi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Figma đặt AirDrop ở đây; Android không có AirDrop nên dùng cho Điểm phát sóng. -->
+            <ImageView
+                android:id="@+id/ccChipHotspot"
+                android:layout_width="@dimen/cc_chip_big"
+                android:layout_height="@dimen/cc_chip_big"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/cc_bg_chip_blue"
+                android:contentDescription="@string/cc_hotspot"
+                android:padding="15dp"
+                android:src="@drawable/cc_ic_airdrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/ccChipCellular"
+                android:layout_width="@dimen/cc_chip_small"
+                android:layout_height="@dimen/cc_chip_small"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/cc_bg_chip_green"
+                android:contentDescription="@string/cc_cellular"
+                android:padding="6dp"
+                android:src="@drawable/cc_ic_cellular"
+                app:layout_constraintBottom_toTopOf="@id/ccChipSync"
+                app:layout_constraintEnd_toStartOf="@id/ccChipBluetooth" />
+
+            <ImageView
+                android:id="@+id/ccChipBluetooth"
+                android:layout_width="@dimen/cc_chip_small"
+                android:layout_height="@dimen/cc_chip_small"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/cc_bg_chip_blue"
+                android:contentDescription="@string/cc_bluetooth"
+                android:padding="6dp"
+                android:src="@drawable/cc_ic_bluetooth"
+                app:layout_constraintBottom_toTopOf="@id/ccChipMore"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/ccChipSync"
+                android:layout_width="@dimen/cc_chip_small"
+                android:layout_height="@dimen/cc_chip_small"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/cc_bg_chip_off"
+                android:contentDescription="@string/cc_sync"
+                android:padding="5dp"
+                android:src="@drawable/cc_ic_sync"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ccChipMore" />
+
+            <ImageView
+                android:id="@+id/ccChipMore"
+                android:layout_width="@dimen/cc_chip_small"
+                android:layout_height="@dimen/cc_chip_small"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/cc_bg_chip_off"
+                android:contentDescription="@string/cc_controls"
+                android:padding="4dp"
+                android:src="@drawable/cc_ic_network"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <!-- Đang phát 2x2 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ccNowPlaying"
+            android:layout_width="@dimen/cc_tile_big"
+            android:layout_height="match_parent"
+            android:background="@drawable/cc_bg_tile_big"
+            android:paddingHorizontal="13dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="10dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ccNpArt"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:background="@color/cc_chip_off"
+                android:scaleType="centerCrop"
+                android:importantForAccessibility="no"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/CcRound13" />
+
+            <ImageView
+                android:id="@+id/ccNpAirplay"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/cc_bg_chip_off"
+                android:importantForAccessibility="no"
+                android:padding="9dp"
+                android:src="@drawable/cc_ic_airplay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ccNpTitle"
+                style="@style/CcTileLabelTitle"
+                android:layout_width="0dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/appbase_sf_pro_medium"
+                android:text="@string/cc_track"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ccNpArt" />
+
+            <TextView
+                android:id="@+id/ccNpArtist"
+                style="@style/CcTileLabelTitle"
+                android:layout_width="0dp"
+                android:fontFamily="@font/appbase_sf_pro_medium"
+                android:text="@string/cc_artist"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ccNpTitle" />
+
+            <ImageView
+                android:id="@+id/ccNpPrev"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/cc_track"
+                android:padding="4dp"
+                android:src="@drawable/cc_ic_prev"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ccNpPlay"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/ccNpPlay"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:contentDescription="@string/cc_track"
+                android:padding="3dp"
+                android:src="@drawable/cc_ic_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ccNpNext"
+                app:layout_constraintStart_toEndOf="@id/ccNpPrev" />
+
+            <ImageView
+                android:id="@+id/ccNpNext"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/cc_track"
+                android:padding="4dp"
+                android:src="@drawable/cc_ic_next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ccNpPlay" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <!-- Hàng 2: xoay + im lặng + Focus 2x1 | 2 thanh trượt -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cc_tile_big"
+        android:layout_marginTop="@dimen/cc_tile_row_gap"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="143dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cc_tile"
+                android:orientation="horizontal">
+
+                <com.ezla.oslauncher.controlcenter.widget.CcTileView
+                    android:id="@+id/ccTileRotation"
+                    android:layout_width="@dimen/cc_tile"
+                    android:layout_height="@dimen/cc_tile"
+                    android:contentDescription="@string/cc_app_name" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.ezla.oslauncher.controlcenter.widget.CcTileView
+                    android:id="@+id/ccTileSilent"
+                    android:layout_width="@dimen/cc_tile"
+                    android:layout_height="@dimen/cc_tile"
+                    android:contentDescription="@string/cc_app_name" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/ccFocus"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cc_tile"
+                android:background="@drawable/cc_bg_tile"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp">
+
+                <ImageView
+                    android:id="@+id/ccFocusIcon"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/cc_bg_chip_off"
+                    android:importantForAccessibility="no"
+                    android:padding="11dp"
+                    android:src="@drawable/cc_ic_moon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/CcTileLabelTitle"
+                        android:text="@string/cc_focus" />
+
+                    <TextView
+                        android:id="@+id/ccFocusDetail"
+                        style="@style/CcTileLabelDetail"
+                        android:text="@string/cc_off" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.ezla.oslauncher.controlcenter.widget.CcVerticalSlider
+            android:id="@+id/ccSliderBrightness"
+            android:layout_width="@dimen/cc_tile"
+            android:layout_height="match_parent" />
+
+        <Space
+            android:layout_width="13dp"
+            android:layout_height="match_parent" />
+
+        <com.ezla.oslauncher.controlcenter.widget.CcVerticalSlider
+            android:id="@+id/ccSliderVolume"
+            android:layout_width="@dimen/cc_tile"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <!-- Lưới ô 1x1 (Custom Controls): 4 cột -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ccTileGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/cc_tile_row_gap"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never" />
+</LinearLayout>

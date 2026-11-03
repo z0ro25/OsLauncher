@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thẻ dọc hàng ngang tab Themes (Figma Preview 118x228 bo 16, viền đen 23%): theme / wallpaper /
+     Control Center. Control Center phủ panel xem trước lên ảnh nền (frCcPreview). -->
+<com.ezla.oslauncher.themes.features.home.RatioCardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/themes_home_card_width"
+    android:layout_height="@dimen/themes_home_card_height"
+    android:layout_marginEnd="14dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/themes_bg_card16_plain"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ThemesRoundedImage16"
+        app:strokeColor="@color/themes_card_stroke"
+        app:strokeWidth="0.5dp" />
+
+    <!-- Thẻ Control Center: panel thu nhỏ đặt giữa, chừa lề như Figma (~10dp mỗi bên). -->
+    <FrameLayout
+        android:id="@+id/frCcPreview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:visibility="gone" />
+
+    <!-- Thẻ chờ tải: icon áo giữa nền trắng (Figma Main_Loading). -->
+    <ImageView
+        android:id="@+id/imgPlaceholder"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:importantForAccessibility="no"
+        android:src="@drawable/themes_ic_placeholder_shirt"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pbImage"
+        style="@style/ThemesCardLoading"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/tvNew"
+        style="@style/ThemesNewBadge"
+        android:layout_gravity="top|start"
+        android:background="@drawable/themes_bg_new_badge_18" />
+</com.ezla.oslauncher.themes.features.home.RatioCardLayout>

@@ -137,6 +137,7 @@ dependencies {
     implementation project(':module:OScompass')
     implementation project(':module:OSclock')
     implementation project(':module:OSmeasure')
+    implementation project(':module:OSControlCenter')
     implementation project(':module:iOSSearch')
 //    compile project(':module:IOSNewsPage')
 //    compile project(':module:IOSDiscovery')

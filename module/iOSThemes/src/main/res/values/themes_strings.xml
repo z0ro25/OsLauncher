@@ -126,4 +126,18 @@
     <!-- Rewards: chờ COOLDOWN giữa 2 lượt xem video; %1$s = mm:ss còn lại. -->
     <string name="themes_reward_cooldown">Next video in %1$s</string>
     <string name="themes_reward_wait_toast">Please wait %1$s to watch the next video</string>
+    <!-- Home mới (Figma Main): bottom nav, chip loại, section, Control Center. -->
+    <string name="themes_nav_rewards">Rewards</string>
+    <string name="themes_nav_setting">Setting</string>
+    <string name="themes_kind_theme">Theme</string>
+    <string name="themes_kind_icons">Icons</string>
+    <string name="themes_kind_wallpaper">Wallpaper</string>
+    <string name="themes_kind_control_center">Control Center</string>
+    <string name="themes_see_more">See more</string>
+    <string name="themes_fetch_failed">Fetch data failed, please try again</string>
+    <string name="themes_retry">Try again</string>
+    <string name="themes_setting_language">Change Language</string>
+    <string name="themes_apply_control_center">Apply Control Center</string>
+    <string name="themes_cc_ready">Your new Control Center is ready! Swipe from the edge to see it</string>
+    <string name="themes_explore_more_cc">Explore more Control Center</string>
 </resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hộp giải thích quyền Accessibility trước khi mở Settings (Google Play bắt buộc "prominent disclosure").
+     Figma chưa có frame này: dựng theo style hộp chọn màu (nền trắng bo 20, 2 nút viên thuốc). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="32dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cc_bg_dialog"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:importantForAccessibility="no"
+            android:src="@drawable/cc_ic_main_permission" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/appbase_sf_pro_semibold"
+            android:gravity="center"
+            android:text="@string/cc_disclosure_title"
+            android:textColor="@color/cc_title"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/cc_disclosure_message"
+            android:textColor="@color/cc_text"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnDeny"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cc_bg_pill_gray"
+                android:fontFamily="@font/appbase_sf_pro_medium"
+                android:gravity="center"
+                android:text="@string/cc_disclosure_deny"
+                android:textColor="@color/cc_dialog_cancel_text"
+                android:textSize="14sp" />
+
+            <Space
+                android:layout_width="9dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/btnAgree"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cc_bg_pill_blue"
+                android:fontFamily="@font/appbase_sf_pro_medium"
+                android:gravity="center"
+                android:text="@string/cc_disclosure_agree"
+                android:textColor="@color/cc_white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

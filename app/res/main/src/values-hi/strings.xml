@@ -85,6 +85,7 @@
     <string name="language">भाषा</string>
     <string name="general">सामान्य</string>
     <string name="home_themes">थीम</string>
+    <string name="home_control_center">कंट्रोल सेंटर</string>
 
     <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
     <string name="app_function_settings">ऐप फ़ंक्शन सेटिंग्स</string>

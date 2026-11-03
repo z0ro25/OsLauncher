@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Header màn con (Figma "Heading" 48dp): back + tiêu đề + nút Apply viên thuốc tuỳ chọn. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/cc_header_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingEnd="@dimen/cc_screen_padding">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/cc_cancel"
+        android:padding="8dp"
+        android:src="@drawable/cc_ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/tvHeaderTitle"
+        style="@style/CcHeaderTitle"
+        android:layout_marginStart="4dp" />
+
+    <TextView
+        android:id="@+id/btnApply"
+        style="@style/CcPillButton"
+        android:layout_height="28dp"
+        android:text="@string/cc_apply"
+        android:visibility="gone" />
+</LinearLayout>

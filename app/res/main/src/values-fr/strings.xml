@@ -85,6 +85,7 @@
     <string name="language">Langue</string>
     <string name="general">Général</string>
     <string name="home_themes">Thèmes</string>
+    <string name="home_control_center">Centre de contrôle</string>
 
     <!-- Bổ sung key còn thiếu để đủ chuỗi hiển thị (localize theo bộ ngôn ngữ màn hình Language) -->
     <string name="app_function_settings">Paramètres des fonctions de l\'application</string>

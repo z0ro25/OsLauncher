@@ -10,16 +10,19 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-// Carousel màn View theme: trái = background, giữa = màn khoá (nền + giờ), phải = thumbnail.
-// Mặc định đứng ở trang giữa (PAGE_LOCK).
+// Carousel màn View theme: trái = màn khoá (nền theme + giờ), giữa = thumbnail, phải = ảnh nền
+// Control Center. Trang ảnh nền theme tạm bỏ. Mặc định đứng ở trang giữa (PAGE_THUMBNAIL).
 class ThemeViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var backgroundUrl: String? = null
     private var thumbnailUrl: String? = null
+    private var controlCenterUrl: String? = null
 
-    fun submit(background: String?, thumbnail: String?) {
+    // [controlCenter] = control_systems.background; null -> trang phải để trống, KHÔNG thay bằng nền theme.
+    fun submit(background: String?, thumbnail: String?, controlCenter: String?) {
         backgroundUrl = background
         thumbnailUrl = thumbnail
+        controlCenterUrl = controlCenter
         notifyDataSetChanged()
     }
 
@@ -39,7 +42,7 @@ class ThemeViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ImageHolder -> {
-                val url = if (position == PAGE_BACKGROUND) backgroundUrl else thumbnailUrl
+                val url = if (position == PAGE_THUMBNAIL) thumbnailUrl else controlCenterUrl
                 Glide.with(holder.binding.imgHome).load(url).into(holder.binding.imgHome)
             }
             is LockHolder -> {
@@ -55,8 +58,8 @@ class ThemeViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class LockHolder(val binding: ThemesItemViewLockBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
-        const val PAGE_BACKGROUND = 0
-        const val PAGE_LOCK = 1
+        const val PAGE_LOCK = 0
+        const val PAGE_THUMBNAIL = 1
         private const val PAGE_COUNT = 3
         private const val TYPE_IMAGE = 0
         private const val TYPE_LOCK = 1

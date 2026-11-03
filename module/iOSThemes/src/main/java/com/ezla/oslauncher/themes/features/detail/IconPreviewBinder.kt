@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.ezla.oslauncher.themes.Models.ThemeLogoItem
+import com.ezla.oslauncher.themes.R
 import com.ezla.oslauncher.themes.databinding.ThemesItemInstallIconBinding
 
 // Dựng preview desktop của 1 bộ icon (dùng chung màn Install và Icon detail): dock 4 ô cố định
@@ -41,6 +42,32 @@ object IconPreviewBinder {
                 cell.imgAppIcon.visibility = View.INVISIBLE
             }
             dock.addView(cell.root)
+        }
+        fitDock(dock)
+        // Gắn 1 lần cho mỗi dock (bind gọi lại khi đổi theme): đo xong / đổi cỡ thì co lại icon.
+        if (dock.getTag(R.id.themes_tag_dock_fit) == null) {
+            dock.setTag(R.id.themes_tag_dock_fit, true)
+            dock.addOnLayoutChangeListener { v, l, _, r, _, ol, _, or, _ ->
+                if (r - l != or - ol) v.post { fitDock(v as LinearLayout) }
+            }
+        }
+    }
+
+    // Icon cố định 56dp làm 4 ô dính sát khi khung preview hẹp: co icon theo bề ngang ô, chừa đúng
+    // khe ngang như lưới (themes_install_icon_gap). Dock chưa đo (width 0) thì giữ cỡ tối đa.
+    private fun fitDock(dock: LinearLayout) {
+        val res = dock.resources
+        val maxIcon = res.getDimensionPixelSize(R.dimen.themes_install_icon_size)
+        val gap = res.getDimensionPixelSize(R.dimen.themes_install_icon_gap)
+        val cell = (dock.width - dock.paddingLeft - dock.paddingRight) / DOCK_APPS.size
+        val icon = if (cell > 0) minOf(maxIcon, cell - gap).coerceAtLeast(maxIcon / 2) else maxIcon
+        for (i in 0 until dock.childCount) {
+            val img = dock.getChildAt(i).findViewById<View>(R.id.imgAppIcon) ?: continue
+            if (img.layoutParams.width == icon) continue
+            img.layoutParams = img.layoutParams.apply {
+                width = icon
+                height = icon
+            }
         }
     }
 

@@ -161,6 +161,33 @@
                     android:background="@color/themes_primary"
                     android:visibility="invisible" />
             </FrameLayout>
+
+            <!-- Tab Control Center: chỉ hiện khi theme có ảnh control_systems. -->
+            <FrameLayout
+                android:id="@+id/tabControlCenter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvTabControlCenter"
+                    style="@style/ThemesText.Tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/themes_kind_control_center" />
+
+                <View
+                    android:id="@+id/lineControlCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/themes_primary"
+                    android:visibility="invisible" />
+            </FrameLayout>
         </LinearLayout>
     </FrameLayout>
 
@@ -213,6 +240,19 @@
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="12dp" />
         </FrameLayout>
+
+        <!-- Tab Control Center: panel xem trước skin phủ lên nền theme. -->
+        <FrameLayout
+            android:id="@+id/frCcPreview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="40dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/imgPreviewBg"
+            app:layout_constraintEnd_toEndOf="@id/imgPreviewBg"
+            app:layout_constraintStart_toStartOf="@id/imgPreviewBg"
+            app:layout_constraintTop_toTopOf="@id/imgPreviewBg" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Unlock with N (chưa mở tab) / Apply Icons | Apply Wallpaper (đã mở: chỉ áp phần của tab). -->

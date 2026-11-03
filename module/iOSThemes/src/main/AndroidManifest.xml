@@ -63,6 +63,20 @@
             android:screenOrientation="portrait"
             android:theme="@style/ThemesTheme" />
 
+        <!-- Xem trước + áp skin Control Center của 1 theme (Figma Unlock Control Center). -->
+        <activity
+            android:name=".features.controlcenter.ControlCenterDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
+        <!-- See more của 1 section tab Themes: lưới thẻ của 1 danh mục theo loại chip. -->
+        <activity
+            android:name=".features.home.CategoryMoreActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemesTheme" />
+
         <!-- Xem tất cả My Library / Suggest theo tab (nút "more" ở Mine). -->
         <activity
             android:name=".features.mine.MineMoreActivity"

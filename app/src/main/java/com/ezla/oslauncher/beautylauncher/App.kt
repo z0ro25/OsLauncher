@@ -12,6 +12,10 @@ import com.ezla.oslauncher.beautylauncher.dialog.RateFlow
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.ScreenTracker
 import com.ezla.oslauncher.themes.ThemesEntry
+import com.ezla.oslauncher.beautylauncher.Features.lang.LanguageSettingActivity
+import com.ezla.oslauncher.calculator.CalculatorEntry
+import com.ezla.oslauncher.clock.ClockActivity
+import com.ezla.oslauncher.controlcenter.ControlCenterEntry
 import com.ezt.v2.ezt.admobdemo.ads.core.AdUnitDefaults
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsHostConfig
 import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
@@ -42,6 +46,17 @@ class App : BaseLauncherApplication() {
         // Nền đặt từ module Themes = nền user chọn: đổi Dark/Light không đè lên.
         ThemesEntry.wallpaperChangedListener = { AppThemeManager.markUserWallpaper(it) }
         ThemesEntry.rateOpener ={ activity, onRated -> RateFlow.show(activity, false, onRated) }
+        // Dòng Change Language ở tab Setting của module Themes mở màn Language của :app.
+        ThemesEntry.languageOpener = { it.startActivity(Intent(it, LanguageSettingActivity::class.java)) }
+        // Module Control Center không thấy được class của :app / module khác: gắn hàm mở ở đây.
+        ControlCenterEntry.languageOpener = { it.startActivity(Intent(it, LanguageSettingActivity::class.java)) }
+        ControlCenterEntry.themesOpener = { ThemesEntry.open(it) }
+        ControlCenterEntry.alarmOpener = { ctx ->
+            ctx.startActivity(Intent(ctx, ClockActivity::class.java)
+                .putExtra(ClockActivity.EXTRA_TAB, ClockActivity.TAB_ALARMS)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        }
+        ControlCenterEntry.calculatorOpener = { CalculatorEntry.open(it) }
 
         val preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE)
         val analytics = FirebaseAnalytics.getInstance(this)
