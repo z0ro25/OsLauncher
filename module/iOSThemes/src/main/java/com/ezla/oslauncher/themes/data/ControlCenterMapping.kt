@@ -22,7 +22,9 @@ internal fun ApiTheme.ccSkin(): ThemeControlSkin? {
     val bg = cs.background.firstOrNull()?.url
     val background = bg?.full ?: bg?.medium
     if (items.isEmpty() && cs.color.isEmpty() && background == null) return null
-    return ThemeControlSkin(items = items, coins = cs.coins, colors = cs.color, background = background)
+    return ThemeControlSkin(
+        items = items, coins = cs.coins, colors = cs.color, background = background, isUnlocked = cs.isUnlocked
+    )
 }
 
 // null khi theme không có skin Control Center (không hiện thẻ).

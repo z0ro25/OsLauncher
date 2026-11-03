@@ -23,12 +23,13 @@ data class ThemeDetail(
 )
 
 // control_systems đã map: [coins] giá mở khoá, [colors] 1-3 mã hex màu "đang bật",
-// [background] URL ảnh nền panel (null = dùng nền mặc định).
+// [background] URL ảnh chỉ để xem trước (không áp vào panel), [isUnlocked] trạng thái mở khoá.
 data class ThemeControlSkin(
     val items: List<CcSkinItem>,
     val coins: Int,
     val colors: List<String>,
-    val background: String?
+    val background: String?,
+    val isUnlocked: Boolean = false
 )
 
 // 1 icon của theme: [packageName] là mã app của server (app_xxx), ánh xạ sang app thật bằng

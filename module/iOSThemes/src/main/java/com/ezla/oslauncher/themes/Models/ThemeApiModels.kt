@@ -54,7 +54,9 @@ data class ThemeControlSystems(
     @SerializedName("coins") val coins: Int = 0,
     @SerializedName("color") val color: List<String> = emptyList(),
     @SerializedName("background") val background: List<ApiImage> = emptyList(),
-    @SerializedName("items") val items: List<ThemeControlSystem> = emptyList()
+    @SerializedName("items") val items: List<ThemeControlSystem> = emptyList(),
+    // Device đã mở khoá Control Center của theme chưa; server chưa trả thì mặc định false (còn khoá).
+    @SerializedName("is_unlocked") val isUnlocked: Boolean = false
 )
 
 // Server từng trả control_systems dạng mảng ô (bản cũ): đọc được cả 2 dạng để 1 theme lệch format

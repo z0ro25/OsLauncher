@@ -9,8 +9,8 @@ data class Credit(
     @SerializedName("time") val time: Long
 )
 
-// Payload mã hoá thành "data" của POST /unlocks. type: "theme_icons" (id = theme) hoặc
-// "background" (id = background). time = epoch GIÂY.
+// Payload mã hoá thành "data" của POST /unlocks. type: "theme_icons" / "theme_control_systems"
+// (id = theme) hoặc "background" (id = background). time = epoch GIÂY.
 data class Unlock(
     @SerializedName("type") val type: String,
     @SerializedName("unlockable_id") val unlockableId: Int,

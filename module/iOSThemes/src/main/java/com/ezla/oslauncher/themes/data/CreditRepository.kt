@@ -23,6 +23,8 @@ object CreditRepository {
 
     const val UNLOCK_THEME_ICONS = "theme_icons"
     const val UNLOCK_BACKGROUND = "background"
+    // Mở khoá skin Control Center của theme (id = theme).
+    const val UNLOCK_CONTROL_SYSTEMS = "theme_control_systems"
 
     private const val STATUS_SUCCESS = "Success"
     private const val STATUS_UNLOCKED = "unlocked"
