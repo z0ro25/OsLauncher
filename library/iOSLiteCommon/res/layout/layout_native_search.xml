@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 1.2.0: tắt ads — layout gốc comment bên dưới (gạch nối kép đổi thành "~~"), giữ root rỗng cho aapt.
 <com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -115,3 +116,10 @@
 
     </LinearLayout>
 </com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView>
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:viewBindingIgnore="true" />

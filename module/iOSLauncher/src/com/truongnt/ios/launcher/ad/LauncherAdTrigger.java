@@ -8,8 +8,8 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 
 /**
  * Trigger interstitial "mở app" cho launcher.
@@ -63,19 +63,21 @@ public final class LauncherAdTrigger {
         }
         // Đã mua bản không quảng cáo -> không tải trước, không chèn ad, mở app ngay. Đặt TRƯỚC
         // cả nhánh preloadQuietly để không phát request thừa lên AdMob.
-        if (activity == null || AdsSdk.INSTANCE.isAdFree()) {
-            onContinue.run();
-            return;
-        }
-        // Chưa tới lượt hiện ad -> tải trước cho lần thứ 5 rồi mở app ngay. Đây là nhánh
-        // thường gặp, KHÔNG được chặn người dùng.
-        if (activity != null
-                && !AdClickCounter.markClickAndShouldShow(activity, INTER_SLOT_KEY)) {
-            preloadQuietly(activity);
-            onContinue.run();
-            return;
-        }
-        runWithInterstitial(activity, onContinue);
+        // 1.2.0: tắt ads -> luôn mở app ngay, giữ API cho các call-site.
+        onContinue.run();
+//        if (activity == null || AdsSdk.INSTANCE.isAdFree()) {
+//            onContinue.run();
+//            return;
+//        }
+//        // Chưa tới lượt hiện ad -> tải trước cho lần thứ 5 rồi mở app ngay. Đây là nhánh
+//        // thường gặp, KHÔNG được chặn người dùng.
+//        if (activity != null
+//                && !AdClickCounter.markClickAndShouldShow(activity, INTER_SLOT_KEY)) {
+//            preloadQuietly(activity);
+//            onContinue.run();
+//            return;
+//        }
+//        runWithInterstitial(activity, onContinue);
     }
 
     /**
@@ -113,10 +115,11 @@ public final class LauncherAdTrigger {
      * thừa lên AdMob.
      */
     private static void preloadQuietly(Activity activity) {
-        if (AppAds.isFullScreenReady(INTER_PLACEMENT)) {
-            return;
-        }
-        AppAds.preloadFullScreen(INTER_PLACEMENT);
+        // 1.2.0: tắt ads.
+//        if (AppAds.isFullScreenReady(INTER_PLACEMENT)) {
+//            return;
+//        }
+//        AppAds.preloadFullScreen(INTER_PLACEMENT);
     }
 
     /**
@@ -164,29 +167,31 @@ public final class LauncherAdTrigger {
             }
         };
 
-        try {
-            if (!AppAds.isFullScreenReady(INTER_PLACEMENT)) {
-                // Chưa có ad sẵn -> KHÔNG được chặn người dùng. Tải trước cho lần sau,
-                // lần này đi thẳng.
-                AppAds.preloadFullScreen(INTER_PLACEMENT);
-                finish.run();
-                return;
-            }
-
-            // AdsKit chỉ show từ FragmentActivity (Launcher đã kế thừa CommonFragmentActivity);
-            // nhánh này là chốt cho call-site đưa Activity trần vào.
-            if (!(activity instanceof FragmentActivity)) {
-                Log.w(TAG, "activity không phải FragmentActivity — bỏ interstitial, mở app ngay");
-                finish.run();
-                return;
-            }
-
-            // finish chạy khi ad đóng, lỗi, hay không có gì để hiện — xem AppAds.showFullScreen.
-            AppAds.showFullScreen((FragmentActivity) activity, INTER_PLACEMENT, finish);
-        } catch (Throwable t) {
-            // Bất kỳ sự cố nào với ad cũng KHÔNG được chặn hành động của người dùng.
-            Log.e(TAG, "lỗi khi hiển thị interstitial in-app", t);
-            finish.run();
-        }
+        // 1.2.0: tắt ads -> chạy thẳng hành động.
+        finish.run();
+//        try {
+//            if (!AppAds.isFullScreenReady(INTER_PLACEMENT)) {
+//                // Chưa có ad sẵn -> KHÔNG được chặn người dùng. Tải trước cho lần sau,
+//                // lần này đi thẳng.
+//                AppAds.preloadFullScreen(INTER_PLACEMENT);
+//                finish.run();
+//                return;
+//            }
+//
+//            // AdsKit chỉ show từ FragmentActivity (Launcher đã kế thừa CommonFragmentActivity);
+//            // nhánh này là chốt cho call-site đưa Activity trần vào.
+//            if (!(activity instanceof FragmentActivity)) {
+//                Log.w(TAG, "activity không phải FragmentActivity — bỏ interstitial, mở app ngay");
+//                finish.run();
+//                return;
+//            }
+//
+//            // finish chạy khi ad đóng, lỗi, hay không có gì để hiện — xem AppAds.showFullScreen.
+//            AppAds.showFullScreen((FragmentActivity) activity, INTER_PLACEMENT, finish);
+//        } catch (Throwable t) {
+//            // Bất kỳ sự cố nào với ad cũng KHÔNG được chặn hành động của người dùng.
+//            Log.e(TAG, "lỗi khi hiển thị interstitial in-app", t);
+//            finish.run();
+//        }
     }
 }

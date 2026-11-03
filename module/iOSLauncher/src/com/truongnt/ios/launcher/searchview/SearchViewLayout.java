@@ -44,9 +44,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
-import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.database.HiddenAppManager;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.DeviceProfile;
@@ -98,7 +98,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     View mResultAppBox;                      // wrapper "Kết quả" (title + list)
     FrameLayout mNativeAdContainer;          // quảng cáo native ngay dưới lưới gợi ý
     // Phiên ad của ô native; close() khi search đóng hẳn / view bị gỡ.
-    private InlineAdBinding mNativeAdBinding;
+//    private InlineAdBinding mNativeAdBinding; // 1.2.0: tắt ads
     boolean mNativeAdRequested;              // đã phát request ad cho lần vào màn này chưa
     boolean mNativeAdLoaded;                 // FSDAds đã đổ được ad vào ô chưa
     /**
@@ -633,9 +633,10 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         mNativeAdContainer = findViewById(R.id.search_native_ad_container);
 
         // Tải trước native màn search để lúc lưới gợi ý hiện đã có sẵn; đã mua bản không qc thì bỏ.
-        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
-            AppAds.preloadNative(NATIVE_PLACEMENT);
-        }
+        // 1.2.0: tắt ads.
+//        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
+//            AppAds.preloadNative(NATIVE_PLACEMENT);
+//        }
     }
 
     void setListeners(){
@@ -804,10 +805,11 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
     }
 
     private void closeNativeAdBinding() {
-        if (mNativeAdBinding != null) {
-            mNativeAdBinding.close();
-            mNativeAdBinding = null;
-        }
+        // 1.2.0: tắt ads.
+//        if (mNativeAdBinding != null) {
+//            mNativeAdBinding.close();
+//            mNativeAdBinding = null;
+//        }
     }
 
     public void showSearchView(){
@@ -955,10 +957,13 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         // Đã mua bản không quảng cáo -> giấu ô quảng cáo, KHÔNG phát request.
         // Kiểm tra ở đây (chứ không chỉ ở updateSectionsVisibility) để mọi đường vào hàm này
         // đều bị chặn như nhau.
-        if (AdsSdk.INSTANCE.isAdFree()) {
-            mNativeAdContainer.setVisibility(View.GONE);
-            return;
-        }
+        // 1.2.0: tắt ads -> luôn giấu ô quảng cáo, phần dưới comment lại.
+        mNativeAdContainer.setVisibility(View.GONE);
+//        if (AdsSdk.INSTANCE.isAdFree()) {
+//            mNativeAdContainer.setVisibility(View.GONE);
+//            return;
+//        }
+        /* 1.2.0: tắt ads.
         if (!mNativeAdRequested) {
             mNativeAdRequested = true;
             mNativeAdFailed = false;
@@ -984,6 +989,7 @@ public class SearchViewLayout extends ConstraintLayout implements View.OnClickLi
         // (đang gõ) — phải tự bật lại, không thì xoá chữ xong quảng cáo biến mất luôn dù ad vẫn còn.
         // Chỉ ẩn khi request THẤT BẠI; đang chờ (kể cả 1s giữ skeleton) thì phải hiện.
         mNativeAdContainer.setVisibility(mNativeAdFailed ? View.GONE : View.VISIBLE);
+        */
     }
 
     /**

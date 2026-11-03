@@ -11,7 +11,7 @@ import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ItemSlideLayoutBinding
 import com.ezla.oslauncher.beautylauncher.databinding.ViewholderNativeFullOnbBinding
 import com.ezla.oslauncher.beautylauncher.model.IntroModel
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.truongnt.ios.ioslite.common.config.AppAds
 
 class IntroAdapter(val context: AppCompatActivity, val introItems: List<IntroModel>) :
     Adapter<ViewHolder>() {
@@ -41,13 +41,14 @@ class IntroAdapter(val context: AppCompatActivity, val introItems: List<IntroMod
             (holder as NativeFullOnbViewHolder).apply {
                 // Adapter nhận Context; SDK cần Activity nên phải dò ra. IntroActivity truyền
                 // chính nó vào nên bình thường luôn ra Activity.
-                AppAds.showNativeFill(
-                    context,
-                    "native_onb_full",
-                    binding.ntFullContainer,
-                    R.layout.layout_native_onb_full,
-                    com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs
-                ) { }
+                // 1.2.0: tắt ads (trang native_full không còn được chèn).
+//                AppAds.showNativeFill(
+//                    context,
+//                    "native_onb_full",
+//                    binding.ntFullContainer,
+//                    R.layout.layout_native_onb_full,
+//                    com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs
+//                ) { }
             }
 
         } else {

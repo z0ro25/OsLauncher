@@ -17,8 +17,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.launcher.DeviceProfile;
 import com.truongnt.ios.launcher.Launcher;
 import com.truongnt.ios.launcher.R;
@@ -236,9 +236,10 @@ public class CustomContentView extends ConstraintLayout implements View.OnClickL
         mWidgetListAdapter = new CustomContentWidgetAdapter(this,mWidgetInfoList);
 
         // Tải trước native màn trái để lúc list bind đã có sẵn; đã mua bản không qc thì bỏ qua.
-        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
-            AppAds.preloadNative(CustomContentWidgetAdapter.NATIVE_PLACEMENT);
-        }
+        // 1.2.0: tắt ads.
+//        if (mLauncher != null && !AdsSdk.INSTANCE.isAdFree()) {
+//            AppAds.preloadNative(CustomContentWidgetAdapter.NATIVE_PLACEMENT);
+//        }
 
         WrapStaggeredGridLayoutManager manager = new WrapStaggeredGridLayoutManager(
                 2,StaggeredGridLayoutManager.VERTICAL

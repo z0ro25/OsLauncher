@@ -7,7 +7,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+import com.truongnt.ios.ioslite.common.config.SharePrefUtils;
 import com.truongnt.ios.launcher.Launcher;
 
 import java.text.SimpleDateFormat;
@@ -207,9 +208,13 @@ public class SearchLauncher extends Launcher {
         if (!mDesktopReady || !hasBeenResumed() || mSubsOfferYielded || mSubsOfferPosted) {
             return;
         }
-        if (AdsSdk.INSTANCE.isAdFree()) {
+        // 1.2.0: bỏ SDK ads -> đọc thẳng cờ subs (cùng key với BillingUtils.isSubsCached).
+        if (SharePrefUtils.getBoolean(this, "premium_subs", false)) {
             return; // đã mua: không mời mua nữa
         }
+//        if (AdsSdk.INSTANCE.isAdFree()) {
+//            return; // đã mua: không mời mua nữa
+//        }
         SharedPreferences pref = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         if (pref.getBoolean(subsOfferKeyToday(), false)) {
             return; // hôm nay đã hiện

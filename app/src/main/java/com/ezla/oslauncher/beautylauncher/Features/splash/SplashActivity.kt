@@ -15,12 +15,12 @@ import com.ezla.oslauncher.beautylauncher.databinding.ActivitySplashBinding
 import com.ezla.oslauncher.beautylauncher.extensions.haveNetworkConnection
 import com.ezla.oslauncher.beautylauncher.extensions.hideNavigation
 import com.ezla.oslauncher.beautylauncher.utils.EventTrackingHelper
-import com.ezla.oslauncher.beautylauncher.utils.GDPRRequestable
+//import com.ezla.oslauncher.beautylauncher.utils.GDPRRequestable
 import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils
-import com.ezt.v2.ezt.admobdemo.ads.NativeAds
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.ezla.oslauncher.beautylauncher.ads.AppAdsRemote
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.NativeAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.ezla.oslauncher.beautylauncher.ads.AppAdsRemote
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.ezla.oslauncher.themes.features.home.ThemesActivity
 import com.ezla.oslauncher.themes.ThemesEntry
@@ -50,27 +50,28 @@ open class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         }
         lifecycleScope.launch {
-            // initializeRemote: process đã init offline trước đó (Home/màn khôi phục) vẫn fetch remote.
-            val kit = AppAds.initializeRemote(applicationContext) { AppAdsRemote.fetchPlacements() }
-            // Đăng ký App Open cho trang Themes; ở đây vì library không thấy ThemesActivity.
-            // Gọi lại sẽ thay toàn bộ danh sách cũ, nên chỉ đăng ký tại Splash.
-            kit.enableAppOpenOnForeground(setOf(ThemesActivity::class.java), "return_to_app")
-
-            val initialized = suspendCancellableCoroutine<Boolean> { continuation ->
-                AdsSdk.initializeWithConsent(this@SplashActivity) { ready, error ->
-                    error?.let { Log.w("Consent", "${it.errorCode}: ${it.message}") }
-                    if (continuation.isActive) continuation.resume(ready)
-                }
-            }
-            if (initialized) {
-                kit.preloadNativeInline("native_lang1")
-                kit.preloadNativeInline("native_lang2")
-
-                lifecycle.withResumed { }
-                // JSON của key splash chọn open/inter/native_full/combo.
-                val result = kit.showAdFullScreen(this@SplashActivity, "splash")
-                Log.d("SplashAds", "$result")
-            }
+            // 1.2.0: tắt ads -> bỏ init SDK/consent/ad splash, đi thẳng màn kế khi RESUMED.
+//            // initializeRemote: process đã init offline trước đó (Home/màn khôi phục) vẫn fetch remote.
+//            val kit = AppAds.initializeRemote(applicationContext) { AppAdsRemote.fetchPlacements() }
+//            // Đăng ký App Open cho trang Themes; ở đây vì library không thấy ThemesActivity.
+//            // Gọi lại sẽ thay toàn bộ danh sách cũ, nên chỉ đăng ký tại Splash.
+//            kit.enableAppOpenOnForeground(setOf(ThemesActivity::class.java), "return_to_app")
+//
+//            val initialized = suspendCancellableCoroutine<Boolean> { continuation ->
+//                AdsSdk.initializeWithConsent(this@SplashActivity) { ready, error ->
+//                    error?.let { Log.w("Consent", "${it.errorCode}: ${it.message}") }
+//                    if (continuation.isActive) continuation.resume(ready)
+//                }
+//            }
+//            if (initialized) {
+//                kit.preloadNativeInline("native_lang1")
+//                kit.preloadNativeInline("native_lang2")
+//
+//                lifecycle.withResumed { }
+//                // JSON của key splash chọn open/inter/native_full/combo.
+//                val result = kit.showAdFullScreen(this@SplashActivity, "splash")
+//                Log.d("SplashAds", "$result")
+//            }
             lifecycle.withResumed {
                 goNext()
                 finish()

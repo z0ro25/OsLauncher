@@ -34,6 +34,7 @@
                     android:id="@+id/checkinCard"
                     layout="@layout/themes_view_checkin_card" />
 
+                <!-- 1.2.0: tắt ads -> ẩn mục xem video nhận xu cùng tiêu đề Suggest của nó. -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,13 +42,15 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/themes_rewards_suggest"
                     android:textColor="@color/themes_text_dark"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layoutWatchVideo"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="12dp"
+                    android:visibility="gone"
                     android:background="@drawable/themes_bg_card16_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"

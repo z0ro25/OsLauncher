@@ -194,8 +194,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-        <include
-            layout="@layout/ads_banner" />
+        <!-- 1.2.0: tắt ads -> bỏ banner (layout nằm trong AAR eztech). <include
+            layout="@layout/ads_banner" /> -->
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

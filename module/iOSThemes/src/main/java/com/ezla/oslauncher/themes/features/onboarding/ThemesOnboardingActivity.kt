@@ -3,8 +3,8 @@ package com.ezla.oslauncher.themes.features.onboarding
 import com.ezla.oslauncher.themes.Models.OnboardingPage
 import android.view.LayoutInflater
 import android.view.View
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import androidx.activity.addCallback
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.themes.R
@@ -65,16 +65,18 @@ class ThemesOnboardingActivity : BaseActivity<ThemesActivityOnboardingBinding>()
     private fun showPageNative(position: Int) {
         val container = binding.frAds
         container.removeAllViews()
-        val key = nativeKeys.getOrNull(position)
-        if (key == null || AdsSdk.isAdFree || !AppAds.hasKit()) {
-            container.visibility = View.INVISIBLE
-            return
-        }
-        container.visibility = View.VISIBLE
-        AppAds.showNativeFill(this, key, container, R.layout.themes_layout_native_onb,
-            com.truongnt.ios.ioslite.common.R.layout.shimmer_native_large) { hasAd ->
-            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.INVISIBLE
-        }
+        // 1.2.0: tắt ads -> giữ INVISIBLE như nhánh ad-free cũ, phần gọi SDK comment lại.
+        container.visibility = View.INVISIBLE
+//        val key = nativeKeys.getOrNull(position)
+//        if (key == null || AdsSdk.isAdFree || !AppAds.hasKit()) {
+//            container.visibility = View.INVISIBLE
+//            return
+//        }
+//        container.visibility = View.VISIBLE
+//        AppAds.showNativeFill(this, key, container, R.layout.themes_layout_native_onb,
+//            com.truongnt.ios.ioslite.common.R.layout.shimmer_native_large) { hasAd ->
+//            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.INVISIBLE
+//        }
     }
 
     private fun finishOnboarding() {

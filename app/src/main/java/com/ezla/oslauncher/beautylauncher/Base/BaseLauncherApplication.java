@@ -16,7 +16,7 @@ import com.ezla.oslauncher.beautylauncher.utils.RemoteConfigUtils;
 import com.ezla.oslauncher.themes.Api.ApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.ezla.oslauncher.beautylauncher.ads.AdjustTracker;
+//import com.ezla.oslauncher.beautylauncher.ads.AdjustTracker;
 import com.truongnt.ios.ioslite.common.CommonSdk;
 import com.truongnt.ios.ioslite.common.LiteAction;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
@@ -140,8 +140,9 @@ public class BaseLauncherApplication extends Application {
     // Khoảng nghỉ giữa 2 interstitial giờ là fullscreenIntervalMs ở root JSON placement.
     private void setupAdEnvironment() {
         // Token Adjust. Để rỗng thì bỏ qua init Adjust (chỉ log cảnh báo).
-        final String adjustToken = "seu0i6ptzxmo";
-        AdjustTracker.init(this, adjustToken, BuildConfig.DEBUG);
+        // 1.2.0: tắt Adjust.
+//        final String adjustToken = "seu0i6ptzxmo";
+//        AdjustTracker.init(this, adjustToken, BuildConfig.DEBUG);
     }
 
 

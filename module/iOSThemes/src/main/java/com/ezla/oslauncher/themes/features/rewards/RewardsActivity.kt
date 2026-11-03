@@ -14,7 +14,7 @@ import com.ezla.oslauncher.themes.base.BaseActivity
 import com.ezla.oslauncher.themes.data.CreditRepository
 import com.ezla.oslauncher.themes.data.DailyCheckinStore
 import com.ezla.oslauncher.themes.data.DailyRewardStore
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.ezla.oslauncher.themes.databinding.ThemesActivityRewardsBinding
 import com.ezla.oslauncher.themes.features.home.GridSpacingDecoration
 import kotlinx.coroutines.launch
@@ -49,7 +49,8 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
         }
         binding.tvVideoCoin.text = getString(R.string.themes_coin_plus, DailyRewardStore.COINS_PER_VIEW)
         renderVideoProgress()
-        AppAds.preloadRewarded(REWARDED_KEY)
+        // 1.2.0: tắt ads -> mục xem video đã ẩn trong layout.
+//        AppAds.preloadRewarded(REWARDED_KEY)
 
         checkinAdapter = CheckinBinder.bindGrid(binding.checkinCard.rvCheckin) { day ->
             callback.onCheckinDayClick(this, day)
@@ -130,19 +131,20 @@ class RewardsActivity : BaseActivity<ThemesActivityRewardsBinding>() {
             Toast.makeText(this, getString(R.string.themes_reward_wait_toast, formatMmSs(left)), Toast.LENGTH_SHORT).show()
             return
         }
-        watching = true
-        AppAds.showRewarded(this, REWARDED_KEY) { earned ->
-            watching = false
-            if (isFinishing || isDestroyed) return@showRewarded
-            if (!earned) {
-                Toast.makeText(this, R.string.themes_reward_no_ad, Toast.LENGTH_SHORT).show()
-                return@showRewarded
-            }
-            DailyRewardStore.addView(this)
-            renderVideoProgress()
-            claimPendingReward()
-            AppAds.preloadRewarded(REWARDED_KEY)
-        }
+        // 1.2.0: tắt ads -> không còn rewarded (mục xem video đã ẩn).
+//        watching = true
+//        AppAds.showRewarded(this, REWARDED_KEY) { earned ->
+//            watching = false
+//            if (isFinishing || isDestroyed) return@showRewarded
+//            if (!earned) {
+//                Toast.makeText(this, R.string.themes_reward_no_ad, Toast.LENGTH_SHORT).show()
+//                return@showRewarded
+//            }
+//            DailyRewardStore.addView(this)
+//            renderVideoProgress()
+//            claimPendingReward()
+//            AppAds.preloadRewarded(REWARDED_KEY)
+//        }
     }
 
     // Cộng toàn bộ lượt còn nợ trong 1 lần gọi; chỉ trừ nợ khi server OK, lỗi thì lần bấm sau cộng lại.

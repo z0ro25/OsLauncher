@@ -15,8 +15,8 @@ import com.ezla.oslauncher.beautylauncher.R
 import com.ezla.oslauncher.beautylauncher.databinding.ActivityPermissionBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
@@ -37,14 +37,16 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding>() {
             finishAffinity()
         }
 
-        if (!AdsSdk.isAdFree) {
-            AppAds.kit.showNativeInline(
-                this,
-                "native_permission",
-                binding.frNative,
-                R.layout.layout_native_small
-            )
-        }
+        // 1.2.0: tắt ads -> ẩn khối native.
+        binding.frNative.visibility = android.view.View.GONE
+//        if (!AdsSdk.isAdFree) {
+//            AppAds.kit.showNativeInline(
+//                this,
+//                "native_permission",
+//                binding.frNative,
+//                R.layout.layout_native_small
+//            )
+//        }
     }
 
     override fun onResume() {

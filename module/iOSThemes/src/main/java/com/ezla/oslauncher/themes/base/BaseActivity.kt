@@ -13,11 +13,11 @@ import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.ezla.oslauncher.themes.extensions.hideNavigation
 import com.ezla.oslauncher.themes.extensions.showNav
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
-import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
+//import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
 import com.truongnt.ios.ioslite.common.IosLocale
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 
 // Bản rút gọn BaseActivity của :app: bỏ luồng mất mạng + rate dialog vì dùng class của :app
@@ -41,36 +41,40 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
 
     // Đổ banner placement BANNER_PLACEMENT vào [container] (khối frBanner bọc @layout/ads_banner),
     // giống BaseActivity của :app. ads_banner nhúng sẵn shimmer -> subs / chưa có kit thì tự ẩn khối.
+    // 1.2.0: tắt ads -> luôn ẩn khối banner, phần gọi SDK comment lại.
     protected fun showBannerIfEnabled(container: ViewGroup, isColapse: Boolean) {
-        if (AdsSdk.isAdFree || !AppAds.hasKit()) {
-            container.visibility = View.GONE
-            return
-        }
-        AppAds.kit.showBanner(
-            this, BANNER_PLACEMENT, container,
-            BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
-        )
-        bannerContainer = container
-        if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
+        container.visibility = View.GONE
+//        if (AdsSdk.isAdFree || !AppAds.hasKit()) {
+//            container.visibility = View.GONE
+//            return
+//        }
+//        AppAds.kit.showBanner(
+//            this, BANNER_PLACEMENT, container,
+//            BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
+//        )
+//        bannerContainer = container
+//        if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
     }
 
     // Như showBannerIfEnabled nhưng frBanner đè lên [content] (main_layout): padding đáy của content
     // = phần SDK báo qua onReservedHeightChanged, nên collapse bung ra không đẩy nội dung.
+    // 1.2.0: tắt ads -> luôn ẩn khối banner, phần gọi SDK comment lại.
     protected fun showBannerOverlay(container: ViewGroup, content: View, isColapse: Boolean) {
-        if (AdsSdk.isAdFree || !AppAds.hasKit()) {
-            container.visibility = View.GONE
-            return
-        }
-        AppAds.kit.showBanner(
-            this, BANNER_PLACEMENT, container,
-            BannerAdOptions(
-                collapsible = isColapse,
-                bannerSize = BannerSize.STANDARD,
-                onReservedHeightChanged = { h -> content.updatePadding(bottom = h) }
-            )
-        )
-        bannerContainer = container
-        if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
+        container.visibility = View.GONE
+//        if (AdsSdk.isAdFree || !AppAds.hasKit()) {
+//            container.visibility = View.GONE
+//            return
+//        }
+//        AppAds.kit.showBanner(
+//            this, BANNER_PLACEMENT, container,
+//            BannerAdOptions(
+//                collapsible = isColapse,
+//                bannerSize = BannerSize.STANDARD,
+//                onReservedHeightChanged = { h -> content.updatePadding(bottom = h) }
+//            )
+//        )
+//        bannerContainer = container
+//        if (FullscreenAdTracker.showing) onFullscreenAdChanged(true)
     }
 
     private var bannerContainer: ViewGroup? = null
@@ -117,8 +121,9 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
             insets
         }
 
-        FullscreenAdTracker.register(application)
-        FullscreenAdTracker.addListener(fullscreenAdListener)
+        // 1.2.0: tắt ads -> không theo dõi AdActivity nữa.
+//        FullscreenAdTracker.register(application)
+//        FullscreenAdTracker.addListener(fullscreenAdListener)
 
         initView()
         viewListener()
@@ -126,7 +131,7 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        FullscreenAdTracker.removeListener(fullscreenAdListener)
+//        FullscreenAdTracker.removeListener(fullscreenAdListener)
         bannerContainer = null
         super.onDestroy()
     }

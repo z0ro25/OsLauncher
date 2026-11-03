@@ -8,9 +8,9 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
-import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.launcher.AppInfo;
 import com.truongnt.ios.launcher.BubbleTextView;
 import com.truongnt.ios.launcher.Launcher;
@@ -44,18 +44,20 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
     private final boolean mHasAd;
 
     // Phiên ad của ô; close() khi folder bị gỡ / holder recycle để request không đổ vào view chết.
-    private InlineAdBinding mAdBinding;
+//    private InlineAdBinding mAdBinding; // 1.2.0: tắt ads
 
     public OpenLibraryItemAdapter(Launcher launcher){
         mLauncher = launcher;
         // Đã mua bản không quảng cáo -> không chừa chỗ, grid giữ nguyên như trước. Cờ Remote
         // Config theo vị trí đã bỏ cùng RemoteConfigs; công tắc bật/tắt do SDK lo.
-        mHasAd = !AdsSdk.INSTANCE.isAdFree();
-
-        if (mHasAd) {
-            // Hâm nóng để lúc bind ad đã kịp có; hiện/ẩn ô do kết quả ở bước bind quyết định.
-            AppAds.preloadNative(NATIVE_PLACEMENT);
-        }
+        // 1.2.0: tắt ads -> không chừa ô ad.
+        mHasAd = false;
+//        mHasAd = !AdsSdk.INSTANCE.isAdFree();
+//
+//        if (mHasAd) {
+//            // Hâm nóng để lúc bind ad đã kịp có; hiện/ẩn ô do kết quả ở bước bind quyết định.
+//            AppAds.preloadNative(NATIVE_PLACEMENT);
+//        }
     }
 
     /** Ô ad có hiển thị ở {@code position} không. */
@@ -119,12 +121,14 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
             if (container instanceof FrameLayout && ((FrameLayout) container).getChildCount() == 0) {
                 // Không có ad -> thu ô lại thay vì để khoảng trống.
                 closeAd();
-                mAdBinding = AppAds.showNative(mLauncher, NATIVE_PLACEMENT, (FrameLayout) container,
-                        com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
-                        hasAd -> {
-                            container.setVisibility(hasAd ? View.VISIBLE : View.GONE);
-                            if (!hasAd) closeAd();
-                        });
+                // 1.2.0: tắt ads (mHasAd = false nên nhánh này không còn được gọi).
+                container.setVisibility(View.GONE);
+//                mAdBinding = AppAds.showNative(mLauncher, NATIVE_PLACEMENT, (FrameLayout) container,
+//                        com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+//                        hasAd -> {
+//                            container.setVisibility(hasAd ? View.VISIBLE : View.GONE);
+//                            if (!hasAd) closeAd();
+//                        });
             }
         }
         else if (holder instanceof ItemViewHolder){
@@ -174,10 +178,11 @@ public class OpenLibraryItemAdapter extends RecyclerView.Adapter {
     }
 
     public void closeAd() {
-        if (mAdBinding != null) {
-            mAdBinding.close();
-            mAdBinding = null;
-        }
+        // 1.2.0: tắt ads.
+//        if (mAdBinding != null) {
+//            mAdBinding.close();
+//            mAdBinding = null;
+//        }
     }
 
     // Holder ad bị recycle: huỷ phiên + dọn container để lần bind sau (container trống) tải lại.

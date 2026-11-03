@@ -34,9 +34,9 @@ import com.ezla.oslauncher.beautylauncher.extensions.tap
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
 import com.ezla.oslauncher.beautylauncher.utils.PermissionManager
 import com.ezla.oslauncher.themes.ThemesEntry
-import com.ezt.v2.ezt.admobdemo.ads.InterAds
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.InterAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 
@@ -71,28 +71,32 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             llSubs.isVisible = !BillingUtils.isSubsCached(this@HomeActivity)
         }
 
-        if (!AdsSdk.isAdFree) {
-            AppAds.kit.showNativeInline(
-                this,
-                "native_home",
-                binding.frNativeHome,
-                R.layout.layout_native_large
-            )
-        } else {
-            binding.frNativeHome.isVisible = false
-        }
+        // 1.2.0: tắt ads -> luôn ẩn khối native Home.
+        binding.frNativeHome.isVisible = false
+//        if (!AdsSdk.isAdFree) {
+//            AppAds.kit.showNativeInline(
+//                this,
+//                "native_home",
+//                binding.frNativeHome,
+//                R.layout.layout_native_large
+//            )
+//        } else {
+//            binding.frNativeHome.isVisible = false
+//        }
     }
 
     override fun onResume() {
         super.onResume()
         // State default có thể đổi sau khi user quay lại từ màn chọn launcher hệ thống -> cập nhật lại.
         applyDefaultLauncherState()
-        if (!AdsSdk.isAdFree) {
-            showBannerOverlay(binding.frBanner, binding.spaceBanner, "main_banner")
-        } else {
-            // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
-            binding.frBanner.isVisible = false
-        }
+        // 1.2.0: tắt ads -> luôn ẩn khối banner.
+        binding.frBanner.isVisible = false
+//        if (!AdsSdk.isAdFree) {
+//            showBannerOverlay(binding.frBanner, binding.spaceBanner, "main_banner")
+//        } else {
+//            // Ẩn cả khối: shimmer có sẵn trong ads_banner không tự tắt khi không gọi SDK.
+//            binding.frBanner.isVisible = false
+//        }
         // Quay lại từ In-App Review khi sheet Rate còn mở: showBanner có thể hiện lại banner dưới sheet.
         if (rateDialog?.isShowing == true) binding.frBanner.visibility = View.INVISIBLE
     }
@@ -232,18 +236,20 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     // Bọc [action] sau interstitial in-app. Bất biến: [action] luôn chạy đúng 1 lần — đã mua
     // bản không qc hoặc chưa có ad thì chạy ngay, có ad thì chạy khi ad đóng.
     private fun tapWithInterInApp(action: () -> Unit) {
-        if (AdsSdk.isAdFree) {
-            action()
-            return
-        }
-
-        if (!InterAds.isCanShowAds()) {
-            InterAds.initInterAds(this) {}
-            action()
-            return
-        }
-
-        InterAds.showAds(this, { action() }, true)
+        // 1.2.0: tắt ads -> chạy thẳng action.
+        action()
+//        if (AdsSdk.isAdFree) {
+//            action()
+//            return
+//        }
+//
+//        if (!InterAds.isCanShowAds()) {
+//            InterAds.initInterAds(this) {}
+//            action()
+//            return
+//        }
+//
+//        InterAds.showAds(this, { action() }, true)
     }
 
     private fun goToLauncher() {

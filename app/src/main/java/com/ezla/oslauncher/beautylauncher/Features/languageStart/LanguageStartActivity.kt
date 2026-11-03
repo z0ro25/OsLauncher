@@ -2,6 +2,7 @@ package com.ezla.oslauncher.beautylauncher.Features.languageStart
 
 //import com.ezla.oslauncher.beautylauncher.launchActivity
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +13,9 @@ import com.ezla.oslauncher.beautylauncher.databinding.ActivityLanguageStartBindi
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.model.LanguageModel
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
-import com.ezt.v2.ezt.admobdemo.ads.NativeAds
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.NativeAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,10 +46,11 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
                 binding.frNative.removeAllViews()
                 // Remote Config tắt native ở vị trí này -> không hiện ad, giấu luôn ô chứa để
                 // không chừa khoảng trống. Vẫn phải chạy tiếp phần hiện nút Done bên dưới.
-                AppAds.kit.showNativeInline(
-                    this@LanguageStartActivity, "native_lang2", binding.frNative,
-                    R.layout.layout_native_lang2
-                )
+                // 1.2.0: tắt ads.
+//                AppAds.kit.showNativeInline(
+//                    this@LanguageStartActivity, "native_lang2", binding.frNative,
+//                    R.layout.layout_native_lang2
+//                )
 
 
                 if (!binding.ivDone.isVisible) {
@@ -75,23 +77,26 @@ class LanguageStartActivity : BaseActivity<ActivityLanguageStartBinding>() {
             finishAffinity()
         }
 
-        AppAds.kit.showNativeInline(
-            this@LanguageStartActivity,
-            "native_lang1",
-            binding.frNative,
-            R.layout.layout_native_lang1
-        )
+        // 1.2.0: tắt ads -> ẩn khối native.
+        binding.frNative.visibility = View.GONE
+//        AppAds.kit.showNativeInline(
+//            this@LanguageStartActivity,
+//            "native_lang1",
+//            binding.frNative,
+//            R.layout.layout_native_lang1
+//        )
 
         preloadAds()
     }
 
     private fun preloadAds() {
-        if (!AdsSdk.isAdFree) {
-            AppAds.kit.preloadNativeInline( "native_onb1")
-            AppAds.kit.preloadNativeInline("native_onb2")
-            AppAds.kit.preloadNativeInline("native_onb_full")
-
-        }
+        // 1.2.0: tắt ads.
+//        if (!AdsSdk.isAdFree) {
+//            AppAds.kit.preloadNativeInline( "native_onb1")
+//            AppAds.kit.preloadNativeInline("native_onb2")
+//            AppAds.kit.preloadNativeInline("native_onb_full")
+//
+//        }
     }
 
     override fun viewListener() {}

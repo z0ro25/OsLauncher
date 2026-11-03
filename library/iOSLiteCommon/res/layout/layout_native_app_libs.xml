@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Native dùng chung cho :module:* (không đọc được res của :app). Bất biến: root là NativeAdView
+<!-- 1.2.0: tắt ads — layout gốc comment bên dưới (gạch nối kép đổi thành "~~"), giữ root rỗng cho aapt.
+<!~~ Native dùng chung cho :module:* (không đọc được res của :app). Bất biến: root là NativeAdView
      của ads-mobile-sdk và giữ đúng bộ id uniform/ad_media/ad_headline/ad_body/ad_app_icon/
-     tvActionBtnTitle — SDK tìm view theo id, đổi tên là ad hiện khung rỗng không báo lỗi. -->
+     tvActionBtnTitle — SDK tìm view theo id, đổi tên là ad hiện khung rỗng không báo lỗi. ~~>
 <com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,7 +19,7 @@
         android:gravity="center"
         android:padding="8dp">
 
-<!--        <include layout="@layout/ads_native_attribution" />-->
+<!~~        <include layout="@layout/ads_native_attribution" />~~>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -121,15 +122,22 @@
 
 
 
-<!--        <TextView-->
-<!--            android:id="@+id/ad_body"-->
-<!--            style="@style/NativeInline.Body"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:visibility="gone"-->
-<!--            tools:text="Discover more of what you love. Get started with an experience designed around you." />-->
+<!~~        <TextView~~>
+<!~~            android:id="@+id/ad_body"~~>
+<!~~            style="@style/NativeInline.Body"~~>
+<!~~            android:layout_width="match_parent"~~>
+<!~~            android:layout_height="wrap_content"~~>
+<!~~            android:layout_marginTop="8dp"~~>
+<!~~            android:visibility="gone"~~>
+<!~~            tools:text="Discover more of what you love. Get started with an experience designed around you." />~~>
 
 
     </LinearLayout>
 </com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView>
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:viewBindingIgnore="true" />

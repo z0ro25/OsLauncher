@@ -45,6 +45,7 @@
         app:trackCornerRadius="100dp"
         app:trackThickness="6dp" />
 
+    <!-- 1.2.0: tắt ads -> ẩn dòng báo sắp hiện ads; INVISIBLE để progress (bám vào view này) giữ vị trí. -->
     <TextView
         android:id="@+id/tv_category"
         android:layout_width="wrap_content"
@@ -54,6 +55,7 @@
         android:gravity="center"
         android:paddingHorizontal="16dp"
         android:text="@string/ads_are_about_to_be_shown"
+        android:visibility="invisible"
         android:textColor="@color/onb_text_primary"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/fr_ads"

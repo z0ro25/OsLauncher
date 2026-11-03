@@ -28,13 +28,13 @@ import com.ezla.oslauncher.beautylauncher.databinding.ActivitySelectBackgroundBi
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
 import com.ezla.oslauncher.beautylauncher.utils.BillingUtils
-import com.ezt.v2.ezt.admobdemo.ads.FullscreenNativeAds
-import com.ezt.v2.ezt.admobdemo.ads.InterAds
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenCallback
-import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenResult
-import com.ezt.v2.ezt.admobdemo.ads.placement.PlacementFormat
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.FullscreenNativeAds
+//import com.ezt.v2.ezt.admobdemo.ads.InterAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenCallback
+//import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenResult
+//import com.ezt.v2.ezt.admobdemo.ads.placement.PlacementFormat
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 import kotlinx.coroutines.launch
@@ -88,11 +88,12 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
 
     override fun initView() {
 
-        if (!AdsSdk.isAdFree) {
-            lifecycleScope.launch {
-                AppAds.kit.preloadAdFullScreen("start_launcher_Inter")
-            }
-        }
+        // 1.2.0: tắt ads.
+//        if (!AdsSdk.isAdFree) {
+//            lifecycleScope.launch {
+//                AppAds.kit.preloadAdFullScreen("start_launcher_Inter")
+//            }
+//        }
 
 
         loadWallpaperAssets()
@@ -242,24 +243,26 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
             }
         }
 
-        if (AdsSdk.isAdFree) {
-            continueToLauncher()
-            return
-        }
-        lifecycleScope.launch {
-            AppAds.kit.showAdFullScreen(
-                this@SelectBackgroundActivity,
-                "start_launcher_Inter",
-                object : AdFullScreenCallback {
-                    override fun onFinished(result: AdFullScreenResult) {
-                        super.onFinished(result)
-                    }
-                })
-
-            lifecycle.withResumed {
-                continueToLauncher()
-            }
-        }
+        // 1.2.0: tắt ads -> bỏ inter, đi thẳng launcher.
+        continueToLauncher()
+//        if (AdsSdk.isAdFree) {
+//            continueToLauncher()
+//            return
+//        }
+//        lifecycleScope.launch {
+//            AppAds.kit.showAdFullScreen(
+//                this@SelectBackgroundActivity,
+//                "start_launcher_Inter",
+//                object : AdFullScreenCallback {
+//                    override fun onFinished(result: AdFullScreenResult) {
+//                        super.onFinished(result)
+//                    }
+//                })
+//
+//            lifecycle.withResumed {
+//                continueToLauncher()
+//            }
+//        }
     }
 
     private fun isDefaultLauncher(): Boolean {

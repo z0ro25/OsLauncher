@@ -5,8 +5,8 @@ import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
 import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.search.config.MSCConfiguration;
 import com.truongnt.ios.search.provider.AdapterItemPresenter;
@@ -63,20 +63,21 @@ public class AdCardItemInfo extends BaseCardItemInfo<AdCardItemInfo.AdViewHolder
         // gọi tới đây lần nữa.
         // Đã mua bản không quảng cáo -> không đổ ad (card rỗng đã bị UiHandler bỏ từ trước vì
         // DataFlowProvider không trả về AdCardItemInfo nào).
-        if (mAdUnitId != null
-                && viewHolderTmp.mAdLayout.getChildCount() == 0
-                && !AdsSdk.INSTANCE.isAdFree()) {
-            Activity activity = ActivityUtil.findActivity(viewHolderTmp.mAdLayout.getContext());
-            if (activity != null) {
-                NativeAds.INSTANCE.initNativeInline(
-                        activity,
-                        viewHolderTmp.mAdLayout,
-                        null,
-                        mAdUnitId,
-                        com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
-                        NATIVE_LOAD_TIMEOUT_MS);
-            }
-        }
+        // 1.2.0: tắt ads (DataFlowProvider không còn trả AdCardItemInfo).
+//        if (mAdUnitId != null
+//                && viewHolderTmp.mAdLayout.getChildCount() == 0
+//                && !AdsSdk.INSTANCE.isAdFree()) {
+//            Activity activity = ActivityUtil.findActivity(viewHolderTmp.mAdLayout.getContext());
+//            if (activity != null) {
+//                NativeAds.INSTANCE.initNativeInline(
+//                        activity,
+//                        viewHolderTmp.mAdLayout,
+//                        null,
+//                        mAdUnitId,
+//                        com.truongnt.ios.ioslite.common.R.layout.layout_native_inline,
+//                        NATIVE_LOAD_TIMEOUT_MS);
+//            }
+//        }
         return TEST;
     }
 

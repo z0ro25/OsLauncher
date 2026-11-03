@@ -92,7 +92,7 @@ import com.truongnt.ios.ioslite.common.LiteAction;
 import com.truongnt.ios.ioslite.common.Partner;
 import com.truongnt.ios.ioslite.common.Router;
 import com.truongnt.ios.ioslite.common.analytics.AnalyticsDelegate;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.analytics.UMEventConstants;
 import com.truongnt.ios.ioslite.common.anim.PropertyHolderUtis;
 import com.truongnt.ios.ioslite.common.debug.DebugUtil;
@@ -631,9 +631,10 @@ public class Launcher extends LauncherBaseActivity implements View.OnClickListen
         Log.i(TAG, "onCreate");
         // Nút Home mở thẳng launcher, không qua Splash -> tự init AdsKit bằng cache/asset.
         // Đã init ở Splash rồi thì hàm này no-op.
-        AppAds.initializeOffline(this);
+        // 1.2.0: tắt ads.
+//        AppAds.initializeOffline(this);
         // Phiên mới mở thẳng từ Home: cập nhật consent im lặng để SDK được phép tải ads.
-        AppAds.prepareWithoutForm(this);
+//        AppAds.prepareWithoutForm(this);
         HiddenAppManager.INSTANCE.initDataBase(this);
         listHiddenApp = (ArrayList<ItemInfo>) HiddenAppManager.INSTANCE.getAllHiddenApp();
         Log.d(TAG, "onCreatexxx: " + listHiddenApp.size());

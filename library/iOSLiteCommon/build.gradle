@@ -75,12 +75,13 @@ dependencies {
 
     //ads — SDK eztech. `api` vì iOSLauncher/iOSSearch/iOSThemeClub gọi thẳng class của SDK.
     // Nơi khai DUY NHẤT của AAR: khai thêm ở module khác là D8 báo "defined multiple times".
-    api(name: 'eztech-ads-com.ezla.oslauncher.beautylauncher-1.0.14', ext: 'aar')
+//    api(name: 'eztech-ads-com.ezla.oslauncher.beautylauncher-1.0.14', ext: 'aar')
 
     // AAR cục bộ KHÔNG mang metadata dependency, nên các thư viện mà SDK eztech cần phải
     // khai tường minh. Để `api` vì chữ ký hàm của SDK có kiểu của ads-mobile-sdk, module gọi
     // vào (iOSLauncher/iOSSearch/iOSThemeClub) cũng phải nạp được kiểu đó mới biên dịch.
-    api 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.4.0'
+    // 1.2.0: tắt toàn bộ ads -> comment SDK cùng AAR eztech ở trên, bật lại cả hai cùng lúc.
+//    api 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.4.0'
     api 'androidx.lifecycle:lifecycle-process:2.9.0'
     // AppAds (config/) dùng coroutine + Dispatchers.Main; 1.9.0 = đúng bản graph đang resolve.
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'

@@ -14,9 +14,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.NativeAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
 import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.ioslite.common.util.CommonUtilities;
 import com.amz.ios.http.Internal.Action;
@@ -74,13 +74,16 @@ public class DataFlowProvider extends BaseProvider {
 
     // Chỉ còn vế "đã mua bản không quảng cáo"; bật/tắt theo vị trí giờ do SDK lo.
     private boolean isNativeAdAllowed() {
-        return !AdsSdk.INSTANCE.isAdFree();
+        // 1.2.0: tắt ads -> luôn trả danh sách rỗng.
+        return false;
+//        return !AdsSdk.INSTANCE.isAdFree();
     }
 
     // Alias riêng để không tiêu mất ad đã tải của App Library / màn trái (SDK giữ ad theo alias).
     private void preloadSearchNative(Activity activity) {
-        NativeAds.INSTANCE.preloadNativeInline(activity, "nt_app_search",
-                AdsConfig.INSTANCE.getNative());
+        // 1.2.0: tắt ads.
+//        NativeAds.INSTANCE.preloadNativeInline(activity, "nt_app_search",
+//                AdsConfig.INSTANCE.getNative());
     }
 
     //load recommod app — nay là MỘT ô native ad.
@@ -112,7 +115,8 @@ public class DataFlowProvider extends BaseProvider {
                 preloadSearchNative(activity);
 
                 List<AdCardItemInfo> result = new ArrayList<AdCardItemInfo>();
-                result.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
+                // 1.2.0: tắt ads (isNativeAdAllowed = false nên không tới đây).
+//                result.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
                 callBack.onRealSucess(result);
             }
         };
@@ -151,7 +155,8 @@ public class DataFlowProvider extends BaseProvider {
                 }
 
                 List<AdCardItemInfo> adCardItemInfos = new ArrayList<AdCardItemInfo>();
-                adCardItemInfos.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
+                // 1.2.0: tắt ads (isNativeAdAllowed = false nên không tới đây).
+//                adCardItemInfos.add(new AdCardItemInfo(AdsConfig.INSTANCE.getNative()));
                 callBack.onRealSucess(adCardItemInfos);
             }
         };

@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
-import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.launcher.R;
 
@@ -60,7 +60,7 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     private FrameLayout mAdContainer;
 
     // Phiên ad đang chạy; close() khi gỡ ô/đóng màn để request đang bay không đổ vào container cũ.
-    private InlineAdBinding mAdBinding;
+//    private InlineAdBinding mAdBinding; // 1.2.0: tắt ads
 
     // Trang dựng sẵn ngoài màn hình vẫn bind -> chỉ phát request khi user đã thật sự vào trang.
     private boolean mPageOpen;
@@ -97,10 +97,12 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     // Tính một lần rồi giữ nguyên. Chỉ còn vế isAdFree (lambda :app bơm xuống AdsHostConfig);
     // bật/tắt theo vị trí giờ do SDK lo qua serving controls + enabled của placement.
     private boolean isAdAllowed() {
-        if (mAdAllowed == null) {
-            mAdAllowed = !AdsSdk.INSTANCE.isAdFree();
-        }
-        return mAdAllowed;
+        // 1.2.0: tắt ads -> không bao giờ chèn ô ad.
+        return false;
+//        if (mAdAllowed == null) {
+//            mAdAllowed = !AdsSdk.INSTANCE.isAdFree();
+//        }
+//        return mAdAllowed;
     }
 
     // Ad lỗi trong lần vào màn này -> gỡ HẲN item (item GONE vẫn chiếm 1 hàng lưới -> khoảng trống).
@@ -230,16 +232,19 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
         // Container cao cố định (box 2:1) -> dùng bản Fill để native lấp đầy thay vì wrap_content.
         // Ghi rõ R của library vì file này đang import R của module launcher.
         closeAdBinding();
-        mAdBinding = AppAds.showNativeFill((FragmentActivity) activity, NATIVE_PLACEMENT, container,
-                com.truongnt.ios.ioslite.common.R.layout.layout_native_app_libs,
-                com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs, hasAd -> {
-                    mAdState = hasAd ? AD_LOADED : AD_FAILED;
-                    if (!hasAd) {
-                        // Ô sắp bị gỡ: đóng phiên để SDK không retry cho slot không còn hiển thị.
-                        closeAdBinding();
-                        removeAdItem(holder.itemView);
-                    }
-                });
+        // 1.2.0: tắt ads -> coi như lỗi, gỡ ô.
+        mAdState = AD_FAILED;
+        removeAdItem(holder.itemView);
+//        mAdBinding = AppAds.showNativeFill((FragmentActivity) activity, NATIVE_PLACEMENT, container,
+//                com.truongnt.ios.ioslite.common.R.layout.layout_native_app_libs,
+//                com.truongnt.ios.ioslite.common.R.layout.shimmer_native_app_libs, hasAd -> {
+//                    mAdState = hasAd ? AD_LOADED : AD_FAILED;
+//                    if (!hasAd) {
+//                        // Ô sắp bị gỡ: đóng phiên để SDK không retry cho slot không còn hiển thị.
+//                        closeAdBinding();
+//                        removeAdItem(holder.itemView);
+//                    }
+//                });
     }
 
     /**
@@ -282,10 +287,11 @@ public class AppLibraryAdapter extends RecyclerView.Adapter {
     }
 
     private void closeAdBinding() {
-        if (mAdBinding != null) {
-            mAdBinding.close();
-            mAdBinding = null;
-        }
+        // 1.2.0: tắt ads.
+//        if (mAdBinding != null) {
+//            mAdBinding.close();
+//            mAdBinding = null;
+//        }
     }
 
     // Holder ad bị recycle (cuộn xa / rebuild adapter) -> container đó không còn hiển thị ad nữa.

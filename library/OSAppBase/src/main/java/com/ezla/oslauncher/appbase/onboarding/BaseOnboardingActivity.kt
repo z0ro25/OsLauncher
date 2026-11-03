@@ -7,8 +7,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.appbase.R
 import com.ezla.oslauncher.appbase.base.BaseActivity
 import com.ezla.oslauncher.appbase.databinding.AppbaseActivityOnboardingBinding
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.truongnt.ios.ioslite.common.config.AppAds
 
 // Onboarding 3 trang dùng chung cho app tiện ích (bố cục Figma, hành vi như ThemesOnboardingActivity).
 // Module con chỉ khai trang + việc làm khi xong (lưu cờ, mở màn chính).
@@ -67,16 +67,18 @@ abstract class BaseOnboardingActivity : BaseActivity<AppbaseActivityOnboardingBi
     private fun showPageNative(position: Int) {
         val container = binding.frAds
         container.removeAllViews()
-        val key = NATIVE_KEYS.getOrNull(position)
-        if (key == null || AdsSdk.isAdFree || !AppAds.hasKit()) {
-            container.visibility = View.INVISIBLE
-            return
-        }
-        container.visibility = View.VISIBLE
-        AppAds.showNativeFill(this, key, container, R.layout.appbase_layout_native_onb,
-            com.truongnt.ios.ioslite.common.R.layout.shimmer_native_large) { hasAd ->
-            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.INVISIBLE
-        }
+        // 1.2.0: tắt ads -> giữ INVISIBLE như nhánh ad-free cũ, phần gọi SDK comment lại.
+        container.visibility = View.INVISIBLE
+//        val key = NATIVE_KEYS.getOrNull(position)
+//        if (key == null || AdsSdk.isAdFree || !AppAds.hasKit()) {
+//            container.visibility = View.INVISIBLE
+//            return
+//        }
+//        container.visibility = View.VISIBLE
+//        AppAds.showNativeFill(this, key, container, R.layout.appbase_layout_native_onb,
+//            com.truongnt.ios.ioslite.common.R.layout.shimmer_native_large) { hasAd ->
+//            if (!hasAd && binding.vpOnboarding.currentItem == position) container.visibility = View.INVISIBLE
+//        }
     }
 
     private companion object {

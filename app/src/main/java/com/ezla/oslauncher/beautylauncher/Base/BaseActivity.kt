@@ -1,6 +1,6 @@
 package com.ezla.oslauncher.beautylauncher.Base
 
-import ads_mobile_sdk.fa
+//import ads_mobile_sdk.fa
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -29,12 +29,12 @@ import com.ezla.oslauncher.beautylauncher.extensions.hideNavigation
 import com.ezla.oslauncher.beautylauncher.extensions.showNav
 import com.ezla.oslauncher.beautylauncher.tool.languageTool.LanguageUtil
 import com.ezla.oslauncher.beautylauncher.utils.Constant
-import com.ezt.v2.ezt.admobdemo.ads.BannerAds
-import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
-import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.BannerAds
+//import com.ezt.v2.ezt.admobdemo.ads.placement.BannerAdOptions
+//import com.ezt.v2.ezt.admobdemo.ads.placement.BannerSize
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsConfig
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
@@ -62,16 +62,18 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     // Đổ banner placement "bannerinapp" vào [container] (khối fr_banner bọc @layout/ads_banner).
     // Màn đã có native inline (Home, Intro, LanguageStart, Permission) cố ý không gọi.
     protected fun showBannerIfEnabled(container : ViewGroup,isColapse : Boolean) {
+        // 1.2.0: tắt ads -> luôn ẩn khối banner, phần gọi SDK comment lại.
+        container.visibility = View.GONE
         // ads_banner của SDK nhúng sẵn shimmer đang hiện; không gọi SDK thì phải tự ẩn khối banner.
-        if (AdsSdk.isAdFree) {
-            container.visibility = View.GONE
-            return
-        }
+//        if (AdsSdk.isAdFree) {
+//            container.visibility = View.GONE
+//            return
+//        }
         // STANDARD = AdSize.BANNER 320x50 cố định; mặc định SDK là LARGE_ADAPTIVE (cao theo bề ngang).
-        AppAds.kit.showBanner(
-            this, "bannerinapp", container,
-            BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
-        )
+//        AppAds.kit.showBanner(
+//            this, "bannerinapp", container,
+//            BannerAdOptions(collapsible = isColapse, bannerSize = BannerSize.STANDARD)
+//        )
     }
 
     // Như showBannerIfEnabled nhưng banner đè lên nội dung: [spaceBanner] (nội dung bám vào nó) cao
@@ -79,17 +81,19 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
     protected fun showBannerOverlay(
         container: ViewGroup, spaceBanner: View, key: String = "bannerinapp"
     ) {
-        if (AdsSdk.isAdFree) {
-            container.visibility = View.GONE
-            return
-        }
-        AppAds.kit.showBanner(
-            this, key, container,
-            BannerAdOptions(
-                bannerSize = BannerSize.STANDARD,
-                onReservedHeightChanged = { h -> spaceBanner.updateLayoutParams { height = h } }
-            )
-        )
+        // 1.2.0: tắt ads -> luôn ẩn khối banner, phần gọi SDK comment lại.
+        container.visibility = View.GONE
+//        if (AdsSdk.isAdFree) {
+//            container.visibility = View.GONE
+//            return
+//        }
+//        AppAds.kit.showBanner(
+//            this, key, container,
+//            BannerAdOptions(
+//                bannerSize = BannerSize.STANDARD,
+//                onReservedHeightChanged = { h -> spaceBanner.updateLayoutParams { height = h } }
+//            )
+//        )
     }
 
     val internetBroadcast = object : BroadcastReceiver() {
@@ -121,7 +125,8 @@ abstract class BaseActivity<b : ViewBinding> : AppCompatActivity() {
         LanguageUtil.setLocale(this)
         // Màn khôi phục sau process death không qua Splash -> AppAds.kit chưa có (lateinit crash).
         // Trừ Splash: init offline trước sẽ khiến Splash bỏ qua đường init có fetch remote.
-        if (this !is SplashActivity) AppAds.initializeOffline(this)
+        // 1.2.0: tắt ads.
+//        if (this !is SplashActivity) AppAds.initializeOffline(this)
         super.onCreate(savedInstanceState)
         binding = setViewBinding
         setContentView(binding.root)

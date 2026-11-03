@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copy layout_native_onb (:app, module không đọc được), cao match_parent để lấp vùng frAds 300dp.
-     Giữ đúng bộ id uniform/ad_*/tvActionBtnTitle: SDK tìm view theo id, đổi tên là ad hiện rỗng. -->
+<!-- 1.2.0: tắt ads — layout gốc comment bên dưới (gạch nối kép đổi thành "~~"), giữ root rỗng cho aapt.
+<!~~ Copy layout_native_onb (:app, module không đọc được), cao match_parent để lấp vùng frAds 300dp.
+     Giữ đúng bộ id uniform/ad_*/tvActionBtnTitle: SDK tìm view theo id, đổi tên là ad hiện rỗng. ~~>
 <com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -80,7 +81,7 @@
             android:maxLines="2"
             tools:text="Discover more of what you love. Get started with an experience designed around you." />
 
-        <!-- Khác bản gốc: media chiếm phần còn lại của 300dp thay vì tỉ lệ 20:7. -->
+        <!~~ Khác bản gốc: media chiếm phần còn lại của 300dp thay vì tỉ lệ 20:7. ~~>
         <androidx.cardview.widget.CardView
             android:id="@+id/media_card"
             android:layout_width="match_parent"
@@ -109,3 +110,10 @@
             tools:text="Learn more" />
     </LinearLayout>
 </com.google.android.libraries.ads.mobile.sdk.nativead.NativeAdView>
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:viewBindingIgnore="true" />

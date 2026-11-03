@@ -101,10 +101,12 @@
                         android:drawableStart="@drawable/ic_iap_feature_icon"
                         android:text="@string/subs_feature_icons" />
 
+                    <!-- 1.2.0: tắt ads -> ẩn quyền lợi Ad-free. -->
                     <TextView
                         style="@style/SubsFeature"
                         android:drawableStart="@drawable/ic_iap_feature_adfree"
-                        android:text="@string/subs_feature_ad_free" />
+                        android:text="@string/subs_feature_ad_free"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <!-- 2 thẻ gói: chừa 11dp trên cho tag BEST VALUE, 12dp dưới cho bóng. Cao / nền / màu giá theo

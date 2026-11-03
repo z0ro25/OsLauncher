@@ -1,21 +1,22 @@
-package com.truongnt.ios.ioslite.common.ad;
-
-
-public abstract class IOSNativeAd {
-    public abstract void load();
-
-    public abstract void setNativeAdListener(IOSNativeAdListener listener);
-
-    protected abstract int getIOSAdId();
-
-    protected boolean shouldShowAd() {
-        return IOSAdManager.shouldShowAd(getIOSAdId());
-    }
-
-    public void afterShowAd() {
-        IOSAdManager.afterShowAd(getIOSAdId());
-    }
-
-    public abstract void destory();
-}
-
+// 1.2.0: tắt toàn bộ ads — comment nguyên file, bật lại cùng SDK eztech.
+// package com.truongnt.ios.ioslite.common.ad;
+//
+//
+// public abstract class IOSNativeAd {
+//     public abstract void load();
+//
+//     public abstract void setNativeAdListener(IOSNativeAdListener listener);
+//
+//     protected abstract int getIOSAdId();
+//
+//     protected boolean shouldShowAd() {
+//         return IOSAdManager.shouldShowAd(getIOSAdId());
+//     }
+//
+//     public void afterShowAd() {
+//         IOSAdManager.afterShowAd(getIOSAdId());
+//     }
+//
+//     public abstract void destory();
+// }
+//

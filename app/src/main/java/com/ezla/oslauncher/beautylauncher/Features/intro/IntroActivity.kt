@@ -11,10 +11,10 @@ import com.ezla.oslauncher.beautylauncher.databinding.ActivityIntroBinding
 import com.ezla.oslauncher.beautylauncher.extensions.launchActivity
 import com.ezla.oslauncher.beautylauncher.model.IntroModel
 import com.ezla.oslauncher.beautylauncher.theme.AppThemeManager
-import com.ezt.v2.ezt.admobdemo.ads.NativeAds
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
-import com.ezt.v2.ezt.admobdemo.ads.placement.AdPreloadState
-import com.truongnt.ios.ioslite.common.config.AppAds
+//import com.ezt.v2.ezt.admobdemo.ads.NativeAds
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk
+//import com.ezt.v2.ezt.admobdemo.ads.placement.AdPreloadState
+//import com.truongnt.ios.ioslite.common.config.AppAds
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -32,15 +32,18 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
         listIntro.clear()
         // Dùng isDark() (không phải getMode()) để ảnh khớp nền onb_intro_bg dưới mọi policy (MANUAL/AUTO/SYSTEM).
         // Bản "_ad" thấp hơn (Figma onb 1/2/18/19) chừa chỗ cho native ở đáy; chỉ đọc isAdFree, không đụng logic ads.
-        val images = introImages(AppThemeManager.isDark(this), !AdsSdk.isAdFree)
+        // 1.2.0: tắt ads -> luôn dùng ảnh đầy đủ (không chừa chỗ native).
+        val images = introImages(AppThemeManager.isDark(this), false)
+//        val images = introImages(AppThemeManager.isDark(this), !AdsSdk.isAdFree)
         listIntro = arrayListOf(
             IntroModel("onb1", getString(R.string.title1), getString(R.string.message1), images[0]),
             IntroModel("onb2", getString(R.string.title2), getString(R.string.message2), images[1]),
             IntroModel("onb3", getString(R.string.title3), getString(R.string.message3), images[2])
         )
 
-        val ok = AppAds.kit.nativeInlinePreloadStates.value["native_onb_full"] == AdPreloadState.READY
-        if (ok) listIntro.add(2, IntroModel("native_full"))
+        // 1.2.0: tắt ads -> không chèn trang native full.
+//        val ok = AppAds.kit.nativeInlinePreloadStates.value["native_onb_full"] == AdPreloadState.READY
+//        if (ok) listIntro.add(2, IntroModel("native_full"))
 
         binding.viewPager2.adapter = adapter
         binding.dotindicator.attachTo(binding.viewPager2)
@@ -62,13 +65,14 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
 
     // Gom 1 chỗ vì onb1/onb2/onb3 dùng chung layout, chỉ khác placement key.
     private fun showIntroNative(adUnitId: String) {
-        AppAds.kit.showNativeInline(
-            this,
-            adUnitId,
-            binding.frNative, R.layout.layout_native_onb
-        ){ state ->
-            binding.viewPager2.isUserInputEnabled = state != AdPreloadState.LOADING
-        }
+        // 1.2.0: tắt ads.
+//        AppAds.kit.showNativeInline(
+//            this,
+//            adUnitId,
+//            binding.frNative, R.layout.layout_native_onb
+//        ){ state ->
+//            binding.viewPager2.isUserInputEnabled = state != AdPreloadState.LOADING
+//        }
     }
 
     companion object {
@@ -95,19 +99,20 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
                         if (position == listIntro.size - 1) getString(R.string.complete) else getString(
                             R.string.continue_
                         )
-                    binding.frNative.isVisible = true
+                    // 1.2.0: tắt ads -> luôn ẩn khối native.
+                    binding.frNative.isVisible = false
                     binding.frNative.removeAllViews()
                     when (model.position) {
                         "onb1" -> {
-                            if (!AdsSdk.isAdFree) {
-                                showIntroNative("native_onb1")
-                            }
+//                            if (!AdsSdk.isAdFree) {
+//                                showIntroNative("native_onb1")
+//                            }
                         }
 
                         "onb2" -> {
-                            if (!AdsSdk.isAdFree) {
-                                showIntroNative("native_onb2")
-                            }
+//                            if (!AdsSdk.isAdFree) {
+//                                showIntroNative("native_onb2")
+//                            }
                         }
 
                         "onb3" -> {
@@ -148,11 +153,12 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
     }
 
     fun preloadnative() {
-        if (!AdsSdk.isAdFree) {
-            // Hâm nóng native cho màn Permission kế tiếp. SDK không có callback ở bước này nên
-            // không cần truyền gì thêm; lượt bind thật ở PermissionActivity vẫn tự tải nếu chưa có.
-            AppAds.kit.preloadNativeInline( "native_permission")
-        }
+        // 1.2.0: tắt ads.
+//        if (!AdsSdk.isAdFree) {
+//            // Hâm nóng native cho màn Permission kế tiếp. SDK không có callback ở bước này nên
+//            // không cần truyền gì thêm; lượt bind thật ở PermissionActivity vẫn tự tải nếu chưa có.
+//            AppAds.kit.preloadNativeInline( "native_permission")
+//        }
     }
 
 }

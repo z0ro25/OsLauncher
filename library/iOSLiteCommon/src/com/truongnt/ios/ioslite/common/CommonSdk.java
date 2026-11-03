@@ -4,7 +4,7 @@ package com.truongnt.ios.ioslite.common;
 import android.app.Application;
 import android.content.Context;
 
-import com.truongnt.ios.ioslite.common.ad.IOSAdManager;
+//import com.truongnt.ios.ioslite.common.ad.IOSAdManager;
 import com.truongnt.ios.ioslite.common.http.VolleyUtil;
 
 /**
@@ -22,7 +22,8 @@ public class CommonSdk {
         VolleyUtil.initalize(context);
         // Đảm bảo registry ad sẵn sàng ở CẢ 2 process (app + launcher desktop).
         // Chưa set impl thật -> DefaultAdManager no-op, an toàn tới khi gắn SDK.
-        IOSAdManager.getInstance(context);
+        // 1.2.0: tắt ads.
+//        IOSAdManager.getInstance(context);
     }
 
     /**

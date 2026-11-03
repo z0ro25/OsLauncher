@@ -180,7 +180,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.9.0")
     implementation("androidx.core:core-ktx:1.16.0")
     implementation("com.google.android.material:material:1.12.0")
-    implementation("com.google.android.ump:user-messaging-platform:4.0.0")
+    // 1.2.0: tắt ads -> UMP consent chỉ phục vụ ads nên comment theo.
+//    implementation("com.google.android.ump:user-messaging-platform:4.0.0")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.airbnb.android:lottie:6.6.2")
     implementation("com.intuit.sdp:sdp-android:1.1.0")
@@ -188,7 +189,8 @@ dependencies {
 
     // Adjust ở :app vì token là cấu hình của app. Mang quyền AD_ID — vốn đã có trong manifest
     // gộp từ trước (iOSLiteCommon từng khai) nên chuyển chỗ không đổi manifest.
-    implementation 'com.adjust.sdk:adjust-android:5.7.0'
+    // 1.2.0: tắt Adjust cùng ads.
+//    implementation 'com.adjust.sdk:adjust-android:5.7.0'
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }

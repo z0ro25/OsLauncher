@@ -19,9 +19,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
-import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
-import com.truongnt.ios.ioslite.common.config.AppAds;
+//import com.ezt.v2.ezt.admobdemo.ads.core.AdsSdk;
+//import com.ezt.v2.ezt.admobdemo.ads.placement.InlineAdBinding;
+//import com.truongnt.ios.ioslite.common.config.AppAds;
 import com.truongnt.ios.ioslite.common.util.ActivityUtil;
 import com.truongnt.ios.launcher.LauncherAnimUtils;
 import com.truongnt.ios.launcher.R;
@@ -59,7 +59,9 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         this.mWidgetInfoArrayList = arrayList;
         // Đã mua bản không quảng cáo -> không chừa chỗ cho ô quảng cáo. Cờ Remote Config theo
         // vị trí đã bỏ cùng RemoteConfigs; công tắc bật/tắt do SDK lo.
-        this.mAdAllowed = !AdsSdk.INSTANCE.isAdFree();
+        // 1.2.0: tắt ads -> không chừa ô quảng cáo.
+        this.mAdAllowed = false;
+//        this.mAdAllowed = !AdsSdk.INSTANCE.isAdFree();
     }
 
     // ── Trạng thái quảng cáo native trong MỘT lần vào màn ───────────────────────────────
@@ -84,7 +86,7 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     private FrameLayout mAdContainer;
 
     // Phiên ad đang chạy; close() khi gỡ ô/đóng màn để request đang bay không đổ vào container cũ.
-    private InlineAdBinding mAdBinding;
+//    private InlineAdBinding mAdBinding; // 1.2.0: tắt ads
 
     // Màn trái dựng sẵn ngoài màn hình vẫn bind -> chỉ phát request khi user đã thật sự vào màn.
     private boolean mPageOpen;
@@ -190,16 +192,19 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
         holder.itemView.setVisibility(View.VISIBLE);
         // Ghi rõ R của library vì file này đang import R của module launcher.
         closeAdBinding();
-        mAdBinding = AppAds.showNative((FragmentActivity) activity, NATIVE_PLACEMENT, container,
-                com.truongnt.ios.ioslite.common.R.layout.layout_native_left_page,
-                com.truongnt.ios.ioslite.common.R.layout.shimmer_native_left_page, hasAd -> {
-                    mAdState = hasAd ? AD_LOADED : AD_FAILED;
-                    if (!hasAd) {
-                        // Ô sắp bị gỡ: đóng phiên để SDK không retry cho slot không còn hiển thị.
-                        closeAdBinding();
-                        removeAdItem();
-                    }
-                });
+        // 1.2.0: tắt ads -> coi như lỗi, gỡ ô (mAdAllowed = false nên thực tế không tới đây).
+        mAdState = AD_FAILED;
+        removeAdItem();
+//        mAdBinding = AppAds.showNative((FragmentActivity) activity, NATIVE_PLACEMENT, container,
+//                com.truongnt.ios.ioslite.common.R.layout.layout_native_left_page,
+//                com.truongnt.ios.ioslite.common.R.layout.shimmer_native_left_page, hasAd -> {
+//                    mAdState = hasAd ? AD_LOADED : AD_FAILED;
+//                    if (!hasAd) {
+//                        // Ô sắp bị gỡ: đóng phiên để SDK không retry cho slot không còn hiển thị.
+//                        closeAdBinding();
+//                        removeAdItem();
+//                    }
+//                });
     }
 
     /**
@@ -262,10 +267,11 @@ public class CustomContentWidgetAdapter extends BouncyRecyclerView.BouncyAdapter
     }
 
     private void closeAdBinding() {
-        if (mAdBinding != null) {
-            mAdBinding.close();
-            mAdBinding = null;
-        }
+        // 1.2.0: tắt ads.
+//        if (mAdBinding != null) {
+//            mAdBinding.close();
+//            mAdBinding = null;
+//        }
     }
 
     // Holder ad bị recycle -> container đó không còn hiển thị ad, huỷ phiên để khỏi đổ vào view chết.
