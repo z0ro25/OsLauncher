@@ -54,6 +54,8 @@
     <string name="cc_add_control">Steuerelement hinzufügen</string>
     <string name="cc_controls_full">Keine freien Plätze mehr</string>
     <string name="cc_controls_all_added">Alle Steuerelemente wurden hinzugefügt</string>
+    <string name="cc_search">Suchen</string>
+    <string name="cc_search_empty">Keine Ergebnisse</string>
     <string name="cc_tile_flashlight">Taschenlampe</string>
     <string name="cc_tile_alarm">Wecker</string>
     <string name="cc_tile_calculator">Rechner</string>

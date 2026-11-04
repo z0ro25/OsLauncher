@@ -2,6 +2,7 @@ package com.ezla.oslauncher.controlcenter.widget
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.FrameLayout
@@ -11,6 +12,8 @@ import com.ezla.oslauncher.controlcenter.R
 import com.ezla.oslauncher.controlcenter.skin.CcAccent
 import com.ezla.oslauncher.controlcenter.skin.CcSkinSlot
 import com.ezla.oslauncher.controlcenter.skin.CcSkinSource
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 
 // Ô tròn 1x1 của panel (Figma "Control Tile / Toggle"): tắt = kính tối icon trắng, bật = nền trắng icon đen
 // (hoặc màu theme [accent], icon tự đen/trắng theo độ sáng).
@@ -18,10 +21,11 @@ class CcTileView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val icon = ImageView(context).apply {
+    private val icon = ShapeableImageView(context).apply {
         scaleType = ImageView.ScaleType.FIT_CENTER
         importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
     }
+    private val appCorner = resources.getDimension(R.dimen.cc_tile_app_icon_radius)
 
     var isOn = false
         set(v) {
@@ -59,7 +63,33 @@ class CcTileView @JvmOverloads constructor(
         render()
     }
 
-    fun setIcon(@DrawableRes res: Int) = icon.setImageResource(res)
+    // true = icon app (ảnh màu thật, to hơn icon chức năng): không tint, như Figma "Logo" trong ô.
+    private var appIcon = false
+
+    fun setIcon(@DrawableRes res: Int) {
+        appIcon = false
+        icon.setImageResource(res)
+        layoutIcon()
+        render()
+    }
+
+    fun setAppIcon(d: Drawable?) {
+        appIcon = true
+        icon.setImageDrawable(d)
+        layoutIcon()
+        render()
+    }
+
+    private fun layoutIcon() {
+        icon.shapeAppearanceModel = ShapeAppearanceModel.builder().setAllCornerSizes(if (appIcon) appCorner else 0f).build()
+        val size = resources.getDimensionPixelSize(if (appIcon) R.dimen.cc_tile_app_icon else R.dimen.cc_tile_icon)
+        val lp = icon.layoutParams as LayoutParams
+        if (lp.width != size) {
+            lp.width = size
+            lp.height = size
+            icon.layoutParams = lp
+        }
+    }
 
     private fun render() {
         icon.visibility = if (isSlot) INVISIBLE else VISIBLE
@@ -73,6 +103,7 @@ class CcTileView @JvmOverloads constructor(
             else -> R.drawable.cc_bg_tile
         })
         val onIcon = accent?.iconColor ?: 0xFF000000.toInt()
-        icon.imageTintList = ColorStateList.valueOf(if (isOn) onIcon else 0xFFFFFFFF.toInt())
+        icon.imageTintList = if (appIcon) null
+        else ColorStateList.valueOf(if (isOn) onIcon else 0xFFFFFFFF.toInt())
     }
 }

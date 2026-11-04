@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import com.ezla.oslauncher.beautylauncher.R
+import com.ezla.oslauncher.controlcenter.system.CcWallpaper
 import java.util.Calendar
 
 /**
@@ -253,6 +254,8 @@ object AppThemeManager {
                 val bm = BitmapFactory.decodeResource(appCtx.resources, resId) ?: return@Thread
                 val wm = WallpaperManager.getInstance(appCtx)
                 wm.setBitmap(bm)
+                // Android 13+ không cho đọc lại wallpaper: lưu bản này để Control Center làm nền mờ.
+                CcWallpaper.remember(appCtx, bm)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

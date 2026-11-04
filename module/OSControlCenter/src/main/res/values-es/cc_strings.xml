@@ -54,6 +54,8 @@
     <string name="cc_add_control">Añadir control</string>
     <string name="cc_controls_full">No quedan espacios libres</string>
     <string name="cc_controls_all_added">Se han añadido todos los controles</string>
+    <string name="cc_search">Buscar</string>
+    <string name="cc_search_empty">Sin resultados</string>
     <string name="cc_tile_flashlight">Linterna</string>
     <string name="cc_tile_alarm">Alarma</string>
     <string name="cc_tile_calculator">Calculadora</string>

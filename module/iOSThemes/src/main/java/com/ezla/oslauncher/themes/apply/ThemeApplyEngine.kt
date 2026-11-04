@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import com.ezla.oslauncher.themes.Models.ThemeDetail
+import com.ezla.oslauncher.controlcenter.system.CcWallpaper
 import com.ezla.oslauncher.themes.ThemesEntry
 import com.truongnt.ios.ioslite.common.util.PreferencesUtil
 import com.truongnt.ios.launcher.LauncherAppState
@@ -170,6 +171,8 @@ object ThemeApplyEngine {
         } else {
             wm.setBitmap(bmp)
         }
+        // Android 13+ không cho đọc lại wallpaper: lưu bản này để Control Center làm nền mờ.
+        if (home) CcWallpaper.remember(context, bmp)
         true
     } catch (t: Throwable) {
         t.printStackTrace()

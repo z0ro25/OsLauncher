@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nền sheet thêm tiện ích (Figma 2036:1197): tím đen 20% + mờ nền, bo 24 hai góc trên. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/cc_sheet_glass" />
+    <corners android:topLeftRadius="24dp" android:topRightRadius="24dp" />
+    <stroke android:width="1dp" android:color="@color/cc_tile_stroke" />
+</shape>

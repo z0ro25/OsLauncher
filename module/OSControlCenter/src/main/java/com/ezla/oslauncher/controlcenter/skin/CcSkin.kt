@@ -36,11 +36,19 @@ object CcSkin {
         return true
     }
 
-    // Bản đầy đủ cho lúc ghép thay theme: ảnh nền ô + màu "đang bật" (1-3 mã hex, null = màu gốc).
-    // Màu ghi trước ảnh để panel đọc lại 1 lần đủ cả hai khi key theme đổi.
+    // Bản đầy đủ: ảnh nền ô + màu "đang bật" (1-3 mã hex). Theme chỉ có màu / chỉ có ảnh vẫn áp được;
+    // không có cả hai -> false, giữ nguyên skin cũ. Màu ghi trước, key theme ghi cuối (panel đọc lại).
     fun install(c: Context, themeId: String, files: Map<CcSkinSlot, File>, accentHex: List<String>?): Boolean {
-        CcAccent.install(c, CcAccent.parse(accentHex))
-        return install(c, themeId, files)
+        val accent = CcAccent.parse(accentHex)
+        if (files.isEmpty() && accent == null) return false
+        val target = dir(c)
+        target.deleteRecursively()
+        if (files.isNotEmpty() && !target.mkdirs()) return false
+        files.forEach { (slot, src) -> src.copyTo(file(c, slot), overwrite = true) }
+        cache = null
+        CcAccent.install(c, accent)
+        CcPrefs.prefs(c).edit().putString(KEY_THEME_ID, themeId).apply()
+        return true
     }
 
     fun clear(c: Context) {

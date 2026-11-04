@@ -35,6 +35,9 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.activity:activity-ktx:1.8.2'
     implementation 'com.google.android.material:material:1.11.0'
+    // Sheet thêm tiện ích đọc danh sách app ở luồng nền (lifecycleScope); cùng bản với iOSThemes.
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
     // BaseActivity / onboarding dùng chung của các app tiện ích (locale, banner, ẩn nav bar).
     implementation project(':library:OSAppBase')
 }

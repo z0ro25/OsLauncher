@@ -54,6 +54,8 @@
     <string name="cc_add_control">Ajouter une commande</string>
     <string name="cc_controls_full">Plus aucun emplacement libre</string>
     <string name="cc_controls_all_added">Toutes les commandes ont été ajoutées</string>
+    <string name="cc_search">Rechercher</string>
+    <string name="cc_search_empty">Aucun résultat</string>
     <string name="cc_tile_flashlight">Lampe torche</string>
     <string name="cc_tile_alarm">Alarme</string>
     <string name="cc_tile_calculator">Calculatrice</string>

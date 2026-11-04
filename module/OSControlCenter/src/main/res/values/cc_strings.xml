@@ -66,6 +66,8 @@
     <string name="cc_add_control">Add Control</string>
     <string name="cc_controls_full">No more empty slots</string>
     <string name="cc_controls_all_added">All controls have been added</string>
+    <string name="cc_search">Search</string>
+    <string name="cc_search_empty">No results</string>
     <string name="cc_tile_flashlight">Flashlight</string>
     <string name="cc_tile_alarm">Alarm</string>
     <string name="cc_tile_calculator">Calculator</string>

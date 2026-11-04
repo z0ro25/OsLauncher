@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Cửa sổ Control Center toàn màn: nền wallpaper (mờ/không mờ) + 3 trang vuốt dọc. -->
+<!-- Cửa sổ Control Center toàn màn: nền blur giao diện bên dưới (tắt Blur: wallpaper rõ) + 3 trang vuốt dọc. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ccRoot"
     android:layout_width="match_parent"

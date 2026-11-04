@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ezla.oslauncher.controlcenter.R
+import com.ezla.oslauncher.controlcenter.data.CcSlot
 import com.ezla.oslauncher.controlcenter.data.CcTile
 import com.ezla.oslauncher.controlcenter.databinding.CcPanelMainBinding
 import com.ezla.oslauncher.controlcenter.panel.TileGridAdapter
@@ -50,7 +51,7 @@ class CcPanelPreview(context: Context) {
         ))
         b.ccTileGrid.itemAnimator = null
         b.ccTileGrid.adapter = tiles
-        tiles.tiles = CcTile.DEFAULT
+        tiles.tiles = CcSlot.DEFAULT
         b.ccTileRotation.setIcon(R.drawable.cc_ic_rotation_lock)
         b.ccTileSilent.setIcon(R.drawable.cc_ic_bell_slash)
         b.ccSliderBrightness.icon = ContextCompat.getDrawable(themed, R.drawable.cc_ic_sun)

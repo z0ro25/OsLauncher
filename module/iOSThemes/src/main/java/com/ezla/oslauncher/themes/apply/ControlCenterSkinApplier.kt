@@ -16,7 +16,8 @@ object ControlCenterSkinApplier {
 
     private const val TMP_DIR = "cc_skin_download"
 
-    suspend fun apply(context: Context, themeId: String, skins: List<CcSkinItem>): Boolean =
+    // [colors] = control_systems.color (1-3 mã hex màu "đang bật"); rỗng = giữ màu gốc của panel.
+    suspend fun apply(context: Context, themeId: String, skins: List<CcSkinItem>, colors: List<String>): Boolean =
         withContext(Dispatchers.IO) {
             val app = context.applicationContext
             val tmp = File(app.cacheDir, TMP_DIR).apply { deleteRecursively(); mkdirs() }
@@ -29,7 +30,7 @@ object ControlCenterSkinApplier {
                     if (!download(item.imageUrl, dest)) return@withContext false
                     files[slot] = dest
                 }
-                CcSkin.install(app, themeId, files)
+                CcSkin.install(app, themeId, files, colors)
             } finally {
                 tmp.deleteRecursively()
             }

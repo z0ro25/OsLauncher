@@ -54,6 +54,8 @@
     <string name="cc_add_control">कंट्रोल जोड़ें</string>
     <string name="cc_controls_full">कोई खाली जगह नहीं बची</string>
     <string name="cc_controls_all_added">सभी कंट्रोल जोड़ दिए गए हैं</string>
+    <string name="cc_search">खोजें</string>
+    <string name="cc_search_empty">कोई परिणाम नहीं</string>
     <string name="cc_tile_flashlight">फ़्लैशलाइट</string>
     <string name="cc_tile_alarm">अलार्म</string>
     <string name="cc_tile_calculator">कैलकुलेटर</string>

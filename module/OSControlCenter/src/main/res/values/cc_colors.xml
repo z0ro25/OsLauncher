@@ -43,4 +43,8 @@
     <color name="cc_nc_title">#FFFFFF</color>
     <color name="cc_nc_body">#CCFFFFFF</color>
     <color name="cc_nc_button">#12FFFFFF</color>
+
+    <!-- Sheet thêm tiện ích (Figma 2036:1196) -->
+    <color name="cc_sheet_glass">#B3140818</color>
+    <color name="cc_search_hint">#99FFFFFF</color>
 </resources>

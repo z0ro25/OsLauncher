@@ -1,48 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Sheet chọn ô để thêm (Figma chưa có frame: dựng theo style màn cài đặt, user đã đồng ý). -->
+<!-- Sheet thêm tiện ích (Figma "Custom Controls" 2036:1196): tay nắm, ô Search, lưới 4 cột ô tròn +
+     tên. Đầu lưới là ô chức năng hệ thống đã bị xoá (nếu có), sau đó là app cài trên máy. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/cc_bg_sheet"
-    android:orientation="vertical"
-    android:paddingBottom="24dp">
+    android:layout_height="match_parent"
+    android:background="@drawable/cc_bg_sheet_glass"
+    android:orientation="vertical">
 
     <View
-        android:layout_width="36dp"
+        android:layout_width="40dp"
         android:layout_height="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:background="@drawable/cc_bg_pill_gray" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/appbase_sf_pro_semibold"
-        android:gravity="center"
-        android:text="@string/cc_add_control"
-        android:textColor="@color/cc_title"
-        android:textSize="17sp" />
+        android:background="@drawable/cc_bg_sheet_handle" />
 
     <LinearLayout
-        style="@style/CcCard"
-        android:layout_marginTop="16dp">
+        android:layout_width="@dimen/cc_panel_width"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/cc_bg_tile"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/cc_ic_search" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fontFamily="@font/appbase_sf_pro_medium"
+            android:hint="@string/cc_search"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/cc_white"
+            android:textColorHint="@color/cc_search_hint"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTiles"
+            android:layout_width="@dimen/cc_panel_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="24dp" />
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:indeterminateTint="@color/cc_white" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/cc_controls_all_added"
-        android:textColor="@color/cc_text_secondary"
-        android:textSize="14sp"
-        android:visibility="gone" />
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/cc_controls_all_added"
+            android:textColor="@color/cc_search_hint"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </FrameLayout>
 </LinearLayout>

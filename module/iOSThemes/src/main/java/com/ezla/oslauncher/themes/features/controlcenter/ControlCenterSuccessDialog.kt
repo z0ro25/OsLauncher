@@ -35,7 +35,9 @@ class ControlCenterSuccessDialog : BottomSheetDialogFragment() {
         val names = args.getStringArrayList(ARG_NAMES).orEmpty()
         val urls = args.getStringArrayList(ARG_URLS).orEmpty()
         binding.frSetCcPreview.visibility = View.VISIBLE
-        CcPreviewBinder(binding.frSetCcPreview).bind(names.zip(urls) { n, u -> CcSkinItem(n, u) })
+        CcPreviewBinder(binding.frSetCcPreview).bind(
+            names.zip(urls) { n, u -> CcSkinItem(n, u) }, args.getStringArrayList(ARG_COLORS).orEmpty()
+        )
         binding.tvSuccessSub.setText(R.string.themes_cc_ready)
         binding.btnExplore.setText(R.string.themes_explore_more_cc)
         binding.btnGoHome.setOnClickListener {
@@ -70,13 +72,16 @@ class ControlCenterSuccessDialog : BottomSheetDialogFragment() {
         private const val ARG_PREVIEW = "preview"
         private const val ARG_NAMES = "names"
         private const val ARG_URLS = "urls"
+        private const val ARG_COLORS = "colors"
 
-        fun newInstance(previewUrl: String?, skins: List<CcSkinItem>) = ControlCenterSuccessDialog().apply {
-            arguments = bundleOf(
-                ARG_PREVIEW to previewUrl,
-                ARG_NAMES to ArrayList(skins.map { it.name }),
-                ARG_URLS to ArrayList(skins.map { it.imageUrl })
-            )
-        }
+        fun newInstance(previewUrl: String?, skins: List<CcSkinItem>, colors: List<String> = emptyList()) =
+            ControlCenterSuccessDialog().apply {
+                arguments = bundleOf(
+                    ARG_PREVIEW to previewUrl,
+                    ARG_NAMES to ArrayList(skins.map { it.name }),
+                    ARG_URLS to ArrayList(skins.map { it.imageUrl }),
+                    ARG_COLORS to ArrayList(colors)
+                )
+            }
     }
 }

@@ -54,6 +54,8 @@
     <string name="cc_add_control">컨트롤 추가</string>
     <string name="cc_controls_full">빈 슬롯이 없습니다</string>
     <string name="cc_controls_all_added">모든 컨트롤이 추가되었습니다</string>
+    <string name="cc_search">검색</string>
+    <string name="cc_search_empty">결과 없음</string>
     <string name="cc_tile_flashlight">손전등</string>
     <string name="cc_tile_alarm">알람</string>
     <string name="cc_tile_calculator">계산기</string>

@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ezla.oslauncher.controlcenter.CcPrefs
+import com.ezla.oslauncher.controlcenter.data.CcApps
+import com.ezla.oslauncher.controlcenter.data.CcSlot
 import com.ezla.oslauncher.controlcenter.data.CcTile
 import com.ezla.oslauncher.controlcenter.databinding.CcPanelMainBinding
 import com.ezla.oslauncher.controlcenter.databinding.CcPanelMusicBinding
@@ -53,7 +55,7 @@ class ControlPanelPages(
         fun closePanel()
         fun onPageChanged(page: Int) {}
         fun onAddTileRequested() {}
-        fun onTilesChanged(tiles: List<CcTile>) {}
+        fun onTilesChanged(tiles: List<CcSlot>) {}
     }
 
     private val inflater = LayoutInflater.from(context)
@@ -71,7 +73,7 @@ class ControlPanelPages(
     // Màn sửa có header 48dp nên đẩy trang chính xuống thêm; overlay theo Figma y = 114dp.
     var pageTopOffsetDp = 114
 
-    private var tiles: List<CcTile> = CcPrefs.tiles(context)
+    private var tiles: List<CcSlot> = loadTiles()
     private var accent: CcAccent? = null
     private val tileAdapter = TileGridAdapter(
         isOn = ::isTileOn,
@@ -166,11 +168,16 @@ class ControlPanelPages(
     fun showPage(page: Int, smooth: Boolean = true) = pager.setCurrentItem(page, smooth)
 
     fun reloadTiles() {
-        tiles = CcPrefs.tiles(context)
+        tiles = loadTiles()
         tileAdapter.tiles = tiles
     }
 
-    fun addTile(tile: CcTile) {
+    // Panel thật bỏ ô app đã gỡ (giữ trong prefs, cài lại là hiện lại); màn sửa hiện đủ để còn xoá được.
+    private fun loadTiles(): List<CcSlot> = CcPrefs.tiles(context).filter { slot ->
+        editMode || slot !is CcSlot.App || CcApps.isInstalled(context, slot.packageName)
+    }
+
+    fun addTile(tile: CcSlot) {
         if (tiles.size >= CcTile.MAX || tile in tiles) return
         tiles = tiles + tile
         saveTiles()
@@ -178,7 +185,7 @@ class ControlPanelPages(
 
     fun currentTiles() = tiles
 
-    private fun removeTile(tile: CcTile) {
+    private fun removeTile(tile: CcSlot) {
         tiles = tiles - tile
         saveTiles()
     }
@@ -300,7 +307,19 @@ class ControlPanelPages(
         else -> false
     }
 
-    private fun onTileClick(tile: CcTile) {
+    private fun onTileClick(slot: CcSlot) {
+        when (slot) {
+            is CcSlot.System -> onSystemTileClick(slot.tile)
+            is CcSlot.App -> open { c ->
+                val launch = CcApps.launchIntent(c, slot.packageName)
+                if (launch == null || !CcActions.start(c, launch)) {
+                    Toast.makeText(c, R.string.cc_no_app, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun onSystemTileClick(tile: CcTile) {
         when (tile) {
             CcTile.FLASHLIGHT -> {
                 flash.toggle()

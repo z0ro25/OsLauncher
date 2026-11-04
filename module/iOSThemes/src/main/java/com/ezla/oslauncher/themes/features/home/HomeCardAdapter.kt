@@ -112,7 +112,7 @@ class HomeCardAdapter(
         b.pbImage.visibility = if (tracker.done) View.GONE else View.VISIBLE
         if (image != null) b.imgCard.loadCardImage(image, tracker::report)
         else Glide.with(b.imgCard).clear(b.imgCard)
-        if (cc != null) h.ccPreview().bind(cc.skins, tracker::report)
+        if (cc != null) h.ccPreview().bind(cc.skins, cc.colors, tracker::report)
         b.root.setOnClickListener { onClick(item) }
     }
 

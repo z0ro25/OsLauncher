@@ -3,7 +3,7 @@ package com.ezla.oslauncher.controlcenter
 import android.content.Context
 import android.content.SharedPreferences
 import com.ezla.oslauncher.controlcenter.data.CcEdge
-import com.ezla.oslauncher.controlcenter.data.CcTile
+import com.ezla.oslauncher.controlcenter.data.CcSlot
 
 // Cài đặt Control Center. File prefs riêng của module để service lắng nghe thay đổi (listener)
 // mà không bị kích bởi key của module khác.
@@ -71,15 +71,15 @@ object CcPrefs {
             .apply()
     }
 
-    // Lưu theo tên enum, bỏ qua tên lạ (enum đổi giữa các bản) để không crash khi đọc prefs cũ.
-    fun tiles(c: Context): List<CcTile> {
-        val raw = prefs(c).getString(KEY_TILES, null) ?: return CcTile.DEFAULT
+    // Ô hệ thống + ô app (CcSlot.key); đọc được cả định dạng cũ chỉ có tên CcTile, bỏ qua mục lạ.
+    fun tiles(c: Context): List<CcSlot> {
+        val raw = prefs(c).getString(KEY_TILES, null) ?: return CcSlot.DEFAULT
         if (raw.isEmpty()) return emptyList()
-        return raw.split(',').mapNotNull { name -> CcTile.values().firstOrNull { it.name == name } }
+        return raw.split(',').mapNotNull { CcSlot.fromKey(it) }.distinct()
     }
 
-    fun saveTiles(c: Context, tiles: List<CcTile>) {
-        prefs(c).edit().putString(KEY_TILES, tiles.joinToString(",") { it.name }).apply()
+    fun saveTiles(c: Context, tiles: List<CcSlot>) {
+        prefs(c).edit().putString(KEY_TILES, tiles.joinToString(",") { it.key }).apply()
     }
 
     data class EdgeSettings(

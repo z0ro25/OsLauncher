@@ -54,6 +54,8 @@
     <string name="cc_add_control">Tambah Kontrol</string>
     <string name="cc_controls_full">Tidak ada slot kosong lagi</string>
     <string name="cc_controls_all_added">Semua kontrol telah ditambahkan</string>
+    <string name="cc_search">Cari</string>
+    <string name="cc_search_empty">Tidak ada hasil</string>
     <string name="cc_tile_flashlight">Senter</string>
     <string name="cc_tile_alarm">Alarm</string>
     <string name="cc_tile_calculator">Kalkulator</string>

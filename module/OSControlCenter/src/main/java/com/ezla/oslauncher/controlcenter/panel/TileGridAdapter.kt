@@ -5,28 +5,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ezla.oslauncher.controlcenter.R
+import com.ezla.oslauncher.controlcenter.data.CcApps
+import com.ezla.oslauncher.controlcenter.data.CcSlot
 import com.ezla.oslauncher.controlcenter.data.CcTile
 import com.ezla.oslauncher.controlcenter.databinding.CcItemTileBinding
 import com.ezla.oslauncher.controlcenter.skin.CcAccent
 import com.ezla.oslauncher.controlcenter.skin.CcSkinSource
 
-// Lưới ô 1x1. Chế độ sửa: mỗi ô có nút "–" và kéo thả đổi chỗ được, sau các ô là 1 ô "+"
-// và các slot trống tới đủ 12.
+// Lưới ô 1x1 (chức năng hệ thống hoặc app). Chế độ sửa: mỗi ô có nút "–" và kéo thả đổi chỗ được,
+// sau các ô là 1 ô "+" và các slot trống tới đủ 12.
 class TileGridAdapter(
     private val isOn: (CcTile) -> Boolean,
-    private val onClick: (CcTile) -> Unit,
-    private val onRemove: (CcTile) -> Unit = {},
+    private val onClick: (CcSlot) -> Unit,
+    private val onRemove: (CcSlot) -> Unit = {},
     private val onAdd: () -> Unit = {}
 ) : RecyclerView.Adapter<TileGridAdapter.Holder>() {
 
-    var tiles: List<CcTile> = emptyList()
+    var tiles: List<CcSlot> = emptyList()
         set(v) {
             field = v
             notifyDataSetChanged()
         }
 
     // Thứ tự đang kéo: đổi chỗ bằng notifyItemMoved (notifyDataSetChanged sẽ huỷ thao tác kéo).
-    private var dragging: MutableList<CcTile>? = null
+    private var dragging: MutableList<CcSlot>? = null
     private val current get() = dragging ?: tiles
 
     var editMode = false
@@ -61,7 +63,7 @@ class TileGridAdapter(
     }
 
     // Thả tay: trả thứ tự mới (null = không đổi) để nơi gắn lưu, rồi vẽ lại cho nút "–" đúng ô.
-    fun endDrag(): List<CcTile>? {
+    fun endDrag(): List<CcSlot>? {
         val result = dragging?.toList()
         dragging = null
         if (result != null && result != tiles) {
@@ -82,14 +84,24 @@ class TileGridAdapter(
         val list = current
         val tile = list.getOrNull(position)
         val b = h.b
+        val ctx = b.root.context
         b.ccTile.skin = skin
         b.ccTile.accent = accent
         when {
             tile != null -> {
                 b.ccTile.isSlot = false
-                b.ccTile.setIcon(tile.icon)
-                b.ccTile.isOn = !editMode && isOn(tile)
-                b.ccTile.contentDescription = b.root.context.getString(tile.label)
+                when (tile) {
+                    is CcSlot.System -> {
+                        b.ccTile.setIcon(tile.tile.icon)
+                        b.ccTile.isOn = !editMode && isOn(tile.tile)
+                        b.ccTile.contentDescription = ctx.getString(tile.tile.label)
+                    }
+                    is CcSlot.App -> {
+                        b.ccTile.setAppIcon(CcApps.icon(ctx, tile.packageName))
+                        b.ccTile.isOn = false
+                        b.ccTile.contentDescription = CcApps.label(ctx, tile.packageName)
+                    }
+                }
                 b.ccTile.setOnClickListener { if (!editMode) onClick(tile) }
                 b.ccTileMinus.visibility = if (editMode) View.VISIBLE else View.GONE
                 b.ccTileMinus.setOnClickListener { onRemove(tile) }

@@ -35,6 +35,7 @@ import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenCallback
 import com.ezt.v2.ezt.admobdemo.ads.placement.AdFullScreenResult
 import com.ezt.v2.ezt.admobdemo.ads.placement.PlacementFormat
 import com.truongnt.ios.ioslite.common.config.AppAds
+import com.ezla.oslauncher.controlcenter.system.CcWallpaper
 import com.truongnt.ios.ioslite.common.config.SharePrefUtils
 import com.truongnt.ios.launcher.searchlauncher.SearchLauncher
 import kotlinx.coroutines.launch
@@ -193,6 +194,8 @@ class SelectBackgroundActivity : BaseActivity<ActivitySelectBackgroundBinding>()
                 } else {
                     wm.setBitmap(bitmap)
                 }
+                // Android 13+ không cho đọc lại wallpaper: lưu bản này để Control Center làm nền mờ.
+                CcWallpaper.remember(appContext, bitmap)
             } catch (e: Exception) {
                 e.printStackTrace()
                 Handler(Looper.getMainLooper()).post {

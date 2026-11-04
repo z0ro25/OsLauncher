@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 1 ô trong sheet thêm tiện ích (Figma "App Name" 65x83): ô tròn kính 65dp + tên 12sp. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CcRow">
+    android:layout_width="@dimen/cc_tile"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ivIcon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/cc_bg_tile"
-        android:backgroundTint="#8E8E93"
-        android:importantForAccessibility="no"
-        android:padding="7dp" />
+    <com.ezla.oslauncher.controlcenter.widget.CcTileView
+        android:id="@+id/ccTile"
+        android:layout_width="@dimen/cc_tile"
+        android:layout_height="@dimen/cc_tile" />
 
     <TextView
         android:id="@+id/tvLabel"
-        style="@style/CcRowLabel" />
-
-    <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:importantForAccessibility="no"
-        android:src="@drawable/cc_ic_plus"
-        android:tint="@color/cc_green" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/appbase_sf_pro_regular"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/cc_white"
+        android:textSize="12sp" />
 </LinearLayout>

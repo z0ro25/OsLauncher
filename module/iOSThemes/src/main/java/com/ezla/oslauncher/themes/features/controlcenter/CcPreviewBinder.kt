@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.ezla.oslauncher.controlcenter.skin.CcAccent
 import com.ezla.oslauncher.controlcenter.skin.CcPanelPreview
 import com.ezla.oslauncher.controlcenter.skin.CcSkinSlot
 import com.ezla.oslauncher.controlcenter.skin.CcSkinSource
@@ -26,11 +27,13 @@ class CcPreviewBinder(private val host: FrameLayout) {
         host.addOnLayoutChangeListener { _, l, t, r, b, _, _, _, _ -> fit(r - l, b - t) }
     }
 
-    // [onDone] báo true khi mọi ảnh tải xong (rỗng = xong ngay), false nếu có ảnh lỗi.
-    fun bind(skins: List<CcSkinItem>, onDone: (Boolean) -> Unit = {}) {
+    // [colors] = màu "đang bật" của theme (1-3 mã hex, rỗng = màu gốc). [onDone] báo true khi mọi
+    // ảnh tải xong (rỗng = xong ngay), false nếu có ảnh lỗi.
+    fun bind(skins: List<CcSkinItem>, colors: List<String> = emptyList(), onDone: (Boolean) -> Unit = {}) {
         val current = ++token
         clearTargets()
         preview.setSkin(null)
+        preview.setAccent(CcAccent.parse(colors))
         val bySlot = skins.mapNotNull { s -> CcSkinSlot.fromName(s.name)?.let { it to s.imageUrl } }
             .distinctBy { it.first }
         if (bySlot.isEmpty()) {

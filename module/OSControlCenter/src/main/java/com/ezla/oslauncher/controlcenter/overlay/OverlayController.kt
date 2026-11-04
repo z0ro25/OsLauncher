@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -262,10 +263,15 @@ class OverlayController(private val context: Context) {
 
     private fun applyPanelBackground() {
         val b = panelBinding ?: return
-        val blur = CcPrefs.isBlur(context)
-        b.ccScrim.setBackgroundColor(ContextCompat.getColor(context,
+        applyBackdrop(b.ccBg, b.ccScrim, CcPrefs.isBlur(context))
+    }
+
+    // Nền = hình nền đã làm mờ (Blur bật) hoặc ảnh rõ (Blur tắt), nguồn ảnh xem CcWallpaper.
+    // Không dùng blur cửa sổ của hệ thống: đã thử 2 cách, overlay Accessibility không được làm mờ.
+    private fun applyBackdrop(bg: ImageView, scrim: View, blur: Boolean) {
+        scrim.setBackgroundColor(ContextCompat.getColor(context,
             if (blur) R.color.cc_panel_scrim else R.color.cc_panel_scrim_no_blur))
-        CcWallpaper.load(context, blur) { bmp -> if (bmp != null) b.ccBg.setImageBitmap(bmp) }
+        CcWallpaper.load(context, blur) { bmp -> if (bmp != null) bg.setImageBitmap(bmp) }
     }
 
     private fun renderDots(page: Int) {
@@ -334,7 +340,8 @@ class OverlayController(private val context: Context) {
         ncOpen = true
         applyHandles()
         val b = ncBinding ?: return
-        CcWallpaper.load(context, true) { bmp -> if (bmp != null) b.ncBg.setImageBitmap(bmp) }
+        // Thông báo luôn mờ (trước đây cũng không theo công tắc Blur).
+        applyBackdrop(b.ncBg, b.ncScrim, true)
         ncFlash?.start()
         renderNcFlash(ncFlash?.isOn == true)
         renderNotifications()
