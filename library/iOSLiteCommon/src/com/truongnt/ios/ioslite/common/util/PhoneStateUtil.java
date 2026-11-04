@@ -11,11 +11,9 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
 
-import static android.content.Context.TELEPHONY_SERVICE;
 import static android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE;
 import static android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL;
 
@@ -31,7 +29,6 @@ public class PhoneStateUtil {
     public AudioManager mAudioManager;
     public BluetoothAdapter mBluetoothAdapter;
     public ConnectivityManager mConnectivityManager;
-    public TelephonyManager mTelephonyManager;
     public LocationManager mLocationManager;
     public Vibrator mVibrator;
 
@@ -41,7 +38,6 @@ public class PhoneStateUtil {
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         mConnectivityManager = (ConnectivityManager) mContext.getSystemService(Activity.CONNECTIVITY_SERVICE);
-        mTelephonyManager = (TelephonyManager) mContext.getSystemService(TELEPHONY_SERVICE);
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         mVibrator = (Vibrator) mContext.getSystemService(Service.VIBRATOR_SERVICE);
         mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -58,8 +54,9 @@ public class PhoneStateUtil {
         return mUtils;
     }
 
+    // Coi như luôn có SIM: bỏ hẳn TelephonyManager để store không quét ra API điện thoại.
     public boolean checkPhoneNet() {
-        return mTelephonyManager.getSimState() != TelephonyManager.SIM_STATE_ABSENT;
+        return true;
     }
 
     public boolean isAlplaneMode() {
