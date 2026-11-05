@@ -39,9 +39,16 @@ data class ApiTheme(
     @SerializedName("thumbnail") val thumbnail: List<ApiImage> = emptyList(),
     // Giá mở khoá phần icon của theme (số xu).
     @SerializedName("icons_coins") val iconsCoins: Int = 0,
+    @SerializedName("download_count") val downloadCount: Int = 0,
+    @SerializedName("active") val active: Int = 0,
     @SerializedName("order") val order: Int = 0,
+    @SerializedName("created_at") val createdAt: String? = null,
+    @SerializedName("updated_at") val updatedAt: String? = null,
     // User đã mở khoá phần icon chưa (server lưu theo device).
     @SerializedName("is_unlocked") val isUnlocked: Boolean = false,
+    // Trạng thái mở khoá tách riêng từng phần (server lưu theo device): bộ icon / ảnh nền của theme.
+    @SerializedName("logos_unlocked") val logosUnlocked: Boolean = false,
+    @SerializedName("backgrounds_unlocked") val backgroundsUnlocked: Boolean = false,
     @SerializedName("backgrounds") val backgrounds: List<ThemeBackground> = emptyList(),
     @SerializedName("logos") val logos: List<ThemeLogo> = emptyList(),
     // Skin Control Center của theme; chỉ có khi `fields` có "control_systems". null = không có.

@@ -75,6 +75,7 @@ class ControlPanelPages(
 
     private var tiles: List<CcSlot> = loadTiles()
     private var accent: CcAccent? = null
+    private var skinSource: CcSkinSource? = null
     private val tileAdapter = TileGridAdapter(
         isOn = ::isTileOn,
         onClick = ::onTileClick,
@@ -129,6 +130,8 @@ class ControlPanelPages(
     fun applySkin(source: CcSkinSource?) {
         val src = source ?: CcSkinSource { null }
         mainBinding.applySkin(context, src)
+        skinSource = source
+        renderFocus(state.isDndOn())
         tileAdapter.skin = source
         connAdapter.skin = source
         musicBinding.root.background = src.get(CcSkinSlot.MUSIC)
@@ -456,7 +459,7 @@ class ControlPanelPages(
         chip(b.ccChipHotspot, false, R.drawable.cc_bg_chip_blue)
         b.ccTileRotation.isOn = state.isRotationLocked()
         b.ccTileSilent.isOn = state.isSilent()
-        b.ccFocusDetail.setText(if (state.isDndOn()) R.string.cc_on else R.string.cc_off)
+        renderFocus(state.isDndOn())
         b.ccSliderBrightness.setValue(state.brightness() / 255f)
         b.ccSliderVolume.setValue(state.volumeFraction())
         b.ccSliderBrightness.isLocked = editMode || !CcPermissions.canWriteSettings(context)
@@ -469,6 +472,24 @@ class ControlPanelPages(
             ConnectionAdapter.Item.SYNC to sync
         )
         renderProgress()
+    }
+
+    // Figma Focus state=On: nền sáng (hoặc màu theme), vòng icon trắng, icon + chữ đen.
+    // Tắt: nền kính / skin TILE_2X1 của theme như applySkin.
+    private fun renderFocus(on: Boolean) {
+        val b = mainBinding
+        val onAccent = if (on) accent else null
+        b.ccFocus.background = when {
+            onAccent != null -> onAccent.drawable(GradientDrawable.RECTANGLE, dp(99f))
+            on -> ContextCompat.getDrawable(context, R.drawable.cc_bg_tile_on)
+            else -> skinSource?.get(CcSkinSlot.TILE_2X1) ?: ContextCompat.getDrawable(context, R.drawable.cc_bg_tile)
+        }
+        b.ccFocusIcon.setBackgroundResource(if (on) R.drawable.cc_bg_chip_white else R.drawable.cc_bg_chip_off)
+        b.ccFocusIcon.imageTintList = ColorStateList.valueOf(if (on) 0xFF000000.toInt() else 0xFFFFFFFF.toInt())
+        val text = if (on) onAccent?.iconColor ?: 0xFF000000.toInt() else 0xFFFFFFFF.toInt()
+        b.ccFocusTitle.setTextColor(text)
+        b.ccFocusDetail.setTextColor(if (on) text else ContextCompat.getColor(context, R.color.cc_white_secondary))
+        b.ccFocusDetail.setText(if (on) R.string.cc_on else R.string.cc_off)
     }
 
     private fun chip(v: View, on: Boolean, onBg: Int) {

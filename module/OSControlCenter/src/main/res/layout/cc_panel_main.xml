@@ -274,6 +274,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/ccFocusTitle"
                         style="@style/CcTileLabelTitle"
                         android:text="@string/cc_focus" />
 

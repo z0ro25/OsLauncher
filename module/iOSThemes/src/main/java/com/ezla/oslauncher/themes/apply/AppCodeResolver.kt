@@ -48,14 +48,18 @@ object AppCodeResolver {
         "app_stocks" to listOf("com.google.android.apps.finance")
     )
 
-    // Logo của chính app Themes (server gửi package của module) -> shortcut "Themes" trên desktop;
-    // đổi icon shortcut nội bộ nên chỉ đổi trong launcher, icon app ngoài hệ thống giữ nguyên.
-    private const val THEMES_APP_CODE = "com.ezla.oslauncher.themes"
-    private const val THEMES_SHORTCUT_CLASS = "com.truongnt.ios.launcher.shortcut.Theme"
+    // Mini-app của launcher là shortcut nội bộ trên desktop (không phải app riêng trên máy): map thẳng
+    // mã server -> class shortcut, xét TRƯỚC app type để app_measure không rơi vào app Measure khác.
+    private val INTERNAL_SHORTCUTS = mapOf(
+        "com.ezla.oslauncher.themes" to "com.truongnt.ios.launcher.shortcut.Theme",
+        "app_measure" to "com.truongnt.ios.launcher.shortcut.Measure",
+        "app_compass" to "com.truongnt.ios.launcher.shortcut.Compass",
+        "com.ezla.oslauncher.controlcenter" to "com.truongnt.ios.launcher.shortcut.ControlCenter"
+    )
 
     fun resolve(context: Context, code: String): ComponentName? {
         val key = code.trim().lowercase()
-        if (key == THEMES_APP_CODE) return ComponentName(context.packageName, THEMES_SHORTCUT_CLASS)
+        INTERNAL_SHORTCUTS[key]?.let { return ComponentName(context.packageName, it) }
         val pm = context.packageManager
         fromAppType(key)?.let { return it }
         TYPE_ALIASES[key]?.let { alias -> fromAppType(alias)?.let { return it } }

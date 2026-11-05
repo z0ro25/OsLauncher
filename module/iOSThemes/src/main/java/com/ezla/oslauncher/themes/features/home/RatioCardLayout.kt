@@ -4,16 +4,13 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 
-// Gốc thẻ dọc tab Themes. [keepRatio] = true (lưới See more): cao = rộng x 228/118 để thẻ giữ tỉ lệ
-// Figma khi lấp ô lưới; false (hàng ngang) đo theo kích thước cố định trong layout.
+// Gốc thẻ dọc tab Themes: cao = rộng x 690/320, đúng tỉ lệ ảnh thumbnail theme (960x2082) để fitXY
+// không méo, không cắt. Rộng lấy từ layout: 118dp ở hàng ngang, lấp ô ở lưới See more.
 class RatioCardLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    var keepRatio = false
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        if (!keepRatio) return super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val w = MeasureSpec.getSize(widthMeasureSpec)
         val h = w * RATIO_H / RATIO_W
         super.onMeasure(
@@ -23,7 +20,7 @@ class RatioCardLayout @JvmOverloads constructor(
     }
 
     private companion object {
-        const val RATIO_W = 118
-        const val RATIO_H = 228
+        const val RATIO_W = 320
+        const val RATIO_H = 690
     }
 }

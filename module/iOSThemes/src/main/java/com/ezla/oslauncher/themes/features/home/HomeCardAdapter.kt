@@ -3,6 +3,7 @@ package com.ezla.oslauncher.themes.features.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -28,7 +29,7 @@ class HomeCardAdapter(
     items: List<Any>?,
     private val onClick: (Any) -> Unit,
     private val onEmpty: () -> Unit,
-    // Lưới See more: thẻ lấp bề ngang ô (giữ tỉ lệ 118:228) thay vì rộng cố định của hàng ngang.
+    // Lưới See more: thẻ lấp bề ngang ô (giữ tỉ lệ 320:690) thay vì rộng cố định của hàng ngang.
     private val grid: Boolean = false
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -57,7 +58,7 @@ class HomeCardAdapter(
             if (grid) b.root.layoutParams = ViewGroup.MarginLayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            CardHolder(b, grid)
+            CardHolder(b)
         }
     }
 
@@ -110,6 +111,9 @@ class HomeCardAdapter(
             if (!ok) removeItem(item)
         }
         b.pbImage.visibility = if (tracker.done) View.GONE else View.VISIBLE
+        // Thumbnail theme đúng tỉ lệ khung 320:690 -> fitXY để hiện trọn ảnh; nền wallpaper / Control
+        // Center khác tỉ lệ nên giữ centerCrop cho khỏi méo.
+        b.imgCard.scaleType = if (item is ThemeItem) ImageView.ScaleType.FIT_XY else ImageView.ScaleType.CENTER_CROP
         if (image != null) b.imgCard.loadCardImage(image, tracker::report)
         else Glide.with(b.imgCard).clear(b.imgCard)
         if (cc != null) h.ccPreview().bind(cc.skins, cc.colors, tracker::report)
@@ -146,13 +150,8 @@ class HomeCardAdapter(
         if (items.isEmpty()) onEmpty()
     }
 
-    class CardHolder(val binding: ThemesItemHomeCardBinding, grid: Boolean = false) :
-        RecyclerView.ViewHolder(binding.root) {
+    class CardHolder(val binding: ThemesItemHomeCardBinding) : RecyclerView.ViewHolder(binding.root) {
         var bound: Any? = null
-
-        init {
-            binding.root.keepRatio = grid
-        }
         private var cc: CcPreviewBinder? = null
 
         // Panel xem trước tốn view: chỉ dựng khi holder thật sự hiển thị thẻ Control Center.

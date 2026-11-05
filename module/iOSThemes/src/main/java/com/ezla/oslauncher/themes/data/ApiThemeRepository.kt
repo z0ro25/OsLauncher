@@ -180,7 +180,7 @@ class ApiThemeRepository : ThemeRepository {
                     val url = logo.image.firstOrNull()?.url
                     url?.small ?: url?.medium ?: url?.full
                 }.take(CARD_ICON_COUNT),
-                isUnlocked = theme.isUnlocked
+                isUnlocked = theme.logosUnlocked
             )
         }
     }
@@ -226,8 +226,8 @@ class ApiThemeRepository : ThemeRepository {
             if (pkg.isNullOrEmpty() || url.isNullOrEmpty()) null else ThemeLogoItem(pkg, url, logo.label.orEmpty())
         },
         backgroundId = backgrounds.firstOrNull()?.id ?: 0,
-        iconUnlocked = isUnlocked,
-        wallpaperUnlocked = backgrounds.firstOrNull()?.isUnlocked ?: false,
+        iconUnlocked = logosUnlocked,
+        wallpaperUnlocked = backgroundsUnlocked,
         controlSystems = ccSkins(),
         controlSkin = ccSkin()
     )
@@ -247,7 +247,7 @@ class ApiThemeRepository : ThemeRepository {
         const val PAGE_SIZE = 15
         const val BACKGROUNDS_PER_THEME = 50
         // Tab Icons: thẻ cần ảnh nền (backgrounds) + 6 logo đầu (logos).
-        const val ICON_FIELDS = "id,category_id,name,thumbnail,order,backgrounds,logos,is_unlocked"
+        const val ICON_FIELDS = "id,category_id,name,thumbnail,order,backgrounds,logos,logos_unlocked"
         const val CARD_ICON_COUNT = 6
         // Tab Control Center: thẻ cần nền theme + ảnh nền ô (control_systems).
         const val CC_FIELDS = "id,category_id,name,order,backgrounds,control_systems"
